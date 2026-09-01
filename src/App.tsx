@@ -66,23 +66,25 @@ function AppDialog({ kind, onClose }: { kind: "help"|"project"|"share"; onClose(
 }
 
 const showcaseMode = import.meta.env.DEV ? new URLSearchParams(location.search).get("showcase") : null;
-const furnitureShowcase = showcaseMode === "furniture" || showcaseMode === "stress";
-function createFurnitureShowcase(stress=false) {
-  const plan=createSamplePlan(stress?"150-piece performance study":"Handcrafted furniture study","metric"); const floor={...plan.floors[0],id:"showcase-floor",name:stress?"Performance study":"Furniture study",cells:rectangleCells(stress?32:17,stress?20:13),walls:[],openings:[],stairs:[]};
+const showcaseItem = import.meta.env.DEV ? new URLSearchParams(location.search).get("item") : null;
+const furnitureShowcase = showcaseMode === "furniture" || showcaseMode === "stress" || showcaseMode === "detail";
+function createFurnitureShowcase(stress=false,detailId?:string|null) {
+  const detail=catalog.find((definition)=>definition.id===detailId);
+  const plan=createSamplePlan(stress?"150-piece performance study":detail?`${detail.name} detail study`:"Handcrafted furniture study","metric"); const floor={...plan.floors[0],id:"showcase-floor",name:stress?"Performance study":detail?"Furniture detail":"Furniture study",cells:rectangleCells(stress?32:detail?20:76,stress?20:detail?20:60),walls:[],openings:[],stairs:[]};
   if(stress)return {...plan,floors:[floor],furniture:Array.from({length:150},(_,index)=>{const definition=catalog[index%catalog.length];return {id:`stress-${index}`,catalogId:definition.id,floorId:floor.id,x:350+(index%15)*500,z:350+Math.floor(index/15)*470,rotation:(index%4)*15,widthMm:definition.widthMm,depthMm:definition.depthMm,heightMm:definition.heightMm,variant:Object.keys(variants)[index%Object.keys(variants).length]};}),camera:{...plan.camera,ghostBelow:false,showGrid:false}};
-  return {...plan,floors:[floor],furniture:[
-    {id:"showcase-bookshelf",catalogId:"bookshelf",floorId:floor.id,x:650,z:3200,rotation:0,widthMm:900,depthMm:350,heightMm:1800,variant:"clay"},
-    {id:"showcase-table",catalogId:"dining-table",floorId:floor.id,x:1300,z:1050,rotation:0,widthMm:1600,depthMm:900,heightMm:760,variant:"oat"},
-    {id:"showcase-chair",catalogId:"dining-chair",floorId:floor.id,x:2450,z:950,rotation:330,widthMm:480,depthMm:520,heightMm:880,variant:"sage"},
-    {id:"showcase-dresser",catalogId:"dresser",floorId:floor.id,x:2100,z:3300,rotation:0,widthMm:1300,depthMm:500,heightMm:850,variant:"rose"},
-    {id:"showcase-bed",catalogId:"queen-bed",floorId:floor.id,x:4050,z:2650,rotation:0,widthMm:1600,depthMm:2100,heightMm:760,variant:"sage"},
-  ],camera:{...plan.camera,ghostBelow:false,showGrid:false}};
+  if(detail)return {...plan,floors:[floor],furniture:[{id:`showcase-${detail.id}`,catalogId:detail.id,floorId:floor.id,x:2500,z:2500,rotation:165,widthMm:detail.widthMm,depthMm:detail.depthMm,heightMm:detail.heightMm,variant:"sage"}],camera:{...plan.camera,ghostBelow:false,showGrid:false}};
+  const palette=Object.keys(variants);
+  return {...plan,floors:[floor],furniture:catalog.map((definition,index)=>({
+    id:`showcase-${definition.id}`,catalogId:definition.id,floorId:floor.id,
+    x:1500+(index%7)*2600,z:1600+Math.floor(index/7)*3400,rotation:index%3===0?345:index%3===1?0:15,
+    widthMm:definition.widthMm,depthMm:definition.depthMm,heightMm:definition.heightMm,variant:palette[index%palette.length],
+  })),camera:{...plan.camera,ghostBelow:false,showGrid:false}};
 }
 
 export function App() {
   const state=usePlanner(); const canvasRef=useRef<HTMLCanvasElement>(null); const controllerRef=useRef<SceneController|undefined>(undefined); const [ready,setReady]=useState(false); const [showSetup,setShowSetup]=useState(false); const [dialog,setDialog]=useState<"help"|"project"|"share"|undefined>(undefined); const [muted,setMuted]=useState(true); const saveTimer=useRef<number|undefined>(undefined);
   const floor=state.plan.floors.find((f)=>f.id===state.activeFloorId)!; const area=floor.cells.length*state.plan.gridSizeMm*state.plan.gridSizeMm/1_000_000; const placed=state.plan.furniture.filter((f)=>f.floorId===floor.id).length;
-  useEffect(()=>{if(furnitureShowcase){state.replacePlan(createFurnitureShowcase(showcaseMode==="stress"));setReady(true);return;}loadPlan().then((plan)=>{if(plan)state.replacePlan(plan);else setShowSetup(true);setReady(true)}).catch(()=>{setShowSetup(true);setReady(true)})},[]);
+  useEffect(()=>{if(furnitureShowcase){state.replacePlan(createFurnitureShowcase(showcaseMode==="stress",showcaseItem));setReady(true);return;}loadPlan().then((plan)=>{if(plan)state.replacePlan(plan);else setShowSetup(true);setReady(true)}).catch(()=>{setShowSetup(true);setReady(true)})},[]);
   useEffect(()=>{if(!ready||furnitureShowcase)return;window.clearTimeout(saveTimer.current);saveTimer.current=window.setTimeout(()=>savePlan(state.plan),450);return()=>window.clearTimeout(saveTimer.current)},[state.plan,ready]);
   useEffect(()=>{if(!ready||!canvasRef.current)return;const controller=new SceneController(canvasRef.current,{onCell:(x,z)=>{const s=usePlanner.getState();if(s.tool==="paint"||s.tool==="erase")s.paintCell(x,z,s.tool==="paint");else if(s.tool==="wall")s.addWall({ax:x,az:z,bx:x+1,bz:z});else if(s.tool==="stairs")s.addStair((x+.5)*s.plan.gridSizeMm,(z+.5)*s.plan.gridSizeMm)},onSelect:(id)=>usePlanner.getState().select(id),onMove:(id,x,z)=>usePlanner.getState().moveFurniture(id,x,z),onWall:(id)=>{const s=usePlanner.getState();if(s.tool==="door"||s.tool==="window")s.addOpening(s.tool,id)}});controllerRef.current=controller;return()=>{controllerRef.current=undefined;controller.dispose()}},[ready]);
   useEffect(()=>{controllerRef.current?.setTool(state.tool);controllerRef.current?.update(state.plan,state.activeFloorId,state.selectedId)},[state.plan,state.activeFloorId,state.selectedId,state.tool,ready]);
