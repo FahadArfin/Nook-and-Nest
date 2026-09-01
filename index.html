@@ -8,6 +8,20 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/assets/nook-nest-icon.png" />
     <title>Nook &amp; Nest — Cozy apartment planner</title>
+    <script>
+      if ("serviceWorker" in navigator && !["localhost", "127.0.0.1"].includes(location.hostname)) {
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (refreshing) return;
+          refreshing = true;
+          location.reload();
+        });
+        navigator.serviceWorker
+          .register("/sw.js")
+          .then((registration) => registration.update())
+          .catch(() => undefined);
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
