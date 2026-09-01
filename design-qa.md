@@ -1,43 +1,52 @@
-# Nook & Nest Design QA
+# Nook & Nest Handcrafted Furniture Design QA
 
 ## Evidence
 
-- Source references: `qa/source-wide.png` (924x420), `qa/source-furniture.png` (521x353), and `qa/source-room.png` (711x514).
-- Implementation capture: `qa/implementation-1440x900.png` at a 1440x900 CSS-pixel viewport and DPR 1.
-- Full comparison: `qa/design-qa-comparison.png` (1800x1645).
-- Capture state: a furnished two-floor sample project in the default cozy isometric view, with the furniture catalog and project summary visible.
-- Normalization: none. The sources are art-direction references rather than a UI mock, so the comparison evaluates mood, materials, composition, camera, and overall visual character rather than pixel-identical layout.
-- Focused-region evidence was not needed: the full-size implementation capture keeps the central diorama and furniture silhouettes large enough to inspect without scaling ambiguity.
-
-## Required Surface Review
-
-- Typography: Fraunces gives the product name and headings a gentle storybook character; Nunito keeps measurements, tools, and inspector controls highly readable. The source images contain no interface typography to reproduce.
-- Spacing and density: the desktop shell uses balanced 292px side panels around the canvas. Tool groups, catalog cards, and inspector rows remain distinct without crowding or clipping at 1440x900.
-- Color and contrast: cream panels, sage controls, terracotta accents, and muted walnut text support the requested warm handcrafted palette. Active states, focus rings, warnings, and labels remain distinguishable without relying on color alone.
-- Imagery and 3D assets: all furniture and architecture are original procedural Babylon.js assemblies. The generated Nook & Nest app icon is original. No source artwork, models, shaders, or branding are copied.
-- Copy: labels consistently use plain renter-oriented language, measured dimensions, and no-failure phrasing.
-- Icons: Phosphor icons are used consistently at standard sizes; interactive icon buttons have labels or accessible names.
-
-## Functional and Visual Checks
-
-- Onboarding, apartment creation, furniture placement, selection, dragging, rotation, duplication, color variants, dimension editing, floor switching, tile painting, top view, dollhouse view, undo/redo, import/export, sharing, help, autosave/reload, and the narrow-screen gate were exercised in the browser.
-- A share URL was opened in a fresh browser context and reproduced the document as an editable local copy.
-- The fresh-browser verification pass reported no console errors.
-- Automated verification passed: TypeScript check, 7 domain tests, production build, and 4 Sites worker tests.
-
-## Comparison History
-
-1. The first browser capture showed only the loading shell because the scene effect ran before the canvas existed. The scene lifecycle was corrected and rechecked.
-2. The initial camera framed the apartment too loosely and the lighting washed out the materials. Auto-framing, exposure, ambient light, sunlight, and camera-facing wall cutaway were tuned against the references.
-3. Early furniture read as overly boxy. Rounded procedural details and softer silhouettes were added to the reusable furniture assemblies.
-4. The 1024px layout compressed the editor below a useful working width. A polished read-only desktop-width gate now appears below 1100px.
-5. Painting and erase targeting were rechecked after adding the invisible edit grid; exposed tiles can be added outside the starting footprint and walls no longer intercept erase actions.
+- Source visual truth: `qa/source-furniture.png` (521x353), `qa/source-room.png` (711x514), and `qa/source-wide.png` (924x420).
+- Baseline implementation: `qa/implementation-1440x900.png` (1440x900), showing the earlier generic shape system.
+- Revised implementation: `qa/furniture-redesign-1280x720.png` at a 1280x720 CSS-pixel viewport and DPR 1.
+- Focused furniture region: `qa/furniture-redesign-focus.png` (697x599).
+- Full comparison evidence: `qa/furniture-redesign-comparison.png` (1600x1600).
+- State: development-only five-piece furniture study containing the bookshelf, dining table, dining chair, dresser, and bed at their catalog dimensions.
+- Normalization: sources are art-direction references rather than a UI mock. The combined comparison preserves each reference's aspect ratio and evaluates silhouette, form hierarchy, material response, warmth, handcrafted character, and diorama readability rather than pixel-identical layout.
 
 ## Findings
 
 - P0: none.
 - P1: none.
 - P2: none.
-- P3 accepted for this vertical slice: procedural furniture and surface variation are intentionally less detailed than the cinematic source renders. The warm palette, softened geometry, meadow framing, lighting, and calm diorama composition establish the requested direction without copying proprietary assets.
+- P3 accepted: the procedural furniture deliberately uses simpler surface treatment and fewer micro-details than the cinematic references. This protects browser performance and keeps the assets editable from canonical millimetre dimensions.
+- P3 accepted: the dining tabletop uses restrained inset plank lines instead of a texture map. The lighting catches its chamfered perimeter, while the apron and tapered legs carry the secondary silhouette.
+
+## Required Fidelity Surfaces
+
+- Fonts and typography: unchanged from the verified application. Fraunces and Nunito remain readable and visually compatible with the miniature-diorama direction; the source images contain no UI typography to reproduce.
+- Spacing and layout rhythm: the existing editor shell is unchanged. The representative assets remain legible at the normal isometric camera distance without crowding their editable footprints.
+- Colors and visual tokens: furniture now uses one centralized warm palette with honey and light woods, darker structural wood, muted painted variants, oatmeal cream, terracotta, green, blue, burgundy, and mustard. Materials are non-metallic, high-roughness, and softly responsive rather than glossy.
+- Image and asset quality: every revised object is still an original Babylon.js procedural assembly. No reference furniture, textures, models, or proprietary shaders were copied or imported. Visible hard-edged boxes were replaced with low-poly chamfered geometry where form readability benefits.
+- Copy and content: no application copy changed. Catalog names, dimensions, descriptions, and saved catalog IDs remain intact.
+
+## Form and Style Review
+
+- Primary forms: each representative piece has a clear dimension-constrained silhouette: framed shelf, apron table, slatted chair, capped drawer chest, and layered bed.
+- Secondary forms: posts, recessed backing, shelves, plinths, drawer faces, door trim, handles, aprons, rails, cushions, headboard panel, blanket, and supports produce readable depth.
+- Decorative forms: varied books, shelf pottery and plant, table plank lines, drawer hardware, pillows, and blanket folds add personality without clutter.
+- Handcrafted variation: book sizes and lean, cushion offsets, and pillow rotations derive deterministically from the stable furniture placement ID. Re-rendering or reloading the same project does not change the result.
+- Dimensional integrity: generation consumes the existing width, depth, and height values directly. Caps, bevels, and trims remain within the defined bounding dimensions, with only negligible soft-form tolerance.
+
+## Comparison History
+
+1. Baseline P1: `qa/implementation-1440x900.png` showed generic type-level assemblies dominated by raw boxes and ellipsoids. Fix: introduced a centralized `FurnitureFactory`, low-poly chamfered-box geometry, tapered legs, shared material families, and dedicated builders for the five representative items, then extended the design system across all catalog shapes.
+2. First redesign P2: the initial browser pass had overly dark woods and strong cast shadows that obscured drawer and bed layering. Fix: warmed the wood palette, added restrained material ambient response, softened shadow darkness, and rechecked the same five-piece scene. Post-fix evidence: `qa/furniture-redesign-focus.png` and `qa/furniture-redesign-comparison.png`.
+3. First redesign P2: the dining table and storage pieces still lacked enough secondary information at the normal camera distance. Fix: added aprons, inset plank lines, top caps, plinths, projected drawer faces, oversized handles, recessed doors, shelf backing, books, pottery, and blanket folds. Post-fix evidence: `qa/furniture-redesign-focus.png`.
+
+## Functional Verification
+
+- Browser placement and dimension edit passed; an added Story shelf rendered immediately and accepted a 900mm to 950mm width edit.
+- Direct canvas dragging passed; the selected shelf moved from X 1700mm to X 1100mm.
+- Undo recovery passed; the temporary dimension, drag, and placement edits were reversed and the saved room returned to its original four pieces.
+- Picking, selection outline, rotation controls, catalog mapping, collision warnings, and autosave use their existing data and event paths; their schemas were not changed.
+- A 150-piece stress scene rendered 2,551 meshes at a reported 120 FPS in the verification browser with no console errors.
+- Existing serialization and share round-trip coverage passed, plus new tests confirmed stable variation and unchanged catalog/placement identifiers.
 
 final result: passed
