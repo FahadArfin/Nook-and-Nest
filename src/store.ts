@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { openDB } from "idb";
 import { catalog } from "./catalog";
-import { createSamplePlan, decodeShare, toggleCell, uid } from "./domain";
-import type { FurniturePlacement, PlanDocumentV1, Tool, Units, ViewMode, WallSegment } from "./types";
+import { createSamplePlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
+import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
@@ -10,7 +10,7 @@ interface PlannerState {
   setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; select(id?: string): void;
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance"): void; setActiveFloor(id: string): void;
-  addFloor(): void; deleteFloor(): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void;
+  addFloor(): void; deleteFloor(): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
   addWall(wall: Omit<WallSegment, "id">): void; addOpening(kind: "door" | "window", wallKey: string): void; addStair(x: number, z: number): void;
   placeFurniture(catalogId: string, x?: number, z?: number): void; moveFurniture(id: string, x: number, z: number): void;
   confirmFurniture(item: FurniturePlacement): void;
@@ -35,6 +35,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   deleteFloor: () => set((state) => { if (state.plan.floors.length === 1) return state; const floors = state.plan.floors.filter((f) => f.id !== state.activeFloorId); return { ...commit(state, { ...state.plan, floors, furniture: state.plan.furniture.filter((f) => f.floorId !== state.activeFloorId) }, null), activeFloorId: floors[0].id }; }),
   renameFloor: (name) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, name } : f) })),
   paintCell: (x, z, present) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, cells: toggleCell(f.cells, { x, z }, present) } : f) })),
+  paintCells: (cells, present) => set((state) => cells.length ? commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, cells: toggleCells(f.cells, cells, present) } : f) }) : state),
   addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, walls: [...f.walls, { ...wall, id: uid() }] } : f) })),
   addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100 }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),

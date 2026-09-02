@@ -5,7 +5,9 @@ export const uid = () => crypto.randomUUID();
 export const cellKey = (cell: TileCell) => `${cell.x},${cell.z}`;
 export const parseCellKey = (key: string): TileCell => { const [x, z] = key.split(",").map(Number); return { x, z }; };
 export function rectangleCells(width: number, depth: number): TileCell[] { const cells: TileCell[] = []; for (let z = 0; z < depth; z += 1) for (let x = 0; x < width; x += 1) cells.push({ x, z }); return cells; }
+export function rectangleBetweenCells(start: TileCell, end: TileCell): TileCell[] { const cells: TileCell[] = []; const minX=Math.min(start.x,end.x),maxX=Math.max(start.x,end.x),minZ=Math.min(start.z,end.z),maxZ=Math.max(start.z,end.z); for(let z=minZ;z<=maxZ;z+=1)for(let x=minX;x<=maxX;x+=1)cells.push({x,z}); return cells; }
 export function toggleCell(cells: TileCell[], cell: TileCell, present: boolean): TileCell[] { const set = new Set(cells.map(cellKey)); present ? set.add(cellKey(cell)) : set.delete(cellKey(cell)); return [...set].map(parseCellKey); }
+export function toggleCells(cells: TileCell[], changes: TileCell[], present: boolean): TileCell[] { const set=new Set(cells.map(cellKey)); for(const cell of changes)present?set.add(cellKey(cell)):set.delete(cellKey(cell)); return [...set].map(parseCellKey); }
 export function deriveBoundaryWalls(cells: TileCell[]): WallSegment[] {
   const occupied = new Set(cells.map(cellKey)); const walls: WallSegment[] = [];
   const push = (ax: number, az: number, bx: number, bz: number) => walls.push({ id: `${ax}:${az}:${bx}:${bz}`, ax, az, bx, bz });

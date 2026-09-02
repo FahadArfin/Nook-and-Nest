@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createSamplePlan, decodeShare, deriveBoundaryWalls, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleCells, serializePlan, snapMm, toggleCell, validateStair } from "../src/domain";
+import { createSamplePlan, decodeShare, deriveBoundaryWalls, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleBetweenCells, rectangleCells, serializePlan, snapMm, toggleCell, validateStair } from "../src/domain";
 import { usePlanner } from "../src/store";
 
 describe("floor geometry", () => {
@@ -13,6 +13,11 @@ describe("floor geometry", () => {
     expect(deriveBoundaryWalls(rectangleCells(1, 1))).toHaveLength(4);
     expect(deriveBoundaryWalls(rectangleCells(2, 1))).toHaveLength(6);
     expect(deriveBoundaryWalls(rectangleCells(2, 2))).toHaveLength(8);
+  });
+  it("builds drag rectangles in every direction", () => {
+    expect(rectangleBetweenCells({x:4,z:3},{x:2,z:1})).toEqual([
+      {x:2,z:1},{x:3,z:1},{x:4,z:1},{x:2,z:2},{x:3,z:2},{x:4,z:2},{x:2,z:3},{x:3,z:3},{x:4,z:3},
+    ]);
   });
 });
 
@@ -61,5 +66,17 @@ describe("draft furniture confirmation", () => {
     expect(usePlanner.getState().selectedId).toBeUndefined();
     usePlanner.getState().undo();
     expect(usePlanner.getState().plan.furniture).toHaveLength(before);
+  });
+});
+
+describe("tile drag confirmation", () => {
+  it("applies a rectangular tile region as one undoable edit", () => {
+    const plan=createSamplePlan("Tile drag test"); const floorId=plan.floors[0].id; const before=plan.floors[0].cells.length;
+    usePlanner.setState({plan,activeFloorId:floorId,selectedId:undefined,past:[],future:[]});
+    usePlanner.getState().paintCells([{x:30,z:30},{x:31,z:30},{x:30,z:31},{x:31,z:31}],true);
+    expect(usePlanner.getState().plan.floors[0].cells).toHaveLength(before+4);
+    expect(usePlanner.getState().past).toHaveLength(1);
+    usePlanner.getState().undo();
+    expect(usePlanner.getState().plan.floors[0].cells).toHaveLength(before);
   });
 });
