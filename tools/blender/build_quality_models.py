@@ -153,6 +153,10 @@ def common_materials():
         "counter": material("countertop-surface", (0.78, 0.72, 0.62), None, 0.88),
         "steel": material("brushed-steel", (0.48, 0.5, 0.48), None, 0.58, 0.35),
         "screen": material("television-screen", (0.035, 0.045, 0.05), None, 0.32, 0.12),
+        "art_landscape": material("artwork-landscape", (1, 1, 1), "wall-art-landscape.png", 0.92),
+        "art_botanical": material("artwork-botanical", (1, 1, 1), "wall-art-botanical.png", 0.92),
+        "art_abstract": material("artwork-abstract", (1, 1, 1), "wall-art-abstract.png", 0.92),
+        "art_coast": material("artwork-coast", (1, 1, 1), "wall-art-coast.png", 0.92),
     }
 
 
@@ -826,6 +830,115 @@ def build_kitchen_island(m):
     return (w,d,h)
 
 
+def build_framed_art(m,prefix,w,d,h,art,frame=True):
+    if frame:
+        rounded_box(f"{prefix}_frame",(w,d,h),(0,0,h/2),m["wood_dark"],.025)
+        rounded_box(f"{prefix}_mat",(w*.9,d*.72,h*.86),(0,-d*.22,h/2),m["linen"],.012)
+        rounded_box(f"{prefix}_art",(w*.84,d*.22,h*.79),(0,-d*.48,h/2),art,.008,uv_scale=.9)
+    else:
+        rounded_box(f"{prefix}_paper",(w,d,h),(0,0,h/2),m["linen"],.018)
+        rounded_box(f"{prefix}_art",(w*.96,d*.35,h*.96),(0,-d*.42,h/2),art,.01,uv_scale=.9)
+        for x in (-w*.42,w*.42): cylinder(f"{prefix}_pin",.018,d*.7,(x,-d*.38,h*.91),m["metal"],10,(math.pi/2,0,0))
+    return (w,d,h)
+
+
+def build_landscape_painting(m): return build_framed_art(m,"valley",.9,.07,.65,m["art_landscape"])
+def build_botanical_print(m): return build_framed_art(m,"botanical",.6,.045,.8,m["art_botanical"])
+def build_abstract_poster(m): return build_framed_art(m,"abstract",.6,.035,.85,m["art_abstract"],False)
+def build_coast_poster(m): return build_framed_art(m,"coast",.65,.035,.9,m["art_coast"],False)
+
+
+def build_round_wall_mirror(m):
+    w=d2=h=.72;depth=.055
+    cylinder("round_mirror_frame",w*.5,depth,(0,0,h*.5),m["wood"],28,(math.pi/2,0,0))
+    cylinder("round_mirror_glass",w*.42,depth*.32,(0,-depth*.55,h*.5),m["blue"],28,(math.pi/2,0,0))
+    cylinder("round_mirror_hanger",w*.055,depth*.45,(0,depth*.18,h*.98),m["metal"],10,(math.pi/2,0,0))
+    return (w,depth,h)
+
+
+def build_arch_wall_mirror(m):
+    w,d,h=.62,.055,.98
+    rounded_box("arch_mirror_frame",(w,d,h*.78),(0,0,h*.39),m["wood"],.055)
+    cylinder("arch_mirror_crown",w*.5,d,(0,0,h*.78),m["wood"],28,(math.pi/2,0,0))
+    rounded_box("arch_mirror_glass",(w*.82,d*.34,h*.68),(0,-d*.55,h*.4),m["blue"],.045)
+    cylinder("arch_mirror_glass_crown",w*.41,d*.34,(0,-d*.55,h*.76),m["blue"],28,(math.pi/2,0,0))
+    return (w,d,h)
+
+
+def build_whiteboard(m):
+    w,d,h=.9,.055,.65
+    rounded_box("whiteboard_frame",(w,d,h),(0,0,h/2),m["wood"],.025)
+    rounded_box("whiteboard_surface",(w*.9,d*.3,h*.84),(0,-d*.55,h*.52),m["linen"],.015)
+    rounded_box("whiteboard_tray",(w*.56,d*2.8,.055),(0,-d*.15,.02),m["wood_dark"],.014)
+    for i,mat in enumerate((m["clay"],m["green"],m["blue"])): rounded_box("whiteboard_marker",(w*.13,.025,.025),((-1+i)*w*.14,-d*1.5,.055),mat,.006)
+    for i,(x,z,mat) in enumerate(((-.22,.43,m["mustard"]),(.18,.32,m["rose"]))): rounded_box(f"whiteboard_note_{i}",(.14,d*.08,.12),(x,-d*.76,z),mat,.008,(0,0,(i-.5)*.06))
+    return (w,d,h)
+
+
+def build_wall_shelf(m):
+    w,d,h=.9,.24,.36
+    rounded_box("peg_shelf_back",(w,.07,h*.72),(0,d*.42,h*.56),m["wood"],.025)
+    rounded_box("peg_shelf_board",(w,d,.075),(0,0,h*.68),m["wood"],.022)
+    for x in (-w*.32,0,w*.32):
+        cylinder("peg_shelf_peg",.025,d*.48,(x,-d*.2,h*.22),m["wood_dark"],10,(math.pi/2,0,0))
+        cylinder("peg_shelf_cap",.04,.035,(x,-d*.45,h*.22),m["variant"],10,(math.pi/2,0,0))
+    return (w,d,h)
+
+
+def build_floating_shelves(m):
+    w,d,h=1.0,.24,.72
+    for i,(x,z) in enumerate(((-.1,.18),(.1,.58))):
+        rounded_box(f"floating_board_{i}",(w*(.82 if i else 1),d,.085),(x,0,z),m["wood"],.025)
+        for sx in (-1,1): rounded_box("floating_hidden_bracket",(.08,d*.5,.16),(x+sx*w*(.34 if i else .43),d*.32,z-.08),m["metal"],.015)
+    return (w,d,h)
+
+
+def build_books_upright(m):
+    w,d,h=.52,.18,.31
+    colors=(m["rose"],m["green"],m["mustard"],m["blue"],m["linen"]);cursor=-w*.46
+    for i in range(7):
+        bw=.055+(i%3)*.012;bh=h*(.7+(i%4)*.08)
+        rounded_box(f"upright_book_{i}",(bw,d*(.82-(i%2)*.08),bh),(cursor+bw/2,0,bh/2),colors[i%len(colors)],.009,(0,0,(i-3)*.018),uv_scale=3);cursor+=bw+.012
+        rounded_box(f"upright_book_spine_{i}",(bw*.68,.012,.018),(cursor-bw*.5,-d*.45,bh*.72),m["linen"],.003)
+    return (w,d,h)
+
+
+def build_books_stacked(m):
+    w,d,h=.42,.28,.26
+    colors=(m["green"],m["rose"],m["mustard"],m["blue"],m["linen"])
+    for i in range(5):
+        bw=w*(.78+(i%3)*.09);bd=d*(.76+(i%2)*.12);z=.027+i*.05
+        rounded_box(f"stacked_book_{i}",(bw,bd,.045),(((i%2)-.5)*.025,0,z),colors[i],.008,(0,0,(i-2)*.022),uv_scale=3)
+        rounded_box(f"stacked_pages_{i}",(bw*.88,bd*.94,.026),(((i%2)-.5)*.025,-.005,z),m["linen"],.005)
+    return (w,d,h)
+
+
+def laundry_machine(m,prefix,w=.68,d=.7,h=.9,dryer=False):
+    rounded_box(f"{prefix}_body",(w*.96,d*.94,h*.95),(0,0,h*.5),m["variant"],.055)
+    rounded_box(f"{prefix}_control_band",(w*.86,.055,h*.15),(0,-d*.49,h*.82),m["linen"],.02)
+    cylinder(f"{prefix}_door_rim",w*.31,.055,(0,-d*.5,h*.46),m["steel"],24,(math.pi/2,0,0))
+    cylinder(f"{prefix}_door_glass",w*.24,.025,(0,-d*.55,h*.46),m["screen"],24,(math.pi/2,0,0))
+    cylinder(f"{prefix}_dial",.055,.035,(w*.25,-d*.54,h*.82),m["metal"],14,(math.pi/2,0,0))
+    for i in range(3): cylinder(f"{prefix}_button",.012,.012,(-w*.27+i*.055,-d*.54,h*.82),m["green"] if dryer else m["blue"],8,(math.pi/2,0,0))
+    if dryer:
+        for i in range(5): rounded_box("dryer_vent",(w*.2,.018,.012),(0,-d*.555,h*.27+i*.035),m["metal"],.003)
+    else: rounded_box("washer_detergent_drawer",(w*.22,.025,h*.07),(-w*.23,-d*.54,h*.82),m["variant"],.01)
+    return (w,d,h)
+
+
+def build_washer(m): return laundry_machine(m,"washer")
+def build_dryer(m): return laundry_machine(m,"dryer",dryer=True)
+def build_stacked_laundry(m):
+    w,d,h=.7,.72,1.81
+    laundry_machine(m,"stacked_washer",w,d,.88,False)
+    # Build the dryer at local origin, then lift its newly created objects.
+    before=set(bpy.context.scene.objects)
+    laundry_machine(m,"stacked_dryer",w,d,.88,True)
+    for obj in set(bpy.context.scene.objects)-before: obj.location.z+=.9
+    rounded_box("stacking_joiner",(w*.94,d*.9,.065),(0,0,.9),m["wood_dark"],.018)
+    return (w,d,h)
+
+
 BUILDERS = {
     "sofa": build_sofa,
     "loveseat": build_loveseat,
@@ -883,6 +996,20 @@ BUILDERS = {
     "sink-cabinet": build_sink_cabinet,
     "kitchen-counter": build_kitchen_counter,
     "kitchen-island": build_kitchen_island,
+    "washer": build_washer,
+    "dryer": build_dryer,
+    "stacked-laundry": build_stacked_laundry,
+    "landscape-painting": build_landscape_painting,
+    "botanical-print": build_botanical_print,
+    "abstract-poster": build_abstract_poster,
+    "coast-poster": build_coast_poster,
+    "round-wall-mirror": build_round_wall_mirror,
+    "arch-wall-mirror": build_arch_wall_mirror,
+    "whiteboard": build_whiteboard,
+    "wall-shelf": build_wall_shelf,
+    "floating-shelves": build_floating_shelves,
+    "books-upright": build_books_upright,
+    "books-stacked": build_books_stacked,
 }
 
 

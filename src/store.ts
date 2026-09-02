@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { openDB } from "idb";
-import { catalog } from "./catalog";
-import { defaultCountertopFinish, supportsCountertopFinish } from "./surfaces";
+import { catalog, isWallMounted } from "./catalog";
+import { defaultCountertopFinish, defaultDoorFinish, supportsCountertopFinish } from "./surfaces";
 import { createSamplePlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
-  plan: PlanDocumentV1; activeFloorId: string; selectedId?: string; tool: Tool; search: string; category: string; past: Snapshot[]; future: Snapshot[];
-  setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; select(id?: string): void;
+  plan: PlanDocumentV1; activeFloorId: string; selectedId?: string; tool: Tool; search: string; category: string; activeDoorFinish: string; past: Snapshot[]; future: Snapshot[];
+  setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; setDoorFinish(finishId:string):void; select(id?: string): void;
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance"): void; setActiveFloor(id: string): void;
   addFloor(): void; deleteFloor(): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
@@ -25,8 +25,8 @@ const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.p
 const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
 
 export const usePlanner = create<PlannerState>((set, get) => ({
-  plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", past: [], future: [],
-  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool }), select: (selectedId) => set({ selectedId }),
+  plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
+  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId }),
   replacePlan: (plan) => set({ plan, activeFloorId: plan.floors[0].id, selectedId: undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units, gridSizeMm: units === "imperial" ? 304.8 : 250 })),
@@ -40,9 +40,9 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   paintCells: (cells, present) => set((state) => cells.length ? commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, cells: toggleCells(f.cells, cells, present) } : f) }) : state),
   setFloorFinish: (kind, finishId) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((floor) => floor.id === state.activeFloorId ? { ...floor, [kind]: finishId } : floor) })),
   addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, walls: [...f.walls, { ...wall, id: uid() }] } : f) })),
-  addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100 }] } : f) })),
+  addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100, finishId: kind==="door"?state.activeDoorFinish:undefined }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),
-  placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: "sage", surfaceVariant: supportsCountertopFinish(catalogId) ? defaultCountertopFinish.id : undefined }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
+  placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: "sage", surfaceVariant: supportsCountertopFinish(catalogId) ? defaultCountertopFinish.id : undefined, elevationMm:isWallMounted(catalogId)?1100:undefined }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
   confirmFurniture: (item) => set((state) => commit(state, { ...state.plan, furniture: [...state.plan.furniture, item] }, null)),
   moveFurniture: (id, x, z) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, x, z } : f) }, id)),
   updateFurniture: (id, patch) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, ...patch } : f) }, id)),

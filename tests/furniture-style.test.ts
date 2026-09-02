@@ -25,7 +25,15 @@ describe("handcrafted furniture design system", () => {
     for (const id of ["modular-sectional","sleeper-sofa","storage-platform-bed","bunk-bed","standing-desk","corner-desk","nesting-tables","c-side-table","slim-tv","tv-stand","refrigerator","range-oven","dishwasher","base-cabinet","wall-cabinet","sink-cabinet","kitchen-counter","kitchen-island"]) {
       expect(catalog.some((item)=>item.id===id), `missing catalog item ${id}`).toBe(true);
     }
-    expect(catalog.filter((item)=>item.category==="Kitchen")).toHaveLength(8);
+    expect(catalog.filter((item)=>item.category==="Kitchen").length).toBeGreaterThanOrEqual(11);
+  });
+
+  it("includes wall decor, shelf dressing, and flexible laundry arrangements", () => {
+    for (const id of ["landscape-painting","botanical-print","abstract-poster","coast-poster","round-wall-mirror","arch-wall-mirror","whiteboard","wall-shelf","floating-shelves","books-upright","books-stacked","washer","dryer","stacked-laundry"]) {
+      expect(catalog.some((item)=>item.id===id), `missing catalog item ${id}`).toBe(true);
+    }
+    expect(catalog.find((item)=>item.id==="landscape-painting")?.mount).toBe("wall");
+    expect(catalog.find((item)=>item.id==="washer")?.mount).toBe("floor");
   });
 
   it("keeps the shared style low-poly, warm, and restrained", () => {

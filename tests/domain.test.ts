@@ -112,3 +112,21 @@ describe("kitchen worktops", () => {
     expect(parsePlan(serializePlan(plan)).furniture[0].surfaceVariant).toBe("ivory-marble");
   });
 });
+
+describe("inside walls and doors", () => {
+  it("adds a measured room divider as one undoable edit", () => {
+    const plan=createSamplePlan("Divider test"),floorId=plan.floors[0].id;
+    usePlanner.setState({plan,activeFloorId:floorId,selectedId:undefined,past:[],future:[]});
+    usePlanner.getState().addWall({ax:2,az:2,bx:7,bz:2});
+    expect(usePlanner.getState().plan.floors[0].walls.at(-1)).toMatchObject({ax:2,az:2,bx:7,bz:2});
+    usePlanner.getState().undo();
+    expect(usePlanner.getState().plan.floors[0].walls).toHaveLength(plan.floors[0].walls.length);
+  });
+
+  it("stores the selected material on each inside door", () => {
+    const plan=createSamplePlan("Door finish test"),floorId=plan.floors[0].id;
+    usePlanner.setState({plan,activeFloorId:floorId,selectedId:undefined,past:[],future:[],activeDoorFinish:"door-walnut"});
+    usePlanner.getState().addOpening("door","north-0");
+    expect(usePlanner.getState().plan.floors[0].openings.at(-1)?.finishId).toBe("door-walnut");
+  });
+});
