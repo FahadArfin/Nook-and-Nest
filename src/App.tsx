@@ -5,12 +5,11 @@ import { createSamplePlan, encodeShare, formatLength, furnitureOverlaps, parsePl
 import { snapWindow, windowProblem, windowRotation } from "./windows";
 import type { PlacementPoint } from "./tabletop";
 import { SceneController } from "./scene/SceneController";
+import { CatalogLibrary as Catalog } from "./CatalogLibrary";
 import { loadPlan, savePlan, usePlanner } from "./store";
 import { countertopFinishes, defaultCountertopFinish, doorFinishes, floorFinishes, supportsCountertopFinish, wallFinishes } from "./surfaces";
 import type { CatalogItem, FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units } from "./types";
 
-const categoryIcons: Record<string, typeof Armchair> = { Living: Armchair, Bedroom: Bed, Dining: Table, Office: Chair, Kitchen: SquaresFour, Storage: Books, Lighting: Lamp, Decor: Plant, Windows: FrameCorners, Bathroom: Bathtub };
-const shapeIcons: Record<string, typeof Armchair> = { seat: Armchair, table: Table, bed: Bed, storage: Books, lamp: Lamp, plant: Plant, rug: GridFour, decor: SquaresFour, window: FrameCorners, device: SquaresFour, fan: Lamp, bathroom: Bathtub };
 const tools: Array<{ id: Tool; label: string; icon: typeof Armchair }> = [
   { id: "select", label: "Arrange", icon: Armchair }, { id: "paint", label: "Paint tiles", icon: PaintBrush }, { id: "erase", label: "Erase", icon: Trash },
   { id: "wall", label: "Inside wall", icon: Wall }, { id: "door", label: "Inside door", icon: Door }, { id: "window", label: "Window", icon: FrameCorners }, { id: "stairs", label: "Stairs", icon: Stairs },
@@ -34,15 +33,6 @@ function SetupDialog({ onDone }: { onDone(): void }) {
   </section></div>;
 }
 
-function Catalog({onBeginDrag,onStartPlacement}:{onBeginDrag(item:CatalogItem,event:ReactPointerEvent<HTMLButtonElement>):void;onStartPlacement(item:CatalogItem):void}) {
-  const { search, category, setSearch, setCategory } = usePlanner(); const categories = ["All", ...new Set(catalog.map((i)=>i.category))];
-  const filtered = catalog.filter((item) => (category === "All" || item.category === category) && `${item.name} ${item.description}`.toLowerCase().includes(search.toLowerCase()));
-  return <aside className="catalog-panel"><div className="panel-heading"><div><span className="eyebrow">Furniture library</span><h2>Make it yours</h2></div><span className="count-pill">{filtered.length}</span></div>
-    <label className="search"><MagnifyingGlass size={18}/><input aria-label="Search furniture" placeholder="Search cozy things…" value={search} onChange={(e)=>setSearch(e.target.value)} /></label>
-    <div className="category-strip">{categories.map((cat)=>{const Icon=categoryIcons[cat]||SquaresFour;return <button key={cat} className={category===cat?"active":""} onClick={()=>setCategory(cat)} title={cat}><Icon size={18}/><span>{cat}</span></button>})}</div>
-    <div className="catalog-grid">{filtered.map((item)=>{const Icon=shapeIcons[item.shape];return <button className="catalog-card" key={item.id} draggable={false} aria-label={`${item.name}, drag to place`} onPointerDown={(event)=>onBeginDrag(item,event)} onKeyDown={(event)=>{if(event.key==="Enter"||event.key===" "){event.preventDefault();onStartPlacement(item)}}}><span className={`item-illustration ${item.shape} ${hasModelPreview(item.id)?"has-model-preview":""}`}>{hasModelPreview(item.id)?<img src={`/models/previews/${item.id}.png`} alt="" loading="lazy" draggable={false}/>:<Icon size={31} weight="duotone"/>}</span><span className="item-copy"><strong>{item.name}</strong><small>{formatLength(item.widthMm,usePlanner.getState().plan.units)} × {formatLength(isWindow(item.id)?item.heightMm:item.depthMm,usePlanner.getState().plan.units)}</small></span><HandGrabbing className="add-dot" size={14} weight="bold"/></button>})}</div>
-  </aside>;
-}
 
 function RoomFinishes() {
   const state=usePlanner(); const floor=state.plan.floors.find((item)=>item.id===state.activeFloorId)!;
