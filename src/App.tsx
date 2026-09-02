@@ -6,6 +6,7 @@ import { snapWindow, windowProblem, windowRotation } from "./windows";
 import type { PlacementPoint } from "./tabletop";
 import { SceneController } from "./scene/SceneController";
 import { CatalogLibrary as Catalog } from "./CatalogLibrary";
+import { FloorBar } from "./FloorBar";
 import { loadPlan, savePlan, usePlanner } from "./store";
 import { countertopFinishes, defaultCountertopFinish, doorFinishes, floorFinishes, supportsCountertopFinish, wallFinishes } from "./surfaces";
 import type { CatalogItem, FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units } from "./types";
@@ -129,7 +130,7 @@ export function App() {
       <div className="canvas-tools"><button className={state.plan.camera.showGrid?"active":""} onClick={()=>state.toggleCameraSetting("showGrid")} title="Grid labels"><Ruler/></button><button className={state.plan.camera.showClearance?"active":""} onClick={()=>state.toggleCameraSetting("showClearance")} title="Clearance guides"><Eye/></button><button onClick={takeScreenshot} title="Save screenshot"><Camera/></button><button onClick={()=>setMuted(!muted)} title={muted?"Turn sound on":"Mute sound"}>{muted?<SpeakerSlash/>:<SpeakerHigh/>}</button></div>
       <div className="floor-stats"><span><strong>{area.toFixed(1)} m²</strong> floor area</span><i/><span><strong>{placed}</strong> pieces</span><i/><span>Tile {formatLength(state.plan.gridSizeMm,state.plan.units)}</span></div>
     </section><Inspector/></section>
-    <footer className="floorbar"><div className="floor-tabs">{state.plan.floors.map((f,i)=><button key={f.id} className={f.id===state.activeFloorId?"active":""} onClick={()=>state.setActiveFloor(f.id)}><span>{i+1}</span>{f.name}</button>)}<button className="add-floor" onClick={state.addFloor}><Plus/> Add floor</button></div><div className="floor-options"><label><input type="checkbox" checked={state.plan.camera.ghostBelow} onChange={()=>state.toggleCameraSetting("ghostBelow")}/><span/> Ghost floor below</label><button className="icon-button" disabled={state.plan.floors.length===1} onClick={state.deleteFloor} title="Delete active floor"><Trash/></button></div></footer>
+    <FloorBar onBeforeDelete={()=>{setDraft(undefined);cancelTilePlacement()}}/>
     {showSetup&&<SetupDialog onDone={()=>setShowSetup(false)}/>} {dialog&&<AppDialog kind={dialog} onClose={()=>setDialog(undefined)}/>}<div className="desktop-gate"><img src="/assets/nook-nest-icon.png"/><h1>Your nest needs a little more room</h1><p>Nook &amp; Nest is ready for full editing on a desktop or wide tablet. Open this page on a larger screen to decorate.</p></div>
   </main>;
 }

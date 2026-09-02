@@ -1,0 +1,18 @@
+.floorbar.floor-manager{gap:14px}
+.floor-manager .floor-tabs{flex:1;min-width:0;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#bdc6af transparent}
+.floor-manager .floor-tabs button{flex-shrink:0;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.floor-manager-actions{display:flex;gap:7px;flex-shrink:0}
+.floor-action{height:36px;display:inline-flex;align-items:center;gap:6px;padding:0 11px;border:1px solid var(--line);border-radius:10px;background:#fffdf7;font-size:11px;font-weight:700;cursor:pointer}
+.floor-action:hover{background:#e9eedf}
+.floor-action.floor-delete{color:#9b584b;background:#f8eae2;border-color:#dec0b3}
+.floor-action.floor-delete:hover{background:#efd7cc}
+.floor-delete-dialog{width:min(470px,90vw);max-height:85vh;overflow:auto;padding:28px;border:1px solid var(--line);border-radius:22px;background:var(--paper);color:var(--ink);box-shadow:var(--shadow)}
+.floor-delete-dialog::backdrop{background:#343d3088;backdrop-filter:blur(4px)}
+.floor-delete-dialog h2{font-family:"Fraunces",serif;font-size:24px;line-height:1.25;overflow-wrap:anywhere;margin:8px 0 14px}
+.floor-delete-dialog p{font-size:13px;line-height:1.6;color:#747b6b}
+.floor-delete-dialog .floor-undo-note{background:#eaedde;border-radius:10px;padding:10px;color:#5c6c51}
+.floor-confirm-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:21px}
+.floor-confirm-actions button{display:flex;align-items:center;gap:6px;cursor:pointer;border:1px solid var(--line);background:#fffdf7;border-radius:10px;padding:10px 17px;font-weight:700}
+.floor-confirm-actions .confirm-floor-delete{background:#a65f4e;color:white;border-color:#a65f4e}
+.floor-manager .floor-options label input{display:block;width:15px;height:15px;accent-color:#78866b}
+.floor-manager .floor-options label>span{display:none}

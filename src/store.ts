@@ -12,7 +12,7 @@ interface PlannerState {
   setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; setDoorFinish(finishId:string):void; select(id?: string): void;
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance"): void; setActiveFloor(id: string): void;
-  addFloor(): void; deleteFloor(): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
+  addFloor(): void; deleteFloor(floorId?: string): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
   setFloorFinish(kind: "floorFinishId" | "wallFinishId", finishId: string): void;
   addWall(wall: Omit<WallSegment, "id">): void; addOpening(kind: "door" | "window", wallKey: string): void; addStair(x: number, z: number): void;
   placeFurniture(catalogId: string, x?: number, z?: number): void; moveFurniture(id: string, x: number, z: number): void;
@@ -35,7 +35,17 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   toggleCameraSetting: (key) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, [key]: !state.plan.camera[key] } })),
   setActiveFloor: (activeFloorId) => set({ activeFloorId, selectedId: undefined }),
   addFloor: () => set((state) => { const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), walls: [], openings: [], stairs: [], floorFinishId: previous.floorFinishId, wallFinishId: previous.wallFinishId }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
-  deleteFloor: () => set((state) => { if (state.plan.floors.length === 1) return state; const floors = state.plan.floors.filter((f) => f.id !== state.activeFloorId); return { ...commit(state, { ...state.plan, floors, furniture: state.plan.furniture.filter((f) => f.floorId !== state.activeFloorId) }, null), activeFloorId: floors[0].id }; }),
+  deleteFloor: (floorId) => set((state) => {
+    const targetId = floorId ?? state.activeFloorId;
+    const index = state.plan.floors.findIndex(f => f.id === targetId);
+    if (index < 0) return state;
+    // Keep one editable layer; clearing the last floor removes its contents.
+    const floors = state.plan.floors.length === 1
+      ? [{ ...state.plan.floors[0], cells: [], walls: [], openings: [], stairs: [] }]
+      : state.plan.floors.filter(f => f.id !== targetId).map(f => ({ ...f, stairs: f.stairs.filter(stair => stair.toFloorId !== targetId) }));
+    const activeFloorId = floors.some(f => f.id === state.activeFloorId) ? state.activeFloorId : floors[Math.max(0, index - 1)].id;
+    return { ...commit(state, { ...state.plan, floors, furniture: state.plan.furniture.filter(f => f.floorId !== targetId) }, null), activeFloorId, placementNotice: undefined };
+  }),
   renameFloor: (name) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, name } : f) })),
   paintCell: (x, z, present) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, cells: toggleCell(f.cells, { x, z }, present) } : f) })),
   paintCells: (cells, present) => set((state) => cells.length ? commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, cells: toggleCells(f.cells, cells, present) } : f) }) : state),
