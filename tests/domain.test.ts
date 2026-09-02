@@ -58,7 +58,7 @@ describe("draft furniture confirmation", () => {
     expect(usePlanner.getState().plan.furniture).toHaveLength(before);
     usePlanner.getState().confirmFurniture(placement);
     expect(usePlanner.getState().plan.furniture).toHaveLength(before + 1);
-    expect(usePlanner.getState().selectedId).toBe("draft-chair");
+    expect(usePlanner.getState().selectedId).toBeUndefined();
     usePlanner.getState().undo();
     expect(usePlanner.getState().plan.furniture).toHaveLength(before);
   });
