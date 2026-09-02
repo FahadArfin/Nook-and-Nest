@@ -6,4 +6,7 @@ const rows: Array<[string,string,CatalogItem["category"],number,number,number,Ca
   ["floor-lamp","Bell floor lamp","Lighting",450,450,1550,"lamp","Warm pool of light"],["table-lamp","Glow lamp","Lighting",300,300,520,"lamp","Small cozy lamp"],["large-plant","Sunny plant","Decor",600,600,1300,"plant","A generous leafy plant"],["small-plant","Window plant","Decor",320,320,520,"plant","Fits anywhere"],["round-rug","Dewdrop rug","Decor",1800,1800,20,"rug","Soft round rug"],["runner-rug","Woven runner","Decor",800,2200,20,"rug","Long patterned runner"],["mirror","Sunrise mirror","Decor",700,80,1100,"decor","Rounded standing mirror"],["pet-bed","Sleepy pet bed","Decor",700,550,180,"decor","A tiny nest for a companion"]
 ];
 export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape }));
-export const variants = { sage: "#a8b27f", clay: "#d18a67", oat: "#e1c99f", rose: "#d4a09a", ink: "#65756b" };
+export const variants = {
+  sage: "#97a67c", clay: "#c4775f", oat: "#d9c5a3", rose: "#c89490",
+  ink: "#5d6965", navy: "#53687d", rust: "#9f5d47", cream: "#eee4d1",
+};

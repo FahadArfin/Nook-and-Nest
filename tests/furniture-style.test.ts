@@ -1,7 +1,7 @@
 import { existsSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { catalog } from "../src/catalog";
+import { catalog, variants } from "../src/catalog";
 import { createSamplePlan, parsePlan, serializePlan } from "../src/domain";
 import { FURNITURE_STYLE, furnitureVariation } from "../src/scene/FurnitureFactory";
 
@@ -26,6 +26,7 @@ describe("handcrafted furniture design system", () => {
     expect(FURNITURE_STYLE.defaultRoughness).toBeGreaterThan(.85);
     expect(Object.values(FURNITURE_STYLE.wood)).not.toContain("#000000");
     expect(Object.values(FURNITURE_STYLE.fabric)).not.toContain("#ffffff");
+    expect(Object.keys(variants)).toHaveLength(8);
   });
 
   it("ships an editable Blender source and a non-empty GLB for every catalog item", () => {

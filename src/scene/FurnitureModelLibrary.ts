@@ -50,7 +50,7 @@ export class FurnitureModelLibrary {
     if (clone instanceof PBRMaterial) {
       if (isUpholstery) {
         const tint = variants[item.variant as keyof typeof variants] ?? variants.sage;
-        clone.albedoColor = Color3.Lerp(Color3.White(), Color3.FromHexString(tint), .42);
+        clone.albedoColor = Color3.Lerp(Color3.White(), Color3.FromHexString(tint), .9);
       }
       if (ghost) {
         clone.alpha = .2;

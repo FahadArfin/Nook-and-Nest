@@ -139,7 +139,7 @@ def common_materials():
     return {
         "wood": material("wood-honey-textured", (0.72, 0.43, 0.2), "handpainted-honey-oak.png", 0.82),
         "wood_dark": material("wood-dark", (0.24, 0.12, 0.075), None, 0.9),
-        "fabric": material("upholstery-textured", (0.56, 0.65, 0.45), "handpainted-neutral-weave.png", 0.96),
+        "fabric": material("upholstery-textured", (0.56, 0.65, 0.45), None, 0.98),
         "linen": material("linen-textured", (0.92, 0.83, 0.68), "handpainted-cream-linen.png", 0.98),
         "clay": material("terracotta", (0.66, 0.29, 0.18), None, 0.92),
         "mustard": material("mustard-cloth", (0.72, 0.52, 0.2), "handpainted-cream-linen.png", 0.96),
@@ -151,43 +151,35 @@ def common_materials():
     }
 
 
-def build_sofa(m):
-    w, d, h = 2.1, 0.9, 0.85
-    rounded_box("sofa_continuous_upholstered_base", (w * 0.92, d * 0.78, 0.24), (0, 0, 0.25), m["fabric"], 0.07)
-    rounded_box("sofa_wood_lower_frame", (w * 0.86, d * 0.7, 0.10), (0, 0.01, 0.12), m["wood_dark"], 0.025)
-    rounded_box("sofa_back_shell", (w * 0.86, 0.2, h * 0.58), (0, d * 0.31, h * 0.56), m["fabric"], 0.07)
-    arm_w = 0.24
+def build_upholstered_seat(m, prefix, w, d, h, seat_count):
+    """Original deep-seat family with low arms and clean, readable construction."""
+    rounded_box(f"{prefix}_continuous_base", (w * 0.94, d * 0.78, 0.23), (0, 0, 0.25), m["fabric"], 0.055)
+    rounded_box(f"{prefix}_lower_wood_rail", (w * 0.88, d * 0.69, 0.085), (0, 0.015, 0.125), m["wood_dark"], 0.022)
+    rounded_box(f"{prefix}_back_shell", (w * 0.88, 0.18, h * 0.56), (0, d * 0.31, h * 0.57), m["fabric"], 0.052)
+    arm_w = max(0.18, w * 0.115)
     for side in (-1, 1):
-        cushion(f"sofa_arm_{side}", (arm_w, d * 0.78, 0.47), (side * (w / 2 - arm_w / 2), 0, 0.43), m["fabric"])
-        rounded_box(f"sofa_arm_cap_{side}", (arm_w * 0.86, d * 0.57, 0.045), (side * (w / 2 - arm_w / 2), -0.01, 0.68), m["linen"], 0.014)
-    inner = w - arm_w * 2.1
-    each = inner / 3
-    for i in range(3):
-        x = -inner / 2 + each / 2 + i * each
-        cushion(f"sofa_seat_cushion_{i}", (each * 0.94, d * 0.61, 0.18), (x, -0.045, 0.42), m["fabric"], (0, 0, (i - 1) * 0.01))
-        cushion(f"sofa_back_cushion_{i}", (each * 0.91, 0.17, 0.39), (x, d * 0.24, 0.68), m["fabric"], (-0.09, 0, (i - 1) * 0.012))
-    for side in (-1, 1):
-        cushion(f"sofa_throw_pillow_{side}", (0.3, 0.12, 0.31), (side * 0.66, 0.12, 0.58), m["mustard" if side < 0 else "clay"], (0.05, 0, side * 0.16))
+        rounded_box(f"{prefix}_integrated_arm_{side}", (arm_w, d * 0.77, h * 0.48), (side * (w / 2 - arm_w / 2), -0.01, h * 0.39), m["fabric"], 0.055)
+    inner = w - arm_w * 2 - 0.08
+    gap = 0.028
+    cushion_width = (inner - gap * (seat_count - 1)) / seat_count
+    start_x = -inner / 2 + cushion_width / 2
+    for i in range(seat_count):
+        x = start_x + i * (cushion_width + gap)
+        tilt = (i - (seat_count - 1) / 2) * 0.008
+        cushion(f"{prefix}_seat_cushion_{i}", (cushion_width * 0.98, d * 0.62, 0.17), (x, -0.055, 0.43), m["fabric"], (0, 0, tilt))
+        cushion(f"{prefix}_back_cushion_{i}", (cushion_width * 0.96, 0.16, h * 0.39), (x, d * 0.235, h * 0.68), m["fabric"], (-0.085, 0, tilt))
     for x in (-w * 0.39, w * 0.39):
         for y in (-d * 0.27, d * 0.27):
-            add_leg("sofa_tapered_foot", (x, y, 0.07), 0.14, 0.09, m["wood_dark"], (0.02 if y > 0 else -0.02, 0.02 if x > 0 else -0.02))
+            add_leg(f"{prefix}_tapered_foot", (x, y, 0.075), 0.15, 0.08, m["wood_dark"], (0.018 if y > 0 else -0.018, 0.018 if x > 0 else -0.018))
     return (w, d, h)
+
+
+def build_sofa(m):
+    return build_upholstered_seat(m, "sofa", 2.1, 0.9, 0.85, 2)
 
 
 def build_armchair(m):
-    w, d, h = 0.88, 0.82, 0.9
-    rounded_box("chair_upholstered_base", (w * 0.88, d * 0.76, 0.23), (0, 0, 0.27), m["fabric"], 0.065)
-    rounded_box("chair_back_shell", (w * 0.72, 0.2, h * 0.58), (0, d * 0.3, h * 0.59), m["fabric"], 0.07)
-    cushion("chair_seat_cushion", (w * 0.59, d * 0.57, 0.18), (0, -0.03, 0.44), m["fabric"])
-    cushion("chair_back_cushion", (w * 0.58, 0.17, h * 0.4), (0, d * 0.22, 0.7), m["fabric"], (-0.1, 0, 0.02))
-    for side in (-1, 1):
-        cushion(f"chair_arm_{side}", (0.19, d * 0.7, 0.47), (side * (w / 2 - 0.095), 0, 0.46), m["fabric"])
-        rounded_box(f"chair_arm_cap_{side}", (0.16, d * 0.52, 0.04), (side * (w / 2 - 0.095), -0.01, 0.7), m["linen"], 0.012)
-    cushion("chair_reading_pillow", (0.34, 0.11, 0.31), (0.1, 0.09, 0.64), m["mustard"], (0.06, 0, -0.18))
-    for x in (-w * 0.34, w * 0.34):
-        for y in (-d * 0.27, d * 0.27):
-            add_leg("chair_tapered_foot", (x, y, 0.075), 0.15, 0.075, m["wood_dark"], (0.02 if y > 0 else -0.02, 0.02 if x > 0 else -0.02))
-    return (w, d, h)
+    return build_upholstered_seat(m, "armchair", 0.88, 0.82, 0.9, 1)
 
 
 def build_bed(m):
@@ -241,18 +233,7 @@ def build_dresser(m):
 
 
 def build_loveseat(m):
-    w, d, h = 1.45, .85, .82
-    rounded_box("loveseat_connected_base", (w*.92, d*.78, .23), (0, 0, .25), m["fabric"], .065)
-    rounded_box("loveseat_back_shell", (w*.84, .19, h*.57), (0, d*.3, h*.57), m["fabric"], .065)
-    arm=.22
-    for side in (-1,1):
-        cushion(f"loveseat_arm_{side}",(arm,d*.75,.46),(side*(w/2-arm/2),0,.43),m["fabric"])
-        add_leg("loveseat_foot",(side*w*.36,-d*.27,.07),.14,.075,m["wood_dark"]);add_leg("loveseat_foot",(side*w*.36,d*.27,.07),.14,.075,m["wood_dark"])
-    for i,x in enumerate((-w*.2,w*.2)):
-        cushion(f"loveseat_seat_{i}",(w*.36,d*.58,.18),(x,-.04,.42),m["fabric"],(0,0,(i-.5)*.018))
-        cushion(f"loveseat_back_{i}",(w*.36,.16,.37),(x,d*.23,.67),m["fabric"],(-.09,0,(i-.5)*.025))
-    cushion("loveseat_throw",(.28,.11,.28),(w*.25,.08,.58),m["rose"],(.05,0,-.16))
-    return (w,d,h)
+    return build_upholstered_seat(m, "loveseat", 1.45, 0.85, 0.82, 2)
 
 
 def build_ottoman(m):
@@ -542,6 +523,7 @@ BUILDERS = {
 
 def export_model(catalog_id, builder):
     reset_scene()
+    bpy.context.preferences.filepaths.save_version = 0
     mats = common_materials()
     dimensions = builder(mats)
     for obj in bpy.context.scene.objects:
