@@ -21,6 +21,13 @@ describe("handcrafted furniture design system", () => {
     expect(parsePlan(serializePlan(plan)).furniture[0]).toEqual(plan.furniture[0]);
   });
 
+  it("includes distinct furniture families, media pieces, and a modular kitchen", () => {
+    for (const id of ["modular-sectional","sleeper-sofa","storage-platform-bed","bunk-bed","standing-desk","corner-desk","nesting-tables","c-side-table","slim-tv","tv-stand","refrigerator","range-oven","dishwasher","base-cabinet","wall-cabinet","sink-cabinet","kitchen-counter","kitchen-island"]) {
+      expect(catalog.some((item)=>item.id===id), `missing catalog item ${id}`).toBe(true);
+    }
+    expect(catalog.filter((item)=>item.category==="Kitchen")).toHaveLength(8);
+  });
+
   it("keeps the shared style low-poly, warm, and restrained", () => {
     expect(FURNITURE_STYLE.bevelRatio).toBeLessThan(.12);
     expect(FURNITURE_STYLE.defaultRoughness).toBeGreaterThan(.85);

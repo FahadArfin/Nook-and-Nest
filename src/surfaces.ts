@@ -28,8 +28,19 @@ export const floorFinishes: SurfaceFinish[] = [
   { id: "moss-carpet", name: "Moss", family: "Carpet", texture: "/textures/moss-carpet.jpg", scale: 1.5 },
 ];
 
+export const countertopFinishes: SurfaceFinish[] = [
+  { id: "warm-granite", name: "Warm granite", family: "Stone", texture: "/textures/countertops/warm-granite.jpg", scale: 1.8 },
+  { id: "ivory-marble", name: "Ivory marble", family: "Stone", texture: "/textures/countertops/ivory-marble.jpg", scale: 1.25 },
+  { id: "clay-laminate", name: "Clay laminate", family: "Laminate", texture: "/textures/countertops/clay-laminate.jpg", scale: 2 },
+  { id: "soft-concrete", name: "Soft concrete", family: "Concrete", texture: "/textures/countertops/soft-concrete.jpg", scale: 1.6 },
+];
+
+const countertopCatalogIds = new Set(["base-cabinet", "sink-cabinet", "kitchen-counter", "kitchen-island"]);
+export const supportsCountertopFinish = (catalogId: string) => countertopCatalogIds.has(catalogId);
+
 export const defaultWallFinish = wallFinishes[0];
 export const defaultFloorFinish = floorFinishes[0];
+export const defaultCountertopFinish = countertopFinishes[0];
 
 export function findWallFinish(id?: string) {
   return wallFinishes.find((finish) => finish.id === id) ?? defaultWallFinish;
@@ -37,4 +48,8 @@ export function findWallFinish(id?: string) {
 
 export function findFloorFinish(id?: string) {
   return floorFinishes.find((finish) => finish.id === id) ?? defaultFloorFinish;
+}
+
+export function findCountertopFinish(id?: string) {
+  return countertopFinishes.find((finish) => finish.id === id) ?? defaultCountertopFinish;
 }

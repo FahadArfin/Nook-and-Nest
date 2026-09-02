@@ -1,8 +1,9 @@
-import { AbstractMesh, AssetContainer, Color3, Material, MultiMaterial, PBRMaterial, Scene, ShadowGenerator, TransformNode, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, AssetContainer, Color3, Material, MultiMaterial, PBRMaterial, Scene, ShadowGenerator, Texture, TransformNode, Vector3 } from "@babylonjs/core";
 import { LoadAssetContainerAsync } from "@babylonjs/core/Loading/sceneLoader";
 import "@babylonjs/loaders/glTF";
 import { catalog, variants } from "../catalog";
 import type { CatalogItem, FurniturePlacement } from "../types";
+import { findCountertopFinish } from "../surfaces";
 
 const MODEL_IDS = new Set(catalog.map((item) => item.id));
 
@@ -31,7 +32,7 @@ export class FurnitureModelLibrary {
 
   private materialFor(source: Material, item: FurniturePlacement, ghost: boolean) {
     if (source instanceof MultiMaterial) {
-      const key = `${source.uniqueId}:${item.variant}:${ghost ? "ghost" : "solid"}`;
+      const key = `${source.uniqueId}:${item.variant}:${item.surfaceVariant??"default"}:${ghost ? "ghost" : "solid"}`;
       const cached = this.materialVariants.get(key);
       if (cached) return cached;
       const clone = source.clone(`model-${key}`);
@@ -40,17 +41,25 @@ export class FurnitureModelLibrary {
       this.materialVariants.set(key, clone);
       return clone;
     }
-    const isUpholstery = source.name.includes("upholstery-textured");
-    if (!isUpholstery && !ghost) return source;
-    const key = `${source.uniqueId}:${isUpholstery ? item.variant : "base"}:${ghost ? "ghost" : "solid"}`;
+    const isTintable = source.name.includes("upholstery-textured") || source.name.includes("variant-surface");
+    const isCountertop = source.name.includes("countertop-surface");
+    if (!isTintable && !isCountertop && !ghost) return source;
+    const key = `${source.uniqueId}:${isTintable ? item.variant : "base"}:${isCountertop ? item.surfaceVariant??"warm-granite" : "none"}:${ghost ? "ghost" : "solid"}`;
     const cached = this.materialVariants.get(key);
     if (cached) return cached;
     const clone = source.clone(`model-${key}`);
     if (!clone) return source;
     if (clone instanceof PBRMaterial) {
-      if (isUpholstery) {
+      if (isTintable) {
         const tint = variants[item.variant as keyof typeof variants] ?? variants.sage;
         clone.albedoColor = Color3.Lerp(Color3.White(), Color3.FromHexString(tint), .9);
+      }
+      if (isCountertop) {
+        const finish = findCountertopFinish(item.surfaceVariant);
+        const texture = new Texture(finish.texture, this.scene, false, false, Texture.TRILINEAR_SAMPLINGMODE);
+        texture.wrapU = Texture.WRAP_ADDRESSMODE; texture.wrapV = Texture.WRAP_ADDRESSMODE;
+        texture.uScale = finish.scale; texture.vScale = finish.scale; texture.anisotropicFilteringLevel = 4;
+        clone.albedoTexture = texture; clone.albedoColor = Color3.White(); clone.roughness = .9;
       }
       if (ghost) {
         clone.alpha = .2;

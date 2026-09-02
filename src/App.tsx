@@ -4,10 +4,10 @@ import { catalog, variants } from "./catalog";
 import { createSamplePlan, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleCells, serializePlan, uid } from "./domain";
 import { SceneController } from "./scene/SceneController";
 import { loadPlan, savePlan, usePlanner } from "./store";
-import { floorFinishes, wallFinishes } from "./surfaces";
+import { countertopFinishes, defaultCountertopFinish, floorFinishes, supportsCountertopFinish, wallFinishes } from "./surfaces";
 import type { CatalogItem, FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units } from "./types";
 
-const categoryIcons: Record<string, typeof Armchair> = { Living: Armchair, Bedroom: Bed, Dining: Table, Office: Chair, Storage: Books, Lighting: Lamp, Decor: Plant };
+const categoryIcons: Record<string, typeof Armchair> = { Living: Armchair, Bedroom: Bed, Dining: Table, Office: Chair, Kitchen: SquaresFour, Storage: Books, Lighting: Lamp, Decor: Plant };
 const shapeIcons: Record<string, typeof Armchair> = { seat: Armchair, table: Table, bed: Bed, storage: Books, lamp: Lamp, plant: Plant, rug: GridFour, decor: SquaresFour };
 const tools: Array<{ id: Tool; label: string; icon: typeof Armchair }> = [
   { id: "select", label: "Arrange", icon: Armchair }, { id: "paint", label: "Paint tiles", icon: PaintBrush }, { id: "erase", label: "Erase", icon: Trash },
@@ -56,7 +56,8 @@ function Inspector() {
     <div className="selection-preview"><img src="/assets/nook-nest-icon.png" alt=""/><div><strong>{item.category}</strong><span>On {floor?.name||"this floor"}</span></div></div>
     {overlaps&&<div className="warning"><Info weight="fill"/><span>This overlaps another piece. It’s allowed, but check the fit.</span></div>}
     <section className="inspector-section"><h3>Dimensions <span>millimetres</span></h3><div className="field-grid">{(["widthMm","depthMm","heightMm"] as const).map((key)=><label key={key}>{key.replace("Mm","").replace(/^./,c=>c.toUpperCase())}<input type="number" value={Math.round(selected[key])} onChange={(e)=>updateNumber(key,e.target.value)}/></label>)}</div><div className="field-grid position-fields"><label>X position<input type="number" value={Math.round(selected.x)} onChange={(e)=>state.updateFurniture(selected.id,{x:Number(e.target.value)})}/></label><label>Z position<input type="number" value={Math.round(selected.z)} onChange={(e)=>state.updateFurniture(selected.id,{z:Number(e.target.value)})}/></label></div></section>
-    <section className="inspector-section"><h3>Upholstery color <span className="active-color">{selected.variant}</span></h3><div className="swatches">{Object.entries(variants).map(([name,color])=><button key={name} aria-label={name} title={name} className={selected.variant===name?"selected":""} style={{backgroundColor:color}} onClick={()=>state.updateFurniture(selected.id,{variant:name})}>{selected.variant===name&&<Check/>}</button>)}</div></section>
+    <section className="inspector-section"><h3>Color &amp; finish <span className="active-color">{selected.variant}</span></h3><div className="swatches">{Object.entries(variants).map(([name,color])=><button key={name} aria-label={name} title={name} className={selected.variant===name?"selected":""} style={{backgroundColor:color}} onClick={()=>state.updateFurniture(selected.id,{variant:name})}>{selected.variant===name&&<Check/>}</button>)}</div></section>
+    {supportsCountertopFinish(selected.catalogId)&&<section className="inspector-section countertop-section"><h3>Countertop <span>{countertopFinishes.find((finish)=>finish.id===(selected.surfaceVariant??defaultCountertopFinish.id))?.name}</span></h3><div className="countertop-grid">{countertopFinishes.map((finish)=><button key={finish.id} className={(selected.surfaceVariant??defaultCountertopFinish.id)===finish.id?"selected":""} onClick={()=>state.updateFurniture(selected.id,{surfaceVariant:finish.id})} title={`${finish.name} — ${finish.family}`}><span style={{backgroundImage:`url(${finish.texture})`}}/>{(selected.surfaceVariant??defaultCountertopFinish.id)===finish.id&&<Check size={14} weight="bold"/>}<small>{finish.name}</small></button>)}</div></section>}
     <section className="inspector-section"><h3>Rotation</h3><div className="rotation-row"><button onClick={()=>state.updateFurniture(selected.id,{rotation:(selected.rotation-15+360)%360})}>−15°</button><strong>{selected.rotation}°</strong><button onClick={()=>state.updateFurniture(selected.id,{rotation:(selected.rotation+15)%360})}>+15°</button></div></section>
     <div className="inspector-actions"><button onClick={state.duplicateSelected}><Copy/> Duplicate</button><button className="danger" onClick={state.deleteSelected}><Trash/> Remove</button></div>
   </aside>;
@@ -98,7 +99,7 @@ export function App() {
     const xs=floor.cells.map((cell)=>cell.x),zs=floor.cells.map((cell)=>cell.z),grid=state.plan.gridSizeMm;
     const x=xs.length?Math.round(((Math.min(...xs)+Math.max(...xs)+1)*grid/2)/50)*50:1700;
     const z=zs.length?Math.round(((Math.min(...zs)+Math.max(...zs)+1)*grid/2)/50)*50:1700;
-    const next: FurniturePlacement={id:uid(),catalogId:item.id,floorId:floor.id,x,z,rotation:0,widthMm:item.widthMm,depthMm:item.depthMm,heightMm:item.heightMm,variant:"sage"};
+    const next: FurniturePlacement={id:uid(),catalogId:item.id,floorId:floor.id,x,z,rotation:0,widthMm:item.widthMm,depthMm:item.depthMm,heightMm:item.heightMm,variant:"sage",surfaceVariant:supportsCountertopFinish(item.id)?defaultCountertopFinish.id:undefined};
     cancelTilePlacement(); focusDraftControls.current=focusControls; state.select(undefined); state.setTool("select"); setDraft(next); return next;
   };
   const beginPlacementDrag=(item:CatalogItem,event:ReactPointerEvent<HTMLButtonElement>)=>{

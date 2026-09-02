@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { openDB } from "idb";
 import { catalog } from "./catalog";
+import { defaultCountertopFinish, supportsCountertopFinish } from "./surfaces";
 import { createSamplePlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 
@@ -41,7 +42,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, walls: [...f.walls, { ...wall, id: uid() }] } : f) })),
   addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100 }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),
-  placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: "sage" }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
+  placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: "sage", surfaceVariant: supportsCountertopFinish(catalogId) ? defaultCountertopFinish.id : undefined }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
   confirmFurniture: (item) => set((state) => commit(state, { ...state.plan, furniture: [...state.plan.furniture, item] }, null)),
   moveFurniture: (id, x, z) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, x, z } : f) }, id)),
   updateFurniture: (id, patch) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, ...patch } : f) }, id)),

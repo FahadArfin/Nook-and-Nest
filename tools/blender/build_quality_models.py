@@ -149,6 +149,10 @@ def common_materials():
         "green_light": material("leaf-light", (0.43, 0.56, 0.31), None, 0.94),
         "rose": material("dusty-rose", (0.68, 0.38, 0.36), "handpainted-cream-linen.png", 0.96),
         "blue": material("smoky-mirror", (0.36, 0.55, 0.57), None, 0.28, 0.72),
+        "variant": material("variant-surface", (0.56, 0.65, 0.45), None, 0.94),
+        "counter": material("countertop-surface", (0.78, 0.72, 0.62), None, 0.88),
+        "steel": material("brushed-steel", (0.48, 0.5, 0.48), None, 0.58, 0.35),
+        "screen": material("television-screen", (0.035, 0.045, 0.05), None, 0.32, 0.12),
     }
 
 
@@ -529,6 +533,299 @@ def build_pet_bed(m):
     return (w,d,h*.72)
 
 
+# Expanded catalog: recognizable silhouettes inspired by broad furniture
+# typologies, while every mesh and construction detail remains original.
+def build_modular_sectional(m):
+    w,d,h=2.85,1.9,.82
+    rounded_box("sectional_connected_plinth",(w*.94,.82,.18),(0,.45,.2),m["wood_dark"],.045)
+    rounded_box("sectional_chaise_plinth",(.92,d*.92,.18),(-w*.34,-.25,.2),m["wood_dark"],.045)
+    for i,x in enumerate((-.92,0,.92)):
+        cushion(f"sectional_seat_{i}",(.84,.78,.2),(x,.42,.39),m["fabric"])
+        cushion(f"sectional_back_{i}",(.82,.18,.43),(x,.76,.65),m["fabric"],(-.08,0,(i-1)*.008))
+    cushion("sectional_chaise_cushion",(.84,1.18,.2),(-.92,-.46,.39),m["fabric"])
+    rounded_box("sectional_back_shell",(w*.88,.16,.48),(0,.79,.55),m["fabric"],.05)
+    rounded_box("sectional_outer_arm",(.22,d*.88,.5),(-w*.465,.03,.48),m["fabric"],.055)
+    rounded_box("sectional_return_arm",(.22,.82,.5),(w*.465,.43,.48),m["fabric"],.055)
+    return (w,d,h)
+
+
+def build_midcentury_sofa(m):
+    w,d,h=2.05,.86,.83
+    rounded_box("juniper_wood_frame",(w*.94,d*.72,.13),(0,0,.28),m["wood"],.028)
+    for x in (-w*.39,w*.39):
+        for y in (-d*.28,d*.28): add_leg("juniper_splayed_leg",(x,y,.15),.3,.075,m["wood_dark"],(.04 if y>0 else -.04,.035 if x>0 else -.035))
+    for i,x in enumerate((-.5,.5)):
+        cushion(f"juniper_tailored_seat_{i}",(.92,d*.61,.16),(x,-.03,.42),m["fabric"])
+        cushion(f"juniper_tailored_back_{i}",(.9,.15,.4),(x,d*.28,.66),m["fabric"],(-.06,0,(i-.5)*.012))
+    for side in (-1,1):
+        rounded_box("juniper_open_arm_post",(.08,.08,.43),(side*w*.46,-.02,.48),m["wood"],.018)
+        rounded_box("juniper_arm_rail",(.12,d*.66,.08),(side*w*.46,0,.68),m["wood"],.02)
+    return (w,d,h)
+
+
+def build_sleeper_sofa(m):
+    w,d,h=1.98,.92,.84
+    build_upholstered_seat(m,"sleeper",w,d,h,2)
+    rounded_box("sleeper_pullout_front",(w*.68,.08,.17),(0,-d*.43,.27),m["wood_dark"],.025)
+    rounded_box("sleeper_mattress_hint",(w*.58,.05,.07),(0,-d*.48,.39),m["linen"],.018)
+    rounded_box("sleeper_pull_strap",(.18,.035,.07),(0,-d*.525,.29),m["metal"],.012)
+    return (w,d,h)
+
+
+def bed_layers(m,prefix,w,d,h,headboard=None):
+    rounded_box(f"{prefix}_frame",(w,d*.94,.22),(0,0,.25),m["wood"],.045)
+    cushion(f"{prefix}_mattress",(w*.92,d*.82,.22),(0,-.02,.45),m["linen"])
+    cushion(f"{prefix}_duvet",(w*.88,d*.55,.1),(0,-d*.13,.59),m["fabric"])
+    for side in (-1,1): cushion(f"{prefix}_pillow_{side}",(w*.34,d*.2,.13),(side*w*.22,d*.27,.64),m["linen"],(-.04,0,side*.025))
+    if headboard: headboard()
+
+
+def build_storage_platform_bed(m):
+    w,d,h=1.65,2.15,.92
+    bed_layers(m,"drawer_bed",w,d,h,lambda: rounded_box("drawer_bed_slat_headboard",(w,.13,.58),(0,d*.45,.65),m["wood"],.04))
+    for side in (-1,1):
+        for i in range(2):
+            y=(-.25+i*.58)*d
+            rounded_box("underbed_drawer",(w*.44,.055,.25),(side*w*.48,y,.27),m["variant"],.022,(0,0,math.pi/2))
+            add_knob("underbed_pull",(side*w*.515,y,.27),.026,m["metal"])
+    for i in range(5): rounded_box("headboard_slat",(w*.13,.04,.45),((i-2)*w*.17,d*.515,.67),m["wood_dark"],.015)
+    return (w,d,h)
+
+
+def build_arch_bed(m):
+    w,d,h=1.65,2.12,1.2
+    bed_layers(m,"petal_bed",w,d,h)
+    rounded_box("petal_headboard_stem",(w*.94,.16,.68),(0,d*.45,.73),m["fabric"],.08)
+    for i in range(5):
+        x=(i-2)*w*.17; z=.91+(.16 if i==2 else .09 if i in (1,3) else 0)
+        cylinder("petal_headboard_arch",w*.115,.12,(x,d*.45,z),m["fabric"],18,(math.pi/2,0,0))
+    for x in (-w*.27,0,w*.27): add_knob("petal_tuft",(x,d*.36,.82),.025,m["linen"])
+    return (w,d,h)
+
+
+def build_daybed(m):
+    w,d,h=2.05,.98,.9
+    rounded_box("daybed_frame",(w*.96,d*.88,.2),(0,0,.28),m["wood"],.045)
+    cushion("daybed_mattress",(w*.88,d*.76,.2),(0,-.02,.48),m["fabric"])
+    cushion("daybed_back_bolster",(w*.78,.2,.34),(0,d*.34,.69),m["linen"])
+    for side in (-1,1):
+        rounded_box("daybed_end_frame",(.15,d*.9,.62),(side*w*.45,0,.56),m["wood"],.04)
+        cushion("daybed_end_cushion",(.19,d*.55,.32),(side*w*.4,.05,.65),m["fabric"])
+    for x in (-w*.36,w*.36): rounded_box("daybed_drawer",(w*.62,.06,.2),(x,-d*.46,.25),m["variant"],.02)
+    return (w,d,h)
+
+
+def build_bunk_bed(m):
+    w,d,h=1.05,2.1,1.75
+    for z in (.42,1.22):
+        rounded_box("bunk_rail_frame",(w,d*.94,.15),(0,0,z),m["wood"],.035)
+        cushion("bunk_mattress",(w*.88,d*.82,.16),(0,-.02,z+.14),m["linen"])
+        cushion("bunk_blanket",(w*.84,d*.45,.08),(0,-d*.17,z+.25),m["fabric"])
+    for x in (-w*.44,w*.44):
+        for y in (-d*.43,d*.43): rounded_box("bunk_post",(.09,.09,h),(x,y,h/2),m["wood_dark"],.022)
+    for i in range(5): rounded_box("bunk_ladder_rung",(w*.56,.07,.07),(w*.18,-d*.49,.45+i*.25),m["wood"],.018)
+    for x in (-w*.1,w*.46): rounded_box("bunk_ladder_side",(.07,.07,1.34),(x,-d*.49,.87),m["wood_dark"],.018)
+    rounded_box("bunk_guard_rail",(w*.72,.07,.08),(-w*.1,-d*.43,1.58),m["wood"],.018)
+    return (w,d,h)
+
+
+def build_nesting_tables(m):
+    w,d,h=.62,.48,.56
+    for i,(scale,x,y,z) in enumerate(((1,-.07,.03,h),(.72,.18,-.08,h*.72))):
+        rounded_box(f"nest_table_top_{i}",(w*scale,d*scale,.07),(x,y,z-.035),m["wood"] if i==0 else m["variant"],.025)
+        for sx in (-1,1):
+            for sy in (-1,1): add_leg(f"nest_table_leg_{i}",(x+sx*w*scale*.38,y+sy*d*scale*.34,(z-.07)/2),z-.07,.045,m["wood_dark"])
+    return (w,d,h)
+
+
+def build_tray_table(m):
+    w,d,h=.52,.42,.61
+    rounded_box("tray_table_top",(w,d,.07),(0,0,h-.035),m["variant"],.04)
+    for side in (-1,1):
+        rounded_box("tray_table_long_edge",(.06,d,.12),(side*w*.46,0,h+.005),m["wood"],.018)
+        rounded_box("tray_table_cross_leg",(.055,d*.9,h*.82),(side*w*.22,0,h*.43),m["wood_dark"],.015,(side*.22,0,0))
+    rounded_box("tray_table_short_edge",(w,.05,.12),(0,d*.44,h+.005),m["wood"],.018)
+    return (w,d,h+.065)
+
+
+def build_c_table(m):
+    w,d,h=.46,.38,.64
+    rounded_box("c_table_base",(w,d,.07),(0,0,.04),m["wood_dark"],.022)
+    rounded_box("c_table_spine",(.09,d*.2,h*.88),(w*.37,d*.27,h*.48),m["wood"],.025)
+    rounded_box("c_table_top",(w,d,.075),(0,0,h-.038),m["variant"],.03)
+    return (w,d,h)
+
+
+def build_drawer_side_table(m):
+    w,d,h=.54,.44,.59
+    rounded_box("keepsake_body",(w*.92,d*.9,h*.56),(0,0,h*.58),m["wood"],.04)
+    rounded_box("keepsake_top",(w,d,.075),(0,0,h-.038),m["variant"],.025)
+    rounded_box("keepsake_drawer",(w*.76,.055,h*.2),(0,-d*.47,h*.67),m["variant"],.018)
+    add_knob("keepsake_knob",(0,-d*.52,h*.67),.03,m["metal"])
+    for x in (-w*.36,w*.36):
+        for y in (-d*.31,d*.31): add_leg("keepsake_leg",(x,y,h*.2),h*.4,.06,m["wood_dark"])
+    return (w,d,h)
+
+
+def build_standing_desk(m):
+    w,d,h=1.4,.7,1.15
+    rounded_box("standing_desk_top",(w,d,.09),(0,0,h-.045),m["wood"],.032)
+    for x in (-w*.36,w*.36):
+        rounded_box("standing_desk_column",(.13,.13,h*.72),(x,0,h*.48),m["steel"],.025)
+        rounded_box("standing_desk_foot",(w*.22,d*.78,.075),(x,0,.05),m["wood_dark"],.02)
+    rounded_box("standing_desk_control",(.16,.11,.055),(w*.27,-d*.46,h-.12),m["screen"],.012)
+    return (w,d,h)
+
+
+def build_trestle_desk(m):
+    w,d,h=1.5,.72,.76
+    rounded_box("maker_desk_top",(w,d,.1),(0,0,h-.05),m["wood"],.032)
+    for x in (-w*.35,w*.35):
+        rounded_box("maker_trestle_beam",(.1,d*.72,.09),(x,0,.12),m["wood_dark"],.02)
+        for y in (-d*.27,d*.27): rounded_box("maker_trestle_leg",(.075,.075,h*.75),(x,y,h*.39),m["wood"],.02,(.06 if y>0 else -.06,0,0))
+        rounded_box("maker_trestle_cap",(.18,d*.72,.075),(x,0,h-.15),m["wood_dark"],.018)
+    rounded_box("maker_long_stretcher",(w*.68,.08,.08),(0,0,h*.32),m["wood_dark"],.018)
+    return (w,d,h)
+
+
+def build_corner_desk(m):
+    w,d,h=1.8,1.5,.76
+    rounded_box("corner_desk_main_top",(w,.65,.09),(0,d*.27,h-.045),m["wood"],.032)
+    rounded_box("corner_desk_return_top",(.62,d*.78,.09),(-w*.33,-d*.21,h-.045),m["wood"],.032)
+    for x,y in ((w*.43,d*.27),(-w*.43,d*.27),(-w*.33,-d*.43)):
+        for sy in (-1,1): add_leg("corner_desk_leg",(x,y+sy*.2,(h-.09)/2),h-.09,.07,m["wood_dark"])
+    for z in (.22,.43,.64): rounded_box("corner_desk_shelf",(.48,d*.34,.055),(-w*.33,-d*.42,z),m["variant"],.016)
+    return (w,d,h)
+
+
+def build_secretary_desk(m):
+    w,d,h=.98,.48,1.48
+    rounded_box("secretary_tall_body",(w*.94,d*.9,h*.88),(0,.02,h*.52),m["wood"],.045)
+    for z in (.31,.55):
+        rounded_box("secretary_lower_drawer",(w*.76,.055,.17),(0,-d*.46,z),m["variant"],.018); add_knob("secretary_pull",(0,-d*.51,z),.028,m["metal"])
+    rounded_box("secretary_fold_surface",(w*.78,d*.9,.08),(0,-d*.42,h*.63),m["variant"],.025,(math.pi*.08,0,0))
+    for x in (-w*.25,w*.25):
+        for z in (1.0,1.24): rounded_box("secretary_cubby",(w*.38,d*.52,.055),(x,.03,z),m["wood_dark"],.016)
+    return (w,d,h)
+
+
+def build_tv(m):
+    w,d,h=1.22,.11,.76
+    rounded_box("tv_warm_frame",(w,.075,h*.72),(0,0,h*.61),m["wood"],.035)
+    rounded_box("tv_dark_screen",(w*.92,.025,h*.58),(0,-.052,h*.61),m["screen"],.025)
+    rounded_box("tv_easel_post",(.09,.09,h*.72),(0,.02,h*.3),m["wood_dark"],.02)
+    for side in (-1,1): rounded_box("tv_easel_foot",(w*.28,.075,.075),(side*w*.18,.01,.06),m["wood_dark"],.018,(0,side*.16,0))
+    cylinder("tv_control_button",.018,.012,(w*.42,-.078,h*.36),m["metal"],10,(math.pi/2,0,0))
+    return (w,d,h)
+
+
+def build_tv_stand(m):
+    w,d,h=1.6,.42,.56
+    rounded_box("media_bench_carcass",(w*.96,d*.9,h*.68),(0,0,h*.5),m["wood"],.04)
+    rounded_box("media_bench_top",(w,d,.075),(0,0,h-.038),m["wood"],.025)
+    rounded_box("media_open_shelf",(w*.3,d*.72,h*.19),(0,-.02,h*.61),m["wood_dark"],.025)
+    for side in (-1,1):
+        rounded_box("media_sliding_door",(w*.29,.055,h*.46),(side*w*.31,-d*.47,h*.53),m["variant"],.022)
+        add_knob("media_door_pull",(side*w*.22,-d*.515,h*.53),.025,m["metal"])
+    rounded_box("media_console",(w*.22,d*.42,.07),(0,-.02,h*.61),m["screen"],.015)
+    for x in (-w*.4,w*.4):
+        for y in (-d*.3,d*.3): add_leg("media_bench_leg",(x,y,.1),.2,.065,m["wood_dark"])
+    return (w,d,h)
+
+
+def cabinet_box(m,prefix,w,d,h,wall=False):
+    rounded_box(f"{prefix}_carcass",(w*.96,d*.92,h*.92),(0,0,h*.5),m["wood"],.035)
+    front=-d*.47
+    for side in (-1,1):
+        rounded_box(f"{prefix}_door",(w*.43,.055,h*.74),(side*w*.235,front,h*.52),m["variant"],.02)
+        rounded_box(f"{prefix}_door_panel",(w*.32,.025,h*.58),(side*w*.235,front-.035,h*.52),m["wood"],.014)
+        add_knob(f"{prefix}_knob",(side*w*.1,front-.065,h*.52),.022,m["metal"])
+    if not wall: rounded_box(f"{prefix}_toe_kick",(w*.86,d*.72,.1),(0,d*.06,.08),m["wood_dark"],.018)
+
+
+def counter_top(m,prefix,w,d,z):
+    rounded_box(f"{prefix}_countertop-surface",(w,d,.075),(0,0,z),m["counter"],.025,uv_scale=1.2)
+
+
+def build_refrigerator(m):
+    w,d,h=.9,.72,1.85
+    rounded_box("fridge_connected_body",(w*.96,d*.92,h*.96),(0,.02,h*.5),m["steel"],.065)
+    for side in (-1,1):
+        rounded_box("fridge_upper_door",(w*.46,.055,h*.59),(side*w*.235,-d*.47,h*.65),m["variant"],.028)
+        rounded_box("fridge_long_handle",(.035,.035,h*.34),(side*w*.09,-d*.515,h*.68),m["metal"],.012)
+    rounded_box("fridge_freezer_drawer",(w*.84,.06,h*.23),(0,-d*.475,h*.19),m["variant"],.025)
+    rounded_box("fridge_freezer_handle",(w*.42,.035,.035),(0,-d*.52,h*.25),m["metal"],.012)
+    return (w,d,h)
+
+
+def build_range(m):
+    w,d,h=.76,.68,.92
+    rounded_box("range_body",(w*.96,d*.92,h*.82),(0,.02,h*.45),m["variant"],.045)
+    rounded_box("range_cooktop",(w,d,.075),(0,0,h-.04),m["screen"],.022)
+    for x in (-w*.23,w*.23):
+        for y in (-d*.22,d*.22): cylinder("range_burner",w*.12,.018,(x,y,h+.008),m["metal"],16)
+    rounded_box("range_oven_window",(w*.68,.035,h*.36),(0,-d*.47,h*.38),m["screen"],.04)
+    rounded_box("range_oven_handle",(w*.58,.04,.04),(0,-d*.52,h*.66),m["metal"],.014)
+    for x in (-w*.28,-w*.09,w*.09,w*.28): cylinder("range_control_knob",.035,.035,(x,-d*.5,h*.79),m["metal"],12,(math.pi/2,0,0))
+    return (w,d,h)
+
+
+def build_dishwasher(m):
+    w,d,h=.6,.62,.86
+    rounded_box("dishwasher_body",(w*.96,d*.92,h*.94),(0,0,h*.5),m["steel"],.035)
+    rounded_box("dishwasher_panel",(w*.9,.06,h*.78),(0,-d*.48,h*.47),m["variant"],.025)
+    rounded_box("dishwasher_control_rail",(w*.78,.035,.09),(0,-d*.525,h*.79),m["screen"],.018)
+    for x in (-w*.21,-w*.13,-w*.05): cylinder("dishwasher_button",.012,.012,(x,-d*.55,h*.79),m["linen"],8,(math.pi/2,0,0))
+    return (w,d,h)
+
+
+def build_base_cabinet(m):
+    w,d,h=.9,.62,.91
+    cabinet_box(m,"base_cabinet",w,d,h-.075)
+    counter_top(m,"base_cabinet",w,d,h-.038)
+    return (w,d,h)
+
+
+def build_wall_cabinet(m):
+    w,d,h=.8,.36,.76
+    cabinet_box(m,"wall_cabinet",w,d,h,True)
+    rounded_box("wall_cabinet_crown",(w,d,.065),(0,0,h-.032),m["wood_dark"],.02)
+    return (w,d,h)
+
+
+def build_sink_cabinet(m):
+    w,d,h=1.0,.64,.93
+    cabinet_box(m,"sink_cabinet",w,d,h-.075)
+    counter_top(m,"sink_cabinet",w,d,h-.038)
+    rounded_box("apron_sink_basin",(w*.58,d*.58,.19),(0,-d*.04,h-.04),m["linen"],.045)
+    cylinder("sink_faucet_stem",.025,.3,(0,d*.28,h+.13),m["steel"],10)
+    rounded_box("sink_faucet_spout",(.04,d*.26,.04),(0,d*.18,h+.27),m["steel"],.015)
+    return (w,d,h+.29)
+
+
+def build_kitchen_counter(m):
+    w,d,h=1.2,.65,.93
+    rounded_box("prep_counter_carcass",(w*.96,d*.9,h*.78),(0,.02,h*.46),m["wood"],.04)
+    counter_top(m,"prep_counter",w,d,h-.038)
+    for x in (-w*.28,w*.28):
+        rounded_box("prep_counter_drawer",(w*.42,.055,h*.18),(x,-d*.46,h*.72),m["variant"],.018); add_knob("prep_counter_pull",(x,-d*.51,h*.72),.024,m["metal"])
+        rounded_box("prep_counter_door",(w*.42,.055,h*.4),(x,-d*.46,h*.38),m["variant"],.022)
+    rounded_box("prep_counter_toe_kick",(w*.84,d*.62,.09),(0,.05,.07),m["wood_dark"],.018)
+    return (w,d,h)
+
+
+def build_kitchen_island(m):
+    w,d,h=1.8,.9,.94
+    rounded_box("island_connected_body",(w*.72,d*.76,h*.76),(-w*.08,.05,h*.46),m["wood"],.045)
+    counter_top(m,"island",w,d,h-.04)
+    for x in (-.52,0,.52):
+        rounded_box("island_front_panel",(w*.25,.055,h*.48),(x,-d*.4,h*.44),m["variant"],.022)
+        add_knob("island_pull",(x,-d*.445,h*.55),.024,m["metal"])
+    for z in (.22,.5): rounded_box("island_open_shelf",(w*.48,d*.26,.06),(w*.31,d*.17,z),m["wood_dark"],.018)
+    for x in (-w*.42,w*.42): rounded_box("island_overhang_leg",(.085,.085,h*.82),(x,d*.36,h*.43),m["wood_dark"],.02)
+    return (w,d,h)
+
+
 BUILDERS = {
     "sofa": build_sofa,
     "loveseat": build_loveseat,
@@ -561,6 +858,31 @@ BUILDERS = {
     "checker-rug": build_checker_rug,
     "mirror": build_mirror,
     "pet-bed": build_pet_bed,
+    "modular-sectional": build_modular_sectional,
+    "midcentury-sofa": build_midcentury_sofa,
+    "sleeper-sofa": build_sleeper_sofa,
+    "storage-platform-bed": build_storage_platform_bed,
+    "arched-bed": build_arch_bed,
+    "daybed": build_daybed,
+    "bunk-bed": build_bunk_bed,
+    "nesting-tables": build_nesting_tables,
+    "tray-side-table": build_tray_table,
+    "c-side-table": build_c_table,
+    "drawer-side-table": build_drawer_side_table,
+    "standing-desk": build_standing_desk,
+    "trestle-desk": build_trestle_desk,
+    "corner-desk": build_corner_desk,
+    "secretary-desk": build_secretary_desk,
+    "slim-tv": build_tv,
+    "tv-stand": build_tv_stand,
+    "refrigerator": build_refrigerator,
+    "range-oven": build_range,
+    "dishwasher": build_dishwasher,
+    "base-cabinet": build_base_cabinet,
+    "wall-cabinet": build_wall_cabinet,
+    "sink-cabinet": build_sink_cabinet,
+    "kitchen-counter": build_kitchen_counter,
+    "kitchen-island": build_kitchen_island,
 }
 
 

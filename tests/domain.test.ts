@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createSamplePlan, decodeShare, deriveBoundaryWalls, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleBetweenCells, rectangleCells, serializePlan, snapMm, toggleCell, validateStair } from "../src/domain";
 import { usePlanner } from "../src/store";
-import { floorFinishes, wallFinishes } from "../src/surfaces";
+import { countertopFinishes, floorFinishes, supportsCountertopFinish, wallFinishes } from "../src/surfaces";
 
 describe("floor geometry", () => {
   it("creates and edits tile rectangles without duplicates", () => {
@@ -96,5 +96,19 @@ describe("room finishes", () => {
     expect(parsePlan(serializePlan(usePlanner.getState().plan)).floors[0].wallFinishId).toBe("handmade-brick");
     usePlanner.getState().undo();
     expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe("cream-plaster");
+  });
+});
+
+describe("kitchen worktops", () => {
+  it("offers stone, laminate, and concrete finishes on counter-capable pieces", () => {
+    expect(new Set(countertopFinishes.map((finish)=>finish.family))).toEqual(new Set(["Stone","Laminate","Concrete"]));
+    expect(supportsCountertopFinish("kitchen-island")).toBe(true);
+    expect(supportsCountertopFinish("refrigerator")).toBe(false);
+  });
+
+  it("preserves a per-placement countertop choice through project files", () => {
+    const plan=createSamplePlan("Kitchen finish test");
+    plan.furniture=[{id:"island",catalogId:"kitchen-island",floorId:plan.floors[0].id,x:1200,z:1400,rotation:0,widthMm:1800,depthMm:900,heightMm:940,variant:"cream",surfaceVariant:"ivory-marble"}];
+    expect(parsePlan(serializePlan(plan)).furniture[0].surfaceVariant).toBe("ivory-marble");
   });
 });
