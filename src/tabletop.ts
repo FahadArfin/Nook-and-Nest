@@ -6,7 +6,7 @@ interface Point3 { x:number;y:number;z:number }
 // Only simple continuous tops: L-shaped desks need an explicit height input
 // rather than a misleading rectangular hit area across their empty corner.
 export function supportsDesktop(item:FurniturePlacement) {
-  return catalog.find(c=>c.id===item.catalogId)?.shape==="table"&&!['corner-desk','nesting-tables','tray-side-table'].includes(item.catalogId);
+  return (["base-cabinet","kitchen-counter"].includes(item.catalogId)||catalog.find(c=>c.id===item.catalogId)?.shape==="table")&&!['corner-desk','nesting-tables','tray-side-table'].includes(item.catalogId);
 }
 export function tabletopPoint(plan:PlanDocumentV1,item:FurniturePlacement,origin:Point3,direction:Point3):PlacementPoint|undefined {
   const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor||Math.abs(direction.y)<.00001)return;

@@ -1,7 +1,7 @@
 export type Units = "imperial" | "metric";
 export type Tool = "select" | "paint" | "erase" | "wall" | "door" | "window" | "stairs";
 export type ViewMode = "isometric" | "top" | "dollhouse";
-export type Category = "Living" | "Bedroom" | "Dining" | "Office" | "Kitchen" | "Storage" | "Lighting" | "Decor" | "Windows";
+export type Category = "Living" | "Bedroom" | "Dining" | "Office" | "Kitchen" | "Storage" | "Lighting" | "Decor" | "Windows" | "Bathroom";
 
 export interface TileCell { x: number; z: number }
 export interface WallSegment { id: string; ax: number; az: number; bx: number; bz: number }
@@ -14,4 +14,4 @@ export interface PlanDocumentV1 {
   floors: FloorPlan[]; furniture: FurniturePlacement[];
   camera: { mode: ViewMode; ghostBelow: boolean; showGrid: boolean; showClearance: boolean };
 }
-export interface CatalogItem { id: string; name: string; category: Category; widthMm: number; depthMm: number; heightMm: number; icon: string; description: string; shape: "seat" | "table" | "bed" | "storage" | "lamp" | "plant" | "rug" | "decor" | "window" | "device" | "fan"; mount?: "floor" | "wall" | "surface" }
+export interface CatalogItem { id: string; name: string; category: Category; widthMm: number; depthMm: number; heightMm: number; icon: string; description: string; shape: "seat" | "table" | "bed" | "storage" | "lamp" | "plant" | "rug" | "decor" | "window" | "device" | "fan" | "bathroom"; mount?: "floor" | "wall" | "surface" }

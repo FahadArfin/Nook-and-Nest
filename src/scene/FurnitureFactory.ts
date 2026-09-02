@@ -156,6 +156,7 @@ export class FurnitureFactory {
       this.beveledBox(parent,"window-glazing",[width-rail*2,height-rail*2,.015],[0,height/2,0],this.material("window-glass","#a0c4c9",ghost?.15:.35),.003);
       return;
     }
+    if(definition.shape==="bathroom") return this.bathroom({parent,definition,item,width,depth,height,palette});
     if(definition.shape==="device") {
       if(definition.id==="mini-pc"||definition.id==="pc-tower"){this.beveledBox(parent,"computer-case",[width,height,depth],[0,height/2,0],palette.main,.014);this.beveledBox(parent,"computer-front",[width*.8,height*.7,.008],[0,height*.5,-depth*.505],palette.woodDark,.008);}
       else if(definition.id==="laptop"){this.beveledBox(parent,"laptop-base",[width,.018,depth],[0,.009,0],palette.main,.006);this.beveledBox(parent,"laptop-display",[width,height*.90,.02],[0,height*.52,depth*.40],palette.woodDark,.009);}
@@ -179,6 +180,41 @@ export class FurnitureFactory {
     if(definition.shape==="plant") return this.plant(args);
     if(definition.shape==="rug") return this.rug(args);
     return this.decor(args);
+  }
+
+  private bathroom({parent,definition,width:w,depth:d,height:h,palette:p}:BuilderArgs){
+    const id=definition.id;
+    const bowl=(width:number,depth:number,height:number,y:number)=>{
+      this.beveledBox(parent,"basin-floor",[width*.85,height*.14,depth*.85],[0,y+height*.07,0],p.cream,.014);
+      for(const side of [-1,1]){
+        this.beveledBox(parent,"basin-side",[width*.07,height,depth],[side*width*.465,y+height/2,0],p.main,.012);
+        this.beveledBox(parent,"basin-end",[width*.86,height,depth*.07],[0,y+height/2,side*depth*.465],p.cream,.012);
+      }
+    };
+    if(id.startsWith("bath-mirror")||id==="bath-medicine-cabinet"){
+      this.beveledBox(parent,"mirror-frame",[w,h,d],[0,h/2,0],p.main,Math.min(w,h)*.06);
+      this.beveledBox(parent,"mirror-face",[w*.90,h*.91,.008],[0,h/2,-d/2-.004],p.blue,.015);return;
+    }
+    if(id.includes("shower")&&!id.includes("combo")){
+      bowl(w,d,.07,0);this.beveledBox(parent,"shower-panel",[w,h-.07,.025],[0,(h+.07)/2,d/2-.02],p.main,.01);
+      this.beveledBox(parent,"shower-glass",[.012,h-.1,d],[w/2-.015,h/2,0],this.material("bath-glass","#a4c7c8",.18),.004);
+      this.cylinder(parent,"shower-riser",.025,h*.74,[0,h*.57,d*.43],p.woodDark,12);this.cylinder(parent,"rain-head",w*.24,.027,[0,h*.9,d*.25],p.woodDark,20);return;
+    }
+    if(id.includes("bathtub")||id.includes("-tub")||id.includes("combo")){
+      const tubH=id.includes("combo")?h*.27:h*.85;bowl(w,d,tubH,0);
+      if(id.includes("combo"))this.beveledBox(parent,"bath-shower-panel",[w,h,.025],[0,h/2,d/2],p.main,.01);return;
+    }
+    if(id.includes("toilet")){
+      bowl(w,d*.67,h*.31,h*.16);
+      if(id!=="wall-hung-toilet")this.beveledBox(parent,"cistern",[w*.92,h*.55,d*.24],[0,h*.70,d*.35],p.cream,.035);
+      return;
+    }
+    if(id.includes("vanity")){
+      this.beveledBox(parent,"vanity-base",[w,h*.68,d],[0,h*.34,0],p.main,.025);
+      this.beveledBox(parent,"vanity-worktop",[w,.04,d],[0,h*.70,0],p.woodLight,.014);bowl(w*.58,d*.7,h*.15,h*.72);return;
+    }
+    if(id==="pedestal-sink")this.cylinder(parent,"sink-pedestal",w*.30,h*.65,[0,h*.325,0],p.cream,18);
+    bowl(w,d,id==="vessel-sink"?h:h*.25,id==="pedestal-sink"?h*.65:0);
   }
 
   private bookshelf({parent,item,width:w,depth:d,height:h,palette:p}:BuilderArgs){

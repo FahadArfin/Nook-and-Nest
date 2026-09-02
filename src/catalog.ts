@@ -1,5 +1,24 @@
 import type { CatalogItem } from "./types";
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
+  ["bath-mirror-rounded","Soft-corner bathroom mirror","Bathroom",700,60,900,"bathroom","Rounded rectangular frame with a softly tinted mirror"],
+  ["bath-mirror-pill","Capsule bathroom mirror","Bathroom",550,50,950,"bathroom","Tall pill-shaped wall mirror"],
+  ["bath-mirror-halo","Halo bathroom mirror","Bathroom",750,55,750,"bathroom","Round mirror with a warm light-style border"],
+  ["bath-medicine-cabinet","Cottage mirror cabinet","Bathroom",800,160,800,"bathroom","Two mirrored doors with small pulls and concealed storage"],
+  ["pedestal-sink","Classic pedestal sink","Bathroom",620,500,910,"bathroom","Hollow basin on a sculpted pedestal with a mixer tap"],
+  ["wall-hung-sink","Little wall basin","Bathroom",600,450,360,"bathroom","Compact wall-mounted sink with a rear tap deck"],
+  ["vessel-sink","Round vessel sink","Bathroom",460,460,160,"bathroom","Standalone countertop bowl; place on a cabinet or counter"],
+  ["single-bath-vanity","Cottage single vanity","Bathroom",900,520,930,"bathroom","Drawer vanity with a vessel sink, worktop and faucet"],
+  ["double-bath-vanity","Together double vanity","Bathroom",1400,520,930,"bathroom","Two basins and faucets above generous drawer storage"],
+  ["floating-bath-vanity","Float bathroom vanity","Bathroom",900,520,600,"bathroom","Wall-mounted drawer vanity with a vessel basin"],
+  ["two-piece-toilet","Classic two-piece toilet","Bathroom",400,720,810,"bathroom","Separate cistern, open seat and hollow bowl"],
+  ["one-piece-toilet","Compact one-piece toilet","Bathroom",400,680,740,"bathroom","Integrated skirted base and low cistern"],
+  ["wall-hung-toilet","Float wall-hung toilet","Bathroom",380,560,550,"bathroom","Raised toilet bowl with a separate dual-flush wall plate"],
+  ["corner-shower","Corner shower enclosure","Bathroom",900,900,2050,"bathroom","Square standing shower with glass door, tray and rainfall head"],
+  ["walk-in-shower","Open walk-in shower","Bathroom",1200,900,2050,"bathroom","Wider standing shower with a fixed splash screen and open entry"],
+  ["alcove-bathtub","Everyday alcove bathtub","Bathroom",1520,760,580,"bathroom","Built-in style bath with a paneled front apron"],
+  ["oval-freestanding-tub","Pebble freestanding bathtub","Bathroom",1650,780,660,"bathroom","Rounded soaking tub with a contrasting outer shell"],
+  ["clawfoot-bathtub","Cottage clawfoot bathtub","Bathroom",1700,800,710,"bathroom","Vintage freestanding bath raised on four chunky feet"],
+  ["bath-shower-combo","Everyday bath and shower","Bathroom",1520,760,2100,"bathroom","Alcove tub, glass splash screen and overhead shower"],
   ["drum-coffee-table","Fluted drum coffee table","Living",860,860,400,"table","Round wood top with a softly fluted drum base"],
   ["lift-coffee-table","Keepsake lift-top table","Living",1100,600,460,"table","Closed lift-top storage table with a recessed finger pull"],
   ["glass-coffee-table","Glass garden coffee table","Living",1050,600,430,"table","Smoked glass inset, wood rim and a lower shelf"],
@@ -35,12 +54,14 @@ const rows: Array<[string,string,CatalogItem["category"],number,number,number,Ca
   ["floor-lamp","Bell floor lamp","Lighting",450,450,1550,"lamp","Warm pool of light"],["table-lamp","Glow lamp","Lighting",300,300,520,"lamp","Small cozy lamp"],["large-plant","Sunny plant","Decor",600,600,1300,"plant","A generous leafy plant"],["small-plant","Window plant","Decor",320,320,520,"plant","Fits anywhere"],["round-rug","Dewdrop rug","Decor",1800,1800,20,"rug","Soft round rug"],["runner-rug","Woven runner","Decor",800,2200,20,"rug","Long patterned runner"],["braided-rug","Hearth braid rug","Decor",1600,1000,25,"rug","Warm layered oval weave"],["scallop-rug","Petal edge rug","Decor",1700,1200,25,"rug","Playful scalloped border"],["checker-rug","Picnic check rug","Decor",1500,1500,25,"rug","Chunky cottage checks"],["mirror","Sunrise mirror","Decor",700,80,1100,"decor","Rounded standing mirror"],["pet-bed","Sleepy pet bed","Decor",700,550,180,"decor","A tiny nest for a companion"]
   ,["landscape-painting","Amber valley painting","Decor",900,70,650,"decor","A warm framed countryside painting"],["botanical-print","Garden study print","Decor",600,45,800,"decor","A quiet botanical illustration"],["abstract-poster","Shape & sun poster","Decor",600,35,850,"decor","Warm mid-century geometric art"],["coast-poster","Moon coast poster","Decor",650,35,900,"decor","A dreamy coastal night print"],["round-wall-mirror","Dewdrop wall mirror","Decor",720,55,720,"decor","Round mirror with a chunky wood rim"],["arch-wall-mirror","Window arch mirror","Decor",620,55,980,"decor","Tall softly arched wall mirror"],["whiteboard","Little plan board","Office",900,55,650,"decor","Whiteboard with tray, notes and markers"],["wall-shelf","Peg rail shelf","Storage",900,240,360,"storage","Wall shelf with pegs and a raised back"],["floating-shelves","Floating shelf pair","Storage",1000,240,720,"storage","Two staggered chunky floating shelves"],["books-upright","Storybook row","Decor",520,180,310,"decor","A varied row of standing books"],["books-stacked","Bedside book stack","Decor",420,280,260,"decor","Several books stacked horizontally"]
 ];
-const wallMountedIds = new Set(["landscape-painting","botanical-print","abstract-poster","coast-poster","round-wall-mirror","arch-wall-mirror","whiteboard","wall-shelf","floating-shelves","books-upright","books-stacked"]);
+const wallMountedIds = new Set(["bath-mirror-rounded","bath-mirror-pill","bath-mirror-halo","bath-medicine-cabinet","wall-hung-sink","floating-bath-vanity","wall-hung-toilet","landscape-painting","botanical-print","abstract-poster","coast-poster","round-wall-mirror","arch-wall-mirror","whiteboard","wall-shelf","floating-shelves","books-upright","books-stacked"]);
 export const isWindow = (catalogId: string) => rows.some(row=>row[0]===catalogId&&row[2]==="Windows");
 export const isWallMounted = (catalogId: string) => wallMountedIds.has(catalogId)||isWindow(catalogId);
+export const bathroomModelIds = new Set(rows.filter(row=>row[2]==="Bathroom").map(row=>row[0]));
+export const defaultMountHeight = (id:string):number|undefined => id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined;
 export const workspaceModelIds = new Set(rows.filter(row=>row[6]==="device"||row[6]==="fan"||["drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table","compact-computer-desk","gaming-desk","pedestal-computer-desk","ergonomic-office-chair","gaming-chair"].includes(row[0])).map(row=>row[0]));
-export const isSurfaceMounted = (id:string) => ["desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop"].includes(id);
-export const hasModelPreview = (id:string) => isWindow(id)||workspaceModelIds.has(id);
+export const isSurfaceMounted = (id:string) => ["desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
+export const hasModelPreview = (id:string) => isWindow(id)||workspaceModelIds.has(id)||bathroomModelIds.has(id);
 export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isWallMounted(id)?"wall":isSurfaceMounted(id)?"surface":"floor" }));
 export const variants = {
   sage: "#97a67c", clay: "#c4775f", oat: "#d9c5a3", rose: "#c89490",

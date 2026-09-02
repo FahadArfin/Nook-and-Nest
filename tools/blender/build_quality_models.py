@@ -1020,6 +1020,9 @@ BUILDERS.update(window_builders(rounded_box, cylinder, material, finish_mesh))
 from workspace_models import workspace_builders
 WORKSPACE_BUILDERS = workspace_builders(rounded_box, cylinder, material, finish_mesh)
 BUILDERS.update(WORKSPACE_BUILDERS)
+from bathroom_models import bathroom_builders
+BATHROOM_BUILDERS = bathroom_builders(rounded_box, cylinder, material, finish_mesh)
+BUILDERS.update(BATHROOM_BUILDERS)
 
 
 def export_model(catalog_id, builder):
@@ -1027,7 +1030,7 @@ def export_model(catalog_id, builder):
     bpy.context.preferences.filepaths.save_version = 0
     mats = common_materials()
     dimensions = builder(mats)
-    if catalog_id.startswith("window-") or catalog_id in WORKSPACE_BUILDERS:
+    if catalog_id.startswith("window-") or catalog_id in WORKSPACE_BUILDERS or catalog_id in BATHROOM_BUILDERS:
         # Fit the authored outer envelope to the advertised real dimensions.
         # Keep the Y=0 wall attachment plane, including for projecting bay models.
         from mathutils import Vector
@@ -1043,7 +1046,7 @@ def export_model(catalog_id, builder):
             matrix = obj.matrix_world.copy()
             for vertex in obj.data.vertices:
                 point = matrix @ vertex.co
-                y_center = (low[1]+high[1])/2 if catalog_id in WORKSPACE_BUILDERS else 0
+                y_center = (low[1]+high[1])/2 if catalog_id in WORKSPACE_BUILDERS or catalog_id in BATHROOM_BUILDERS else 0
                 vertex.co = ((point.x-(low[0]+high[0])/2)*factors[0], (point.y-y_center)*factors[1], (point.z-low[2])*factors[2])
             obj.matrix_world.identity()
         bpy.context.view_layer.update()
