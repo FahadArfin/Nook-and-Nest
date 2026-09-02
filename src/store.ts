@@ -13,6 +13,7 @@ interface PlannerState {
   addFloor(): void; deleteFloor(): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void;
   addWall(wall: Omit<WallSegment, "id">): void; addOpening(kind: "door" | "window", wallKey: string): void; addStair(x: number, z: number): void;
   placeFurniture(catalogId: string, x?: number, z?: number): void; moveFurniture(id: string, x: number, z: number): void;
+  confirmFurniture(item: FurniturePlacement): void;
   updateFurniture(id: string, patch: Partial<FurniturePlacement>): void; duplicateSelected(): void; deleteSelected(): void;
   undo(): void; redo(): void;
 }
@@ -38,6 +39,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100 }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: "sage" }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
+  confirmFurniture: (item) => set((state) => commit(state, { ...state.plan, furniture: [...state.plan.furniture, item] }, item.id)),
   moveFurniture: (id, x, z) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, x, z } : f) }, id)),
   updateFurniture: (id, patch) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, ...patch } : f) }, id)),
   duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = { ...item, id: uid(), x: item.x + 250, z: item.z + 250 }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
@@ -46,6 +48,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   redo: () => set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), selectedId: undefined }; }),
 }));
 
-const dbPromise = openDB("nook-and-nest", 1, { upgrade(db) { if (!db.objectStoreNames.contains("projects")) db.createObjectStore("projects"); } });
-export async function savePlan(plan: PlanDocumentV1) { const db = await dbPromise; await db.put("projects", plan, "active"); }
-export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return decodeShare(hash); const db = await dbPromise; return db.get("projects", "active"); }
+let dbPromise: ReturnType<typeof openDB> | undefined;
+const getDb = () => dbPromise ??= openDB("nook-and-nest", 1, { upgrade(db) { if (!db.objectStoreNames.contains("projects")) db.createObjectStore("projects"); } });
+export async function savePlan(plan: PlanDocumentV1) { const db = await getDb(); await db.put("projects", plan, "active"); }
+export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return decodeShare(hash); const db = await getDb(); return db.get("projects", "active"); }

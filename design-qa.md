@@ -1,52 +1,56 @@
-# Nook & Nest Handcrafted Furniture Design QA
+# Design QA — Furniture Draft Placement
 
-## Evidence
+**Source visual truth**
 
-- Source visual truth: `qa/source-furniture.png` (521x353), `qa/source-room.png` (711x514), and `qa/source-wide.png` (924x420).
-- Baseline implementation: `qa/implementation-1440x900.png` (1440x900), showing the earlier generic shape system.
-- Revised implementation: `qa/furniture-redesign-1280x720.png` at a 1280x720 CSS-pixel viewport and DPR 1.
-- Focused furniture region: `qa/furniture-redesign-focus.png` (697x599).
-- Full comparison evidence: `qa/furniture-redesign-comparison.png` (1600x1600).
-- State: development-only five-piece furniture study containing the bookshelf, dining table, dining chair, dresser, and bed at their catalog dimensions.
-- Normalization: sources are art-direction references rather than a UI mock. The combined comparison preserves each reference's aspect ratio and evaluates silhouette, form hierarchy, material response, warmth, handcrafted character, and diorama readability rather than pixel-identical layout.
+- `C:\Users\fahad\AppData\Local\Temp\codex-clipboard-bb48eae1-d2f1-41ca-9f98-2328d4598c94.png` — 376 × 285 px Sims placement footprint reference.
+- `C:\Users\fahad\AppData\Local\Temp\codex-clipboard-4817a90d-5a7d-4288-8d24-1858f8e79f62.png` — 131 × 111 px Sims floating-control reference.
+
+**Rendered implementation**
+
+- Local route: `http://127.0.0.1:5173/?showcase=detail&item=sofa&qa=placement`
+- Screenshot: `C:\Users\fahad\OneDrive\Documents\ChatGPT\furnishing\placement-implementation.png`
+- Combined comparison: `C:\Users\fahad\OneDrive\Documents\ChatGPT\furnishing\placement-comparison.png`
+- Browser viewport and implementation pixels: 1280 × 720 CSS px at density 1; screenshot 1280 × 720 px.
+- Comparison canvas: 1700 × 800 px. Source images were shown at native size, except the 131 × 111 control close-up was enlarged to 262 × 222 for legibility. The implementation remained at its 1280 × 720 native capture size.
+- State: a Cloud sofa was dragged from the catalog to a new room position and remained uncommitted with the translucent preview and four placement controls visible.
+
+## Full-view comparison evidence
+
+The combined comparison shows the same essential hierarchy as the references: furniture stays visibly attached to the room while being positioned, a bright green footprint communicates its active draft status, and a compact light control bar floats immediately above the model. The implementation intentionally preserves Nook & Nest's warm cream, sage, rounded-corner design system instead of copying The Sims' styling.
+
+## Focused region comparison evidence
+
+The enlarged Sims control reference and the implementation control bar are readable together in `placement-comparison.png`. Both use icon-only rotation and confirmation actions in a floating light panel. Nook & Nest adds a clearly differentiated terracotta cancel action and provides both rotation directions, matching the requested checkmark, X, and rotation options. The Phosphor icons are optically aligned, consistently weighted, and have 36 px targets.
+
+## Required fidelity surfaces
+
+- Fonts and typography: existing Fraunces/Nunito hierarchy is unchanged; the new control is icon-only and relies on accessible names/tooltips rather than cramped labels.
+- Spacing and layout rhythm: the 5 px control gap, 5 px inset, 36 px targets, 15 px radius, and model-relative positioning keep the overlay compact without touching the model or global tool dock.
+- Colors and tokens: cream panel, sage confirmation, terracotta cancellation, and green footprint map to the existing Nook & Nest palette while retaining the semantic contrast visible in the reference.
+- Image quality and asset fidelity: the live GLB furniture remains the actual preview asset at translucent visibility; it is not replaced by a placeholder, CSS drawing, or proxy silhouette.
+- Copy and content: the toolbar's accessible label includes the furniture name; each action has a concise label and tooltip.
+- Icons: all four controls use the project's Phosphor icon family and remain recognizable at the captured scale.
+- Accessibility and behavior: drag, click/keyboard start, R rotation, Enter confirmation, Escape/Delete cancellation, visible focus, semantic toolbar labels, and undo after confirmation were tested.
 
 ## Findings
 
-- P0: none.
-- P1: none.
-- P2: none.
-- P3 accepted: the procedural furniture deliberately uses simpler surface treatment and fewer micro-details than the cinematic references. This protects browser performance and keeps the assets editable from canonical millimetre dimensions.
-- P3 accepted: the dining tabletop uses restrained inset plank lines instead of a texture map. The lighting catches its chamfered perimeter, while the apron and tapered legs carry the secondary silhouette.
+- No actionable P0, P1, or P2 differences remain. The references are cropped game screenshots rather than a full Nook & Nest screen, so their overall page typography and layout are not direct fidelity targets.
 
-## Required Fidelity Surfaces
+## Comparison history
 
-- Fonts and typography: unchanged from the verified application. Fraunces and Nunito remain readable and visually compatible with the miniature-diorama direction; the source images contain no UI typography to reproduce.
-- Spacing and layout rhythm: the existing editor shell is unchanged. The representative assets remain legible at the normal isometric camera distance without crowding their editable footprints.
-- Colors and visual tokens: furniture now uses one centralized warm palette with honey and light woods, darker structural wood, muted painted variants, oatmeal cream, terracotta, green, blue, burgundy, and mustard. Materials are non-metallic, high-roughness, and softly responsive rather than glossy.
-- Image and asset quality: every revised object is still an original Babylon.js procedural assembly. No reference furniture, textures, models, or proprietary shaders were copied or imported. Visible hard-edged boxes were replaced with low-poly chamfered geometry where form readability benefits.
-- Copy and content: no application copy changed. Catalog names, dimensions, descriptions, and saved catalog IDs remain intact.
+- Pass 1: no P0/P1/P2 visual finding. The combined view confirmed that the active footprint, translucent real model, nearby control cluster, confirmation emphasis, and compact density communicate the same placement state as the references. No visual fixes were required after this pass.
 
-## Form and Style Review
+## Implementation checklist
 
-- Primary forms: each representative piece has a clear dimension-constrained silhouette: framed shelf, apron table, slatted chair, capped drawer chest, and layered bed.
-- Secondary forms: posts, recessed backing, shelves, plinths, drawer faces, door trim, handles, aprons, rails, cushions, headboard panel, blanket, and supports produce readable depth.
-- Decorative forms: varied books, shelf pottery and plant, table plank lines, drawer hardware, pillows, and blanket folds add personality without clutter.
-- Handcrafted variation: book sizes and lean, cushion offsets, and pillow rotations derive deterministically from the stable furniture placement ID. Re-rendering or reloading the same project does not change the result.
-- Dimensional integrity: generation consumes the existing width, depth, and height values directly. Caps, bevels, and trims remain within the defined bounding dimensions, with only negligible soft-form tolerance.
+- [x] Drag from the catalog moves the preview into the room.
+- [x] Draft does not increment the saved furniture count.
+- [x] Confirm, cancel, rotate-left, and rotate-right controls remain visible after release.
+- [x] Confirmation is a single undoable plan edit.
+- [x] Keyboard start, focus transfer, rotation, confirmation, and cancellation work.
+- [x] Browser console contains no errors or warnings for the tested flow.
 
-## Comparison History
+## Follow-up polish
 
-1. Baseline P1: `qa/implementation-1440x900.png` showed generic type-level assemblies dominated by raw boxes and ellipsoids. Fix: introduced a centralized `FurnitureFactory`, low-poly chamfered-box geometry, tapered legs, shared material families, and dedicated builders for the five representative items, then extended the design system across all catalog shapes.
-2. First redesign P2: the initial browser pass had overly dark woods and strong cast shadows that obscured drawer and bed layering. Fix: warmed the wood palette, added restrained material ambient response, softened shadow darkness, and rechecked the same five-piece scene. Post-fix evidence: `qa/furniture-redesign-focus.png` and `qa/furniture-redesign-comparison.png`.
-3. First redesign P2: the dining table and storage pieces still lacked enough secondary information at the normal camera distance. Fix: added aprons, inset plank lines, top caps, plinths, projected drawer faces, oversized handles, recessed doors, shelf backing, books, pottery, and blanket folds. Post-fix evidence: `qa/furniture-redesign-focus.png`.
-
-## Functional Verification
-
-- Browser placement and dimension edit passed; an added Story shelf rendered immediately and accepted a 900mm to 950mm width edit.
-- Direct canvas dragging passed; the selected shelf moved from X 1700mm to X 1100mm.
-- Undo recovery passed; the temporary dimension, drag, and placement edits were reversed and the saved room returned to its original four pieces.
-- Picking, selection outline, rotation controls, catalog mapping, collision warnings, and autosave use their existing data and event paths; their schemas were not changed.
-- A 150-piece stress scene rendered 2,551 meshes at a reported 120 FPS in the verification browser with no console errors.
-- Existing serialization and share round-trip coverage passed, plus new tests confirmed stable variation and unchanged catalog/placement identifiers.
+- P3: a future collision state could tint the green footprint amber or red when placement is invalid, while keeping the current soft-warning philosophy.
 
 final result: passed

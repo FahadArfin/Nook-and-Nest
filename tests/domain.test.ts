@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { createSamplePlan, decodeShare, deriveBoundaryWalls, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleCells, serializePlan, snapMm, toggleCell, validateStair } from "../src/domain";
+import { usePlanner } from "../src/store";
 
 describe("floor geometry", () => {
   it("creates and edits tile rectangles without duplicates", () => {
@@ -45,5 +46,20 @@ describe("project portability", () => {
     expect(copy.name).toBe("Shared home copy");
     expect(copy.id).not.toBe(plan.id);
     expect(copy.floors).toHaveLength(2);
+  });
+});
+
+describe("draft furniture confirmation", () => {
+  it("adds a placement only when confirmed and keeps it undoable", () => {
+    const plan = createSamplePlan("Draft test");
+    const before = plan.furniture.length;
+    const placement = { id: "draft-chair", catalogId: "chair", floorId: plan.floors[0].id, x: 1250, z: 1650, rotation: 15, widthMm: 880, depthMm: 820, heightMm: 900, variant: "sage" };
+    usePlanner.setState({ plan, activeFloorId: plan.floors[0].id, selectedId: undefined, past: [], future: [] });
+    expect(usePlanner.getState().plan.furniture).toHaveLength(before);
+    usePlanner.getState().confirmFurniture(placement);
+    expect(usePlanner.getState().plan.furniture).toHaveLength(before + 1);
+    expect(usePlanner.getState().selectedId).toBe("draft-chair");
+    usePlanner.getState().undo();
+    expect(usePlanner.getState().plan.furniture).toHaveLength(before);
   });
 });
