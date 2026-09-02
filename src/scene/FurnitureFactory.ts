@@ -35,7 +35,7 @@ export class FurnitureFactory {
 
   constructor(private scene: Scene, private shadow: ShadowGenerator) {}
 
-  resetMaterials() { this.materialCache.clear(); }
+  resetMaterials() { for (const material of this.materialCache.values()) material.dispose(false, false); this.materialCache.clear(); }
 
   private material(name: string, color: string, alpha = 1) {
     const key = `${name}:${color}:${alpha}`;
