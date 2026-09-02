@@ -147,6 +147,15 @@ export class FurnitureFactory {
     const alpha=ghost?.2:1; const variant=variants[item.variant as keyof typeof variants] ?? variants.sage;
     const palette={main:this.material(`main-${item.variant}`,variant,alpha),wood:this.material("wood-honey",FURNITURE_STYLE.wood.honey,alpha),woodLight:this.material("wood-light",FURNITURE_STYLE.wood.light,alpha),woodDark:this.material("wood-dark",FURNITURE_STYLE.wood.dark,alpha),cream:this.material("cream",FURNITURE_STYLE.accent.cream,alpha),terracotta:this.material("terracotta",FURNITURE_STYLE.accent.terracotta,alpha),green:this.material("green",FURNITURE_STYLE.accent.green,alpha),blue:this.material("blue",FURNITURE_STYLE.accent.blue,alpha),burgundy:this.material("burgundy",FURNITURE_STYLE.accent.burgundy,alpha),mustard:this.material("mustard",FURNITURE_STYLE.fabric.mustard,alpha)};
     const args={parent,definition,item,width,depth,height,palette};
+    if(definition.shape==="window") {
+      const rail=Math.min(.085,width*.12,height*.12);
+      for(const side of [-1,1]){
+        this.beveledBox(parent,"window-jamb",[rail,height,depth*.65],[side*(width-rail)/2,height/2,0],palette.main,.012);
+        this.beveledBox(parent,"window-rail",[width,rail,depth],[0,side<0?rail/2:height-rail/2,0],side<0?palette.wood:palette.main,.012);
+      }
+      this.beveledBox(parent,"window-glazing",[width-rail*2,height-rail*2,.015],[0,height/2,0],this.material("window-glass","#a0c4c9",ghost?.15:.35),.003);
+      return;
+    }
     if(definition.id==="bookshelf") return this.bookshelf(args);
     if(definition.shape==="storage") return this.storage(args);
     if(definition.shape==="bed") return this.bed(args);

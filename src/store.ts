@@ -1,13 +1,14 @@
 import { create } from "zustand";
 import { openDB } from "idb";
-import { catalog, isWallMounted } from "./catalog";
+import { catalog, isWallMounted, isWindow } from "./catalog";
 import { defaultCountertopFinish, defaultDoorFinish, supportsCountertopFinish } from "./surfaces";
+import { snapWindow, windowProblem } from "./windows";
 import { createSamplePlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
-  plan: PlanDocumentV1; activeFloorId: string; selectedId?: string; tool: Tool; search: string; category: string; activeDoorFinish: string; past: Snapshot[]; future: Snapshot[];
+  placementNotice?: string; plan: PlanDocumentV1; activeFloorId: string; selectedId?: string; tool: Tool; search: string; category: string; activeDoorFinish: string; past: Snapshot[]; future: Snapshot[];
   setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; setDoorFinish(finishId:string):void; select(id?: string): void;
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance"): void; setActiveFloor(id: string): void;
@@ -26,7 +27,7 @@ const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|nu
 
 export const usePlanner = create<PlannerState>((set, get) => ({
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
-  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId }),
+  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,placementNotice:undefined }),
   replacePlan: (plan) => set({ plan, activeFloorId: plan.floors[0].id, selectedId: undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units, gridSizeMm: units === "imperial" ? 304.8 : 250 })),
@@ -43,10 +44,10 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100, finishId: kind==="door"?state.activeDoorFinish:undefined }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: "sage", surfaceVariant: supportsCountertopFinish(catalogId) ? defaultCountertopFinish.id : undefined, elevationMm:isWallMounted(catalogId)?1100:undefined }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
-  confirmFurniture: (item) => set((state) => commit(state, { ...state.plan, furniture: [...state.plan.furniture, item] }, null)),
-  moveFurniture: (id, x, z) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, x, z } : f) }, id)),
-  updateFurniture: (id, patch) => set((state) => commit(state, { ...state.plan, furniture: state.plan.furniture.map((f) => f.id === id ? { ...f, ...patch } : f) }, id)),
-  duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = { ...item, id: uid(), x: item.x + 250, z: item.z + 250 }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
+  confirmFurniture: (item) => set((state) => {const mounted=snapWindow(state.plan,item),problem=windowProblem(state.plan,mounted);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:[...state.plan.furniture,mounted]},null),placementNotice:undefined};}),
+  moveFurniture: (id,x,z) => get().updateFurniture(id,{x,z}),
+  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const candidate=snapWindow(state.plan,{...existing,...patch});const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
+  duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWindow(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
   deleteSelected: () => set((state) => state.selectedId ? commit(state, { ...state.plan, furniture: state.plan.furniture.filter((f) => f.id !== state.selectedId) }, null) : state),
   undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], selectedId: undefined }; }),
   redo: () => set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), selectedId: undefined }; }),

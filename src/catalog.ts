@@ -1,5 +1,11 @@
 import type { CatalogItem } from "./types";
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
+  ["window-casement","Cottage casement","Windows",1200,220,1250,"window","Twin opening leaves with chunky frames and brass handles"],
+  ["window-sash","Heritage sash","Windows",1000,220,1400,"window","Traditional six-pane double-hung window"],
+  ["window-picture","Panorama picture window","Windows",1800,180,1100,"window","A broad uninterrupted pane in a softly chamfered frame"],
+  ["window-arched","Storybook arch window","Windows",1000,220,1450,"window","A curved crown and fanlight above twin panes"],
+  ["window-bay","Reading nook bay","Windows",1800,650,1300,"window","Three projecting glazed faces with a deep wooden sill"],
+  ["window-awning","Little awning window","Windows",900,200,650,"window","Compact horizontal window with top hinges and a latch"],
   ["sofa","Cloud sofa","Living",2100,900,850,"seat","Deep and softly rounded"],["loveseat","Little loveseat","Living",1450,850,820,"seat","A snug two-seater"],["armchair","Nook chair","Living",880,820,900,"seat","A generous reading chair"],["ottoman","Puff ottoman","Living",650,500,420,"seat","Feet-up comfort"],["coffee-table","Pebble table","Living",1100,600,420,"table","Low rounded coffee table"],["side-table","Acorn side table","Living",480,480,520,"table","Small round companion"],
   ["modular-sectional","Hearth sectional","Living",2850,1900,820,"seat","A flexible L-shaped modular sofa"],["midcentury-sofa","Juniper sofa","Living",2050,860,830,"seat","Tailored cushions and splayed wood legs"],["sleeper-sofa","Foldaway sofa","Living",1980,920,840,"seat","A compact sofa with a pull-out bed"],
   ["nesting-tables","Nest tables","Living",620,480,560,"table","Two softly rounded tables that tuck together"],["tray-side-table","Tea tray table","Living",520,420,610,"table","A raised-edge tray on a folding frame"],["c-side-table","Cuddle-up table","Living",460,380,640,"table","Slides neatly beside a sofa"],["drawer-side-table","Keepsake table","Living",540,440,590,"storage","A compact end table with one drawer"],
@@ -14,8 +20,9 @@ const rows: Array<[string,string,CatalogItem["category"],number,number,number,Ca
   ,["landscape-painting","Amber valley painting","Decor",900,70,650,"decor","A warm framed countryside painting"],["botanical-print","Garden study print","Decor",600,45,800,"decor","A quiet botanical illustration"],["abstract-poster","Shape & sun poster","Decor",600,35,850,"decor","Warm mid-century geometric art"],["coast-poster","Moon coast poster","Decor",650,35,900,"decor","A dreamy coastal night print"],["round-wall-mirror","Dewdrop wall mirror","Decor",720,55,720,"decor","Round mirror with a chunky wood rim"],["arch-wall-mirror","Window arch mirror","Decor",620,55,980,"decor","Tall softly arched wall mirror"],["whiteboard","Little plan board","Office",900,55,650,"decor","Whiteboard with tray, notes and markers"],["wall-shelf","Peg rail shelf","Storage",900,240,360,"storage","Wall shelf with pegs and a raised back"],["floating-shelves","Floating shelf pair","Storage",1000,240,720,"storage","Two staggered chunky floating shelves"],["books-upright","Storybook row","Decor",520,180,310,"decor","A varied row of standing books"],["books-stacked","Bedside book stack","Decor",420,280,260,"decor","Several books stacked horizontally"]
 ];
 const wallMountedIds = new Set(["landscape-painting","botanical-print","abstract-poster","coast-poster","round-wall-mirror","arch-wall-mirror","whiteboard","wall-shelf","floating-shelves","books-upright","books-stacked"]);
-export const isWallMounted = (catalogId: string) => wallMountedIds.has(catalogId);
-export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:wallMountedIds.has(id)?"wall":"floor" }));
+export const isWindow = (catalogId: string) => rows.some(row=>row[0]===catalogId&&row[2]==="Windows");
+export const isWallMounted = (catalogId: string) => wallMountedIds.has(catalogId)||isWindow(catalogId);
+export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isWallMounted(id)?"wall":"floor" }));
 export const variants = {
   sage: "#97a67c", clay: "#c4775f", oat: "#d9c5a3", rose: "#c89490",
   ink: "#5d6965", navy: "#53687d", rust: "#9f5d47", cream: "#eee4d1",

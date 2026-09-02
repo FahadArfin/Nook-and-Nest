@@ -1013,11 +1013,36 @@ BUILDERS = {
 }
 
 
+# Blender's script runner does not always include this directory on sys.path.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from window_models import window_builders
+BUILDERS.update(window_builders(rounded_box, cylinder, material, finish_mesh))
+
+
 def export_model(catalog_id, builder):
     reset_scene()
     bpy.context.preferences.filepaths.save_version = 0
     mats = common_materials()
     dimensions = builder(mats)
+    if catalog_id.startswith("window-"):
+        # Fit the authored outer envelope to the advertised real dimensions.
+        # Keep the Y=0 wall attachment plane, including for projecting bay models.
+        from mathutils import Vector
+        bpy.context.view_layer.update()
+        meshes = [obj for obj in bpy.context.scene.objects if obj.type == "MESH"]
+        bounds = [obj.matrix_world @ vertex.co for obj in meshes for vertex in obj.data.vertices]
+        low = [min(p[i] for p in bounds) for i in range(3)]
+        high = [max(p[i] for p in bounds) for i in range(3)]
+        factors = [dimensions[i] / (high[i] - low[i]) for i in range(3)]
+        for obj in meshes:
+            # Bake transforms first: non-uniform world scaling must not distort
+            # the orientation of angled bay returns or the curved crown.
+            matrix = obj.matrix_world.copy()
+            for vertex in obj.data.vertices:
+                point = matrix @ vertex.co
+                vertex.co = ((point.x-(low[0]+high[0])/2)*factors[0], point.y*factors[1], (point.z-low[2])*factors[2])
+            obj.matrix_world.identity()
+        bpy.context.view_layer.update()
     for obj in bpy.context.scene.objects:
         if obj.type == "MESH":
             obj["catalog_id"] = catalog_id
