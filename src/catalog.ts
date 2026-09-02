@@ -1,5 +1,21 @@
 import type { CatalogItem } from "./types";
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
+  ["drum-coffee-table","Fluted drum coffee table","Living",860,860,400,"table","Round wood top with a softly fluted drum base"],
+  ["lift-coffee-table","Keepsake lift-top table","Living",1100,600,460,"table","Closed lift-top storage table with a recessed finger pull"],
+  ["glass-coffee-table","Glass garden coffee table","Living",1050,600,430,"table","Smoked glass inset, wood rim and a lower shelf"],
+  ["oval-coffee-table","Willow oval coffee table","Living",1200,600,420,"table","Oval wood top over a magazine shelf"],
+  ["compact-computer-desk","Little computer desk","Office",1000,550,760,"table","Compact computer table with a keyboard tray"],
+  ["gaming-desk","Quest gaming desk","Office",1600,800,760,"table","Broad desktop, angled sled legs and cable trough"],
+  ["pedestal-computer-desk","Studio drawer desk","Office",1500,700,760,"table","A generous worktop over twin drawer pedestals"],
+  ["desktop-monitor","Everyday monitor","Office",610,220,460,"device","Desktop monitor with a colorable frame and stand"],
+  ["wide-monitor","Panorama ultrawide monitor","Office",820,250,450,"device","Wide-screen monitor for a spacious computer setup"],
+  ["ergonomic-office-chair","Breeze office chair","Office",660,660,1120,"seat","Open woven back, lumbar support, headrest and casters"],
+  ["gaming-chair","Quest gaming chair","Office",720,720,1240,"seat","High-back gaming chair with bolsters and a five-star base"],
+  ["pc-tower","Studio PC tower","Office",230,450,470,"device","Desktop computer case with front fans, ports and side panel"],
+  ["mini-pc","Pocket mini PC","Office",140,140,52,"device","Small desktop computer with vents and front ports"],
+  ["laptop","Daylight laptop","Office",350,260,250,"device","Open laptop with keyboard, trackpad and screen"],
+  ["tower-fan","Breeze tower fan","Living",290,290,1050,"fan","Slim tower fan with louvres and top controls"],
+  ["pedestal-fan","Summer pedestal fan","Living",460,400,1250,"fan","Classic three-blade fan with a circular safety grille"],
   ["window-casement","Cottage casement","Windows",1200,220,1250,"window","Twin opening leaves with chunky frames and brass handles"],
   ["window-sash","Heritage sash","Windows",1000,220,1400,"window","Traditional six-pane double-hung window"],
   ["window-picture","Panorama picture window","Windows",1800,180,1100,"window","A broad uninterrupted pane in a softly chamfered frame"],
@@ -22,7 +38,10 @@ const rows: Array<[string,string,CatalogItem["category"],number,number,number,Ca
 const wallMountedIds = new Set(["landscape-painting","botanical-print","abstract-poster","coast-poster","round-wall-mirror","arch-wall-mirror","whiteboard","wall-shelf","floating-shelves","books-upright","books-stacked"]);
 export const isWindow = (catalogId: string) => rows.some(row=>row[0]===catalogId&&row[2]==="Windows");
 export const isWallMounted = (catalogId: string) => wallMountedIds.has(catalogId)||isWindow(catalogId);
-export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isWallMounted(id)?"wall":"floor" }));
+export const workspaceModelIds = new Set(rows.filter(row=>row[6]==="device"||row[6]==="fan"||["drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table","compact-computer-desk","gaming-desk","pedestal-computer-desk","ergonomic-office-chair","gaming-chair"].includes(row[0])).map(row=>row[0]));
+export const isSurfaceMounted = (id:string) => ["desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop"].includes(id);
+export const hasModelPreview = (id:string) => isWindow(id)||workspaceModelIds.has(id);
+export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isWallMounted(id)?"wall":isSurfaceMounted(id)?"surface":"floor" }));
 export const variants = {
   sage: "#97a67c", clay: "#c4775f", oat: "#d9c5a3", rose: "#c89490",
   ink: "#5d6965", navy: "#53687d", rust: "#9f5d47", cream: "#eee4d1",

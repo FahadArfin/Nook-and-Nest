@@ -156,10 +156,22 @@ export class FurnitureFactory {
       this.beveledBox(parent,"window-glazing",[width-rail*2,height-rail*2,.015],[0,height/2,0],this.material("window-glass","#a0c4c9",ghost?.15:.35),.003);
       return;
     }
+    if(definition.shape==="device") {
+      if(definition.id==="mini-pc"||definition.id==="pc-tower"){this.beveledBox(parent,"computer-case",[width,height,depth],[0,height/2,0],palette.main,.014);this.beveledBox(parent,"computer-front",[width*.8,height*.7,.008],[0,height*.5,-depth*.505],palette.woodDark,.008);}
+      else if(definition.id==="laptop"){this.beveledBox(parent,"laptop-base",[width,.018,depth],[0,.009,0],palette.main,.006);this.beveledBox(parent,"laptop-display",[width,height*.90,.02],[0,height*.52,depth*.40],palette.woodDark,.009);}
+      else {this.beveledBox(parent,"monitor-base",[width*.4,.025,depth],[0,.0125,0],palette.main,.008);this.beveledBox(parent,"monitor-stand",[.045,height*.45,.04],[0,height*.23,0],palette.woodDark,.008);this.beveledBox(parent,"monitor-frame",[width,height*.7,.045],[0,height*.65,0],palette.main,.012);this.beveledBox(parent,"monitor-screen",[width*.93,height*.63,.008],[0,height*.65,-.027],palette.blue,.005);}
+      return;
+    }
+    if(definition.shape==="fan"){
+      this.cylinder(parent,"fan-base",Math.min(width,depth),.035,[0,.0175,0],palette.woodDark,24);
+      if(definition.id==="tower-fan"){this.beveledBox(parent,"tower-body",[width*.6,height*.94,depth*.6],[0,height*.53,0],palette.main,.035);for(let i=0;i<15;i++)this.beveledBox(parent,"fan-slot",[width*.4,.012,.008],[0,height*(.2+i*.047),-depth*.31],palette.woodDark,.003);}
+      else {this.cylinder(parent,"fan-pole",.035,height*.73,[0,height*.38,0],palette.woodDark);const rim=MeshBuilder.CreateTorus("fan-guard",{diameter:width*.95,thickness:.022,tessellation:28},this.scene);rim.rotation.x=Math.PI/2;rim.position=new Vector3(0,height-width*.48,0);this.register(rim,parent,palette.main);const hub=this.cylinder(parent,"fan-hub",width*.15,.08,[0,height-width*.48,0],palette.main,16);hub.rotation.x=Math.PI/2;for(let i=0;i<3;i++){const blade=this.beveledBox(parent,"fan-blade",[width*.37,.055,.03],[0,height-width*.48,0],palette.main,.012);blade.rotation.z=i*Math.PI*2/3;}}
+      return;
+    }
     if(definition.id==="bookshelf") return this.bookshelf(args);
     if(definition.shape==="storage") return this.storage(args);
     if(definition.shape==="bed") return this.bed(args);
-    if(definition.id==="dining-chair"||definition.id==="office-chair") return this.chair(args);
+    if(definition.id==="dining-chair"||definition.id==="office-chair"||definition.id==="gaming-chair"||definition.id==="ergonomic-office-chair") return this.chair(args);
     if(definition.id==="bar-stool") return this.stool(args);
     if(definition.shape==="table") return this.table(args);
     if(definition.shape==="seat") return this.seat(args);

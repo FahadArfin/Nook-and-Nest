@@ -14,4 +14,4 @@ export interface PlanDocumentV1 {
   floors: FloorPlan[]; furniture: FurniturePlacement[];
   camera: { mode: ViewMode; ghostBelow: boolean; showGrid: boolean; showClearance: boolean };
 }
-export interface CatalogItem { id: string; name: string; category: Category; widthMm: number; depthMm: number; heightMm: number; icon: string; description: string; shape: "seat" | "table" | "bed" | "storage" | "lamp" | "plant" | "rug" | "decor" | "window"; mount?: "floor" | "wall" }
+export interface CatalogItem { id: string; name: string; category: Category; widthMm: number; depthMm: number; heightMm: number; icon: string; description: string; shape: "seat" | "table" | "bed" | "storage" | "lamp" | "plant" | "rug" | "decor" | "window" | "device" | "fan"; mount?: "floor" | "wall" | "surface" }

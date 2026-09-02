@@ -1,5 +1,6 @@
 import { ArcRotateCamera, Color3, Color4, DirectionalLight, Engine, HemisphericLight, Matrix, Mesh, MeshBuilder, PointerEventTypes, Scene, ShadowGenerator, StandardMaterial, Texture, TransformNode, Vector3 } from "@babylonjs/core";
-import { catalog, isWindow } from "../catalog";
+import { catalog, isWindow, isSurfaceMounted } from "../catalog";
+import { tabletopPoint, type PlacementPoint } from "../tabletop";
 import { snapWindow, windowProblem, windowWallPieces, wallRuns } from "../windows";
 import { deriveBoundaryWalls, rectangleBetweenCells } from "../domain";
 import { findDoorFinish, findFloorFinish, findWallFinish, type SurfaceFinish } from "../surfaces";
@@ -7,9 +8,9 @@ import type { FloorPlan, FurniturePlacement, Opening, PlanDocumentV1, TileCell, 
 import { FurnitureFactory } from "./FurnitureFactory";
 import { FurnitureModelLibrary } from "./FurnitureModelLibrary";
 
-interface Callbacks { onCell(x: number, z: number): void; onWallSegment(wall:Omit<WallSegment,"id">):void; onTileDraft(cells: TileCell[], present: boolean): void; onSelect(id?: string): void; onMove(id: string, xMm: number, zMm: number): void; onDraftMove(xMm: number, zMm: number): void; onWall(id: string): void }
+interface Callbacks { onCell(x: number, z: number): void; onWallSegment(wall:Omit<WallSegment,"id">):void; onTileDraft(cells: TileCell[], present: boolean): void; onSelect(id?: string): void; onMove(id: string, xMm: number, zMm: number, elevationMm?:number): void; onDraftMove(xMm: number, zMm: number, elevationMm?:number): void; onWall(id: string): void }
 export class SceneController {
-  private engine: Engine; private scene: Scene; private camera: ArcRotateCamera; private root: TransformNode; private callbacks: Callbacks; private tool: Tool = "select"; private dragging?: string; private draggedPosition?: {x:number;z:number}; private draggingDraft = false; private tileDragStart?: TileCell; private tileDragCurrent?: TileCell; private tileDraftRoot?: TransformNode; private tileDraftCells: TileCell[]=[]; private tileDraftPresent=true; private tileDraftAnchor?: Vector3; private wallDragStart?:TileCell; private wallDragCurrent?:TileCell; private wallDraft?:Omit<WallSegment,"id">; private wallDraftMesh?:Mesh; private surfaceMaterials=new Map<string,StandardMaterial>(); private activePlan?: PlanDocumentV1; private activeFloorId = ""; private selectedId?: string; private activeDraft?: FurniturePlacement; private previewNode?: TransformNode; private selectedNode?: TransformNode; private draftPosition?: { x: number; z: number }; private shadow: ShadowGenerator; private furnitureFactory: FurnitureFactory; private furnitureModels: FurnitureModelLibrary;
+  private engine: Engine; private scene: Scene; private camera: ArcRotateCamera; private root: TransformNode; private callbacks: Callbacks; private tool: Tool = "select"; private dragging?: string; private draggedPosition?: PlacementPoint; private draggingDraft = false; private tileDragStart?: TileCell; private tileDragCurrent?: TileCell; private tileDraftRoot?: TransformNode; private tileDraftCells: TileCell[]=[]; private tileDraftPresent=true; private tileDraftAnchor?: Vector3; private wallDragStart?:TileCell; private wallDragCurrent?:TileCell; private wallDraft?:Omit<WallSegment,"id">; private wallDraftMesh?:Mesh; private surfaceMaterials=new Map<string,StandardMaterial>(); private activePlan?: PlanDocumentV1; private activeFloorId = ""; private selectedId?: string; private activeDraft?: FurniturePlacement; private previewNode?: TransformNode; private selectedNode?: TransformNode; private draftPosition?: PlacementPoint; private shadow: ShadowGenerator; private furnitureFactory: FurnitureFactory; private furnitureModels: FurnitureModelLibrary;
   constructor(private canvas: HTMLCanvasElement, callbacks: Callbacks) {
     this.callbacks = callbacks; this.engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
     this.scene = new Scene(this.engine); this.scene.clearColor = new Color4(0.72, 0.78, 0.62, 1); this.scene.ambientColor = new Color3(.12,.11,.09); this.scene.imageProcessingConfiguration.exposure=.72; this.scene.imageProcessingConfiguration.contrast=1.12;
@@ -31,8 +32,12 @@ export class SceneController {
     const point = ray.origin.add(ray.direction.scale(distance));
     return { x: Math.round(point.x * 20) * 50, z: Math.round(point.z * 20) * 50 };
   }
-  private positionForItem(screenX:number,screenY:number,item?:FurniturePlacement) {
+  private positionForItem(screenX:number,screenY:number,item?:FurniturePlacement):PlacementPoint|undefined {
     const floorPoint=this.pointOnActiveFloor(screenX,screenY);
+    if(item&&isSurfaceMounted(item.catalogId)&&this.activePlan){
+      const ray=this.scene.createPickingRay(screenX,screenY,Matrix.Identity(),this.camera);
+      return tabletopPoint(this.activePlan,item,ray.origin,ray.direction)??(floorPoint?{...floorPoint,elevationMm:0}:undefined);
+    }
     if(!item||!isWindow(item.catalogId)||!this.activePlan)return floorPoint;
     const floor=this.activePlan.floors.find(f=>f.id===item.floorId);if(!floor)return floorPoint;
     const ray=this.scene.createPickingRay(screenX,screenY,Matrix.Identity(),this.camera);
@@ -48,12 +53,13 @@ export class SceneController {
     const point=hits[0]??floorPoint;
     return point?snapWindow(this.activePlan,{...item,x:point.x,z:point.z}):undefined;
   }
-  private applyPreviewPosition(position: { x: number; z: number }) {
+  private applyPreviewPosition(position: PlacementPoint) {
     if (!this.previewNode) return;
     const mounted=this.activePlan&&this.activeDraft?snapWindow(this.activePlan,{...this.activeDraft,...position}):undefined;
     if(mounted){position=mounted;this.previewNode.rotation.y=mounted.rotation*Math.PI/180;}
     this.previewNode.position.x = position.x / 1000;
     this.previewNode.position.z = position.z / 1000;
+    if(position.elevationMm!==undefined&&this.activePlan){const floor=this.activePlan.floors.find(f=>f.id===this.activeFloorId);this.previewNode.position.y=(floor?.elevationMm??0)/1000+(this.activeDraft&&isWindow(this.activeDraft.catalogId)?0:.05)+position.elevationMm/1000;}
     this.draftPosition = position;
   }
   movePreviewFromClient(clientX: number, clientY: number) {
@@ -97,7 +103,7 @@ export class SceneController {
   private surfaceMaterial(name:string,finish:SurfaceFinish,alpha=1){const key=`${finish.id}:${alpha}`;const cached=this.surfaceMaterials.get(key);if(cached)return cached;const mat=this.material(name,"#ffffff",alpha);const texture=new Texture(finish.texture,this.scene,false,false,Texture.TRILINEAR_SAMPLINGMODE);texture.wrapU=Texture.WRAP_ADDRESSMODE;texture.wrapV=Texture.WRAP_ADDRESSMODE;texture.uScale=finish.scale;texture.vScale=finish.scale;texture.anisotropicFilteringLevel=4;mat.diffuseTexture=texture;mat.specularColor=new Color3(.035,.03,.022);mat.roughness=.96;this.surfaceMaterials.set(key,mat);return mat;}
   private makeMeadow() { const ground = MeshBuilder.CreateDisc("meadow", { radius: 15, tessellation: 64 }, this.scene); ground.rotation.x = Math.PI / 2; ground.position.y = -.15; ground.material = this.material("meadow-mat", "#9cab77"); ground.receiveShadows = true; }
   update(plan: PlanDocumentV1, activeFloorId: string, selectedId?: string, draft?: FurniturePlacement) {
-    this.activePlan = plan; this.activeFloorId = activeFloorId; this.selectedId = selectedId; this.activeDraft = draft; this.draftPosition = draft ? { x: draft.x, z: draft.z } : undefined; this.previewNode = undefined; this.selectedNode = undefined; this.tileDraftRoot=undefined; this.tileDraftCells=[]; this.tileDraftAnchor=undefined; for (const node of [...this.root.getChildren()]) node.dispose(false, false); this.furnitureFactory.resetMaterials();
+    this.activePlan = plan; this.activeFloorId = activeFloorId; this.selectedId = selectedId; this.activeDraft = draft; this.draftPosition = draft ? { x: draft.x, z: draft.z, elevationMm:draft.elevationMm } : undefined; this.previewNode = undefined; this.selectedNode = undefined; this.tileDraftRoot=undefined; this.tileDraftCells=[]; this.tileDraftAnchor=undefined; for (const node of [...this.root.getChildren()]) node.dispose(false, false); this.furnitureFactory.resetMaterials();
     const activeIndex = plan.floors.findIndex((f) => f.id === activeFloorId); const floors = plan.camera.mode === "dollhouse" ? plan.floors : plan.floors.filter((f, i) => f.id === activeFloorId || (plan.camera.ghostBelow && i === activeIndex - 1));
     for (const floor of floors) this.buildFloor(plan, floor, floor.id !== activeFloorId);
     const activeFloor = plan.floors[activeIndex];
@@ -179,16 +185,16 @@ export class SceneController {
       }else if(info.type===PointerEventTypes.POINTERMOVE&&this.dragging){
         const item=this.activePlan?.furniture.find(f=>f.id===this.dragging);
         const position=this.positionForItem(this.scene.pointerX,this.scene.pointerY,item);
-        if(position&&item&&this.selectedNode){const mounted=this.activePlan?snapWindow(this.activePlan,{...item,...position}):item;this.selectedNode.position.x=mounted.x/1000;this.selectedNode.position.z=mounted.z/1000;this.selectedNode.rotation.y=mounted.rotation*Math.PI/180;this.draggedPosition=mounted;moved=true;}
+        if(position&&item&&this.selectedNode){const mounted=this.activePlan?snapWindow(this.activePlan,{...item,...position}):item;this.selectedNode.position.x=mounted.x/1000;this.selectedNode.position.z=mounted.z/1000;if(isSurfaceMounted(item.catalogId)){const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);this.selectedNode.position.y=((floor?.elevationMm??0)+(mounted.elevationMm??0)+50)/1000;}this.selectedNode.rotation.y=mounted.rotation*Math.PI/180;this.draggedPosition=mounted;moved=true;}
       }
       if(info.type===PointerEventTypes.POINTERUP&&this.tileDragStart){
         const cells=[...this.tileDraftCells],present=this.tileDraftPresent; this.tileDragStart=undefined; this.tileDragCurrent=undefined; this.camera.attachControl(this.canvas,true); if(cells.length)this.callbacks.onTileDraft(cells,present);else this.cancelTileDraft();
       }else if(info.type===PointerEventTypes.POINTERUP&&this.wallDragStart){
         const wall=this.wallDraft;this.cancelWallDraft();this.camera.attachControl(this.canvas,true);if(wall)this.callbacks.onWallSegment(wall);
       }else if(info.type===PointerEventTypes.POINTERUP&&this.draggingDraft){
-        this.draggingDraft=false; this.camera.attachControl(this.canvas,true); if(this.draftPosition)this.callbacks.onDraftMove(this.draftPosition.x,this.draftPosition.z);
+        this.draggingDraft=false; this.camera.attachControl(this.canvas,true); if(this.draftPosition)this.callbacks.onDraftMove(this.draftPosition.x,this.draftPosition.z,this.draftPosition.elevationMm);
       }else if(info.type===PointerEventTypes.POINTERUP&&this.dragging){
-        if(moved&&this.draggedPosition)this.callbacks.onMove(this.dragging,this.draggedPosition.x,this.draggedPosition.z);
+        if(moved&&this.draggedPosition)this.callbacks.onMove(this.dragging,this.draggedPosition.x,this.draggedPosition.z,this.draggedPosition.elevationMm);
         this.draggedPosition=undefined;this.dragging=undefined; this.camera.attachControl(this.canvas,true); if(moved)this.update(this.activePlan!,this.activeFloorId,this.selectedId,this.activeDraft);
       }
     });
