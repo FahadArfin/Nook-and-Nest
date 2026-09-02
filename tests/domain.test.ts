@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { createSamplePlan, decodeShare, deriveBoundaryWalls, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleBetweenCells, rectangleCells, serializePlan, snapMm, toggleCell, validateStair } from "../src/domain";
 import { usePlanner } from "../src/store";
+import { floorFinishes, wallFinishes } from "../src/surfaces";
 
 describe("floor geometry", () => {
   it("creates and edits tile rectangles without duplicates", () => {
@@ -78,5 +79,22 @@ describe("tile drag confirmation", () => {
     expect(usePlanner.getState().past).toHaveLength(1);
     usePlanner.getState().undo();
     expect(usePlanner.getState().plan.floors[0].cells).toHaveLength(before);
+  });
+});
+
+describe("room finishes", () => {
+  it("offers the requested wall and floor finish families", () => {
+    expect(new Set(wallFinishes.map((finish)=>finish.family))).toEqual(new Set(["Paint","Masonry","Wallpaper"]));
+    expect(new Set(floorFinishes.map((finish)=>finish.family))).toEqual(new Set(["Wood","Laminate","Tile","Carpet"]));
+  });
+
+  it("saves and undoes a floor finish change", () => {
+    const plan=createSamplePlan("Finish test"); const floorId=plan.floors[0].id;
+    usePlanner.setState({plan,activeFloorId:floorId,selectedId:undefined,past:[],future:[]});
+    usePlanner.getState().setFloorFinish("wallFinishId","handmade-brick");
+    expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe("handmade-brick");
+    expect(parsePlan(serializePlan(usePlanner.getState().plan)).floors[0].wallFinishId).toBe("handmade-brick");
+    usePlanner.getState().undo();
+    expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe("cream-plaster");
   });
 });

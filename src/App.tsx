@@ -4,6 +4,7 @@ import { catalog, variants } from "./catalog";
 import { createSamplePlan, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleCells, serializePlan, uid } from "./domain";
 import { SceneController } from "./scene/SceneController";
 import { loadPlan, savePlan, usePlanner } from "./store";
+import { floorFinishes, wallFinishes } from "./surfaces";
 import type { CatalogItem, FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units } from "./types";
 
 const categoryIcons: Record<string, typeof Armchair> = { Living: Armchair, Bedroom: Bed, Dining: Table, Office: Chair, Storage: Books, Lighting: Lamp, Decor: Plant };
@@ -41,9 +42,15 @@ function Catalog({onBeginDrag,onStartPlacement}:{onBeginDrag(item:CatalogItem,ev
   </aside>;
 }
 
+function RoomFinishes() {
+  const state=usePlanner(); const floor=state.plan.floors.find((item)=>item.id===state.activeFloorId)!;
+  const chooser=(label:string,kind:"floorFinishId"|"wallFinishId",finishes:typeof wallFinishes,current:string|undefined)=><section className="finish-section"><div className="finish-heading"><div><span>{label}</span><small>{kind==="wallFinishId"?"Paint · masonry · wallpaper":"Wood · laminate · tile · carpet"}</small></div></div><div className="finish-grid">{finishes.map((finish)=><button key={finish.id} className={current===finish.id?"selected":""} onClick={()=>state.setFloorFinish(kind,finish.id)} aria-label={`${label}: ${finish.name}`} title={`${finish.name} — ${finish.family}`}><span className="finish-thumb" style={{backgroundImage:`url(${finish.texture})`}}/><span className="finish-name">{finish.name}<small>{finish.family}</small></span>{current===finish.id&&<Check size={14} weight="bold"/>}</button>)}</div></section>;
+  return <aside className="inspector-panel finishes-panel"><div className="panel-heading"><div><span className="eyebrow">Room finishes</span><h2>{floor.name}</h2></div><Buildings size={24} weight="duotone"/></div><p className="finish-intro">Choose a cozy finish for this entire floor. Every change can be undone.</p>{chooser("Walls","wallFinishId",wallFinishes,floor.wallFinishId??"cream-plaster")}{chooser("Floor","floorFinishId",floorFinishes,floor.floorFinishId??"honey-oak")}<div className="mini-tip"><Info size={17}/><span>Deselect furniture anytime to return to these room finishes.</span></div></aside>;
+}
+
 function Inspector() {
   const state=usePlanner(); const selected=state.plan.furniture.find((f)=>f.id===state.selectedId); const item=selected?catalog.find((c)=>c.id===selected.catalogId):undefined; const floor=selected?state.plan.floors.find((f)=>f.id===selected.floorId):undefined;
-  if(!selected||!item)return <aside className="inspector-panel empty-inspector"><div className="inspector-orbit"><Armchair size={38} weight="duotone"/></div><h3>Select something</h3><p>Choose a piece in your room to adjust its size, color, and placement.</p><div className="mini-tip"><Info size={17}/><span>Drag furniture directly in the room. Hold Alt for a freer feel.</span></div></aside>;
+  if(!selected||!item)return <RoomFinishes/>;
   const overlaps=furnitureOverlaps(state.plan.furniture,selected); const updateNumber=(key:"widthMm"|"depthMm"|"heightMm",value:string)=>state.updateFurniture(selected.id,{[key]:Math.max(50,Number(value))});
   return <aside className="inspector-panel"><div className="panel-heading"><div><span className="eyebrow">Selected piece</span><h2>{item.name}</h2></div><button className="icon-button" onClick={()=>state.select(undefined)} aria-label="Close inspector"><X/></button></div>
     <div className="selection-preview"><img src="/assets/nook-nest-icon.png" alt=""/><div><strong>{item.category}</strong><span>On {floor?.name||"this floor"}</span></div></div>

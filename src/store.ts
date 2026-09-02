@@ -11,6 +11,7 @@ interface PlannerState {
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance"): void; setActiveFloor(id: string): void;
   addFloor(): void; deleteFloor(): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
+  setFloorFinish(kind: "floorFinishId" | "wallFinishId", finishId: string): void;
   addWall(wall: Omit<WallSegment, "id">): void; addOpening(kind: "door" | "window", wallKey: string): void; addStair(x: number, z: number): void;
   placeFurniture(catalogId: string, x?: number, z?: number): void; moveFurniture(id: string, x: number, z: number): void;
   confirmFurniture(item: FurniturePlacement): void;
@@ -31,11 +32,12 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   setView: (mode) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, mode } })),
   toggleCameraSetting: (key) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, [key]: !state.plan.camera[key] } })),
   setActiveFloor: (activeFloorId) => set({ activeFloorId, selectedId: undefined }),
-  addFloor: () => set((state) => { const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), walls: [], openings: [], stairs: [] }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
+  addFloor: () => set((state) => { const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), walls: [], openings: [], stairs: [], floorFinishId: previous.floorFinishId, wallFinishId: previous.wallFinishId }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
   deleteFloor: () => set((state) => { if (state.plan.floors.length === 1) return state; const floors = state.plan.floors.filter((f) => f.id !== state.activeFloorId); return { ...commit(state, { ...state.plan, floors, furniture: state.plan.furniture.filter((f) => f.floorId !== state.activeFloorId) }, null), activeFloorId: floors[0].id }; }),
   renameFloor: (name) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, name } : f) })),
   paintCell: (x, z, present) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, cells: toggleCell(f.cells, { x, z }, present) } : f) })),
   paintCells: (cells, present) => set((state) => cells.length ? commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, cells: toggleCells(f.cells, cells, present) } : f) }) : state),
+  setFloorFinish: (kind, finishId) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((floor) => floor.id === state.activeFloorId ? { ...floor, [kind]: finishId } : floor) })),
   addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, walls: [...f.walls, { ...wall, id: uid() }] } : f) })),
   addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100 }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),

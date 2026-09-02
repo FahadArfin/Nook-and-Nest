@@ -20,7 +20,7 @@ export function furnitureOverlaps(items: FurniturePlacement[], item: FurniturePl
 export function createSamplePlan(name = "Willow Street Apartment", units: Units = "imperial"): PlanDocumentV1 {
   const now = new Date().toISOString(); const floor1Id = uid(); const floor2Id = uid(); const cells = rectangleCells(14, 10).filter(({ x, z }) => !(x > 10 && z < 3));
   return { schemaVersion: 1, id: uid(), name, createdAt: now, updatedAt: now, units, gridSizeMm: units === "imperial" ? 304.8 : 250,
-    floors: [{ id: floor1Id, name: "Ground floor", elevationMm: 0, heightMm: 2438, cells, walls: [], openings: [], stairs: [] }, { id: floor2Id, name: "Upstairs", elevationMm: 2738, heightMm: 2438, cells: rectangleCells(9, 7), walls: [], openings: [], stairs: [] }],
+    floors: [{ id: floor1Id, name: "Ground floor", elevationMm: 0, heightMm: 2438, cells, walls: [], openings: [], stairs: [], floorFinishId: "honey-oak", wallFinishId: "cream-plaster" }, { id: floor2Id, name: "Upstairs", elevationMm: 2738, heightMm: 2438, cells: rectangleCells(9, 7), walls: [], openings: [], stairs: [], floorFinishId: "light-oak", wallFinishId: "sage-plaster" }],
     furniture: [], camera: { mode: "isometric", ghostBelow: true, showGrid: true, showClearance: false } };
 }
 export function serializePlan(plan: PlanDocumentV1): string { return JSON.stringify(plan, null, 2); }

@@ -1,5 +1,6 @@
 import math
 import os
+import sys
 from pathlib import Path
 
 import bpy
@@ -465,6 +466,45 @@ def build_runner_rug(m):
     return (w,d,h)
 
 
+def build_braided_rug(m):
+    w,d,h=1.6,1.0,.025
+    base=cylinder("braided_rug_connected_base",w*.5,.025,(0,0,.013),m["wood_dark"],36,uv_scale=6)
+    base.scale.y=d/w
+    for index,(scale,mat) in enumerate(((.84,m["fabric"]),(.66,m["linen"]),(.46,m["clay"]),(.25,m["mustard"]))):
+        ring=cylinder(f"braided_rug_layer_{index}",w*.5*scale,.011,(0,0,.03+index*.011),mat,32,uv_scale=5)
+        ring.scale.y=d/w
+    return (w,d,h)
+
+
+def build_scallop_rug(m):
+    w,d,h=1.7,1.2,.025
+    rounded_box("scallop_rug_connected_field",(w*.86,d*.82,.025),(0,0,.013),m["linen"],.13,uv_scale=5)
+    for side in (-1,1):
+        for i in range(6):
+            x=-w*.36+i*w*.145
+            cylinder("scallop_rug_petal",w*.09,.024,(x,side*d*.43,.014),m["fabric"] if i%2 else m["rose"],16)
+    for side in (-1,1):
+        for i in range(3):
+            y=-d*.24+i*d*.24
+            cylinder("scallop_rug_side_petal",d*.1,.024,(side*w*.43,y,.014),m["fabric"] if i%2 else m["rose"],16)
+    rounded_box("scallop_rug_inner_panel",(w*.64,d*.56,.014),(0,0,.034),m["linen"],.12,uv_scale=4)
+    return (w,d,h)
+
+
+def build_checker_rug(m):
+    w=d=1.5;h=.025
+    rounded_box("checker_rug_connected_base",(w,d,.025),(0,0,.013),m["wood_dark"],.09,uv_scale=5)
+    cell=w/4
+    for row in range(4):
+        for col in range(4):
+            rounded_box("checker_rug_patch",(cell*.94,cell*.94,.014),(-w*.5+cell*(col+.5),-d*.5+cell*(row+.5),.033),m["linen"] if (row+col)%2 else m["clay"],.035,uv_scale=2)
+    for i in range(14):
+        x=-w*.45+i*w*.07
+        for side in (-1,1):
+            rounded_box("checker_rug_fringe",(w*.022,d*.055,.018),(x,side*d*.52,.016),m["linen"],.004)
+    return (w,d,h)
+
+
 def build_mirror(m):
     w,d,h=.7,.08,1.1;frame=.06
     rounded_box("mirror_reflective_surface",(w-frame*2,d*.2,h-frame*2),(0,-d*.18,h*.5),m["blue"],.07)
@@ -516,6 +556,9 @@ BUILDERS = {
     "small-plant": build_small_plant,
     "round-rug": build_round_rug,
     "runner-rug": build_runner_rug,
+    "braided-rug": build_braided_rug,
+    "scallop-rug": build_scallop_rug,
+    "checker-rug": build_checker_rug,
     "mirror": build_mirror,
     "pet-bed": build_pet_bed,
 }
@@ -572,7 +615,10 @@ def main():
     BLEND_OUT.mkdir(parents=True, exist_ok=True)
     GLB_OUT.mkdir(parents=True, exist_ok=True)
     prepare_web_textures()
+    requested = set(sys.argv[sys.argv.index("--") + 1:]) if "--" in sys.argv else set()
     for catalog_id, builder in BUILDERS.items():
+        if requested and catalog_id not in requested:
+            continue
         export_model(catalog_id, builder)
 
 
