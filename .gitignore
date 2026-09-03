@@ -4,3 +4,16 @@ dist/
 *.log
 .DS_Store
 __pycache__/
+
+# Keep local configuration, credentials and disposable output private.
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+.wrangler/
+coverage/
+*.blend1
+*.blend2
+*.pem
+*.key
