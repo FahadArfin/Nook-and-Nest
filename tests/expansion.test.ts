@@ -12,7 +12,7 @@ import worker from "../worker/projects.js";
 
 describe("editor regressions", () => {
   it("paints only occupied floor regions and restores per-section finishes with undo", () => {
-    const s = usePlanner.getState(); s.replacePlan(createSamplePlan());
+    const s = usePlanner.getState(), initial=createSamplePlan();initial.floors[0].walls=[{id:"wall-1",ax:1,az:2,bx:4,bz:2}];s.replacePlan(initial);
     s.finishCells([{x:0,z:0},{x:1,z:0},{x:100,z:100}],"light-oak");
     let floor = usePlanner.getState().plan.floors[0]; expect(floor.cellFinishes).toEqual({"0,0":"light-oak","1,0":"light-oak"});
     s.finishWall("wall-1", "sage-plaster"); expect(usePlanner.getState().plan.floors[0].wallFinishes).toEqual({"wall-1":"sage-plaster"});

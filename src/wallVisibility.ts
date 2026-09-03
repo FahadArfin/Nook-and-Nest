@@ -54,17 +54,36 @@ export function openingHostWall(walls: WallGeometry[], position: Point, rotation
   });
 }
 
-interface VisibilityNode { setEnabled(enabled: boolean): void }
-/** Disabling a node hides its children, picking and shadow contribution without
- * editing shared materials. Only changed visibility touches Babylon scene state. */
+interface FadeMesh { visibility: number; isPickable: boolean }
+interface VisibilityNode { setEnabled(enabled: boolean): void; getChildMeshes?(): FadeMesh[]; visibility?: number; isPickable?: boolean }
+const geometryKey = (w: WallGeometry) => `${w.ax},${w.az},${w.bx},${w.bz},${w.boundary}`;
+/** Mesh visibility fades without mutating shared materials. Interaction is turned
+ * off immediately, and restored only once the returning wall is fully solid. */
 export class WallVisibilityController {
-  private entries: { node: VisibilityNode; wall: WallGeometry; visible?: boolean }[] = [];
-  clear() { this.entries = []; }
+  private entries: { node: VisibilityNode; wall: WallGeometry; visible?: boolean; meshes?: {mesh:FadeMesh; opacity:number; pickable:boolean}[] }[] = [];
+  private opacity = new Map<string, number>();
+  private blocked = new WeakSet<object>();
+  clear(preserveFade = false) { this.entries = []; this.blocked = new WeakSet(); if(!preserveFade)this.opacity.clear(); }
   add(node: VisibilityNode, wall: WallGeometry) { this.entries.push({ node, wall }); }
-  update(mode: WallVisibility, camera: Point, target: Point) {
+  allowsInteraction(wall:WallGeometry) { return (this.opacity.get(geometryKey(wall)) ?? 1) >= .999; }
+  allowsShadow(mesh:object) { return !this.blocked.has(mesh); }
+  update(mode: WallVisibility, camera: Point, target: Point, deltaMs = Infinity, reducedMotion = false) {
+    const next = new Map<string,number>();
     for (const entry of this.entries) {
-      const visible = !isWallHidden(mode, entry.wall, camera, target);
+      const hidden = isWallHidden(mode, entry.wall, camera, target), key=geometryKey(entry.wall);
+      if(!next.has(key)) {
+        const goal=hidden?0:1, previous=this.opacity.get(key)??goal;
+        const step=reducedMotion||mode!=="near-hidden"?1:Math.max(0,deltaMs)/650;
+        next.set(key, previous<goal?Math.min(goal,previous+step):Math.max(goal,previous-step));
+      }
+      const alpha=next.get(key)!, visible=alpha>0;
+      entry.meshes ??= [...(typeof entry.node.visibility==="number"?[entry.node as FadeMesh]:[]),...(entry.node.getChildMeshes?.()??[])].map(mesh=>({mesh,opacity:mesh.visibility,pickable:mesh.isPickable}));
+      for(const {mesh,opacity,pickable} of entry.meshes) {
+        mesh.visibility=opacity*alpha; mesh.isPickable=pickable&&!hidden&&alpha>=.999;
+        if(hidden)this.blocked.add(mesh);else this.blocked.delete(mesh);
+      }
       if (entry.visible !== visible) { entry.node.setEnabled(visible); entry.visible = visible; }
     }
+    this.opacity=next;
   }
 }

@@ -18,6 +18,9 @@ import { getWallVisibility, isWallHidden, nextWallVisibility, openingHostWall, W
 import { SceneController } from "../src/scene/SceneController";
 import { catalog } from "../src/catalog";
 import type { FurniturePlacement } from "../src/types";
+import { snapWallStart,snapWallEnd,wallBetween,wallPlateIds,paintWallPlate } from "../src/wallEditing";
+import { rectangleCells } from "../src/domain";
+import { floorBoundaryWalls,addMeasuredRegion,measuredRegion } from "../src/floorGeometry";
 
 const north: WallGeometry = {ax:0,az:0,bx:4,bz:0,boundary:true};
 const east: WallGeometry = {ax:4,az:0,bx:4,bz:4,boundary:true};
@@ -29,6 +32,50 @@ beforeEach(()=>state().replacePlan(createSamplePlan()));
 afterEach(cleanup);
 
 describe("three wall visibility modes",()=>{
+  it("fades meshes smoothly, disables picking/shadows immediately and reverses without a jump",()=>{
+    const mesh={visibility:.8,isPickable:true,setEnabled:vi.fn()},v=new WallVisibilityController();v.add(mesh,north);
+    v.update("all-visible",{x:2,z:-6},target);
+    v.update("near-hidden",{x:2,z:-6},target,325);
+    expect(mesh.visibility).toBeCloseTo(.4);expect(mesh.isPickable).toBe(false);expect(v.allowsShadow(mesh)).toBe(false);expect(v.allowsInteraction(north)).toBe(false);
+    v.update("near-hidden",{x:2,z:8},target,162.5);expect(mesh.visibility).toBeCloseTo(.6);expect(mesh.isPickable).toBe(false);
+    v.update("near-hidden",{x:2,z:8},target,162.5);expect(mesh.visibility).toBeCloseTo(.8);expect(mesh.isPickable).toBe(true);
+    v.update("near-hidden",{x:2,z:-6},target,650);expect(mesh.visibility).toBe(0);expect(mesh.setEnabled).toHaveBeenLastCalledWith(false);
+  });
+  it("retains a fade through scene rebuilds and respects reduced motion",()=>{
+    const v=new WallVisibilityController(),mesh=()=>({visibility:1,isPickable:true,setEnabled:vi.fn()});v.add(mesh(),north);v.update("all-visible",{x:2,z:-6},target);
+    v.update("near-hidden",{x:2,z:-6},target,325);v.clear(true);const rebuilt=mesh();v.add(rebuilt,north);
+    v.update("near-hidden",{x:2,z:-6},target,0);expect(rebuilt.visibility).toBe(.5);
+    v.update("near-hidden",{x:2,z:-6},target,0,true);expect(rebuilt.visibility).toBe(0);
+  });
+  it("places a window on the opposite visible wall, never the hidden front wall or floor fallback",()=>{
+    const p=createSamplePlan();p.gridSizeMm=1000;p.floors[0].cells=rectangleCells(4,4);p.floors[0].walls=[];p.camera.wallVisibility="near-hidden";
+    const def=catalog.find(c=>c.id==="window-picture")!,item: FurniturePlacement={...def,id:"test",catalogId:def.id,floorId:p.floors[0].id,x:2000,z:0,rotation:0,variant:"sage"};
+    const renderer=Object.create(SceneController.prototype) as any;
+    Object.assign(renderer,{activePlan:p,activeFloorId:p.floors[0].id,wallVisibility:new WallVisibilityController(),camera:{position:new Vector3(2,1.4,-6),target:new Vector3(2,1.4,2)},scene:{createPickingRay:()=>new Ray(new Vector3(2,1.4,-6),new Vector3(0,0,1))}});
+    const result=renderer.positionForItem(0,0,item);expect(result.z).toBe(4000);expect(result.x).toBe(2000);
+    p.camera.wallVisibility="all-visible";expect(renderer.positionForItem(0,0,item).z).toBe(0);
+    p.camera.wallVisibility="all-hidden";expect(renderer.positionForItem(0,0,item)).toBeUndefined();
+  });
+  it("snaps inside walls to endpoints and perpendicular junctions without adding an extra tile",()=>{
+    const f={...createSamplePlan().floors[0],cells:[],walls:[{id:"a",ax:1,az:1,bx:1,bz:4},{id:"b",ax:4,az:0,bx:4,bz:5}]};
+    const start=snapWallStart(f,250,{x:1.15,z:1.12});expect(start).toEqual({x:1,z:1});
+    const result=snapWallEnd(f,250,start,{x:3.8,z:1.05});expect(result).toEqual({end:{x:4,z:1},connected:true});
+    expect(wallBetween(start,result.end)).toEqual({ax:1,az:1,bx:4,bz:1});expect(wallBetween(start,start)).toBeUndefined();
+    expect(snapWallEnd(f,250,{x:4,z:1},{x:1.15,z:1.08}).end).toEqual(start);
+  });
+  it("connects to exact measured edges and preserves the new partitions through save and undo",()=>{
+    const p=createSamplePlan();p.gridSizeMm=250;const f=addMeasuredRegion({...p.floors[0],cells:[],walls:[]},250,measuredRegion(250,{x:0,z:0},3810,3050));p.floors=[f];
+    const start=snapWallStart(f,250,{x:.1,z:4}),end=snapWallEnd(f,250,start,{x:15.1,z:4.1});expect(end.end.x*250).toBeCloseTo(3810);expect(end.connected).toBe(true);
+    state().replacePlan(p);state().addWall(wallBetween(start,end.end)!);const after=state().plan;expect(parsePlan(serializePlan(after))).toEqual(after);state().undo();expect(state().plan).toEqual(p);state().redo();expect(state().plan).toEqual(after);
+  });
+  it("recolors a whole straight outside plate but not its corners or separate walls",()=>{
+    const p=createSamplePlan();p.gridSizeMm=250;const f={...p.floors[0],cells:rectangleCells(8,6),walls:[],wallFinishes:{}};
+    const walls=floorBoundaryWalls(f,250),top=walls.filter(w=>w.az===0&&w.bz===0),side=walls.find(w=>w.ax===0&&w.bx===0)!;
+    const ids=wallPlateIds(f,250,top[0].id);expect(ids).toHaveLength(8);expect(ids).not.toContain(side.id);
+    const painted=paintWallPlate({...f,wallFinishes:{[top[0].id+"|0"]:"cream-plaster"}},250,top[0].id,"sage-plaster");expect(Object.values(painted.wallFinishes!)).toEqual(Array(8).fill("sage-plaster"));
+    p.floors=[f];state().replacePlan(p);state().selectWall(top[0].id);expect(state().selectedWallId).toBe(top[0].id);expect(state().past).toHaveLength(0);
+    state().finishWall(top[0].id,"sage-plaster");expect(state().past).toHaveLength(1);state().undo();expect(state().plan).toEqual(p);
+  });
   it("defaults to solid walls and maps legacy transparency without mutating a save",()=>{
     const camera=createSamplePlan().camera;
     expect(getWallVisibility(camera)).toBe("all-visible");

@@ -52,10 +52,10 @@ describe("measured rooms",()=>{
   });
 });
 describe("wall sections and door openings",()=>{
-  it("splits a long interior wall into independently paintable grid sections",()=>{
+  it("reads legacy strip keys but repaints the entire selected wall plate",()=>{
     const sections=splitWallSections("inside",[{start:0,end:2000,bottom:0,top:2500}],250);expect(sections).toHaveLength(8);expect(new Set(sections.map(s=>s.paintKey)).size).toBe(8);
-    const s=usePlanner.getState();s.replacePlan(createSamplePlan());s.finishWall(sections[2].paintKey,"sage-plaster");s.finishWall(sections[4].paintKey,"cream-plaster");
-    expect(usePlanner.getState().plan.floors[0].wallFinishes).toEqual({"inside|2":"sage-plaster","inside|4":"cream-plaster"});s.undo();expect(usePlanner.getState().plan.floors[0].wallFinishes).toEqual({"inside|2":"sage-plaster"});
+    const s=usePlanner.getState(),p=createSamplePlan();p.floors[0].walls=[{id:"inside",ax:1,az:2,bx:7,bz:2}];p.floors[0].wallFinishes={"inside|2":"sage-plaster","inside|4":"cream-plaster"};s.replacePlan(p);s.finishWall("inside","terracotta-plaster");
+    expect(usePlanner.getState().plan.floors[0].wallFinishes).toEqual({inside:"terracotta-plaster"});s.undo();expect(usePlanner.getState().plan.floors[0].wallFinishes).toEqual(p.floors[0].wallFinishes);
   });
   it("snaps a floor-level door, flips it, and cuts a real aperture across tile walls",()=>{
     const p=createSamplePlan(),id=p.floors[0].id,item=snapWindow(p,{...piece("door-shaker",id),x:1200,z:5});

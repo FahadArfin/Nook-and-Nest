@@ -5,9 +5,11 @@ import type { FloorPlan, FurniturePlacement, PlanDocumentV1, WallSegment } from 
 export interface WallRun { horizontal: boolean; line: number; start: number; end: number }
 // Boundaries arrive as individual tile edges. Merge only touching collinear edges,
 // so a window can span many tiles without bridging a gap in the apartment.
-export function wallRuns(floor: FloorPlan, grid: number): WallRun[] {
+export function wallRuns(floor: FloorPlan, grid: number, include?: (wall:WallSegment,boundary:boolean)=>boolean): WallRun[] {
   const runs: WallRun[]=[];
-  for(const wall of [...floorBoundaryWalls(floor,grid),...floor.walls]) {
+  const boundaries=floorBoundaryWalls(floor,grid);
+  for(const wall of [...boundaries,...floor.walls]) {
+    if(include&&!include(wall,boundaries.includes(wall)))continue;
     const horizontal=wall.az===wall.bz;
     if(!horizontal&&wall.ax!==wall.bx)continue;
     const a=(horizontal?wall.ax:wall.az)*grid,b=(horizontal?wall.bx:wall.bz)*grid;
@@ -19,14 +21,14 @@ export function wallRuns(floor: FloorPlan, grid: number): WallRun[] {
   return merged;
 }
 
-export function snapWindow(plan:PlanDocumentV1,item:FurniturePlacement):FurniturePlacement {
+export function snapWindow(plan:PlanDocumentV1,item:FurniturePlacement, allowedRuns?:WallRun[]):FurniturePlacement {
   if(isCeilingMounted(item.catalogId)){
     const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor)return item;
     return {...item,elevationMm:Math.max(0,Math.min(item.elevationMm??floor.heightMm-item.heightMm-50,floor.heightMm-item.heightMm-50))};
   }
   if(isKitchenWall(item.catalogId)){
     const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor)return item;
-    const candidates=wallRuns(floor,plan.gridSizeMm).filter(r=>r.end-r.start>=item.widthMm).map(r=>{
+    const candidates=(allowedRuns??wallRuns(floor,plan.gridSizeMm)).filter(r=>r.end-r.start>=item.widthMm).map(r=>{
       const center=Math.max(r.start+item.widthMm/2,Math.min(r.end-item.widthMm/2,r.horizontal?item.x:item.z));
       const base=r.horizontal?0:90,rotation=[base,base+180].sort((a,b)=>angleDistance(a,item.rotation)-angleDistance(b,item.rotation))[0];
       const offset=(item.depthMm/2+51)*(r.horizontal?Math.cos(rotation*Math.PI/180):Math.sin(rotation*Math.PI/180));
@@ -38,7 +40,7 @@ export function snapWindow(plan:PlanDocumentV1,item:FurniturePlacement):Furnitur
   }
   if(!isWallOpening(item.catalogId))return item;
   const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor)return item;
-  const candidates=wallRuns(floor,plan.gridSizeMm).filter(r=>r.end-r.start>=item.widthMm+40).map(run=>{
+  const candidates=(allowedRuns??wallRuns(floor,plan.gridSizeMm)).filter(r=>r.end-r.start>=item.widthMm+40).map(run=>{
     const along=run.horizontal?item.x:item.z;
     const center=Math.max(run.start+item.widthMm/2+20,Math.min(run.end-item.widthMm/2-20,Math.round(along/50)*50));
     const x=run.horizontal?center:run.line,z=run.horizontal?run.line:center;

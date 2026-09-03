@@ -16,7 +16,7 @@ const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:v
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()}
-  setTool(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
+  setTool(){} setWallSelection(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
   previewMeasuredRoom(region:unknown){scene.preview(region)}
   projectPreview(){return {x:200,y:200}} projectSelected(){return {x:200,y:200}} projectTileDraft(){return {x:200,y:200}}
 }}));
@@ -25,6 +25,15 @@ const state=()=>usePlanner.getState();
 beforeEach(()=>{state().replacePlan(createSamplePlan());state().setTool("select");state().setCategory("All");state().setSearch("");scene.callbacks=undefined;scene.preview.mockClear();scene.update.mockClear();vi.stubGlobal("requestAnimationFrame",()=>1);vi.stubGlobal("cancelAnimationFrame",()=>{});});
 afterEach(()=>{cleanup();vi.unstubAllGlobals()});
 describe("measured room controls",()=>{
+  it("selects a wall before changing its whole plate finish in the right panel",async()=>{
+    const p=createSamplePlan();p.floors[0].walls=[{id:"inside-test",ax:2,az:2,bx:5,bz:2}];state().replacePlan(p);
+    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
+    act(()=>scene.callbacks.onWall("inside-test"));expect(state().selectedWallId).toBe("inside-test");expect(state().past).toHaveLength(0);
+    expect(screen.getByText(/Wall plate selected/)).toBeTruthy();
+    fireEvent.click(screen.getByRole("button",{name:/Walls:.*sage/i}));
+    expect(state().plan.floors[0].wallFinishes).toEqual({"inside-test":"sage-plaster"});expect(state().past).toHaveLength(1);
+    act(()=>state().undo());expect(state().plan.floors[0].wallFinishes).toBeUndefined();
+  });
   it("starts a reversible measured draft without changing the plan or history",()=>{
     render(<MeasuredRoom/>);fireEvent.click(screen.getByText("Exact room size"));
     fireEvent.change(screen.getByLabelText("Room width"),{target:{value:"12' 6\""}});
