@@ -1,4 +1,4 @@
-const CACHE = "nook-nest-v3";
+const CACHE = "nook-nest-v4";
 const APP_SHELL = ["/manifest.webmanifest", "/assets/nook-nest-icon.png"];
 
 self.addEventListener("install", (event) => {
@@ -20,6 +20,8 @@ self.addEventListener("fetch", (event) => {
 
   const requestUrl = new URL(event.request.url);
   if (requestUrl.origin !== self.location.origin) return;
+  // Private project responses and dispatch-owned sign-in must never be cached.
+  if (requestUrl.pathname.startsWith("/api/") || ["/signin-with-chatgpt", "/signout-with-chatgpt", "/callback"].includes(requestUrl.pathname)) return;
 
   if (event.request.mode === "navigate") {
     event.respondWith(
@@ -39,7 +41,8 @@ self.addEventListener("fetch", (event) => {
         if (response.ok) caches.open(CACHE).then((cache) => cache.put(event.request, response.clone()));
         return response;
       });
-      return cached || network;
+      if (cached) { event.waitUntil(network.catch(() => undefined)); return cached; }
+      return network;
     }),
   );
 });

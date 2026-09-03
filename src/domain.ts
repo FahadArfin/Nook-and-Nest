@@ -1,3 +1,5 @@
+import { restsOnShelf } from "./shelfSurfaces";
+import { validatePlan, MAX_PLAN_BYTES } from "./planValidation";
 import LZString from "lz-string";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Units, WallSegment } from "./types";
 
@@ -16,7 +18,7 @@ export function deriveBoundaryWalls(cells: TileCell[]): WallSegment[] {
 }
 export function snapMm(valueMm: number, incrementMm: number, free = false) { return free ? Math.round(valueMm) : Math.round(valueMm / incrementMm) * incrementMm; }
 export function formatLength(mm: number, units: Units): string { if (units === "metric") return mm >= 1000 ? `${(mm / 1000).toFixed(2)} m` : `${Math.round(mm / 10)} cm`; const inches = Math.round(mm / 25.4); return `${Math.floor(inches / 12)}′ ${inches % 12}″`; }
-export function furnitureOverlaps(items: FurniturePlacement[], item: FurniturePlacement): boolean { return items.some((other) => { if (other.id === item.id || other.floorId !== item.floorId) return false; const bottom=item.elevationMm??0,otherBottom=other.elevationMm??0; if(bottom>=otherBottom+other.heightMm-1||otherBottom>=bottom+item.heightMm-1)return false; const aW = item.rotation % 180 === 0 ? item.widthMm : item.depthMm; const aD = item.rotation % 180 === 0 ? item.depthMm : item.widthMm; const bW = other.rotation % 180 === 0 ? other.widthMm : other.depthMm; const bD = other.rotation % 180 === 0 ? other.depthMm : other.widthMm; return Math.abs(item.x - other.x) * 2 < aW + bW && Math.abs(item.z - other.z) * 2 < aD + bD; }); }
+export function furnitureOverlaps(items: FurniturePlacement[], item: FurniturePlacement): boolean { return items.some((other) => { if (other.id === item.id || other.floorId !== item.floorId || restsOnShelf(item,other) || restsOnShelf(other,item)) return false; const bottom=item.elevationMm??0,otherBottom=other.elevationMm??0; if(bottom>=otherBottom+other.heightMm-1||otherBottom>=bottom+item.heightMm-1)return false; const aW = item.rotation % 180 === 0 ? item.widthMm : item.depthMm; const aD = item.rotation % 180 === 0 ? item.depthMm : item.widthMm; const bW = other.rotation % 180 === 0 ? other.widthMm : other.depthMm; const bD = other.rotation % 180 === 0 ? other.depthMm : other.widthMm; return Math.abs(item.x - other.x) * 2 < aW + bW && Math.abs(item.z - other.z) * 2 < aD + bD; }); }
 export function createSamplePlan(name = "Willow Street Apartment", units: Units = "imperial"): PlanDocumentV1 {
   const now = new Date().toISOString(); const floor1Id = uid(); const floor2Id = uid(); const cells = rectangleCells(14, 10).filter(({ x, z }) => !(x > 10 && z < 3));
   return { schemaVersion: 1, id: uid(), name, createdAt: now, updatedAt: now, units, gridSizeMm: units === "imperial" ? 304.8 : 250,
@@ -24,7 +26,7 @@ export function createSamplePlan(name = "Willow Street Apartment", units: Units 
     furniture: [], camera: { mode: "isometric", ghostBelow: true, showGrid: true, showClearance: false } };
 }
 export function serializePlan(plan: PlanDocumentV1): string { return JSON.stringify(plan, null, 2); }
-export function parsePlan(json: string): PlanDocumentV1 { const parsed = JSON.parse(json) as Partial<PlanDocumentV1>; if (parsed.schemaVersion !== 1 || !Array.isArray(parsed.floors) || !Array.isArray(parsed.furniture)) throw new Error("This is not a valid Nook & Nest project."); return parsed as PlanDocumentV1; }
+export function parsePlan(json: string): PlanDocumentV1 { if(new TextEncoder().encode(json).length > MAX_PLAN_BYTES) throw new Error("Project exceeds the 1 MB limit."); const parsed:unknown=JSON.parse(json); validatePlan(parsed); return parsed; }
 export function encodeShare(plan: PlanDocumentV1): string { return LZString.compressToEncodedURIComponent(JSON.stringify(plan)); }
 export function decodeShare(payload: string): PlanDocumentV1 { const json = LZString.decompressFromEncodedURIComponent(payload); if (!json) throw new Error("The shared project link is incomplete."); const parsed = parsePlan(json); return { ...parsed, id: uid(), name: `${parsed.name} copy`, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }; }
 export function validateStair(widthMm: number, lengthMm: number, heightMm: number): string[] { const warnings: string[] = []; if (widthMm < 800) warnings.push("Stair width is below 80 cm."); if (lengthMm < heightMm * 1.1) warnings.push("Stair run may be too short for this floor height."); return warnings; }

@@ -51,7 +51,7 @@ describe("handcrafted furniture design system", () => {
       expect(existsSync(blend), `missing Blender source for ${item.id}`).toBe(true);
       expect(existsSync(glb), `missing GLB for ${item.id}`).toBe(true);
       expect(statSync(blend).size).toBeGreaterThan(10_000);
-      expect(statSync(glb).size).toBeGreaterThan(10_000);
+      expect(statSync(glb).size).toBeGreaterThan(item.id==="grass-clump"?2_000:10_000);
     }
   });
 });

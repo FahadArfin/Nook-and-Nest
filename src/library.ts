@@ -1,20 +1,37 @@
 import { catalog } from "./catalog";
 import type { CatalogItem } from "./types";
 
-export const libraryCategories = ["Living", "Bedroom", "Dining", "Office", "Kitchen", "Bathroom", "Storage", "Lighting", "Decor", "Windows"] as const;
+export const libraryCategories = ["Living", "Bedroom", "Dining", "Office", "Kitchen", "Bathroom", "Storage", "Lighting", "Decor", "Outdoor", "Windows", "Doors", "Stairs"] as const;
 export type LibraryShelf = "browse" | "favorites" | "plan";
 export type LibrarySort = "collection" | "name" | "size";
 
 // Human-readable types are intentionally independent of the render shape.
 const families: Record<string, string[]> = {
-  "Sofas": ["sofa","loveseat","modular-sectional","midcentury-sofa","sleeper-sofa"],
+  "Garden plants": ["lavender-clump","daisy-clump","tulip-planter","raised-flowerbed","balcony-flowerbox","garden-hedge","flowering-shrub","grass-clump"],
+  "Trees": ["spruce-tree","maple-tree","sakura-tree"],
+  "Patio seating": ["patio-dining-chair","adirondack-chair","patio-loveseat","patio-chaise","garden-bench"],
+  "Patio tables & shade": ["patio-bistro-table","patio-dining-table","patio-parasol"],
+  "Barbecues & fire bowls": ["gas-bbq","kettle-bbq","patio-fire-bowl"],
+  "Patios & pathways": ["cobble-patio","concrete-patio","brick-patio","deck-patio","stepping-stones"],
+  "Kitchen cabinets": ["push-base-cabinet","shaker-drawer-cabinet","arched-base-cabinet","tall-pantry-cabinet","glass-wall-cabinet","open-wall-cabinet"],
+  "Hoods": ["chimney-hood","under-cabinet-hood","microwave-hood"],
+  "Closet modules": ["sliding-closet","double-door-closet","closet-hanging-module","closet-shelf-module","closet-corner-module"],
+  "Dressers & chests": ["wide-fluted-dresser","tall-drawer-chest"],
+  "Countertop appliances": ["two-slot-toaster","espresso-machine","filter-coffee-maker","knife-block","countertop-microwave","stand-mixer","glass-air-fryer"],
+  "Pendant lights": ["dome-pendant","linear-pendant"],
+  "Backsplashes": ["backsplash-subway","backsplash-stacked","backsplash-slab"],
+  "Inside doors": ["door-flush","door-shaker","door-six-panel","door-french","door-bifold","door-pocket"],
+  "Staircases": ["stairs-traditional","stairs-switchback","stairs-l-turn","stairs-floating","stairs-cantilever","stairs-led"],
+  "Collectibles": ["adventurer-figurine","mecha-figurine","model-sailboat","brick-roadster"],
+  "Sofas": ["left-chaise-sectional","right-chaise-sectional","u-sectional","boneless-loveseat","boneless-chaise","sofa","loveseat","modular-sectional","midcentury-sofa","sleeper-sofa"],
   "Chairs & stools": ["armchair","ottoman","dining-chair","bar-stool","office-chair","ergonomic-office-chair","gaming-chair","bench"],
   "Coffee tables": ["coffee-table","drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table"],
-  "Side tables": ["side-table","nesting-tables","tray-side-table","c-side-table","drawer-side-table","nightstand"],
-  "Beds": ["queen-bed","single-bed","storage-platform-bed","arched-bed","daybed","bunk-bed"],
+  "Side tables": ["cane-nightstand","floating-nightstand","pedestal-nightstand","side-table","nesting-tables","tray-side-table","c-side-table","drawer-side-table","nightstand"],
+  "Beds": ["twin-full-bunk","storage-bunk","low-kids-bunk","queen-bed","single-bed","storage-platform-bed","arched-bed","daybed","bunk-bed"],
   "Desks": ["desk","standing-desk","trestle-desk","corner-desk","secretary-desk","compact-computer-desk","gaming-desk","pedestal-computer-desk"],
   "Computers & screens": ["desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop"],
-  "TV & media": ["slim-tv","tv-stand"],
+  "TV & media": ["slim-tv","tv-stand","tv-55","tv-65","tv-75","slatted-tv-stand","open-media-bench","cane-tv-stand"],
+  "Speakers & audio": ["compact-speaker","bookshelf-speaker","tower-speaker","soundbar","subwoofer"],
   "Fans": ["tower-fan","pedestal-fan"],
   "Tables": ["dining-table","round-table"],
   "Cabinets & storage": ["dresser","wardrobe","cabinet","base-cabinet","wall-cabinet"],
@@ -26,9 +43,9 @@ const families: Record<string, string[]> = {
   "Toilets": ["two-piece-toilet","one-piece-toilet","wall-hung-toilet"],
   "Showers": ["corner-shower","walk-in-shower"],
   "Bathtubs": ["alcove-bathtub","oval-freestanding-tub","clawfoot-bathtub","bath-shower-combo"],
-  "Wall art & boards": ["landscape-painting","botanical-print","abstract-poster","coast-poster","whiteboard"],
-  "Shelves & books": ["bookshelf","wall-shelf","floating-shelves","books-upright","books-stacked"],
-  "Rugs": ["round-rug","runner-rug","braided-rug","scallop-rug","checker-rug"],
+  "Wall art & boards": ["valley-panorama","starlight-poster","singer-poster","basketball-poster","landscape-painting","botanical-print","abstract-poster","coast-poster","whiteboard"],
+  "Shelves & books": ["display-bookcase","ladder-display-shelf","cube-display-shelf","bookshelf","wall-shelf","floating-shelves","books-upright","books-stacked"],
+  "Rugs": ["diamond-wool-rug","kilim-rug","jute-rug","arch-color-rug","wide-check-rug","round-rug","runner-rug","braided-rug","scallop-rug","checker-rug"],
   "Plants & pets": ["large-plant","small-plant","pet-bed"],
   "Lamps": ["floor-lamp","table-lamp"],
   "Windows": ["window-casement","window-sash","window-picture","window-arched","window-bay","window-awning"],

@@ -1,3 +1,4 @@
+import { kitchenTopIds } from "./kitchenCatalog";
 export interface SurfaceFinish {
   id: string;
   name: string;
@@ -44,7 +45,7 @@ export const doorFinishes: SurfaceFinish[] = [
 ];
 
 const countertopCatalogIds = new Set(["base-cabinet", "sink-cabinet", "kitchen-counter", "kitchen-island", "single-bath-vanity", "double-bath-vanity", "floating-bath-vanity"]);
-export const supportsCountertopFinish = (catalogId: string) => countertopCatalogIds.has(catalogId);
+export const supportsCountertopFinish = (catalogId: string) => countertopCatalogIds.has(catalogId)||kitchenTopIds.has(catalogId)||catalogId==="backsplash-slab";
 
 export const defaultWallFinish = wallFinishes[0];
 export const defaultFloorFinish = floorFinishes[0];

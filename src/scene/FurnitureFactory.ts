@@ -1,4 +1,14 @@
-import { Color3, Mesh, MeshBuilder, Scene, ShadowGenerator, StandardMaterial, TransformNode, Vector3, VertexData } from "@babylonjs/core";
+import { Color3 } from "@babylonjs/core/Maths/math.color";
+import { Mesh } from "@babylonjs/core/Meshes/mesh";
+import { MeshBuilder } from "@babylonjs/core/Meshes/meshBuilder";
+import { Scene } from "@babylonjs/core/scene";
+import { ShadowGenerator } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
+import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
+import { TransformNode } from "@babylonjs/core/Meshes/transformNode";
+import { Vector3 } from "@babylonjs/core/Maths/math.vector";
+import { VertexData } from "@babylonjs/core/Meshes/mesh.vertexData";
+import { outdoorIds } from "../outdoorCatalog";
+import { interiorRows,interiorArtIds,shelfIds,collectibleIds } from "../interiorCatalog";
 import { variants } from "../catalog";
 import type { CatalogItem, FurniturePlacement } from "../types";
 
@@ -147,6 +157,72 @@ export class FurnitureFactory {
     const alpha=ghost?.2:1; const variant=variants[item.variant as keyof typeof variants] ?? variants.sage;
     const palette={main:this.material(`main-${item.variant}`,variant,alpha),wood:this.material("wood-honey",FURNITURE_STYLE.wood.honey,alpha),woodLight:this.material("wood-light",FURNITURE_STYLE.wood.light,alpha),woodDark:this.material("wood-dark",FURNITURE_STYLE.wood.dark,alpha),cream:this.material("cream",FURNITURE_STYLE.accent.cream,alpha),terracotta:this.material("terracotta",FURNITURE_STYLE.accent.terracotta,alpha),green:this.material("green",FURNITURE_STYLE.accent.green,alpha),blue:this.material("blue",FURNITURE_STYLE.accent.blue,alpha),burgundy:this.material("burgundy",FURNITURE_STYLE.accent.burgundy,alpha),mustard:this.material("mustard",FURNITURE_STYLE.fabric.mustard,alpha)};
     const args={parent,definition,item,width,depth,height,palette};
+    if(outdoorIds.has(definition.id))return this.outdoor(args);
+    if(interiorRows.some(row=>row[0]===definition.id))return this.interior(args);
+    if(definition.shape==="backsplash"){
+      this.beveledBox(parent,"backsplash-base",[width,height,depth],[0,height/2,0],palette.cream,.003);
+      if(definition.id!=="backsplash-slab")for(let row=0;row<4;row++)for(let col=0;col<6;col++)this.beveledBox(parent,"backsplash-tile",[width/6-.004,height/4-.004,depth*.35],[-width/2+(col+.5)*width/6,(row+.5)*height/4,depth*.45],palette.main,.003);
+      return;
+    }
+    if(definition.shape==="appliance"){
+      const id=definition.id;
+      if(id==="stand-mixer"||id==="espresso-machine"||id==="filter-coffee-maker"){
+        this.beveledBox(parent,"appliance-base",[width,.035,depth],[0,.0175,0],palette.main,.012);
+        this.beveledBox(parent,"appliance-upright",[width*.5,height*.9,depth*.3],[0,height*.48,-depth*.33],palette.main,.025);
+        this.beveledBox(parent,"appliance-head",[width*.8,height*.24,depth*.85],[0,height*.87,0],palette.main,.023);
+        if(id!=="espresso-machine")this.cylinder(parent,"appliance-vessel",width*.85,height*.45,[0,height*.28,depth*.16],palette.cream,24,width*.95);
+        else this.beveledBox(parent,"espresso-drip-tray",[width*.85,.02,depth*.45],[0,.05,depth*.22],palette.woodDark,.007);
+      }else if(id==="glass-air-fryer"){
+        this.cylinder(parent,"glass-bowl",width*.85,height*.72,[0,height*.4,0],this.material("cooking-glass","#a8b8b0",ghost?.15:.4),24);
+        this.cylinder(parent,"airfryer-heater",width,height*.25,[0,height*.875,0],palette.main,24);
+      }else if(id==="knife-block"){
+        this.beveledBox(parent,"knife-block",[width,height*.63,depth],[0,height*.315,0],palette.wood,.015);
+        for(let i=0;i<5;i++)this.beveledBox(parent,"knife-handle",[width*.10,height*.37,depth*.09],[-width*.4+i*width*.2,height*.81,0],palette.woodDark,.004);
+      }else if(id==="chimney-hood"||id==="under-cabinet-hood"){
+        this.beveledBox(parent,"extractor-canopy",[width,height*.24,depth],[0,height*.12,0],palette.main,.02);
+        this.beveledBox(parent,"extractor-chimney",[width*.4,height*.76,depth*.4],[0,height*.62,-depth*.2],palette.cream,.016);
+      }else{
+        this.beveledBox(parent,"appliance-enclosure",[width,height,depth],[0,height/2,0],palette.main,.024);
+        if(id==="two-slot-toaster")for(const z of [-depth*.22,depth*.22])this.beveledBox(parent,"toast-slot",[width*.75,.01,depth*.17],[0,height,z],palette.woodDark,.005);
+        else this.beveledBox(parent,"microwave-window",[width*.67,height*.66,.012],[-width*.08,height*.52,depth/2+.006],palette.woodDark,.012);
+      }
+      return;
+    }
+    if(definition.id==="dome-pendant"||definition.id==="linear-pendant"){
+      this.beveledBox(parent,"pendant-shade",[width,height*.19,depth],[0,height*.095,0],palette.main,.024);
+      this.cylinder(parent,"ceiling-canopy",Math.min(width,.12),.035,[0,height-.0175,0],palette.woodDark,16);
+      this.cylinder(parent,"pendant-cord",.012,height*.8,[0,height*.59,0],palette.woodDark,8);
+      return;
+    }
+    if(definition.shape==="door"){
+      const frame=Math.min(width*.07,.07);
+      for(const side of [-1,1])this.beveledBox(parent,"door-jamb",[frame,height,depth],[side*(width-frame)/2,height/2,0],palette.wood,.012);
+      this.beveledBox(parent,"door-header",[width,frame,depth],[0,height-frame/2,0],palette.wood,.012);
+      const leaves=definition.id==="door-french"?2:definition.id==="door-bifold"?4:1,inner=width-2*frame;
+      for(let i=0;i<leaves;i++){
+        const w=inner/leaves-.008,x=-inner/2+(i+.5)*inner/leaves;
+        this.beveledBox(parent,"door-leaf",[w,height-frame,.045],[x,(height-frame)/2,0],palette.main,.011);
+        for(const side of [-1,1]){
+          if(definition.id!=="door-flush"&&definition.id!=="door-pocket")for(const y of [.28,.73])this.beveledBox(parent,"door-inset-panel",[w*.76,height*.33,.013],[x,height*y,side*.029],definition.id==="door-french"?palette.blue:palette.cream,.009);
+          this.beveledBox(parent,"door-pull",[.075,.025,.025],[x+w*.30,height*.47,side*.05],palette.woodDark,.008);
+        }
+      }
+      return;
+    }
+    if(definition.shape==="stairs"){
+      const rise=(item.stairRiseMm??2800)/1000,l=definition.id==="stairs-l-turn",u=definition.id==="stairs-switchback";
+      const fw=l?width/3.2:u?width*.45:width,landingDepth=l?depth/3.2:depth*.99/3.2;
+      for(let n=0;n<16;n++){
+        const upper=n>=8,step=(l||u)?(depth-landingDepth)/8:depth/16;
+        let x=0,z=-depth/2+(n+.5)*step,w=width,d=step;
+        if(l||u){x=-(width-fw)/2;z=-depth/2+(n%8+.5)*step;w=fw;if(upper&&u){x=(width-fw)/2;z=depth/2-landingDepth-(n%8+.5)*step}if(upper&&l){x=-width/2+fw+(n%8+.5)*(width-fw)/8;z=(depth-landingDepth)/2;w=(width-fw)/8;d=landingDepth;}}
+        const y=rise*(n+1)/16;
+        this.beveledBox(parent,"stair-tread",[w,.075,d],[x,y-.0375,z],palette.wood,.012);
+        if(definition.id==="stairs-traditional")this.beveledBox(parent,"stair-riser",[w,.175,.045],[x,y-.0875,z-d/2+.0225],palette.cream,.008);
+      }
+      if(l||u)this.beveledBox(parent,"stair-landing",[l?fw:width,.10,landingDepth],[l?-(width-fw)/2:0,rise/2-.05,(depth-landingDepth)/2],palette.wood,.014);
+      return;
+    }
     if(definition.shape==="window") {
       const rail=Math.min(.085,width*.12,height*.12);
       for(const side of [-1,1]){
@@ -460,6 +536,88 @@ export class FurnitureFactory {
     this.beveledBox(parent,"runner-inner-field",[w*.72,.014,d*.83],[0,.039,0],p.cream,.035);
     for(let i=-3;i<=3;i+=1){const stripe=this.beveledBox(parent,"runner-stripe",[w*.66,.012,d*.035],[0,.049,i*d*.105],i%2?p.terracotta:p.green,.006);stripe.rotation.y=(i%2)*.025;}
     for(let i=0;i<12;i+=1){const x=-w*.44+i*w*.08;this.beveledBox(parent,"rug-fringe",[w*.025,.02,d*.055],[x,.02,d*.52],i%2?p.cream:p.main,.004);this.beveledBox(parent,"rug-fringe",[w*.025,.02,d*.055],[x,.02,-d*.52],i%2?p.cream:p.main,.004);}
+  }
+
+  private outdoor(args:BuilderArgs){
+    const {parent,definition,width:w,depth:d,height:h,palette:p}=args,id=definition.id;
+    const b=(name:string,size:Size,pos:Position,mat=p.main)=>this.beveledBox(parent,name,size,pos,mat);
+    if(definition.shape==="plant"){
+      if(id==="grass-clump"){for(let n=0;n<9;n++){const blade=b("grass-blade",[.012,h*(.6+n*.04),.005],[(n%3-1)*w*.3,h*.35,(Math.floor(n/3)-1)*d*.3],p.green);blade.rotation.z=(n%3-1)*.25;}return;}
+      const tree=id.endsWith("-tree");
+      this.cylinder(parent,"branching-stem",w*(tree?.06:.04),h*.86,[0,h*.43,0],p.wood,8);
+      const layers=tree?7:4;
+      for(let row=0;row<layers;row++)for(let n=0;n<7;n++){const a=n*Math.PI*2/7+row*.6,r=w*.30*(id==="spruce-tree"?1-row/8:1);const leaf=b("shaped-leaf",[w*.24,h*.025,d*.18],[r*Math.cos(a),h*(.32+row*.08),r*Math.sin(a)],id==="sakura-tree"?p.burgundy:id==="maple-tree"?p.terracotta:p.green);leaf.rotation.y=a;leaf.rotation.z=.25*Math.sin(a);}
+      return;
+    }
+    if(definition.shape==="rug"){b("paving-module",[w,h,d],[0,h/2,0],p.woodLight);for(let n=1;n<4;n++)b("paving-joint",[w,.003,.012],[0,h,n*d/4-d/2],p.woodDark);return;}
+    if(id==="patio-parasol"){this.cylinder(parent,"umbrella-foot",w*.25,.1,[0,.05,0],p.woodDark,16);this.cylinder(parent,"umbrella-pole",.05,h,[0,h/2,0],p.wood,10);this.cylinder(parent,"umbrella-canopy",w,h*.15,[0,h*.9,0],p.main,8,.05);return;}
+    if(id==="gas-bbq"){b("bbq-cart",[w*.65,h*.65,d*.85],[0,h*.35,0],p.woodDark);b("closed-lid",[w*.65,h*.30,d],[0,h*.84,0]);for(const x of [-w*.4,w*.4])b("side-shelf",[w*.2,.04,d*.8],[x,h*.66,0],p.woodDark);return;}
+    if(id==="kettle-bbq"||id==="patio-fire-bowl"){this.cylinder(parent,"bowl",w,h*.25,[0,h*.73,0],p.woodDark,24,w*.55);for(const x of [-w*.3,w*.3])b("bowl-leg",[.045,h*.65,.045],[x,h*.325,0],p.woodDark);return;}
+    if(definition.shape==="table")return this.table(args);
+    b("patio-seat",[w,h*.12,d*.78],[0,h*.46,0],p.wood);
+    for(const x of [-w*.41,w*.41])for(const z of [-d*.32,d*.32])b("patio-leg",[.065,h*.45,.065],[x,h*.225,z],p.wood);
+    for(let n=0;n<5;n++)b("patio-back-slat",[w*.15,h*.43,.05],[(n-2)*w*.18,h*.76,-d*.34],p.wood);
+    if(id==="patio-loveseat"||id==="patio-chaise")b("outdoor-cushion",[w*.88,h*.12,d*.65],[0,h*.57,0]);
+  }
+
+  /** Lightweight loading/error silhouettes only; authored Blender GLBs replace these. */
+  private interior(args:BuilderArgs){
+    const {parent,definition,width:w,depth:d,height:h,palette:p}=args,id=definition.id;
+    const b=(name:string,size:Size,pos:Position,mat=p.main)=>this.beveledBox(parent,name,size,pos,mat);
+    if(interiorArtIds.has(id)){
+      b("framed-art-backing",[w,h,d],[0,h/2,0],p.wood);b("printed-art-placeholder",[w*.90,h*.92,d*.15],[0,h/2,d*.51],p.cream);
+      b("art-color-field",[w*.75,h*.30,d*.08],[0,h*.34,d*.60],p.main);return;
+    }
+    if(shelfIds.has(id)){
+      const cubby=id==="cube-display-shelf",levels=cubby?4:id==="display-bookcase"?4:4;
+      for(const x of [-w*.475,w*.475])b("shelf-upright",[w*.05,h,d],[x,h/2,0],p.wood);
+      for(let n=0;n<levels;n++)b("shelf-board",[w,.035,d],[0,.04+n*(h-.06)/(levels-1),0],p.wood);
+      if(cubby)for(const x of [-w/6,w/6])b("cubby-divider",[.035,h,d],[x,h/2,0],p.wood);
+      return;
+    }
+    if(collectibleIds.has(id)){
+      b("display-base",[w,h*.06,d],[0,h*.03,0],p.wood);
+      if(id==="brick-roadster"){
+        b("car-chassis",[w,h*.40,d*.72],[0,h*.45,0]);b("hood",[w*.30,h*.22,d*.72],[w*.32,h*.75,0]);
+        for(const x of [-w*.30,w*.30])for(const z of [-d*.40,d*.40]){const wheel=this.cylinder(parent,"car-wheel",h*.43,d*.17,[x,h*.25,z],p.woodDark,12);wheel.rotation.x=Math.PI/2;}
+      }else if(id==="model-sailboat"){
+        b("boat-hull",[w,h*.17,d*.75],[0,h*.20,0],p.wood);b("ship-mast",[w*.018,h*.77,d*.03],[0,h*.60,0],p.wood);
+        b("sail-placeholder",[w*.38,h*.48,d*.025],[-w*.21,h*.61,0],p.cream);
+      }else{
+        for(const x of [-w*.17,w*.17])b("figure-leg",[w*.21,h*.29,d*.26],[x,h*.24,0],p.woodDark);
+        b("figure-body",[w*.50,h*.30,d*.35],[0,h*.53,0]);b("figure-head",[w*.37,h*.23,d*.34],[0,h*.82,0],id==="mecha-figurine"?p.cream:p.mustard);
+        for(const x of [-w*.33,w*.33])b("figure-arm",[w*.16,h*.28,d*.26],[x,h*.52,0]);
+      }return;
+    }
+    if(definition.shape==="bed"){
+      for(const x of [-w*.46,w*.46])for(const z of [-d*.47,d*.47])b("bunk-post",[w*.07,h,d*.035],[x,h/2,z],p.wood);
+      for(const y of [h*.20,h*.68]){b("bunk-frame",[w,y*.12+.06,d*.95],[0,y,0],p.wood);b("bunk-mattress",[w*.87,h*.09,d*.88],[0,y+h*.07,0],p.cream);b("bunk-duvet",[w*.85,h*.035,d*.6],[0,y+h*.13,d*.12]);}
+      for(const x of [-w*.45,w*.45])b("bunk-guard",[w*.04,h*.08,d*.96],[x,h*.94,0],p.wood);
+      for(const x of [-w*.19,w*.19])b("ladder-side",[.04,h*.75,.05],[x,h*.375,d*.47],p.wood);
+      for(let n=1;n<5;n++)b("ladder-rung",[w*.42,.035,.06],[0,n*h*.15,d*.47],p.wood);
+      return;
+    }
+    if(definition.shape==="rug"){
+      if(id==="jute-rug")this.cylinder(parent,"round-rug",Math.min(w,d),h,[0,h/2,0],p.cream,48);
+      else {b("bound-rug",[w,h,d],[0,h/2,0],p.cream);b("woven-rug-field",[w*.9,h*.1,d*.9],[0,h,0]);}
+      return;
+    }
+    if(definition.shape==="seat"){
+      const foam=id.startsWith("boneless"),count=foam?1:id==="u-sectional"?4:3,inner=w*.87;
+      for(let n=0;n<count;n++){const chaise=foam||(id==="u-sectional"&&(n===0||n===count-1))||(id==="left-chaise-sectional"&&n===0)||(id==="right-chaise-sectional"&&n===count-1);
+        const depth=chaise?d:d*.54,x=-inner/2+(n+.5)*inner/count,z=-d/2+depth/2;
+        b("upholstered-base",[inner/count,h*.32,depth],[x,h*.20,z]);b("seat-cushion",[inner/count*.98,h*.18,depth*.85],[x,h*.44,z+depth*.06]);
+      }
+      b("connected-sofa-back",[w,h*.55,d*.15],[0,h*.725,-d*.425]);
+      for(const x of [-w*.45,w*.45])b("sofa-arm",[w*.10,h*.32,d*.8],[x,h*.43,0]);
+      return;
+    }
+    if(id==="pedestal-nightstand"){
+      this.cylinder(parent,"drum-base",w*.78,h*.8,[0,h*.4,0],p.wood,32);this.cylinder(parent,"drum-top",w,h*.20,[0,h*.9,0],p.main,32);return;
+    }
+    const floating=id==="floating-nightstand";b("bedside-case",[w,h*(floating?1:.72),d],[0,h*(floating?.5:.64),0],p.wood);
+    b("bedside-drawer",[w*.86,h*.26,d*.08],[0,h*.74,d*.50]);b("bedside-pull",[w*.20,h*.035,d*.06],[0,h*.74,d*.56],p.woodDark);
+    if(!floating)for(const x of [-w*.4,w*.4])for(const z of [-d*.4,d*.4])b("bedside-leg",[.04,h*.30,.04],[x,h*.15,z],p.wood);
   }
 
   private decor({parent,definition,width:w,depth:d,height:h,palette:p}:BuilderArgs){

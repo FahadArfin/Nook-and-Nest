@@ -14,7 +14,7 @@ for name in sys.argv[sys.argv.index('--')+1:]:
     scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True
     scene.render.resolution_x=480;scene.render.resolution_y=440;scene.render.resolution_percentage=100
     scene.world.color=(.45,.45,.45);scene.view_settings.view_transform='AgX'
-    bpy.ops.object.camera_add(location=(3,-5,3.4))
+    bpy.ops.object.camera_add(location=(50,-70,50) if name.startswith('backdrop-') else (3,-5,3.4))
     camera=bpy.context.object;camera.rotation_euler=(Vector((0,0,h*.48))-camera.location).to_track_quat('-Z','Y').to_euler()
     camera.data.type='ORTHO';scene.camera=camera
     bpy.context.view_layer.update()
@@ -25,6 +25,8 @@ for name in sys.argv[sys.argv.index('--')+1:]:
     camera.data.ortho_scale=max(high[1]-low[1],(high[0]-low[0])*440/480)*1.22
     bpy.ops.object.light_add(type='AREA',location=(-3,-4,5));bpy.context.object.data.energy=450;bpy.context.object.data.shape='DISK';bpy.context.object.data.size=4
     bpy.ops.object.light_add(type='AREA',location=(3,1,3));bpy.context.object.data.energy=300;bpy.context.object.data.size=3
+    if name.startswith('backdrop-'):
+        bpy.ops.object.light_add(type='SUN',rotation=(.4,-.5,-.5));bpy.context.object.data.energy=2
     scene.render.film_transparent=True;scene.render.image_settings.file_format='PNG'
     scene.render.filepath=str(out/(name+'.png'));bpy.ops.render.render(write_still=True)
     print('PREVIEW '+name)

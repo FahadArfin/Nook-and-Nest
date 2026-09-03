@@ -1,0 +1,29 @@
+import assert from 'node:assert/strict';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { gzipSync } from 'node:zlib';
+import { build } from 'esbuild';
+
+const output = await build({ entryPoints: ['src/catalog.ts'], bundle: true, write: false, format: 'esm', platform: 'node' });
+const { catalog } = await import(`data:text/javascript;base64,${Buffer.from(output.outputFiles[0].text).toString('base64')}`);
+for (const item of catalog) {
+  for (const path of [`assets-source/blender/${item.id}.blend`, `dist/client/models/furniture/${item.id}.glb`, `dist/client/models/previews/${item.id}.png`]) assert(existsSync(path), `Missing ${path}`);
+  const data = readFileSync(`dist/client/models/furniture/${item.id}.glb`);
+  assert.equal(data.toString('ascii', 0, 4), 'glTF');
+  assert.equal(data.readUInt32LE(4), 2);
+  assert.equal(data.readUInt32LE(8), data.length);
+}
+const assets = 'dist/client/assets/';
+const entry = readdirSync(assets).find(name => /^index-.*\.js$/.test(name));
+assert(entry, 'Missing client entry');
+const raw = readFileSync(assets + entry), compressed = gzipSync(raw);
+assert(raw.length < 3_000_000, 'Main bundle exceeded 3 MB');
+assert(compressed.length < 800_000, 'Main compressed bundle exceeded 800 kB');
+const manifest = JSON.parse(readFileSync('dist/.openai/hosting.json', 'utf8'));
+assert.equal(manifest.d1, 'DB');
+assert(existsSync('dist/.openai/drizzle/0000_lush_inhumans.sql'));
+const { default: worker } = await import('../dist/server/index.js');
+assert.equal(typeof worker.fetch, 'function');
+const response = await worker.fetch(new Request('https://example.test/api/projects'), {});
+assert.equal(response.status, 401);
+assert.match(response.headers.get('cache-control'), /no-store/);
+console.log(JSON.stringify({ catalogPieces: catalog.length, entryBytes: raw.length, gzipBytes: compressed.length, databaseBinding: manifest.d1, anonymousAccess: response.status }));

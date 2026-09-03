@@ -1,5 +1,37 @@
+import { interiorRows,interiorWallIds,collectibleIds } from "./interiorCatalog";
+import { outdoorRows } from "./outdoorCatalog";
 import type { CatalogItem } from "./types";
+import { kitchenRows,kitchenWallIds,kitchenSurfaceIds,kitchenCeilingIds,kitchenMountHeight } from "./kitchenCatalog";
+export const isKitchenWall=(id:string)=>kitchenWallIds.has(id);
+export const isCeilingMounted=(id:string)=>kitchenCeilingIds.has(id);
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
+  ...outdoorRows,
+  ...interiorRows,
+  ...kitchenRows,
+  ["door-flush","Quiet flush door","Doors",950,160,2150,"door","Smooth modern door, thick jambs and a small lever; snaps into a wall"],
+  ["door-shaker","Cottage Shaker door","Doors",950,160,2150,"door","Two framed panels with gentle mouldings"],
+  ["door-six-panel","Heritage six-panel door","Doors",950,160,2150,"door","Traditional six-panel construction and independent trim colors"],
+  ["door-french","Glazed French pair","Doors",1550,160,2150,"door","Double doors with translucent panes and glazing bars"],
+  ["door-bifold","Folding four-panel door","Doors",1550,160,2150,"door","Four narrow hinged leaves for a closet or laundry opening"],
+  ["door-pocket","Pocket sliding door","Doors",950,160,2150,"door","Flush sliding leaf with recessed pulls and an overhead track; shown closed"],
+  ["stairs-traditional","Cottage closed-riser stairs","Stairs",1100,4200,3700,"stairs","Sixteen wood treads with closed risers and twin handrails"],
+  ["stairs-switchback","Return-flight staircase","Stairs",2200,3200,3700,"stairs","Two stacked parallel flights joined by a broad landing"],
+  ["stairs-l-turn","Quarter-turn staircase","Stairs",3200,3200,2800,"stairs","An L-shaped pair of flights with an open corner and square landing"],
+  ["stairs-floating","Mono floating staircase","Stairs",1100,4200,3700,"stairs","Thick floating wood treads on one central metal stringer"],
+  ["stairs-cantilever","Cantilever wood treads","Stairs",1100,4200,2800,"stairs","Wall-mounted tread plates; requires an engineered support wall"],
+  ["stairs-led","Warm-lit cantilever stairs","Stairs",1100,4200,2800,"stairs","Warm under-nosing light strips beneath chunky cantilevered treads"],
+
+  ["tv-55","Picture TV · 55 inch","Living",1238,280,795,"device","55-inch class screen with slim bezel and splayed feet; rests on a media bench"],
+  ["tv-65","Picture TV · 65 inch","Living",1459,300,919,"device","65-inch class screen with a separate tintable screen, casing and feet"],
+  ["tv-75","Picture TV · 75 inch","Living",1680,340,1044,"device","Large 75-inch class screen; check your media bench width"],
+  ["compact-speaker","Pocket room speaker","Living",125,140,190,"device","Small rounded smart-style speaker for shelves or surround sound"],
+  ["bookshelf-speaker","Duet bookshelf speaker","Living",200,250,340,"device","Two-driver speaker with a soft-edged wood enclosure; place a pair independently"],
+  ["tower-speaker","Column tower speaker","Living",280,340,1050,"device","Three exposed drivers on an isolation plinth for a home cinema"],
+  ["soundbar","Quiet cinema soundbar","Living",950,130,75,"device","Long low speaker with a continuous matte grille"],
+  ["subwoofer","Deep note subwoofer","Living",360,400,420,"device","Floor-standing bass cabinet with a large recessed driver"],
+  ["slatted-tv-stand","Tambour media bench","Living",1800,440,560,"storage","Slatted wood doors, open equipment shelf and rear cable passage"],
+  ["open-media-bench","Low horizon media bench","Living",2100,450,380,"storage","Wide low open compartments for a 75-inch TV and accessories"],
+  ["cane-tv-stand","Willow cane media bench","Living",1600,420,660,"storage","Framed woven doors, visible tapered feet and a central equipment shelf"],
   ["bath-mirror-rounded","Soft-corner bathroom mirror","Bathroom",700,60,900,"bathroom","Rounded rectangular frame with a softly tinted mirror"],
   ["bath-mirror-pill","Capsule bathroom mirror","Bathroom",550,50,950,"bathroom","Tall pill-shaped wall mirror"],
   ["bath-mirror-halo","Halo bathroom mirror","Bathroom",750,55,750,"bathroom","Round mirror with a warm light-style border"],
@@ -54,15 +86,18 @@ const rows: Array<[string,string,CatalogItem["category"],number,number,number,Ca
   ["floor-lamp","Bell floor lamp","Lighting",450,450,1550,"lamp","Warm pool of light"],["table-lamp","Glow lamp","Lighting",300,300,520,"lamp","Small cozy lamp"],["large-plant","Sunny plant","Decor",600,600,1300,"plant","A generous leafy plant"],["small-plant","Window plant","Decor",320,320,520,"plant","Fits anywhere"],["round-rug","Dewdrop rug","Decor",1800,1800,20,"rug","Soft round rug"],["runner-rug","Woven runner","Decor",800,2200,20,"rug","Long patterned runner"],["braided-rug","Hearth braid rug","Decor",1600,1000,25,"rug","Warm layered oval weave"],["scallop-rug","Petal edge rug","Decor",1700,1200,25,"rug","Playful scalloped border"],["checker-rug","Picnic check rug","Decor",1500,1500,25,"rug","Chunky cottage checks"],["mirror","Sunrise mirror","Decor",700,80,1100,"decor","Rounded standing mirror"],["pet-bed","Sleepy pet bed","Decor",700,550,180,"decor","A tiny nest for a companion"]
   ,["landscape-painting","Amber valley painting","Decor",900,70,650,"decor","A warm framed countryside painting"],["botanical-print","Garden study print","Decor",600,45,800,"decor","A quiet botanical illustration"],["abstract-poster","Shape & sun poster","Decor",600,35,850,"decor","Warm mid-century geometric art"],["coast-poster","Moon coast poster","Decor",650,35,900,"decor","A dreamy coastal night print"],["round-wall-mirror","Dewdrop wall mirror","Decor",720,55,720,"decor","Round mirror with a chunky wood rim"],["arch-wall-mirror","Window arch mirror","Decor",620,55,980,"decor","Tall softly arched wall mirror"],["whiteboard","Little plan board","Office",900,55,650,"decor","Whiteboard with tray, notes and markers"],["wall-shelf","Peg rail shelf","Storage",900,240,360,"storage","Wall shelf with pegs and a raised back"],["floating-shelves","Floating shelf pair","Storage",1000,240,720,"storage","Two staggered chunky floating shelves"],["books-upright","Storybook row","Decor",520,180,310,"decor","A varied row of standing books"],["books-stacked","Bedside book stack","Decor",420,280,260,"decor","Several books stacked horizontally"]
 ];
-const wallMountedIds = new Set(["bath-mirror-rounded","bath-mirror-pill","bath-mirror-halo","bath-medicine-cabinet","wall-hung-sink","floating-bath-vanity","wall-hung-toilet","landscape-painting","botanical-print","abstract-poster","coast-poster","round-wall-mirror","arch-wall-mirror","whiteboard","wall-shelf","floating-shelves","books-upright","books-stacked"]);
+const wallMountedIds = new Set(["bath-mirror-rounded","bath-mirror-pill","bath-mirror-halo","bath-medicine-cabinet","wall-hung-sink","floating-bath-vanity","wall-hung-toilet","landscape-painting","botanical-print","abstract-poster","coast-poster","round-wall-mirror","arch-wall-mirror","whiteboard","wall-shelf","floating-shelves"]);
+export const isDoor=(id:string)=>rows.some(row=>row[0]===id&&row[2]==="Doors");
+export const isStairs=(id:string)=>rows.some(row=>row[0]===id&&row[2]==="Stairs");
+export const isWallOpening=(id:string)=>isWindow(id)||isDoor(id);
 export const isWindow = (catalogId: string) => rows.some(row=>row[0]===catalogId&&row[2]==="Windows");
-export const isWallMounted = (catalogId: string) => wallMountedIds.has(catalogId)||isWindow(catalogId);
+export const isWallMounted = (catalogId: string) => wallMountedIds.has(catalogId)||interiorWallIds.has(catalogId)||isKitchenWall(catalogId)||isWallOpening(catalogId);
 export const bathroomModelIds = new Set(rows.filter(row=>row[2]==="Bathroom").map(row=>row[0]));
-export const defaultMountHeight = (id:string):number|undefined => id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined;
-export const workspaceModelIds = new Set(rows.filter(row=>row[6]==="device"||row[6]==="fan"||["drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table","compact-computer-desk","gaming-desk","pedestal-computer-desk","ergonomic-office-chair","gaming-chair"].includes(row[0])).map(row=>row[0]));
-export const isSurfaceMounted = (id:string) => ["desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
-export const hasModelPreview = (id:string) => isWindow(id)||workspaceModelIds.has(id)||bathroomModelIds.has(id);
-export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isWallMounted(id)?"wall":isSurfaceMounted(id)?"surface":"floor" }));
+export const defaultMountHeight = (id:string):number|undefined => kitchenMountHeight(id)??(id==="floating-nightstand"?350:isDoor(id)?0:id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined);
+export const workspaceModelIds = new Set(rows.filter(row=>(row[6]==="device"&&row[2]==="Office")||row[6]==="fan"||["drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table","compact-computer-desk","gaming-desk","pedestal-computer-desk","ergonomic-office-chair","gaming-chair"].includes(row[0])).map(row=>row[0]));
+export const isSurfaceMounted = (id:string) => collectibleIds.has(id)||["books-upright","books-stacked","small-plant"].includes(id)||kitchenSurfaceIds.has(id)||["tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","soundbar","desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
+export const hasModelPreview = (id:string) => rows.some(row=>row[0]===id);
+export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isCeilingMounted(id)?"ceiling":isWallMounted(id)?"wall":isSurfaceMounted(id)?"surface":"floor" }));
 export const variants = {
   sage: "#97a67c", clay: "#c4775f", oat: "#d9c5a3", rose: "#c89490",
   ink: "#5d6965", navy: "#53687d", rust: "#9f5d47", cream: "#eee4d1",
