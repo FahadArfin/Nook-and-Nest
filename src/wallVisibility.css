@@ -1,0 +1,8 @@
+.wall-visibility-control { position: relative; }
+.wall-visibility-step { position:absolute; right:2px; bottom:1px; font-size:9px; font-weight:900; line-height:12px; }
+.wall-visibility-tooltip { display:none; position:absolute; right:calc(100% + 10px); top:0; width:max-content; padding:8px 11px; border-radius:9px; background:#fffaf0; color:#47523f; box-shadow:0 3px 12px #27372330; text-align:left; font-size:12px; pointer-events:none; z-index:10; }
+.wall-visibility-tooltip small { display:block; margin-top:3px; font-size:10px; font-weight:400; }
+.wall-visibility-control:hover .wall-visibility-tooltip,.wall-visibility-control:focus-visible .wall-visibility-tooltip { display:block; }
+.wall-visibility-control:focus-visible { outline:3px solid #b87947; outline-offset:3px; }
+.wall-visibility-status { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+.dark-mode .wall-visibility-tooltip { background:#293129; color:#eee4d1; }

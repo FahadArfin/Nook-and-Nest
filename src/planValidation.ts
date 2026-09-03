@@ -46,4 +46,5 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   obj(p.camera); if (!["top", "isometric", "dollhouse"].includes(p.camera.mode)) fail();
   for (const k of ["ghostBelow", "showGrid", "showClearance"]) if (typeof p.camera[k] !== "boolean") fail();
   for (const k of ["transparentWalls", "darkMode"]) if (p.camera[k] !== undefined && typeof p.camera[k] !== "boolean") fail();
+  if (p.camera.wallVisibility !== undefined && !["near-hidden", "all-hidden", "all-visible"].includes(p.camera.wallVisibility)) fail();
 }

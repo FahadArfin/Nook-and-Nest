@@ -8,9 +8,11 @@ import { snapWindow, windowProblem } from "./windows";
 import { createSamplePlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 import { validatePlan } from "./planValidation";
+import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
+  cycleWallVisibility(): void;
   commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1):void;
   setEnvironment(patch:Partial<NonNullable<PlanDocumentV1["environment"]>>):void;
   roomSize?: {widthMm:number;depthMm:number};setRoomSize(size:{widthMm:number;depthMm:number}):void; addMeasuredRoom(region:MeasuredRegion):void;
@@ -48,7 +50,17 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),
   setView: (mode) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, mode } })),
-  toggleCameraSetting: (key) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, [key]: !state.plan.camera[key] } })),
+  cycleWallVisibility: () => set(state => {
+    const wallVisibility = nextWallVisibility(getWallVisibility(state.plan.camera));
+    return commit(state, { ...state.plan, camera: { ...state.plan.camera, wallVisibility, transparentWalls: wallVisibility !== "all-visible" } });
+  }),
+  toggleCameraSetting: (key) => set((state) => {
+    // Retain the old boolean action for existing callers, without leaving a
+    // stale enum that would override its result.
+    const camera = { ...state.plan.camera, [key]: !state.plan.camera[key] };
+    if (key === "transparentWalls") camera.wallVisibility = camera.transparentWalls ? "near-hidden" : "all-visible";
+    return commit(state, { ...state.plan, camera });
+  }),
   setActiveFloor: (activeFloorId) => set({ activeFloorId, selectedId: undefined }),
   addFloor: () => set((state) => { const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), ...(previous.cellRects?{cellRects:structuredClone(previous.cellRects)}:{}), walls: [], openings: [], stairs: [], floorFinishId: previous.floorFinishId, wallFinishId: previous.wallFinishId }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
   deleteFloor: (floorId) => set((state) => {
