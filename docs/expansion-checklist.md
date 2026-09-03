@@ -1,7 +1,7 @@
 # Requested expansion — September 2026
 
-Public release remains v15 until the complete update is approved for publication.
-Online project saves: user approved private sign-in-backed saves.
+Public release v16 was approved and published on September 3, 2026 at https://nook-and-nest.fwad101.chatgpt.site.
+Online project saves are active with private sign-in-backed snapshots and restore-as-copy history.
 
 ## Editor and persistence
 - [x] 1 Preserve camera on furniture selection and editing.
@@ -11,7 +11,7 @@ Online project saves: user approved private sign-in-backed saves.
 - [x] 6 Model thumbnails for every catalog piece.
 - [x] 7 Per-material colors and custom color selection.
 - [x] 8 Smooth camera rotation, panning and zoom.
-- [ ] 13b Private online multi-project saving, new/open/older saves. Implementation and local SQLite/UI tests complete; real hosted sign-in, DB provisioning and cross-device verification remain.
+- [x] 13b Private online multi-project saving, new/open/older saves. Database migration, real hosted sign-in, save/reopen and older-version restore-as-copy verified. A physical second-device check remains an acceptance follow-up.
 - [x] 14 Floor actions beside bottom-left floor tabs.
 - [x] 15 Dark mode.
 - [x] 16 Opt-in light/fuller grass using bounded, non-pickable thin instances. Floors and furnishing footprints are excluded.
@@ -37,7 +37,7 @@ Online project saves: user approved private sign-in-backed saves.
 ## Verification
 - [x] First batch: 88 unit/integration checks, TypeScript, build, 4 static Worker checks. Repeat after further expansion.
 - [x] Media batch: inspected model previews, fixed compact speaker cap intersection, tested exported envelopes and polygon budgets. Repeat for subsequent collections.
-- [x] Local SQLite authorization/isolation, version retention and save conflict tests. Hosted verification remains.
+- [x] Local SQLite authorization/isolation, version retention and save conflict tests. Hosted anonymous requests reject private access; real signed-in save/reopen and history recovery also verified. Separate real-user account isolation was not browser-tested.
 - [x] Batch 2: 108 unit/integration checks, TypeScript, production build, 4 static Worker checks. Headless Babylon GLB import checks stair orientation; editable Blender sources have 16 even risers ending at the specified rise.
 - [x] All 12 building models have original editable Blender sources, dimension-checked GLBs and inspected thumbnails. Loading/error fallbacks added.
 - [x] Batch 3: 120 unit/integration checks, TypeScript, production build, 4 hosting checks; 28 original Blender sources, normalized GLBs, material-color metadata and inspected thumbnails. No browser interaction testing claimed.
@@ -46,11 +46,12 @@ Online project saves: user approved private sign-in-backed saves.
 - [ ] Interactive browser/hardware performance verification of the combined expansion before production acceptance.
 - [x] Batch 6 download pass: focused Babylon imports and glTF 2-only loading reduce the main bundle from roughly 5.9 MB / 1.3 MB gzip to roughly 2.34 MB / 596 kB gzip. Explicit picking, shadows, outlines and thin-instance registrations are retained. Release verification enforces a 3 MB / 800 kB gzip entry budget and checks all 216 model/source/preview sets.
 - [x] Batch 6 browser regression: separate approved QA project; keyboard draft/rotate/confirm, click-to-reselect, close focus/zoom/recolor, 150-piece loading, two floors and local reload. No console warnings/errors observed. The automation browser reports about 1.2 FPS despite sampled CPU render times around 9 ms; this is not accepted as a reliable integrated-GPU performance result.
-- [ ] Prepare publication; no unapproved replacement of public release.
+- [x] Batch 6 approved publication: v16, source commit `6012fc827abe7dfe3371fd8382dbca7c8ae4b01f`, deployment `appgdep_6a992b455800819191bd368177e6e6f4`. All 148 tests, type check, production build and 4 hosting checks passed. DB migration applied; public assets and unauthenticated API security smoke-tested.
+- [x] Hosted online QA: the approved 150-piece/two-floor test project was saved twice. Canonical geometry/placement data matched the fixture exactly. Version 1 opened as a separate local copy while version 2 remained online. No application console errors observed; the sign-in provider emitted a non-application telemetry-size warning.
 
 ## Current checkpoint
 
-Batch 5 (outdoors/settings) and closer detail zoom are implemented locally, following Batches 1–4. The catalog now contains 216 original Blender pieces: the existing 111, 11 media, 12 doors/stairs, 28 kitchen/storage, 27 indoor furniture/décor and 27 outdoor additions. Every card has a rendered preview. Five additional background dioramas are scenery-only assets. No expansion deployment has occurred in this work.
+Batches 1–6 are published in v16, including outdoors/settings, close detail zoom and private online snapshots. The catalog contains 216 original Blender pieces: the existing 111, 11 media, 12 doors/stairs, 28 kitchen/storage, 27 indoor furniture/décor and 27 outdoor additions. Every card has a rendered preview. Five additional background dioramas are scenery-only assets. Ordinary integrated-GPU performance and physical second-device acceptance remain unverified; the low automation-browser frame rate is not a performance pass.
 
 Open **Garden & surroundings** in the room panel for optional backgrounds, grass and the Outdoor library shortcut. Drag on the lowest floor to place outside at ground level. Use wall-free patio/path modules rather than architectural floor painting for outdoor paving. The camera can now orbit down to 0.25 m instead of 4 m; zoom buttons and **Focus selected furniture** are on the view toolbar. Selection/recoloring still preserves zoom. See outdoor-research.md for details and boundaries.
 
@@ -64,8 +65,6 @@ Doors and stairs are catalog categories and use the existing drag/draft/confirm 
 
 Online saves are explicit snapshots, while local edits autosave. Protected static handoff source files are unchanged; see private-project-saves.md for the required staging of the DB-enabled generated manifest before release.
 
-## Remaining batch groups
+## Remaining acceptance checks
 
-These are delivery groups, not a fixed number of work sessions. Large modeling groups may need smaller checkpoints.
-
-6. **Online saves and release:** #13b hosted private sign-in, DB activation, cross-device save/reopen verification, final regression/performance review, approved publication. User approved public replacement and a separate local/private-online "Batch 6 release check" QA project on September 3. Hosting verification follows the release; ordinary integrated-GPU and real second-device acceptance remain explicitly separate.
+No further feature batch is scheduled in this expansion. Remaining checks are smooth interaction on ordinary integrated graphics and opening the signed-in library from a physical second device. The approved, clearly named Batch 6 QA project and its recovery copy are retained; existing apartment data was not overwritten.

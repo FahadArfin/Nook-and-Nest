@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { build } from 'esbuild';
 
@@ -13,7 +13,9 @@ for (const item of catalog) {
   assert.equal(data.readUInt32LE(8), data.length);
 }
 const assets = 'dist/client/assets/';
-const entry = readdirSync(assets).find(name => /^index-.*\.js$/.test(name));
+// Older immutable assets can coexist with the current entry. Check the module
+// actually referenced by this build, not the first filename alphabetically.
+const entry = readFileSync('dist/client/index.html','utf8').match(/src="\/assets\/(index-[^"/]+\.js)"/)?.[1];
 assert(entry, 'Missing client entry');
 const raw = readFileSync(assets + entry), compressed = gzipSync(raw);
 assert(raw.length < 3_000_000, 'Main bundle exceeded 3 MB');

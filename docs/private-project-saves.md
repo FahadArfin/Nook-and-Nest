@@ -11,11 +11,13 @@ Online saves are explicit, not continuous synchronization. Local edits remain av
 
 ## Release requirement
 
-The original static hosting files remain intact as instructed. `build-project-server.mjs` extends the generated Worker and generated manifest with logical D1 binding `DB`, and copies the Drizzle migration metadata. No database has been provisioned or migrated on the public site yet.
+The original static hosting files remain intact as instructed. `build-project-server.mjs` extends the generated Worker and generated manifest with logical D1 binding `DB`, and copies the Drizzle migration metadata. Public v16 provisioned the binding and applied the `project_versions` migration on September 3, 2026.
 
 The standard Sites packager overwrites the generated manifest with the source manifest. For the private-save release, stage `dist/` and its generated `.openai/hosting.json` as a temporary project, then run the standard Sites package helper against that staging project. Do not package directly from the original static root or the `DB` binding will be lost. Preserve the original project ID; include all `dist/.openai/drizzle/` files. Check the archived manifest has `d1: "DB"` before saving/publishing a version.
 
-Publishing must still verify real sign-in, private data isolation, migration application, a save/reload, and cross-device access. Local tests exercise actual SQLite with the same generated migration and prepared statements, not just mocked authorization responses. They do not prove the hosted sign-in flow.
+Public v16 verification completed real ChatGPT sign-in, migration application, two online saves of an approved 150-piece/two-floor QA project, exact geometry/placement round-trip comparison, latest-version reopening and version-1 restore-as-copy without replacing version 2. Anonymous private-project requests return 401 with private/no-store caching. Local tests exercise actual SQLite owner isolation, retention and stale-write conflicts with the generated migration and prepared statements. Physical cross-device access and a second real account isolation check have not been performed.
+
+Published source: `6012fc827abe7dfe3371fd8382dbca7c8ae4b01f`; deployment: `appgdep_6a992b455800819191bd368177e6e6f4`. The synthetic QA snapshots remain clearly named in the approved private library; no existing apartment was replaced.
 
 ## Security and recovery
 

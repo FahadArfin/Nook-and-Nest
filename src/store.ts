@@ -7,9 +7,11 @@ import { fitStair } from "./building";
 import { snapWindow, windowProblem } from "./windows";
 import { createSamplePlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
+import { validatePlan } from "./planValidation";
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
+  commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1):void;
   setEnvironment(patch:Partial<NonNullable<PlanDocumentV1["environment"]>>):void;
   roomSize?: {widthMm:number;depthMm:number};setRoomSize(size:{widthMm:number;depthMm:number}):void; addMeasuredRoom(region:MeasuredRegion):void;
   activeSurfaceFinish: string; setSurfaceBrush(kind:"floor-finish"|"wall-finish",finishId:string):void; finishCells(cells:TileCell[],finishId:string):void; finishWall(id:string,finishId:string):void;
@@ -31,6 +33,7 @@ const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.p
 const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
 
 export const usePlanner = create<PlannerState>((set, get) => ({
+  commitDesign:(base,plan)=>set(state=>{if(state.plan!==base||plan.id!==base.id)throw new Error('The apartment changed. Read it again and prepare a new design.');validatePlan(plan);return {...commit(state,structuredClone(plan),null),tool:'select',placementNotice:undefined};}),
   setEnvironment:patch=>set(state=>commit(state,{...state.plan,environment:{background:"plain",grass:"off",...state.plan.environment,...patch}})),
   roomSize:undefined,
   setRoomSize:roomSize=>set({roomSize,tool:"measured-room",selectedId:undefined}),
