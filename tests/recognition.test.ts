@@ -1,6 +1,8 @@
+import {webcrypto} from 'node:crypto';
+import {recognitionKey,clearRecognitionCache} from '../src/recognitionCache';
 import {describe,it,expect,vi} from 'vitest';
 import {validateRecognition,recognizedScale,type Recognition} from '../src/recognitionContract';
-import {draftFromRecognition} from '../src/blueprintRecognition';
+import {recognizeReference,draftFromRecognition} from '../src/blueprintRecognition';
 import {blueprintPlan,roomGroups,draftFromFloor} from '../src/blueprint';
 import {createSamplePlan} from '../src/domain';
 // @ts-expect-error Worker entry is JavaScript, bundled for production.
@@ -57,5 +59,39 @@ describe('server-side scan analysis',()=>{
     try{const response=await recognitionApi(request({'oai-authenticated-user-id':'u'}),env);expect(response.headers.get('content-type')).toBe('application/json');expect(await response.json()).toEqual(result());
       spy.mockResolvedValue(Response.json({error:'provider details'}, {status:500}));const failed=await recognitionApi(request({'oai-authenticated-user-id':'u'}),env);expect(await failed.json()).toEqual({error:'Image analysis is temporarily unavailable. Your home has not changed.'});
     }finally{spy.mockRestore();}
+  });
+});
+
+
+describe('analysis cost safeguards (no paid requests)',()=>{
+  const ref={url:'data:image/png;base64,AA==',width:1000,height:800,pages:1,name:'synthetic.png'};
+  it('reuses validated results across calls, separates models and dimensions, and allows clearing',async()=>{
+    vi.stubGlobal('crypto',webcrypto);const values=new Map<string,string>();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k),setItem:(k:string,v:string)=>values.set(k,v),removeItem:(k:string)=>values.delete(k)});
+    const fetcher=vi.fn(async(_url:unknown,_options?:RequestInit)=>Response.json(result()));vi.stubGlobal('fetch',fetcher);
+    try {
+      await recognizeReference(ref);const status=vi.fn();await recognizeReference({...ref,name:'renamed.png'},undefined,{status});
+      expect(fetcher).toHaveBeenCalledTimes(1);expect(status).toHaveBeenCalledWith(expect.stringContaining('no API charge'));
+      expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
+      expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey(ref,'gpt-6-astra'));
+      expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey({...ref,width:999},'gpt-5.6-luna'));
+      await expect(recognizeReference(ref,undefined,{model:'gpt-6-astra',confirmPremium:()=>false})).rejects.toThrow('No API request');expect(fetcher).toHaveBeenCalledTimes(1);
+      clearRecognitionCache();await recognizeReference(ref);expect(fetcher).toHaveBeenCalledTimes(2);
+    }finally{vi.unstubAllGlobals();}
+  });
+  it('does not cache invalid results or retry failed requests',async()=>{
+    const fetcher=vi.fn(async()=>Response.json({error:'failed'}));vi.stubGlobal('fetch',fetcher);
+    try{await expect(recognizeReference(ref)).rejects.toThrow('failed');expect(fetcher).toHaveBeenCalledTimes(1);}finally{vi.unstubAllGlobals();}
+  });
+  it('enforces explicit premium selection server-side and ignores the old expensive environment default',async()=>{
+    const fetcher=vi.fn(async(_url:unknown,_options?:RequestInit)=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(result())}]}]}));vi.stubGlobal('fetch',fetcher);
+    const prepare=vi.fn(()=>({bind:()=>({first:async()=>({count:1})})}));
+    const env={OPENAI_API_KEY:'fake',FLOOR_PLAN_MODEL:'gpt-6-astra',DB:{prepare}};
+    const request=(extra={})=>new Request('https://home.test/api/floor-plan/recognize',{method:'POST',headers:{origin:'https://home.test','content-type':'application/json','oai-authenticated-user-id':'u'},body:JSON.stringify({image:ref.url,width:1000,height:800,...extra})});
+    try{
+      expect((await recognitionApi(request({model:'gpt-6-astra'}),env)).status).toBe(400);expect(prepare).not.toHaveBeenCalled();
+      expect((await recognitionApi(request({model:'unknown'}),env)).status).toBe(400);
+      await (await recognitionApi(request(),env)).json();expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
+      await (await recognitionApi(request({model:'gpt-6-astra',premiumConfirmed:true}),env)).json();expect(JSON.parse(fetcher.mock.calls[1]?.[1]?.body as string).model).toBe('gpt-6-astra');
+    }finally{vi.unstubAllGlobals();}
   });
 });
