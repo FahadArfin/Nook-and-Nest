@@ -1,4 +1,5 @@
 import staticWorker from "./index.js";
+import { recognitionApi } from './recognition.js';
 import { validatePlan, MAX_PLAN_BYTES } from "../src/planValidation.ts";
 
 const json = (body, status = 200) => Response.json(body, { status, headers: {
@@ -78,6 +79,9 @@ export default { async fetch(request, env) {
     const image=new Response(response.body,response);image.headers.set('Content-Type','image/webp');image.headers.set('Cache-Control','public, max-age=3600');return image;
   }
   if (!url.pathname.startsWith('/api/'))return staticWorker.fetch(request,env);
+  if(url.pathname==='/api/floor-plan/recognize') {
+    try{return await recognitionApi(request,env);}catch{return fail('Image analysis is temporarily unavailable. Your home has not changed.',503);}
+  }
   try { return await api(request, env); }
   catch { return fail("Online saves are temporarily unavailable. Your local build is unchanged.", 503); }
 } };

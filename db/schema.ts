@@ -9,3 +9,10 @@ export const projectVersions = sqliteTable("project_versions", {
   savedAt: text("saved_at").notNull(),
   document: text("document").notNull(),
 }, t => [primaryKey({ columns: [t.ownerId, t.projectId, t.revision] })]);
+
+// Daily counters only. Uploaded plans and provider responses are never stored here.
+export const recognitionUsage = sqliteTable('recognition_usage', {
+  ownerId: text('owner_id').notNull(),
+  day: text('day').notNull(),
+  count: integer('count').notNull().default(0),
+}, t => [primaryKey({columns:[t.ownerId,t.day]})]);

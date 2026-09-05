@@ -5,7 +5,7 @@ import { validatePlan } from './planValidation';
 import { snapWindow, windowProblem } from './windows';
 import type { FloorPlan, FurniturePlacement, PlanDocumentV1, WallSegment } from './types';
 
-export const roomKinds = ['Living', 'Bedroom', 'Dining', 'Office', 'Kitchen', 'Bathroom', 'Laundry', 'Hall', 'Outdoor'] as const;
+export const roomKinds = ['Living', 'Bedroom', 'Dining', 'Office', 'Kitchen', 'Bathroom', 'Laundry', 'Hall', 'Outdoor', 'Closet'] as const;
 export type RoomKind = typeof roomKinds[number];
 export interface BlueprintRoom extends FloorRect { id:string; name:string; kind:RoomKind; enclosed:boolean }
 export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[] }
@@ -49,7 +49,7 @@ export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoo
   if(!rooms.length||rooms.length>100)throw new Error('Draw between 1 and 100 room areas.');
   const byCell=new Map<string,{x:number;z:number;rects:FloorRect[]}>();
   for(const r of rooms) {
-    if(![r.x,r.z,r.width,r.depth].every(Number.isFinite)||r.width<100||r.depth<100||r.width>60000||r.depth>60000||Math.abs(r.x)>100000||Math.abs(r.z)>100000)throw new Error('Use room sizes from 0.1 to 60 metres, within 100 metres of the origin.');
+    if(![r.x,r.z,r.width,r.depth].every(Number.isFinite)||r.width<10||r.depth<10||r.width>60000||r.depth>60000||Math.abs(r.x)>100000||Math.abs(r.z)>100000)throw new Error('Use room sizes from 0.01 to 60 metres, within 100 metres of the origin.');
     if(!roomKinds.includes(r.kind)||!r.name.trim()||r.name.length>100)throw new Error('Give every room a name and room type.');
     const left=Math.floor(r.x/grid),right=Math.ceil((r.x+r.width)/grid),top=Math.floor(r.z/grid),bottom=Math.ceil((r.z+r.depth)/grid);
     if((right-left)*(bottom-top)>20000)throw new Error('This area is too large for the current grid.');
