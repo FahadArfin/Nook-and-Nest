@@ -46,7 +46,7 @@ describe('floor plan imports and conversion',()=>{
   });
   it('validates room input before creating any plan mutation',()=>{
     const p=base(),before=structuredClone(p);
-    for(const patch of [{width:NaN},{width:Infinity},{width:99},{depth:60001},{x:100001},{name:''},{kind:'Fake' as any}])expect(()=>blueprintPlan(p,p.floors[0].id,draft([room(patch)]))).toThrow();
+    for(const patch of [{width:NaN},{width:Infinity},{width:9},{depth:60001},{x:100001},{name:''},{kind:'Fake' as any}])expect(()=>blueprintPlan(p,p.floors[0].id,draft([room(patch)]))).toThrow();
     expect(()=>blueprintPlan(p,p.floors[0].id,draft([]))).toThrow();expect(p).toEqual(before);
   });
   it('keeps other floors and only removes inbound stair connections',()=>{

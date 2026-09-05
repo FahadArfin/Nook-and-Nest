@@ -2,12 +2,14 @@
 import { afterEach,beforeEach,describe,expect,it,vi } from 'vitest';
 import { act,cleanup,fireEvent,render,screen } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
+import {recognizeReference} from '../src/blueprintRecognition';
 import { BlueprintStudio } from '../src/BlueprintStudio';
 import { BlueprintControls } from '../src/BlueprintControls';
 import { blueprintPlan,type BlueprintRoom } from '../src/blueprint';
 import { createSamplePlan } from '../src/domain';
 import { usePlanner } from '../src/store';
 vi.mock('../src/blueprintImport',()=>({renderReference:vi.fn(async(file:File)=>{if(file.name==='broken.pdf')throw new Error('Invalid PDF');return {url:'data:image/png;base64,AA',width:1000,height:800,pages:2,name:file.name};})}));
+vi.mock('../src/blueprintRecognition',async(importOriginal)=>({...await importOriginal<typeof import('../src/blueprintRecognition')>(),recognizeReference:vi.fn(async()=>({rooms:[{name:'Detected bedroom',kind:'Bedroom',x:0,y:0,width:500,height:400,enclosed:true,note:''}],dimensions:[{text:'5 m',millimetres:5000,ax:0,ay:0,bx:500,by:0}],fixtures:[],warnings:[]}))}));
 const room:BlueprintRoom={id:'bedroom',name:'Main bedroom',kind:'Bedroom',x:0,z:0,width:5000,depth:5000,enclosed:true};
 function setupPlan(){const p=createSamplePlan('Test home','metric');p.gridSizeMm=250;p.floors=p.floors.slice(0,1);p.furniture=[];const plan=blueprintPlan(p,p.floors[0].id,{rooms:[room],walls:[],omittedWalls:[],fixtures:[]});usePlanner.getState().replacePlan(plan);return usePlanner.getState().plan;}
 beforeEach(()=>{
@@ -38,26 +40,27 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('button',{name:/Main bedroom/})).toHaveTextContent('5.00 × 5.00');
     fireEvent.click(screen.getByRole('button',{name:'Redo drawing'}));expect(screen.getByRole('button',{name:/Main bedroom/})).toHaveTextContent('4.00 × 5.00');expect(usePlanner.getState().plan).toBe(original);
   });
-  it('loads PDFs into a calibration stage and does not pretend to detect rooms',async()=>{
+  it('automatically creates rooms using printed dimensions before any home mutation',async()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-    fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf',{type:'application/pdf'})]}});
-    expect(await screen.findByText(/walls are not detected automatically/)).toBeVisible();expect(screen.getByLabelText('PDF page')).toHaveValue('1');expect(screen.getByRole('button',{name:'Draw room area'})).toBeDisabled();expect(screen.getByRole('button',{name:'Review & create 3D →'})).toBeDisabled();expect(usePlanner.getState().plan).toBe(original);
+    fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    expect(await screen.findByRole('button',{name:/Detected bedroom/})).toHaveTextContent('5.00 × 4.00');
+    expect(screen.getByText('5 m = 5.000 m')).toBeVisible();expect(screen.getByRole('button',{name:'Review & create 3D →'})).toBeEnabled();expect(usePlanner.getState().plan).toBe(original);
+  });
+  it('keeps the existing draft on analysis failure',async()=>{
+    vi.mocked(recognizeReference).mockRejectedValueOnce(new Error('Image analysis is unavailable'));
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    expect(await screen.findByText('Image analysis is unavailable')).toBeVisible();expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();
   });
   it('retains the draft when file rendering fails',async()=>{
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['bad'],'broken.pdf')]}});
     expect(await screen.findByText('Invalid PDF')).toBeVisible();expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();
   });
-  it('calibrates a scan, traces a room and keeps the entire stroke in one draft undo',async()=>{
-    render(<BlueprintStudio onClose={()=>{}}/>);
-    fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
-    await screen.findByText(/walls are not detected automatically/);
-    const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});
-    fireEvent.pointerDown(canvas,{clientX:100,clientY:100,button:0});fireEvent.pointerMove(canvas,{clientX:1100,clientY:100});fireEvent.pointerUp(canvas,{clientX:1100,clientY:100});
-    fireEvent.change(screen.getByLabelText('Known length (m)'),{target:{value:'4'}});fireEvent.click(screen.getByRole('button',{name:'Apply scale'}));
-    expect(screen.getByRole('button',{name:'Draw room area'})).toBeEnabled();
-    fireEvent.pointerDown(canvas,{clientX:1000,clientY:1000,button:0});fireEvent.pointerMove(canvas,{clientX:5000,clientY:4000});fireEvent.pointerUp(canvas,{clientX:5000,clientY:4000});
-    expect(screen.getByRole('button',{name:/Living 1/})).toHaveTextContent('4.00 × 3.00');
-    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.queryByRole('button',{name:/Living 1/})).not.toBeInTheDocument();
+  it('can cancel analysis without applying a late result',async()=>{
+    let finish!:(value:any)=>void;vi.mocked(recognizeReference).mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve;}));
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    await act(async()=>{});fireEvent.click(screen.getByRole('button',{name:'Cancel analysis'}));
+    await act(async()=>finish({rooms:[],dimensions:[],fixtures:[],warnings:[]}));
+    expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();expect(screen.getByText('Analysis canceled. Your drawing is unchanged.')).toBeVisible();
   });
   it('moves a room in top-down view without moving the saved floor',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
