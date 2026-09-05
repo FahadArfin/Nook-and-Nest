@@ -51,7 +51,7 @@ describe('floor plan studio flow',()=>{
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
     await screen.findByRole('heading',{name:'Rooms & spaces · 1'});expect(screen.getAllByRole('button',{name:/Living room/})).toHaveLength(1);expect(screen.getByRole('heading',{name:'Closets & circulation'})).toBeVisible();
     fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Lounge'}});fireEvent.change(screen.getByLabelText('Left (m)'),{target:{value:'1'}});fireEvent.blur(screen.getByLabelText('Left (m)'));
-    const parts=screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelectorAll('[data-object="scan-room-0"] rect');expect(parts).toHaveLength(2);expect(parts[0].getAttribute('x')).toBe('1000');expect(parts[1].getAttribute('x')).toBe('1000');expect(screen.getAllByRole('button',{name:/Lounge/})).toHaveLength(1);
+    const parts=screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelectorAll('[data-object="scan-room-0"] rect');expect(parts).toHaveLength(2);expect(parts[0].getAttribute('x')).toBe('1000');expect(parts[1].getAttribute('x')).toBe('1000');expect(screen.getByRole('heading',{name:'Rooms & spaces · 1'}).parentElement!.querySelectorAll('.bp-room-list > button')).toHaveLength(1);
   });
   it('keeps the existing draft on analysis failure',async()=>{
     vi.mocked(recognizeReference).mockRejectedValueOnce(new Error('Image analysis is unavailable'));
@@ -117,6 +117,24 @@ describe('floor plan studio flow',()=>{
     expect(screen.getByLabelText('width (m)')).toHaveValue(4.3);expect(screen.getByLabelText('depth (m)')).toHaveValue(4.7);
     expect(usePlanner.getState().plan).toBe(original);fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
     fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByLabelText('width (m)')).toHaveValue(5);
+  });
+  it('lets a user select, rename and delete an overlapped false dining area',()=>{
+    const original=usePlanner.getState().plan,base=structuredClone(original),id=base.floors[0].id;
+    usePlanner.getState().replacePlan(blueprintPlan(base,id,{rooms:[room,{...room,id:'false-dining',name:'Dining',kind:'Dining',x:1000,z:1000,width:2000,depth:2000}],walls:[],omittedWalls:[],fixtures:[]}));
+    render(<BlueprintStudio onClose={()=>{}}/>);const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});
+    fireEvent.pointerDown(canvas.querySelector('[data-object="false-dining"] rect')!,{clientX:1500,clientY:1500,button:0});fireEvent.pointerUp(canvas,{clientX:1500,clientY:1500});
+    fireEvent.click(screen.getByRole('button',{name:'Select Dining rectangle 2'}));
+    fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Incorrect dining'}});expect(screen.getByLabelText('Room name')).toHaveValue('Incorrect dining');
+    fireEvent.click(screen.getByRole('button',{name:'Delete room'}));expect(canvas.querySelector('[data-object="false-dining"]')).toBeNull();expect(canvas.querySelector('[data-object="bedroom"]')).not.toBeNull();
+    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(canvas.querySelector('[data-object="false-dining"]')).not.toBeNull();
+  });
+  it('separates and deletes a wrong rectangle without moving the living room',()=>{
+    const base=usePlanner.getState().plan,id=base.floors[0].id;
+    const parts=[{...room,id:'living',name:'Living',kind:'Living' as const,groupId:'bad-group'},{...room,id:'wrong-part',name:'Living',kind:'Living' as const,groupId:'bad-group',x:0,z:-2000,width:2000,depth:2000}];
+    usePlanner.getState().replacePlan(blueprintPlan(base,id,{rooms:parts,walls:[],omittedWalls:[],fixtures:[]}));render(<BlueprintStudio onClose={()=>{}}/>);
+    fireEvent.click(screen.getByRole('button',{name:/Living.*5.00/}));fireEvent.click(screen.getByRole('button',{name:'Rectangle 2'}));fireEvent.click(screen.getByRole('button',{name:'Separate rectangle'}));
+    expect(screen.getByLabelText('Room name')).toHaveValue('Separated area');fireEvent.click(screen.getByRole('button',{name:'Delete room'}));
+    expect(screen.getByRole('button',{name:/Living.*5.00/})).toBeInTheDocument();
   });
   it('moves a room in top-down view without moving the saved floor',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
