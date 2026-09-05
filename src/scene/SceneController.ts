@@ -18,7 +18,7 @@ import { Vector3 } from "@babylonjs/core/Maths/math.vector";
 import "@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent";
 import "@babylonjs/core/Culling/ray";
 import "@babylonjs/core/Rendering/outlineRenderer";
-import { floorBoundaryWalls, type MeasuredRegion } from "../floorGeometry";
+import { floorBoundaryWalls, floorRects, type MeasuredRegion } from "../floorGeometry";
 import { visibleFloorRects } from "../building";
 import { splitWallSections } from "../wallSections";
 import { cameraUpdatePolicy, comfortableCamera,closeZoomLimit,closeClipPlane,precisionPanSensitivity,detailFocusRadius } from "../cameraPolicy";
@@ -77,7 +77,13 @@ export class SceneController {
       if (this.activePlan) this.wallVisibility.update(getWallVisibility(this.activePlan.camera), this.camera.position, this.camera.target, this.engine.getDeltaTime(), window.matchMedia?.("(prefers-reduced-motion: reduce)").matches??false);
     });
   }
-  zoom(factor:number){this.camera.radius=Math.max(closeZoomLimit,Math.min(80,this.camera.radius*factor));this.camera.inertialRadiusOffset=0;}
+  zoom(factor:number){this.camera.radius=Math.max(closeZoomLimit,Math.min(this.camera.upperRadiusLimit??80,this.camera.radius*factor));this.camera.inertialRadiusOffset=0;}
+  focusFloor(plan:PlanDocumentV1,floorId:string){
+    const floor=plan.floors.find(f=>f.id===floorId);if(!floor?.cells.length)return;
+    let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;for(const r of floorRects(floor,plan.gridSizeMm)){left=Math.min(left,r.x);right=Math.max(right,r.x+r.width);top=Math.min(top,r.z);bottom=Math.max(bottom,r.z+r.depth);}
+    this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;this.camera.inertialRadiusOffset=0;
+    this.camera.setTarget(new Vector3((left+right)/2000,floor.elevationMm/1000+.3,(top+bottom)/2000));const radius=Math.max(6,Math.max(right-left,bottom-top)/1000*1.8);this.camera.upperRadiusLimit=Math.max(80,radius);this.camera.radius=radius;
+  }
   placementRotation(id:string,x:number,z:number){return cameraFacingRotation(id,this.camera.position,{x:x/1000,z:z/1000});}
   focusSelected(){const item=this.activePlan?.furniture.find(i=>i.id===this.selectedId);if(!item||!this.selectedNode)return;this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;this.camera.inertialRadiusOffset=0;this.camera.setTarget(this.selectedNode.position.add(new Vector3(0,item.heightMm/2000,0)));this.camera.radius=detailFocusRadius(item.widthMm,item.depthMm,item.heightMm);}
   private resize = () => this.engine.resize();

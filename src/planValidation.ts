@@ -16,6 +16,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   const floors = new Set(p.floors.map((f: any) => f.id));
   for (const f of p.floors) {
     str(f.name); num(f.elevationMm); num(f.heightMm, 100, 20000);
+    if(f.blueprint!==undefined){obj(f.blueprint);str(f.blueprint.geometryKey,900000);arr(f.blueprint.rooms,100);unique(f.blueprint.rooms);for(const r of f.blueprint.rooms){str(r.name,100);if(!['Living','Bedroom','Dining','Office','Kitchen','Bathroom','Laundry','Hall','Outdoor'].includes(r.kind)||typeof r.enclosed!=='boolean')fail();num(r.x,-100000,100000);num(r.z,-100000,100000);num(r.width,100,60000);num(r.depth,100,60000);}}
     for (const k of ["cellFinishes", "wallFinishes"]) if (f[k] !== undefined) { obj(f[k]); if (Object.keys(f[k]).length > 20000) fail(); for (const [key, finish] of Object.entries(f[k])) { str(key); str(finish); } }
     arr(f.cells, 20000); arr(f.walls, 4000); arr(f.openings, 2000); arr(f.stairs, 100);
     for (const c of f.cells) { obj(c); num(c.x, -10000, 10000); num(c.z, -10000, 10000); if (!Number.isInteger(c.x) || !Number.isInteger(c.z)) fail(); }
