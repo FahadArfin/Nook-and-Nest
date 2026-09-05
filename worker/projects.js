@@ -70,7 +70,14 @@ async function api(request, env) {
 }
 
 export default { async fetch(request, env) {
-  if (!new URL(request.url).pathname.startsWith("/api/")) return staticWorker.fetch(request, env);
+  const pathname=new URL(request.url).pathname;
+  if (!pathname.startsWith("/api/")) {
+    const response=await staticWorker.fetch(request,env);
+    if(pathname.startsWith('/models/previews/')&&pathname.endsWith('.webp')&&[200,206,304].includes(response.status)){
+      const image=new Response(response.body,response);image.headers.set('Content-Type','image/webp');return image;
+    }
+    return response;
+  }
   try { return await api(request, env); }
   catch { return fail("Online saves are temporarily unavailable. Your local build is unchanged.", 503); }
 } };
