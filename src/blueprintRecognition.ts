@@ -13,7 +13,7 @@ export async function recognizeReference(reference:PlanReference,signal?:AbortSi
 }
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition) {
   const scale=recognizedScale(result),mm=(n:number)=>Math.round(n*scale);
-  const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>{const name=r.name.split(/\s+[—–]\s+/)[0];return {id:`scan-room-${i}`,groupId:`scan-group-${name.toLowerCase()}`,name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:r.enclosed};}),walls:[],omittedWalls:[],fixtures:[]};
+  const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>{const name=r.name.split(/\s+[—–]\s+/)[0];return {id:`scan-room-${i}`,groupId:`scan-group-${r.roomId??name.toLowerCase()}`,name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:r.enclosed};}),walls:[],omittedWalls:[],fixtures:[]};
   const grid=base.gridSizeMm;
   const plan=blueprintPlan(base,floorId,draft);
   const placementNotes:string[]=[];
