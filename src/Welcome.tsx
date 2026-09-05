@@ -1,6 +1,6 @@
 import {useEffect,useState,type ComponentType} from 'react';
 import {CaretRight,Armchair,FolderOpen,GridFour,Leaf,LockSimple,Monitor,Sun,Moon} from '@phosphor-icons/react';
-import {useWelcomeTheme} from './useWelcomeTheme';
+import {AppearanceContext,useAppearance,useWelcomeTheme} from './useWelcomeTheme';
 import {createBlankPlan} from './domain';
 import {loadPlan,savePlan,usePlanner} from './store';
 import {ProjectLibrary} from './ProjectLibrary';
@@ -9,7 +9,11 @@ import type {PlanDocumentV1} from './types';
 import './welcome.css';
 
 export function Welcome({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>void}>;showcase?:()=>PlanDocumentV1}){
- const {theme,chooseTheme,dark}=useWelcomeTheme();
+ const appearance=useWelcomeTheme();
+ return <AppearanceContext.Provider value={appearance}><WelcomeContent Editor={Editor} showcase={showcase}/></AppearanceContext.Provider>;
+}
+function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>void}>;showcase?:()=>PlanDocumentV1}){
+ const {theme,chooseTheme,dark}=useAppearance()!;
  const [ready,setReady]=useState(false),[editing,setEditing]=useState(false),[studio,setStudio]=useState(false);
  const [projects,setProjects]=useState(new URLSearchParams(location.search).has('projects'));
  const [error,setError]=useState('');
@@ -26,7 +30,7 @@ export function Welcome({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
   <div className="welcome-layout">
    <header className="welcome-header"><a href="/" aria-label="Nook and Nest home"><img src="/assets/nook-nest-icon.png" alt="" width="60" height="60"/><span>Nook &amp; Nest</span></a>
     <div className="welcome-header-right"><span className="welcome-tagline"><Leaf size={20}/> Your next happy place</span>
-     <div className="welcome-theme" role="group" aria-label="Homepage appearance">
+     <div className="welcome-theme" role="group" aria-label="Appearance">
       <button aria-label="Use system theme" aria-pressed={theme==='system'} title="Follow your device appearance" onClick={()=>chooseTheme('system')}><Monitor/><span>System</span></button>
       <button aria-label="Use light theme" aria-pressed={theme==='light'} title="Light theme" onClick={()=>chooseTheme('light')}><Sun/><span>Light</span></button>
       <button aria-label="Use dark theme" aria-pressed={theme==='dark'} title="Dark theme" onClick={()=>chooseTheme('dark')}><Moon/><span>Dark</span></button>
