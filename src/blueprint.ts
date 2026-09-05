@@ -22,6 +22,10 @@ export function isFixedPiece(id:string) {
   const item=catalog.find(c=>c.id===id);
   return !!item && (isWallOpening(id) || item.category==='Kitchen' || item.category==='Bathroom');
 }
+export function openPlanAreas(rooms:BlueprintRoom[]):BlueprintRoom[] {
+  return rooms.map(r=>r.kind==='Hall'||(['Living','Dining'].includes(r.kind)&&/living|dining/i.test(r.name))?{...r,enclosed:false}:r);
+}
+export function fixtureName(item:FurniturePlacement) {return item.doorless?'Open entrance (no door)':catalog.find(c=>c.id===item.catalogId)?.name??item.catalogId;}
 export function mergeFloorRegions(rectangles:FloorRect[]):FloorRect[] {
   let parts=rectangles.map(r=>({x:r.x,z:r.z,width:r.width,depth:r.depth})),changed=true;
   // Exact adjacent rectangles only: never fill the hole in an L-shaped home.
