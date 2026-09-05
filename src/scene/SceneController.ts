@@ -293,7 +293,7 @@ export class SceneController {
     const node=new TransformNode(preview?"draft-furniture":`item:${item.id}`,this.scene); node.parent=this.root; node.position=new Vector3(item.x/1000,elevation+(isWallOpening(item.catalogId)?0:isStairs(item.catalogId)?.04:.05)+(item.elevationMm??0)/1000,item.z/1000); node.rotation.y=item.rotation*Math.PI/180;
     if(!preview)this.furnitureNodes.set(item.id,{node,signature:JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0})}); if(!preview&&!ghost&&item.id===this.selectedId)this.selectedNode=node;
     const w=item.widthMm/1000,d=item.depthMm/1000,h=item.heightMm/1000;
-    if(!this.furnitureModels.build(node,def,item,w,d,h,ghost))this.furnitureFactory.build(node,def,item,w,d,h,ghost);
+    if(!(isDoor(item.catalogId)&&item.doorless)&&!this.furnitureModels.build(node,def,item,w,d,h,ghost))this.furnitureFactory.build(node,def,item,w,d,h,ghost);
     if (!preview && isWallOpening(item.catalogId)) {
       const wall = openingHostWall(this.floorWallGeometry.get(item.floorId) ?? [], {x:item.x/1000,z:item.z/1000}, item.rotation);
       if (wall) this.wallVisibility.add(node, wall);
