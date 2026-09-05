@@ -1,3 +1,4 @@
+import {openPlanAreas} from '../src/blueprint';
 import { describe,expect,it } from 'vitest';
 import { createSamplePlan,parsePlan,serializePlan,encodeShare,decodeShare } from '../src/domain';
 import { catalog } from '../src/catalog';
@@ -99,4 +100,14 @@ describe('automatic furnishing from the real library',()=>{
     expect(result.added.filter(f=>f.catalogId==='dining-chair')).toHaveLength(4);expect(new Set(result.added.map(f=>f.id)).size).toBe(5);
     const table=result.added.find(f=>f.catalogId==='dining-table')!;expect(table.x).toBe(3000);expect(table.z).toBe(3000);
   });
+});
+
+it('opens living and entry labels while retaining enclosed bedroom and solarium walls',()=>{
+ const base=createSamplePlan('Open plan','metric'),floor=base.floors[0],grid=base.gridSizeMm;
+ const rooms:BlueprintRoom[]=[{id:'living',name:'Living',kind:'Living',enclosed:true,x:0,z:0,width:4000,depth:4000},{id:'hall',name:'Entry Hall',kind:'Hall',enclosed:true,x:4000,z:0,width:2000,depth:4000},{id:'bed',name:'Bedroom',kind:'Bedroom',enclosed:true,x:0,z:4000,width:4000,depth:3000},{id:'sol',name:'Solarium',kind:'Living',enclosed:true,x:4000,z:4000,width:2000,depth:3000}];
+ const opened=openPlanAreas(rooms),walls=roomDividers(floorFromRooms(floor,grid,opened),grid,opened);
+ expect(rooms.every(r=>r.enclosed)).toBe(true);
+ expect(walls.some(w=>w.ax*grid===4000&&w.bx*grid===4000&&Math.min(w.az,w.bz)*grid<4000)).toBe(false);
+ expect(walls.some(w=>w.az*grid===4000&&w.bz*grid===4000)).toBe(true);
+ expect(opened.find(r=>r.id==='sol')?.enclosed).toBe(true);
 });

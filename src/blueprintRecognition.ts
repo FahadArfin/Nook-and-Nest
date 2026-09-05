@@ -1,4 +1,4 @@
-import {blueprintPlan,fixtureAt,coveredByFloor,footprint,type BlueprintDraft} from './blueprint';
+import {openPlanAreas,blueprintPlan,fixtureAt,coveredByFloor,footprint,type BlueprintDraft} from './blueprint';
 import {recognizedScale,scaleAssessment,validateRecognition,type Recognition} from './recognitionContract';
 import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1} from './types';
@@ -28,6 +28,7 @@ export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:R
   if(!Number.isFinite(scale)||scale<.1||scale>200)throw new Error('Choose a scale between 0.1 and 200 mm per pixel.');
   const mm=(n:number)=>Math.round(n*scale);
   const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>{const name=r.name.split(/\s+[—–]\s+/)[0];return {id:`scan-room-${i}`,groupId:`scan-group-${r.roomId??name.toLowerCase()}`,name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:r.enclosed};}),walls:[],omittedWalls:[],fixtures:[]};
+  draft.rooms=openPlanAreas(draft.rooms);
   const grid=base.gridSizeMm;
   const plan=blueprintPlan(base,floorId,draft);
   const placementNotes:string[]=[];

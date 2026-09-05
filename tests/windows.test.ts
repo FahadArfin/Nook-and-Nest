@@ -62,3 +62,11 @@ describe("wall-mounted window planning",()=>{
     }
   });
 });
+
+it('preserves doorless entrances through save/share and cuts a floor-level aperture',()=>{
+ const p=plan(),entrance=snapWindow(p,item({catalogId:'door-flush',doorless:true,elevationMm:0,heightMm:2100,widthMm:1000}));p.furniture=[entrance];
+ const restored=parsePlan(serializePlan(p));expect(restored.furniture[0].doorless).toBe(true);expect(decodeShare(encodeShare(p)).furniture[0].doorless).toBe(true);
+ const pieces=windowWallPieces({id:'wall',ax:0,az:0,bx:20,bz:0},250,2500,[entrance]);
+ expect(pieces.some(piece=>piece.start<entrance.x&&piece.end>entrance.x&&piece.bottom===0)).toBe(false);
+ expect(windowProblem(p,entrance)).toBeUndefined();
+});
