@@ -26,10 +26,20 @@ export function validateRecognition(value:unknown,width:number,height:number):Re
   if(r.warnings.some(w=>!text(w)))throw new Error('Invalid analysis notes.');
   return r;
 }
+export function scaleAssessment(r:Recognition):{scale?:number;warnings:string[]} {
+  const evidence=r.dimensions.map((d,index)=>({index,scale:d.millimetres/Math.hypot(d.bx-d.ax,d.by-d.ay)}));
+  const usable=evidence.filter(e=>e.scale>=.1&&e.scale<=200).sort((a,b)=>a.scale-b.scale);
+  // A unique, strict majority must agree within a 20% total range. Tied clusters
+  // (including two incompatible dimensions) require human review, not guessing.
+  const clusters=usable.map((start,i)=>usable.slice(i).filter(e=>e.scale/start.scale<=1.2));
+  const size=Math.max(0,...clusters.map(c=>c.length)),best=clusters.filter(c=>c.length===size);
+  if(!size||best.length!==1||size<=evidence.length/2)return {warnings:[evidence.length?'The detected measurements imply different scales. Check one printed measurement and its highlighted endpoints.':'No printed measurement was read. Mark one measured span and enter its printed length.']};
+  const chosen=best[0],scale=chosen[Math.floor(chosen.length/2)].scale;
+  const ignored=evidence.filter(e=>!chosen.some(c=>c.index===e.index));
+  return {scale,warnings:ignored.length?[`Scale uses ${chosen.length} consistent measurements. Check these conflicting readings: ${ignored.map(e=>r.dimensions[e.index].text).join(', ')}. They were excluded from scaling.`]:[]};
+}
 export function recognizedScale(r:Recognition):number {
-  if(!r.dimensions.length)throw new Error('No readable printed dimensions were found. Upload a sharper image with measurements.');
-  const scales=r.dimensions.map(d=>d.millimetres/Math.hypot(d.bx-d.ax,d.by-d.ay)).sort((a,b)=>a-b),scale=scales[Math.floor(scales.length/2)];
-  if(scale<.1||scale>200)throw new Error('The printed dimensions imply an unsupported scale. Check the selected page.');
-  if(scales.some(s=>Math.abs(s/scale-1)>.2))throw new Error('The printed dimensions disagree with the drawing scale. Try a straighter or clearer scan.');
-  return scale;
+  const assessment=scaleAssessment(r);
+  if(assessment.scale===undefined)throw new Error(r.dimensions.length?'The detected measurements disagree. Review one printed dimension to set scale without another analysis.':'No readable printed dimensions were found. Set one measured span without another analysis.');
+  return assessment.scale;
 }

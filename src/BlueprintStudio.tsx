@@ -11,6 +11,8 @@ import { snapWindow } from './windows';
 import { usePlanner } from './store';
 import type { PlanDocumentV1 } from './types';
 import './blueprint.css';
+import {scaleAssessment,type Recognition} from './recognitionContract';
+import {ScaleReview} from './ScaleReview';
 
 type Point={x:number;z:number};
 type Mode='select'|'room'|'wall'|'fixture'|'scale'|'pan';
@@ -29,6 +31,7 @@ export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?
   const [error,setError]=useState(''),[notice,setNotice]=useState(''),[unit,setUnit]=useState<'m'|'ft'|'mm'>(base.units==='imperial'?'ft':'m');
   const [analysisNotes,setAnalysisNotes]=useState<string[]>([]),[printedDimensions,setPrintedDimensions]=useState<string[]>([]);
   const [scanModel,setScanModel]=useState<ScanModel>('gpt-5.6-luna');
+  const [pendingScale,setPendingScale]=useState<{reference:PlanReference;detection:Recognition;file:File;page:number;rotation:number;status:string;message:string}>();
   const analysisAbort=useRef<AbortController | undefined>(undefined);
   const [scaleLine,setScaleLine]=useState<{a:Point;b:Point}>(),[knownLength,setKnownLength]=useState(''),[fixtureId,setFixtureId]=useState('washer');
   const [view,setView]=useState({x:-500,z:-500,width:14000,height:11000}),[cursor,setCursor]=useState<Point>();
@@ -64,12 +67,17 @@ export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?
       const result=await renderReference(nextFile,nextPage,nextRotation);if(generation!==loadGeneration.current)return;
       let costStatus='';
       const detection=await recognizeReference(result,controller.signal,{model:scanModel,confirmPremium:()=>window.confirm('Astra costs substantially more than Luna. Run one paid Astra analysis for this page? No automatic retries will be made.'),status:text=>{costStatus=text;}});if(generation!==loadGeneration.current)return;
-      const recognized=draftFromRecognition(base,floorId,detection);
-      setReference(result);setFile(nextFile);setPage(nextPage);setRotation(nextRotation);setCalibrated(true);setScaleLine(undefined);setMode('select');setImageScale(recognized.scale);
-      commit(recognized.draft);setSelected(recognized.draft.rooms[0]?.id);setReview(false);fit(recognized.draft.rooms,result,recognized.scale);
-      setAnalysisNotes(recognized.notes);setPrintedDimensions(recognized.dimensions);
-      setNotice(`${costStatus} Detected ${roomGroups(recognized.draft.rooms).filter(r=>r.kind!=='Hall'&&r.kind!=='Closet').length} rooms / spaces and ${recognized.draft.fixtures.length} fixtures / openings. Scale comes from the printed dimensions. Review names and geometry, then create your 3D home.`);
+      const assessment=scaleAssessment(detection);
+      if(assessment.scale===undefined){setPendingScale({reference:result,detection,file:nextFile,page:nextPage,rotation:nextRotation,status:costStatus,message:assessment.warnings.join(' ')});return;}
+      acceptDetection(result,detection,nextFile,nextPage,nextRotation,costStatus);
     }catch(e){if(generation===loadGeneration.current)setError((e as Error).message||'This file could not be opened.');}finally{if(generation===loadGeneration.current)setLoading(false);}
+  }
+  function acceptDetection(result:PlanReference,detection:Recognition,nextFile:File,nextPage:number,nextRotation:number,costStatus:string,confirmedScale?:number) {
+    const recognized=draftFromRecognition(base,floorId,detection,confirmedScale);
+    setReference(result);setFile(nextFile);setPage(nextPage);setRotation(nextRotation);setCalibrated(true);setScaleLine(undefined);setMode('select');setImageScale(recognized.scale);
+    commit(recognized.draft);setSelected(recognized.draft.rooms[0]?.id);setReview(false);fit(recognized.draft.rooms,result,recognized.scale);
+    setAnalysisNotes(recognized.notes);setPrintedDimensions(recognized.dimensions);setPendingScale(undefined);
+    setNotice(`${costStatus} Detected ${roomGroups(recognized.draft.rooms).filter(r=>r.kind!=='Hall'&&r.kind!=='Closet').length} rooms / spaces and ${recognized.draft.fixtures.length} fixtures / openings. ${confirmedScale===undefined?'Scale comes from consistent printed dimensions.':'Scale comes from your confirmed measurement.'} Review names and geometry, then create your 3D home.`);
   }
   const point=(event:ReactPointerEvent<SVGSVGElement>):Point=>{const svg=svgRef.current!,matrix=svg.getScreenCTM();if(!matrix)return {x:0,z:0};const p=new DOMPoint(event.clientX,event.clientY).matrixTransform(matrix.inverse());return {x:Math.round(p.x),z:Math.round(p.y)};};
   const snap=(p:Point):Point=>{
@@ -118,7 +126,8 @@ export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?
   const apply=()=>{if(!plan||!checked||stale||problems.length)return;try{usePlanner.getState().commitDesign(base,plan);onCreated?.();onClose();}catch(e){setError((e as Error).message);}};
   return <dialog ref={dialogRef} className="blueprint-dialog" aria-labelledby="blueprint-title" onCancel={e=>{e.preventDefault();close();}} onKeyDown={e=>e.stopPropagation()}>
     <header className="bp-header"><div><span className="eyebrow">{floorName} · unsaved draft</span><h1 id="blueprint-title">Floor plan studio</h1></div><div className="bp-steps"><span className={reference?'complete':''}>1 Upload & analyze</span><span className={!review?'active':''}>2 Check & edit</span><span className={review?'active':''}>3 Review → 3D</span></div><button onClick={close} aria-label="Close floor plan studio"><X size={22}/></button></header>
-    {loading&&<div className="bp-analysis-status" role="status"><strong>Reading your floor plan…</strong><p>Finding rooms, printed dimensions and fixtures. Detailed scans can take a few minutes.</p><button onClick={()=>{analysisAbort.current?.abort();loadGeneration.current++;setLoading(false);setNotice('Analysis canceled. Your drawing is unchanged.');}}>Cancel analysis</button></div>}<div className="bp-workspace" inert={loading} aria-busy={loading}><aside className="bp-sidebar">
+    {pendingScale&&<ScaleReview reference={pendingScale.reference} result={pendingScale.detection} message={pendingScale.message} onCancel={()=>{setPendingScale(undefined);setNotice('Measurement review canceled. Your previous drawing is unchanged. The analysis remains available in the browser cache when storage is available.');}} onConfirm={scale=>{try{acceptDetection(pendingScale.reference,pendingScale.detection,pendingScale.file,pendingScale.page,pendingScale.rotation,pendingScale.status,scale);}catch(e){setPendingScale({...pendingScale,message:(e as Error).message});}}}/>}
+    {loading&&<div className="bp-analysis-status" role="status"><strong>Reading your floor plan…</strong><p>Finding rooms, printed dimensions and fixtures. Detailed scans can take a few minutes.</p><button onClick={()=>{analysisAbort.current?.abort();loadGeneration.current++;setLoading(false);setNotice('Analysis canceled. Your drawing is unchanged.');}}>Cancel analysis</button></div>}<div className="bp-workspace" style={pendingScale?{display:'none'}:undefined} inert={loading||!!pendingScale} aria-busy={loading}><aside className="bp-sidebar">
       {!review&&<>
         <section><h2>Start with your floor plan</h2><p>Upload a PDF or image. AI reads the rooms and printed dimensions for you. New analyses send the selected page to OpenAI; your 3D home changes only after confirmation.</p><label>Analysis model<select value={scanModel} onChange={e=>setScanModel(e.target.value as ScanModel)}><option value="gpt-5.6-luna">Luna · lower cost (default)</option><option value="gpt-6-astra">Astra · higher cost, confirm first</option></select></label><p>Repeated uploads reuse completed results on this browser for 30 days (up to 10 scans). A different page, rotation or model needs a new analysis. No automatic retries or model upgrades.</p><button onClick={()=>setNotice(clearRecognitionCache()?'Saved analyses cleared. Future uploads may incur an API charge.':'Browser cache could not be cleared.')}>Clear saved analyses</button><button className="bp-upload" disabled={loading} onClick={()=>uploadRef.current?.click()}><FileArrowUp size={22}/>{loading?'Analyzing floor plan…':'Upload PDF or image'}</button><input hidden ref={uploadRef} type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" aria-label="Upload floor plan reference" onChange={e=>{const f=e.target.files?.[0];e.target.value='';if(!f)return;if(draft.rooms.length&&!window.confirm('Analyze a new floor plan from this file? This replaces only the unconfirmed drawing; your 3D home is unchanged.'))return;void load(f,1,0,true);}}/>
         <div className="bp-button-row"><button onClick={()=>{if(draft.rooms.length&&!window.confirm('Clear this unconfirmed drawing?'))return;commit(emptyDraft());setSelected(undefined);setReview(false);fit([]);}}>Blank drawing</button><button onClick={()=>{if(past.length&&!window.confirm('Replace the draft with the current 3D floor?'))return;commit(draftFromFloor(base,floorId));setReference(undefined);setSelected(undefined);fit(initial.rooms,undefined);}}>Use current floor</button></div>

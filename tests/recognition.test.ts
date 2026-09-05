@@ -1,7 +1,7 @@
 import {webcrypto} from 'node:crypto';
 import {recognitionKey,clearRecognitionCache} from '../src/recognitionCache';
 import {describe,it,expect,vi} from 'vitest';
-import {validateRecognition,recognizedScale,type Recognition} from '../src/recognitionContract';
+import {validateRecognition,recognizedScale,scaleAssessment,type Recognition} from '../src/recognitionContract';
 import {recognizeReference,draftFromRecognition} from '../src/blueprintRecognition';
 import {blueprintPlan,roomGroups,draftFromFloor} from '../src/blueprint';
 import {createSamplePlan} from '../src/domain';
@@ -28,6 +28,13 @@ describe('automatic floor-plan contract',()=>{
     const r=result();r.fixtures=[];r.rooms[0].name='Bedroom';r.rooms.push({...r.rooms[0],name:'Bedroom — entrance',x:300,y:300,width:100,height:100});
     const base=createSamplePlan('Test','metric'),id=base.floors[0].id,{draft}=draftFromRecognition(base,id,r),plan=blueprintPlan(base,id,draft),reopened=draftFromFloor(plan,id);
     expect(roomGroups(reopened.rooms).filter(r=>r.kind==='Bedroom')).toHaveLength(1);expect(blueprintPlan(plan,id,reopened).floors[0].walls).toEqual(plan.floors[0].walls);
+  });
+  it('uses a strict consistent majority, discloses outliers, and rejects tied evidence',()=>{
+    const r=result(),d=r.dimensions[0];r.dimensions=[d,{...d,text:'3 m',millimetres:3000,bx:300},{...d,text:'bad span',millimetres:9000}];
+    expect(recognizedScale(r)).toBe(10);expect(scaleAssessment(r).warnings.join(' ')).toContain('bad span');
+    r.dimensions.push({...d,text:'other bad span',millimetres:9000});expect(scaleAssessment(r).scale).toBeUndefined();
+    const base=createSamplePlan('Test','metric');expect(draftFromRecognition(base,base.floors[0].id,r,10).draft.rooms[0].width).toBe(4000);
+    expect(()=>draftFromRecognition(base,base.floors[0].id,r,Infinity)).toThrow();
   });
   it('rejects arbitrary catalog IDs, out-of-image rooms, nonfinite numbers and oversized results',()=>{
     const r=result();r.fixtures[0].catalogId='sofa' as never;expect(()=>validateRecognition(r,1000,800)).toThrow();
@@ -77,6 +84,12 @@ describe('analysis cost safeguards (no paid requests)',()=>{
       await expect(recognizeReference(ref,undefined,{model:'gpt-6-astra',confirmPremium:()=>false})).rejects.toThrow('No API request');expect(fetcher).toHaveBeenCalledTimes(1);
       clearRecognitionCache();await recognizeReference(ref);expect(fetcher).toHaveBeenCalledTimes(2);
     }finally{vi.unstubAllGlobals();}
+  });
+  it('caches completed detections even when scale needs review, without another paid request',async()=>{
+    vi.stubGlobal('crypto',webcrypto);const values=new Map<string,string>();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k),setItem:(k:string,v:string)=>values.set(k,v)});
+    const detection=result();detection.dimensions.push({...detection.dimensions[0],millimetres:9000});
+    const fetcher=vi.fn(async()=>Response.json(detection));vi.stubGlobal('fetch',fetcher);
+    try {const first=await recognizeReference(ref);expect(scaleAssessment(first).scale).toBeUndefined();expect(await recognizeReference(ref)).toEqual(first);expect(fetcher).toHaveBeenCalledTimes(1);}finally{vi.unstubAllGlobals();}
   });
   it('does not cache invalid results or retry failed requests',async()=>{
     const fetcher=vi.fn(async()=>Response.json({error:'failed'}));vi.stubGlobal('fetch',fetcher);

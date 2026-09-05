@@ -69,6 +69,28 @@ describe('floor plan studio flow',()=>{
     await act(async()=>finish({rooms:[],dimensions:[],fixtures:[],warnings:[]}));
     expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();expect(screen.getByText('Analysis canceled. Your drawing is unchanged.')).toBeVisible();
   });
+  it('retains conflicting detections for local measurement confirmation without another analysis',async()=>{
+    const {recognizeReference}=await import('../src/blueprintRecognition');
+    const detected={rooms:[{name:'Recovered bedroom',kind:'Bedroom' as const,x:0,y:0,width:400,height:300,enclosed:true,note:''}],dimensions:[{text:'4 m',millimetres:4000,ax:0,ay:0,bx:400,by:0},{text:'9 m',millimetres:9000,ax:0,ay:0,bx:400,by:0}],fixtures:[],warnings:[]};
+    vi.mocked(recognizeReference).mockResolvedValueOnce(detected);
+    const beforeCalls=vi.mocked(recognizeReference).mock.calls.length,original=usePlanner.getState().plan;
+    render(<BlueprintStudio onClose={()=>{}}/>);
+    fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'scale.pdf')]}});
+    await screen.findByRole('heading',{name:'Check one measurement'});
+    expect(usePlanner.getState().plan).toBe(original);
+    expect(screen.getByLabelText('Printed length (metres)')).toHaveValue(4);
+    fireEvent.change(screen.getByLabelText('Detected measurement'),{target:{value:'1'}});expect(screen.getByLabelText('Printed length (metres)')).toHaveValue(9);
+    fireEvent.click(screen.getByRole('button',{name:'Mark two endpoints'}));
+    const measurement=screen.getByLabelText('Measurement on uploaded floor plan');
+    fireEvent.pointerDown(measurement,{clientX:0,clientY:0});expect(screen.getByRole('button',{name:'Confirm measurement & load rooms'})).toBeDisabled();
+    fireEvent.pointerDown(measurement,{clientX:500,clientY:0});
+    fireEvent.change(screen.getByLabelText('Printed length (metres)'),{target:{value:'5'}});
+    fireEvent.click(screen.getByRole('button',{name:'Confirm measurement & load rooms'}));
+    await screen.findByRole('button',{name:/Recovered bedroom/});
+    expect(screen.getByLabelText('width (m)')).toHaveValue(4);
+    expect(vi.mocked(recognizeReference).mock.calls.length-beforeCalls).toBe(1);
+    expect(usePlanner.getState().plan).toBe(original);
+  });
   it('moves a room in top-down view without moving the saved floor',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),rect=canvas.querySelector('[data-object="bedroom"] rect')!;
