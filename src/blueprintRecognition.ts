@@ -1,5 +1,5 @@
 import {blueprintPlan,fixtureAt,coveredByFloor,footprint,type BlueprintDraft} from './blueprint';
-import {recognizedScale,validateRecognition,type Recognition} from './recognitionContract';
+import {recognizedScale,scaleAssessment,validateRecognition,type Recognition} from './recognitionContract';
 import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1} from './types';
 import {snapWindow,wallRuns,windowProblem} from './windows';
@@ -18,13 +18,15 @@ export async function recognizeReference(reference:PlanReference,signal?:AbortSi
   const body=await response.json().catch(()=>null);
   if(!response.ok||body?.error)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
   signal?.throwIfAborted();
-  const result=validateRecognition(body,reference.width,reference.height);recognizedScale(result);
+  const result=validateRecognition(body,reference.width,reference.height);
   const saved=saveRecognition(key,result);
   options.status?.(`${model==='gpt-5.6-luna'?'Luna':'Astra'} analysis complete. ${saved?'Saved on this browser for free reuse.':'Browser cache unavailable; uploading again may incur another charge.'}`);
   return result;
 }
-export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition) {
-  const scale=recognizedScale(result),mm=(n:number)=>Math.round(n*scale);
+export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition,confirmedScale?:number) {
+  const scale=confirmedScale??recognizedScale(result);
+  if(!Number.isFinite(scale)||scale<.1||scale>200)throw new Error('Choose a scale between 0.1 and 200 mm per pixel.');
+  const mm=(n:number)=>Math.round(n*scale);
   const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>{const name=r.name.split(/\s+[—–]\s+/)[0];return {id:`scan-room-${i}`,groupId:`scan-group-${r.roomId??name.toLowerCase()}`,name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:r.enclosed};}),walls:[],omittedWalls:[],fixtures:[]};
   const grid=base.gridSizeMm;
   const plan=blueprintPlan(base,floorId,draft);
@@ -53,5 +55,5 @@ export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:R
     draft.fixtures.push(snapped);
   });
   blueprintPlan(base,floorId,draft);
-  return {draft,scale,notes:[...placementNotes,...result.warnings,...result.rooms.filter(r=>r.note).map(r=>`${r.name}: ${r.note}`)],dimensions:result.dimensions.map(d=>`${d.text} = ${(d.millimetres/1000).toFixed(3)} m`)};
+  return {draft,scale,notes:[...(confirmedScale===undefined?scaleAssessment(result).warnings:['Scale was set from the measurement you confirmed. Check all room sizes.']),...placementNotes,...result.warnings,...result.rooms.filter(r=>r.note).map(r=>`${r.name}: ${r.note}`)],dimensions:result.dimensions.map(d=>`${d.text} = ${(d.millimetres/1000).toFixed(3)} m`)};
 }

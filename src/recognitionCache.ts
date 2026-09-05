@@ -1,4 +1,4 @@
-import {validateRecognition,recognizedScale,type Recognition} from './recognitionContract';
+import {validateRecognition,type Recognition} from './recognitionContract';
 import type {PlanReference} from './blueprintImport';
 
 export type ScanModel='gpt-5.6-luna'|'gpt-6-astra';
@@ -12,7 +12,7 @@ export async function recognitionKey(ref:PlanReference,model:ScanModel):Promise<
 }
 export function cachedRecognition(key:string|undefined,ref:PlanReference):Recognition|undefined {
   if(!key)return;
-  try {const entry=entries().find(e=>e.key===key);if(!entry)return;const result=validateRecognition(entry.result,ref.width,ref.height);recognizedScale(result);return result;}catch{return undefined;}
+  try {const entry=entries().find(e=>e.key===key);if(!entry)return;const result=validateRecognition(entry.result,ref.width,ref.height);return result;}catch{return undefined;}
 }
 export function saveRecognition(key:string|undefined,result:Recognition):boolean {
   if(!key)return false;
