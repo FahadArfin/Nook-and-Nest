@@ -1,0 +1,12 @@
+# Batch 10 — easier placement and living decor
+
+1. New free-standing drafts face the live camera. Existing furniture keeps its saved rotation; wall-mounted pieces retain wall alignment and stairs retain quarter turns.
+2. Tap a turn button for the existing precise step. Hold it for a continuous 75-degree-per-second turn. The nearby toolbar and inspector share the interaction. Releasing, cancelling, losing pointer capture or blurring the window ends the turn. Each held turn creates one undo step. Draft rotation reuses its model instead of rebuilding it.
+3. All six fireplace styles animate their existing sculpted flame geometry with GPU displacement and warm, varying color. No particle emitter or extra shadow-casting lights are created. Flame materials are disposed when their furniture is removed.
+4. Three original editable aquarium models are in **Decor → Aquariums**: Desktop living aquarium (600 × 350 × 450 mm), River garden aquarium (1200 × 450 × 1250 mm), and Coral reef aquarium (650 × 600 × 1350 mm). The desktop tank supports tabletop placement. Tank models include separate fish bodies and fins, gravel, plants or coral, filters, airline tubing, an air stone and an open stone refuge. Planted displays include branching driftwood.
+
+The desktop tank has four fish; the larger tanks have six. Each has 18 looping air bubbles. Fish bodies and tails remain separate in the original Blender source and GLB, allowing independent tail movement. Animations change render transforms only, preserving saves, sharing and undo history. They pause in hidden tabs, stay still with reduced-motion preferences and skip distant objects. Glass, bubbles and flames do not cast shadows.
+
+Original aquascape types were informed by [Aqueon's aquarium guide](https://www.aqueon.com/ultimate-fishkeeping-guide). No third-party models were imported. Shader implementation follows the [Babylon ShaderMaterial API](https://doc.babylonjs.com/features/featuresDeepDive/materials/shaders/shaderMaterial/).
+
+Validation covers imported moving nodes and cloned assets, two minutes of bounded swimming paths, stable mesh counts, flame material disposal, camera-facing angles, hold cancellation, single-step undo and the existing full application suite. Aquarium envelope checks use the static tank's geometry; moving parts have their own local pivots and are checked in Babylon world space. Rendered Blender previews were reviewed for all three aquarium models.

@@ -10,10 +10,12 @@ import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMod
 import { validatePlan } from "./planValidation";
 import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
 import { paintWallPlate } from "./wallEditing";
+import {windowRotation} from './windows';
 import {scatterPlants,type PlantingBrush} from './planting';
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
+  turnSnapshot?:Snapshot;turnId?:string;beginTurn(id:string):void;turnFurniture(id:string,degrees:number):void;finishTurn():void;
   plantingBrush:PlantingBrush;setPlantingBrush(brush:PlantingBrush):void;
   plantingDraft?:{base:PlanDocumentV1;items:FurniturePlacement[]};
   previewPlanting(points:Array<{x:number;z:number}>):void;confirmPlanting():void;cancelPlanting():void;
@@ -43,6 +45,14 @@ const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.p
 const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
 
 export const usePlanner = create<PlannerState>((set, get) => ({
+  beginTurn:id=>{get().finishTurn();set(s=>({turnSnapshot:snap(s),turnId:id}));},
+  turnFurniture:(id,degrees)=>set(s=>{
+    const item=s.plan.furniture.find(f=>f.id===id);if(!item||!Number.isFinite(degrees)||s.turnId!==id)return {};
+    const candidate=fitStair(s.plan,snapWindow(s.plan,{...item,rotation:windowRotation(item,degrees)}));
+    const problem=windowProblem(s.plan,candidate);if(problem)return {placementNotice:problem};
+    return {plan:{...s.plan,updatedAt:new Date().toISOString(),furniture:s.plan.furniture.map(f=>f.id===id?candidate:f)}};
+  }),
+  finishTurn:()=>set(s=>({...(s.turnSnapshot&&JSON.stringify(s.turnSnapshot.plan.furniture)!==JSON.stringify(s.plan.furniture)?{past:[...s.past.slice(-39),s.turnSnapshot],future:[]}:{}),turnSnapshot:undefined,turnId:undefined})),
   plantingBrush:{catalogId:'grass-clump',radius:1.5,spacing:.5},
   setPlantingBrush:plantingBrush=>set({plantingBrush,plantingDraft:undefined}),
   previewPlanting:points=>set(s=>({plantingDraft:{base:s.plan,items:scatterPlants(s.plan,points,s.plantingBrush)}})),

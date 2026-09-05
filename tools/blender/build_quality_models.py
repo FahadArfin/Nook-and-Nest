@@ -1045,6 +1045,8 @@ DETAILED_BUILDERS = detailed_builders(rounded_box, cylinder, material, finish_me
 COZY_BUILDERS.update(DETAILED_BUILDERS)
 from garden_collection import garden_builders
 COZY_BUILDERS.update(garden_builders(rounded_box, cylinder, material, finish_mesh))
+from aquarium_models import aquarium_builders
+COZY_BUILDERS.update(aquarium_builders(rounded_box, cylinder, material, finish_mesh))
 BUILDERS.update(COZY_BUILDERS)
 
 
@@ -1088,7 +1090,12 @@ def export_model(catalog_id, builder):
     # The browser does not need every cushion, leg, book, and leaf as a separate
     # draw object. Join only the exported copy into one multi-material mesh;
     # Blender preserves all material slots, UVs, and the connected silhouette.
-    meshes = [obj for obj in bpy.context.scene.objects if obj.type == "MESH"]
+    all_export_meshes = [obj for obj in bpy.context.scene.objects if obj.type == "MESH"]
+    moving = [obj for obj in all_export_meshes if obj.get("motion_role")]
+    for obj in moving:
+        bpy.ops.object.select_all(action="DESELECT");obj.select_set(True);bpy.context.view_layer.objects.active=obj
+        bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY",center="BOUNDS")
+    meshes = [obj for obj in all_export_meshes if not obj.get("motion_role")]
     bpy.ops.object.select_all(action="DESELECT")
     for obj in meshes:
         obj.select_set(True)
@@ -1100,6 +1107,7 @@ def export_model(catalog_id, builder):
     export_mesh["nominal_width_m"] = dimensions[0]
     export_mesh["nominal_depth_m"] = dimensions[1]
     export_mesh["nominal_height_m"] = dimensions[2]
+    for obj in moving:obj.select_set(True)
     bpy.ops.export_scene.gltf(
         filepath=str(GLB_OUT / f".{catalog_id}-new.glb"),
         export_format="GLB",

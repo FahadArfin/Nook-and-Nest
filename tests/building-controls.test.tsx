@@ -16,7 +16,7 @@ const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:v
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()}
-  setTool(){} setWallSelection(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
+  placementRotation(){return 0;} setTool(){} setWallSelection(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
   previewMeasuredRoom(region:unknown){scene.preview(region)}
   projectPreview(){return {x:200,y:200}} projectSelected(){return {x:200,y:200}} projectTileDraft(){return {x:200,y:200}}
 }}));

@@ -1,4 +1,5 @@
 import {modelAssetPath} from "../modelAssetPath";
+import {LivingModels} from './LivingModels';
 import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { AssetContainer } from "@babylonjs/core/assetContainer";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
@@ -19,13 +20,14 @@ import { findCountertopFinish, findDoorFinish } from "../surfaces";
 const MODEL_IDS = new Set(catalog.map((item) => item.id));
 
 export class FurnitureModelLibrary {
+  private living:LivingModels;
   private containers = new Map<string, AssetContainer>();
   private pending = new Map<string, Promise<void>>();
   private failed = new Set<string>();
   private disposed = false;
   private materialVariants = new Map<string, Material>();
 
-  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: () => void) {}
+  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: () => void) {this.living=new LivingModels(scene);}
 
   hasModel(catalogId: string) { return MODEL_IDS.has(catalogId); }
 
@@ -106,14 +108,18 @@ export class FurnitureModelLibrary {
     wrapper.scaling = new Vector3(width / nominalWidth, height / nominalHeight, depth / nominalDepth);
     for (const mesh of wrapper.getChildMeshes(false)) {
       const typedMesh = mesh as AbstractMesh;
+      typedMesh.metadata={...typedMesh.metadata,livingMaterial:typedMesh.material?.name};
       if (typedMesh.material) typedMesh.material = this.materialFor(typedMesh.material, item, ghost);
-      typedMesh.receiveShadows = true;
-      this.shadow.addShadowCaster(typedMesh);
+      const shadowless=['aquarium-clear-glass','aquarium-water-surface','aquarium-air-bubble','golden-flame','warm-light'].includes(typedMesh.metadata.livingMaterial);
+      typedMesh.receiveShadows = !shadowless;
+      if(!shadowless)this.shadow.addShadowCaster(typedMesh);
     }
+    if(!ghost)this.living.attach(wrapper,item.catalogId,nominalWidth,nominalDepth,nominalHeight);
     return true;
   }
 
   dispose() {
+    this.living.dispose();
     this.disposed=true;
     for (const material of this.materialVariants.values()) material.dispose(false, false);
     for (const container of this.containers.values()) container.dispose();

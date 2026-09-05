@@ -41,6 +41,7 @@ import {usePlanner} from '../store';
 import type {TerrainStroke} from '../terrain';
 import {terrainRay} from '../terrain';
 import {scatterPlants} from '../planting';
+import {cameraFacingRotation} from '../placementFacing';
 
 interface Callbacks { onCell(x: number, z: number): void; onWallSegment(wall:Omit<WallSegment,"id">):void; onTileDraft(cells: TileCell[], present: boolean): void; onSelect(id?: string): void; onMove(id: string, xMm: number, zMm: number, elevationMm?:number): void; onDraftMove(xMm: number, zMm: number, elevationMm?:number): void; onWall(id: string): void }
 export class SceneController {
@@ -77,6 +78,7 @@ export class SceneController {
     });
   }
   zoom(factor:number){this.camera.radius=Math.max(closeZoomLimit,Math.min(80,this.camera.radius*factor));this.camera.inertialRadiusOffset=0;}
+  placementRotation(id:string,x:number,z:number){return cameraFacingRotation(id,this.camera.position,{x:x/1000,z:z/1000});}
   focusSelected(){const item=this.activePlan?.furniture.find(i=>i.id===this.selectedId);if(!item||!this.selectedNode)return;this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;this.camera.inertialRadiusOffset=0;this.camera.setTarget(this.selectedNode.position.add(new Vector3(0,item.heightMm/2000,0)));this.camera.radius=detailFocusRadius(item.widthMm,item.depthMm,item.heightMm);}
   private resize = () => this.engine.resize();
   dispose() { window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
@@ -198,11 +200,12 @@ export class SceneController {
   private surfaceMaterial(name:string,finish:SurfaceFinish,alpha=1){const key=`${finish.id}:${alpha}`;const cached=this.surfaceMaterials.get(key);if(cached)return cached;const mat=this.material(name,"#ffffff",alpha);const texture=new Texture(finish.texture,this.scene,false,false,Texture.TRILINEAR_SAMPLINGMODE);texture.wrapU=Texture.WRAP_ADDRESSMODE;texture.wrapV=Texture.WRAP_ADDRESSMODE;texture.uScale=finish.scale;texture.vScale=finish.scale;texture.anisotropicFilteringLevel=4;mat.diffuseTexture=texture;mat.specularColor=new Color3(.035,.03,.022);mat.roughness=.96;this.surfaceMaterials.set(key,mat);return mat;}
   private makeMeadow() { const ground = MeshBuilder.CreateDisc("meadow", { radius: 15, tessellation: 64 }, this.scene); ground.rotation.x = Math.PI / 2; ground.position.y = -.15; ground.material = this.material("meadow-mat", "#9cab77"); ground.receiveShadows = true; }
   update(plan: PlanDocumentV1, activeFloorId: string, selectedId?: string, draft?: FurniturePlacement) {
+    const previousDraft=this.activeDraft,refreshPreview=this.refreshModels;
     this.terrain.update(plan);this.scene.getMeshByName('meadow')?.setEnabled(!plan.environment?.terrain?.length);
     const stamp=architectureKey(plan,activeFloorId,this.tool,this.selectedWallId);
     if(stamp===this.architectureStamp){
       this.activePlan=plan;this.selectedId=selectedId;this.activeDraft=draft;
-      this.outdoors.update(plan);
+      if(!usePlanner.getState().turnId)this.outdoors.update(plan);
       const ids=new Set(plan.furniture.map(f=>f.id));
       for(const [id,entry] of this.furnitureNodes)if(!ids.has(id)){entry.node.dispose(false,false);this.furnitureNodes.delete(id);}
       for(const item of plan.furniture){
@@ -219,8 +222,11 @@ export class SceneController {
       this.refreshModels=false;
       this.selectedNode=this.furnitureNodes.get(selectedId??'')?.node;
       for(const [id,{node}] of this.furnitureNodes)for(const mesh of node.getChildMeshes()){mesh.renderOutline=id===selectedId;mesh.outlineColor=new Color3(.42,.57,.31);mesh.outlineWidth=.025;}
-      this.previewNode?.dispose(false,false);this.previewNode=undefined;
-      if(draft){const floor=plan.floors.find(f=>f.id===activeFloorId);if(floor)this.buildFurniture(draft,floor.elevationMm/1000,false,true);}
+      const signature=(p:FurniturePlacement)=>JSON.stringify({...p,x:0,z:0,rotation:0,elevationMm:0});
+      if(draft&&previousDraft&&this.previewNode&&!refreshPreview&&signature(draft)===signature(previousDraft)){
+        const floor=plan.floors.find(f=>f.id===activeFloorId)!;
+        this.previewNode.position.set(draft.x/1000,(floor.elevationMm+(draft.elevationMm??0)+(isWallOpening(draft.catalogId)?0:isStairs(draft.catalogId)?40:50))/1000,draft.z/1000);this.previewNode.rotation.y=draft.rotation*Math.PI/180;
+      }else{this.previewNode?.dispose(false,false);this.previewNode=undefined;if(draft){const floor=plan.floors.find(f=>f.id===activeFloorId);if(floor)this.buildFurniture(draft,floor.elevationMm/1000,false,true);}}
       this.draftPosition=draft?{x:draft.x,z:draft.z,elevationMm:draft.elevationMm}:undefined;
       return;
     }
