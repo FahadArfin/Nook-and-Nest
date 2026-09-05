@@ -70,14 +70,14 @@ async function api(request, env) {
 }
 
 export default { async fetch(request, env) {
-  const pathname=new URL(request.url).pathname;
-  if (!pathname.startsWith("/api/")) {
-    const response=await staticWorker.fetch(request,env);
-    if(pathname.startsWith('/models/previews/')&&pathname.endsWith('.webp')&&[200,206,304].includes(response.status)){
-      const image=new Response(response.body,response);image.headers.set('Content-Type','image/webp');return image;
-    }
-    return response;
+  const url=new URL(request.url),preview=url.pathname.match(/^\/api\/previews\/([a-z0-9-]+)\.webp$/);
+  if(preview&&['GET','HEAD'].includes(request.method)){
+    url.pathname='/models/previews/'+preview[1]+'.webp';
+    const response=await env.ASSETS.fetch(new Request(url,request));
+    if(![200,206,304].includes(response.status))return response;
+    const image=new Response(response.body,response);image.headers.set('Content-Type','image/webp');image.headers.set('Cache-Control','public, max-age=3600');return image;
   }
+  if (!url.pathname.startsWith('/api/'))return staticWorker.fetch(request,env);
   try { return await api(request, env); }
   catch { return fail("Online saves are temporarily unavailable. Your local build is unchanged.", 503); }
 } };

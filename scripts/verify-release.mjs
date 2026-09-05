@@ -27,9 +27,9 @@ assert.equal(manifest.d1, 'DB');
 assert(existsSync('dist/.openai/drizzle/0000_lush_inhumans.sql'));
 const { default: worker } = await import('../dist/server/index.js');
 assert.equal(typeof worker.fetch, 'function');
-const previewResponse=await worker.fetch(new Request('https://example.test/models/previews/sofa.webp'),{ASSETS:{fetch:async()=>new Response('image-bytes',{headers:{'content-type':'application/octet-stream',etag:'preview-hash'}})}});
+const previewResponse=await worker.fetch(new Request('https://example.test/api/previews/sofa.webp'),{ASSETS:{fetch:async()=>new Response('image-bytes',{headers:{'content-type':'application/octet-stream',etag:'preview-hash'}})}});
 assert.equal(previewResponse.headers.get('content-type'),'image/webp');assert.equal(previewResponse.headers.get('etag'),'preview-hash');assert.equal(await previewResponse.text(),'image-bytes');
-const missingPreview=await worker.fetch(new Request('https://example.test/models/previews/missing.webp'),{ASSETS:{fetch:async()=>new Response('missing',{status:404})}});assert.equal(missingPreview.status,404);
+const missingPreview=await worker.fetch(new Request('https://example.test/api/previews/missing.webp'),{ASSETS:{fetch:async()=>new Response('missing',{status:404})}});assert.equal(missingPreview.status,404);
 
 const response = await worker.fetch(new Request('https://example.test/api/projects'), {});
 assert.equal(response.status, 401);

@@ -56,7 +56,7 @@ Includes furniture and optional environment assets; shared textures are counted 
 | client/models/furniture/shared-textures/9a8e8d873169eee228cae474377b80d717266345e72d24d576a41e44bee20f16.png | 2.89 MB |
 | client/models/furniture/shared-textures/85fdde6298cdf1c78e960cde21744084ad77397d6a767511f8606032d10dd94a.png | 2.70 MB |
 | client/models/furniture/hydrangea-border.glb | 2.67 MB |
-| client/assets/index-Bwiu4zVb.js | 2.48 MB |
+| client/assets/index-DkEXBVW0.js | 2.48 MB |
 | client/assets/nook-nest-icon.png | 2.19 MB |
 | client/models/furniture/reef-aquarium.glb | 2.07 MB |
 | client/models/furniture/flowering-shrub.glb | 1.82 MB |
