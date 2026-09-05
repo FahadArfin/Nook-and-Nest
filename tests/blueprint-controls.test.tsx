@@ -131,7 +131,7 @@ describe('floor plan studio flow',()=>{
     const base=usePlanner.getState().plan,id=base.floors[0].id;
     const parts=[{...room,id:'living',name:'Living',kind:'Living' as const,groupId:'bad-group'},{...room,id:'wrong-part',name:'Living',kind:'Living' as const,groupId:'bad-group',x:0,z:-2000,width:2000,depth:2000}];
     usePlanner.getState().replacePlan(blueprintPlan(base,id,{rooms:parts,walls:[],omittedWalls:[],fixtures:[]}));render(<BlueprintStudio onClose={()=>{}}/>);
-    fireEvent.click(screen.getByRole('button',{name:/Living.*5.00/}));fireEvent.click(screen.getByRole('button',{name:'Rectangle 2'}));fireEvent.click(screen.getByRole('button',{name:'Separate rectangle'}));
+    fireEvent.click(screen.getByRole('button',{name:/Living.*5.00/}));fireEvent.click(screen.getByLabelText('Edit individual rectangles'));fireEvent.click(screen.getByRole('button',{name:'Rectangle 2'}));fireEvent.click(screen.getByRole('button',{name:'Separate rectangle'}));
     expect(screen.getByLabelText('Room name')).toHaveValue('Separated area');fireEvent.click(screen.getByRole('button',{name:'Delete room'}));
     expect(screen.getByRole('button',{name:/Living.*5.00/})).toBeInTheDocument();
   });
@@ -170,6 +170,17 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:/^Living 4/}));fireEvent.change(screen.getByLabelText('Combined room name'),{target:{value:'Master bedroom'}});
     fireEvent.click(screen.getByRole('button',{name:'Combine selected (3)'}));expect(screen.getByLabelText('Room name')).toHaveValue('Master bedroom');expect(screen.getByRole('heading',{name:'Rooms & spaces · 1'})).toBeVisible();expect(usePlanner.getState().plan).toBe(original);
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('heading',{name:'Rooms & spaces · 3'})).toBeVisible();
+  });
+  it('shows four handles for a combined room and resizes every piece as one object',()=>{
+    const p=usePlanner.getState().plan,id=p.floors[0].id;
+    usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[{...room,groupId:'joined',width:4000,depth:3000},{...room,id:'extension',groupId:'joined',x:-1000,z:2000,width:1000,depth:1000}],walls:[],omittedWalls:[],fixtures:[]}));
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});
+    expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(4);expect(screen.queryByRole('button',{name:'Rectangle 2'})).toBeNull();
+    fireEvent.pointerDown(canvas.querySelector('[data-handle="se"]')!,{button:0,clientX:4000,clientY:3000});fireEvent.pointerMove(canvas,{clientX:9000,clientY:6000});fireEvent.pointerUp(canvas);
+    expect(screen.getByLabelText('width (m)')).toHaveValue(10);expect(screen.getByLabelText('depth (m)')).toHaveValue(6);
+    const extension=canvas.querySelector('rect[data-object="extension"]')!;expect(extension.getAttribute('width')).toBe('2000');expect(extension.getAttribute('y')).toBe('4000');
+    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByLabelText('width (m)')).toHaveValue(5);
+    fireEvent.click(screen.getByLabelText('Edit individual rectangles'));expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(8);
   });
   it('drags a fixture icon onto the plan, deletes it, and undoes deletion',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
