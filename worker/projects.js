@@ -18,7 +18,7 @@ async function api(request, env) {
   });
   if (!owner) return fail("Sign in to access your private projects.", 401);
   if (!db) return fail("Online saves are not enabled in this environment yet.", 503);
-  if (request.method === "POST") {
+  if (["POST", "DELETE"].includes(request.method)) {
     if (request.headers.get("origin") !== url.origin || request.headers.get("sec-fetch-site") === "cross-site") return fail("Use the project library on this site to save.", 403);
     if (!request.headers.get("content-type")?.startsWith("application/json")) return fail("Send a JSON project.", 415);
   }
@@ -32,6 +32,13 @@ async function api(request, env) {
   if (!match) return fail("Not found.", 404);
   const id = decodeURIComponent(match[1]);
   if (!id.length || id.length > 160) return fail("Invalid project ID.", 400);
+  if (request.method === "DELETE" && !match[2]) {
+    const revision = Number(url.searchParams.get("revision"));
+    if (!Number.isSafeInteger(revision) || revision < 1) return fail("Invalid version.", 400);
+    const result = await db.prepare("DELETE FROM project_versions WHERE owner_id = ? AND project_id = ? AND (SELECT MAX(revision) FROM project_versions WHERE owner_id = ? AND project_id = ?) = ?").bind(owner,id,owner,id,revision).run();
+    if (!result.meta.changes) return fail("Project changed or was already deleted. Refresh your library.",409);
+    return json({deleted:true});
+  }
   if (request.method === "GET") {
     if (match[2]) {
       const { results } = await db.prepare("SELECT revision, name, saved_at AS savedAt FROM project_versions WHERE owner_id = ? AND project_id = ? ORDER BY revision DESC LIMIT 20").bind(owner, id).all();

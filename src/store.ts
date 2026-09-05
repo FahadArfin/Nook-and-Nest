@@ -5,7 +5,7 @@ import { defaultCountertopFinish, defaultDoorFinish, supportsCountertopFinish } 
 import { addMeasuredRegion, measuredRegion, paintFloorCells, type MeasuredRegion } from "./floorGeometry";
 import { fitStair } from "./building";
 import { snapWindow, windowProblem } from "./windows";
-import { createSamplePlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
+import { createBlankPlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 import { validatePlan } from "./planValidation";
 import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
@@ -40,7 +40,7 @@ interface PlannerState {
   undo(): void; redo(): void;
 }
 
-const initialPlan = createSamplePlan();
+const initialPlan = createBlankPlan();
 const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.plan), activeFloorId: state.activeFloorId });
 const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
 
@@ -131,3 +131,11 @@ export async function listLocalPlans(): Promise<PlanDocumentV1[]> { const db=awa
 export async function getCloudRevision(owner:string,id:string):Promise<number> { return (await (await getDb()).get("projects",`cloud:${owner}:${id}`))??0; }
 export async function saveCloudRevision(owner:string,id:string,revision:number) { await (await getDb()).put("projects",revision,`cloud:${owner}:${id}`); }
 export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return decodeShare(hash); const db = await getDb(); return db.get("projects", "active"); }
+
+export async function deleteLocalPlan(id: string) {
+ const db=await getDb(),tx=db.transaction("projects","readwrite");
+ const active=await tx.store.get("active");
+ await tx.store.delete("project:"+id);
+ if(active?.id===id)await tx.store.delete("active");
+ await tx.done;
+}

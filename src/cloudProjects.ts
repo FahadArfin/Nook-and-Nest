@@ -4,8 +4,8 @@ export interface CloudSession { signedIn: boolean; available: boolean; userId?: 
 export interface ProjectSummary { id: string; name: string; revision: number; savedAt: string }
 export interface ProjectVersion { revision: number; name: string; savedAt: string }
 export class CloudError extends Error { constructor(message: string, public status: number) { super(message); } }
-async function request<T>(path: string, body?: unknown): Promise<T> {
-  const response = await fetch(path, { credentials: "same-origin", cache: "no-store", ...(body === undefined ? {} : { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }) });
+async function request<T>(path: string, body?: unknown, method = "POST"): Promise<T> {
+  const response = await fetch(path, { credentials: "same-origin", cache: "no-store", ...(body === undefined ? {} : { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }) });
   if (!response.headers.get("content-type")?.includes("application/json")) throw new CloudError("Online saves are available on the published site, not this local preview.", 503);
   const data = await response.json(); if (!response.ok) throw new CloudError(data.error || "Could not reach your online library.", response.status); return data;
 }
@@ -17,3 +17,5 @@ export async function openCloudProject(id: string, revision?: number) {
   validatePlan(data.plan); return data;
 }
 export const saveCloudProject = (plan: PlanDocumentV1, expectedRevision: number) => request<{ revision: number; savedAt: string }>(`/api/projects/${encodeURIComponent(plan.id)}`, { plan, expectedRevision });
+
+export const deleteCloudProject = (id:string, revision:number) => request<{deleted:boolean}>(`/api/projects/${encodeURIComponent(id)}?revision=${revision}`,{},"DELETE");
