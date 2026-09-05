@@ -188,7 +188,7 @@ describe("Babylon wall visibility integration",()=>{
       // Exercise the production builders with a GPU-free engine. Only loading
       // external textures/GLBs is stubbed; visibility and scene nodes are real.
       const renderer:any=Object.create(SceneController.prototype);
-      Object.assign(renderer,{scene,root:new TransformNode("root",scene),activePlan:plan,tool:"wall-finish",wallVisibility:new WallVisibilityController(),floorWallGeometry:new Map(),shadow:{addShadowCaster:vi.fn()},furnitureModels:{build:(node:TransformNode)=>{const m=MeshBuilder.CreateBox("model",{},scene);m.parent=node;return true}},surfaceMaterial:()=>new StandardMaterial("mat",scene)});
+      Object.assign(renderer,{furnitureNodes:new Map(),solidMaterials:new Map(),scene,root:new TransformNode("root",scene),activePlan:plan,tool:"wall-finish",wallVisibility:new WallVisibilityController(),floorWallGeometry:new Map(),shadow:{addShadowCaster:vi.fn()},furnitureModels:{build:(node:TransformNode)=>{const m=MeshBuilder.CreateBox("model",{},scene);m.parent=node;return true}},surfaceMaterial:()=>new StandardMaterial("mat",scene)});
       renderer.buildFloor(plan,floor,false);
       renderer.wallVisibility.update("all-hidden",{x:2,z:-6},target);
       const walls=scene.meshes.filter(m=>m.name.startsWith("wall:"));expect(walls.length).toBeGreaterThan(0);expect(walls.every(m=>!m.isEnabled())).toBe(true);

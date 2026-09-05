@@ -44,7 +44,7 @@ export const doorFinishes: SurfaceFinish[] = [
   { id: "door-walnut", name: "Walnut", family: "Wood", texture: "/textures/walnut-laminate.jpg", scale: 1 },
 ];
 
-const countertopCatalogIds = new Set(["base-cabinet", "sink-cabinet", "kitchen-counter", "kitchen-island", "single-bath-vanity", "double-bath-vanity", "floating-bath-vanity"]);
+const countertopCatalogIds = new Set(["console-vanity","reed-double-vanity","base-cabinet", "sink-cabinet", "kitchen-counter", "kitchen-island", "single-bath-vanity", "double-bath-vanity", "floating-bath-vanity"]);
 export const supportsCountertopFinish = (catalogId: string) => countertopCatalogIds.has(catalogId)||kitchenTopIds.has(catalogId)||catalogId==="backsplash-slab";
 
 export const defaultWallFinish = wallFinishes[0];

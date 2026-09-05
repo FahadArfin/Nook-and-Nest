@@ -13,6 +13,8 @@ import { paintWallPlate } from "./wallEditing";
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
+  terrainRadius:number;terrainStrength:number;setTerrainBrush(radius:number,strength:number):void;
+  addTerrainStroke(stroke:import('./terrain').TerrainStroke):void;
   selectedWallId?:string; selectWall(id?:string):void;
   cycleWallVisibility(): void;
   commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1):void;
@@ -37,6 +39,9 @@ const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.p
 const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
 
 export const usePlanner = create<PlannerState>((set, get) => ({
+  terrainRadius:2,terrainStrength:.6,
+  setTerrainBrush:(radius,strength)=>set({terrainRadius:Math.max(.5,Math.min(8,radius)),terrainStrength:Math.max(.1,Math.min(2,strength))}),
+  addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};validatePlan(plan);return commit(state,plan);}),
   selectWall:selectedWallId=>set({selectedWallId,selectedId:undefined,tool:"wall-finish"}),
   commitDesign:(base,plan)=>set(state=>{if(state.plan!==base||plan.id!==base.id)throw new Error('The apartment changed. Read it again and prepare a new design.');validatePlan(plan);return {...commit(state,structuredClone(plan),null),tool:'select',placementNotice:undefined};}),
   setEnvironment:patch=>set(state=>commit(state,{...state.plan,environment:{background:"plain",grass:"off",...state.plan.environment,...patch}})),

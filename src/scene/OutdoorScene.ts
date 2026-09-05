@@ -29,7 +29,7 @@ export class OutdoorScene {
     if(env.grass!=='off'){
       const asset=this.assets.get('grass-clump');if(!asset)this.load('grass-clump');else{
         const points=grassPoints(plan);if(!points.length)return;
-        const buffer=new Float32Array(points.length*16);points.forEach((p,i)=>Matrix.Compose(new Vector3(p.scale,p.scale,p.scale),Quaternion.RotationAxis(Vector3.Up(),p.angle),new Vector3(p.x,groundY,p.z)).copyToArray(buffer,i*16));
+        const buffer=new Float32Array(points.length*16);points.forEach((p,i)=>Matrix.Compose(new Vector3(p.scale,p.scale,p.scale),Quaternion.RotationAxis(Vector3.Up(),p.angle),new Vector3(p.x,p.y,p.z)).copyToArray(buffer,i*16));
         for(const source of asset.meshes){if(!(source instanceof Mesh)||!source.getTotalVertices())continue;source.computeWorldMatrix(true);const mesh=source.clone('instanced-grass',null,true);if(!mesh)continue;mesh.makeGeometryUnique();mesh.bakeTransformIntoVertices(source.getWorldMatrix());mesh.position.setAll(0);mesh.rotation.setAll(0);mesh.rotationQuaternion=null;mesh.scaling.setAll(1);mesh.parent=this.root;mesh.isVisible=true;mesh.isPickable=false;mesh.alwaysSelectAsActiveMesh=true;mesh.thinInstanceSetBuffer('matrix',buffer,16,true);mesh.receiveShadows=false;if(mesh.material instanceof PBRMaterial)mesh.material.backFaceCulling=false;}
       }
     }

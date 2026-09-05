@@ -1038,6 +1038,9 @@ BUILDERS.update(INTERIOR_BUILDERS)
 from outdoor_models import outdoor_builders
 OUTDOOR_BUILDERS = outdoor_builders(rounded_box, cylinder, material, finish_mesh)
 BUILDERS.update(OUTDOOR_BUILDERS)
+from cozy_models import cozy_builders
+COZY_BUILDERS = cozy_builders(rounded_box, cylinder, material, finish_mesh)
+BUILDERS.update(COZY_BUILDERS)
 
 
 def export_model(catalog_id, builder):
@@ -1045,7 +1048,7 @@ def export_model(catalog_id, builder):
     bpy.context.preferences.filepaths.save_version = 0
     mats = common_materials()
     dimensions = builder(mats)
-    if catalog_id.startswith("window-") or catalog_id in WORKSPACE_BUILDERS or catalog_id in BATHROOM_BUILDERS or catalog_id in MEDIA_BUILDERS or catalog_id in BUILDING_BUILDERS or catalog_id in KITCHEN_BUILDERS or catalog_id in INTERIOR_BUILDERS or catalog_id in OUTDOOR_BUILDERS:
+    if catalog_id.startswith("window-") or catalog_id in WORKSPACE_BUILDERS or catalog_id in BATHROOM_BUILDERS or catalog_id in MEDIA_BUILDERS or catalog_id in BUILDING_BUILDERS or catalog_id in KITCHEN_BUILDERS or catalog_id in INTERIOR_BUILDERS or catalog_id in OUTDOOR_BUILDERS or catalog_id in COZY_BUILDERS:
         # Fit the authored outer envelope to the advertised real dimensions.
         # Keep the Y=0 wall attachment plane, including for projecting bay models.
         from mathutils import Vector
@@ -1061,7 +1064,7 @@ def export_model(catalog_id, builder):
             matrix = obj.matrix_world.copy()
             for vertex in obj.data.vertices:
                 point = matrix @ vertex.co
-                y_center = (low[1]+high[1])/2 if catalog_id in WORKSPACE_BUILDERS or catalog_id in BATHROOM_BUILDERS or catalog_id in MEDIA_BUILDERS or catalog_id in BUILDING_BUILDERS or catalog_id in KITCHEN_BUILDERS or catalog_id in INTERIOR_BUILDERS or catalog_id in OUTDOOR_BUILDERS else 0
+                y_center = (low[1]+high[1])/2 if catalog_id in WORKSPACE_BUILDERS or catalog_id in BATHROOM_BUILDERS or catalog_id in MEDIA_BUILDERS or catalog_id in BUILDING_BUILDERS or catalog_id in KITCHEN_BUILDERS or catalog_id in INTERIOR_BUILDERS or catalog_id in OUTDOOR_BUILDERS or catalog_id in COZY_BUILDERS else 0
                 vertex.co = ((point.x-(low[0]+high[0])/2)*factors[0], (point.y-y_center)*factors[1], (point.z-low[2])*factors[2])
             obj.matrix_world.identity()
         bpy.context.view_layer.update()

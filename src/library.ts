@@ -1,3 +1,4 @@
+import {cozyType} from "./cozyCatalog";
 import { catalog } from "./catalog";
 import type { CatalogItem } from "./types";
 
@@ -51,7 +52,7 @@ const families: Record<string, string[]> = {
   "Windows": ["window-casement","window-sash","window-picture","window-arched","window-bay","window-awning"],
 };
 const typeById = new Map(Object.entries(families).flatMap(([family, ids]) => ids.map(id => [id, family] as const)));
-export const furnitureType = (item: CatalogItem) => typeById.get(item.id) ?? "Other pieces";
+export const furnitureType = (item: CatalogItem) => cozyType(item.id) ?? typeById.get(item.id) ?? "Other pieces";
 const synonyms: Record<string, string> = {
   couch:"sofa", settee:"sofa", washroom:"bathroom", restroom:"bathroom", lavatory:"toilet",
   television:"tv", fridge:"refrigerator", computer:"computer", tub:"bathtub", basin:"sink",

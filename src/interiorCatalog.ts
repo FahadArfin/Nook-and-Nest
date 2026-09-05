@@ -31,5 +31,5 @@ export const interiorRows:Row[]=[
 ];
 export const interiorArtIds=new Set(['valley-panorama','starlight-poster','singer-poster','basketball-poster']);
 export const collectibleIds=new Set(['adventurer-figurine','mecha-figurine','model-sailboat','brick-roadster']);
-export const shelfIds=new Set(['display-bookcase','ladder-display-shelf','cube-display-shelf']);
+export const shelfIds=new Set(['open-pantry','display-bookcase','ladder-display-shelf','cube-display-shelf']);
 export const interiorWallIds=new Set([...interiorArtIds,'floating-nightstand']);

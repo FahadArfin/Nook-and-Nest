@@ -5,6 +5,14 @@ import type { FurniturePlacement, PlanDocumentV1 } from "./types";
 
 export interface PlacementPoint { x:number; z:number; elevationMm?:number }
 interface Point3 { x:number;y:number;z:number }
+export function tabletopChoices(plan:PlanDocumentV1,item:FurniturePlacement){
+  return plan.furniture.filter(owner=>owner.id!==item.id&&owner.floorId===item.floorId&&supportsDesktop(owner)).flatMap(owner=>{
+    const floor=plan.floors.find(f=>f.id===item.floorId)!;
+    const candidate={...item,x:owner.x,z:owner.z,rotation:owner.rotation};
+    const point=tabletopPoint({...plan,furniture:[owner]},candidate,{x:owner.x/1000,y:(floor.elevationMm+(owner.elevationMm??0)+owner.heightMm+1000)/1000,z:owner.z/1000},{x:0,y:-1,z:0});
+    return point?[{owner,placement:{...point,rotation:owner.rotation}}]:[];
+  });
+}
 // Only simple continuous tops: L-shaped desks need an explicit height input
 // rather than a misleading rectangular hit area across their empty corner.
 export function supportsDesktop(item:FurniturePlacement) {
@@ -31,7 +39,7 @@ export function tabletopPoint(plan:PlanDocumentV1,item:FurniturePlacement,origin
     const frontInset=kitchenTopIds.has(table.catalogId)?100*table.depthMm/620:0;
     if(Math.abs(localX)+halfW>table.widthMm/2||localZ-halfD< -table.depthMm/2||localZ+halfD>table.depthMm/2-frontInset)return [];
     // Round/oval coffee tables need an ellipse containment check at each corner.
-    if(['patio-bistro-table','pedestal-nightstand','drum-coffee-table','oval-coffee-table','round-table','side-table'].includes(table.catalogId)){
+    if(['pedestal-dining-table','patio-bistro-table','pedestal-nightstand','drum-coffee-table','oval-coffee-table','round-table','side-table'].includes(table.catalogId)){
       if(((Math.abs(localX)+halfW)/(table.widthMm/2))**2+((Math.abs(localZ)+halfD)/(table.depthMm/2))**2>1)return [];
     }
     return [{x,z,elevationMm,distance}];
