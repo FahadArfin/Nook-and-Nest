@@ -1,3 +1,4 @@
+import {MeshoptCompression} from '@babylonjs/core/Meshes/Compression/meshoptCompression';
 import {instanceHolidayBranches} from './HolidayBranches';
 import {positionSlidingLeaves} from './SlidingDoors';
 import {modelAssetPath} from "../modelAssetPath";
@@ -18,6 +19,8 @@ import "@babylonjs/loaders/glTF/2.0";
 import { catalog, variants, isStairs } from "../catalog";
 import type { CatalogItem, FurniturePlacement } from "../types";
 import { findCountertopFinish, findDoorFinish } from "../surfaces";
+
+MeshoptCompression.Configuration={decoder:{url:'/vendor/meshopt-decoder-1.2.0.js'}};
 
 const MODEL_IDS = new Set(catalog.map((item) => item.id));
 

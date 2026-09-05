@@ -1,3 +1,4 @@
+import {compressGeometry} from './compress-model-geometry.mjs';
 import {readFileSync,writeFileSync,readdirSync,mkdirSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {join} from 'node:path';
@@ -19,9 +20,9 @@ export function shareImages(input,saveImage){
  remap(g);g.bufferViews=views;g.buffers[0].byteLength=offset;
  let json=Buffer.from(JSON.stringify(g));json=Buffer.concat([json,Buffer.alloc((4-json.length%4)%4,32)]);const binary=Buffer.concat(parts),header=Buffer.alloc(20),binHeader=Buffer.alloc(8);header.write('glTF');header.writeUInt32LE(2,4);header.writeUInt32LE(28+json.length+binary.length,8);header.writeUInt32LE(json.length,12);header.writeUInt32LE(0x4e4f534a,16);binHeader.writeUInt32LE(binary.length);binHeader.writeUInt32LE(0x004e4942,4);return Buffer.concat([header,json,binHeader,binary]);
 }
-export function optimizeModels(root='dist/client'){
+export async function optimizeModels(root='dist/client'){
  const folder=join(root,'models/furniture'),shared=join(folder,'shared-textures');mkdirSync(shared,{recursive:true});const images=new Set();let before=0,after=0,imageBytes=0;
- for(const file of readdirSync(folder).filter(f=>f.endsWith('.glb'))){const path=join(folder,file),input=readFileSync(path);before+=input.length;const output=shareImages(input,(name,data)=>{if(images.has(name))return;images.add(name);writeFileSync(join(shared,name),data);imageBytes+=data.length;});writeFileSync(path,output);after+=output.length;}
+ for(const file of readdirSync(folder).filter(f=>f.endsWith('.glb'))){const path=join(folder,file),input=readFileSync(path);before+=input.length;let output=shareImages(input,(name,data)=>{if(images.has(name))return;images.add(name);writeFileSync(join(shared,name),data);imageBytes+=data.length;});if(output.length>1_000_000)output=await compressGeometry(output);writeFileSync(path,output);after+=output.length;}
  console.log(JSON.stringify({modelBytesBefore:before,modelBytesAfter:after,sharedImages:images.size,sharedImageBytes:imageBytes,savedBytes:before-after-imageBytes}));
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)optimizeModels();
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await optimizeModels();

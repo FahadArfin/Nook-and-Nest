@@ -9,7 +9,7 @@
     "test": "vitest run tests/holiday-models.test.ts tests/home-collection.test.ts tests/living-models.test.ts tests/turn-button.test.tsx tests/planting.test.ts tests/cozy-expansion.test.ts tests/domain.test.ts tests/furniture-style.test.ts tests/windows.test.ts tests/workspace.test.ts tests/bathroom.test.ts tests/library.test.tsx tests/floors.test.tsx tests/expansion.test.ts tests/projects.test.tsx tests/building.test.ts tests/building-controls.test.tsx tests/kitchen.test.ts tests/interior.test.ts tests/outdoors.test.ts tests/webmcp.test.tsx tests/wall-visibility.test.tsx",
     "build": "vite build && node scripts/prepare-sites-build.mjs && node scripts/optimize-model-assets.mjs && node scripts/build-project-server.mjs",
     "preview": "vite preview",
-    "test:assets": "node --test tests/model-asset-sharing.test.mjs",
+    "test:assets": "node --test tests/model-asset-sharing.test.mjs tests/model-geometry-compression.test.mjs",
     "test:sites": "node --test tests/sites-worker.test.mjs"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "idb": "^8.0.3",
     "immer": "^11.1.18",
     "lz-string": "^1.5.0",
+    "meshoptimizer": "1.2.0",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "vite": "6.4.2",
