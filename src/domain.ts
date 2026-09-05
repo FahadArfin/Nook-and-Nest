@@ -25,6 +25,11 @@ export function createSamplePlan(name = "Willow Street Apartment", units: Units 
     floors: [{ id: floor1Id, name: "Ground floor", elevationMm: 0, heightMm: 2438, cells, walls: [], openings: [], stairs: [], floorFinishId: "honey-oak", wallFinishId: "cream-plaster" }, { id: floor2Id, name: "Upstairs", elevationMm: 2738, heightMm: 2438, cells: rectangleCells(9, 7), walls: [], openings: [], stairs: [], floorFinishId: "light-oak", wallFinishId: "sage-plaster" }],
     furniture: [], camera: { mode: "isometric", ghostBelow: true, showGrid: true, showClearance: false } };
 }
+/** A new user's project contains no example architecture or furniture. */
+export function createBlankPlan(name = "My cozy home", units: Units = "imperial"): PlanDocumentV1 {
+  const template = createSamplePlan(name, units);
+  return {...template, floors: [{...template.floors[0], cells: [], walls: [], openings: [], stairs: []}], furniture: []};
+}
 export function serializePlan(plan: PlanDocumentV1): string { return JSON.stringify(plan, null, 2); }
 export function parsePlan(json: string): PlanDocumentV1 { if(new TextEncoder().encode(json).length > MAX_PLAN_BYTES) throw new Error("Project exceeds the 1 MB limit."); const parsed:unknown=JSON.parse(json); validatePlan(parsed); return parsed; }
 export function encodeShare(plan: PlanDocumentV1): string { return LZString.compressToEncodedURIComponent(JSON.stringify(plan)); }
