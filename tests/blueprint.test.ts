@@ -1,3 +1,5 @@
+import {snapRoomMove} from '../src/blueprintSnapping';
+import {planItems,openingItems} from '../src/BlueprintSymbol';
 import {cutBlueprintWalls,combineBlueprintRooms,openPlanAreas} from '../src/blueprint';
 import { describe,expect,it } from 'vitest';
 import { createSamplePlan,parsePlan,serializePlan,encodeShare,decodeShare } from '../src/domain';
@@ -125,4 +127,25 @@ it('combines adjoining rectangles without filling an L-shaped exterior void or m
  const combined=combineBlueprintRooms(draft,'a','b',500);expect(combined.rooms.map(r=>r.groupId)).toEqual(['a','a']);expect(combined.rooms[1].width).toBe(2000);expect(combined.fixtures).toEqual(draft.fixtures);
  expect(cutBlueprintWalls(combined.walls,combined.wallCuts??[])).toHaveLength(0);
  expect(()=>combineBlueprintRooms({...draft,rooms:[a,{...b,x:9000}]},'a','b',500)).toThrow('share an edge');
+});
+
+describe('magnetic studio rooms and symbols',()=>{
+  it('snaps opposing room edges into one shared divider while preserving room dimensions',()=>{
+    const rooms=[room({id:'a'}),room({id:'b',x:4300})];
+    const snapped=snapRoomMove(rooms,'b',-240,0,120);
+    expect(snapped.snapped).toBe(true);expect(snapped.rooms[1].x).toBe(4000);expect(snapped.rooms[1].width).toBe(4000);
+    const p=base(),converted=blueprintPlan(p,p.floors[0].id,draft(snapped.rooms));
+    expect(converted.floors[0].walls).toHaveLength(1);expect(converted.floors[0].walls[0]).toMatchObject({ax:16,bx:16,az:0,bz:16});
+    expect(rooms[1].x).toBe(4300);
+  });
+  it('moves all irregular-room parts together and allows snapping to be disabled',()=>{
+    const rooms=[room({id:'a'}),room({id:'b',groupId:'pair',x:4300}),room({id:'c',groupId:'pair',x:4300,z:4000,width:2000,depth:2000})];
+    const snapped=snapRoomMove(rooms,'c',-240,0);expect(snapped.rooms[1].x).toBe(4000);expect(snapped.rooms[2].x).toBe(4000);
+    expect(snapRoomMove(rooms,'b',-240,0,0).rooms[1].x).toBe(4060);
+    expect(snapRoomMove([rooms[0],{...rooms[1],z:9000}],'b',-240,0).snapped).toBe(false);
+  });
+  it('maps every simple symbol to an existing compatible fixture or opening',()=>{
+    const p=base(),home=blueprintPlan(p,p.floors[0].id,draft());
+    for(const item of [...planItems,...openingItems])expect(fixtureAt(home,p.floors[0].id,item.id,2000,2000).catalogId).toBe(item.id);
+  });
 });
