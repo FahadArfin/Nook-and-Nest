@@ -1,3 +1,30 @@
+# Welcome design QA
+
+final result: passed
+
+Reference: selected option 1, Sunlit Dollhouse, generated image exec-5358bf20-90ee-4a50-b470-ed8c3e6f4b11.png (1487 x 1058).
+Implementation: http://127.0.0.1:5175/, in-app browser. Paired source and implementation captures reviewed together at 1487 x 1058, CSS and image pixel dimensions 1:1, light theme. Dark theme separately inspected at the same size. Additional captures: 1280 x 720, 390 x 844 and 320 x 740.
+
+## Iteration and resolution
+- P2: headline wrapped to three lines, shifting menu/footer below viewport. Reduced responsive headline size and retained its intentional two-line structure. Equal-size paired recapture shows all three actions and footer in frame.
+- P2: 720px-high desktop needed a more compact vertical rhythm. Added short-screen sizing; final capture shows all actions and footer without scrolling.
+- P2: narrow mobile cards left too little text width. Reduced icon/gap/title sizing at 430px. Recaptured at 320px: readable wrapping, no horizontal clipping; page scrolls vertically.
+
+## Fidelity and behavior
+- Typography: existing bundled Fraunces/Nunito retain the warm serif/sans hierarchy. Title, labels and supporting copy match the selected concept.
+- Layout: brand at upper left, two-line headline, centered introduction, three stacked actions, substantial dollhouse art on right. Main content, image and footer align with the selected composition.
+- Color: cream/sage light palette and accessible deep green/ivory dark variant. System/Light/Dark control is the requested addition. The drafting canvas deliberately retains its paper palette; saved 3D lighting is independent.
+- Images: dedicated matching day/dusk images preserve the same room construction. Optimized WebP assets total 543166 bytes. Existing house logo retained. No text baked into controls.
+- Content: all three original destinations remain functional. Browser checks opened empty project library, blank floor-plan studio and free editor, then returned through the brand icon. Dark selection persisted after reload. No browser console errors.
+- Accessibility: labeled theme buttons expose pressed state, visible keyboard focus, reduced-motion hover behavior and responsive vertical scrolling. System changes/manual override/persistence/storage failure/listener cleanup verified in automated tests; apartment state unaffected.
+- Full-size paired captures made all typography and controls readable, so a separate magnified crop was unnecessary.
+
+P3 follow-up only: background paper grain and ornamental headline sprig/underline are quieter than the concept. Hero uses a separately generated faithful room asset, not a crop containing UI; minor furniture artwork variation is intentional.
+
+
+---
+Previous feature review (retained for context):
+
 # Design QA — Reselect Furniture Toolbar
 
 **Source visual truth**
