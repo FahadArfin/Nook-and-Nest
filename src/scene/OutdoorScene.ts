@@ -1,3 +1,4 @@
+import {modelAssetPath} from "../modelAssetPath";
 import { AssetContainer } from "@babylonjs/core/assetContainer";
 import { Matrix } from "@babylonjs/core/Maths/math.vector";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
@@ -15,7 +16,7 @@ import type { PlanDocumentV1 } from '../types';
 export class OutdoorScene {
   private assets=new Map<string,AssetContainer>();private pending=new Set<string>();private failed=new Set<string>();private root?:TransformNode;private key='';private plan?:PlanDocumentV1;private disposed=false;
   constructor(private scene:Scene){}
-  private load(id:string){if(this.assets.has(id)||this.pending.has(id)||this.failed.has(id))return;this.pending.add(id);LoadAssetContainerAsync(`/models/furniture/${id}.glb`,this.scene).then(c=>{if(this.disposed)c.dispose();else this.assets.set(id,c)}).catch(()=>this.failed.add(id)).finally(()=>{this.pending.delete(id);if(!this.disposed&&this.plan){this.key='';this.update(this.plan)}});}
+  private load(id:string){if(this.assets.has(id)||this.pending.has(id)||this.failed.has(id))return;this.pending.add(id);LoadAssetContainerAsync(modelAssetPath(id),this.scene).then(c=>{if(this.disposed)c.dispose();else this.assets.set(id,c)}).catch(()=>this.failed.add(id)).finally(()=>{this.pending.delete(id);if(!this.disposed&&this.plan){this.key='';this.update(this.plan)}});}
   update(plan:PlanDocumentV1){
     this.plan=plan;const env=plan.environment??{background:'plain',grass:'off'};
     const key=JSON.stringify([env,plan.floors.map(f=>[f.cells,f.cellRects]),plan.gridSizeMm,plan.furniture.map(f=>[f.x,f.z,f.widthMm,f.depthMm,f.rotation])]);if(key===this.key)return;this.key=key;

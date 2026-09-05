@@ -1,3 +1,4 @@
+import detailedIds from "../src/detailedModelIds.json";
 import { describe,it,expect } from 'vitest';
 import { readFileSync,existsSync } from 'node:fs';
 import { NullEngine,Scene } from '@babylonjs/core';
@@ -19,7 +20,7 @@ describe('outdoor collection',()=>{
   for(const [id,,,w,d,h] of outdoorRows){expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.png`),id).toBe(true);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString()),bounds=g.meshes.flatMap((m:any)=>m.primitives.map((p:any)=>g.accessors[p.attributes.POSITION]));
    for(let axis=0;axis<3;axis++)expect((Math.max(...bounds.map((b:any)=>b.max[axis]))-Math.min(...bounds.map((b:any)=>b.min[axis])))*1000,id).toBeCloseTo([w,h,d][axis],1);
-   expect(g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((sum:number,a:any)=>sum+a.count/3,0),id).toBeLessThan(60000);expect(b.length,id).toBeLessThan(5_000_000);
+   expect(g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((sum:number,a:any)=>sum+a.count/3,0),id).toBeLessThan(detailedIds.includes(id)?120000:60000);expect(b.length,id).toBeLessThan(detailedIds.includes(id)?8_000_000:5_000_000);
    expect(furnitureType(catalog.find(c=>c.id===id)!)).not.toBe('Other pieces');
   }
  });

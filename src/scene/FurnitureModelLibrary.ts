@@ -1,3 +1,4 @@
+import {modelAssetPath} from "../modelAssetPath";
 import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { AssetContainer } from "@babylonjs/core/assetContainer";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
@@ -30,7 +31,7 @@ export class FurnitureModelLibrary {
 
   private ensure(catalogId: string) {
     if (this.disposed || !this.hasModel(catalogId) || this.failed.has(catalogId) || this.containers.has(catalogId) || this.pending.has(catalogId)) return;
-    const request = LoadAssetContainerAsync(`/models/furniture/${catalogId}.glb`, this.scene)
+    const request = LoadAssetContainerAsync(modelAssetPath(catalogId), this.scene)
       .then((container) => { if(this.disposed)container.dispose();else this.containers.set(catalogId, container); })
       .catch((error) => { this.failed.add(catalogId);console.warn(`Could not load Blender furniture model ${catalogId}; using procedural fallback.`, error); })
       .finally(() => {

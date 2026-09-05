@@ -1,3 +1,4 @@
+import {modelAssetPath} from "./modelAssetPath";
 import { useEffect, useRef, useState, type PointerEvent } from "react";
 import { Armchair, ArrowsInSimple, ArrowsOutSimple, Bed, Books, Check, FrameCorners, GridFour, HandGrabbing, Heart, Lamp, MagnifyingGlass, Plant, SquaresFour, Table, X } from "@phosphor-icons/react";
 import { catalog, hasModelPreview, isWallOpening } from "./catalog";
@@ -51,7 +52,7 @@ export function CatalogLibrary({onBeginDrag,onStartPlacement}: {
     <div ref={scrollRef} className="library-results" id="library-results">
       {items.length?<div className="catalog-grid library-grid">{items.map(item=>{const Icon=icons[item.shape]??SquaresFour, saved=favorites.includes(item.id);return <article className="library-item" key={item.id}>
         <button className="catalog-card" draggable={false} aria-label={`${item.name}, drag to place`} title={`${item.name} — ${item.description}`} onPointerDown={event=>{if(event.button===0){setExpanded(false);onBeginDrag(item,event)}}} onClick={event=>{if(event.detail===0)start(item)}}>
-          <span className={`item-illustration ${item.shape} ${hasModelPreview(item.id)?"has-model-preview":""}`}>{hasModelPreview(item.id)?<img src={`/models/previews/${item.id}.png`} alt="" loading="lazy" draggable={false}/>:<Icon size={38} weight="duotone"/>}</span>
+          <span className={`item-illustration ${item.shape} ${hasModelPreview(item.id)?"has-model-preview":""}`}>{hasModelPreview(item.id)?<img src={modelAssetPath(item.id,true)} alt="" loading="lazy" draggable={false}/>:<Icon size={38} weight="duotone"/>}</span>
           <span className="item-copy"><span className="item-family">{furnitureType(item)}</span><strong>{item.name}</strong><small>{formatLength(item.widthMm,units)} × {formatLength(isWallOpening(item.id)?item.heightMm:item.depthMm,units)}</small></span>
           <HandGrabbing className="item-drag-hint" size={14}/>
         </button>

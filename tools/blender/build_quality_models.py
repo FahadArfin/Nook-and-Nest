@@ -1040,6 +1040,9 @@ OUTDOOR_BUILDERS = outdoor_builders(rounded_box, cylinder, material, finish_mesh
 BUILDERS.update(OUTDOOR_BUILDERS)
 from cozy_models import cozy_builders
 COZY_BUILDERS = cozy_builders(rounded_box, cylinder, material, finish_mesh)
+from detailed_models import detailed_builders
+DETAILED_BUILDERS = detailed_builders(rounded_box, cylinder, material, finish_mesh)
+COZY_BUILDERS.update(DETAILED_BUILDERS)
 BUILDERS.update(COZY_BUILDERS)
 
 
@@ -1096,7 +1099,7 @@ def export_model(catalog_id, builder):
     export_mesh["nominal_depth_m"] = dimensions[1]
     export_mesh["nominal_height_m"] = dimensions[2]
     bpy.ops.export_scene.gltf(
-        filepath=str(GLB_OUT / f"{catalog_id}.glb"),
+        filepath=str(GLB_OUT / f".{catalog_id}-new.glb"),
         export_format="GLB",
         use_selection=True,
         export_apply=True,
@@ -1107,6 +1110,17 @@ def export_model(catalog_id, builder):
         export_lights=False,
         export_extras=True,
     )
+    # Atomic replacement avoids truncating a live asset while OneDrive or the
+    # preview server briefly holds the previous file open.
+    import time
+    for attempt in range(5):
+        try:
+            os.replace(GLB_OUT / f".{catalog_id}-new.glb", GLB_OUT / f"{catalog_id}.glb")
+            break
+        except OSError:
+            if attempt == 4:
+                raise
+            time.sleep(.25 * (attempt + 1))
     print(f"EXPORTED {catalog_id}: {dimensions}")
 
 
