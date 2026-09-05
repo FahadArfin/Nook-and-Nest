@@ -19,7 +19,7 @@ import {SceneController} from '../src/scene/SceneController';
 const piece=(id:string,floorId:string):FurniturePlacement=>{const c=catalog.find(c=>c.id===id)!;return {id,catalogId:id,floorId,x:2000,z:2000,rotation:90,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'};};
 describe('cozy expansion and placement regressions',()=>{
  it('keeps all detailed replacements dimensionally compatible and cache-versioned',()=>{
-  expect(detailedIds).toHaveLength(31);
+  expect(detailedIds).toHaveLength(52);
   for(const id of detailedIds){
    const c=catalog.find(c=>c.id===id)!;expect(c,id).toBeDefined();
    expect(modelAssetPath(id)).toContain(`${id}.glb?v=`);expect(modelAssetPath(id,true)).toContain(`${id}.png?v=`);
@@ -29,12 +29,12 @@ describe('cozy expansion and placement regressions',()=>{
    const triangles=g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((n:number,a:any)=>n+a.count/3,0);
    expect(triangles,id).toBeLessThan(120000);expect(b.length,id).toBeLessThan(12_000_000);
    if(['spruce-tree','christmas-tree','christmas-slim-tree'].includes(id))expect(triangles,id).toBeGreaterThan(50000);
-   if(id==='grass-clump'){expect(triangles).toBeLessThan(200);expect(g.materials.length).toBeLessThanOrEqual(2);}
+   if(id==='grass-clump'){expect(triangles).toBeLessThan(1200);expect(g.materials.length).toBeLessThanOrEqual(2);}
   }
   expect(modelAssetPath('sofa')).toBe('/models/furniture/sofa.glb');
  });
  it('ships every addition as an editable, dimensioned model and rendered preview',()=>{
-  expect(cozyRows).toHaveLength(58);
+  expect(cozyRows).toHaveLength(68);
   for(const [id,,,w,d,h] of cozyRows){
    expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.png`),id).toBe(true);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());

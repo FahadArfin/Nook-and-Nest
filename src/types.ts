@@ -1,6 +1,6 @@
 import type { FloorRect } from "./floorGeometry";
 export type Units = "imperial" | "metric";
-export type Tool = "select" | "terrain-raise" | "terrain-lower" | "terrain-river" | "measured-room" | "floor-finish" | "wall-finish" | "paint" | "erase" | "wall" | "door" | "window" | "stairs";
+export type Tool = "select" | "planting" | "terrain-raise" | "terrain-lower" | "terrain-river" | "measured-room" | "floor-finish" | "wall-finish" | "paint" | "erase" | "wall" | "door" | "window" | "stairs";
 export type ViewMode = "isometric" | "top" | "dollhouse";
 export type WallVisibility = "near-hidden" | "all-hidden" | "all-visible";
 export type Category = "Outdoor" | "Living" | "Bedroom" | "Dining" | "Office" | "Kitchen" | "Storage" | "Lighting" | "Decor" | "Windows" | "Bathroom" | "Doors" | "Stairs";

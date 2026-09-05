@@ -45,6 +45,9 @@ class Geometry:
         outline=[(0,0),(.22,.55),(.37,.39),(.52,1),(.65,.52),(.85,.43),(1,0),(.85,-.43),(.65,-.52),(.52,-1),(.37,-.39),(.22,-.55)] if serrated else [(0,0),(.23,.65),(.55,1),(.84,.55),(1,0),(.84,-.55),(.55,-1),(.23,-.65)]
         verts=[p+axis*length*.52+normal*width*.17]+[p+axis*(x*length)+u*(y*width/2)+normal*(math.sin(x*math.pi)*width*.04) for x,y in outline]
         self.add(name,verts,[(0,i+1,(i+1)%len(outline)+1) for i in range(len(outline))],mat)
+        if 'leav' in name or 'leaf' in name or 'pinnule' in name:
+            # Raised midrib catches soft light without a painted vein texture.
+            self.add('raised_leaf_midribs',[p+normal*width*.025,p+axis*length*.52+normal*width*.19-u*width*.016,p+axis*length*.97,p+axis*length*.52+normal*width*.19+u*width*.016],([(0,1,2)] if 'willow' in name else [(0,1,2),(0,2,3)]),mat)
     def needle(self,p,direction,length,width,mat):
         p=Vector(p);axis=Vector(direction).normalized();side=axis.cross(Vector((.23,.57,1))).normalized()*width
         self.add('individual_conifer_needles',[p-side,p+side,p+axis*length,p+axis*length*.4+Vector((0,0,width*.7))],[(0,3,2),(3,1,2)],mat)
@@ -79,11 +82,12 @@ def detailed_builders(box,cyl,material,finish):
         m=palette(m);g=Geometry();rng=random.Random(id);w,d,h=VEGETATION[id];greens=[m['deep'],m['leaf'],m['tip']]
         def tube(name,pts,r,mat=None,sides=7):g.tube(name,pts,r,mat or m['bark'],sides)
         def flower(p,r,kind='daisy'):
-            p=Vector(p);petals=10 if kind=='daisy' else 5
+            p=Vector(p);petals=13 if kind=='daisy' else 4 if kind=='hydrangea' else 5
             for i in range(petals):
                 a=i*math.tau/petals+rng.random()*.12
                 g.leaf('cupped_flower_petals',p,(math.cos(a),math.sin(a),.25 if kind=='daisy' else .65),r,r*.65,m['white'] if kind=='daisy' else m['pink'])
-            for i in range(7):a=i*2.4;g.leaf('pollen_stamens',p+Vector((r*.13*math.cos(a),r*.13*math.sin(a),.005)),(0,0,1),r*.18,r*.12,m['gold'])
+            for i in range(25 if kind=='daisy' else 5):
+                a=i*2.4;rr=r*.22*math.sqrt((i+1)/25);g.needle(p+Vector((rr*math.cos(a),rr*math.sin(a),r*.04)),(0,0,1),r*.10,r*.045,m['gold'])
         if id in ['spruce-tree','christmas-tree','christmas-slim-tree']:
             holiday=id!='spruce-tree';base=h*.10 if holiday else .12
             tube('tapered_barked_trunk',[(0,0,0),(.012,0,h*.4),(-.007,.01,h*.75),(0,0,h)],w*.035,sides=12)
@@ -145,12 +149,13 @@ def detailed_builders(box,cyl,material,finish):
                                 if leaf==0:tube('hanging_willow_switch',[tip,tip+Vector((0,0,-h*.26))],w*.0013)
                             else:
                                 phi=rng.random()*math.tau;rr=rng.random()**.5*w*.14;p=tip+Vector((rr*math.cos(phi),rr*math.sin(phi),rng.uniform(-h*.065,h*.065)));direction=(math.cos(phi),math.sin(phi),rng.uniform(-.6,.7));ll=w*rng.uniform(.052,.078);ww=ll*(.7 if birch else .85)
+                            if not willow and leaf%3==0:tube('leaf_bearing_petioles',[tip,p],w*.00065,m['bark'],3)
                             g.leaf('serrated_birch_leaves' if birch else 'lobed_maple_leaves' if id=='maple-tree' else 'willow_lanceolate_leaves' if willow else 'cherry_leaves',p,direction,ll,ww,colors[(leaf+b)%3],birch or id=='maple-tree')
                             if willow:g.leaf('paired_willow_leaves',p,(-math.cos(angle)*.7,-math.sin(angle)*.7,-.5),ll,ww,colors[(leaf+b+1)%3])
                             if sakura and leaf%2==0:flower(p+Vector((0,0,.025)),w*.022,'cherry')
         elif id=='grass-clump':
-            for i in range(56):
-                a=rng.random()*math.tau;r=rng.random()*.085;p=Vector((r*math.cos(a),r*math.sin(a),0));bh=rng.uniform(.07,h);bend=Vector((math.cos(a),math.sin(a),0))*bh*.42;side=Vector((-math.sin(a),math.cos(a),0))*.004
+            for i in range(220):
+                a=rng.random()*math.tau;r=rng.random()*.085;p=Vector((r*math.cos(a),r*math.sin(a),0));bh=rng.uniform(.06,h);bend=Vector((math.cos(a),math.sin(a),0))*bh*.42;side=Vector((-math.sin(a),math.cos(a),0))*.004
                 verts=[p-side,p+side,p+bend*.25+Vector((0,0,bh*.5))-side*.65,p+bend*.25+Vector((0,0,bh*.5))+side*.65,p+bend+Vector((0,0,bh))]
                 g.add('curved_tapered_grass_blades',verts,[(0,1,3,2),(2,3,4)],greens[1+i%2])
         elif id=='fern-clump':
@@ -176,7 +181,7 @@ def detailed_builders(box,cyl,material,finish):
                 else:
                     r=min(w,d)*.37;lathe('handthrown_terracotta_pot',[(r*.65,0),(r*.92,base*.8),(r,base*.85),(r,base),(r*.87,base),(r*.83,base*.12)],m['clay']);cyl('dark_potting_soil',r*.84,.02,(0,0,base*.89),m['bark'],32)
             if id in ['garden-hedge','flowering-shrub']:
-                for stem in range(26):
+                for stem in range(42):
                     x=rng.uniform(-w*.45,w*.45);y=rng.uniform(-d*.35,d*.35);top=Vector((x,y,h*rng.uniform(.65,1)));tube('woody_shrub_stem',[(x*.4,y*.4,0),top],.009)
                     for j in range(35):
                         p=top+Vector((rng.uniform(-w*.13,w*.13),rng.uniform(-d*.14,d*.14),-rng.random()*h*.6));a=rng.random()*math.tau;g.leaf('dense_shrub_leaves',p,(math.cos(a),math.sin(a),.35),.09,.046,greens[j%3])
@@ -190,15 +195,29 @@ def detailed_builders(box,cyl,material,finish):
                 if id=='hydrangea-border':count=14
                 for i in range(count):
                     x=rng.uniform(-w*.39,w*.39);y=rng.uniform(-d*.38,d*.38);z=base+(h-base)*rng.uniform(.48,.92);p=Vector((x,y,z));tube('curved_flower_stalk',[(x*.7,y*.7,base),(x*.9,y*.8,z*.72),p],.004,m['leaf'],5)
-                    for j in range(4):a=i*2.4+j*1.8;g.leaf('veined_stem_leaves',(x,y,base+(z-base)*(.20+j*.16)),(math.cos(a),math.sin(a),.5),h*.17,h*.049,greens[j%3])
+                    for j in range(6):
+                        a=i*2.4+j*1.8;hydrangea=id=='hydrangea-border';ll=h*(.28 if hydrangea else .20);ww=h*(.17 if hydrangea else .038 if id=='lavender-clump' else .070)
+                        g.leaf('veined_stem_leaves',(x,y,base+(z-base)*(.15+j*.11)),(math.cos(a),math.sin(a),.35),ll,ww,greens[j%3],hydrangea)
+                    if id not in ['lavender-clump','hydrangea-border']:
+                        for j in range(3):
+                            a=i*2.4+j*2.1;g.leaf('basal_rosette_leaves',(x,y,base),(math.cos(a)*.5,math.sin(a)*.5,1),h*.39,h*.066,greens[j])
                     if id=='lavender-clump':
                         for j in range(9):
                             for k in range(3):a=k*math.tau/3+j*.8;g.leaf('lavender_individual_florets',p+Vector((.012*math.cos(a),.012*math.sin(a),-j*.012)),(math.cos(a),math.sin(a),.4),.028,.021,m['purple'])
                     elif id=='hydrangea-border':
-                        for j in range(24):a=j*2.4;rr=.085*math.sqrt(j/24);flower(p+Vector((rr*math.cos(a),rr*math.sin(a),.075*math.sqrt(1-j/24))),.025,'hydrangea')
+                        for j in range(55):a=j*2.4;rr=.12*math.sqrt(j/55);flower(p+Vector((rr*math.cos(a),rr*math.sin(a),.105*math.sqrt(1-j/55))),.035,'hydrangea')
                     elif id=='tulip-planter':
                         for j in range(6):a=j*math.tau/6;g.leaf('cupped_tulip_petals',p,(.4*math.cos(a),.4*math.sin(a),1),.11,.066,m['pink'] if i%2 else m['white'])
                     else:flower(p,.040 if id!='balcony-flowerbox' else .029,'daisy' if i%3 else 'cherry')
+        # Buttress roots and bark furrows integrate trees with the soil.
+        if id.endswith('tree') or id=='weeping-willow':
+            for i in range(9):
+                a=i*2.399;reach=w*rng.uniform(.075,.14);tube('flared_surface_roots',[(0,0,.15),(reach*.5*math.cos(a),reach*.5*math.sin(a),.035),(reach*math.cos(a),reach*math.sin(a),.008)],w*.012)
+            if id=='spruce-tree':
+                for i in range(14):
+                    a=i*2.399;z=h*(.18+i*.035);r=w*.29*(1-z/h);p=Vector((r*math.cos(a),r*math.sin(a),z))
+                    for j in range(24):
+                        aa=j*2.399;q=p+Vector((.028*math.cos(aa),.028*math.sin(aa),-j*.004));g.leaf('overlapping_pinecone_scales',q,(math.cos(aa),math.sin(aa),-.5),.027,.022,m['bark'])
         g.finish();return w,d,h
 
     def clock(id,m):

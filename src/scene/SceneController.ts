@@ -40,9 +40,13 @@ import {TerrainScene} from './TerrainScene';
 import {usePlanner} from '../store';
 import type {TerrainStroke} from '../terrain';
 import {terrainRay} from '../terrain';
+import {scatterPlants} from '../planting';
 
 interface Callbacks { onCell(x: number, z: number): void; onWallSegment(wall:Omit<WallSegment,"id">):void; onTileDraft(cells: TileCell[], present: boolean): void; onSelect(id?: string): void; onMove(id: string, xMm: number, zMm: number, elevationMm?:number): void; onDraftMove(xMm: number, zMm: number, elevationMm?:number): void; onWall(id: string): void }
 export class SceneController {
+  private plantingPoints?:Array<{x:number;z:number}>;
+  private plantingPreview?:Mesh;
+  private plantingBase?:PlanDocumentV1;
   private terrain!:TerrainScene;
   private terrainStroke?:TerrainStroke;
   private terrainCue?:Mesh;
@@ -68,6 +72,7 @@ export class SceneController {
     // Hover does not select furniture; dragging already uses explicit picking.
     this.scene.skipPointerMovePicking = true;
     this.scene.onBeforeRenderObservable.add(() => {
+      if(this.plantingPreview&&!this.plantingPoints&&!usePlanner.getState().plantingDraft){this.plantingPreview.dispose();this.plantingPreview=undefined;}
       if (this.activePlan) this.wallVisibility.update(getWallVisibility(this.activePlan.camera), this.camera.position, this.camera.target, this.engine.getDeltaTime(), window.matchMedia?.("(prefers-reduced-motion: reduce)").matches??false);
     });
   }
@@ -75,7 +80,7 @@ export class SceneController {
   focusSelected(){const item=this.activePlan?.furniture.find(i=>i.id===this.selectedId);if(!item||!this.selectedNode)return;this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;this.camera.inertialRadiusOffset=0;this.camera.setTarget(this.selectedNode.position.add(new Vector3(0,item.heightMm/2000,0)));this.camera.radius=detailFocusRadius(item.widthMm,item.depthMm,item.heightMm);}
   private resize = () => this.engine.resize();
   dispose() { window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
-  setTool(tool: Tool) { if(tool!==this.tool){this.terrainStroke=undefined;this.terrainCue?.dispose();this.terrainCue=undefined;this.camera.attachControl(this.canvas,true);this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
+  setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.plantingPreview?.dispose();this.plantingPreview=undefined;this.terrainStroke=undefined;this.terrainCue?.dispose();this.terrainCue=undefined;this.camera.attachControl(this.canvas,true);this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
   screenshot() { return this.canvas.toDataURL("image/png"); }
   private pointOnActiveFloor(screenX: number, screenY: number) {
     if (!this.activePlan) return undefined;
@@ -300,6 +305,22 @@ export class SceneController {
   private bindPointers(){
     let moved=false;
     this.scene.onPointerObservable.add((info)=>{
+      if(this.tool==='planting'){
+        const s=usePlanner.getState(),ray=this.scene.createPickingRay(this.scene.pointerX,this.scene.pointerY,Matrix.Identity(),this.camera);
+        const hit=terrainRay(s.plan,ray.origin,ray.direction);
+        if(info.type===PointerEventTypes.POINTERDOWN&&info.event.button===0&&hit&&!s.plantingDraft){this.canvas.setPointerCapture?.((info.event as PointerEvent).pointerId);this.plantingPoints=[];this.plantingBase=s.plan;this.camera.detachControl();}
+        if(this.plantingPoints&&hit&&(info.type===PointerEventTypes.POINTERMOVE||info.type===PointerEventTypes.POINTERDOWN)){
+          const last=this.plantingPoints.at(-1);if(!last||Math.hypot(hit.x-last.x,hit.z-last.z)>.2){
+            if(this.plantingPoints.length<128)this.plantingPoints.push({x:hit.x,z:hit.z});
+            const plants=scatterPlants(s.plan,this.plantingPoints,s.plantingBrush);
+            this.plantingPreview?.dispose();this.plantingPreview=undefined;
+            if(plants.length){const lines=plants.map(p=>Array.from({length:17},(_,i)=>{const a=i*Math.PI/8,r=Math.min(p.widthMm,p.depthMm)/2200;return new Vector3(p.x/1000+r*Math.cos(a),(p.elevationMm!+s.plan.floors.find(f=>f.id===p.floorId)!.elevationMm+50)/1000+.04,p.z/1000+r*Math.sin(a));}));
+              const mesh=MeshBuilder.CreateLineSystem('planting-position-preview',{lines},this.scene);mesh.color=Color3.FromHexString('#e6c46a');mesh.isPickable=false;this.plantingPreview=mesh;}
+          }
+        }
+        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.camera.attachControl(this.canvas,true);if(s.plan===this.plantingBase)s.previewPlanting(points);}
+        return;
+      }
       if(this.tool.startsWith('terrain-')){
         const ray=this.scene.createPickingRay(this.scene.pointerX,this.scene.pointerY,Matrix.Identity(),this.camera);
         const hit=this.activePlan?terrainRay(this.activePlan,ray.origin,ray.direction):undefined;

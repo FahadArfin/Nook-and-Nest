@@ -1043,6 +1043,8 @@ COZY_BUILDERS = cozy_builders(rounded_box, cylinder, material, finish_mesh)
 from detailed_models import detailed_builders
 DETAILED_BUILDERS = detailed_builders(rounded_box, cylinder, material, finish_mesh)
 COZY_BUILDERS.update(DETAILED_BUILDERS)
+from garden_collection import garden_builders
+COZY_BUILDERS.update(garden_builders(rounded_box, cylinder, material, finish_mesh))
 BUILDERS.update(COZY_BUILDERS)
 
 

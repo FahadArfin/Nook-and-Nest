@@ -10,9 +10,13 @@ import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMod
 import { validatePlan } from "./planValidation";
 import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
 import { paintWallPlate } from "./wallEditing";
+import {scatterPlants,type PlantingBrush} from './planting';
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
+  plantingBrush:PlantingBrush;setPlantingBrush(brush:PlantingBrush):void;
+  plantingDraft?:{base:PlanDocumentV1;items:FurniturePlacement[]};
+  previewPlanting(points:Array<{x:number;z:number}>):void;confirmPlanting():void;cancelPlanting():void;
   terrainRadius:number;terrainStrength:number;setTerrainBrush(radius:number,strength:number):void;
   addTerrainStroke(stroke:import('./terrain').TerrainStroke):void;
   selectedWallId?:string; selectWall(id?:string):void;
@@ -39,6 +43,17 @@ const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.p
 const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
 
 export const usePlanner = create<PlannerState>((set, get) => ({
+  plantingBrush:{catalogId:'grass-clump',radius:1.5,spacing:.5},
+  setPlantingBrush:plantingBrush=>set({plantingBrush,plantingDraft:undefined}),
+  previewPlanting:points=>set(s=>({plantingDraft:{base:s.plan,items:scatterPlants(s.plan,points,s.plantingBrush)}})),
+  cancelPlanting:()=>set({plantingDraft:undefined}),
+  confirmPlanting:()=>set(s=>{
+    const draft=s.plantingDraft;if(!draft)return {};
+    if(draft.base!==s.plan)return {plantingDraft:undefined,placementNotice:'The garden changed. Paint a fresh stroke.'};
+    if(!draft.items.length)return {plantingDraft:undefined};
+    const plan={...s.plan,furniture:[...s.plan.furniture,...draft.items.map(p=>({...p,id:uid()}))]};
+    validatePlan(plan);return {...commit(s,plan,null),plantingDraft:undefined,placementNotice:undefined};
+  }),
   terrainRadius:2,terrainStrength:.6,
   setTerrainBrush:(radius,strength)=>set({terrainRadius:Math.max(.5,Math.min(8,radius)),terrainStrength:Math.max(.1,Math.min(2,strength))}),
   addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};validatePlan(plan);return commit(state,plan);}),
@@ -53,7 +68,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   finishCells:(cells,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>{if(f.id!==state.activeFloorId)return f;const occupied=new Set(f.cells.map(c=>`${c.x},${c.z}`));const cellFinishes={...f.cellFinishes};for(const c of cells){const key=`${c.x},${c.z}`;if(occupied.has(key))cellFinishes[key]=finishId;}return {...f,cellFinishes};})})),
   finishWall:(id,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?paintWallPlate(f,state.plan.gridSizeMm,id,finishId):f)})),
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
-  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
+  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
   replacePlan: (plan) => set({ plan, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),
