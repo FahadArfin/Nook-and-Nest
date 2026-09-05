@@ -38,3 +38,22 @@ it('browses an empty library without creating a phantom project',async()=>{
  render(<Welcome Editor={Editor}/>);const button=screen.getByRole('button',{name:/My projects/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));fireEvent.click(button);
  await screen.findByText('No projects yet. Your next cozy space starts here.');expect(await listLocalPlans()).toEqual([]);
 });
+
+it('follows live OS appearance by default, preserves manual preference, and cleans up listeners',async()=>{
+ localStorage.clear();let matches=true;const listeners=new Set<()=>void>();
+ vi.stubGlobal('matchMedia',vi.fn(()=>({get matches(){return matches;},addEventListener:(_name:string,fn:()=>void)=>listeners.add(fn),removeEventListener:(_name:string,fn:()=>void)=>listeners.delete(fn)})));
+ const {container,unmount}=render(<Welcome Editor={Editor}/>);await waitFor(()=>expect(screen.getByRole('button',{name:/Free 3D editor/}).hasAttribute('disabled')).toBe(false));
+ const page=()=>container.querySelector('.welcome-page')!;const before=usePlanner.getState().plan;
+ expect(page().getAttribute('data-theme')).toBe('dark');expect(screen.getByLabelText('Use system theme').getAttribute('aria-pressed')).toBe('true');
+ const {act}=await import('@testing-library/react');act(()=>{matches=false;listeners.forEach(fn=>fn());});expect(page().getAttribute('data-theme')).toBe('light');
+ fireEvent.click(screen.getByLabelText('Use dark theme'));expect(localStorage.getItem('nook-welcome-theme')).toBe('dark');
+ act(()=>{matches=true;listeners.forEach(fn=>fn());matches=false;listeners.forEach(fn=>fn());});expect(page().getAttribute('data-theme')).toBe('dark');expect(usePlanner.getState().plan).toBe(before);expect(await listLocalPlans()).toEqual([]);
+ unmount();expect(listeners.size).toBe(0);
+ const next=render(<Welcome Editor={Editor}/>);expect(next.container.querySelector('main')?.getAttribute('data-theme')).toBe('dark');
+ fireEvent.click(screen.getByLabelText('Use system theme'));expect(next.container.querySelector('main')?.getAttribute('data-theme')).toBe('light');
+ localStorage.clear();
+});
+it('keeps the appearance control usable when browser storage is blocked',async()=>{
+ const get=vi.spyOn(Storage.prototype,'getItem').mockImplementation(()=>{throw new Error('blocked');});const set=vi.spyOn(Storage.prototype,'setItem').mockImplementation(()=>{throw new Error('blocked');});
+ const {container}=render(<Welcome Editor={Editor}/>);fireEvent.click(screen.getByLabelText('Use dark theme'));expect(container.querySelector('main')?.getAttribute('data-theme')).toBe('dark');fireEvent.click(screen.getByLabelText('Use light theme'));expect(container.querySelector('main')?.getAttribute('data-theme')).toBe('light');get.mockRestore();set.mockRestore();
+});

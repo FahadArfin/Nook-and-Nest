@@ -93,3 +93,5 @@ Welcome flow preference: ordinary site visits open a cozy home menu with Create 
 Editor navigation preference: use the Nook & Nest brand icon at the top left as the accessible home/menu button; do not add a separate visible Home text button.
 
 Floor-plan room counts must represent physical rooms/spaces, never the rectangles used internally for their geometry. An irregular room is one selectable, renameable and editable room. List closets and circulation separately. For the supplied apartment, the main spaces are balcony, solarium, master bedroom, master washroom, bedroom 2, shared washroom, laundry room, living room and kitchen.
+
+Welcome design preference: use the selected Sunlit Dollhouse concept (option 1): cream and sage, warm miniature room artwork, a serif headline and three stacked menu actions. Provide System, Light and Dark homepage appearance choices, defaulting to the operating system and remembering explicit browser-local preference. Follow live OS changes in System mode. Keep welcome appearance independent of saved apartment lighting and preserve clean starts and My projects.
