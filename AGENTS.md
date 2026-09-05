@@ -1,5 +1,19 @@
 # Prototype Instructions
 
+## Mandatory multi-chat Git workflow
+
+- Before editing, create a separate Git worktree for this task with a unique `codex/<feature-name>` branch based on freshly fetched `origin/master`.
+- Nook & Nest uses `master` as its main branch.
+- Never switch branches, stash, reset, clean, or commit another task's working directory. Preserve all unrelated changes.
+- Keep each task focused. Avoid editing files outside its feature scope.
+- Before opening or merging a PR, fetch origin and merge `origin/master` into the feature branch. Resolve conflicts without discarding other features, then push the updated branch.
+- Open a PR to `master`. Never push directly to `master` or force-push.
+- Require the GitHub `Validate` check to pass on the updated PR before merging.
+- Merge PRs sequentially. If `master` advances, update the next feature branch and wait for its checks again.
+- After merge, follow `docs/release-workflow.md`: use the successful master run's exact release artifact for Sites publishing.
+- Never publish an older artifact over a newer release.
+
+
 Batch 8 visual feedback: vegetation must be very detailed, especially conifers. Use dense individual needles on branching shoots, species-specific leafy crowns, curved grass blades, fern leaflets and modeled flower clusters; simple stacked cones, sparse whorls and broad leaf cards are inadequate. Clocks need proper case silhouettes, legible dials/numerals and layered mechanisms/details. Fireplaces need distinct masonry/cast-iron/tiled construction, recessed fireboxes, firebrick, round bark logs, grates and convincing flames. Preserve all existing placement IDs and real dimensions when replacing models.
 
 Batch 6 (September 2026): preserve the furniture the user already likes while adding distinct seating, beds, lighting, appliances/supplies, rugs/tables, pet furniture, bathroom fixtures/organizers, desk/pantry/nursery pieces, original anime art, candles/bowls/clocks, fireplaces and illuminated Christmas trees/presents. Batch 7 adds opt-in hill/hollow/river sculpting and more individually modeled vegetation. Keep foundations protected, terrain bounded, reduced-motion water animation, saved-data compatibility and one undo step per stroke. TV placement must include the original Picture TV and a precise support-surface chooser. Ordinary furniture edits must retain existing floor geometry and unchanged models instead of rebuilding the whole room.
