@@ -1,15 +1,15 @@
-import {blueprintPlan,fixtureAt,floorFromRooms,type BlueprintDraft} from './blueprint';
+import {blueprintPlan,fixtureAt,floorFromRooms,coveredByFloor,footprint,type BlueprintDraft} from './blueprint';
 import {floorBoundaryWalls} from './floorGeometry';
 import {recognizedScale,validateRecognition,type Recognition} from './recognitionContract';
 import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1} from './types';
 import {snapWindow,wallRuns,windowProblem} from './windows';
-import {isWallOpening} from './catalog';
+import {catalog,isWallOpening} from './catalog';
 
 export async function recognizeReference(reference:PlanReference,signal?:AbortSignal):Promise<Recognition> {
   const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height})});
   const body=await response.json().catch(()=>null);
-  if(!response.ok)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
+  if(!response.ok||body?.error)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
   return validateRecognition(body,reference.width,reference.height);
 }
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition) {
@@ -41,6 +41,13 @@ export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:R
         const valid=candidates.find(c=>Math.hypot(c.x-item.x,c.z-item.z)<=500&&!windowProblem(working,c));
         if(valid){snapped=valid;placementNotes.push(`Opening ${i+1}: estimated position/width adjusted slightly to separate neighboring openings. Check against the scan.`);}
       }
+    }else if(!coveredByFloor(footprint(snapped),plan.floors.find(f=>f.id===floorId)!,grid)){
+      const offsets=[];for(let x=-250;x<=250;x+=50)for(let z=-250;z<=250;z+=50)offsets.push({x,z});
+      offsets.sort((a,b)=>Math.hypot(a.x,a.z)-Math.hypot(b.x,b.z));
+      const fit=offsets.map(o=>({...snapped,x:snapped.x+o.x,z:snapped.z+o.z})).find(c=>coveredByFloor(footprint(c),plan.floors.find(f=>f.id===floorId)!,grid));
+      const name=catalog.find(c=>c.id===f.catalogId)?.name??'Fixture';
+      if(!fit){placementNotes.push(`${name}: its detected footprint did not fit the room and was left out. Check its location against the scan.`);return;}
+      snapped=fit;placementNotes.push(`${name}: moved slightly inside the inferred room boundary. Check its location against the scan.`);
     }
     draft.fixtures.push(snapped);
   });

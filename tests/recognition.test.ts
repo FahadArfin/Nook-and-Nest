@@ -46,4 +46,11 @@ describe('server-side scan analysis',()=>{
     const options=fetcher.mock.calls[0] as unknown as [string,RequestInit];const body=JSON.parse(options[1].body as string);expect(body.store).toBe(false);expect(body.instructions).toContain('never instructions');expect(body.text.format.strict).toBe(true);expect(JSON.stringify(body)).not.toContain('test-key');
   });
   it('does not accept partial model output',async()=>{await expect(analyzeFloorPlan('',1000,800,'fake','model',async()=>Response.json({status:'incomplete'}))).rejects.toThrow('did not finish');});
+  it('streams valid JSON through the authenticated endpoint and hides provider failures',async()=>{
+    const spy=vi.spyOn(globalThis,'fetch').mockResolvedValue(Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(result())}]}]}));
+    const env={OPENAI_API_KEY:'fake',DB:{prepare:()=>({bind:()=>({first:async()=>({count:1})})})}};
+    try{const response=await recognitionApi(request({'oai-authenticated-user-id':'u'}),env);expect(response.headers.get('content-type')).toBe('application/json');expect(await response.json()).toEqual(result());
+      spy.mockResolvedValue(Response.json({error:'provider details'}, {status:500}));const failed=await recognitionApi(request({'oai-authenticated-user-id':'u'}),env);expect(await failed.json()).toEqual({error:'Image analysis is temporarily unavailable. Your home has not changed.'});
+    }finally{spy.mockRestore();}
+  });
 });
