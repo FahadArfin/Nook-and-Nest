@@ -126,7 +126,7 @@ it('combines adjoining rectangles without filling an L-shaped exterior void or m
  const draft:BlueprintDraft={rooms:[a,b],walls:[{id:'shared',ax:8,az:4,bx:8,bz:8}],omittedWalls:[],fixtures:[]};
  const combined=combineBlueprintRooms(draft,'a','b',500);expect(combined.rooms.map(r=>r.groupId)).toEqual(['a','a']);expect(combined.rooms[1].width).toBe(2000);expect(combined.fixtures).toEqual(draft.fixtures);
  expect(cutBlueprintWalls(combined.walls,combined.wallCuts??[])).toHaveLength(0);
- expect(()=>combineBlueprintRooms({...draft,rooms:[a,{...b,x:9000}]},'a','b',500)).toThrow('share an edge');
+ expect(()=>combineBlueprintRooms({...draft,rooms:[a,{...b,x:9000}]},'a','b',500)).toThrow('touch or overlap');
 });
 
 describe('magnetic studio rooms and symbols',()=>{
@@ -147,5 +147,19 @@ describe('magnetic studio rooms and symbols',()=>{
   it('maps every simple symbol to an existing compatible fixture or opening',()=>{
     const p=base(),home=blueprintPlan(p,p.floors[0].id,draft());
     for(const item of [...planItems,...openingItems])expect(fixtureAt(home,p.floors[0].id,item.id,2000,2000).catalogId).toBe(item.id);
+  });
+});
+
+describe('overlapping room combination',()=>{
+  it('preserves the union footprint and cuts internal manual dividers across overlapping pieces',()=>{
+    const p=base(),a=room({id:'a'}),b=room({id:'b',x:3000,z:1000,width:2000,depth:2000});
+    const before={...draft([a,b]),walls:[{id:'manual',ax:16,az:0,bx:16,bz:16}]};
+    const combined=combineBlueprintRooms(before,'a','b',250);const original=blueprintPlan(p,p.floors[0].id,before),result=blueprintPlan(p,p.floors[0].id,combined);
+    expect(area(result)).toBe(area(original));expect(result.floors[0].walls.some(w=>w.ax===16&&w.bx===16&&w.az<12&&w.bz>4)).toBe(false);
+    expect(draftFromFloor(parsePlan(serializePlan(result)),p.floors[0].id).rooms.map(r=>r.groupId)).toEqual(['a','a']);
+  });
+  it('combines a contained piece but rejects separated pieces without expanding floor geometry',()=>{
+    const a=room({id:'a'}),b=room({id:'b',x:1000,z:1000,width:1000,depth:1000});expect(combineBlueprintRooms(draft([a,b]),'a','b',250).rooms[1].groupId).toBe('a');
+    expect(()=>combineBlueprintRooms(draft([a,{...b,x:8000}]),'a','b',250)).toThrow('touch or overlap');
   });
 });

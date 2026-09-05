@@ -113,15 +113,16 @@ export function fixturesAfterWallCuts(fixtures:FurniturePlacement[],cuts:WallSeg
 export function combineBlueprintRooms(draft:BlueprintDraft,first:string,second:string,grid:number):BlueprintDraft {
   const groups=roomGroups(draft.rooms),a=groups.find(g=>g.parts.some(p=>p.id===first)),b=groups.find(g=>g.parts.some(p=>p.id===second));
   if(!a||!b||a===b)throw new Error('Select two different adjoining rooms.');
-  const cuts:WallSegment[]=[];
+  const cuts:WallSegment[]=[];let connected=false;
   for(const x of a.parts)for(const y of b.parts){
     const top=Math.max(x.z,y.z),bottom=Math.min(x.z+x.depth,y.z+y.depth),left=Math.max(x.x,y.x),right=Math.min(x.x+x.width,y.x+y.width);
     const vertical=Math.abs(x.x+x.width-y.x)<1?y.x:Math.abs(y.x+y.width-x.x)<1?x.x:undefined;
     const horizontal=Math.abs(x.z+x.depth-y.z)<1?y.z:Math.abs(y.z+y.depth-x.z)<1?x.z:undefined;
+    if(right>left&&bottom>top){connected=true;for(const [r,other] of [[x,y],[y,x]]){for(const edge of [r.x,r.x+r.width])if(edge>other.x&&edge<other.x+other.width)cuts.push({id:uid(),ax:edge/grid,bx:edge/grid,az:top/grid,bz:bottom/grid});for(const edge of [r.z,r.z+r.depth])if(edge>other.z&&edge<other.z+other.depth)cuts.push({id:uid(),ax:left/grid,bx:right/grid,az:edge/grid,bz:edge/grid});}}
     if(vertical!==undefined&&bottom>top)cuts.push({id:uid(),ax:vertical/grid,bx:vertical/grid,az:top/grid,bz:bottom/grid});
     if(horizontal!==undefined&&right>left)cuts.push({id:uid(),ax:left/grid,bx:right/grid,az:horizontal/grid,bz:horizontal/grid});
   }
-  if(!cuts.length)throw new Error('These rooms must share an edge. Resize or move their rectangles so they meet first.');
+  if(!connected&&!cuts.length)throw new Error('Selected areas must touch or overlap. Move their edges together first.');
   const ids=new Set([...a.parts,...b.parts].map(p=>p.id)),groupId=a.groupId??a.id;
   return {...draft,fixtures:fixturesAfterWallCuts(draft.fixtures,cuts,grid),rooms:draft.rooms.map(r=>ids.has(r.id)?{...r,groupId,name:a.name,kind:a.kind,enclosed:a.enclosed||b.enclosed}:r),wallCuts:[...draft.wallCuts??[],...cuts]};
 }
