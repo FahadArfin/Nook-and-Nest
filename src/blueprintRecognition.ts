@@ -23,11 +23,19 @@ export async function recognizeReference(reference:PlanReference,signal?:AbortSi
   options.status?.(`${model==='gpt-5.6-luna'?'Luna':'Astra'} analysis complete. ${saved?'Saved on this browser for free reuse.':'Browser cache unavailable; uploading again may incur another charge.'}`);
   return result;
 }
+export function roomsOnlyRecognition(result:Recognition):Recognition {return {...result,fixtures:[]};}
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition,confirmedScale?:number) {
   const scale=confirmedScale??recognizedScale(result);
   if(!Number.isFinite(scale)||scale<.1||scale>200)throw new Error('Choose a scale between 0.1 and 200 mm per pixel.');
   const mm=(n:number)=>Math.round(n*scale);
-  const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>{const name=r.name.split(/\s+[—–]\s+/)[0];return {id:`scan-room-${i}`,groupId:`scan-group-${r.roomId??name.toLowerCase()}`,name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:r.enclosed};}),walls:[],omittedWalls:[],fixtures:[]};
+  const identities=new Map<string,string>();
+  const groupIdentity=(r:Recognition['rooms'][number],name:string)=>{const key=JSON.stringify([r.roomId??null,r.kind,name.toLowerCase()]);if(!identities.has(key))identities.set(key,`scan-group-${identities.size}`);return identities.get(key)!;};
+  const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>{const name=r.name.split(/\s+[—–]\s+/)[0];return {id:`scan-room-${i}`,groupId:groupIdentity(r,name),name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:r.enclosed};}),walls:[],omittedWalls:[],fixtures:[]};
+  // Only adjacent pieces with the same identity/name/type form a physical room.
+  const remaining=new Set(draft.rooms.map(r=>r.id));let component=0;
+  while(remaining.size){const first=draft.rooms.find(r=>remaining.has(r.id))!,identity=first.groupId,queue=[first];remaining.delete(first.id);const groupId=`scan-component-${component++}`;
+    while(queue.length){const part=queue.pop()!;part.groupId=groupId;for(const other of draft.rooms){if(!remaining.has(other.id)||other.groupId!==identity)continue;const vertical=(Math.abs(part.x+part.width-other.x)<=1||Math.abs(other.x+other.width-part.x)<=1)&&Math.min(part.z+part.depth,other.z+other.depth)>Math.max(part.z,other.z);const horizontal=(Math.abs(part.z+part.depth-other.z)<=1||Math.abs(other.z+other.depth-part.z)<=1)&&Math.min(part.x+part.width,other.x+other.width)>Math.max(part.x,other.x);if(vertical||horizontal){remaining.delete(other.id);queue.push(other);}}}
+  }
   draft.rooms=openPlanAreas(draft.rooms);
   const grid=base.gridSizeMm;
   const plan=blueprintPlan(base,floorId,draft);

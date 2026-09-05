@@ -144,8 +144,17 @@ const overlaps=(a:FloorRect,b:FloorRect)=>a.x<b.x+b.width-.1&&a.x+a.width>b.x+.1
 export function coveredByFloor(rect:FloorRect,floor:FloorPlan,grid:number) {
   let remaining=[rect];for(const part of floorRects(floor,grid)){remaining=remaining.flatMap(r=>subtractRect(r,part));if(!remaining.length)return true;}return false;
 }
+export function roomOverlapPairs(rooms:BlueprintRoom[]) {
+  const pairs:{a:BlueprintRoom;b:BlueprintRoom}[]=[];
+  for(let i=0;i<rooms.length;i++)for(let j=i+1;j<rooms.length;j++){const a=rooms[i],b=rooms[j];if((a.groupId??a.id)===(b.groupId??b.id))continue;if(Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)>1&&Math.min(a.z+a.depth,b.z+b.depth)-Math.max(a.z,b.z)>1)pairs.push({a,b});}
+  return pairs;
+}
+export function separateBlueprintRectangle(draft:BlueprintDraft,id:string):BlueprintDraft {
+  const part=draft.rooms.find(r=>r.id===id);if(!part)return draft;
+  return {...draft,rooms:draft.rooms.map(r=>r.id===id?{...r,groupId:uid(),name:'Separated area',kind:'Hall',enclosed:false}:r)};
+}
 export function blueprintProblems(plan:PlanDocumentV1,floorId:string):string[] {
-  const floor=plan.floors.find(f=>f.id===floorId)!,problems:string[]=[];
+  const floor=plan.floors.find(f=>f.id===floorId)!,problems:string[]=roomOverlapPairs(plan.floors.find(f=>f.id===floorId)?.blueprint?.rooms??[]).map(({a,b})=>`${a.name} overlaps ${b.name}. Resize, move or delete the incorrect rectangle before creating 3D.`);
   for(const item of plan.furniture.filter(f=>f.floorId===floorId)) {
     const problem=windowProblem(plan,item);
     if(problem)problems.push(`${catalog.find(c=>c.id===item.catalogId)?.name}: ${problem}`);

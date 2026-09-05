@@ -2,7 +2,7 @@ import {webcrypto} from 'node:crypto';
 import {recognitionKey,clearRecognitionCache} from '../src/recognitionCache';
 import {describe,it,expect,vi} from 'vitest';
 import {validateRecognition,recognizedScale,scaleAssessment,type Recognition} from '../src/recognitionContract';
-import {recognizeReference,draftFromRecognition} from '../src/blueprintRecognition';
+import {roomsOnlyRecognition,recognizeReference,draftFromRecognition} from '../src/blueprintRecognition';
 import {blueprintPlan,roomGroups,draftFromFloor} from '../src/blueprint';
 import {createSamplePlan} from '../src/domain';
 // @ts-expect-error Worker entry is JavaScript, bundled for production.
@@ -35,6 +35,14 @@ describe('automatic floor-plan contract',()=>{
     r.dimensions.push({...d,text:'other bad span',millimetres:9000});expect(scaleAssessment(r).scale).toBeUndefined();
     const base=createSamplePlan('Test','metric');expect(draftFromRecognition(base,base.floors[0].id,r,10).draft.rooms[0].width).toBe(4000);
     expect(()=>draftFromRecognition(base,base.floors[0].id,r,Infinity)).toThrow();
+  });
+  it('never imports any automatic object boxes, including cached detections',()=>{
+    const r=result(),base=createSamplePlan('Manual fixtures','metric');
+    expect(draftFromRecognition(base,base.floors[0].id,roomsOnlyRecognition(r)).draft.fixtures).toHaveLength(0);expect(r.fixtures).toHaveLength(1);
+  });
+  it('separates mismatched names/types and disconnected pieces despite reused room IDs',()=>{
+    const r=result();r.fixtures=[];const source=r.rooms[0];r.rooms=[{...source,roomId:'same',name:'Living',kind:'Living',width:200,height:200},{...source,roomId:'same',name:'Bedroom',x:200,width:200,height:200},{...source,roomId:'same',name:'Living',kind:'Living',x:600,width:200,height:200}];
+    const base=createSamplePlan('Groups','metric'),{draft}=draftFromRecognition(base,base.floors[0].id,r);expect(roomGroups(draft.rooms)).toHaveLength(3);
   });
   it('rejects arbitrary catalog IDs, out-of-image rooms, nonfinite numbers and oversized results',()=>{
     const r=result();r.fixtures[0].catalogId='sofa' as never;expect(()=>validateRecognition(r,1000,800)).toThrow();
