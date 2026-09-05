@@ -7,6 +7,7 @@ import type {Observer} from '@babylonjs/core/Misc/observable';
 
 export const motionData=(node:{metadata?:any}|null)=>node?.metadata?.gltf?.extras??node?.metadata??{};
 export const fireplaceIds=new Set(['cottage-fireplace','wood-stove','linear-fireplace','stone-arch-fireplace','cast-iron-fireplace','tiled-corner-stove']);
+export const holidayBrightness=(time:number,phase=0)=>.72+.28*Math.sin(time*Math.PI/3+phase);
 export function swimPose(time:number,index:number,w:number,d:number){
  const t=time*(.25+index*.017)+index*1.47;
  return {x:Math.sin(t)*w*.105,z:Math.cos(t)*d*.12,y:Math.sin(t*1.7)*.014,heading:Math.atan2(Math.sin(t)*d*.12,Math.cos(t)*w*.105),tail:Math.sin(time*7+index)*.27};
@@ -43,6 +44,15 @@ export class LivingModels{
     mat.backFaceCulling=false;mat.setFloat('bottom',bounds.minimum.y);mat.setFloat('span',Math.max(.01,bounds.maximum.y-bounds.minimum.y));mat.setFloat('time',0);mat.setColor3('tint',name==='golden-flame'?new Color3(1,.19,.015):new Color3(1,.45,.05));mesh.material=mat;materials.push(mat);
    }
    if(materials.length)this.entries.set(root,time=>{for(const m of materials)m.setFloat('time',time);});
+  }
+  if(id==='christmas-tree'||id==='christmas-slim-tree'){
+   for(const mesh of root.getChildMeshes()){
+    const name=mesh.metadata?.livingMaterial??mesh.material?.name??'';if(!name.startsWith('holiday-light-'))continue;
+    const color=name.endsWith('red')?new Color3(1,.025,.012):name.endsWith('blue')?new Color3(.03,.18,1):new Color3(1,.67,.035);
+    const mat=new ShaderMaterial('holiday-glow',this.scene,{vertexSource:'precision highp float; attribute vec3 position; uniform mat4 worldViewProjection; void main(){gl_Position=worldViewProjection*vec4(position,1.);}',fragmentSource:'precision highp float; uniform vec3 tint; uniform float brightness; void main(){gl_FragColor=vec4(tint*brightness*1.7,1.);}'},{attributes:['position'],uniforms:['worldViewProjection','tint','brightness']});
+    mat.setColor3('tint',color);mat.setFloat('brightness',holidayBrightness(0,materials.length*2));mesh.material=mat;materials.push(mat);
+   }
+   if(materials.length)this.entries.set(root,time=>materials.forEach((m,i)=>m.setFloat('brightness',holidayBrightness(time,i*2))));
   }
   if(id.endsWith('-aquarium')){
    const nodes=root.getDescendants(false).filter(n=>motionData(n).motion_role&&!motionData(n.parent).motion_role) as TransformNode[];

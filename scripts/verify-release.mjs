@@ -6,7 +6,7 @@ import { build } from 'esbuild';
 const output = await build({ entryPoints: ['src/catalog.ts'], bundle: true, write: false, format: 'esm', platform: 'node' });
 const { catalog } = await import(`data:text/javascript;base64,${Buffer.from(output.outputFiles[0].text).toString('base64')}`);
 for (const item of catalog) {
-  for (const path of [`assets-source/blender/${item.id}.blend`, `dist/client/models/furniture/${item.id}.glb`, `dist/client/models/previews/${item.id}.png`]) assert(existsSync(path), `Missing ${path}`);
+  for (const path of [`assets-source/blender/${item.id}.blend`, `dist/client/models/furniture/${item.id}.glb`, `dist/client/models/previews/${item.id}.webp`]) assert(existsSync(path), `Missing ${path}`);
   const data = readFileSync(`dist/client/models/furniture/${item.id}.glb`);
   assert.equal(data.toString('ascii', 0, 4), 'glTF');
   assert.equal(data.readUInt32LE(4), 2);

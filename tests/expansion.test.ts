@@ -37,7 +37,7 @@ describe("editor regressions", () => {
     s.undo(); expect(usePlanner.getState().plan.camera.darkMode).toBeUndefined();
   });
   it("has a real rendered thumbnail for every catalog item", () => {
-    for (const item of catalog) { expect(hasModelPreview(item.id), item.id).toBe(true); expect(existsSync(`public/models/previews/${item.id}.png`), item.id).toBe(true); }
+    for (const item of catalog) { expect(hasModelPreview(item.id), item.id).toBe(true); expect(existsSync(`public/models/previews/${item.id}.webp`), item.id).toBe(true); }
   });
   it("exports the new media models at their catalog dimensions with bounded geometry", () => {
     const ids=["tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","tower-speaker","soundbar","subwoofer","slatted-tv-stand","open-media-bench","cane-tv-stand"];

@@ -14,7 +14,7 @@ describe('kitchen and storage collection',()=>{
   it('ships 28 editable originals with dimensioned GLBs, material slots and previews',()=>{
     expect(kitchenRows).toHaveLength(28);
     for(const [id,,,_w,_d,_h] of kitchenRows){
-      expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.png`),id).toBe(true);
+      expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
       const data=readFileSync(`public/models/furniture/${id}.glb`),glb=JSON.parse(data.subarray(20,20+data.readUInt32LE(12)).toString());
       const bounds=glb.meshes.flatMap((m:any)=>m.primitives.map((p:any)=>glb.accessors[p.attributes.POSITION]));
       for(let axis=0;axis<3;axis++){const low=Math.min(...bounds.map((b:any)=>b.min[axis])),high=Math.max(...bounds.map((b:any)=>b.max[axis]));expect((high-low)*1000,id).toBeCloseTo([_w,_h,_d][axis],1);}

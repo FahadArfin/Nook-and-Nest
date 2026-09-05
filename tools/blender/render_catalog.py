@@ -1,12 +1,12 @@
 """Render named catalog assets from their original editable Blender sources."""
-import os,time
+import os,time,subprocess
 import bpy
 import sys
 from pathlib import Path
 from mathutils import Vector
 
 root=Path(__file__).resolve().parents[2]
-out=root/'public'/'models'/'previews'
+out=root/'assets-source'/'previews'
 out.mkdir(parents=True,exist_ok=True)
 for name in sys.argv[sys.argv.index('--')+1:]:
     bpy.ops.wm.open_mainfile(filepath=str(root/'assets-source'/'blender'/(name+'.blend')))
@@ -36,4 +36,5 @@ for name in sys.argv[sys.argv.index('--')+1:]:
         except PermissionError:
             if attempt==9:raise
             time.sleep(.3)
+    subprocess.run(['python',str(root/'scripts/compress-previews.py'),name],check=True)
     print('PREVIEW '+name)

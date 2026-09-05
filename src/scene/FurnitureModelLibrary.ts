@@ -1,3 +1,4 @@
+import {instanceHolidayBranches} from './HolidayBranches';
 import {positionSlidingLeaves} from './SlidingDoors';
 import {modelAssetPath} from "../modelAssetPath";
 import {LivingModels} from './LivingModels';
@@ -107,11 +108,12 @@ export class FurnitureModelLibrary {
     const nominalDepth = Number(metadata?.nominal_depth_m) || definition.depthMm / 1000;
     const nominalHeight = Number(metadata?.nominal_height_m) || definition.heightMm / 1000;
     wrapper.scaling = new Vector3(width / nominalWidth, height / nominalHeight, depth / nominalDepth);
+    if(definition.id==='christmas-tree'||definition.id==='christmas-slim-tree')instanceHolidayBranches(wrapper);
     for (const mesh of wrapper.getChildMeshes(false)) {
       const typedMesh = mesh as AbstractMesh;
       typedMesh.metadata={...typedMesh.metadata,livingMaterial:typedMesh.material?.name};
       if (typedMesh.material) typedMesh.material = this.materialFor(typedMesh.material, item, ghost);
-      const shadowless=['aquarium-clear-glass','aquarium-water-surface','aquarium-air-bubble','golden-flame','warm-light'].includes(typedMesh.metadata.livingMaterial);
+      const shadowless=typedMesh.metadata.livingMaterial?.startsWith('holiday-light-')||['aquarium-clear-glass','aquarium-water-surface','aquarium-air-bubble','golden-flame','warm-light'].includes(typedMesh.metadata.livingMaterial);
       typedMesh.receiveShadows = !shadowless;
       if(!shadowless)this.shadow.addShadowCaster(typedMesh);
     }

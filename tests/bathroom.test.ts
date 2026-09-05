@@ -16,7 +16,7 @@ describe("bathroom collection",()=>{
     for(const id of bathroomModelIds){
       expect(hasModelPreview(id)).toBe(true);
       expect(existsSync(`assets-source/blender/${id}.blend`)).toBe(true);
-      expect(existsSync(`public/models/previews/${id}.png`)).toBe(true);
+      expect(existsSync(`public/models/previews/${id}.webp`)).toBe(true);
       const c=catalog.find(c=>c.id===id)!,json=gltf(id);
       const bounds=json.meshes.flatMap((m:{primitives:{attributes:{POSITION:number}}[]})=>m.primitives.map(p=>json.accessors[p.attributes.POSITION]));
       for(let axis=0;axis<3;axis++){

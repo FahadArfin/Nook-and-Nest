@@ -17,7 +17,7 @@ const make=(id:string,floorId:string):FurniturePlacement=>{const c=catalog.find(
 describe('outdoor collection',()=>{
  it('ships 27 original editable pieces with bounded dimensioned GLBs and previews',()=>{
   expect(outdoorRows).toHaveLength(27);
-  for(const [id,,,w,d,h] of outdoorRows){expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.png`),id).toBe(true);
+  for(const [id,,,w,d,h] of outdoorRows){expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString()),bounds=g.meshes.flatMap((m:any)=>m.primitives.map((p:any)=>g.accessors[p.attributes.POSITION]));
    for(let axis=0;axis<3;axis++)expect((Math.max(...bounds.map((b:any)=>b.max[axis]))-Math.min(...bounds.map((b:any)=>b.min[axis])))*1000,id).toBeCloseTo([w,h,d][axis],1);
    expect(g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((sum:number,a:any)=>sum+a.count/3,0),id).toBeLessThan(detailedIds.includes(id)?120000:60000);expect(b.length,id).toBeLessThan(detailedIds.includes(id)?8_000_000:5_000_000);

@@ -26,7 +26,7 @@ describe('indoor originals',()=>{
   it('ships 27 editable Blender models, GLBs, thumbnails and independent material colors',()=>{
     expect(interiorRows).toHaveLength(27);
     for(const [id,,category,w,d,h] of interiorRows){
-      expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.png`),id).toBe(true);
+      expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
       const data=readFileSync(`public/models/furniture/${id}.glb`),glb=JSON.parse(data.subarray(20,20+data.readUInt32LE(12)).toString());
       const bounds=glb.meshes.flatMap((m:any)=>m.primitives.map((p:any)=>glb.accessors[p.attributes.POSITION]));
       for(let axis=0;axis<3;axis++)expect((Math.max(...bounds.map((b:any)=>b.max[axis]))-Math.min(...bounds.map((b:any)=>b.min[axis])))*1000,id).toBeCloseTo([w,h,d][axis],1);

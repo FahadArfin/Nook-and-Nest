@@ -117,7 +117,7 @@ describe("Blender building collection",()=>{
   });
   it("ships eighteen distinct editable originals with physical GLB envelopes and thumbnails",()=>{
     const items=catalog.filter(c=>isDoor(c.id)||isStairs(c.id));expect(items).toHaveLength(18);
-    for(const c of items){expect(existsSync(`assets-source/blender/${c.id}.blend`)).toBe(true);expect(existsSync(`public/models/previews/${c.id}.png`)).toBe(true);
+    for(const c of items){expect(existsSync(`assets-source/blender/${c.id}.blend`)).toBe(true);expect(existsSync(`public/models/previews/${c.id}.webp`)).toBe(true);
       const b=readFileSync(`public/models/furniture/${c.id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());const bounds=glbBounds(g);
       for(let a=0;a<3;a++){const min=Math.min(...bounds.map((b:any)=>b.min[a])),max=Math.max(...bounds.map((b:any)=>b.max[a]));expect((max-min)*1000,c.id).toBeCloseTo([c.widthMm,c.heightMm,c.depthMm][a],1);}
       expect(g.accessors.filter((a:any)=>a.type==="SCALAR").reduce((sum:number,a:any)=>sum+a.count/3,0),c.id).toBeLessThan(35000);

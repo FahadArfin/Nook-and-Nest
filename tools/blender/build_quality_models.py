@@ -1051,15 +1051,15 @@ BUILDERS.update(COZY_BUILDERS)
 from interior_refinement import refined_builders
 REFINED_BUILDERS=refined_builders(BUILDERS,rounded_box,cylinder,material)
 COZY_BUILDERS.update(REFINED_BUILDERS)
-from home_collection import home_builders
-HOME_BUILDERS=home_builders(rounded_box,cylinder,material)
-COZY_BUILDERS.update(HOME_BUILDERS)
-BUILDERS.update(HOME_BUILDERS)
 BUILDERS.update(REFINED_BUILDERS)
 from home_collection import home_builders
 HOME_BUILDERS=home_builders(rounded_box,cylinder,material)
 COZY_BUILDERS.update(HOME_BUILDERS)
 BUILDERS.update(HOME_BUILDERS)
+from holiday_models import holiday_builders
+HOLIDAY_BUILDERS=holiday_builders(rounded_box,cylinder,material)
+COZY_BUILDERS.update(HOLIDAY_BUILDERS)
+BUILDERS.update(HOLIDAY_BUILDERS)
 
 
 def export_model(catalog_id, builder):
@@ -1081,6 +1081,10 @@ def export_model(catalog_id, builder):
             # Bake transforms first: non-uniform world scaling must not distort
             # the orientation of angled bay returns or the curved crown.
             matrix = obj.matrix_world.copy()
+            if obj.get("shared_geometry"):
+                from mathutils import Matrix
+                obj.matrix_world=Matrix.Diagonal(Vector((*factors,1))) @ Matrix.Translation(Vector((-(low[0]+high[0])/2,-(low[1]+high[1])/2,-low[2]))) @ matrix
+                continue
             for vertex in obj.data.vertices:
                 point = matrix @ vertex.co
                 y_center = (low[1]+high[1])/2 if catalog_id in WORKSPACE_BUILDERS or catalog_id in BATHROOM_BUILDERS or catalog_id in MEDIA_BUILDERS or catalog_id in BUILDING_BUILDERS or catalog_id in KITCHEN_BUILDERS or catalog_id in INTERIOR_BUILDERS or catalog_id in OUTDOOR_BUILDERS or catalog_id in COZY_BUILDERS else 0
@@ -1103,11 +1107,12 @@ def export_model(catalog_id, builder):
     # draw object. Join only the exported copy into one multi-material mesh;
     # Blender preserves all material slots, UVs, and the connected silhouette.
     all_export_meshes = [obj for obj in bpy.context.scene.objects if obj.type == "MESH"]
+    shared = [obj for obj in all_export_meshes if obj.get("shared_geometry")]
     moving = [obj for obj in all_export_meshes if obj.get("motion_role")]
     for obj in moving:
         bpy.ops.object.select_all(action="DESELECT");obj.select_set(True);bpy.context.view_layer.objects.active=obj
         bpy.ops.object.origin_set(type="ORIGIN_GEOMETRY",center="BOUNDS")
-    meshes = [obj for obj in all_export_meshes if not obj.get("motion_role")]
+    meshes = [obj for obj in all_export_meshes if not obj.get("motion_role") and not obj.get("shared_geometry")]
     bpy.ops.object.select_all(action="DESELECT")
     for obj in meshes:
         obj.select_set(True)
@@ -1119,7 +1124,7 @@ def export_model(catalog_id, builder):
     export_mesh["nominal_width_m"] = dimensions[0]
     export_mesh["nominal_depth_m"] = dimensions[1]
     export_mesh["nominal_height_m"] = dimensions[2]
-    for obj in moving:obj.select_set(True)
+    for obj in moving+shared:obj.select_set(True)
     bpy.ops.export_scene.gltf(
         filepath=str(GLB_OUT / f".{catalog_id}-new.glb"),
         export_format="GLB",
