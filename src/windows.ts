@@ -1,3 +1,4 @@
+import {windowTreatmentIds,doorAperture} from './homeCollection';
 import { isWindow, isDoor, isWallOpening, isStairs, isKitchenWall, isCeilingMounted, defaultMountHeight } from "./catalog";
 import { floorBoundaryWalls } from "./floorGeometry";
 import type { FloorPlan, FurniturePlacement, PlanDocumentV1, WallSegment } from "./types";
@@ -64,7 +65,7 @@ export function windowProblem(plan:PlanDocumentV1,item:FurniturePlacement):strin
     if(!horizontal&&Math.abs(Math.cos(angle))>.001)return "Align this piece with a wall.";
     const along=horizontal?item.x:item.z,back=(horizontal?item.z:item.x)-(item.depthMm/2+51)*(horizontal?Math.cos(angle):Math.sin(angle));
     if(!wallRuns(floor,plan.gridSizeMm).some(r=>r.horizontal===horizontal&&Math.abs(r.line-back)<1&&along-item.widthMm/2>=r.start-.01&&along+item.widthMm/2<=r.end+.01))return "No wall long enough here. Add a wall or reduce this piece's width.";
-    if(plan.furniture.some(o=>o.floorId===item.floorId&&isWallOpening(o.catalogId)&&Math.abs((horizontal?o.z:o.x)-back)<1&&Math.abs((horizontal?o.x:o.z)-along)<(item.widthMm+o.widthMm)/2&&bottom+50<(o.elevationMm??0)+o.heightMm&&bottom+50+item.heightMm>(o.elevationMm??0)))return "This covers a door or window. Move it, or use smaller panels around the opening.";
+    if(!windowTreatmentIds.has(item.catalogId)&&plan.furniture.some(o=>o.floorId===item.floorId&&isWallOpening(o.catalogId)&&Math.abs((horizontal?o.z:o.x)-back)<1&&Math.abs((horizontal?o.x:o.z)-along)<(item.widthMm+o.widthMm)/2&&bottom+50<(o.elevationMm??0)+o.heightMm&&bottom+50+item.heightMm>(o.elevationMm??0)))return "This covers a door or window. Move it, or use smaller panels around the opening.";
     return;
   }
   if(!isWallOpening(item.catalogId))return;
@@ -92,7 +93,7 @@ export function windowWallPieces(wall:WallSegment,grid:number,height:number,item
   const end=Math.max(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz)*grid;
   let pieces:WallPiece[]=[{start,end,bottom:0,top:height}];
   for(const item of items.filter(i=>isWallOpening(i.catalogId)&&Math.abs((horizontal?i.z:i.x)-line)<1&&Math.abs(Math.sin((i.rotation-(horizontal?0:90))*Math.PI/180))<.001)){
-    const center=horizontal?item.x:item.z,left=center-item.widthMm/2+25,right=center+item.widthMm/2-25,bottom=isDoor(item.catalogId)?0:(item.elevationMm??850)+25,top=isDoor(item.catalogId)?item.heightMm-25:bottom+item.heightMm-50;
+    const aperture=doorAperture(item,horizontal),center=(horizontal?item.x:item.z)+aperture.offset,left=center-aperture.width/2+25,right=center+aperture.width/2-25,bottom=isDoor(item.catalogId)?0:(item.elevationMm??850)+25,top=isDoor(item.catalogId)?aperture.height-25:bottom+item.heightMm-50;
     const cuts=[{left,right,bottom,top}];
     if(item.catalogId==="window-arched"){
       const spring=(item.elevationMm??850)+item.heightMm*.95/1.41,rx=item.widthMm*.40,ry=item.heightMm*.40/1.41;

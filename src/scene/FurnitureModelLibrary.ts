@@ -1,3 +1,4 @@
+import {positionSlidingLeaves} from './SlidingDoors';
 import {modelAssetPath} from "../modelAssetPath";
 import {LivingModels} from './LivingModels';
 import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
@@ -114,6 +115,7 @@ export class FurnitureModelLibrary {
       typedMesh.receiveShadows = !shadowless;
       if(!shadowless)this.shadow.addShadowCaster(typedMesh);
     }
+    positionSlidingLeaves(wrapper,item.openFraction);
     if(!ghost)this.living.attach(wrapper,item.catalogId,nominalWidth,nominalDepth,nominalHeight);
     return true;
   }

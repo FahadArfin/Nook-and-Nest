@@ -9,7 +9,7 @@ export interface TileCell { x: number; z: number }
 export interface WallSegment { id: string; ax: number; az: number; bx: number; bz: number }
 export interface Opening { id: string; kind: "door" | "window"; wallKey: string; offset: number; widthMm: number; finishId?: string }
 export interface StairPlacement { id: string; kind: "straight" | "l-shaped"; x: number; z: number; rotation: number; widthMm: number; lengthMm: number; toFloorId?: string }
-export interface FurniturePlacement { id: string; catalogId: string; floorId: string; x: number; z: number; rotation: number; widthMm: number; depthMm: number; heightMm: number; variant: string; toFloorId?: string; stairRiseMm?: number; surfaceVariant?: string; materialColors?: Record<string,string>; elevationMm?: number }
+export interface FurniturePlacement { id: string; catalogId: string; floorId: string; x: number; z: number; rotation: number; widthMm: number; depthMm: number; heightMm: number; variant: string; toFloorId?: string; stairRiseMm?: number; surfaceVariant?: string; materialColors?: Record<string,string>; openFraction?:number; elevationMm?: number }
 export interface FloorPlan { id: string; name: string; elevationMm: number; heightMm: number; cells: TileCell[]; walls: WallSegment[]; openings: Opening[]; stairs: StairPlacement[]; floorFinishId?: string; wallFinishId?: string; cellRects?:Record<string,FloorRect[]>; cellFinishes?: Record<string,string>; wallFinishes?: Record<string,string> }
 export interface PlanDocumentV1 {
   schemaVersion: 1; id: string; name: string; createdAt: string; updatedAt: string; units: Units; gridSizeMm: number;

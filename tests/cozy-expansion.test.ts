@@ -1,3 +1,4 @@
+import {glbBounds} from './glbBounds';
 import detailedIds from "../src/detailedModelIds.json";
 import {modelAssetPath} from '../src/modelAssetPath';
 import {describe,it,expect} from 'vitest';
@@ -19,26 +20,26 @@ import {SceneController} from '../src/scene/SceneController';
 const piece=(id:string,floorId:string):FurniturePlacement=>{const c=catalog.find(c=>c.id===id)!;return {id,catalogId:id,floorId,x:2000,z:2000,rotation:90,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'};};
 describe('cozy expansion and placement regressions',()=>{
  it('keeps all detailed replacements dimensionally compatible and cache-versioned',()=>{
-  expect(detailedIds).toHaveLength(55);
+  expect(detailedIds).toHaveLength(219);
   for(const id of detailedIds){
    const c=catalog.find(c=>c.id===id)!;expect(c,id).toBeDefined();
    expect(modelAssetPath(id)).toContain(`${id}.glb?v=`);expect(modelAssetPath(id,true)).toContain(`${id}.png?v=`);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());
-   const bounds=g.meshes.filter((m:any,index:number)=>!id.endsWith("-aquarium")||g.nodes.some((n:any)=>n.mesh===index&&n.name===id)).flatMap((m:any)=>m.primitives.map((p:any)=>g.accessors[p.attributes.POSITION]));
+   const bounds=glbBounds(g);
    for(const [axis,size] of [c.widthMm,c.heightMm,c.depthMm].entries()){const low=Math.min(...bounds.map((a:any)=>a.min[axis])),high=Math.max(...bounds.map((a:any)=>a.max[axis]));expect((high-low)*1000,id).toBeCloseTo(size,0);}
    const triangles=g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((n:number,a:any)=>n+a.count/3,0);
    expect(triangles,id).toBeLessThan(120000);expect(b.length,id).toBeLessThan(12_000_000);
    if(['spruce-tree','christmas-tree','christmas-slim-tree'].includes(id))expect(triangles,id).toBeGreaterThan(50000);
    if(id==='grass-clump'){expect(triangles).toBeLessThan(1200);expect(g.materials.length).toBeLessThanOrEqual(2);}
   }
-  expect(modelAssetPath('sofa')).toBe('/models/furniture/sofa.glb');
+  expect(modelAssetPath('sofa')).toContain('/models/furniture/sofa.glb?v=');
  });
  it('ships every addition as an editable, dimensioned model and rendered preview',()=>{
-  expect(cozyRows).toHaveLength(71);
+  expect(cozyRows).toHaveLength(102);
   for(const [id,,,w,d,h] of cozyRows){
    expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.png`),id).toBe(true);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());
-   const bounds=g.meshes.filter((m:any,index:number)=>!id.endsWith("-aquarium")||g.nodes.some((n:any)=>n.mesh===index&&n.name===id)).flatMap((m:any)=>m.primitives.map((p:any)=>g.accessors[p.attributes.POSITION]));
+   const bounds=glbBounds(g);
    for(const [axis,size] of [w,h,d].entries()){const low=Math.min(...bounds.map((a:any)=>a.min[axis])),high=Math.max(...bounds.map((a:any)=>a.max[axis]));expect((high-low)*1000,id).toBeCloseTo(size,0);}
    expect(g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((n:number,a:any)=>n+a.count/3,0),id).toBeLessThan(detailedIds.includes(id)?120000:60000);
   }

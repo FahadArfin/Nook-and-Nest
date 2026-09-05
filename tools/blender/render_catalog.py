@@ -1,4 +1,5 @@
 """Render named catalog assets from their original editable Blender sources."""
+import os,time
 import bpy
 import sys
 from pathlib import Path
@@ -28,5 +29,11 @@ for name in sys.argv[sys.argv.index('--')+1:]:
     if name.startswith('backdrop-'):
         bpy.ops.object.light_add(type='SUN',rotation=(.4,-.5,-.5));bpy.context.object.data.energy=2
     scene.render.film_transparent=True;scene.render.image_settings.file_format='PNG'
-    scene.render.filepath=str(out/(name+'.png'));bpy.ops.render.render(write_still=True)
+    target=out/(name+'.png');temporary=out/('.'+name+'-render.png')
+    scene.render.filepath=str(temporary);bpy.ops.render.render(write_still=True)
+    for attempt in range(10):
+        try:os.replace(temporary,target);break
+        except PermissionError:
+            if attempt==9:raise
+            time.sleep(.3)
     print('PREVIEW '+name)

@@ -1048,6 +1048,18 @@ COZY_BUILDERS.update(garden_builders(rounded_box, cylinder, material, finish_mes
 from aquarium_models import aquarium_builders
 COZY_BUILDERS.update(aquarium_builders(rounded_box, cylinder, material, finish_mesh))
 BUILDERS.update(COZY_BUILDERS)
+from interior_refinement import refined_builders
+REFINED_BUILDERS=refined_builders(BUILDERS,rounded_box,cylinder,material)
+COZY_BUILDERS.update(REFINED_BUILDERS)
+from home_collection import home_builders
+HOME_BUILDERS=home_builders(rounded_box,cylinder,material)
+COZY_BUILDERS.update(HOME_BUILDERS)
+BUILDERS.update(HOME_BUILDERS)
+BUILDERS.update(REFINED_BUILDERS)
+from home_collection import home_builders
+HOME_BUILDERS=home_builders(rounded_box,cylinder,material)
+COZY_BUILDERS.update(HOME_BUILDERS)
+BUILDERS.update(HOME_BUILDERS)
 
 
 def export_model(catalog_id, builder):
