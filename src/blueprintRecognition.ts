@@ -4,12 +4,24 @@ import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1} from './types';
 import {snapWindow,wallRuns,windowProblem} from './windows';
 import {catalog,isWallOpening} from './catalog';
+import {recognitionKey,cachedRecognition,saveRecognition,type ScanModel} from './recognitionCache';
 
-export async function recognizeReference(reference:PlanReference,signal?:AbortSignal):Promise<Recognition> {
-  const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height})});
+export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;confirmPremium?:()=>boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
+  const model=options.model??'gpt-5.6-luna',key=await recognitionKey(reference,model);
+  signal?.throwIfAborted();
+  const cached=cachedRecognition(key,reference);
+  if(cached){options.status?.('Reused saved analysis — no API charge.');return cached;}
+  const premiumConfirmed=model==='gpt-6-astra'&&options.confirmPremium?.()===true;
+  if(model==='gpt-6-astra'&&!premiumConfirmed)throw new Error('Astra analysis canceled. No API request was made.');
+  signal?.throwIfAborted();
+  const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,premiumConfirmed})});
   const body=await response.json().catch(()=>null);
   if(!response.ok||body?.error)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
-  return validateRecognition(body,reference.width,reference.height);
+  signal?.throwIfAborted();
+  const result=validateRecognition(body,reference.width,reference.height);recognizedScale(result);
+  const saved=saveRecognition(key,result);
+  options.status?.(`${model==='gpt-5.6-luna'?'Luna':'Astra'} analysis complete. ${saved?'Saved on this browser for free reuse.':'Browser cache unavailable; uploading again may incur another charge.'}`);
+  return result;
 }
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition) {
   const scale=recognizedScale(result),mm=(n:number)=>Math.round(n*scale);

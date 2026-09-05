@@ -93,3 +93,5 @@ Welcome flow preference: ordinary site visits open a cozy home menu with Create 
 Editor navigation preference: use the Nook & Nest brand icon at the top left as the accessible home/menu button; do not add a separate visible Home text button.
 
 Floor-plan room counts must represent physical rooms/spaces, never the rectangles used internally for their geometry. An irregular room is one selectable, renameable and editable room. List closets and circulation separately. For the supplied apartment, the main spaces are balcony, solarium, master bedroom, master washroom, bedroom 2, shared washroom, laundry room, living room and kitchen.
+
+Floor-plan analysis cost preference: default to GPT-5.6 Luna. Cache validated completed detections locally for repeat uploads, never silently retry or upgrade to a more expensive model, and require explicit confirmation for Astra. Use mocked or previously recorded responses for development; obtain an explicit small testing budget before any paid API experiment. Never publish private scan fixtures or credentials.
