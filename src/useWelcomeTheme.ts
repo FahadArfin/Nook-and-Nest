@@ -1,7 +1,9 @@
-import {useEffect,useState} from 'react';
+import {createContext,useContext,useEffect,useState} from 'react';
 
 export type WelcomeTheme = 'system'|'light'|'dark';
 export const WELCOME_THEME_KEY = 'nook-welcome-theme';
+export const AppearanceContext = createContext<ReturnType<typeof useWelcomeTheme>|null>(null);
+export const useAppearance = () => useContext(AppearanceContext);
 const preference = (value:string|null):WelcomeTheme => value==='light'||value==='dark'?value:'system';
 const readPreference = ():WelcomeTheme => {try{return preference(localStorage.getItem(WELCOME_THEME_KEY));}catch{return 'system';}};
 const systemDark = () => typeof window.matchMedia==='function'&&window.matchMedia('(prefers-color-scheme: dark)').matches;
