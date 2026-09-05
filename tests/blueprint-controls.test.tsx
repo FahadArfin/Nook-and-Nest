@@ -159,6 +159,18 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Combine selected (3)'}));expect(screen.getByRole('heading',{name:'Rooms & spaces · 1'})).toBeVisible();expect(screen.getByLabelText('width (m)')).toHaveValue(15);
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('heading',{name:'Rooms & spaces · 3'})).toBeVisible();
   });
+  it('click-selects overlapping bedroom pieces and names the combined bedroom in one undo',()=>{
+    const p=usePlanner.getState().plan,id=p.floors[0].id;
+    const pieces=[{...room,id:'master',name:'M BEDROOM',x:1000,z:0,width:4000,depth:3000},{...room,id:'living4',name:'Living 4',kind:'Living' as const,x:900,z:1200,width:1000,depth:2800,enclosed:false},{...room,id:'living3',name:'Living 3',kind:'Living' as const,x:0,z:4000,width:1900,depth:900,enclosed:false}];
+    usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:pieces,walls:[],omittedWalls:[],fixtures:[]}));const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
+    const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.click(screen.getByRole('button',{name:'Combine rooms'}));
+    for(const id of ['living3','living4','master']){fireEvent.pointerDown(canvas.querySelector(`[data-object="${id}"] rect`)!,{button:0,clientX:1000,clientY:2000});fireEvent.pointerUp(canvas);}
+    expect(screen.getByLabelText('Combined room name')).toHaveValue('Master bedroom');expect(screen.getByLabelText('Combined room type')).toHaveValue('Bedroom');
+    fireEvent.click(screen.getByRole('button',{name:'Deselect Living 4'}));expect(screen.getByText('2 areas selected')).toBeVisible();
+    fireEvent.click(screen.getByRole('button',{name:/^Living 4/}));fireEvent.change(screen.getByLabelText('Combined room name'),{target:{value:'Master bedroom'}});
+    fireEvent.click(screen.getByRole('button',{name:'Combine selected (3)'}));expect(screen.getByLabelText('Room name')).toHaveValue('Master bedroom');expect(screen.getByRole('heading',{name:'Rooms & spaces · 1'})).toBeVisible();expect(usePlanner.getState().plan).toBe(original);
+    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('heading',{name:'Rooms & spaces · 3'})).toBeVisible();
+  });
   it('drags a fixture icon onto the plan, deletes it, and undoes deletion',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});vi.spyOn(canvas,'getBoundingClientRect').mockReturnValue({left:0,top:0,right:5000,bottom:5000,width:5000,height:5000,x:0,y:0,toJSON(){}});
