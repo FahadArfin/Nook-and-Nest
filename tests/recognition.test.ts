@@ -1,7 +1,7 @@
 import {describe,it,expect,vi} from 'vitest';
 import {validateRecognition,recognizedScale,type Recognition} from '../src/recognitionContract';
 import {draftFromRecognition} from '../src/blueprintRecognition';
-import {blueprintPlan} from '../src/blueprint';
+import {blueprintPlan,roomGroups,draftFromFloor} from '../src/blueprint';
 import {createSamplePlan} from '../src/domain';
 // @ts-expect-error Worker entry is JavaScript, bundled for production.
 import {recognitionApi,analyzeFloorPlan} from '../worker/recognition.js';
@@ -20,7 +20,12 @@ describe('automatic floor-plan contract',()=>{
   it('does not put a divider through related rectangles in an L-shaped room',()=>{
     const r=result();r.fixtures=[];r.rooms=[{...r.rooms[0],name:'Bedroom',width:400,height:300},{...r.rooms[0],name:'Bedroom — entrance',x:300,y:300,width:100,height:100}];
     const base=createSamplePlan('Test','metric'),{draft}=draftFromRecognition(base,base.floors[0].id,r);
-    expect(draft.walls).toHaveLength(0);expect(draft.rooms.every(r=>!r.enclosed)).toBe(true);
+    expect(blueprintPlan(base,base.floors[0].id,draft).floors[0].walls).toHaveLength(0);expect(roomGroups(draft.rooms)).toHaveLength(1);
+  });
+  it('preserves physical room groups and divider ownership when reopening a confirmed floor',()=>{
+    const r=result();r.fixtures=[];r.rooms[0].name='Bedroom';r.rooms.push({...r.rooms[0],name:'Bedroom — entrance',x:300,y:300,width:100,height:100});
+    const base=createSamplePlan('Test','metric'),id=base.floors[0].id,{draft}=draftFromRecognition(base,id,r),plan=blueprintPlan(base,id,draft),reopened=draftFromFloor(plan,id);
+    expect(roomGroups(reopened.rooms).filter(r=>r.kind==='Bedroom')).toHaveLength(1);expect(blueprintPlan(plan,id,reopened).floors[0].walls).toEqual(plan.floors[0].walls);
   });
   it('rejects arbitrary catalog IDs, out-of-image rooms, nonfinite numbers and oversized results',()=>{
     const r=result();r.fixtures[0].catalogId='sofa' as never;expect(()=>validateRecognition(r,1000,800)).toThrow();
