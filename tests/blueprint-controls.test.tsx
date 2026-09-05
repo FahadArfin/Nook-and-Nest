@@ -97,6 +97,7 @@ describe('floor plan studio flow',()=>{
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});
     fireEvent.pointerDown(canvas,{clientX:2500,clientY:0,button:0});
     expect(screen.getByLabelText('Entrance without a door')).toBeChecked();
+    fireEvent.click(screen.getByRole('button',{name:'Choose optional fixtures'}));
     fireEvent.change(screen.getByLabelText('Kitchen / bath / laundry / openings'),{target:{value:'range-oven'}});
     fireEvent.click(screen.getByRole('button',{name:'Place selected fixture'}));fireEvent.pointerDown(canvas,{clientX:1000,clientY:1000,button:0});
     const box=canvas.querySelector('[data-object] rect[fill="#f7e4b9"]')!;
@@ -107,6 +108,15 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:/Review & create 3D/}));fireEvent.click(screen.getByLabelText('I checked the dimensions, openings and fixtures.'));
     fireEvent.click(screen.getByRole('button',{name:/Confirm & create 3D home/}));
     expect(usePlanner.getState().plan.furniture.find(f=>f.catalogId==='door-flush')?.doorless).toBe(true);
+  });
+  it('resizes a rectangle with a corner handle, and undo restores the drawing only',()=>{
+    const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
+    fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));
+    const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),handle=canvas.querySelector('[data-handle="se"]')!;
+    fireEvent.pointerDown(handle,{clientX:5000,clientY:5000,button:0});fireEvent.pointerMove(canvas,{clientX:4300,clientY:4700});fireEvent.pointerUp(canvas,{clientX:4300,clientY:4700});
+    expect(screen.getByLabelText('width (m)')).toHaveValue(4.3);expect(screen.getByLabelText('depth (m)')).toHaveValue(4.7);
+    expect(usePlanner.getState().plan).toBe(original);fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
+    fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByLabelText('width (m)')).toHaveValue(5);
   });
   it('moves a room in top-down view without moving the saved floor',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);

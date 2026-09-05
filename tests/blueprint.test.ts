@@ -1,4 +1,4 @@
-import {openPlanAreas} from '../src/blueprint';
+import {cutBlueprintWalls,combineBlueprintRooms,openPlanAreas} from '../src/blueprint';
 import { describe,expect,it } from 'vitest';
 import { createSamplePlan,parsePlan,serializePlan,encodeShare,decodeShare } from '../src/domain';
 import { catalog } from '../src/catalog';
@@ -110,4 +110,19 @@ it('opens living and entry labels while retaining enclosed bedroom and solarium 
  expect(walls.some(w=>w.ax*grid===4000&&w.bx*grid===4000&&Math.min(w.az,w.bz)*grid<4000)).toBe(false);
  expect(walls.some(w=>w.az*grid===4000&&w.bz*grid===4000)).toBe(true);
  expect(opened.find(r=>r.id==='sol')?.enclosed).toBe(true);
+});
+
+it('removes only a wall span, retaining both ends and restoring cuts on reopening',()=>{
+ const base=createSamplePlan('Wall cuts','metric'),floorId=base.floors[0].id,g=base.gridSizeMm;
+ const wall={id:'inside',ax:0,az:2000/g,bx:6000/g,bz:2000/g},cut={id:'cut',ax:2000/g,az:2000/g,bx:3000/g,bz:2000/g};
+ const walls=cutBlueprintWalls([wall],[cut]);expect(walls.map(w=>[w.ax*g,w.bx*g])).toEqual([[0,2000],[3000,6000]]);
+ const draft:BlueprintDraft={rooms:[{id:'r',name:'Room',kind:'Living',enclosed:false,x:0,z:0,width:6000,depth:4000}],walls:[wall],wallCuts:[cut],fixtures:[],omittedWalls:[]};
+ const plan=blueprintPlan(base,floorId,draft),reopened=draftFromFloor(plan,floorId);expect(reopened.wallCuts).toEqual([cut]);expect(blueprintPlan(plan,floorId,reopened).floors[0].walls).toEqual(plan.floors[0].walls);
+});
+it('combines adjoining rectangles without filling an L-shaped exterior void or moving fixtures',()=>{
+ const a:BlueprintRoom={id:'a',name:'Living',kind:'Living',enclosed:true,x:0,z:0,width:4000,depth:4000},b:BlueprintRoom={...a,id:'b',name:'Entry',kind:'Hall',x:4000,z:2000,width:2000,depth:2000};
+ const draft:BlueprintDraft={rooms:[a,b],walls:[{id:'shared',ax:8,az:4,bx:8,bz:8}],omittedWalls:[],fixtures:[]};
+ const combined=combineBlueprintRooms(draft,'a','b',500);expect(combined.rooms.map(r=>r.groupId)).toEqual(['a','a']);expect(combined.rooms[1].width).toBe(2000);expect(combined.fixtures).toEqual(draft.fixtures);
+ expect(cutBlueprintWalls(combined.walls,combined.wallCuts??[])).toHaveLength(0);
+ expect(()=>combineBlueprintRooms({...draft,rooms:[a,{...b,x:9000}]},'a','b',500)).toThrow('share an edge');
 });

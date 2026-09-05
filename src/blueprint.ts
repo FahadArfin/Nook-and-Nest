@@ -12,7 +12,7 @@ export function roomGroups(rooms:BlueprintRoom[]) {
   const groups=new Map<string,BlueprintRoom[]>();for(const room of rooms){const key=room.groupId??room.id,list=groups.get(key)??[];list.push(room);groups.set(key,list);}
   return [...groups.values()].map(parts=>{const x=Math.min(...parts.map(p=>p.x)),z=Math.min(...parts.map(p=>p.z));return {...parts[0],x,z,width:Math.max(...parts.map(p=>p.x+p.width))-x,depth:Math.max(...parts.map(p=>p.z+p.depth))-z,enclosed:parts.some(p=>p.enclosed),parts};});
 }
-export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[] }
+export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[]; wallCuts?:WallSegment[] }
 export const geometryKey = (floor:FloorPlan) => {
   const text=JSON.stringify([floor.cells,floor.cellRects??{},floor.walls]);let hash=2166136261;
   for(let i=0;i<text.length;i++)hash=Math.imul(hash^text.charCodeAt(i),16777619);
@@ -52,7 +52,7 @@ export function draftFromFloor(plan:PlanDocumentV1,floorId:string):BlueprintDraf
   const saved=floor.blueprint;
   const rooms=saved?.geometryKey===geometryKey(floor)?structuredClone(saved.rooms):mergeFloorRegions(floorRects(floor,plan.gridSizeMm)).map((r,i)=>({...r,id:uid(),name:`Area ${i+1}`,kind:'Hall' as const,enclosed:false}));
   const valid=saved?.geometryKey===geometryKey(floor);
-  return {rooms,walls:structuredClone(floor.walls.filter(w=>!valid||!saved?.generatedWallIds?.includes(w.id))),omittedWalls:valid?[...saved?.omittedWalls??[]]:[],fixtures:structuredClone(plan.furniture.filter(f=>f.floorId===floorId&&isFixedPiece(f.catalogId)))};
+  return {rooms,wallCuts:valid?structuredClone(saved?.wallCuts??[]):[],walls:structuredClone(floor.walls.filter(w=>!valid||!saved?.generatedWallIds?.includes(w.id))),omittedWalls:valid?[...saved?.omittedWalls??[]]:[],fixtures:structuredClone(plan.furniture.filter(f=>f.floorId===floorId&&isFixedPiece(f.catalogId)))};
 }
 export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoom[]):FloorPlan {
   if(!rooms.length||rooms.length>100)throw new Error('Draw between 1 and 100 room areas.');
@@ -91,13 +91,47 @@ export function roomDividers(floor:FloorPlan,grid:number,rooms:BlueprintRoom[]):
   }
   return result;
 }
+export function cutBlueprintWalls(walls:WallSegment[],cuts:WallSegment[]):WallSegment[] {
+  return walls.flatMap(w=>{
+    const horizontal=w.az===w.bz,line=horizontal?w.az:w.ax;
+    let spans:[[number,number]]|[number,number][]=[[Math.min(horizontal?w.ax:w.az,horizontal?w.bx:w.bz),Math.max(horizontal?w.ax:w.az,horizontal?w.bx:w.bz)]];
+    for(const cut of cuts){if((cut.az===cut.bz)!==horizontal||Math.abs((horizontal?cut.az:cut.ax)-line)>.001)continue;
+      const a=Math.min(horizontal?cut.ax:cut.az,horizontal?cut.bx:cut.bz),b=Math.max(horizontal?cut.ax:cut.az,horizontal?cut.bx:cut.bz);
+      spans=spans.flatMap(([x,y])=>b<=x||a>=y?[[x,y]]:([[x,Math.max(x,a)],[Math.min(y,b),y]] as [number,number][]).filter(([l,r])=>r-l>.001));
+    }
+    if(spans.length===1&&spans[0][0]===Math.min(horizontal?w.ax:w.az,horizontal?w.bx:w.bz)&&spans[0][1]===Math.max(horizontal?w.ax:w.az,horizontal?w.bx:w.bz))return [w];
+    return spans.map(([a,b])=>({id:`cut:${horizontal?1:0}:${line}:${a}:${b}`,ax:horizontal?a:line,az:horizontal?line:a,bx:horizontal?b:line,bz:horizontal?line:b}));
+  });
+}
+export function fixturesAfterWallCuts(fixtures:FurniturePlacement[],cuts:WallSegment[],grid:number) {
+  return fixtures.filter(f=>!isWallOpening(f.catalogId)||!cuts.some(c=>{
+    const horizontal=c.az===c.bz;if(horizontal!==(f.rotation%180===0))return false;
+    const line=(horizontal?c.az:c.ax)*grid,along=horizontal?f.x:f.z;
+    return Math.abs((horizontal?f.z:f.x)-line)<1&&along+f.widthMm/2>Math.min(horizontal?c.ax:c.az,horizontal?c.bx:c.bz)*grid&&along-f.widthMm/2<Math.max(horizontal?c.ax:c.az,horizontal?c.bx:c.bz)*grid;
+  }));
+}
+export function combineBlueprintRooms(draft:BlueprintDraft,first:string,second:string,grid:number):BlueprintDraft {
+  const groups=roomGroups(draft.rooms),a=groups.find(g=>g.parts.some(p=>p.id===first)),b=groups.find(g=>g.parts.some(p=>p.id===second));
+  if(!a||!b||a===b)throw new Error('Select two different adjoining rooms.');
+  const cuts:WallSegment[]=[];
+  for(const x of a.parts)for(const y of b.parts){
+    const top=Math.max(x.z,y.z),bottom=Math.min(x.z+x.depth,y.z+y.depth),left=Math.max(x.x,y.x),right=Math.min(x.x+x.width,y.x+y.width);
+    const vertical=Math.abs(x.x+x.width-y.x)<1?y.x:Math.abs(y.x+y.width-x.x)<1?x.x:undefined;
+    const horizontal=Math.abs(x.z+x.depth-y.z)<1?y.z:Math.abs(y.z+y.depth-x.z)<1?x.z:undefined;
+    if(vertical!==undefined&&bottom>top)cuts.push({id:uid(),ax:vertical/grid,bx:vertical/grid,az:top/grid,bz:bottom/grid});
+    if(horizontal!==undefined&&right>left)cuts.push({id:uid(),ax:left/grid,bx:right/grid,az:horizontal/grid,bz:horizontal/grid});
+  }
+  if(!cuts.length)throw new Error('These rooms must share an edge. Resize or move their rectangles so they meet first.');
+  const ids=new Set([...a.parts,...b.parts].map(p=>p.id)),groupId=a.groupId??a.id;
+  return {...draft,fixtures:fixturesAfterWallCuts(draft.fixtures,cuts,grid),rooms:draft.rooms.map(r=>ids.has(r.id)?{...r,groupId,name:a.name,kind:a.kind,enclosed:a.enclosed||b.enclosed}:r),wallCuts:[...draft.wallCuts??[],...cuts]};
+}
 export function blueprintPlan(base:PlanDocumentV1,floorId:string,draft:BlueprintDraft):PlanDocumentV1 {
   const original=base.floors.find(f=>f.id===floorId);if(!original)throw new Error('This floor no longer exists.');
   const floor=floorFromRooms(original,base.gridSizeMm,draft.rooms);
-  const generated=roomDividers(floor,base.gridSizeMm,draft.rooms);
-  const walls=[...generated,...draft.walls].filter(w=>!draft.omittedWalls.includes(w.id));
+  const generated=cutBlueprintWalls(roomDividers(floor,base.gridSizeMm,draft.rooms),draft.wallCuts??[]);
+  const walls=[...generated,...cutBlueprintWalls(draft.walls,draft.wallCuts??[])].filter(w=>!draft.omittedWalls.includes(w.id));
   const seen=new Set<string>();floor.walls=walls.filter(w=>{const points=[`${w.ax},${w.az}`,`${w.bx},${w.bz}`].sort().join(':');if(seen.has(points))return false;seen.add(points);return true;});
-  floor.blueprint={rooms:structuredClone(draft.rooms),geometryKey:geometryKey(floor),generatedWallIds:generated.map(w=>w.id),omittedWalls:[...draft.omittedWalls]};
+  floor.blueprint={rooms:structuredClone(draft.rooms),geometryKey:geometryKey(floor),generatedWallIds:generated.map(w=>w.id),wallCuts:structuredClone(draft.wallCuts??[]),omittedWalls:[...draft.omittedWalls]};
   const plan={...base,floors:base.floors.map(f=>f.id===floorId?floor:{...f,stairs:f.stairs.filter(s=>s.toFloorId!==floorId)}),furniture:[...base.furniture.filter(f=>f.floorId!==floorId&&f.toFloorId!==floorId),...structuredClone(draft.fixtures)],camera:{...base.camera,mode:'isometric' as const}};
   validatePlan(plan);return plan;
 }
