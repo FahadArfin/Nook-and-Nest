@@ -46,6 +46,13 @@ describe('floor plan studio flow',()=>{
     expect(await screen.findByRole('button',{name:/Detected bedroom/})).toHaveTextContent('5.00 × 4.00');
     expect(screen.getByText('5 m = 5.000 m')).toBeVisible();expect(screen.getByRole('button',{name:'Review & create 3D →'})).toBeEnabled();expect(usePlanner.getState().plan).toBe(original);
   });
+  it('shows a multi-part room once and renames and moves all its parts together',async()=>{
+    vi.mocked(recognizeReference).mockResolvedValueOnce({rooms:[{name:'Living room',kind:'Living',x:0,y:0,width:500,height:300,enclosed:false,note:''},{name:'Living room — extension',kind:'Living',x:0,y:300,width:200,height:200,enclosed:false,note:''},{name:'Closet',kind:'Closet',x:500,y:0,width:100,height:100,enclosed:true,note:''}],dimensions:[{text:'5 m',millimetres:5000,ax:0,ay:0,bx:500,by:0}],fixtures:[],warnings:[]});
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    await screen.findByRole('heading',{name:'Rooms & spaces · 1'});expect(screen.getAllByRole('button',{name:/Living room/})).toHaveLength(1);expect(screen.getByRole('heading',{name:'Closets & circulation'})).toBeVisible();
+    fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Lounge'}});fireEvent.change(screen.getByLabelText('Left (m)'),{target:{value:'1'}});fireEvent.blur(screen.getByLabelText('Left (m)'));
+    const parts=screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelectorAll('[data-object="scan-room-0"] rect');expect(parts).toHaveLength(2);expect(parts[0].getAttribute('x')).toBe('1000');expect(parts[1].getAttribute('x')).toBe('1000');expect(screen.getAllByRole('button',{name:/Lounge/})).toHaveLength(1);
+  });
   it('keeps the existing draft on analysis failure',async()=>{
     vi.mocked(recognizeReference).mockRejectedValueOnce(new Error('Image analysis is unavailable'));
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});

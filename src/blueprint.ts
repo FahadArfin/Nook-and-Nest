@@ -7,7 +7,11 @@ import type { FloorPlan, FurniturePlacement, PlanDocumentV1, WallSegment } from 
 
 export const roomKinds = ['Living', 'Bedroom', 'Dining', 'Office', 'Kitchen', 'Bathroom', 'Laundry', 'Hall', 'Outdoor', 'Closet'] as const;
 export type RoomKind = typeof roomKinds[number];
-export interface BlueprintRoom extends FloorRect { id:string; name:string; kind:RoomKind; enclosed:boolean }
+export interface BlueprintRoom extends FloorRect { id:string; name:string; kind:RoomKind; enclosed:boolean; groupId?:string }
+export function roomGroups(rooms:BlueprintRoom[]) {
+  const groups=new Map<string,BlueprintRoom[]>();for(const room of rooms){const key=room.groupId??room.id,list=groups.get(key)??[];list.push(room);groups.set(key,list);}
+  return [...groups.values()].map(parts=>{const x=Math.min(...parts.map(p=>p.x)),z=Math.min(...parts.map(p=>p.z));return {...parts[0],x,z,width:Math.max(...parts.map(p=>p.x+p.width))-x,depth:Math.max(...parts.map(p=>p.z+p.depth))-z,enclosed:parts.some(p=>p.enclosed),parts};});
+}
 export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[] }
 export const geometryKey = (floor:FloorPlan) => {
   const text=JSON.stringify([floor.cells,floor.cellRects??{},floor.walls]);let hash=2166136261;
@@ -43,7 +47,8 @@ export function draftFromFloor(plan:PlanDocumentV1,floorId:string):BlueprintDraf
   const floor=plan.floors.find(f=>f.id===floorId)!;
   const saved=floor.blueprint;
   const rooms=saved?.geometryKey===geometryKey(floor)?structuredClone(saved.rooms):mergeFloorRegions(floorRects(floor,plan.gridSizeMm)).map((r,i)=>({...r,id:uid(),name:`Area ${i+1}`,kind:'Hall' as const,enclosed:false}));
-  return {rooms,walls:structuredClone(floor.walls),omittedWalls:[],fixtures:structuredClone(plan.furniture.filter(f=>f.floorId===floorId&&isFixedPiece(f.catalogId)))};
+  const valid=saved?.geometryKey===geometryKey(floor);
+  return {rooms,walls:structuredClone(floor.walls.filter(w=>!valid||!saved?.generatedWallIds?.includes(w.id))),omittedWalls:valid?[...saved?.omittedWalls??[]]:[],fixtures:structuredClone(plan.furniture.filter(f=>f.floorId===floorId&&isFixedPiece(f.catalogId)))};
 }
 export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoom[]):FloorPlan {
   if(!rooms.length||rooms.length>100)throw new Error('Draw between 1 and 100 room areas.');
@@ -68,7 +73,10 @@ export function roomDividers(floor:FloorPlan,grid:number,rooms:BlueprintRoom[]):
   const boundary=floorBoundaryWalls(floor,grid);
   const lines=new Map<string,{horizontal:boolean;line:number;intervals:[number,number][]}>();
   const add=(horizontal:boolean,line:number,start:number,end:number)=>{const key=`${horizontal}:${line}`;const g=lines.get(key)??{horizontal,line,intervals:[]};g.intervals.push([start,end]);lines.set(key,g);};
-  for(const r of rooms.filter(r=>r.enclosed)) {add(true,r.z,r.x,r.x+r.width);add(true,r.z+r.depth,r.x,r.x+r.width);add(false,r.x,r.z,r.z+r.depth);add(false,r.x+r.width,r.z,r.z+r.depth);}
+  for(const group of roomGroups(rooms).filter(r=>r.enclosed))for(const w of floorBoundaryWalls(floorFromRooms(floor,grid,group.parts),grid)){
+    if(w.az===w.bz)add(true,w.az*grid,Math.min(w.ax,w.bx)*grid,Math.max(w.ax,w.bx)*grid);
+    else add(false,w.ax*grid,Math.min(w.az,w.bz)*grid,Math.max(w.az,w.bz)*grid);
+  }
   const result:WallSegment[]=[];
   for(const g of lines.values()) {
     const boundaries=boundary.filter(w=>g.horizontal?Math.abs(w.az*grid-g.line)<.01&&w.az===w.bz:Math.abs(w.ax*grid-g.line)<.01&&w.ax===w.bx).map(w=>g.horizontal?[Math.min(w.ax,w.bx)*grid,Math.max(w.ax,w.bx)*grid]:[Math.min(w.az,w.bz)*grid,Math.max(w.az,w.bz)*grid]);
@@ -82,9 +90,10 @@ export function roomDividers(floor:FloorPlan,grid:number,rooms:BlueprintRoom[]):
 export function blueprintPlan(base:PlanDocumentV1,floorId:string,draft:BlueprintDraft):PlanDocumentV1 {
   const original=base.floors.find(f=>f.id===floorId);if(!original)throw new Error('This floor no longer exists.');
   const floor=floorFromRooms(original,base.gridSizeMm,draft.rooms);
-  const walls=[...roomDividers(floor,base.gridSizeMm,draft.rooms),...draft.walls].filter(w=>!draft.omittedWalls.includes(w.id));
+  const generated=roomDividers(floor,base.gridSizeMm,draft.rooms);
+  const walls=[...generated,...draft.walls].filter(w=>!draft.omittedWalls.includes(w.id));
   const seen=new Set<string>();floor.walls=walls.filter(w=>{const points=[`${w.ax},${w.az}`,`${w.bx},${w.bz}`].sort().join(':');if(seen.has(points))return false;seen.add(points);return true;});
-  floor.blueprint={rooms:structuredClone(draft.rooms.map(r=>({...r,enclosed:false}))),geometryKey:geometryKey(floor)};
+  floor.blueprint={rooms:structuredClone(draft.rooms),geometryKey:geometryKey(floor),generatedWallIds:generated.map(w=>w.id),omittedWalls:[...draft.omittedWalls]};
   const plan={...base,floors:base.floors.map(f=>f.id===floorId?floor:{...f,stairs:f.stairs.filter(s=>s.toFloorId!==floorId)}),furniture:[...base.furniture.filter(f=>f.floorId!==floorId&&f.toFloorId!==floorId),...structuredClone(draft.fixtures)],camera:{...base.camera,mode:'isometric' as const}};
   validatePlan(plan);return plan;
 }
@@ -118,7 +127,8 @@ export function autoFurnish(base:PlanDocumentV1,floorId:string,rooms:BlueprintRo
   // Reserve both sides of each door, including old-style openings.
   const doorZones=plan.furniture.filter(f=>f.floorId===floorId&&isDoor(f.catalogId)).map(f=>footprint({...f,depthMm:2000},100));
   for(const o of floor.openings.filter(o=>o.kind==='door')){const w=[...floorBoundaryWalls(floor,plan.gridSizeMm),...floor.walls].find(w=>w.id===o.wallKey);if(w)doorZones.push({x:(w.ax+(w.bx-w.ax)*o.offset)*plan.gridSizeMm-1100,z:(w.az+(w.bz-w.az)*o.offset)*plan.gridSizeMm-1100,width:2200,depth:2200});}
-  for(const room of rooms) {
+  for(const room of roomGroups(rooms)) {
+    const roomFloor=floorFromRooms(floor,plan.gridSizeMm,room.parts);
     for(const id of groups[room.kind]??[]) {
       const c=catalog.find(c=>c.id===id)!;
       // Calling the button again does not duplicate a room's existing arrangement.
@@ -144,7 +154,7 @@ export function autoFurnish(base:PlanDocumentV1,floorId:string,rooms:BlueprintRo
           if(rect.x<room.x||rect.z<room.z||rect.x+rect.width>room.x+room.width||rect.z+rect.depth>room.z+room.depth)continue;
           if(walls.some(w=>overlaps(rect,w))||doorZones.some(d=>overlaps(rect,d)))continue;
           if(plan.furniture.some(f=>f.floorId===floorId&&(f.elevationMm??0)<item.heightMm&&overlaps(footprint(f,isDoor(f.catalogId)?600:250),rect)))continue;
-          if(!coveredByFloor(rect,floor,plan.gridSizeMm))continue;
+          if(!coveredByFloor(rect,floor,plan.gridSizeMm)||!coveredByFloor(rect,roomFloor,plan.gridSizeMm))continue;
           chosen=item;break;
         }if(chosen)break;
       }

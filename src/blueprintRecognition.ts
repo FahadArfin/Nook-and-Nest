@@ -1,5 +1,4 @@
-import {blueprintPlan,fixtureAt,floorFromRooms,coveredByFloor,footprint,type BlueprintDraft} from './blueprint';
-import {floorBoundaryWalls} from './floorGeometry';
+import {blueprintPlan,fixtureAt,coveredByFloor,footprint,type BlueprintDraft} from './blueprint';
 import {recognizedScale,validateRecognition,type Recognition} from './recognitionContract';
 import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1} from './types';
@@ -14,18 +13,8 @@ export async function recognizeReference(reference:PlanReference,signal?:AbortSi
 }
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition) {
   const scale=recognizedScale(result),mm=(n:number)=>Math.round(n*scale);
-  const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>({id:`scan-room-${i}`,name:r.name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:false})),walls:[],omittedWalls:[],fixtures:[]};
-  // Union each physical room before adding dividers, avoiding walls through its L-shaped extensions.
-  const original=base.floors.find(f=>f.id===floorId)!,grid=base.gridSizeMm;
-  const boundary=floorBoundaryWalls(floorFromRooms(original,grid,draft.rooms),grid);
-  const groups=new Map<string,typeof draft.rooms>();
-  result.rooms.forEach((r,i)=>{if(!r.enclosed)return;const name=r.name.split(/\s+[—–]\s+/)[0].toLowerCase(),g=groups.get(name)??[];g.push(draft.rooms[i]);groups.set(name,g);});
-  for(const rooms of groups.values())for(const w of floorBoundaryWalls(floorFromRooms(original,grid,rooms),grid)){
-    const horizontal=w.az===w.bz,line=horizontal?w.az:w.ax,a=horizontal?Math.min(w.ax,w.bx):Math.min(w.az,w.bz),b=horizontal?Math.max(w.ax,w.bx):Math.max(w.az,w.bz);
-    const outside=boundary.filter(o=>horizontal?o.az===o.bz&&Math.abs(o.az-line)<.00001:o.ax===o.bx&&Math.abs(o.ax-line)<.00001).map(o=>horizontal?[Math.min(o.ax,o.bx),Math.max(o.ax,o.bx)]:[Math.min(o.az,o.bz),Math.max(o.az,o.bz)]);
-    const points=[...new Set([a,b,...outside.flat().filter(p=>p>a&&p<b)])].sort((x,y)=>x-y);
-    for(let i=0;i<points.length-1;i++){const mid=(points[i]+points[i+1])/2;if(outside.some(([start,end])=>mid>=start&&mid<=end))continue;draft.walls.push({id:`scan-wall-${draft.walls.length}`,ax:horizontal?points[i]:line,az:horizontal?line:points[i],bx:horizontal?points[i+1]:line,bz:horizontal?line:points[i+1]});}
-  }
+  const draft:BlueprintDraft={rooms:result.rooms.map((r,i)=>{const name=r.name.split(/\s+[—–]\s+/)[0];return {id:`scan-room-${i}`,groupId:`scan-group-${name.toLowerCase()}`,name,kind:r.kind,x:mm(r.x),z:mm(r.y),width:Math.max(10,mm(r.x+r.width)-mm(r.x)),depth:Math.max(10,mm(r.y+r.height)-mm(r.y)),enclosed:r.enclosed};}),walls:[],omittedWalls:[],fixtures:[]};
+  const grid=base.gridSizeMm;
   const plan=blueprintPlan(base,floorId,draft);
   const placementNotes:string[]=[];
   result.fixtures.forEach((f,i)=>{
