@@ -35,3 +35,16 @@
 .dark-mode :is(.bp-entry,.bp-arrangement,.bp-controls-notice){background:#29372cf5;color:#e5e9db}
 .dark-mode :is(.bp-entry>button,.bp-arrangement button,.bp-controls-notice button){background:#344236;color:#eeeadd;border-color:#60705b}
 .dark-mode .bp-arrangement button.primary{background:#adc194;color:#1c2b1c}
+
+/* Keep drawing tools visible without competing with the selection inspector. */
+.bp-workspace{grid-template-columns:250px minmax(0,1fr) 88px}
+.bp-sidebar details>summary{cursor:pointer;font-weight:800;padding:8px 0}
+.bp-tool-rail{position:relative;display:flex;flex-direction:column;gap:7px;align-items:stretch;padding:10px 7px;border-left:1px solid var(--line);background:var(--bp-panel,var(--paper));overflow:visible}
+.bp-tool-rail>button{display:flex;flex-direction:column;gap:3px;padding:8px 3px;font-size:11px;min-height:58px}
+.bp-tool-rail>button.active{box-shadow:inset 0 0 0 2px #bc8734}
+.bp-fixture-picker{position:absolute;z-index:8;right:95px;top:12px;width:290px;max-height:calc(100% - 24px);overflow:auto;background:var(--paper);color:var(--ink);padding:18px;border:1px solid var(--line);border-radius:14px;box-shadow:0 12px 35px #0004}
+.bp-fixture-picker h2{font-size:19px}.bp-fixture-picker label{display:grid;gap:8px;margin:12px 0}.bp-fixture-picker select{width:100%;min-width:0;padding:8px}.bp-quick-fixtures{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.blueprint-dialog[data-theme=dark] :is(.bp-tool-rail,.bp-fixture-picker){background:#29372c;color:#e5e9db}
+@media(max-height:780px){.bp-tool-rail{gap:3px}.bp-tool-rail>button{min-height:44px;padding:4px 2px}.bp-tool-rail svg{height:20px}}
+@media(max-width:900px){.bp-workspace{grid-template-columns:200px minmax(0,1fr) 70px}.bp-tool-rail{padding:7px 4px}.bp-fixture-picker{right:76px;width:250px}}
+@media(max-width:620px){.bp-workspace{grid-template-columns:minmax(0,1fr) 64px}.bp-sidebar{max-height:190px;grid-column:1 / -1;border-bottom:1px solid var(--line)}.bp-workspace{grid-template-rows:auto minmax(0,1fr)}.bp-tool-rail>button{min-height:34px;font-size:10px;padding:2px}.bp-tool-rail svg{height:16px}.bp-fixture-picker{right:68px;max-width:calc(100vw - 110px)}}
