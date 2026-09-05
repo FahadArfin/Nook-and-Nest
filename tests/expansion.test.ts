@@ -119,3 +119,16 @@ describe("private cloud project API against SQLite", () => {
     expect((await (await call(db, "/api/projects")).json()).projects).toEqual([]);
   });
 });
+
+it("deletes only the owner's matching online revision and rejects cross-site or stale deletion",async()=>{
+ const db=database(),p=createSamplePlan("Delete me");
+ await call(db,`/api/projects/${p.id}`,"alice",{plan:p,expectedRevision:0});
+ await call(db,`/api/projects/${p.id}`,"bob",{plan:p,expectedRevision:0});
+ const remove=(owner:string,revision:number,origin="https://nest.test")=>worker.fetch(new Request(`https://nest.test/api/projects/${p.id}?revision=${revision}`,{method:"DELETE",headers:{"oai-authenticated-user-id":owner,origin,"content-type":"application/json"}}),{DB:db});
+ expect((await remove("alice",1,"https://other.test")).status).toBe(403);
+ expect((await remove("alice",2)).status).toBe(409);
+ expect((await remove("alice",1)).status).toBe(200);
+ expect((await call(db,`/api/projects/${p.id}`,"alice")).status).toBe(404);
+ expect((await call(db,`/api/projects/${p.id}`,"bob")).status).toBe(200);
+ expect((await call(db,`/api/projects/${p.id}`,"alice",{plan:p,expectedRevision:1})).status).toBe(409);
+});

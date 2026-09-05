@@ -11,7 +11,7 @@ import { createSamplePlan } from "../src/domain";
 import { usePlanner } from "../src/store";
 import { fitStair,stairHoles } from "../src/building";
 import { catalog } from "../src/catalog";
-import { App } from "../src/App";
+import { EditorApp as App } from "../src/App";
 const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:vi.fn(),zoom:vi.fn(),focus:vi.fn()}));
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
