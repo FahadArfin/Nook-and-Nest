@@ -60,7 +60,7 @@ it('supports precise rooms, wall geometry, regional finishes and optional enviro
  expect(stage([{action:'add_wall',floorId:floor(),ax:0,az:0,bx:1000,bz:1000}]).ok).toBe(false);expect(stage([{action:'finish',floorId:floor(),kind:'wall',finishId:'bad'}]).ok).toBe(false);
 });
 it('supports per-part recolors, removal and returns normalized rotations',()=>{
- const info=call('nook_search_catalog',{query:'refrigerator'}).items[0],slot=info.materials[0].id;
+ const info=call('nook_search_catalog',{query:'refrigerator'}).items.find((item:any)=>item.id==='refrigerator'),slot=info.materials[0].id;
  const r=stage([place('refrigerator',{key:'fridge'}),{action:'update',id:'fridge',rotation:-15,materialColors:{[slot]:'#123abc'}}]);expect(r.ok).toBe(true);expect(r.placements[0].rotation).toBe(345);expect(r.placements[0].materialColors[slot]).toBe('#123abc');
  const p=buildDesign(usePlanner.getState().plan,[place(),place('desk')]).plan;expect(buildDesign(p,[{action:'remove',ids:[p.furniture[0].id]}]).plan.furniture).toHaveLength(1);
 });

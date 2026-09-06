@@ -19,6 +19,7 @@ for name in sys.argv[sys.argv.index('--')+1:]:
             if obj.type=='MESH':obj.matrix_world=flip @ obj.matrix_world
     scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True
     scene.render.resolution_x=480;scene.render.resolution_y=440;scene.render.resolution_percentage=100
+    if scene.world is None: scene.world=bpy.data.worlds.new('Catalog studio')
     scene.world.color=(.45,.45,.45);scene.view_settings.view_transform='AgX'
     bpy.ops.object.camera_add(location=(50,-70,50) if name.startswith('backdrop-') else (3,-5,3.4))
     camera=bpy.context.object;camera.rotation_euler=(Vector((0,0,h*.48))-camera.location).to_track_quat('-Z','Y').to_euler()
