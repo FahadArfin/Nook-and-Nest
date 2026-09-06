@@ -27,7 +27,7 @@ describe("library organization",()=>{
     expect(matchesFurniture(item("oval-freestanding-tub"),"  TUB  ")).toBe(true);
   });
   it("offers only relevant types and intersects category, type and saved filters",()=>{
-    const bath=filterLibrary({...options,category:"Bathroom"});expect(bath.items).toHaveLength(25);
+    const bath=filterLibrary({...options,category:"Bathroom"});expect(bath.items).toHaveLength(27);
     expect(bath.types).toEqual(["Bathtubs","Mirrors","Organizers","Showers","Sinks & vanities","Toilets"]);
     expect(filterLibrary({...options,category:"Bathroom",type:"Mirrors",shelf:"favorites",favorites:["bath-mirror-pill","sofa"]}).items.map(i=>i.id)).toEqual(["bath-mirror-pill"]);
   });
@@ -48,7 +48,7 @@ describe("library controls",()=>{
   it("navigates categories and subtypes, then searches the entire collection",()=>{
     mount();fireEvent.change(screen.getByLabelText("Furniture category"),{target:{value:"Bathroom"}});
     fireEvent.change(screen.getByLabelText("Furniture type"),{target:{value:"Toilets"}});
-    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(3);
+    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(5);
     fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"couch"}});
     expect((screen.getByLabelText("Furniture category") as HTMLSelectElement).value).toBe("All");
     expect(screen.getByRole("button",{name:"Cloud sofa, drag to place"})).toBeTruthy();
@@ -107,7 +107,7 @@ describe('library icon navigation',()=>{
     expect(screen.queryByRole('button',{name:'Type: Sofas'})).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Type: Toilets'}));
     expect((screen.getByLabelText('Furniture type') as HTMLSelectElement).value).toBe('Toilets');
-    expect(screen.getAllByRole('button',{name:/drag to place/})).toHaveLength(3);
+    expect(screen.getAllByRole('button',{name:/drag to place/})).toHaveLength(5);
     fireEvent.change(screen.getByLabelText('Furniture type'),{target:{value:'Mirrors'}});
     expect(screen.getByRole('button',{name:'Type: Mirrors'}).getAttribute('aria-pressed')).toBe('true');
     fireEvent.click(screen.getByRole('button',{name:'Category: Living'}));
