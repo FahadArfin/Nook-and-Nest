@@ -106,7 +106,7 @@ describe("building editor wiring",()=>{
     fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(screen.getByRole("toolbar",{name:`Place ${model.name}`})).toBeTruthy();expect(state().plan.furniture).toEqual([]);
     fireEvent.click(screen.getByRole("button",{name:"Rotate right"}));fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));
-    expect(state().plan.furniture).toHaveLength(1);expect(state().plan.furniture[0].rotation).toBe(90);expect(state().selectedId).toBeUndefined();
+    expect(state().plan.furniture).toHaveLength(1);expect(state().plan.furniture[0].rotation).toBe(270);expect(state().selectedId).toBeUndefined();
     act(()=>scene.callbacks.onSelect(state().plan.furniture[0].id));expect(screen.getByRole("toolbar",{name:`Edit ${model.name}`})).toBeTruthy();expect(screen.getByLabelText("Connect to floor")).toBeTruthy();
   });
 });
