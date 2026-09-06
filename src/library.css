@@ -45,3 +45,38 @@
 .library-expanded .library-results-heading select{width:145px}
 @media (max-width:1300px){.library-expanded .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-height:760px){.catalog-panel.library-panel{padding-top:10px}.library-panel .eyebrow{display:none}.library-filters{margin:10px 0;gap:6px}.library-results-heading{padding-top:8px}.library-panel .library-search{margin-top:10px}.library-panel .item-illustration{height:73px}.library-panel .catalog-card{min-height:162px}}
+
+/* KSP-inspired category rail with grouped furniture sections beside it. */
+.library-browser-body{display:flex;gap:9px;flex:1;min-height:0;margin-top:10px}
+.library-browser-content{display:flex;flex-direction:column;flex:1;min-width:0;min-height:0}
+.library-icon-navigation{display:flex;flex-direction:column;flex:0 0 42px;min-height:0;border-right:1px solid var(--line);padding-right:5px}
+.library-rail-heading>span{display:none}
+.library-rail-heading>div{display:flex;justify-content:center;gap:2px}
+.library-rail-heading button{display:grid;place-items:center;width:18px;height:22px;border:0;border-radius:5px;background:transparent;color:var(--ink);cursor:pointer}
+.library-rail-heading button:disabled{opacity:.25;cursor:default}
+.library-icon-rail{display:flex;flex-direction:column;gap:5px;overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin;scrollbar-color:#aab59b transparent;padding:4px 2px 5px;min-height:0}
+.library-icon-rail button{flex:0 0 38px;width:32px;display:flex;align-items:center;justify-content:center;padding:4px;border:1px solid transparent;border-radius:8px;background:transparent;color:var(--ink);cursor:pointer}
+.library-icon-rail button span{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.library-icon-rail button:hover{background:#e8eddf}
+.library-icon-rail button[aria-pressed=true]{background:#dce5cf;border-color:#839675;color:#35472e;box-shadow:inset 3px 0 #839675}
+.library-icon-navigation button:focus-visible,.library-type-heading:focus-visible{outline:2px solid #b77c59;outline-offset:-2px}
+.library-panel .library-search{margin-top:0;margin-bottom:7px}
+.library-filters{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px;margin:9px 0}
+.library-filters label{grid-template-columns:minmax(0,1fr);gap:3px}
+.library-type-heading{display:flex;align-items:center;gap:7px;width:100%;padding:10px 3px 8px;border:0;border-top:1px solid var(--line);background:transparent;color:var(--ink);text-align:left;cursor:pointer}
+.library-type-heading strong{flex:1;font-size:11px}.library-type-heading small{font-size:10px;color:var(--muted)}
+.library-type-heading[aria-pressed=true]{color:#6d825c}
+.library-type-section:first-child .library-type-heading{border-top:0}
+.library-panel .library-grid{gap:7px;padding-left:1px;padding-right:1px}
+.library-panel .item-illustration{padding-left:3px;padding-right:3px}
+.library-results-heading select{width:86px}
+.library-footer{flex-wrap:wrap;font-size:8px;gap:3px}
+.dark-mode .library-icon-rail button{color:#e4e8dc}
+.dark-mode .library-icon-rail button:hover{background:#404e41}
+.dark-mode .library-icon-rail button[aria-pressed=true]{background:#52664c;color:#f4f2df;border-color:#a1b48a;box-shadow:inset 3px 0 #a1b48a}
+.dark-mode .library-type-heading[aria-pressed=true]{color:#b5c7a0}
+/* Three previews across are the default; the wider browser remains optional. */
+.workspace:has(>.catalog-slot){grid-template-columns:390px minmax(0,1fr) 292px}
+.library-panel .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.library-panel.library-expanded{width:max(390px,min(620px,calc(100vw - 580px)))}
+@media(min-width:1301px){.library-expanded .library-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
