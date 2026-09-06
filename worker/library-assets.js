@@ -21,7 +21,8 @@ export function createLibraryHandler(manifest) {
         return new Response(null,{status:204,headers:{'Cache-Control':'no-store'}});
       } catch {return reply('Asset upload failed integrity validation',400);}
     }
-    const name=url.pathname.replace(/^\/api\/previews\//,'/models/previews/'),asset=assets[name];
+    // The explicit API route bypasses Sites' static-first delivery during the bridge.
+    const name=url.pathname.replace(/^\/api\/library-assets(?=\/)/,'').replace(/^\/api\/previews\//,'/models/previews/'),asset=assets[name];
     if(!asset)return null;
     if(!['GET','HEAD'].includes(request.method))return reply('Method not allowed',405);
     const etag='"'+asset.sha256+'"',headers=new Headers({'Content-Type':asset.type,'ETag':etag,'Cache-Control':'public, max-age=3600, must-revalidate','Accept-Ranges':'bytes','X-Content-Type-Options':'nosniff'});

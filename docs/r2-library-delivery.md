@@ -14,6 +14,8 @@ Reads stream from R2 with explicit MIME types, ETags, single byte ranges and one
 
 The bridge archive contains the same application and R2 handler plus packaged asset fallbacks. Keep it live until every manifest path downloads from R2 with the expected hash. The slim archive then removes those static copies. If upload fails, keep the bridge live and resume; do not delete the original files. Keep old immutable R2 objects so previous releases can be restored.
 
+Sites serves existing static files before the Worker. During the bridge, verify R2 through `/api/library-assets/<original path>`, which always reaches the storage handler. After publishing the slim archive, run the uploader with `--public-only` (no token) to verify every original app URL now serves identical bytes from R2.
+
 Hosting source snapshots solve the separate large Git transfer problem. A snapshot is a forward commit on the existing Sites branch, containing the exact CI application source and explicit provenance, without linking the heavy GitHub ancestry. It neither resets Sites nor rewrites GitHub. The CI artifact is never rebuilt during publication. See release-workflow.md for the two recorded commit identities.
 
 To reconstruct the full development checkout of a snapshot, clone the GitHub repository at `SOURCE_PROVENANCE.json.github_commit`; its external input hash inventory identifies the omitted source assets. Blender originals remain there. Sites snapshots are delivery records, not the sole backup.

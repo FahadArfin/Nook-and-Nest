@@ -44,6 +44,8 @@ test('serves stable paths, typed previews, ETags, HEAD and byte ranges from R2',
  assert.equal((await handler(req('/models/furniture/test.glb',{headers:{range:'bytes=999-'}}),env)).status,416);
  assert.equal(await (await handler(req('/models/furniture/test.glb',{method:'HEAD'}),env)).text(),'');
  assert.equal((await handler(req('/api/previews/test.webp'),env)).headers.get('content-type'),'image/webp');
+ const direct=await handler(req('/api/library-assets/models/furniture/test.glb'),env);
+ assert.equal(direct.headers.get('x-nook-asset-storage'),'r2');assert.equal(await direct.text(),bytes.toString());
  assert.equal(await handler(req('/api/projects'),env),null);
 });
 test('bridge keeps packaged fallback; missing library assets never become SPA HTML',async()=>{
