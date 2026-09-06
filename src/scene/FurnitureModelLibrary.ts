@@ -5,6 +5,7 @@ import {instanceHolidayBranches} from './HolidayBranches';
 import {positionSlidingLeaves} from './SlidingDoors';
 import {modelAssetPath} from "../modelAssetPath";
 import {LivingModels} from './LivingModels';
+import {LiveClocks} from './LiveClocks';
 import { AbstractMesh } from "@babylonjs/core/Meshes/abstractMesh";
 import { AssetContainer } from "@babylonjs/core/assetContainer";
 import { Color3 } from "@babylonjs/core/Maths/math.color";
@@ -28,6 +29,7 @@ const MODEL_IDS = new Set(catalog.map((item) => item.id));
 
 export class FurnitureModelLibrary {
   private living:LivingModels;
+  private clocks:LiveClocks;
   private containers = new Map<string, AssetContainer>();
   private pending = new Map<string, Promise<void>>();
   private failed = new Set<string>();
@@ -35,7 +37,7 @@ export class FurnitureModelLibrary {
   private readyIds=new Set<string>();
   private materialVariants = new Map<string, Material>();
 
-  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void) {this.living=new LivingModels(scene);}
+  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void) {this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
 
   hasModel(catalogId: string) { return MODEL_IDS.has(catalogId); }
 
@@ -125,12 +127,13 @@ export class FurnitureModelLibrary {
       if(!shadowless)this.shadow.addShadowCaster(typedMesh);
     }
     positionSlidingLeaves(wrapper,item.openFraction);
-    if(!ghost)this.living.attach(wrapper,item.catalogId,nominalWidth,nominalDepth,nominalHeight);
+    if(!ghost){this.living.attach(wrapper,item.catalogId,nominalWidth,nominalDepth,nominalHeight);this.clocks.attach(wrapper,item.catalogId);}
     return true;
   }
 
   dispose() {
     this.living.dispose();
+    this.clocks.dispose();
     this.disposed=true;
     for (const material of this.materialVariants.values()) material.dispose(false, false);
     for (const container of this.containers.values()) container.dispose();

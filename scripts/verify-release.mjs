@@ -35,5 +35,15 @@ const response = await worker.fetch(new Request('https://example.test/api/projec
 assert.equal(response.status, 401);
 assert.match(response.headers.get('cache-control'), /no-store/);
 const totalBytes=folder=>readdirSync(folder,{withFileTypes:true}).reduce((sum,entry)=>sum+(entry.isDirectory()?totalBytes(folder+'/'+entry.name):statSync(folder+'/'+entry.name).size),0);
-const expandedBytes=totalBytes('dist');assert(expandedBytes<250*1024*1024,'Expanded release approaches the 256 MiB hosting limit');
-console.log(JSON.stringify({ expandedBytes, catalogPieces: catalog.length, entryBytes: raw.length, gzipBytes: compressed.length, databaseBinding: manifest.d1, anonymousAccess: response.status }));
+const expandedBytes=totalBytes('dist');
+const library=JSON.parse(readFileSync('.generated/library-manifest.json','utf8'));
+const baseline=JSON.parse(readFileSync('docs/r2-baseline.json','utf8'));
+let libraryBytes=0,reusedBytes=0;
+for(const [path,asset] of Object.entries(library.assets)){
+  const size=statSync('dist/client'+path).size;libraryBytes+=size;
+  if(JSON.stringify(baseline.assets[path])===JSON.stringify(asset))reusedBytes+=size;
+}
+const slimBytes=expandedBytes-libraryBytes,incrementalBytes=expandedBytes-reusedBytes;
+assert(slimBytes<250*1024*1024,'Slim release approaches the 256 MiB hosting limit');
+assert(incrementalBytes<250*1024*1024,'Incremental bridge approaches the 256 MiB hosting limit');
+console.log(JSON.stringify({ expandedBytes,slimBytes,incrementalBytes,fullBridgeSitesEligible:expandedBytes<250*1024*1024,catalogPieces: catalog.length, entryBytes: raw.length, gzipBytes: compressed.length, databaseBinding: manifest.d1, anonymousAccess: response.status }));

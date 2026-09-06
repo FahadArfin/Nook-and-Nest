@@ -292,7 +292,7 @@ export class SceneController {
       }
       this.refreshModels?.clear();
       this.selectedNode=this.furnitureNodes.get(selectedId??'')?.node;
-      for(const [id,{node}] of this.furnitureNodes)for(const mesh of node.getChildMeshes()){mesh.renderOutline=id===selectedId;mesh.outlineColor=new Color3(.42,.57,.31);mesh.outlineWidth=.025;}
+      for(const [id,{node}] of this.furnitureNodes){const item=plan.furniture.find(p=>p.id===id);const width=item?Math.min(.025,Math.min(item.widthMm,item.depthMm,item.heightMm)*.00002):.025;for(const mesh of node.getChildMeshes()){mesh.renderOutline=id===selectedId&&mesh.metadata?.livingMaterial!=='live-clock-display';mesh.outlineColor=new Color3(.42,.57,.31);mesh.outlineWidth=width;}}
       this.activeDraft=previousDraft;
       this.updateDraft(plan,activeFloorId,draft,refreshPreview);
       return;
@@ -401,7 +401,7 @@ export class SceneController {
       }else if(mesh.name!=="clearance"&&mesh.name!=="draft-footprint"){
         mesh.name=`item:${item.id}`; mesh.isPickable=!ghost;
       }
-      if(!preview&&item.id===this.selectedId){mesh.renderOutline=true;mesh.outlineColor=new Color3(.42,.57,.31);mesh.outlineWidth=.025;}
+      if(!preview&&item.id===this.selectedId){mesh.renderOutline=mesh.metadata?.livingMaterial!=='live-clock-display';mesh.outlineColor=new Color3(.42,.57,.31);mesh.outlineWidth=Math.min(.025,Math.min(item.widthMm,item.depthMm,item.heightMm)*.00002);}
     });
   }
   private buildStairs(x:number,z:number,w:number,d:number,y:number,ghost:boolean){const mat=this.material(`stairs-${x}-${z}`,"#a9815f",ghost?.18:1);for(let i=0;i<10;i++){const step=this.addBox(this.root,"stairs",[w,.12,d/10],[x,y+.06+i*.12,z+i*d/10],mat);step.isPickable=!ghost;}}

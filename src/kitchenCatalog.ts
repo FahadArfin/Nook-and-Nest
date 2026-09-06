@@ -35,5 +35,5 @@ export const kitchenWallIds=new Set(['wall-cabinet','glass-wall-cabinet','open-w
 export const kitchenSurfaceIds=new Set(['two-slot-toaster','espresso-machine','filter-coffee-maker','knife-block','countertop-microwave','stand-mixer','glass-air-fryer']);
 export const kitchenTopIds=new Set(['push-base-cabinet','shaker-drawer-cabinet','arched-base-cabinet']);
 export const kitchenCeilingIds=new Set(['dome-pendant','linear-pendant']);
-export const isBacksplash=(id:string)=>['backsplash-subway','backsplash-stacked','backsplash-slab'].includes(id);
+export const isBacksplash=(id:string)=>['backsplash-subway','backsplash-stacked','backsplash-slab','backsplash-zellige','backsplash-fluted','backsplash-herringbone','backsplash-kitkat'].includes(id);
 export const kitchenMountHeight=(id:string):number|undefined=>isBacksplash(id)?910:kitchenWallIds.has(id)?1500:undefined;

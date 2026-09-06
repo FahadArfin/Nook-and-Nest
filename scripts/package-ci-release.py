@@ -23,7 +23,9 @@ if os.environ.get('GITHUB_SHA'):
 files = sorted(p for p in build.rglob('*') if p.is_file())
 assert not any(p.is_symlink() for p in build.rglob('*')), 'Symlinks are not release assets'
 expanded = sum(p.stat().st_size for p in files)
-assert expanded < 250 * 1024 * 1024, 'Release exceeds size guard'
+# Library storage is external. Guard each publishable archive, not the complete
+# offline backup containing all R2 objects; retain that backup for recovery.
+hosting_limit = 250 * 1024 * 1024
 output = root / 'release'
 output.mkdir(exist_ok=True)
 archive = output / 'sites-bridge.tar.gz'
@@ -54,6 +56,9 @@ for filename, selected, prefix, base in [
     ('sites-incremental-bridge.tar.gz', incremental_files, 'dist/', build),
     ('library-assets.tar.gz', [build / name for name in sorted(asset_names)], '', build / 'client'),
 ]:
+    selected_size = sum(p.stat().st_size for p in selected)
+    if filename != 'library-assets.tar.gz':
+        assert selected_size < hosting_limit, f'{filename} exceeds Sites size guard'
     with tarfile.open(output / filename, 'w:gz') as tar:
         for p in selected:
             tar.add(p, arcname=prefix+p.relative_to(base).as_posix(), recursive=False)
@@ -64,7 +69,8 @@ for filename, selected, prefix, base in [
     archives[filename] = dict(sha256=hashlib.sha256((output / filename).read_bytes()).hexdigest(),
                              expanded_bytes=sum(p.stat().st_size for p in selected), file_count=len(selected))
 archives['sites-bridge.tar.gz'] = dict(sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),
-                                     expanded_bytes=expanded, file_count=len(files))
+                                     expanded_bytes=expanded, file_count=len(files),
+                                     sites_eligible=expanded < hosting_limit)
 archives['incremental-prerequisites.json'] = dict(sha256=hashlib.sha256((output/'incremental-prerequisites.json').read_bytes()).hexdigest())
 # The hosting snapshot contains the exact application source plus explicit
 # provenance for external inputs. It has no ancestry link to the heavy GitHub
