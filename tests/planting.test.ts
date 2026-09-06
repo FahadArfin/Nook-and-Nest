@@ -1,6 +1,7 @@
 import {describe,it,expect,vi} from 'vitest';
 import {NullEngine} from '@babylonjs/core/Engines/nullEngine';
 import {Scene} from '@babylonjs/core/scene';
+import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {Vector3} from '@babylonjs/core/Maths/math.vector';
 import {PointerEventTypes} from '@babylonjs/core/Events/pointerEvents';
 import {SceneController} from '../src/scene/SceneController';
@@ -12,10 +13,10 @@ const brush={catalogId:'grass-clump',radius:2,spacing:.5};
 describe('garden planting brush',()=>{
  it('turns a Babylon pointer stroke into a visible uncommitted preview',()=>{
   const engine=new NullEngine(),scene=new Scene(engine),s=usePlanner.getState();s.replacePlan(createSamplePlan());s.cancelPlanting();s.setPlantingBrush(brush);
-  const controller:any=Object.create(SceneController.prototype);controller.scene=scene;controller.tool='planting';controller.canvas={setPointerCapture:vi.fn()};controller.camera={detachControl:vi.fn(),attachControl:vi.fn()};
+  const controller:any=Object.create(SceneController.prototype);controller.plantingNodes=new Map();controller.plantingItems=[];controller.activePlan=usePlanner.getState().plan;controller.furnitureModels={build:vi.fn(()=>false)};controller.furnitureFactory={build:(node:any)=>{const m=MeshBuilder.CreateBox('plant',{},scene);m.parent=node}};controller.shadow={removeShadowCaster:vi.fn()};controller.scene=scene;controller.tool='planting';controller.canvas={setPointerCapture:vi.fn()};controller.camera={detachControl:vi.fn(),attachControl:vi.fn()};
   vi.spyOn(scene,'createPickingRay').mockReturnValue({origin:new Vector3(-5,10,-5),direction:new Vector3(0,-1,0)} as any);
   try{controller.bindPointers();const fire=(type:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:0,pointerId:1},pickInfo:null} as any);
-   fire(PointerEventTypes.POINTERDOWN);expect(controller.plantingPreview).toBeDefined();expect(controller.plantingPreview.isPickable).toBe(false);expect(usePlanner.getState().plan.furniture).toHaveLength(0);
+   fire(PointerEventTypes.POINTERDOWN);expect(controller.plantingNodes.size).toBeGreaterThan(0);for(const {node} of controller.plantingNodes.values())expect(node.getChildMeshes()[0].isPickable).toBe(false);expect(usePlanner.getState().plan.furniture).toHaveLength(0);
    fire(PointerEventTypes.POINTERUP);expect(controller.camera.attachControl).toHaveBeenCalled();expect(usePlanner.getState().plantingDraft?.items.length).toBeGreaterThan(0);expect(usePlanner.getState().plan.furniture).toHaveLength(0);s.confirmPlanting();expect(usePlanner.getState().plan.furniture.length).toBeGreaterThan(0);
   }finally{scene.dispose();engine.dispose();s.cancelPlanting();}
  });
