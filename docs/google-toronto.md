@@ -22,7 +22,7 @@ Google's photographed daytime textures remain daytime imagery when the apartment
 
 Worker tests cover the atomic quota, missing configuration, key redaction, URL confinement, session inheritance, byte-preserving delivery and private/conditional caching. Application tests cover WGS84/ECEF alignment without mirroring, saved-plan compatibility and pause/visibility gates.
 
-Browser testing on the local app rendered downtown Toronto, the CN Tower and harbour; an unsaved room/sofa preview remained visible above the city. Pausing produced zero new Google requests while previewing and zooming. Test furniture was not committed.
+Browser testing on the local app rendered downtown Toronto, the CN Tower and harbour; an unsaved room/sofa preview remained visible above the city. Pausing produced zero new Google requests while previewing and zooming. Resuming fetched 24 detail tiles and zero new root sessions. Test furniture was not committed.
 
 ## Official references
 
