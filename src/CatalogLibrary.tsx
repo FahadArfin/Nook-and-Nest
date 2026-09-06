@@ -1,5 +1,5 @@
 import {modelAssetPath} from "./modelAssetPath";
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { memo, useEffect, useMemo, useRef, useState, type PointerEvent } from "react";
 import { Armchair, ArrowsInSimple, ArrowsOutSimple, Bed, Books, Check, FrameCorners, GridFour, HandGrabbing, Heart, Lamp, MagnifyingGlass, Plant, SquaresFour, Table, X } from "@phosphor-icons/react";
 import { catalog, hasModelPreview, isWallOpening } from "./catalog";
 import { formatLength } from "./domain";
@@ -10,7 +10,7 @@ import "./library.css";
 import { LibraryIconRail, libraryIcon } from "./LibraryIconRail";
 
 const icons: Record<string, typeof Armchair> = { seat:Armchair, table:Table, bed:Bed, storage:Books, lamp:Lamp, plant:Plant, rug:GridFour, decor:SquaresFour, window:FrameCorners };
-export function CatalogLibrary({onBeginDrag,onStartPlacement}: {
+export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPlacement}: {
   onBeginDrag(item:CatalogItem,event:PointerEvent<HTMLButtonElement>):void;
   onStartPlacement(item:CatalogItem):void;
 }) {
@@ -22,8 +22,8 @@ export function CatalogLibrary({onBeginDrag,onStartPlacement}: {
   const [storageWarning,setStorageWarning] = useState(false);
   const [favorites,setFavorites] = useState<string[]>(()=>{try{return parseFavorites(localStorage.getItem(favoritesKey))}catch{return []}});
   const scrollRef = useRef<HTMLDivElement>(null), searchRef = useRef<HTMLInputElement>(null);
-  const inPlan = [...new Set(placed.map(item=>item.catalogId))];
-  const {items,types} = filterLibrary({search,category,type,shelf,favorites,inPlan,sort});
+  const inPlan = useMemo(()=>[...new Set(placed.map(item=>item.catalogId))],[placed]);
+  const {items,types} = useMemo(()=>filterLibrary({search,category,type,shelf,favorites,inPlan,sort}),[search,category,type,shelf,favorites,inPlan,sort]);
   useEffect(()=>{setType("All");if(["Windows","Doors","Stairs"].includes(category))setShelf("browse")},[category]);
   useEffect(()=>{if(scrollRef.current)scrollRef.current.scrollTop=0},[category,type,search,shelf,sort]);
   useEffect(()=>{const sync=(e:StorageEvent)=>{if(e.key===favoritesKey||e.key===null)setFavorites(parseFavorites(e.newValue))};window.addEventListener("storage",sync);return()=>window.removeEventListener("storage",sync)},[]);
@@ -35,7 +35,11 @@ export function CatalogLibrary({onBeginDrag,onStartPlacement}: {
   const reset=()=>{setCategory("All");setType("All");setSearch("")};
   const start=(item:CatalogItem)=>{setExpanded(false);onStartPlacement(item)};
   const counts=(cat:string)=>catalog.filter(item=>item.category===cat).length;
-  const groups = [...new Set(items.map(furnitureType))].map(name=>({name,items:items.filter(item=>furnitureType(item)===name)}));
+  const groups = useMemo(()=>{
+    const byType=new Map<string,CatalogItem[]>();
+    for(const item of items){const name=furnitureType(item);const group=byType.get(name);if(group)group.push(item);else byType.set(name,[item]);}
+    return [...byType].map(([name,items])=>({name,items}));
+  },[items]);
   const heading=search.trim()?`Results for “${search.trim()}”`:type!=="All"?type:category!=="All"?category:shelf==="favorites"?"Your favorites":shelf==="plan"?"Pieces in this plan":"All furniture";
   return <div className="catalog-slot"><aside aria-label="Furniture library" className={`catalog-panel library-panel ${expanded?"library-expanded":""}`} onKeyDown={event=>{event.stopPropagation();if(event.key==="Escape"&&expanded){event.preventDefault();setExpanded(false)}}}>
     <div className="panel-heading"><div><span className="eyebrow">Furniture library</span><h2>Find your next piece</h2></div><button className="icon-button library-expand" aria-label={expanded?"Compact library":"Expand library"} aria-pressed={expanded} title={expanded?"Compact library":"More room to browse"} onClick={()=>setExpanded(!expanded)}>{expanded?<ArrowsInSimple/>:<ArrowsOutSimple/>}</button></div>
@@ -68,4 +72,4 @@ export function CatalogLibrary({onBeginDrag,onStartPlacement}: {
     {storageWarning&&<p className="library-storage-note" role="status">Favorites can only stay for this session because browser storage is unavailable.</p>}
     </div></div>
   </aside></div>;
-}
+});
