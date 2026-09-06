@@ -1,3 +1,4 @@
+import {subtractWallCuts} from './wallCuts';
 import { deriveBoundaryWalls } from "./domain";
 import type { FloorPlan, TileCell, WallSegment } from "./types";
 
@@ -50,7 +51,8 @@ export function paintFloorCells(floor:FloorPlan,cells:TileCell[],present:boolean
   for(const cell of cells){const k=key(cell);if(present)occupied.set(k,cell);else {occupied.delete(k);delete cellFinishes[k];}delete cellRects[k];}
   return {...floor,cells:[...occupied.values()],...(floor.cellRects?{cellRects}:{}),...(floor.cellFinishes?{cellFinishes}:{})};
 }
-export function floorBoundaryWalls(floor:FloorPlan,grid:number):WallSegment[] {
+export function floorBoundaryWalls(floor:FloorPlan,grid:number):WallSegment[] {return subtractWallCuts(rawBoundaryWalls(floor,grid),floor.wallCuts??[]);}
+function rawBoundaryWalls(floor:FloorPlan,grid:number):WallSegment[] {
   if(!floor.cellRects)return deriveBoundaryWalls(floor.cells);
   // Cancel shared collinear edges, including partially shared cut tiles. Keep
   // tile breakpoints so legacy wall IDs and segment finishes remain stable.

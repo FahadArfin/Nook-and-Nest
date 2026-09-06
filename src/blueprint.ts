@@ -1,3 +1,4 @@
+import {subtractWallCuts as cutBlueprintWalls} from './wallCuts';
 import { catalog, defaultMountHeight, isDoor, isWallOpening } from './catalog';
 import { uid } from './domain';
 import { floorBoundaryWalls, floorRects, subtractRect, unionRects, type FloorRect } from './floorGeometry';
@@ -52,7 +53,7 @@ export function draftFromFloor(plan:PlanDocumentV1,floorId:string):BlueprintDraf
   const saved=floor.blueprint;
   const rooms=saved?.geometryKey===geometryKey(floor)?structuredClone(saved.rooms):mergeFloorRegions(floorRects(floor,plan.gridSizeMm)).map((r,i)=>({...r,id:uid(),name:`Area ${i+1}`,kind:'Hall' as const,enclosed:false}));
   const valid=saved?.geometryKey===geometryKey(floor);
-  return {rooms,wallCuts:valid?structuredClone(saved?.wallCuts??[]):[],walls:structuredClone(floor.walls.filter(w=>!valid||!saved?.generatedWallIds?.includes(w.id))),omittedWalls:valid?[...saved?.omittedWalls??[]]:[],fixtures:structuredClone(plan.furniture.filter(f=>f.floorId===floorId&&isFixedPiece(f.catalogId)))};
+  return {rooms,wallCuts:structuredClone(valid?saved?.wallCuts??floor.wallCuts??[]:floor.wallCuts??[]),walls:structuredClone(floor.walls.filter(w=>!valid||!saved?.generatedWallIds?.includes(w.id))),omittedWalls:valid?[...saved?.omittedWalls??[]]:[],fixtures:structuredClone(plan.furniture.filter(f=>f.floorId===floorId&&isFixedPiece(f.catalogId)))};
 }
 export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoom[]):FloorPlan {
   if(!rooms.length||rooms.length>100)throw new Error('Draw between 1 and 100 room areas.');
@@ -71,7 +72,7 @@ export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoo
   }
   const cellRects:Record<string,FloorRect[]>={};
   for(const [key,cell] of byCell) {const rects=unionRects(cell.rects);if(rects.length>64)throw new Error('Simplify overlapping room areas.');cellRects[key]=rects;}
-  return {...original,cells:[...byCell.values()].map(({x,z})=>({x,z})),cellRects,walls:[],openings:[],stairs:[],cellFinishes:undefined,wallFinishes:undefined,blueprint:undefined};
+  return {...original,cells:[...byCell.values()].map(({x,z})=>({x,z})),cellRects,wallCuts:undefined,walls:[],openings:[],stairs:[],cellFinishes:undefined,wallFinishes:undefined,blueprint:undefined};
 }
 export function roomDividers(floor:FloorPlan,grid:number,rooms:BlueprintRoom[]):WallSegment[] {
   const boundary=floorBoundaryWalls(floor,grid);
@@ -91,18 +92,7 @@ export function roomDividers(floor:FloorPlan,grid:number,rooms:BlueprintRoom[]):
   }
   return result;
 }
-export function cutBlueprintWalls(walls:WallSegment[],cuts:WallSegment[]):WallSegment[] {
-  return walls.flatMap(w=>{
-    const horizontal=w.az===w.bz,line=horizontal?w.az:w.ax;
-    let spans:[[number,number]]|[number,number][]=[[Math.min(horizontal?w.ax:w.az,horizontal?w.bx:w.bz),Math.max(horizontal?w.ax:w.az,horizontal?w.bx:w.bz)]];
-    for(const cut of cuts){if((cut.az===cut.bz)!==horizontal||Math.abs((horizontal?cut.az:cut.ax)-line)>.001)continue;
-      const a=Math.min(horizontal?cut.ax:cut.az,horizontal?cut.bx:cut.bz),b=Math.max(horizontal?cut.ax:cut.az,horizontal?cut.bx:cut.bz);
-      spans=spans.flatMap(([x,y])=>b<=x||a>=y?[[x,y]]:([[x,Math.max(x,a)],[Math.min(y,b),y]] as [number,number][]).filter(([l,r])=>r-l>.001));
-    }
-    if(spans.length===1&&spans[0][0]===Math.min(horizontal?w.ax:w.az,horizontal?w.bx:w.bz)&&spans[0][1]===Math.max(horizontal?w.ax:w.az,horizontal?w.bx:w.bz))return [w];
-    return spans.map(([a,b])=>({id:`cut:${horizontal?1:0}:${line}:${a}:${b}`,ax:horizontal?a:line,az:horizontal?line:a,bx:horizontal?b:line,bz:horizontal?line:b}));
-  });
-}
+export {subtractWallCuts as cutBlueprintWalls} from './wallCuts';
 export function fixturesAfterWallCuts(fixtures:FurniturePlacement[],cuts:WallSegment[],grid:number) {
   return fixtures.filter(f=>!isWallOpening(f.catalogId)||!cuts.some(c=>{
     const horizontal=c.az===c.bz;if(horizontal!==(f.rotation%180===0))return false;
@@ -132,6 +122,7 @@ export function blueprintPlan(base:PlanDocumentV1,floorId:string,draft:Blueprint
   const generated=cutBlueprintWalls(roomDividers(floor,base.gridSizeMm,draft.rooms),draft.wallCuts??[]);
   const walls=[...generated,...cutBlueprintWalls(draft.walls,draft.wallCuts??[])].filter(w=>!draft.omittedWalls.includes(w.id));
   const seen=new Set<string>();floor.walls=walls.filter(w=>{const points=[`${w.ax},${w.az}`,`${w.bx},${w.bz}`].sort().join(':');if(seen.has(points))return false;seen.add(points);return true;});
+  floor.wallCuts=structuredClone(draft.wallCuts??[]);
   floor.blueprint={rooms:structuredClone(draft.rooms),geometryKey:geometryKey(floor),generatedWallIds:generated.map(w=>w.id),wallCuts:structuredClone(draft.wallCuts??[]),omittedWalls:[...draft.omittedWalls]};
   const plan={...base,floors:base.floors.map(f=>f.id===floorId?floor:{...f,stairs:f.stairs.filter(s=>s.toFloorId!==floorId)}),furniture:[...base.furniture.filter(f=>f.floorId!==floorId&&f.toFloorId!==floorId),...structuredClone(draft.fixtures)],camera:{...base.camera,mode:'isometric' as const}};
   validatePlan(plan);return plan;
@@ -167,49 +158,89 @@ export function fixtureAt(plan:PlanDocumentV1,floorId:string,catalogId:string,x:
   const c=catalog.find(c=>c.id===catalogId);if(!c||!isFixedPiece(catalogId))throw new Error('Choose a kitchen, bathroom, laundry, door or window item.');
   return snapWindow(plan,{id:uid(),catalogId,floorId,x:Math.round(x),z:Math.round(z),rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage',elevationMm:defaultMountHeight(catalogId)});
 }
-export function autoFurnish(base:PlanDocumentV1,floorId:string,rooms:BlueprintRoom[]) {
-  const plan=structuredClone(base),floor=plan.floors.find(f=>f.id===floorId);if(!floor)throw new Error('Choose a floor first.');
-  const added:FurniturePlacement[]=[],skipped:string[]=[];
-  const groups:Partial<Record<RoomKind,string[]>>={Living:['sofa','coffee-table','armchair','side-table'],Bedroom:['queen-bed','nightstand','dresser'],Dining:['dining-table','dining-chair','dining-chair','dining-chair','dining-chair'],Office:['desk','office-chair','bookshelf']};
-  const walls=[...floorBoundaryWalls(floor,plan.gridSizeMm),...floor.walls].map(w=>({x:Math.min(w.ax,w.bx)*plan.gridSizeMm-60,z:Math.min(w.az,w.bz)*plan.gridSizeMm-60,width:Math.abs(w.ax-w.bx)*plan.gridSizeMm+120,depth:Math.abs(w.az-w.bz)*plan.gridSizeMm+120}));
-  // Reserve both sides of each door, including old-style openings.
-  const doorZones=plan.furniture.filter(f=>f.floorId===floorId&&isDoor(f.catalogId)).map(f=>footprint({...f,depthMm:2000},100));
-  for(const o of floor.openings.filter(o=>o.kind==='door')){const w=[...floorBoundaryWalls(floor,plan.gridSizeMm),...floor.walls].find(w=>w.id===o.wallKey);if(w)doorZones.push({x:(w.ax+(w.bx-w.ax)*o.offset)*plan.gridSizeMm-1100,z:(w.az+(w.bz-w.az)*o.offset)*plan.gridSizeMm-1100,width:2200,depth:2200});}
-  for(const room of roomGroups(rooms)) {
-    const roomFloor=floorFromRooms(floor,plan.gridSizeMm,room.parts);
-    for(const id of groups[room.kind]??[]) {
-      const c=catalog.find(c=>c.id===id)!;
-      // Calling the button again does not duplicate a room's existing arrangement.
-      const existing=base.furniture.some(f=>f.floorId===floorId&&f.catalogId===id&&f.x>=room.x&&f.x<=room.x+room.width&&f.z>=room.z&&f.z<=room.z+room.depth);
-      if(existing)continue;
-      let chosen:FurniturePlacement|undefined;
-      const anchor=(catalogId:string)=>plan.furniture.find(f=>f.floorId===floorId&&f.catalogId===catalogId&&f.x>=room.x&&f.x<=room.x+room.width&&f.z>=room.z&&f.z<=room.z+room.depth);
-      for(const pass of ['group','space']) {
-      for(const rotation of [0,90,180,270]) {
-        const width=rotation%180?c.depthMm:c.widthMm,depth=rotation%180?c.widthMm:c.depthMm;
-        const candidates=[[room.x+room.width/2,room.z+depth/2+100],[room.x+width/2+100,room.z+depth/2+100],[room.x+room.width-width/2-100,room.z+depth/2+100],[room.x+width/2+100,room.z+room.depth-depth/2-100],[room.x+room.width-width/2-100,room.z+room.depth-depth/2-100],[room.x+room.width/2,room.z+room.depth/2]];
-        // A bounded search along walls fills remaining spaces without scaling models.
-        for(let i=1;i<=6;i++)candidates.push([room.x+room.width*i/7,room.z+room.depth-depth/2-100],[room.x+width/2+100,room.z+room.depth*i/7],[room.x+room.width-width/2-100,room.z+room.depth*i/7]);
-        const grouped:number[][]=[];
-        const bed=anchor('queen-bed'),sofa=anchor('sofa'),table=anchor('dining-table'),desk=anchor('desk');
-        if(id==='nightstand'&&bed&&rotation===bed.rotation&&rotation===0)grouped.push([bed.x-bed.widthMm/2-width/2-270,bed.z-bed.depthMm/2+depth/2],[bed.x+bed.widthMm/2+width/2+270,bed.z-bed.depthMm/2+depth/2]);
-        if(id==='coffee-table'&&sofa&&rotation===0&&sofa.rotation===0)grouped.push([sofa.x,sofa.z+sofa.depthMm/2+depth/2+450]);
-        if(id==='dining-table')grouped.push([room.x+room.width/2,room.z+room.depth/2]);
-        if(id==='dining-chair'&&table){const bounds=footprint(table);if(rotation===0)grouped.push([table.x,bounds.z-depth/2-270]);if(rotation===180)grouped.push([table.x,bounds.z+bounds.depth+depth/2+270]);if(rotation===90)grouped.push([bounds.x-width/2-270,table.z]);if(rotation===270)grouped.push([bounds.x+bounds.width+width/2+270,table.z]);}
-        if(id==='office-chair'&&desk&&rotation===180&&desk.rotation===0)grouped.push([desk.x,desk.z+desk.depthMm/2+depth/2+300]);
-        for(const [x,z] of pass==='group'?grouped:candidates){
-          const item={id:uid(),catalogId:id,floorId,x:Math.round(x),z:Math.round(z),rotation,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'},rect=footprint(item);
-          if(rect.x<room.x||rect.z<room.z||rect.x+rect.width>room.x+room.width||rect.z+rect.depth>room.z+room.depth)continue;
-          if(walls.some(w=>overlaps(rect,w))||doorZones.some(d=>overlaps(rect,d)))continue;
-          if(plan.furniture.some(f=>f.floorId===floorId&&(f.elevationMm??0)<item.heightMm&&overlaps(footprint(f,isDoor(f.catalogId)?600:250),rect)))continue;
-          if(!coveredByFloor(rect,floor,plan.gridSizeMm)||!coveredByFloor(rect,roomFloor,plan.gridSizeMm))continue;
-          chosen=item;break;
-        }if(chosen)break;
-      }
-      if(chosen)break;
-      }
-      if(chosen){plan.furniture.push(chosen);added.push(chosen);}else skipped.push(`${room.name}: no clear space for ${c.name}`);
+function autoFurnishAttempt(base:PlanDocumentV1,floorId:string,rooms:BlueprintRoom[],variant=0) {
+ const plan=structuredClone(base),floor=plan.floors.find(f=>f.id===floorId);if(!floor)throw new Error('Choose a floor first.');
+ const added:FurniturePlacement[]=[],skipped:string[]=[],grid=plan.gridSizeMm;
+ const walls=[...floorBoundaryWalls(floor,grid),...floor.walls].map(w=>({x:Math.min(w.ax,w.bx)*grid-50,z:Math.min(w.az,w.bz)*grid-50,width:Math.abs(w.ax-w.bx)*grid+100,depth:Math.abs(w.az-w.bz)*grid+100}));
+ const doorZones=plan.furniture.filter(f=>f.floorId===floorId&&isDoor(f.catalogId)).map(f=>footprint({...f,depthMm:1400},100));
+ for(const opening of floor.openings.filter(o=>o.kind==='door')){
+  const w=[...floorBoundaryWalls(floor,grid),...floor.walls].find(w=>w.id===opening.wallKey||`${w.ax}:${w.az}:${w.bx}:${w.bz}`===opening.wallKey);if(!w)continue;
+  const horizontal=w.az===w.bz,x=(w.ax+(w.bx-w.ax)*opening.offset)*grid,z=(w.az+(w.bz-w.az)*opening.offset)*grid;
+  doorZones.push({x:x-(horizontal?opening.widthMm/2+100:800),z:z-(horizontal?800:opening.widthMm/2+100),width:horizontal?opening.widthMm+200:1600,depth:horizontal?1600:opening.widthMm+200});
+ }
+ const matchesRole=(role:string,id:string)=>{const c=catalog.find(c=>c.id===id);if(!c)return false;const name=`${id} ${c.name}`;return role==='queen-bed'?c.shape==='bed':role==='refrigerator'?/refrigerator|fridge/i.test(name):role==='sink-cabinet'?c.category==='Kitchen'&&/sink/i.test(name):role==='range-oven'?/range|cooktop|hob/i.test(name):role==='two-piece-toilet'?/toilet/i.test(name):role==='pedestal-sink'?c.category==='Bathroom'&&/sink|vanity/i.test(name):role==='alcove-bathtub'?/bath|shower/i.test(id)&&!/sink|vanity|mat|mirror|cabinet|organizer/i.test(id):role==='stacked-laundry'?/washer|stacked-laundry/i.test(id):role==='sofa'?/sofa|loveseat|sectional/i.test(name):false};
+ const frontZones:FloorRect[]=[];
+ const local=(p:FurniturePlacement,x:number,z:number)=>{const a=p.rotation*Math.PI/180;return [p.x+x*Math.cos(a)+z*Math.sin(a),p.z-x*Math.sin(a)+z*Math.cos(a)] as [number,number]};
+ for(const room of roomGroups(rooms)) {
+  const roomFloor=floorFromRooms(floor,grid,room.parts),sun=/solarium|sunroom|sun room|conservatory/i.test(room.name),bed=room.kind==='Bedroom';
+  const roles:string[][]=sun?[['solarium-rocker','armchair'],['breakfast-table','side-table'],['breakfast-chair']]:room.kind==='Living'?[['sofa','loveseat'],['tv-stand','cane-tv-stand'],['tv-55','slim-tv'],['coffee-table','side-table'],['armchair']]:bed?[['queen-bed','single-bed'],['nightstand'],['dresser']]:room.kind==='Kitchen'?[['refrigerator'],['sink-cabinet'],['range-oven'],['kitchen-counter','base-cabinet'],['dishwasher'],['tall-pantry-cabinet']]:room.kind==='Bathroom'?[['two-piece-toilet','one-piece-toilet'],['pedestal-sink','single-bath-vanity'],['alcove-bathtub','corner-shower']]:room.kind==='Laundry'?[['stacked-laundry','washer'],['dryer']]:room.kind==='Dining'?[['dining-table','breakfast-table'],['dining-chair','breakfast-chair'],['dining-chair','breakfast-chair'],['dining-chair','breakfast-chair'],['dining-chair','breakfast-chair']]:room.kind==='Office'?[['desk','compact-computer-desk'],['office-chair']]:room.kind==='Outdoor'?[['patio-bistro-table','breakfast-table'],['patio-dining-chair','breakfast-chair']]:[];
+  if(room.kind==='Bathroom'&&variant>=4)roles.unshift(roles.pop()!);
+  const inside=(f:FurniturePlacement)=>coveredByFloor({x:f.x-1,z:f.z-1,width:2,depth:2},roomFloor,grid);
+  const existing=base.furniture.filter(f=>f.floorId===floorId&&inside(f));
+  const priorRoles=new Map<string,number>();
+  for(const choices of roles){
+   const role=choices.join('|'),index=priorRoles.get(role)??0;priorRoles.set(role,index+1);
+   if(existing.filter(f=>choices.includes(f.catalogId)||matchesRole(choices[0],f.catalogId)).length>index)continue;
+   if(choices[0]==='dryer'&&plan.furniture.some(f=>f.floorId===floorId&&f.catalogId==='stacked-laundry'&&inside(f)))continue;
+   const inRoom=plan.furniture.filter(f=>f.floorId===floorId&&inside(f));
+   const anchor=(ids:string[])=>inRoom.find(f=>ids.includes(f.catalogId));
+   let chosen:FurniturePlacement|undefined;
+   for(const id of choices){
+    const c=catalog.find(c=>c.id===id);if(!c)continue;
+    const sofa=anchor(['sofa','loveseat']),bedItem=anchor(['queen-bed','single-bed']),table=anchor(['dining-table','breakfast-table','patio-bistro-table']),media=anchor(['tv-stand','cane-tv-stand']),desk=anchor(['desk','compact-computer-desk']);
+    const candidates:Array<{x:number;z:number;rotation:number;elevationMm?:number}>=[];
+    const relative=(to:FurniturePlacement,x:number,z:number,rotation:number,elevationMm?:number)=>{const [px,pz]=local(to,x,z);candidates.push({x:px,z:pz,rotation:(rotation+360)%360,elevationMm})};
+    const tv=['tv-55','slim-tv'].includes(id);
+    if(tv){if(!media)continue;relative(media,0,0,media.rotation,media.heightMm);}
+    else if(['tv-stand','cane-tv-stand'].includes(id)&&sofa){for(const distance of [2600,2200,3000,1800])relative(sofa,0,distance,sofa.rotation+180);}
+    else if(id==='coffee-table'&&sofa)relative(sofa,0,sofa.depthMm/2+c.depthMm/2+450,sofa.rotation);
+    else if(id==='nightstand'&&bedItem){for(const side of [-1,1])relative(bedItem,side*(bedItem.widthMm/2+c.widthMm/2+100),-bedItem.depthMm/2+c.depthMm/2,bedItem.rotation);}
+    else if(['dining-chair','breakfast-chair','patio-dining-chair'].includes(id)&&table){for(const side of [-1,1])relative(table,side*(table.widthMm/2+c.depthMm/2+250),0,table.rotation+(side===-1?90:270));for(const side of [-1,1])relative(table,0,side*(table.depthMm/2+c.depthMm/2+250),table.rotation+(side===-1?0:180));}
+    else if(id==='office-chair'&&desk)relative(desk,0,desk.depthMm/2+c.depthMm/2+200,desk.rotation+180);
+    if(!tv)for(const part of room.parts)for(const rotation of [0,180,90,270]){
+     const width=rotation%180?c.depthMm:c.widthMm,depth=rotation%180?c.widthMm:c.depthMm;
+     const left=part.x+width/2+70,right=part.x+part.width-width/2-70,top=part.z+depth/2+70,bottom=part.z+part.depth-depth/2-70;
+     if(left>right||top>bottom)continue;
+     // Face into the room from a wall, rather than put every object in a corner.
+     for(const t of [[.5,0,1,.25,.75,.125,.875],[0,1,.5,.25,.75,.125,.875],[1,0,.5,.75,.25,.875,.125],[.25,.75,0,1,.5,.125,.875]][variant%4])candidates.push({x:rotation===90?left:rotation===270?right:left+(right-left)*t,z:rotation===0?top:rotation===180?bottom:top+(bottom-top)*t,rotation});
+     if(['dining-table','breakfast-table'].includes(id))candidates.unshift({x:(left+right)/2,z:(top+bottom)/2,rotation});
     }
+    for(const position of candidates){
+     const item:FurniturePlacement={id:uid(),catalogId:id,floorId,...position,x:Math.round(position.x),z:Math.round(position.z),widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'},rect=footprint(item);
+     if(!coveredByFloor(rect,floor,grid)||!coveredByFloor(rect,roomFloor,grid)||walls.some(w=>overlaps(rect,w))||doorZones.some(d=>overlaps(rect,d)))continue;
+     if(plan.furniture.some(f=>f.floorId===floorId&&(f.elevationMm??0)<(item.elevationMm??0)+item.heightMm&&(item.elevationMm??0)<(f.elevationMm??0)+f.heightMm&&overlaps(footprint(f,tv?0:60),rect)))continue;
+     if(!tv&&frontZones.some(z=>overlaps(z,rect)))continue;
+     if(['sofa','loveseat'].includes(id)&&!inRoom.some(f=>['tv-stand','cane-tv-stand'].includes(f.catalogId))){
+      const mediaDef=catalog.find(c=>c.id==='tv-stand')!;
+      const fitsMedia=[2600,2200,3000,1800].some(distance=>{const [x,z]=local(item,0,distance),other=footprint({...item,x,z,widthMm:mediaDef.widthMm,depthMm:mediaDef.depthMm});return coveredByFloor(other,roomFloor,grid)&&!walls.some(w=>overlaps(other,w))&&!doorZones.some(d=>overlaps(other,d))&&!plan.furniture.some(f=>f.floorId===floorId&&overlaps(footprint(f,60),other))});
+      if(!fitsMedia)continue;
+     }
+     if(['Kitchen','Bathroom','Laundry'].includes(room.kind)){
+      const [x,z]=local(item,0,item.depthMm/2+325);const zone=footprint({...item,x,z,widthMm:Math.min(700,item.widthMm),depthMm:650});
+      if(!coveredByFloor(zone,floor,grid)||walls.some(w=>overlaps(zone,w))||plan.furniture.some(f=>f.floorId===floorId&&!isWallOpening(f.catalogId)&&overlaps(footprint(f),zone)))continue;
+      frontZones.push(zone);
+     }
+     chosen=item;break;
+    }
+    if(chosen)break;
+   }
+   if(chosen){plan.furniture.push(chosen);added.push(chosen)}else skipped.push(`${room.name}: no clear space for ${catalog.find(c=>c.id===choices[0])?.name??choices[0]}`);
   }
-  validatePlan(plan);return {plan,added,skipped};
+ }
+ validatePlan(plan);return {plan,added,skipped};
+}
+
+/** Try bounded alternatives independently for each room, retaining the most complete arrangement. */
+export function autoFurnish(base:PlanDocumentV1,floorId:string,rooms:BlueprintRoom[]) {
+ let plan=base;const added:FurniturePlacement[]=[],skipped:string[]=[];
+ for(const room of roomGroups(rooms)){
+  let best:ReturnType<typeof autoFurnishAttempt>|undefined;
+  for(let variant=0;variant<8;variant++){
+   const candidate=autoFurnishAttempt(plan,floorId,room.parts,variant);
+   if(!best||candidate.added.length>best.added.length)best=candidate;
+   if(!candidate.skipped.length)break;
+  }
+  plan=best!.plan;added.push(...best!.added);skipped.push(...best!.skipped);
+ }
+ return {plan,added,skipped};
 }

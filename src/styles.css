@@ -32,3 +32,11 @@
 .outdoor-settings select { width:100%; padding:9px; border:1px solid #78836355; border-radius:9px; background:var(--panel, #fff9eb); color:inherit; }
 .dark-mode .outdoor-settings select { background:#303b32; color:#eee4d1; }
 .canvas-tools button { flex-shrink:0; }
+
+.finish-library{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.finish-library button{display:flex;flex-direction:column;align-items:stretch;min-width:0;padding:7px;text-align:left;position:relative}.finish-library .finish-thumb{width:100%;height:68px;border-radius:7px}.finish-library .finish-name{white-space:normal;padding:6px 1px}.finish-library button>svg{position:absolute;top:12px;right:12px;background:var(--panel,#fff);border-radius:50%}.finishes-panel>input,.finishes-panel>label{width:100%;margin:8px 0}.wall-construction{margin-bottom:16px;padding:12px;border:1px solid var(--line,#ccc);border-radius:12px}.wall-construction p{font-size:12px}.wall-construction label{display:block;margin:8px 0}.wall-construction input,.wall-construction select{width:100%}
+
+.opening-draft-size{position:absolute;top:100px;left:50%;transform:translateX(-50%);z-index:12;background:var(--panel,#f6f1e5);padding:10px 16px;border-radius:14px;box-shadow:0 3px 20px #0003;max-width:360px}.opening-draft-size label{display:flex;align-items:center;gap:12px}.opening-draft-size input{width:100px}.opening-draft-size span{display:block;font-size:12px;margin-top:6px}
+
+.finishes-panel>label,.wall-construction label{display:flex;flex-direction:column;gap:6px;font-size:12px;font-weight:700;color:var(--ink)}
+.finishes-panel input,.finishes-panel select,.opening-draft-size input{font:inherit;color:inherit;min-width:0;width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper,#fffdf7)}
+.finishes-panel>input{font-size:13px}.finishes-panel .finish-name{font-size:12px}.finishes-panel .finish-name small{display:block;font-size:10px;color:var(--muted,#77836d);margin-top:3px}.finishes-panel>.segmented{margin:14px 0 8px}.wall-construction button{font:inherit;font-size:12px;border:1px solid var(--line);border-radius:9px;background:var(--paper,#fffdf7);padding:8px;cursor:pointer}.wall-construction button:disabled{opacity:.4;cursor:default}.wall-construction summary{font-size:13px;font-weight:700;cursor:pointer}.opening-draft-size input{width:110px}
