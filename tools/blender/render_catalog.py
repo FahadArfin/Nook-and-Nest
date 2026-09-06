@@ -12,7 +12,7 @@ for name in sys.argv[sys.argv.index('--')+1:]:
     bpy.ops.wm.open_mainfile(filepath=str(root/'assets-source'/'blender'/(name+'.blend')))
     scene=bpy.context.scene
     w,d,h=scene['nominal_dimensions_m']
-    if name in ['sonos-architectural-ceiling','sonos-ceiling-8']:
+    if name in ['sonos-architectural-ceiling','sonos-ceiling-8'] or name.startswith('recessed-') or name=='ceiling-opal-flush':
         # Show the installed grille face in the thumbnail; preserve source placement.
         flip=Matrix.Rotation(3.141592653589793,4,'X')
         for obj in scene.objects:

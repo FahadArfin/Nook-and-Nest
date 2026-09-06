@@ -17,7 +17,7 @@ export function tabletopChoices(plan:PlanDocumentV1,item:FurniturePlacement){
 // Only simple continuous tops: L-shaped desks need an explicit height input
 // rather than a misleading rectangular hit area across their empty corner.
 export function supportsDesktop(item:FurniturePlacement) {
-  return (modernTopIds.has(item.catalogId)||modernMediaIds.has(item.catalogId)||kitchenTopIds.has(item.catalogId)||["cane-nightstand","floating-nightstand","base-cabinet","kitchen-counter","tv-stand","slatted-tv-stand","open-media-bench","cane-tv-stand"].includes(item.catalogId)||catalog.find(c=>c.id===item.catalogId)?.shape==="table")&&!['corner-desk','nesting-tables','tray-side-table'].includes(item.catalogId);
+  return (item.catalogId==="bambu-p2s"||item.catalogId.startsWith("desk-mat-")||modernTopIds.has(item.catalogId)||modernMediaIds.has(item.catalogId)||kitchenTopIds.has(item.catalogId)||["cane-nightstand","floating-nightstand","base-cabinet","kitchen-counter","tv-stand","slatted-tv-stand","open-media-bench","cane-tv-stand"].includes(item.catalogId)||catalog.find(c=>c.id===item.catalogId)?.shape==="table")&&!['corner-desk','nesting-tables','tray-side-table'].includes(item.catalogId);
 }
 export function tabletopPoint(plan:PlanDocumentV1,item:FurniturePlacement,origin:Point3,direction:Point3):PlacementPoint|undefined {
   const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor||Math.abs(direction.y)<.00001)return;
