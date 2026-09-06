@@ -4,6 +4,9 @@ import {createHash} from 'node:crypto';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
 
+const detailedAppliances=new Set(JSON.parse(readFileSync(new URL('../src/applianceDetailIds.json',import.meta.url),'utf8')));
+export const shouldCompressModel=(file,bytes)=>bytes>1_000_000||detailedAppliances.has(file.replace(/\.glb$/,''));
+
 /** Extract identical embedded images without changing geometry or image bytes. */
 export function shareImages(input,saveImage){
  const jsonLength=input.readUInt32LE(12),g=JSON.parse(input.subarray(20,20+jsonLength).toString());
@@ -22,7 +25,7 @@ export function shareImages(input,saveImage){
 }
 export async function optimizeModels(root='dist/client'){
  const folder=join(root,'models/furniture'),shared=join(folder,'shared-textures');mkdirSync(shared,{recursive:true});const images=new Set();let before=0,after=0,imageBytes=0;
- for(const file of readdirSync(folder).filter(f=>f.endsWith('.glb'))){const path=join(folder,file),input=readFileSync(path);before+=input.length;let output=shareImages(input,(name,data)=>{if(images.has(name))return;images.add(name);writeFileSync(join(shared,name),data);imageBytes+=data.length;});if(output.length>1_000_000)output=await compressGeometry(output);writeFileSync(path,output);after+=output.length;}
+ for(const file of readdirSync(folder).filter(f=>f.endsWith('.glb'))){const path=join(folder,file),input=readFileSync(path);before+=input.length;let output=shareImages(input,(name,data)=>{if(images.has(name))return;images.add(name);writeFileSync(join(shared,name),data);imageBytes+=data.length;});if(shouldCompressModel(file,output.length))output=await compressGeometry(output);writeFileSync(path,output);after+=output.length;}
  console.log(JSON.stringify({modelBytesBefore:before,modelBytesAfter:after,sharedImages:images.size,sharedImageBytes:imageBytes,savedBytes:before-after-imageBytes}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)await optimizeModels();
