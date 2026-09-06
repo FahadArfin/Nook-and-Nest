@@ -23,6 +23,7 @@ function renderer(){
  const engine=new NullEngine(),scene=new Scene(engine),camera=new ArcRotateCamera('camera',1,.6,10,new Vector3(2,0,2),scene);
  const r:any=Object.create(SceneController.prototype);
  Object.assign(r,{scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
+ r.cancelFocus=()=>{r.focusMotion=undefined};
  return {r,scene,dispose:()=>{scene.dispose();engine.dispose()}};
 }
 describe('modular placement regression',()=>{
@@ -77,10 +78,10 @@ describe('modular placement regression',()=>{
    }finally{dispose()}
  });
  it('free mouse rotation keeps exact angles for base cabinets near a wall',()=>{const p=setup(),base=snapEdgeFurniture(p,piece(p,'base-cabinet',{z:300}));p.furniture=[base];usePlanner.getState().replacePlan(p);usePlanner.getState().updateFurniture(base.id,{rotation:37.5});expect(usePlanner.getState().plan.furniture[0].rotation).toBe(37.5);expect(usePlanner.getState().past).toHaveLength(1)});
- it('right-drag previews rotation without plan mutation and commits once on release',()=>{
+ it('enabled right-drag previews rotation without plan mutation and commits once on release',()=>{
    const {r,scene,dispose}=renderer();try{
      const p=setup(),base=piece(p,'base-cabinet',{z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);
-     const onRotate=vi.fn();r.callbacks={onRotate};r.camera.attachControl=vi.fn();r.camera.detachControl=vi.fn();r.bindPointers();
+     const onRotate=vi.fn();r.callbacks={onRotate};r.camera.attachControl=vi.fn();r.camera.detachControl=vi.fn();r.setRotationMode(true);r.bindPointers();
      const send=(type:number,x:number,shift=false)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:x,shiftKey:shift,preventDefault:()=>{}},pickInfo:null} as any);
      send(PointerEventTypes.POINTERDOWN,100);send(PointerEventTypes.POINTERMOVE,175);expect(r.selectedNode.rotation.y*180/Math.PI).toBeCloseTo(37.5);expect(onRotate).not.toHaveBeenCalled();
      send(PointerEventTypes.POINTERMOVE,180,true);expect(r.selectedNode.rotation.y*180/Math.PI).toBeCloseTo(45);
@@ -92,3 +93,23 @@ describe('modular placement regression',()=>{
  });
 
 });
+
+ it('leaves ordinary right-drag to the camera, gates rotation, and cancels an unfinished turn',()=>{
+  const {r,scene,dispose}=renderer();try{const p=setup(),base=piece(p,'base-cabinet',{z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.callbacks={onRotate:vi.fn()};r.camera.attachControl=vi.fn();r.camera.detachControl=vi.fn();r.bindPointers();
+   const send=(type:number,x:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:x,preventDefault:()=>{}},pickInfo:null} as any);
+   send(PointerEventTypes.POINTERDOWN,0);send(PointerEventTypes.POINTERMOVE,100);expect(r.rotationDrag).toBeUndefined();expect(r.selectedNode.rotation.y).toBe(0);expect(r.camera.detachControl).not.toHaveBeenCalled();
+   r.setRotationMode(true);r.updateEditingGuides(0);expect(r.rotationGuide.isEnabled()).toBe(true);send(PointerEventTypes.POINTERDOWN,0);send(PointerEventTypes.POINTERMOVE,100);expect(r.selectedNode.rotation.y).not.toBe(0);
+   r.setRotationMode(false);expect(r.selectedNode.rotation.y).toBe(0);expect(r.rotationGuide.isEnabled()).toBe(false);expect(r.callbacks.onRotate).not.toHaveBeenCalled();expect(r.camera.detachControl).not.toHaveBeenCalled();
+  }finally{dispose()}
+ });
+ it('gently focuses once, caps long-run distance, preserves wheel inputs, and yields to manual zoom',()=>{
+  const {r,dispose}=renderer();try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;
+   r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.updateEditingGuides(425);expect(r.camera.radius).toBeCloseTo(11);r.updateEditingGuides(850);expect(r.camera.radius).toBe(4);
+   r.camera.radius=2;r.updateEditingGuides(1000);expect(r.camera.radius).toBe(2);r.focusSelected();r.updateEditingGuides(1100);r.zoom(.75);const radius=r.camera.radius;r.updateEditingGuides(2000);expect(r.camera.radius).toBe(radius);expect(r.focusMotion).toBeUndefined();
+   const pointerDetach=vi.fn(),pointerAttach=vi.fn(),wheelDetach=vi.fn();r.camera.inputs.attachedToElement=true;r.camera.inputs.attached.pointers={detachControl:pointerDetach,attachControl:pointerAttach};r.camera.inputs.attached.mousewheel={detachControl:wheelDetach};r.suspendCameraPointers();expect(pointerDetach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();r.resumeCameraControls();expect(pointerAttach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();delete r.camera.inputs.attached.pointers;delete r.camera.inputs.attached.mousewheel;
+  }finally{dispose()}
+ });
+
+ it('adapts focus for narrow viewports and respects reduced motion',()=>{
+  const {r,dispose}=renderer();vi.stubGlobal('matchMedia',()=>({matches:true}));try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;r.engine.getRenderWidth=()=>400;r.engine.getRenderHeight=()=>1000;r.updateEditingGuides(0);expect(r.camera.radius).toBe(10);expect(r.focusMotion).toBeUndefined();}finally{dispose();vi.unstubAllGlobals()}
+ });
