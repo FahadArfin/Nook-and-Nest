@@ -4,7 +4,7 @@ import {geometryKey} from './blueprint';
 import {removeWallSections} from './wallConstruction';
 import { create } from "zustand";
 import { openDB } from "idb";
-import { catalog, defaultMountHeight, isWindow, isDoor, isStairs, isWallOpening } from "./catalog";
+import { catalog, defaultMountHeight, isKitchenWall, isWindow, isDoor, isStairs, isWallOpening } from "./catalog";
 import { defaultCountertopFinish, defaultDoorFinish, supportsCountertopFinish } from "./surfaces";
 import { addMeasuredRegion, measuredRegion, paintFloorCells, type MeasuredRegion } from "./floorGeometry";
 import { fitStair } from "./building";
@@ -54,7 +54,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   beginTurn:id=>{get().finishTurn();set(s=>({turnSnapshot:snap(s),turnId:id}));},
   turnFurniture:(id,degrees)=>set(s=>{
     const item=s.plan.furniture.find(f=>f.id===id);if(!item||!Number.isFinite(degrees)||s.turnId!==id)return {};
-    const candidate=fitStair(s.plan,snapWindow(s.plan,{...item,rotation:windowRotation(item,degrees)}));
+    const rotated={...item,rotation:windowRotation(item,degrees)};const candidate=fitStair(s.plan,isWallOpening(item.catalogId)||isKitchenWall(item.catalogId)?snapWindow(s.plan,rotated):rotated);
     const problem=windowProblem(s.plan,candidate);if(problem)return {placementNotice:problem};
     return {plan:{...s.plan,updatedAt:new Date().toISOString(),furniture:s.plan.furniture.map(f=>f.id===id?candidate:f)}};
   }),
@@ -125,7 +125,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: modernDefaultVariant(catalogId), surfaceVariant: supportsCountertopFinish(catalogId) ? modernDefaultSurface(catalogId)??defaultCountertopFinish.id : undefined, elevationMm:defaultMountHeight(catalogId) }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
   confirmFurniture: (item) => set((state) => {const mounted=fitStair(state.plan,snapWindow(state.plan,item)),problem=windowProblem(state.plan,mounted);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:[...state.plan.furniture,mounted]},null),placementNotice:undefined};}),
   moveFurniture: (id,x,z) => get().updateFurniture(id,{x,z}),
-  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const candidate=fitStair(state.plan,snapWindow(state.plan,{...existing,...patch}));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
+  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const edited={...existing,...patch};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
   duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWallOpening(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
   deleteSelected: () => set((state) => state.selectedId ? commit(state, { ...state.plan, furniture: state.plan.furniture.filter((f) => f.id !== state.selectedId) }, null) : state),
   undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], selectedId: undefined, selectedWallId:undefined }; }),

@@ -1,15 +1,18 @@
 import {luxuryMountHeight} from './luxuryCollection';
 import {modernMountHeight} from './modernCollection';
 import balconyData from './balconyExpansion.json';
+import luxuryBalconyData from './luxuryBalconyExpansion.json';
 import {wallFixtureIds,windowTreatmentIds} from './homeCollection';
 import {cozyRows,cozyMount} from "./cozyCatalog";
 import { interiorRows,interiorWallIds,collectibleIds } from "./interiorCatalog";
 import { outdoorRows } from "./outdoorCatalog";
 import type { CatalogItem } from "./types";
 import { kitchenRows,kitchenWallIds,kitchenSurfaceIds,kitchenCeilingIds,kitchenMountHeight } from "./kitchenCatalog";
-export const isKitchenWall=(id:string)=>kitchenWallIds.has(id)||wallFixtureIds.has(id);
+const declaredKitchenWalls=new Set(cozyRows.filter(row=>row[2]==='Kitchen'&&cozyMount(row[0])==='wall').map(row=>row[0]));
+export const isKitchenWall=(id:string)=>kitchenWallIds.has(id)||wallFixtureIds.has(id)||declaredKitchenWalls.has(id);
 export const isCeilingMounted=(id:string)=>kitchenCeilingIds.has(id)||cozyMount(id)==="ceiling";
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
+  ...luxuryBalconyData as Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]>,
   ...balconyData as Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]>,
   ...outdoorRows,
   ...cozyRows,
@@ -100,7 +103,7 @@ export const isWallOpening=(id:string)=>isWindow(id)||isDoor(id);
 export const isWindow = (catalogId: string) => rows.some(row=>row[0]===catalogId&&row[6]==="window");
 export const isWallMounted = (catalogId: string) => cozyMount(catalogId)==="wall"||wallMountedIds.has(catalogId)||interiorWallIds.has(catalogId)||isKitchenWall(catalogId)||isWallOpening(catalogId);
 export const bathroomModelIds = new Set(rows.filter(row=>row[2]==="Bathroom"&&!cozyMount(row[0])).map(row=>row[0]));
-export const defaultMountHeight = (id:string):number|undefined => luxuryMountHeight(id)??modernMountHeight(id)??kitchenMountHeight(id)??(id==="window-solarium"?25:windowTreatmentIds.has(id)?(id.startsWith("curtain")?80:650):cozyMount(id)==="ceiling"?1500:id==="floating-nightstand"?350:isDoor(id)?0:id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined);
+export const defaultMountHeight = (id:string):number|undefined => luxuryMountHeight(id)??modernMountHeight(id)??kitchenMountHeight(id)??(id==="window-solarium"?0:windowTreatmentIds.has(id)?(id.startsWith("curtain")?80:650):cozyMount(id)==="ceiling"?1500:id==="floating-nightstand"?350:isDoor(id)?0:id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined);
 export const workspaceModelIds = new Set(rows.filter(row=>!cozyMount(row[0])&&((row[6]==="device"&&row[2]==="Office")||row[6]==="fan"||["drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table","compact-computer-desk","gaming-desk","pedestal-computer-desk","ergonomic-office-chair","gaming-chair"].includes(row[0]))).map(row=>row[0]));
 export const isSurfaceMounted = (id:string) => cozyMount(id)==="surface"||collectibleIds.has(id)||["books-upright","books-stacked","small-plant"].includes(id)||kitchenSurfaceIds.has(id)||["slim-tv","tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","soundbar","desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
 export const hasModelPreview = (id:string) => rows.some(row=>row[0]===id);

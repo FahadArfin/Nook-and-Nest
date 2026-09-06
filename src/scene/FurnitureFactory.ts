@@ -158,6 +158,15 @@ export class FurnitureFactory {
     const palette={main:this.material(`main-${item.variant}`,variant,alpha),wood:this.material("wood-honey",FURNITURE_STYLE.wood.honey,alpha),woodLight:this.material("wood-light",FURNITURE_STYLE.wood.light,alpha),woodDark:this.material("wood-dark",FURNITURE_STYLE.wood.dark,alpha),cream:this.material("cream",FURNITURE_STYLE.accent.cream,alpha),terracotta:this.material("terracotta",FURNITURE_STYLE.accent.terracotta,alpha),green:this.material("green",FURNITURE_STYLE.accent.green,alpha),blue:this.material("blue",FURNITURE_STYLE.accent.blue,alpha),burgundy:this.material("burgundy",FURNITURE_STYLE.accent.burgundy,alpha),mustard:this.material("mustard",FURNITURE_STYLE.fabric.mustard,alpha)};
     const args={parent,definition,item,width,depth,height,palette};
     if(definition.id.startsWith('balcony-rail-')){
+      if(!['balcony-rail-glass','balcony-rail-concrete','balcony-rail-hybrid','balcony-rail-crystal'].includes(definition.id)){
+        const stone=definition.id.endsWith('limestone'),teak=definition.id.endsWith('teak'),cable=definition.id.endsWith('cable');
+        const finish=stone?palette.cream:palette.woodDark;
+        for(const x of [-width/2+.07,width/2-.07])this.beveledBox(parent,'railing-post',[stone?.14:.05,height,depth*.7],[x,height/2,0],finish,.004);
+        for(const y of [.12,height-.02])this.beveledBox(parent,'railing-rail',[width,.04,depth*.5],[0,y,0],finish,.004);
+        if(cable){for(let i=0;i<10;i++)this.beveledBox(parent,'railing-cable',[width-.14,.005,.005],[0,.19+i*(height-.3)/10,0],finish,.001);}
+        else {for(let i=0;i<11;i++)this.beveledBox(parent,'railing-infill',[stone?.05:teak?.048:.014,height-.17,stone?.07:.02],[(i-5)*(width-.25)/11,height/2+.035,0],teak?palette.wood:finish,.003);}
+        return;
+      }
       const concrete=definition.id.endsWith('concrete'),hybrid=definition.id.endsWith('hybrid'),base=concrete?height:hybrid?height*.48:.12;
       this.beveledBox(parent,'railing-base',[width,base,depth],[0,base/2,0],palette.cream,.008);
       if(!concrete){this.beveledBox(parent,'railing-glass',[width-.04,height-base-.04,.018],[0,base+(height-base)/2,0],this.material('railing-glass','#b2d2cb',ghost?.08:.2),.002);this.beveledBox(parent,'railing-cap',[width,.03,.04],[0,height-.015,0],palette.woodDark,.004)}return;
