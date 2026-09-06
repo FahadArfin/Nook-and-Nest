@@ -15,6 +15,14 @@ R2 migration (September 6, user-approved): move the delivered model, preview and
 - After merge, follow `docs/release-workflow.md`: use the successful master run's exact release artifact for Sites publishing.
 - Never publish an older artifact over a newer release.
 
+### Shared test and release queue (user-requested)
+
+- Before starting final validation, pushing feature commits, opening/updating a PR, merging, or publishing, check for another Nook & Nest task already running final tests or handling a PR/release. Inspect the relevant active Codex tasks, local test/build processes where identifiable, GitHub open PRs and queued/in-progress Actions runs. Use current evidence, not an old task summary or an assumption that the other task finished.
+- Keep one task in the final-test / PR / merge / Sites release sequence at a time. If another task owns that sequence, wait until its tests, PR handling, master checks and any required Sites publication/verification are complete before starting yours. Continue independent implementation or review while waiting; do not cancel, interrupt, rerun or modify another task's tests, PR or working directory to free the queue.
+- State the current release owner and status in the task's progress update so other tasks can identify it. Recheck immediately before a push or merge because another task may have started since the previous check. If multiple tasks are ready, the task already validating or releasing goes first; otherwise use the oldest ready PR/task. A task must not wait on its own active validation or release as though it belonged to another task, and an abandoned/inactive PR alone does not reserve the queue indefinitely.
+- After the preceding task completes, fetch `origin/master`, merge it into this task's isolated feature branch, resolve conflicts while preserving both features, and run the final checks against that combined state. Only then push and open/update this task's PR. Require `Validate` on the updated PR head before merging.
+- Keep the release slot through successful master validation and publication of that exact release artifact, including live verification. Follow `docs/release-workflow.md`; announce completion before the next task proceeds. A failed active check remains with its task to resolve and must not be silently treated as completion.
+
 
 Batch 8 visual feedback: vegetation must be very detailed, especially conifers. Use dense individual needles on branching shoots, species-specific leafy crowns, curved grass blades, fern leaflets and modeled flower clusters; simple stacked cones, sparse whorls and broad leaf cards are inadequate. Clocks need proper case silhouettes, legible dials/numerals and layered mechanisms/details. Fireplaces need distinct masonry/cast-iron/tiled construction, recessed fireboxes, firebrick, round bark logs, grates and convincing flames. Preserve all existing placement IDs and real dimensions when replacing models.
 
