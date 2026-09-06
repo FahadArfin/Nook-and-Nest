@@ -26,7 +26,7 @@ it('custom paint previews a choice without emitting edits for every wheel moveme
 });
 it('custom paint and scenery orientation survive save/share and undo',()=>{
  const s=usePlanner.getState();s.replacePlan(createSamplePlan());s.setFloorFinish('wallFinishId','paint-1234ab');s.setEnvironment({background:'city',backdropRotation:180});const p=usePlanner.getState().plan;
- expect(parsePlan(serializePlan(p))).toEqual(p);expect(decodeShare(encodeShare(p)).environment?.backdropRotation).toBe(180);s.undo();expect(usePlanner.getState().plan.environment?.background).not.toBe('city');s.undo();expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe('cream-plaster');
+ expect(parsePlan(serializePlan(p))).toEqual(p);expect(decodeShare(encodeShare(p)).environment?.backdropRotation).toBe(180);s.undo();expect(usePlanner.getState().plan.environment?.background).not.toBe('city');s.undo();expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe('pale-white');
  expect(()=>validatePlan({...p,environment:{...p.environment,backdropRotation:NaN}})).toThrow();
 });
 it('height controls keep other floor elevations and reject crossing the floor above',()=>{

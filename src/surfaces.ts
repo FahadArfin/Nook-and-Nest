@@ -13,6 +13,7 @@ export interface SurfaceFinish {
 }
 
 export const wallFinishes: SurfaceFinish[] = [
+  { id: "pale-white", name: "Pale white", family: "Paint", texture: "", scale: 1, color: "#f5f4ef" },
   { id: "cream-plaster", name: "Warm cream", family: "Paint", texture: "/textures/cream-plaster.jpg", scale: 1.5 },
   { id: "sage-plaster", name: "Soft sage", family: "Paint", texture: "/textures/sage-plaster.jpg", scale: 1.5 },
   { id: "terracotta-plaster", name: "Dusty clay", family: "Paint", texture: "/textures/terracotta-plaster.jpg", scale: 1.5 },

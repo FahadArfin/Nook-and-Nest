@@ -61,10 +61,17 @@ const synonyms: Record<string, string> = {
   television:"tv", fridge:"refrigerator", computer:"computer", tub:"bathtub", basin:"sink",
 };
 const normalize = (value: string) => value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+const singular = (word:string) => word.endsWith('ies') ? word.slice(0,-3)+'y' : word.endsWith('s') && !word.endsWith('ss') ? word.slice(0,-1) : word;
+const tokens = (text:string) => normalize(text).split(/\s+/).filter(Boolean).map(w=>synonyms[singular(w)]??singular(w));
 export function matchesFurniture(item: CatalogItem, search: string) {
-  const words = normalize(search).split(/\s+/).filter(Boolean).map(word => synonyms[word] ?? word);
-  const text = normalize(`${item.id} ${item.name} ${item.category} ${item.description} ${furnitureType(item)}`);
-  return words.every(word => text.includes(word));
+  const words=tokens(search);
+  const text=tokens(`${item.id} ${item.name} ${item.category} ${item.description} ${furnitureType(item)}`);
+  return words.every(word => {
+    // Category intent wins over incidental prose (e.g. outdoor, French-door fridge).
+    if(word==='door')return item.category==='Doors';
+    if(word==='window')return item.category==='Windows' && item.shape==='window';
+    return text.some(token=>token===word || (word.length>=3 && token.startsWith(word)));
+  });
 }
 export function filterLibrary(options: { search: string; category: string; type: string; shelf: LibraryShelf; favorites: string[]; inPlan: string[]; sort: LibrarySort }) {
   const { search, category, type, shelf, favorites, inPlan, sort } = options;

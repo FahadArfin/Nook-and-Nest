@@ -95,7 +95,7 @@ describe("room finishes", () => {
     expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe("handmade-brick");
     expect(parsePlan(serializePlan(usePlanner.getState().plan)).floors[0].wallFinishId).toBe("handmade-brick");
     usePlanner.getState().undo();
-    expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe("cream-plaster");
+    expect(usePlanner.getState().plan.floors[0].wallFinishId).toBe("pale-white");
   });
 });
 
