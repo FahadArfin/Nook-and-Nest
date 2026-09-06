@@ -7,6 +7,7 @@ import { favoritesKey, filterLibrary, furnitureType, libraryCategories, parseFav
 import { usePlanner } from "./store";
 import type { CatalogItem } from "./types";
 import "./library.css";
+import { LibraryIconRail } from "./LibraryIconRail";
 
 const icons: Record<string, typeof Armchair> = { seat:Armchair, table:Table, bed:Bed, storage:Books, lamp:Lamp, plant:Plant, rug:GridFour, decor:SquaresFour, window:FrameCorners };
 export function CatalogLibrary({onBeginDrag,onStartPlacement}: {
@@ -37,6 +38,8 @@ export function CatalogLibrary({onBeginDrag,onStartPlacement}: {
   const heading=search.trim()?`Results for “${search.trim()}”`:type!=="All"?type:category!=="All"?category:shelf==="favorites"?"Your favorites":shelf==="plan"?"Pieces in this plan":"All furniture";
   return <div className="catalog-slot"><aside aria-label="Furniture library" className={`catalog-panel library-panel ${expanded?"library-expanded":""}`} onKeyDown={event=>{event.stopPropagation();if(event.key==="Escape"&&expanded){event.preventDefault();setExpanded(false)}}}>
     <div className="panel-heading"><div><span className="eyebrow">Furniture library</span><h2>Find your next piece</h2></div><button className="icon-button library-expand" aria-label={expanded?"Compact library":"Expand library"} aria-pressed={expanded} title={expanded?"Compact library":"More room to browse"} onClick={()=>setExpanded(!expanded)}>{expanded?<ArrowsInSimple/>:<ArrowsOutSimple/>}</button></div>
+    <LibraryIconRail label="Category" values={["All",...libraryCategories]} value={category} onChange={value=>{setCategory(value);setType("All")}}/>
+    <LibraryIconRail label="Type" values={["All",...new Set([...types,...(type==="All"?[]:[type])])]} value={type} onChange={setType}/>
     <div className="search library-search"><MagnifyingGlass size={18}/><input ref={searchRef} aria-label="Search all furniture" placeholder="Search all furniture…" value={search} onChange={e=>{setSearch(e.target.value);setCategory("All");setType("All");setShelf("browse")}}/>{search&&<button aria-label="Clear search" onClick={()=>{setSearch("");searchRef.current?.focus()}}><X size={15}/></button>}</div>
     <div className="library-shelves" role="group" aria-label="Library collection">
       <button aria-pressed={shelf==="browse"} onClick={()=>changeShelf("browse")}><SquaresFour size={16}/> Browse</button>
