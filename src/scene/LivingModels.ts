@@ -54,6 +54,11 @@ export class LivingModels{
    }
    if(materials.length)this.entries.set(root,time=>materials.forEach((m,i)=>m.setFloat('brightness',holidayBrightness(time,i*2))));
   }
+  if(id==='pet-water-fountain'){
+   const ripples=root.getDescendants(false).filter(n=>motionData(n).motion_role==='fountain_ripple'&&!motionData(n.parent).motion_role) as TransformNode[];
+   const rest=ripples.map(node=>({node,scale:node.scaling.clone(),index:Number(motionData(node).motion_index)}));
+   this.entries.set(root,time=>{for(const r of rest){const scale=1+.12*Math.sin(time*2-r.index*1.8);r.node.scaling.set(r.scale.x*scale,r.scale.y,r.scale.z*scale);}});
+  }
   if(id.endsWith('-aquarium')){
    const nodes=root.getDescendants(false).filter(n=>motionData(n).motion_role&&!motionData(n.parent).motion_role) as TransformNode[];
    const fish=nodes.filter(n=>motionData(n).motion_role==='fish').map(node=>({node,index:Number(motionData(node).motion_index),rest:node.position.clone(),tail:nodes.find(n=>motionData(n).motion_role==='tail'&&motionData(n).motion_index===motionData(node).motion_index)}));

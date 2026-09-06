@@ -1062,6 +1062,12 @@ COZY_BUILDERS.update(HOLIDAY_BUILDERS)
 BUILDERS.update(HOLIDAY_BUILDERS)
 
 
+from modern_models import modern_builders
+MODERN_BUILDERS=modern_builders(dict(BUILDERS),rounded_box,cylinder,material)
+COZY_BUILDERS.update(MODERN_BUILDERS)
+BUILDERS.update(MODERN_BUILDERS)
+
+
 def export_model(catalog_id, builder):
     reset_scene()
     bpy.context.preferences.filepaths.save_version = 0

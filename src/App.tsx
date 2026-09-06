@@ -1,3 +1,4 @@
+import {modernDefaultVariant, modernDefaultSurface} from './modernCollection';
 import { Welcome } from "./Welcome";
 import {useAppearance} from './useWelcomeTheme';
 import { BlueprintControls } from "./BlueprintControls";
@@ -121,7 +122,7 @@ export function EditorApp({onHome}:{onHome?:()=>void}) {
     const xs=floor.cells.map((cell)=>cell.x),zs=floor.cells.map((cell)=>cell.z),grid=state.plan.gridSizeMm;
     const x=xs.length?Math.round(((Math.min(...xs)+Math.max(...xs)+1)*grid/2)/50)*50:1700;
     const z=zs.length?Math.round(((Math.min(...zs)+Math.max(...zs)+1)*grid/2)/50)*50:1700;
-    const next: FurniturePlacement={id:uid(),catalogId:item.id,floorId:floor.id,x,z,rotation:controllerRef.current?.placementRotation(item.id,x,z)??0,widthMm:item.widthMm,depthMm:item.depthMm,heightMm:item.heightMm,variant:"sage",surfaceVariant:supportsCountertopFinish(item.id)?defaultCountertopFinish.id:undefined,elevationMm:defaultMountHeight(item.id)};
+    const next: FurniturePlacement={id:uid(),catalogId:item.id,floorId:floor.id,x,z,rotation:controllerRef.current?.placementRotation(item.id,x,z)??0,widthMm:item.widthMm,depthMm:item.depthMm,heightMm:item.heightMm,variant:modernDefaultVariant(item.id),surfaceVariant:supportsCountertopFinish(item.id)?modernDefaultSurface(item.id)??defaultCountertopFinish.id:undefined,elevationMm:defaultMountHeight(item.id)};
     cancelTilePlacement(); focusDraftControls.current=focusControls; state.select(undefined); state.setTool("select"); if(isStairs(item.id))next.toFloorId=state.plan.floors[state.plan.floors.indexOf(floor)+1]?.id; if(isDoor(item.id))next.surfaceVariant=state.activeDoorFinish;
     const mounted=fitStair(state.plan,snapWindow(state.plan,next)); setDraft(mounted); return mounted;
   };

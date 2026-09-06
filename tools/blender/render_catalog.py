@@ -3,7 +3,7 @@ import os,time,subprocess
 import bpy
 import sys
 from pathlib import Path
-from mathutils import Vector
+from mathutils import Vector, Matrix
 
 root=Path(__file__).resolve().parents[2]
 out=root/'assets-source'/'previews'
@@ -12,6 +12,11 @@ for name in sys.argv[sys.argv.index('--')+1:]:
     bpy.ops.wm.open_mainfile(filepath=str(root/'assets-source'/'blender'/(name+'.blend')))
     scene=bpy.context.scene
     w,d,h=scene['nominal_dimensions_m']
+    if name in ['sonos-architectural-ceiling','sonos-ceiling-8']:
+        # Show the installed grille face in the thumbnail; preserve source placement.
+        flip=Matrix.Rotation(3.141592653589793,4,'X')
+        for obj in scene.objects:
+            if obj.type=='MESH':obj.matrix_world=flip @ obj.matrix_world
     scene.render.engine='CYCLES';scene.cycles.samples=32;scene.cycles.use_denoising=True
     scene.render.resolution_x=480;scene.render.resolution_y=440;scene.render.resolution_percentage=100
     scene.world.color=(.45,.45,.45);scene.view_settings.view_transform='AgX'

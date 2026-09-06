@@ -65,7 +65,7 @@ export function matchesFurniture(item: CatalogItem, search: string) {
 }
 export function filterLibrary(options: { search: string; category: string; type: string; shelf: LibraryShelf; favorites: string[]; inPlan: string[]; sort: LibrarySort }) {
   const { search, category, type, shelf, favorites, inPlan, sort } = options;
-  const base = catalog.filter(item => (category === "All" || item.category === category) && matchesFurniture(item, search)
+  const base = catalog.filter(item => (item.id!=="nesting-tables"||shelf==="plan") && (category === "All" || item.category === category) && matchesFurniture(item, search)
     && (shelf === "browse" || (shelf === "favorites" ? favorites : inPlan).includes(item.id)));
   const types = [...new Set(base.map(furnitureType))].sort();
   const items = base.filter(item => type === "All" || furnitureType(item) === type);

@@ -1,3 +1,4 @@
+import modernMaterialAliases from '../modernMaterialAliases.json';
 import {preserveCatalogCoordinates} from './planCoordinates';
 import {MeshoptCompression} from '@babylonjs/core/Meshes/Compression/meshoptCompression';
 import {instanceHolidayBranches} from './HolidayBranches';
@@ -53,7 +54,8 @@ export class FurnitureModelLibrary {
 
   private materialFor(source: Material, item: FurniturePlacement, ghost: boolean) {
     const colorsKey=JSON.stringify(item.materialColors??{});
-    const custom=item.materialColors?.[source.name];
+    const aliases=(modernMaterialAliases as Record<string,Record<string,string[]>>)[item.catalogId]?.[source.name]??[];
+    const custom=item.materialColors?.[source.name]??aliases.map(key=>item.materialColors?.[key]).find(Boolean);
     if (source instanceof MultiMaterial) {
       const key = `${source.uniqueId}:${colorsKey}:${item.variant}:${item.surfaceVariant??"default"}:${ghost ? "ghost" : "solid"}`;
       const cached = this.materialVariants.get(key);
