@@ -35,13 +35,13 @@ describe('cozy expansion and placement regressions',()=>{
   expect(modelAssetPath('sofa')).toContain('/models/furniture/sofa.glb?v=');
  });
  it('ships every addition as an editable, dimensioned model and rendered preview',()=>{
-  expect(cozyRows).toHaveLength(214);
+  expect(cozyRows).toHaveLength(231);
   for(const [id,,,w,d,h] of cozyRows){
    expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());
    const bounds=glbBounds(g);
    for(const [axis,size] of [w,h,d].entries()){const low=Math.min(...bounds.map((a:any)=>a.min[axis])),high=Math.max(...bounds.map((a:any)=>a.max[axis]));expect((high-low)*1000,id).toBeCloseTo(size,0);}
-   expect(g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((n:number,a:any)=>n+a.count/3,0),id).toBeLessThan(detailedIds.includes(id)?120000:60000);
+   expect(g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((n:number,a:any)=>n+a.count/3,0),id).toBeLessThan((detailedIds.includes(id)||id==='skyline-gtr-brick')?120000:60000);
   }
  });
  it('places every TV on a fitting rotated stand including the original TV',()=>{

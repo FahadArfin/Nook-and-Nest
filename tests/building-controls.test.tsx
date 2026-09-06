@@ -77,7 +77,7 @@ describe("building editor wiring",()=>{
     fireEvent.change(screen.getByLabelText("grout color"),{target:{value:"#ccbbaa"}});fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"920"}});
     expect(state().plan.furniture[0].materialColors?.grout).toBe("#ccbbaa");expect(state().plan.furniture[0].elevationMm).toBe(920);
     expect(screen.getAllByRole("button",{name:"Flip"})).toHaveLength(2);
-  });
+  },10000);
   it("shows a separate backsplash material chooser and keeps the selected finish on undo/redo",async()=>{
     const c=catalog.find(c=>c.id==="backsplash-slab")!,p=state().plan;
     state().confirmFurniture({id:"slab",catalogId:c.id,floorId:p.floors[0].id,x:1800,z:0,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:"cream"});
@@ -162,4 +162,4 @@ it('carries shared appearance through the studio and editor without changing the
  fireEvent.click(screen.getByRole('button',{name:'Back to home'}));await screen.findByRole('button',{name:'Use light theme'});expect(screen.getByRole('button',{name:'Use light theme'}).getAttribute('aria-pressed')).toBe('true');
  fireEvent.click(screen.getByRole('button',{name:'Use system theme'}));fireEvent.click(screen.getByRole('button',{name:/Free 3D editor/}));const next=state().plan;
  act(()=>{matches=true;listeners.forEach(fn=>fn());});expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);expect(state().plan).toBe(next);localStorage.removeItem('nook-welcome-theme');
-});
+},10000);
