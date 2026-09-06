@@ -85,7 +85,7 @@ describe("tile drag confirmation", () => {
 describe("room finishes", () => {
   it("offers the requested wall and floor finish families", () => {
     expect(new Set(wallFinishes.map((finish)=>finish.family))).toEqual(new Set(["Paint","Masonry","Wallpaper","Stone","Paneling","Tile"]));
-    expect(new Set(floorFinishes.map((finish)=>finish.family))).toEqual(new Set(["Wood","Laminate","Tile","Carpet","Large marble"]));
+    expect(new Set(floorFinishes.map((finish)=>finish.family))).toEqual(new Set(["Wood","Laminate","Tile","Carpet","Large marble","Stone","Terrazzo"]));
   });
 
   it("saves and undoes a floor finish change", () => {

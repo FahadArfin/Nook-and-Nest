@@ -48,3 +48,12 @@ export function paintWallPlate(floor:FloorPlan,grid:number,id:string,finishId:st
   for(const id of ids)wallFinishes[id]=finishId;
   return {...floor,wallFinishes};
 }
+
+/** Paint structural groups without touching finishes on the other group. */
+export function paintWallGroup(floor:FloorPlan,grid:number,group:'interior'|'exterior',finishId:string):FloorPlan {
+ const ids=new Set((group==='interior'?floor.walls:floorBoundaryWalls(floor,grid)).map(w=>w.id));
+ const wallFinishes={...floor.wallFinishes};
+ for(const key of Object.keys(wallFinishes))if(ids.has(key.split('|')[0]))delete wallFinishes[key];
+ for(const id of ids)wallFinishes[id]=finishId;
+ return {...floor,wallFinishes};
+}
