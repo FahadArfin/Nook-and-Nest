@@ -110,7 +110,7 @@ describe('library icon navigation',()=>{
     fireEvent.change(screen.getByLabelText('Furniture type'),{target:{value:'Mirrors'}});
     expect(screen.getByRole('button',{name:'Type: Mirrors'}).getAttribute('aria-pressed')).toBe('true');
     fireEvent.click(screen.getByRole('button',{name:'Category: Living'}));
-    expect(screen.getByRole('button',{name:'Type: All'}).getAttribute('aria-pressed')).toBe('true');
+    expect((screen.getByLabelText('Furniture type') as HTMLSelectElement).value).toBe('All');
     fireEvent.change(screen.getByLabelText('Search all furniture'),{target:{value:'couch'}});
     expect(screen.getByRole('button',{name:'Category: All'}).getAttribute('aria-pressed')).toBe('true');
     expect(usePlanner.getState().plan).toBe(before);expect(usePlanner.getState().past).toHaveLength(0);
@@ -119,11 +119,11 @@ describe('library icon navigation',()=>{
   it('supports arrow and endpoint navigation without applying a filter until activated',()=>{
     render(<CatalogLibrary onBeginDrag={vi.fn()} onStartPlacement={vi.fn()}/>);
     const all=screen.getByRole('button',{name:'Category: All'});all.focus();
-    fireEvent.keyDown(all,{key:'ArrowRight'});
+    fireEvent.keyDown(all,{key:'ArrowDown'});
     expect(document.activeElement).toBe(screen.getByRole('button',{name:'Category: Living'}));
     expect(usePlanner.getState().category).toBe('All');
     fireEvent.keyDown(document.activeElement!,{key:'End'});
     expect(document.activeElement).toBe(screen.getByRole('button',{name:'Category: Stairs'}));
-    fireEvent.keyDown(document.activeElement!,{key:'ArrowRight'});expect(document.activeElement).toBe(all);
+    fireEvent.keyDown(document.activeElement!,{key:'ArrowDown'});expect(document.activeElement).toBe(all);
   });
 });
