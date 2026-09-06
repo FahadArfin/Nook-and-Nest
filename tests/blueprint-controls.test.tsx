@@ -53,8 +53,8 @@ describe('floor plan studio flow',()=>{
     await screen.findByRole('button',{name:/Detected bedroom/});expect(button).toBeEnabled();
     fireEvent.click(screen.getByRole('button',{name:/Detected bedroom/}));fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'My edited room'}});
     const before=vi.mocked(recognizeReference).mock.calls.length;vi.mocked(window.confirm).mockReturnValueOnce(false);fireEvent.click(button);expect(vi.mocked(recognizeReference).mock.calls.length).toBe(before);
-    fireEvent.click(button);await screen.findByRole('button',{name:/Detected bedroom/});
-    expect(vi.mocked(recognizeReference).mock.calls.at(-1)?.[2]).toEqual(expect.objectContaining({force:true,model:'gpt-5.6-luna'}));
+    fireEvent.click(screen.getByRole('button',{name:'File'}));fireEvent.click(screen.getByText('Analysis guidance (optional)'));fireEvent.change(screen.getByLabelText('Analysis guidance'),{target:{value:'Hall stays left of bedroom closets'}});fireEvent.click(button);await screen.findByRole('button',{name:/Detected bedroom/});
+    expect(vi.mocked(recognizeReference).mock.calls.at(-1)?.[2]).toEqual(expect.objectContaining({force:true,model:'gpt-5.6-luna',guidance:'Hall stays left of bedroom closets'}));
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('button',{name:/My edited room/})).toBeVisible();expect(usePlanner.getState().plan).toBe(original);
   });
   it('shows a multi-part room once and renames and moves all its parts together',async()=>{
