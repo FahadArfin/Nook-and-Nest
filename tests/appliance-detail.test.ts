@@ -1,6 +1,8 @@
 import {describe,it,expect} from 'vitest';
 import {readFileSync,existsSync} from 'node:fs';
 import previous from './appliance-material-baseline.json';
+import textures from './appliance-texture-baseline.json';
+import {createHash} from 'node:crypto';
 import {NullEngine} from '@babylonjs/core/Engines/nullEngine';
 import {Scene} from '@babylonjs/core/scene';
 import {LoadAssetContainerAsync} from '@babylonjs/core/Loading/sceneLoader';
@@ -23,6 +25,13 @@ describe('detailed appliance collection',()=>{
    expect(catalog.find(c=>c.id===item.id)).toMatchObject(item);
    const names=asset(item.id).g.materials.map((m:any)=>m.name);
    for(const m of (previous as any)[item.id]){expect(names,item.id).toContain(m.id);expect((materials as any)[item.id],item.id).toContainEqual(m);}
+  }
+ });
+ it('retains every original embedded texture byte without resampling',()=>{
+  for(const [id,hashes] of Object.entries(textures)){
+   const {b,g}=asset(id),bin=b.subarray(28+b.readUInt32LE(12));
+   const actual=g.images.map((image:any)=>{const v=g.bufferViews[image.bufferView];return createHash('sha256').update(bin.subarray(v.byteOffset??0,(v.byteOffset??0)+v.byteLength)).digest('hex');});
+   for(const hash of hashes)expect(actual,id).toContain(hash);
   }
  });
  it('ships 53 exact-size, grounded, bounded meshes with editable sources and previews',()=>{
