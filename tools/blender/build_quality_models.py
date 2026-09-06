@@ -1062,6 +1062,11 @@ COZY_BUILDERS.update(HOLIDAY_BUILDERS)
 BUILDERS.update(HOLIDAY_BUILDERS)
 
 
+from modern_models import modern_builders
+MODERN_BUILDERS=modern_builders(dict(BUILDERS),rounded_box,cylinder,material)
+COZY_BUILDERS.update(MODERN_BUILDERS)
+BUILDERS.update(MODERN_BUILDERS)
+
 from balcony_collection import balcony_builders
 BALCONY_BUILDERS=balcony_builders(rounded_box,cylinder,material)
 COZY_BUILDERS.update(BALCONY_BUILDERS)

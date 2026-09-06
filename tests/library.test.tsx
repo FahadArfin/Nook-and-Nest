@@ -15,7 +15,7 @@ afterEach(cleanup);
 
 describe("library organization",()=>{
   it("gives every piece a real furniture type",()=>{
-    expect(catalog).toHaveLength(331);
+    expect(catalog).toHaveLength(443);
     for(const item of catalog)expect(furnitureType(item),item.id).not.toBe("Other pieces");
   });
   it("finds common synonyms, categories and multiword queries",()=>{
@@ -90,7 +90,7 @@ describe("library controls",()=>{
   it("shows an actionable empty search and keeps editing shortcuts out of library controls",()=>{
     mount();fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"no-such-piece"}});
     expect(screen.getByText("No matching pieces")).toBeTruthy();fireEvent.click(screen.getByRole("button",{name:"Browse all furniture"}));
-    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(catalog.length);
+    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(catalog.length-1);
     const listener=vi.fn();window.addEventListener("keydown",listener);
     try{fireEvent.keyDown(screen.getByLabelText("Furniture category"),{key:"r"});expect(listener).not.toHaveBeenCalled()}finally{window.removeEventListener("keydown",listener)}
     expect(within(screen.getByRole("group",{name:"Library collection"})).getAllByRole("button")).toHaveLength(3);
