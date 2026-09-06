@@ -1,3 +1,4 @@
+import {trimHallOverlaps} from './recognitionGeometry';
 import {openPlanAreas,blueprintPlan,fixtureAt,coveredByFloor,footprint,type BlueprintDraft} from './blueprint';
 import {recognizedScale,scaleAssessment,validateRecognition,type Recognition} from './recognitionContract';
 import type {PlanReference} from './blueprintImport';
@@ -6,15 +7,15 @@ import {snapWindow,wallRuns,windowProblem} from './windows';
 import {catalog,isWallOpening} from './catalog';
 import {recognitionKey,cachedRecognition,saveRecognition,type ScanModel} from './recognitionCache';
 
-export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;confirmPremium?:()=>boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
-  const model=options.model??'gpt-5.6-luna',key=await recognitionKey(reference,model);
+export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;confirmPremium?:()=>boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
+  const model=options.model??'gpt-5.6-luna',key=await recognitionKey(reference,model,options.guidance);
   signal?.throwIfAborted();
   const cached=options.force?undefined:cachedRecognition(key,reference);
   if(cached){options.status?.('Reused saved analysis — no API charge.');return cached;}
   const premiumConfirmed=model==='gpt-6-astra'&&options.confirmPremium?.()===true;
   if(model==='gpt-6-astra'&&!premiumConfirmed)throw new Error('Astra analysis canceled. No API request was made.');
   signal?.throwIfAborted();
-  const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,premiumConfirmed})});
+  const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,premiumConfirmed,guidance:options.guidance?.trim()||undefined})});
   const body=await response.json().catch(()=>null);
   if(!response.ok||body?.error)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
   signal?.throwIfAborted();
@@ -27,6 +28,7 @@ export function roomsOnlyRecognition(result:Recognition):Recognition {return {..
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition,confirmedScale?:number) {
   const scale=confirmedScale??recognizedScale(result);
   if(!Number.isFinite(scale)||scale<.1||scale>200)throw new Error('Choose a scale between 0.1 and 200 mm per pixel.');
+  result=trimHallOverlaps(result,Math.max(1,11/scale));
   const mm=(n:number)=>Math.round(n*scale);
   const identities=new Map<string,string>();
   const groupIdentity=(r:Recognition['rooms'][number],name:string)=>{const key=JSON.stringify([r.roomId??null,r.kind,name.toLowerCase()]);if(!identities.has(key))identities.set(key,`scan-group-${identities.size}`);return identities.get(key)!;};

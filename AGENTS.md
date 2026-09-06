@@ -113,3 +113,5 @@ Combine preference: click multiple room areas directly on the canvas or whole ro
 Combined-room editing: a combined room acts as one object by default, with four whole-room resize handles and no internal rectangle selection seams. Scale its parts together to preserve its outline and shared edges. Individual rectangle handles, separation and deletion belong behind an explicit Edit individual rectangles option.
 
 Floor Plan Studio should offer a top-level Reanalyze button that explicitly bypasses the scan cache for the current uploaded page and orientation. Keep ordinary imports cached, use Luna, preserve the draft on failure/cancel, and make a successful replacement undoable.
+
+Recognition accuracy: retain Luna and test prompting changes against real scans before claiming improvement. Offer optional per-scan layout guidance in File, keep guidance-specific caches, and trim detected hall overlaps against enclosed rooms without resizing those rooms. Surface uncertainty; longer prompts or more reasoning alone are not proven fixes.

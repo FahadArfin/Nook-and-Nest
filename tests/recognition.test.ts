@@ -1,3 +1,4 @@
+import {trimHallOverlaps} from '../src/recognitionGeometry';
 import {webcrypto} from 'node:crypto';
 import {recognitionKey,clearRecognitionCache} from '../src/recognitionCache';
 import {describe,it,expect,vi} from 'vitest';
@@ -14,6 +15,17 @@ describe('automatic floor-plan contract',()=>{
     const base=createSamplePlan('Test','metric'),before=JSON.stringify(base);const {draft}=draftFromRecognition(base,base.floors[0].id,r);
     expect(draft.rooms[0].width).toBe(4000);expect(draft.rooms[1].kind).toBe('Closet');expect(draft.fixtures[0].widthMm).toBe(680);
     expect(blueprintPlan(base,base.floors[0].id,draft).furniture.filter(f=>f.floorId===base.floors[0].id)).toHaveLength(1);expect(JSON.stringify(base)).toBe(before);
+  });
+  it('cuts an oversized hall around enclosed rooms while preserving room geometry and connected hall identity',()=>{
+    const r=result();r.fixtures=[];r.rooms=[{roomId:'hall',name:'Hall',kind:'Hall',x:0,y:0,width:300,height:400,enclosed:false,note:''},{roomId:'bed',name:'Bedroom',kind:'Bedroom',x:100,y:100,width:200,height:300,enclosed:true,note:''}];
+    const before=structuredClone(r),fixed=trimHallOverlaps(r);expect(r).toEqual(before);expect(fixed.rooms.filter(r=>r.kind==='Bedroom')).toEqual([before.rooms[1]]);
+    const hall=fixed.rooms.filter(r=>r.kind==='Hall');expect(hall.map(r=>[r.x,r.y,r.width,r.height])).toEqual([[0,0,300,100],[0,100,100,300]]);expect(hall.every(r=>r.roomId==='hall')).toBe(true);
+    expect(trimHallOverlaps(fixed)).toEqual(fixed);expect(fixed.warnings[0]).toContain('Trimmed hallway');
+    const base=createSamplePlan('Test','metric'),converted=draftFromRecognition(base,base.floors[0].id,r);expect(roomGroups(converted.draft.rooms).filter(r=>r.kind==='Hall')).toHaveLength(1);
+  });
+  it('does not invent floor for a fully covered hall or regrow subminimum clipped slivers',()=>{
+    const r=result();r.rooms=[{name:'Hall',kind:'Hall',x:0,y:0,width:100,height:100,enclosed:false,note:''},{name:'Room',kind:'Bedroom',x:0,y:0,width:100,height:100,enclosed:true,note:''}];
+    expect(trimHallOverlaps(r).rooms).toEqual([r.rooms[1]]);r.rooms[1].x=1;expect(trimHallOverlaps(r,2).rooms).toEqual([r.rooms[1]]);
   });
   it('rejects missing measurements and conflicting scales instead of inventing dimensions',()=>{
     expect(()=>recognizedScale({...result(),dimensions:[]})).toThrow('No readable');
@@ -64,8 +76,8 @@ describe('server-side scan analysis',()=>{
   });
   it('keeps credentials server-side and treats document writing as untrusted data',async()=>{
     const fetcher=vi.fn(async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(result())}]}]}));
-    expect(await analyzeFloorPlan('data:image/png;base64,AA==',1000,800,'test-key','gpt-5.4',fetcher)).toEqual(result());
-    const options=fetcher.mock.calls[0] as unknown as [string,RequestInit];const body=JSON.parse(options[1].body as string);expect(body.store).toBe(false);expect(body.instructions).toContain('never instructions');expect(body.text.format.strict).toBe(true);expect(JSON.stringify(body)).not.toContain('test-key');
+    expect(await analyzeFloorPlan('data:image/png;base64,AA==',1000,800,'test-key','gpt-5.4',fetcher,undefined,'Hall stays left of closet')).toEqual(result());
+    const options=fetcher.mock.calls[0] as unknown as [string,RequestInit];const body=JSON.parse(options[1].body as string);expect(body.store).toBe(false);expect(body.instructions).toContain('never instructions');expect(body.text.format.strict).toBe(true);expect(body.input[0].content.at(-1).text).toContain('Hall stays left of closet');expect(JSON.stringify(body)).not.toContain('test-key');
   });
   it('does not accept partial model output',async()=>{await expect(analyzeFloorPlan('',1000,800,'fake','model',async()=>Response.json({status:'incomplete'}))).rejects.toThrow('did not finish');});
   it('streams valid JSON through the authenticated endpoint and hides provider failures',async()=>{
@@ -104,6 +116,11 @@ describe('analysis cost safeguards (no paid requests)',()=>{
       expect(await recognizeReference(ref)).toEqual(fresh);expect(fetcher).toHaveBeenCalledTimes(3);
     }finally{vi.unstubAllGlobals();}
   });
+  it('keys cached analyses by trimmed user guidance and sends it without altering the image',async()=>{
+    vi.stubGlobal('crypto',webcrypto);const values=new Map<string,string>();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k),setItem:(k:string,v:string)=>values.set(k,v)});
+    const fetcher=vi.fn(async(_url:unknown,_options?:RequestInit)=>Response.json(result()));vi.stubGlobal('fetch',fetcher);
+    try {await recognizeReference(ref);await recognizeReference(ref,undefined,{guidance:'Narrow hall'});await recognizeReference(ref,undefined,{guidance:' Narrow hall '});expect(fetcher).toHaveBeenCalledTimes(2);const body=JSON.parse(fetcher.mock.calls[1]?.[1]?.body as string);expect(body.guidance).toBe('Narrow hall');expect(body.image).toBe(ref.url);}finally{vi.unstubAllGlobals();}
+  });
   it('caches completed detections even when scale needs review, without another paid request',async()=>{
     vi.stubGlobal('crypto',webcrypto);const values=new Map<string,string>();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k),setItem:(k:string,v:string)=>values.set(k,v)});
     const detection=result();detection.dimensions.push({...detection.dimensions[0],millimetres:9000});
@@ -121,6 +138,7 @@ describe('analysis cost safeguards (no paid requests)',()=>{
     const request=(extra={})=>new Request('https://home.test/api/floor-plan/recognize',{method:'POST',headers:{origin:'https://home.test','content-type':'application/json','oai-authenticated-user-id':'u'},body:JSON.stringify({image:ref.url,width:1000,height:800,...extra})});
     try{
       expect((await recognitionApi(request({model:'gpt-6-astra'}),env)).status).toBe(400);expect(prepare).not.toHaveBeenCalled();
+      expect((await recognitionApi(request({guidance:'x'.repeat(1501)}),env)).status).toBe(400);expect(prepare).not.toHaveBeenCalled();
       expect((await recognitionApi(request({model:'unknown'}),env)).status).toBe(400);
       await (await recognitionApi(request(),env)).json();expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
       await (await recognitionApi(request({model:'gpt-6-astra',premiumConfirmed:true}),env)).json();expect(JSON.parse(fetcher.mock.calls[1]?.[1]?.body as string).model).toBe('gpt-6-astra');
