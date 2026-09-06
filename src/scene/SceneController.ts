@@ -202,12 +202,12 @@ export class SceneController {
     const a=this.wallDraft,ax=a.ax*s,az=a.az*s,bx=a.bx*s,bz=a.bz*s;
     const mesh=MeshBuilder.CreateBox("inside-wall-preview",{width:Math.hypot(bx-ax,bz-az),height:h,depth:.1},this.scene);
     mesh.parent=this.root;mesh.position=new Vector3((ax+bx)/2,y+h/2,(az+bz)/2);mesh.rotation.y=-Math.atan2(bz-az,bx-ax);
-    mesh.material=this.material("inside-wall-preview-mat",connected?"#c1b36c":"#79ad58",.52);
+    mesh.material=this.material("inside-wall-preview-mat",this.tool==="wall-cut"?"#ce6253":connected?"#c1b36c":"#79ad58",.52);
     mesh.renderOutline=true;mesh.outlineColor=Color3.FromHexString(connected?"#f9d478":"#527d3e");mesh.outlineWidth=.018;mesh.isPickable=false;this.wallDraftMesh=mesh;
   }
   private cancelWallDraft(){for(const m of this.wallSnapMarkers)m.dispose();this.wallSnapMarkers=[];this.wallDraftMesh?.dispose();this.wallDraftMesh=undefined;this.wallDragStart=undefined;this.wallDragCurrent=undefined;this.wallDraft=undefined;}
   private material(name: string, hex: string, alpha = 1) { const key=`${name}:${hex}:${alpha}`,cached=this.solidMaterials.get(key);if(cached)return cached;const mat = new StandardMaterial(name, this.scene); mat.diffuseColor = Color3.FromHexString(hex); mat.roughness = .92; mat.specularColor = new Color3(.08,.07,.05); mat.alpha = alpha;this.solidMaterials.set(key,mat);return mat; }
-  private surfaceMaterial(name:string,finish:SurfaceFinish,alpha=1){const key=`${finish.id}:${alpha}`;const cached=this.surfaceMaterials.get(key);if(cached)return cached;const mat=this.material(name,"#ffffff",alpha);const texture=new Texture(finish.texture,this.scene,false,false,Texture.TRILINEAR_SAMPLINGMODE);texture.wrapU=Texture.WRAP_ADDRESSMODE;texture.wrapV=Texture.WRAP_ADDRESSMODE;texture.uScale=finish.scale;texture.vScale=finish.scale;texture.anisotropicFilteringLevel=4;mat.diffuseTexture=texture;mat.specularColor=new Color3(.035,.03,.022);mat.roughness=.96;this.surfaceMaterials.set(key,mat);return mat;}
+  private surfaceMaterial(name:string,finish:SurfaceFinish,alpha=1){const key=`${finish.id}:${alpha}`;const cached=this.surfaceMaterials.get(key);if(cached)return cached;const mat=this.material(`${name}:${finish.id}`,"#ffffff",alpha);const texture=new Texture(finish.texture,this.scene,false,false,Texture.TRILINEAR_SAMPLINGMODE);texture.wrapU=Texture.WRAP_ADDRESSMODE;texture.wrapV=Texture.WRAP_ADDRESSMODE;texture.uScale=finish.scale;texture.vScale=finish.scale;texture.anisotropicFilteringLevel=4;mat.diffuseTexture=texture;mat.specularColor=new Color3(.035,.03,.022);mat.roughness=.96;this.surfaceMaterials.set(key,mat);return mat;}
   private makeMeadow() { const ground = MeshBuilder.CreateDisc("meadow", { radius: 15, tessellation: 64 }, this.scene); ground.rotation.x = Math.PI / 2; ground.position.y = -.15; ground.material = this.material("meadow-mat", "#9cab77"); ground.receiveShadows = true; }
   update(plan: PlanDocumentV1, activeFloorId: string, selectedId?: string, draft?: FurniturePlacement) {
     const previousDraft=this.activeDraft,refreshPreview=this.refreshModels;
@@ -255,7 +255,7 @@ export class SceneController {
     const activeFloor = plan.floors[activeIndex];
     if (draft && activeFloor && draft.floorId === activeFloor.id) this.buildFurniture(draft, activeFloor.elevationMm / 1000, false, true);
     if (cameraPolicy.reframe && activeFloor?.cells.length) { const xs=activeFloor.cells.map(c=>c.x); const zs=activeFloor.cells.map(c=>c.z); const scale=plan.gridSizeMm/1000; const width=(Math.max(...xs)-Math.min(...xs)+1)*scale; const depth=(Math.max(...zs)-Math.min(...zs)+1)*scale; this.camera.setTarget(new Vector3((Math.min(...xs)+Math.max(...xs)+1)*scale/2, activeFloor.elevationMm/1000+.3, (Math.min(...zs)+Math.max(...zs)+1)*scale/2)); this.camera.radius=Math.max(6,Math.max(width,depth)*1.8); }
-    if (activeFloor && (this.tool === "paint" || this.tool === "erase" || this.tool === "wall" || this.tool === "stairs" || this.tool === "measured-room")) { const editGrid = MeshBuilder.CreateGround("edit-grid", { width: 40, height: 40, subdivisions: 1 }, this.scene); editGrid.parent = this.root; editGrid.position = new Vector3(5, activeFloor.elevationMm / 1000 - .055, 5); editGrid.material = this.material("edit-grid-mat", "#f7f1e3", .001); editGrid.isPickable = true; }
+    if (activeFloor && (this.tool === "paint" || this.tool === "erase" || (this.tool === "wall" || this.tool === "wall-cut") || this.tool === "stairs" || this.tool === "measured-room")) { const editGrid = MeshBuilder.CreateGround("edit-grid", { width: 40, height: 40, subdivisions: 1 }, this.scene); editGrid.parent = this.root; editGrid.position = new Vector3(5, activeFloor.elevationMm / 1000 - .055, 5); editGrid.material = this.material("edit-grid-mat", "#f7f1e3", .001); editGrid.isPickable = true; }
     if (cameraPolicy.orient) {
       applyPlanView(this.camera, plan.camera.mode);
       if (plan.camera.mode === 'top') this.camera.radius = Math.max(7, this.camera.radius * .95);
@@ -363,7 +363,7 @@ export class SceneController {
         if(this.tool==="measured-room"){const cell=this.cellAtPointer(this.scene.pointerX,this.scene.pointerY);if(cell)this.callbacks.onCell(cell.x,cell.z);return;
         }else if(this.tool==="paint"||this.tool==="erase"||this.tool==="floor-finish"){
           const cell=this.cellAtPointer(this.scene.pointerX,this.scene.pointerY); if(!cell)return; this.tileDragStart=cell; this.tileDragCurrent=cell; this.renderTileDraft(cell,cell,this.tool!=="erase"); this.callbacks.onSelect(undefined); this.camera.detachControl();
-        }else if(this.tool==="wall"){
+        }else if(this.tool==="wall"||this.tool==="wall-cut"){
           const point=this.wallPointAtPointer(this.scene.pointerX,this.scene.pointerY),floor=this.activePlan?.floors.find(f=>f.id===this.activeFloorId);if(!point||!floor)return;const start=snapWallStart(floor,this.activePlan!.gridSizeMm,point);this.wallDragStart=start;this.wallDragCurrent=point;this.renderWallDraft(start,start);this.callbacks.onSelect(undefined);this.camera.detachControl();
         }else if(name==="draft-preview"&&this.tool==="select"){
           this.draggingDraft=true; this.camera.detachControl();

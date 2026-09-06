@@ -157,6 +157,12 @@ export class FurnitureFactory {
     const alpha=ghost?.2:1; const variant=variants[item.variant as keyof typeof variants] ?? variants.sage;
     const palette={main:this.material(`main-${item.variant}`,variant,alpha),wood:this.material("wood-honey",FURNITURE_STYLE.wood.honey,alpha),woodLight:this.material("wood-light",FURNITURE_STYLE.wood.light,alpha),woodDark:this.material("wood-dark",FURNITURE_STYLE.wood.dark,alpha),cream:this.material("cream",FURNITURE_STYLE.accent.cream,alpha),terracotta:this.material("terracotta",FURNITURE_STYLE.accent.terracotta,alpha),green:this.material("green",FURNITURE_STYLE.accent.green,alpha),blue:this.material("blue",FURNITURE_STYLE.accent.blue,alpha),burgundy:this.material("burgundy",FURNITURE_STYLE.accent.burgundy,alpha),mustard:this.material("mustard",FURNITURE_STYLE.fabric.mustard,alpha)};
     const args={parent,definition,item,width,depth,height,palette};
+    if(definition.id.startsWith('balcony-rail-')){
+      const concrete=definition.id.endsWith('concrete'),hybrid=definition.id.endsWith('hybrid'),base=concrete?height:hybrid?height*.48:.12;
+      this.beveledBox(parent,'railing-base',[width,base,depth],[0,base/2,0],palette.cream,.008);
+      if(!concrete){this.beveledBox(parent,'railing-glass',[width-.04,height-base-.04,.018],[0,base+(height-base)/2,0],this.material('railing-glass','#b2d2cb',ghost?.08:.2),.002);this.beveledBox(parent,'railing-cap',[width,.03,.04],[0,height-.015,0],palette.woodDark,.004)}return;
+    }
+    if(definition.id==='balcony-mini-split'){this.beveledBox(parent,'condenser',[width,height,depth],[0,height/2,0],palette.cream,.02);for(let i=0;i<10;i++)this.beveledBox(parent,'condenser-vent',[width*.65,.012,.006],[0,height*.18+i*height*.06,depth/2],palette.woodDark,.002);return;}
     if(outdoorIds.has(definition.id))return this.outdoor(args);
     if(interiorRows.some(row=>row[0]===definition.id))return this.interior(args);
     if(definition.shape==="backsplash"){

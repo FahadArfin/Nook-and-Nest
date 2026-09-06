@@ -1,4 +1,5 @@
 import {modernMountHeight} from './modernCollection';
+import balconyData from './balconyExpansion.json';
 import {wallFixtureIds,windowTreatmentIds} from './homeCollection';
 import {cozyRows,cozyMount} from "./cozyCatalog";
 import { interiorRows,interiorWallIds,collectibleIds } from "./interiorCatalog";
@@ -8,6 +9,7 @@ import { kitchenRows,kitchenWallIds,kitchenSurfaceIds,kitchenCeilingIds,kitchenM
 export const isKitchenWall=(id:string)=>kitchenWallIds.has(id)||wallFixtureIds.has(id);
 export const isCeilingMounted=(id:string)=>kitchenCeilingIds.has(id)||cozyMount(id)==="ceiling";
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
+  ...balconyData as Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]>,
   ...outdoorRows,
   ...cozyRows,
   ...interiorRows,
@@ -25,9 +27,9 @@ const rows: Array<[string,string,CatalogItem["category"],number,number,number,Ca
   ["stairs-cantilever","Cantilever wood treads","Stairs",1100,4200,2800,"stairs","Wall-mounted tread plates; requires an engineered support wall"],
   ["stairs-led","Warm-lit cantilever stairs","Stairs",1100,4200,2800,"stairs","Warm under-nosing light strips beneath chunky cantilevered treads"],
 
-  ["tv-55","Picture TV · 55 inch","Living",1238,280,795,"device","55-inch class screen with slim bezel and splayed feet; rests on a media bench"],
-  ["tv-65","Picture TV · 65 inch","Living",1459,300,919,"device","65-inch class screen with a separate tintable screen, casing and feet"],
-  ["tv-75","Picture TV · 75 inch","Living",1680,340,1044,"device","Large 75-inch class screen; check your media bench width"],
+  ["tv-55","Picture TV Â· 55 inch","Living",1238,280,795,"device","55-inch class screen with slim bezel and splayed feet; rests on a media bench"],
+  ["tv-65","Picture TV Â· 65 inch","Living",1459,300,919,"device","65-inch class screen with a separate tintable screen, casing and feet"],
+  ["tv-75","Picture TV Â· 75 inch","Living",1680,340,1044,"device","Large 75-inch class screen; check your media bench width"],
   ["compact-speaker","Pocket room speaker","Living",125,140,190,"device","Small rounded smart-style speaker for shelves or surround sound"],
   ["bookshelf-speaker","Duet bookshelf speaker","Living",200,250,340,"device","Two-driver speaker with a soft-edged wood enclosure; place a pair independently"],
   ["tower-speaker","Column tower speaker","Living",280,340,1050,"device","Three exposed drivers on an isolation plinth for a home cinema"],
@@ -97,7 +99,7 @@ export const isWallOpening=(id:string)=>isWindow(id)||isDoor(id);
 export const isWindow = (catalogId: string) => rows.some(row=>row[0]===catalogId&&row[6]==="window");
 export const isWallMounted = (catalogId: string) => cozyMount(catalogId)==="wall"||wallMountedIds.has(catalogId)||interiorWallIds.has(catalogId)||isKitchenWall(catalogId)||isWallOpening(catalogId);
 export const bathroomModelIds = new Set(rows.filter(row=>row[2]==="Bathroom"&&!cozyMount(row[0])).map(row=>row[0]));
-export const defaultMountHeight = (id:string):number|undefined => modernMountHeight(id)??kitchenMountHeight(id)??(windowTreatmentIds.has(id)?(id.startsWith("curtain")?80:650):cozyMount(id)==="ceiling"?1500:id==="floating-nightstand"?350:isDoor(id)?0:id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined);
+export const defaultMountHeight = (id:string):number|undefined => modernMountHeight(id)??kitchenMountHeight(id)??(id==="window-solarium"?25:windowTreatmentIds.has(id)?(id.startsWith("curtain")?80:650):cozyMount(id)==="ceiling"?1500:id==="floating-nightstand"?350:isDoor(id)?0:id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined);
 export const workspaceModelIds = new Set(rows.filter(row=>!cozyMount(row[0])&&((row[6]==="device"&&row[2]==="Office")||row[6]==="fan"||["drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table","compact-computer-desk","gaming-desk","pedestal-computer-desk","ergonomic-office-chair","gaming-chair"].includes(row[0]))).map(row=>row[0]));
 export const isSurfaceMounted = (id:string) => cozyMount(id)==="surface"||collectibleIds.has(id)||["books-upright","books-stacked","small-plant"].includes(id)||kitchenSurfaceIds.has(id)||["slim-tv","tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","soundbar","desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
 export const hasModelPreview = (id:string) => rows.some(row=>row[0]===id);

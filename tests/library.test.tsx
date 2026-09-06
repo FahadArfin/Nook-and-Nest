@@ -15,7 +15,7 @@ afterEach(cleanup);
 
 describe("library organization",()=>{
   it("gives every piece a real furniture type",()=>{
-    expect(catalog).toHaveLength(430);
+    expect(catalog).toHaveLength(443);
     for(const item of catalog)expect(furnitureType(item),item.id).not.toBe("Other pieces");
   });
   it("finds common synonyms, categories and multiword queries",()=>{

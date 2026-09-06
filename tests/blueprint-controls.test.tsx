@@ -28,8 +28,9 @@ describe('floor plan studio flow',()=>{
     fireEvent.change(screen.getByLabelText('width (m)'),{target:{value:'4.321'}});fireEvent.blur(screen.getByLabelText('width (m)'));
     expect(usePlanner.getState().plan).toBe(original);expect(usePlanner.getState().past).toHaveLength(0);
     fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
-    expect(screen.getByRole('button',{name:/Confirm & create 3D home/})).toBeDisabled();
-    fireEvent.click(screen.getByLabelText('I checked the dimensions, openings and fixtures.'));
+    expect(screen.getByRole('button',{name:/Confirm & create 3D home/})).toBeEnabled();
+    expect(screen.queryByText('Check the empty home')).toBeNull();
+
     fireEvent.click(screen.getByRole('button',{name:/Confirm & create 3D home/}));
     expect(onClose).toHaveBeenCalledOnce();expect(usePlanner.getState().plan.floors[0].blueprint!.rooms[0].width).toBe(4321);expect(usePlanner.getState().past).toHaveLength(1);
     act(()=>usePlanner.getState().undo());expect(usePlanner.getState().plan).toEqual(original);
@@ -76,7 +77,7 @@ describe('floor plan studio flow',()=>{
   it('can cancel analysis without applying a late result',async()=>{
     let finish!:(value:any)=>void;vi.mocked(recognizeReference).mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve;}));
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
-    await act(async()=>{});fireEvent.click(screen.getByRole('button',{name:'Cancel analysis'}));
+    await act(async()=>{});expect(screen.getByRole('progressbar')).toBeVisible();fireEvent.click(screen.getByRole('button',{name:'Cancel analysis'}));
     await act(async()=>finish({rooms:[],dimensions:[],fixtures:[],warnings:[]}));
     expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();expect(screen.getByText('Analysis canceled. Your drawing is unchanged.')).toBeVisible();
   });
@@ -115,7 +116,7 @@ describe('floor plan studio flow',()=>{
     expect(screen.getByLabelText('Left (m)')).toHaveValue(1.173);expect(screen.getByLabelText('Top (m)')).toHaveValue(1.237);
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByText('Fixtures & openings · 2'));fireEvent.click(screen.getByRole('button',{name:'Cottage range'}));expect(screen.getByLabelText('Left (m)')).toHaveValue(1);
     expect(usePlanner.getState().plan).toBe(original);
-    fireEvent.click(screen.getByRole('button',{name:/Review & create 3D/}));fireEvent.click(screen.getByLabelText('I checked the dimensions, openings and fixtures.'));
+    fireEvent.click(screen.getByRole('button',{name:/Review & create 3D/}));
     fireEvent.click(screen.getByRole('button',{name:/Confirm & create 3D home/}));
     expect(usePlanner.getState().plan.furniture.find(f=>f.catalogId==='door-flush')?.doorless).toBe(true);
   });

@@ -28,7 +28,7 @@ const south: WallGeometry = {ax:4,az:4,bx:0,bz:4,boundary:true};
 const west: WallGeometry = {ax:0,az:4,bx:0,bz:0,boundary:true};
 const target = {x:2,z:2};
 const state=()=>usePlanner.getState();
-beforeEach(()=>state().replacePlan(createSamplePlan()));
+beforeEach(()=>{const p=createSamplePlan();p.camera.wallVisibility="all-visible";state().replacePlan(p)});
 afterEach(cleanup);
 
 describe("three wall visibility modes",()=>{
@@ -76,8 +76,10 @@ describe("three wall visibility modes",()=>{
     p.floors=[f];state().replacePlan(p);state().selectWall(top[0].id);expect(state().selectedWallId).toBe(top[0].id);expect(state().past).toHaveLength(0);
     state().finishWall(top[0].id,"sage-plaster");expect(state().past).toHaveLength(1);state().undo();expect(state().plan).toEqual(p);
   });
-  it("defaults to solid walls and maps legacy transparency without mutating a save",()=>{
+  it("defaults new plans to near walls hidden and preserves legacy transparency",()=>{
     const camera=createSamplePlan().camera;
+    expect(getWallVisibility(camera)).toBe("near-hidden");
+    delete camera.wallVisibility;
     expect(getWallVisibility(camera)).toBe("all-visible");
     expect(getWallVisibility({...camera,transparentWalls:false})).toBe("all-visible");
     expect(getWallVisibility({...camera,transparentWalls:true})).toBe("near-hidden");

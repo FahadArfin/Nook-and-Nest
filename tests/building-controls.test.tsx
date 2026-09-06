@@ -29,7 +29,7 @@ describe("measured room controls",()=>{
     const p=createSamplePlan();p.floors[0].walls=[{id:"inside-test",ax:2,az:2,bx:5,bz:2}];state().replacePlan(p);
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
     act(()=>scene.callbacks.onWall("inside-test"));expect(state().selectedWallId).toBe("inside-test");expect(state().past).toHaveLength(0);
-    expect(screen.getByText(/Wall plate selected/)).toBeTruthy();
+    expect((screen.getByLabelText("Finish area") as HTMLSelectElement).selectedOptions[0].text).toBe("Selected wall");
     fireEvent.click(screen.getByRole("button",{name:/Walls:.*sage/i}));
     expect(state().plan.floors[0].wallFinishes).toEqual({"inside-test":"sage-plaster"});expect(state().past).toHaveLength(1);
     act(()=>state().undo());expect(state().plan.floors[0].wallFinishes).toBeUndefined();

@@ -8,6 +8,9 @@ export type LibrarySort = "collection" | "name" | "size";
 
 // Human-readable types are intentionally independent of the render shape.
 const families: Record<string, string[]> = {
+  "Balcony railings": ["balcony-rail-glass","balcony-rail-concrete","balcony-rail-hybrid"],
+  "Air conditioning": ["balcony-mini-split"],
+  "Closet doors": ["door-closet-single","door-closet-double","door-closet-sliding"],
   "Garden plants": ["lavender-clump","daisy-clump","tulip-planter","raised-flowerbed","balcony-flowerbox","garden-hedge","flowering-shrub","grass-clump"],
   "Trees": ["spruce-tree","maple-tree","sakura-tree"],
   "Patio seating": ["patio-dining-chair","adirondack-chair","patio-loveseat","patio-chaise","garden-bench"],
@@ -21,11 +24,11 @@ const families: Record<string, string[]> = {
   "Countertop appliances": ["two-slot-toaster","espresso-machine","filter-coffee-maker","knife-block","countertop-microwave","stand-mixer","glass-air-fryer"],
   "Pendant lights": ["dome-pendant","linear-pendant"],
   "Backsplashes": ["backsplash-subway","backsplash-stacked","backsplash-slab"],
-  "Inside doors": ["door-flush","door-shaker","door-six-panel","door-french","door-bifold","door-pocket"],
+  "Inside doors": ["door-slim","door-flush","door-shaker","door-six-panel","door-french","door-bifold","door-pocket"],
   "Staircases": ["stairs-traditional","stairs-switchback","stairs-l-turn","stairs-floating","stairs-cantilever","stairs-led"],
   "Collectibles": ["adventurer-figurine","mecha-figurine","model-sailboat","brick-roadster"],
   "Sofas": ["left-chaise-sectional","right-chaise-sectional","u-sectional","boneless-loveseat","boneless-chaise","sofa","loveseat","modular-sectional","midcentury-sofa","sleeper-sofa"],
-  "Chairs & stools": ["armchair","ottoman","dining-chair","bar-stool","office-chair","ergonomic-office-chair","gaming-chair","bench"],
+  "Chairs & stools": ["solarium-rocker","breakfast-chair","armchair","ottoman","dining-chair","bar-stool","office-chair","ergonomic-office-chair","gaming-chair","bench"],
   "Coffee tables": ["coffee-table","drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table"],
   "Side tables": ["cane-nightstand","floating-nightstand","pedestal-nightstand","side-table","nesting-tables","tray-side-table","c-side-table","drawer-side-table","nightstand"],
   "Beds": ["twin-full-bunk","storage-bunk","low-kids-bunk","queen-bed","single-bed","storage-platform-bed","arched-bed","daybed","bunk-bed"],
@@ -34,7 +37,7 @@ const families: Record<string, string[]> = {
   "TV & media": ["slim-tv","tv-stand","tv-55","tv-65","tv-75","slatted-tv-stand","open-media-bench","cane-tv-stand"],
   "Speakers & audio": ["compact-speaker","bookshelf-speaker","tower-speaker","soundbar","subwoofer"],
   "Fans": ["tower-fan","pedestal-fan"],
-  "Tables": ["dining-table","round-table"],
+  "Tables": ["breakfast-table","dining-table","round-table"],
   "Cabinets & storage": ["dresser","wardrobe","cabinet","base-cabinet","wall-cabinet"],
   "Counters & islands": ["kitchen-counter","kitchen-island","sink-cabinet"],
   "Appliances": ["refrigerator","range-oven","dishwasher"],
@@ -46,10 +49,10 @@ const families: Record<string, string[]> = {
   "Bathtubs": ["alcove-bathtub","oval-freestanding-tub","clawfoot-bathtub","bath-shower-combo"],
   "Wall art & boards": ["valley-panorama","starlight-poster","singer-poster","basketball-poster","landscape-painting","botanical-print","abstract-poster","coast-poster","whiteboard"],
   "Shelves & books": ["display-bookcase","ladder-display-shelf","cube-display-shelf","bookshelf","wall-shelf","floating-shelves","books-upright","books-stacked"],
-  "Rugs": ["diamond-wool-rug","kilim-rug","jute-rug","arch-color-rug","wide-check-rug","round-rug","runner-rug","braided-rug","scallop-rug","checker-rug"],
+  "Rugs": ["low-pile-carpet","diamond-wool-rug","kilim-rug","jute-rug","arch-color-rug","wide-check-rug","round-rug","runner-rug","braided-rug","scallop-rug","checker-rug"],
   "Plants & pets": ["large-plant","small-plant","pet-bed"],
   "Lamps": ["floor-lamp","table-lamp"],
-  "Windows": ["window-casement","window-sash","window-picture","window-arched","window-bay","window-awning"],
+  "Windows": ["window-solarium","window-casement","window-sash","window-picture","window-arched","window-bay","window-awning"],
 };
 const typeById = new Map(Object.entries(families).flatMap(([family, ids]) => ids.map(id => [id, family] as const)));
 export const furnitureType = (item: CatalogItem) => cozyType(item.id) ?? typeById.get(item.id) ?? "Other pieces";
