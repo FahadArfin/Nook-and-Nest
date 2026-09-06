@@ -1,5 +1,7 @@
 # Prototype Instructions
 
+Google scenery quality (September 6): prioritize detailed buildings near the apartment and retain visited views in bounded browser memory for smoother rotation. Offer a lighter setting and an optional sharper nearby setting without restarting the Google session or resetting the camera. Keep Google delivery subject to its cache headers and existing streaming controls; do not put Google tiles into R2. User-owned/licensed photogrammetry storage remains a separate future experiment.
+
 R2 migration (September 6, user-approved): move the delivered model, preview and texture collection into Sites-managed R2 without reducing visual quality. Keep original Blender files and full history in GitHub. Publish lightweight, forward-only Sites source snapshots with explicit GitHub/CI provenance; do not rewrite GitHub history or force-push. Use a bridge release with packaged fallbacks, verify every public R2 asset by SHA-256, then publish the exact CI slim archive. Remove the temporary upload secret after migration. This replaces the earlier instruction to keep R2 on hold.
 
 ## Mandatory multi-chat Git workflow
