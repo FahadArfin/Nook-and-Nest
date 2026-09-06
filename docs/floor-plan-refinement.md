@@ -27,7 +27,7 @@ For each room, up to eight bounded placement/order alternatives are evaluated. T
 
 ## Validation
 
-- 312 application tests passed, including new exact-63-tile material isolation, narrow closet aperture, floor-to-ceiling glazing, room-specific furnishing, wall-cut/railing undo, and Studio/JSON round-trip tests.
+- 314 application tests passed, including new exact-63-tile material isolation, narrow closet aperture, floor-to-ceiling glazing, room-specific furnishing, wall-cut/railing undo, and Studio/JSON round-trip tests.
 - Browser checks exercised dragging and confirming exactly 63 floor tiles, measured two-metre glass railing replacement, import activity/cancellation and compact conversion review. No page errors were recorded.
 - The supplied apartment's cached analysis was used for local furnishing trials without an additional paid scan. The refined layout included a sofa facing its television and kitchen/bath/laundry essentials. Space-constrained omissions were retained as warnings.
 - Thirteen original editable Blender models and lossless WebP previews were generated and visually reviewed. Every catalog model retained its physical envelope; existing IDs and models were preserved.
