@@ -9,7 +9,8 @@ export const GOOGLE_QUALITY = {
 } as const;
 
 export function defaultGoogleQuality(memoryGiB?:number):GoogleQuality {
-  return memoryGiB!==undefined&&memoryGiB<=4?'economy':'balanced';
+  if(memoryGiB!==undefined&&memoryGiB<=4)return 'economy';
+  return memoryGiB!==undefined&&memoryGiB>=8?'retained':'balanced';
 }
 
 /** Distance to a tile's bounding volume keeps large intersecting ancestors traversable. */

@@ -13,7 +13,8 @@ describe('Google scenery',()=>{
     expect(nearbyDetailWeight(0)).toBe(1);expect(nearbyDetailWeight(600)).toBe(1);
     expect(nearbyDetailWeight(1500)).toBeCloseTo(2.5);
     expect(nearbyDetailWeight(2400)).toBe(4);expect(nearbyDetailWeight(3500)).toBe(4);
-    expect(defaultGoogleQuality(4)).toBe('economy');expect(defaultGoogleQuality(8)).toBe('balanced');
+    expect(defaultGoogleQuality(4)).toBe('economy');expect(defaultGoogleQuality(8)).toBe('retained');
+    expect(defaultGoogleQuality(6)).toBe('balanced');
     expect(defaultGoogleQuality()).toBe('balanced');
     expect(googleQualitySettings('retained').errorTarget).toBe(googleQualitySettings('balanced').errorTarget);
     expect(googleQualitySettings('retained').minBytesSize).toBeGreaterThan(800*1024*1024);
