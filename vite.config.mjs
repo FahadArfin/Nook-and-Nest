@@ -1,3 +1,4 @@
+import {localGoogleTiles} from './scripts/local-google-tiles.mjs';
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import {readFileSync} from 'node:fs';
@@ -35,5 +36,5 @@ export default defineConfig({
       clientFiles: ["./src/main.jsx"],
     },
   },
-  plugins: [react(),localRecognition()],
+  plugins: [react(),localRecognition(),localGoogleTiles()],
 });
