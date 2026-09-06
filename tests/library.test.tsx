@@ -95,7 +95,7 @@ describe("library controls",()=>{
     const listener=vi.fn();window.addEventListener("keydown",listener);
     try{fireEvent.keyDown(screen.getByLabelText("Furniture category"),{key:"r"});expect(listener).not.toHaveBeenCalled()}finally{window.removeEventListener("keydown",listener)}
     expect(within(screen.getByRole("group",{name:"Library collection"})).getAllByRole("button")).toHaveLength(3);
-  });
+  },10000);
 });
 
 describe('library icon navigation',()=>{

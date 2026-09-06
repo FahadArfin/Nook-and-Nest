@@ -62,6 +62,7 @@ export class SceneController {
   private rotationGuide?:ReturnType<typeof MeshBuilder.CreateLineSystem>;
   private editingKey='';
   private pointerHeld=false;
+  private cameraPointersSuspended=false;
   private focusMotion?:{started?:number;from?:Vector3;target?:Vector3;radius?:number;toRadius?:number};
   private rotationDrag?:{item:FurniturePlacement;node:TransformNode;startX:number;rotation:number;draft:boolean};
   private architectureTool?:Tool;private architectureWall?:string;
@@ -108,11 +109,17 @@ export class SceneController {
   private cancelFocus=()=>{this.focusMotion=undefined;};
   private cameraPointerDown=(event:PointerEvent)=>{this.pointerHeld=true;if(event.target===this.canvas)this.cancelFocus();};
   private cameraPointerUp=()=>{this.pointerHeld=false;};
-  private suspendCameraPointers(){this.camera.inputs.attached.pointers?.detachControl();}
+  private suspendCameraPointers(){if(this.cameraPointersSuspended)return;this.camera.inputs.attached.pointers?.detachControl();this.cameraPointersSuspended=true;}
+  private resumeCameraControls(){
+    // attachElement returns early while wheel input is still attached, so restore
+    // only the pointer input explicitly after a furniture gesture.
+    if(this.cameraPointersSuspended&&this.camera.inputs.attachedToElement)this.camera.inputs.attached.pointers?.attachControl(true);
+    this.cameraPointersSuspended=false;this.camera.attachControl(this.canvas,true);
+  }
   focusSelected(){if(this.activeDraft||this.selectedId)this.focusMotion={};}
   setRotationMode(enabled:boolean){
     if(this.rotationMode===enabled)return;
-    if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;this.camera.attachControl(this.canvas,true);}
+    if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;this.resumeCameraControls();}
     this.rotationMode=enabled;
     if(!enabled)this.rotationGuide?.setEnabled(false);
   }
@@ -138,11 +145,11 @@ export class SceneController {
       this.rotationGuide.scaling.set(radius,1,radius);this.rotationGuide.position.set(node.position.x,(this.activePlan?.floors.find(f=>f.id===item.floorId)?.elevationMm??0)/1000+.065,node.position.z);this.rotationGuide.setEnabled(true);
     }else this.rotationGuide?.setEnabled(false);
   }
-  private cancelOutdoorStroke=()=>{this.pointerHeld=false;this.cancelFocus();if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;}if(this.terrainStroke){this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}}if(this.plantingPoints){this.plantingPoints=undefined;this.clearPlantingPreview();}this.camera.attachControl(this.canvas,true);};
+  private cancelOutdoorStroke=()=>{this.pointerHeld=false;this.cancelFocus();if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;}if(this.terrainStroke){this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}}if(this.plantingPoints){this.plantingPoints=undefined;this.clearPlantingPreview();}this.resumeCameraControls();};
   private contextMenu=(event:Event)=>{if(this.tool==='select')event.preventDefault();};
   private resize = () => this.engine.resize();
   dispose() { this.canvas.removeEventListener('wheel',this.cancelFocus);window.removeEventListener('pointerdown',this.cameraPointerDown,true);window.removeEventListener('pointerup',this.cameraPointerUp,true);this.rotationGuide?.dispose();this.canvas.removeEventListener('contextmenu',this.contextMenu);this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
-  setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.clearPlantingPreview();this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}this.terrainCue?.dispose();this.terrainCue=undefined;this.camera.attachControl(this.canvas,true);this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
+  setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.clearPlantingPreview();this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}this.terrainCue?.dispose();this.terrainCue=undefined;this.resumeCameraControls();this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
   screenshot() { return this.canvas.toDataURL("image/png"); }
   private pointOnActiveFloor(screenX: number, screenY: number) {
     if (!this.activePlan) return undefined;
@@ -467,7 +474,7 @@ export class SceneController {
             this.plantingAnchor=new Vector3(hit.x,hit.y+.1,hit.z);
           }
         }
-        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.camera.attachControl(this.canvas,true);if(s.plan===this.plantingBase)s.previewPlanting(points);else this.clearPlantingPreview();}
+        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.resumeCameraControls();if(s.plan===this.plantingBase)s.previewPlanting(points);else this.clearPlantingPreview();}
         return;
       }
       if(this.tool.startsWith('terrain-')){
@@ -482,7 +489,7 @@ export class SceneController {
           this.terrainCue.scaling.set(usePlanner.getState().terrainRadius,1,usePlanner.getState().terrainRadius);this.terrainCue.position.set(point.x/1000,(hit?.y??0)+.06,point.z/1000);
           const stroke=this.terrainStroke,last=stroke?.points.at(-1);if(stroke&&last&&stroke.points.length<64&&Math.hypot(point.x/1000-last.x,point.z/1000-last.z)>.35)stroke.points.push({x:point.x/1000,z:point.z/1000});
         }
-        if(info.type===PointerEventTypes.POINTERUP&&this.terrainStroke){const stroke=this.terrainStroke;this.terrainStroke=undefined;this.camera.attachControl(this.canvas,true);if(usePlanner.getState().plan===this.terrainBase){stroke.strength=Math.max(.1,stroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900));usePlanner.getState().addTerrainStroke(stroke);}else if(this.activePlan)this.terrain.update(this.activePlan);}
+        if(info.type===PointerEventTypes.POINTERUP&&this.terrainStroke){const stroke=this.terrainStroke;this.terrainStroke=undefined;this.resumeCameraControls();if(usePlanner.getState().plan===this.terrainBase){stroke.strength=Math.max(.1,stroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900));usePlanner.getState().addTerrainStroke(stroke);}else if(this.activePlan)this.terrain.update(this.activePlan);}
         return;
       }
       if(info.type===PointerEventTypes.POINTERDOWN && (info.event.button===0||info.event.button===2) && this.rotationMode && this.tool==='select'){
@@ -498,7 +505,7 @@ export class SceneController {
           else if(info.event.shiftKey)angle=Math.round(angle/15)*15;
           drag.rotation=((angle%360)+360)%360;drag.node.rotation.y=drag.rotation*Math.PI/180;
         }else if(info.type===PointerEventTypes.POINTERUP){
-          this.rotationDrag=undefined;this.camera.attachControl(this.canvas,true);
+          this.rotationDrag=undefined;this.resumeCameraControls();
           if(drag.rotation!==drag.item.rotation)this.callbacks.onRotate(drag.draft?undefined:drag.item.id,drag.rotation);
         }return;
       }
@@ -534,14 +541,14 @@ export class SceneController {
         if(position&&item&&this.selectedNode){const mounted=this.activePlan?snapWindow(this.activePlan,{...item,...position}):item;this.selectedNode.position.x=mounted.x/1000;this.selectedNode.position.z=mounted.z/1000;if(mounted.elevationMm!==undefined){const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);this.selectedNode.position.y=((floor?.elevationMm??0)+(mounted.elevationMm??0)+50)/1000;}this.selectedNode.rotation.y=mounted.rotation*Math.PI/180;this.draggedPosition=mounted;moved=true;}
       }
       if(info.type===PointerEventTypes.POINTERUP&&this.tileDragStart){
-        const cells=[...this.tileDraftCells],present=this.tileDraftPresent; this.tileDragStart=undefined; this.tileDragCurrent=undefined; this.camera.attachControl(this.canvas,true); if(cells.length)this.callbacks.onTileDraft(cells,present);else this.cancelTileDraft();
+        const cells=[...this.tileDraftCells],present=this.tileDraftPresent; this.tileDragStart=undefined; this.tileDragCurrent=undefined; this.resumeCameraControls(); if(cells.length)this.callbacks.onTileDraft(cells,present);else this.cancelTileDraft();
       }else if(info.type===PointerEventTypes.POINTERUP&&this.wallDragStart){
-        const wall=this.wallDraft;this.cancelWallDraft();this.camera.attachControl(this.canvas,true);if(wall)this.callbacks.onWallSegment(wall);
+        const wall=this.wallDraft;this.cancelWallDraft();this.resumeCameraControls();if(wall)this.callbacks.onWallSegment(wall);
       }else if(info.type===PointerEventTypes.POINTERUP&&this.draggingDraft){
-        this.draggingDraft=false; this.camera.attachControl(this.canvas,true); if(this.draftPosition)this.callbacks.onDraftMove(this.draftPosition.x,this.draftPosition.z,this.draftPosition.elevationMm,this.draftPosition.rotation);
+        this.draggingDraft=false; this.resumeCameraControls(); if(this.draftPosition)this.callbacks.onDraftMove(this.draftPosition.x,this.draftPosition.z,this.draftPosition.elevationMm,this.draftPosition.rotation);
       }else if(info.type===PointerEventTypes.POINTERUP&&this.dragging){
         if(moved&&this.draggedPosition)this.callbacks.onMove(this.dragging,this.draggedPosition.x,this.draggedPosition.z,this.draggedPosition.elevationMm,this.draggedPosition.rotation);
-        this.draggedPosition=undefined;this.dragging=undefined; this.camera.attachControl(this.canvas,true);
+        this.draggedPosition=undefined;this.dragging=undefined; this.resumeCameraControls();
       }
     });
   }

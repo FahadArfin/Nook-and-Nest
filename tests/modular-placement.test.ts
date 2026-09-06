@@ -106,7 +106,7 @@ describe('modular placement regression',()=>{
   const {r,dispose}=renderer();try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;
    r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.updateEditingGuides(425);expect(r.camera.radius).toBeCloseTo(11);r.updateEditingGuides(850);expect(r.camera.radius).toBe(4);
    r.camera.radius=2;r.updateEditingGuides(1000);expect(r.camera.radius).toBe(2);r.focusSelected();r.updateEditingGuides(1100);r.zoom(.75);const radius=r.camera.radius;r.updateEditingGuides(2000);expect(r.camera.radius).toBe(radius);expect(r.focusMotion).toBeUndefined();
-   const pointerDetach=vi.fn(),wheelDetach=vi.fn();r.camera.inputs.attached.pointers={detachControl:pointerDetach};r.camera.inputs.attached.mousewheel={detachControl:wheelDetach};r.suspendCameraPointers();expect(pointerDetach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();delete r.camera.inputs.attached.pointers;delete r.camera.inputs.attached.mousewheel;
+   const pointerDetach=vi.fn(),pointerAttach=vi.fn(),wheelDetach=vi.fn();r.camera.inputs.attachedToElement=true;r.camera.inputs.attached.pointers={detachControl:pointerDetach,attachControl:pointerAttach};r.camera.inputs.attached.mousewheel={detachControl:wheelDetach};r.suspendCameraPointers();expect(pointerDetach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();r.resumeCameraControls();expect(pointerAttach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();delete r.camera.inputs.attached.pointers;delete r.camera.inputs.attached.mousewheel;
   }finally{dispose()}
  });
 
