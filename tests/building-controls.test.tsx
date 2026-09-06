@@ -70,7 +70,7 @@ describe("stair connection controls",()=>{
 describe("building editor wiring",()=>{
   it("opens backsplash browsing without placing anything, then confirms and edits a panel",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());const before=state().plan;
-    fireEvent.click(screen.getByRole("button",{name:"Add kitchen backsplash"}));expect(state().category).toBe("Kitchen");expect(state().search).toBe("backsplash");expect(state().plan).toBe(before);
+    fireEvent.click(screen.getByRole("button",{name:"Build"}));fireEvent.click(screen.getByRole("button",{name:"Openings"}));fireEvent.click(screen.getByRole("button",{name:"Add kitchen backsplash"}));expect(state().category).toBe("Kitchen");expect(state().search).toBe("backsplash");expect(state().plan).toBe(before);
     const model=catalog.find(c=>c.id==="backsplash-subway")!;fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(state().plan.furniture).toEqual([]);fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));expect(state().plan.furniture).toHaveLength(1);
     const id=state().plan.furniture[0].id;act(()=>scene.callbacks.onSelect(id));
@@ -91,7 +91,7 @@ describe("building editor wiring",()=>{
     act(()=>state().select(state().plan.furniture[0].id));fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"1300"}});expect(state().plan.furniture[0].elevationMm).toBe(1300);
   });
   it("positions, cancels, and confirms an exact-size room through the editor toolbar",async()=>{
-    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());fireEvent.click(screen.getByText("Exact room size"));
+    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());fireEvent.click(screen.getByRole("button",{name:"Build"}));fireEvent.click(screen.getByRole("button",{name:"Floor area"}));fireEvent.click(screen.getByText("Exact room size"));
     const stage=within(screen.getByLabelText("Interactive 3D apartment editor").parentElement!);
     fireEvent.change(screen.getByLabelText("Room width"),{target:{value:"12' 6\""}});fireEvent.change(screen.getByLabelText("Room depth"),{target:{value:"10"}});
     fireEvent.click(screen.getByRole("button",{name:"Place measured room"}));const before=state().plan;

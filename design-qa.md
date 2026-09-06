@@ -1,3 +1,17 @@
+# Task Browser right-panel design QA
+
+final result: passed
+
+Selected target: option 2, Task Browser, exec-db0b8edb-17c2-485e-86c5-3fc6edae55e6.png. Compared the selected image and rendered implementation together at 1487 x 1058. Reviewed dark Landscape, compact 1280 x 800 Decorate and Landscape, and light Build in the in-app browser.
+
+Implemented the three labeled task tabs, focused subnavigation, searchable visual material and plant choices, radius/spacing, single/brush modes, and pinned confirmation. Real catalog previews preserve existing plant assets. Intentional adaptations: preserve the existing header and left library; keep Surroundings available; use a disposable test floor instead of the reference apartment. On shorter screens, settings scroll above the pinned action footer.
+
+Resolved P2 layout constraints from the old grid, local thumbnail paths, clipped plant card names and overlapping canvas stats. No outstanding P0/P1/P2 findings. Existing merge-time Vite reload errors occurred before conflicts were resolved; the current page renders and interactions work.
+
+Interaction verification: drawing floor previews, plant stroke preview/cancellation, task navigation, selected-wall editing, explicit whole-floor application, single-plant draft routing and one-step planting undo. Automated: 325 tests, TypeScript, production build, Sites worker tests, asset tests and release verification passed. Catalog includes the current 443-piece collection.
+
+---
+
 # Welcome design QA
 
 final result: passed

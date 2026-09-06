@@ -38,7 +38,9 @@ Before making substantial visual changes, use the Product Design plugin's `get-c
 
 When implementing from a selected generated mock, treat that image as the source of truth for layout, component anatomy, density, spacing, color, typography, visible content, and hierarchy.
 
-Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run `npm run build` and `npm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
+Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts/prepare-sites-build.mjs`, and `tests/sites-worker.test.mjs` intact so the same local prototype can be handed to Sites. Before a Sites handoff, run 
+pm run build` and 
+pm run test:sites`; the build must leave `dist/client/index.html`, `dist/server/index.js`, and `dist/.openai/hosting.json`.
 
 Furniture must use original editable Blender sources exported to GLB, with the existing Babylon.js procedural assemblies retained only as loading/error fallbacks. Keep a cohesive cozy handcrafted low-poly language: chunky chamfered primary forms, layered secondary construction, restrained decorative detail, visible wood and fabric texture, warm rough shared materials, and subtle variation. Preserve millimetre-accurate dimensions, catalog and placement IDs, saved schema compatibility, picking, dragging, snapping, and undo/redo.
 
@@ -127,3 +129,5 @@ Batch 12 floor-plan refinement: show animated import/analysis activity with elap
 Library density preference: show three furniture cards per row by default, with enough library width for readable previews and names; retain the left category rail and optional expanded browser.
 
 Batch 12 modern interiors preference: redo the requested seating, tables, media storage, beds, nursery, dining, desks, collectibles, pet furniture and kitchen cabinetry with more modeled construction detail and distinct modern silhouettes. Minimize brown defaults in favor of white, charcoal, muted blue/sage/lavender, stone and metal. Retire nesting tables from browsing while retaining old saves. Include independently placeable Sonos audio products, mesh and executive office seating, original landscape anime posters, detailed brick-built vehicles/ships and authored fan figurines. Animate pet-fountain water efficiently and respect reduced motion. Preserve IDs, real dimensions, saved colors, editable Blender sources and support compatibility; review every changed preview and enforce release size limits.
+
+Right-panel design: use the selected Task Browser with Decorate, Build and Landscape navigation, visual material and plant choices, focused settings and pinned confirmation controls. Keep section versus whole-floor painting explicit and preserve reversible previews; do not return to a long stack of settings accordions.
