@@ -14,7 +14,7 @@ export interface FloorPlan { wallCuts?:WallSegment[]; id: string; name: string; 
 export interface PlanDocumentV1 {
   schemaVersion: 1; id: string; name: string; createdAt: string; updatedAt: string; units: Units; gridSizeMm: number;
   floors: FloorPlan[]; furniture: FurniturePlacement[];
-  environment?: { background: "plain"|"city"|"suburban"|"rural"|"farm"|"medieval"; grass:"off"|"sparse"|"lush"; backdropRotation?:number; terrain?:import('./terrain').TerrainStroke[] };
+  environment?: { background: "plain"|"city"|"suburban"|"rural"|"farm"|"medieval"; grass:"off"|"sparse"|"lush"; backdropRotation?:number; citySource?:'standard'|'google'; cityHeight?:number; terrain?:import('./terrain').TerrainStroke[] };
   camera: { mode: ViewMode; ghostBelow: boolean; showGrid: boolean; showClearance: boolean; wallVisibility?: WallVisibility; transparentWalls?: boolean; darkMode?: boolean };
 }
 export interface CatalogItem { id: string; name: string; category: Category; widthMm: number; depthMm: number; heightMm: number; icon: string; description: string; shape: "seat" | "table" | "bed" | "storage" | "lamp" | "plant" | "rug" | "decor" | "window" | "device" | "fan" | "bathroom" | "door" | "stairs" | "appliance" | "backsplash"; mount?: "floor" | "wall" | "surface" | "ceiling" }

@@ -1,3 +1,4 @@
+import {googleTiles} from './google-tiles.js';
 import staticWorker from "./index.js";
 import {createLibraryHandler} from './library-assets.js';
 import libraryManifest from './library-manifest.js';
@@ -81,6 +82,8 @@ async function api(request, env) {
 }
 
 export default { async fetch(request, env) {
+  const googleResponse=await googleTiles(request,env);
+  if(googleResponse)return googleResponse;
   const libraryResponse=await libraryAssets(request,env);
   if(libraryResponse)return libraryResponse;
   const url=new URL(request.url),preview=url.pathname.match(/^\/api\/previews\/([a-z0-9-]+)\.webp$/);
