@@ -43,3 +43,28 @@ it('ships attributed Toronto data and changes window emission without mutating t
  (outdoor as any).assets.set('backdrop-city',{materials:[light],dispose:()=>{}});
  try{outdoor.update(p);expect(light.emissiveColor.r).toBe(0);p.camera.darkMode=true;const saved=JSON.stringify(p);outdoor.update(p);expect(light.emissiveColor.r).toBe(1);expect(JSON.stringify(p)).toBe(saved);p.camera.darkMode=false;outdoor.update(p);expect(light.emissiveColor.r).toBe(0)}finally{outdoor.dispose();scene.dispose();engine.dispose()}
 });
+import { torontoRoofUV } from '../src/scene/torontoAerial';
+import imagery from '../public/textures/toronto/aerial-2022.json';
+it('georeferences Toronto aerial roofs using returned extent and glTF north orientation', () => {
+ const east = (lon:number) => (lon + 79.3825) * 111320 * Math.cos(43.64 * Math.PI / 180);
+ const south = (lat:number) => (43.64 - lat) * 111320;
+ const sw = torontoRoofUV(east(imagery.extent.xmin), south(imagery.extent.ymin));
+ const ne = torontoRoofUV(east(imagery.extent.xmax), south(imagery.extent.ymax));
+ expect(sw[0]).toBeCloseTo(0,8); expect(sw[1]).toBeCloseTo(0,8);
+ expect(ne[0]).toBeCloseTo(1,8); expect(ne[1]).toBeCloseTo(1,8);
+ expect(torontoRoofUV(100,0)[0]).toBeGreaterThan(torontoRoofUV(0,0)[0]);
+ expect(torontoRoofUV(0,-100)[1]).toBeGreaterThan(torontoRoofUV(0,0)[1]);
+ expect(existsSync('public/textures/toronto/aerial-2022.jpg')).toBe(true);
+});
+import {createTorontoLake} from '../src/scene/torontoLandscapeMaterials';
+import {Mesh} from '@babylonjs/core/Meshes/mesh';
+it('updates lake day/night and freezes ripple time under reduced motion',()=>{
+ const engine=new NullEngine();const scene=new Scene(engine);const mesh=new Mesh('lake-test',scene);let night=false;
+ const previous=window.matchMedia;Object.defineProperty(window,'matchMedia',{configurable:true,value:()=>({matches:false})});
+ const material=createTorontoLake(scene,()=>night);
+ material.onBindObservable.notifyObservers(mesh);const before=material.serialize().floats.time;
+ night=true;Object.defineProperty(window,'matchMedia',{configurable:true,value:()=>({matches:true})});
+ material.onBindObservable.notifyObservers(mesh);
+ expect(material.serialize().floats.time).toBe(before);expect(material.serialize().floats.night).toBe(1);
+ Object.defineProperty(window,'matchMedia',{configurable:true,value:previous});scene.dispose();engine.dispose();
+});
