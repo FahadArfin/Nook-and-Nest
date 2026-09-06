@@ -1,3 +1,4 @@
+import {applyTorontoAerialRoofs} from './torontoAerial';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import {floorRects} from '../floorGeometry';
 import {preserveCatalogCoordinates} from './planCoordinates';
@@ -19,10 +20,10 @@ import type { PlanDocumentV1 } from '../types';
 export class OutdoorScene {
   private assets=new Map<string,AssetContainer>();private pending=new Set<string>();private failed=new Set<string>();private root?:TransformNode;private key='';private plan?:PlanDocumentV1;private disposed=false;
   constructor(private scene:Scene){}
-  private load(id:string){if(this.assets.has(id)||this.pending.has(id)||this.failed.has(id))return;this.pending.add(id);LoadAssetContainerAsync(modelAssetPath(id),this.scene).then(c=>{if(this.disposed)c.dispose();else {if(id!=='backdrop-city')preserveCatalogCoordinates(c);this.assets.set(id,c)}}).catch(()=>this.failed.add(id)).finally(()=>{this.pending.delete(id);if(!this.disposed&&this.plan){this.key='';this.update(this.plan)}});}
+  private load(id:string){if(this.assets.has(id)||this.pending.has(id)||this.failed.has(id))return;this.pending.add(id);LoadAssetContainerAsync(modelAssetPath(id),this.scene).then(c=>{if(this.disposed)c.dispose();else {if(id!=='backdrop-city')preserveCatalogCoordinates(c);else applyTorontoAerialRoofs(c,this.scene,()=>!!this.plan?.camera.darkMode);this.assets.set(id,c)}}).catch(()=>this.failed.add(id)).finally(()=>{this.pending.delete(id);if(!this.disposed&&this.plan){this.key='';this.update(this.plan)}});}
   update(plan:PlanDocumentV1){
     this.plan=plan;const env=plan.environment??{background:'plain',grass:'off'};
-    for(const material of this.assets.get('backdrop-city')?.materials??[])if(material instanceof PBRMaterial){const night=!!plan.camera.darkMode;material.emissiveColor=material.name==='city-window-lights'?(night?new Color3(1,.66,.27):Color3.Black()):Color3.Black();material.environmentIntensity=night?.25:1;}
+    for(const material of this.assets.get('backdrop-city')?.materials??[])if(material instanceof PBRMaterial){const night=!!plan.camera.darkMode;material.emissiveColor=(material.name==='city-window-lights'||material.emissiveTexture?.name==='Toronto window lights')?(night?new Color3(1,.66,.27):Color3.Black()):Color3.Black();material.environmentIntensity=night?.25:1;}
     const key=JSON.stringify([env,plan.floors.map(f=>[f.cells,f.cellRects]),plan.gridSizeMm,plan.furniture.map(f=>[f.x,f.z,f.widthMm,f.depthMm,f.rotation])]);if(key===this.key)return;this.key=key;
     this.root?.dispose(false,false);this.root=new TransformNode('outdoor-scenery',this.scene);const bounds=landscapeBounds(plan);
     if(env.background!=='plain'){
@@ -47,3 +48,6 @@ export class OutdoorScene {
   }
   dispose(){this.disposed=true;this.root?.dispose(false,false);for(const asset of this.assets.values())asset.dispose();}
 }
+
+
+
