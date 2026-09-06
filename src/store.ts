@@ -1,3 +1,6 @@
+import {subtractWallCuts} from './wallCuts';
+import {geometryKey} from './blueprint';
+import {removeWallSections} from './wallConstruction';
 import { create } from "zustand";
 import { openDB } from "idb";
 import { catalog, defaultMountHeight, isWindow, isDoor, isStairs, isWallOpening } from "./catalog";
@@ -21,6 +24,7 @@ interface PlannerState {
   previewPlanting(points:Array<{x:number;z:number}>):void;confirmPlanting():void;cancelPlanting():void;
   terrainRadius:number;terrainStrength:number;setTerrainBrush(radius:number,strength:number):void;
   addTerrainStroke(stroke:import('./terrain').TerrainStroke):void;
+  cutWalls(cuts:Omit<WallSegment,"id">[],railingId?:string):void;
   selectedWallId?:string; selectWall(id?:string):void;
   cycleWallVisibility(): void;
   commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1):void;
@@ -91,7 +95,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     // Retain the old boolean action for existing callers, without leaving a
     // stale enum that would override its result.
     const camera = { ...state.plan.camera, [key]: !state.plan.camera[key] };
-    if (key === "transparentWalls") camera.wallVisibility = camera.transparentWalls ? "near-hidden" : "all-visible";
+    if (key === "transparentWalls") {camera.transparentWalls=getWallVisibility(state.plan.camera)==="all-visible";camera.wallVisibility = camera.transparentWalls ? "near-hidden" : "all-visible";}
     return commit(state, { ...state.plan, camera });
   }),
   setActiveFloor: (activeFloorId) => set({ activeFloorId, selectedId: undefined, selectedWallId:undefined }),
@@ -111,7 +115,8 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   paintCell: (x, z, present) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? paintFloorCells(f,[{x,z}],present) : f) })),
   paintCells: (cells, present) => set((state) => cells.length ? commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? paintFloorCells(f,cells,present) : f) }) : state),
   setFloorFinish: (kind, finishId) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((floor) => floor.id === state.activeFloorId ? { ...floor, [kind]: finishId, ...(kind==="floorFinishId"?{cellFinishes:{}}:{wallFinishes:{}}) } : floor) })),
-  addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, walls: [...f.walls, { ...wall, id: uid() }] } : f) })),
+  cutWalls:(cuts,railingId)=>set(s=>({...commit(s,removeWallSections(s.plan,s.activeFloorId,cuts,railingId)),selectedWallId:undefined,tool:s.tool==="wall-cut"?"wall-cut":"select"})),
+  addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? (()=>{const added={...wall,id:uid()},next={...f,walls:[...f.walls,added],wallCuts:subtractWallCuts(f.wallCuts??[],[added])};if(f.blueprint)next.blueprint={...f.blueprint,wallCuts:next.wallCuts,geometryKey:geometryKey(next)};return next})() : f) })),
   addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100, finishId: kind==="door"?state.activeDoorFinish:undefined }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: "sage", surfaceVariant: supportsCountertopFinish(catalogId) ? defaultCountertopFinish.id : undefined, elevationMm:defaultMountHeight(catalogId) }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),

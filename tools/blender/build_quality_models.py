@@ -1062,6 +1062,11 @@ COZY_BUILDERS.update(HOLIDAY_BUILDERS)
 BUILDERS.update(HOLIDAY_BUILDERS)
 
 
+from balcony_collection import balcony_builders
+BALCONY_BUILDERS=balcony_builders(rounded_box,cylinder,material)
+COZY_BUILDERS.update(BALCONY_BUILDERS)
+BUILDERS.update(BALCONY_BUILDERS)
+
 def export_model(catalog_id, builder):
     reset_scene()
     bpy.context.preferences.filepaths.save_version = 0

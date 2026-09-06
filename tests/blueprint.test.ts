@@ -84,10 +84,10 @@ describe('automatic furnishing from the real library',()=>{
     for(const item of result.added){const c=catalog.find(c=>c.id===item.catalogId)!;expect([item.widthMm,item.depthMm,item.heightMm]).toEqual([c.widthMm,c.depthMm,c.heightMm]);expect(coveredByFloor(footprint(item),plan.floors[0],250)).toBe(true);}
     expect(autoFurnish(result.plan,p.floors[0].id,rooms).added).toHaveLength(0);
   });
-  it('keeps fixtures and door clearance clear and does not fill service rooms',()=>{
+  it('preserves existing fixtures and fills kitchen roles without blocking doors',()=>{
     const p=base(),rooms=[room({width:5000,depth:5000}),room({id:'k',name:'Kitchen',kind:'Kitchen',x:5000,width:3000,depth:5000})],plan=blueprintPlan(p,p.floors[0].id,draft(rooms));
     plan.furniture=[fixtureAt(plan,p.floors[0].id,'door-flush',2500,0),fixtureAt(plan,p.floors[0].id,'washer',5500,500)];
-    const result=autoFurnish(plan,p.floors[0].id,rooms);expect(result.plan.furniture.slice(0,2)).toEqual(plan.furniture);expect(result.added.every(f=>f.x<5000)).toBe(true);
+    const result=autoFurnish(plan,p.floors[0].id,rooms);expect(result.plan.furniture.slice(0,2)).toEqual(plan.furniture);expect(result.added.some(f=>f.x>5000&&f.catalogId==='refrigerator')).toBe(true);
     for(const f of result.added){const rect=footprint(f);expect(rect.z>=1100||rect.x+rect.width<=1900||rect.x>=3100).toBe(true);}
   });
   it('skips furniture that cannot fit a tiny room instead of scaling or clipping it',()=>{

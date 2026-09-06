@@ -16,7 +16,7 @@ export function BlueprintControls({busy,onPreview,onBusy,onCreated}:{busy:boolea
     setError('');
     try {
       const rooms=draftFromFloor(state.plan,state.activeFloorId).rooms;
-      if(!rooms.some(r=>['Living','Bedroom','Dining','Office'].includes(r.kind))){setError('Open Floor plan and label room areas as Living, Bedroom, Dining or Office first.');return;}
+      if(!rooms.some(r=>['Living','Bedroom','Dining','Office','Kitchen','Bathroom','Laundry','Outdoor'].includes(r.kind))){setError('Open Floor plan and choose room types first.');return;}
       const result=autoFurnish(state.plan,state.activeFloorId,rooms);
       if(!result.added.length){setError(result.skipped.length?'No furniture fits the available clear space. Adjust room types or move existing pieces.':'These rooms already have their suggested furniture.');return;}
       setProposal({...result,base:state.plan,floorId:state.activeFloorId});onPreview(result.plan);
@@ -26,7 +26,7 @@ export function BlueprintControls({busy,onPreview,onBusy,onCreated}:{busy:boolea
     <button disabled={busy||!!proposal} onClick={()=>{setError('');setOpen(true);}}><GridFour/> Floor plan</button>
     <button disabled={busy||open||!!proposal} onClick={generate}><Sparkle/> Auto furnish</button>
     {open&&createPortal(<BlueprintStudio onClose={()=>setOpen(false)} onCreated={onCreated}/>,document.body)}
-    {proposal&&createPortal(<div className="bp-arrangement-shield"><section className="bp-arrangement" role="dialog" aria-label="Review automatic furnishing" onKeyDown={e=>e.stopPropagation()}><div><span className="eyebrow">Unsaved 3D preview</span><h2>{proposal.added.length} library pieces, ready to review</h2><p>Kitchen, bathroom and laundry fixtures stay in place. Every added piece remains independently editable.</p><small>Suggested layout with wall, furniture and door-clearance checks. Review the walkways and furniture facing before applying.</small></div>{proposal.skipped.length>0&&<details><summary>{proposal.skipped.length} pieces left out because of limited space</summary><ul>{proposal.skipped.map((s,i)=><li key={i}>{s}</li>)}</ul></details>}<div className="bp-button-row"><button className="primary" onClick={()=>{try{usePlanner.getState().commitDesign(proposal.base,proposal.plan);cancel();}catch(e){setError((e as Error).message);}}}><Check/> Apply furnishing · one undo</button><button onClick={cancel}><X/> Discard preview</button></div></section></div>,document.body)}
+    {proposal&&createPortal(<div className="bp-arrangement-shield"><section className="bp-arrangement" role="dialog" aria-label="Review automatic furnishing" onKeyDown={e=>e.stopPropagation()}><div><span className="eyebrow">Unsaved 3D preview</span><h2>{proposal.added.length} library pieces, ready to review</h2></div>{proposal.skipped.length>0&&<details><summary>{proposal.skipped.length} pieces left out because of limited space</summary><ul>{proposal.skipped.map((s,i)=><li key={i}>{s}</li>)}</ul></details>}<div className="bp-button-row"><button className="primary" onClick={()=>{try{usePlanner.getState().commitDesign(proposal.base,proposal.plan);cancel();}catch(e){setError((e as Error).message);}}}><Check/> Apply furnishing · one undo</button><button onClick={cancel}><X/> Discard preview</button></div></section></div>,document.body)}
     {error&&createPortal(<div className="bp-controls-notice" role="alert">{error}<button aria-label="Dismiss floor plan notice" onClick={()=>setError('')}><X/></button></div>,document.body)}
   </>;
 }

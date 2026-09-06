@@ -48,9 +48,9 @@ describe("wall-mounted window planning",()=>{
     const state=()=>usePlanner.getState();state().confirmFurniture(item({widthMm:9000}));expect(state().past).toHaveLength(0);expect(state().placementNotice).toBeTruthy();
     state().confirmFurniture(item());state().updateFurniture("window",{heightMm:4000});expect(state().plan.furniture[0].heightMm).toBe(1250);expect(state().past).toHaveLength(1);
   });
-  it("round-trips all ten styles exactly through backup and sharing",()=>{
+  it("round-trips all eleven styles exactly through backup and sharing",()=>{
     const p=plan();p.furniture=catalog.filter(c=>isWindow(c.id)).map((c,i)=>item({id:`w-${i}`,catalogId:c.id,widthMm:c.widthMm,heightMm:c.heightMm,depthMm:c.depthMm,rotation:180,elevationMm:700,variant:"navy"}));
-    expect(p.furniture).toHaveLength(10);expect(parsePlan(serializePlan(p)).furniture).toEqual(p.furniture);expect(decodeShare(encodeShare(p)).furniture).toEqual(p.furniture);
+    expect(p.furniture).toHaveLength(11);expect(parsePlan(serializePlan(p)).furniture).toEqual(p.furniture);expect(decodeShare(encodeShare(p)).furniture).toEqual(p.furniture);
   });
   it("exports translucent glazing and recolorable joinery for every Blender window",()=>{
     for(const c of catalog.filter(c=>isWindow(c.id))){const glb=readFileSync(`public/models/furniture/${c.id}.glb`);const json=JSON.parse(glb.subarray(20,20+glb.readUInt32LE(12)).toString());
