@@ -21,7 +21,7 @@ it('confirms a plant stroke as one undo and routes single plants into reversible
  const place=vi.fn();render(<ToolBrowser onPlace={place}/>);fireEvent.click(screen.getByRole('button',{name:'Landscape'}));
  fireEvent.click(screen.getByRole('button',{name:'Plant: Lavender drift'}));act(()=>s().previewPlanting([{x:-8,z:-8}]));
  const count=s().plantingDraft!.items.length,before=s().plan;
- fireEvent.click(screen.getByRole('button',{name:'Confirm planting'}));expect(s().plan.furniture.length).toBe(before.furniture.length+count);expect(s().past).toHaveLength(1);
+ expect(screen.queryByRole('button',{name:'Confirm planting'})).toBeNull();act(()=>s().confirmPlanting());expect(s().plan.furniture.length).toBe(before.furniture.length+count);expect(s().past).toHaveLength(1);
  act(()=>s().undo());expect(s().plan.furniture).toEqual(before.furniture);
  fireEvent.click(screen.getByRole('button',{name:'Single plant'}));fireEvent.click(screen.getByRole('button',{name:'Plant: Lavender drift'}));
  expect(place).toHaveBeenCalledWith(expect.objectContaining({id:'lavender-clump'}));expect(s().plan.furniture).toEqual(before.furniture);

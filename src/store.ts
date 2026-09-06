@@ -37,6 +37,7 @@ interface PlannerState {
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance" | "transparentWalls" | "darkMode"): void; setActiveFloor(id: string): void;
   addFloor(): void; deleteFloor(floorId?: string): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
+  setWallHeight(heightMm:number):void;
   setFloorFinish(kind: "floorFinishId" | "wallFinishId", finishId: string): void;
   addWall(wall: Omit<WallSegment, "id">): void; addOpening(kind: "door" | "window", wallKey: string): void; addStair(x: number, z: number): void;
   placeFurniture(catalogId: string, x?: number, z?: number): void; moveFurniture(id: string, x: number, z: number): void;
@@ -115,6 +116,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   renameFloor: (name) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, name } : f) })),
   paintCell: (x, z, present) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? paintFloorCells(f,[{x,z}],present) : f) })),
   paintCells: (cells, present) => set((state) => cells.length ? commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? paintFloorCells(f,cells,present) : f) }) : state),
+  setWallHeight: heightMm=>set(state=>{if(!Number.isFinite(heightMm)||heightMm<1200||heightMm>5000)return {};const floor=state.plan.floors.find(f=>f.id===state.activeFloorId)!;const above=state.plan.floors.filter(f=>f.elevationMm>floor.elevationMm).sort((a,b)=>a.elevationMm-b.elevationMm)[0];if(above&&floor.elevationMm+heightMm>above.elevationMm)return {placementNotice:'This height reaches the floor above.'};return commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===floor.id?{...f,heightMm}:f)});}),
   setFloorFinish: (kind, finishId) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((floor) => floor.id === state.activeFloorId ? { ...floor, [kind]: finishId, ...(kind==="floorFinishId"?{cellFinishes:{}}:{wallFinishes:{}}) } : floor) })),
   cutWalls:(cuts,railingId)=>set(s=>({...commit(s,removeWallSections(s.plan,s.activeFloorId,cuts,railingId)),selectedWallId:undefined,tool:s.tool==="wall-cut"?"wall-cut":"select"})),
   addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? (()=>{const added={...wall,id:uid()},next={...f,walls:[...f.walls,added],wallCuts:subtractWallCuts(f.wallCuts??[],[added])};if(f.blueprint)next.blueprint={...f.blueprint,wallCuts:next.wallCuts,geometryKey:geometryKey(next)};return next})() : f) })),

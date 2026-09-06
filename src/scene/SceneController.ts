@@ -47,7 +47,10 @@ import {cameraFacingRotation} from '../placementFacing';
 interface Callbacks { onCell(x: number, z: number): void; onWallSegment(wall:Omit<WallSegment,"id">):void; onTileDraft(cells: TileCell[], present: boolean): void; onSelect(id?: string): void; onMove(id: string, xMm: number, zMm: number, elevationMm?:number): void; onDraftMove(xMm: number, zMm: number, elevationMm?:number): void; onWall(id: string): void }
 export class SceneController {
   private plantingPoints?:Array<{x:number;z:number}>;
-  private plantingPreview?:Mesh;
+  private plantingNodes=new Map<string,{node:TransformNode;born:number;loaded:boolean}>();
+  private plantingItems:FurniturePlacement[]=[];
+  private plantingAnchor?:Vector3;
+  private terrainStarted=0;private terrainLastPreview=0;private terrainBase?:PlanDocumentV1;
   private plantingBase?:PlanDocumentV1;
   private terrain!:TerrainScene;
   private terrainStroke?:TerrainStroke;
@@ -70,15 +73,18 @@ export class SceneController {
     this.camera = new ArcRotateCamera("camera", planViewAngles("isometric").alpha, planViewAngles("isometric").beta, 18, new Vector3(2, 0, 2), this.scene); this.camera.attachControl(canvas, true); this.camera.lowerRadiusLimit = closeZoomLimit; this.camera.minZ=closeClipPlane; this.camera.upperRadiusLimit = 80; this.camera.wheelPrecision = 35; Object.assign(this.camera, comfortableCamera);
     const hemi = new HemisphericLight("sky", new Vector3(0.2, 1, 0.1), this.scene); hemi.intensity = .62; hemi.diffuse = new Color3(1, .91, .78); hemi.groundColor = new Color3(.3,.37,.28);
     const sun = new DirectionalLight("sun", new Vector3(-.8, -1.5, .7), this.scene); sun.position = new Vector3(10, 18, -10); sun.intensity = .72; sun.diffuse=new Color3(1,.86,.68); this.shadow = new ShadowGenerator(1024, sun); this.shadow.useBlurExponentialShadowMap = true; this.shadow.blurKernel = 24; this.shadow.setDarkness(.3); this.shadow.customAllowRendering=subMesh=>this.wallVisibility.allowsShadow(subMesh.getMesh());
-    this.root = new TransformNode("root", this.scene); this.furnitureFactory = new FurnitureFactory(this.scene,this.shadow); this.furnitureModels = new FurnitureModelLibrary(this.scene,this.shadow,()=>{this.refreshModels=true;if(this.activePlan&&!this.dragging&&!this.draggingDraft)this.update(this.activePlan,this.activeFloorId,this.selectedId,this.activeDraft)}); this.makeMeadow(); this.outdoors=new OutdoorScene(this.scene); this.terrain=new TerrainScene(this.scene); this.bindPointers(); let frame=0; this.engine.runRenderLoop(() => {this.camera.panningSensibility=precisionPanSensitivity(this.camera.radius);const start=performance.now();this.scene.render();const renderMs=performance.now()-start;frame+=1;if(frame%30===0){this.canvas.dataset.fps=this.engine.getFps().toFixed(1);this.canvas.dataset.renderMs=renderMs.toFixed(1);this.canvas.dataset.cameraRadius=this.camera.radius.toFixed(3);}}); window.addEventListener("resize", this.resize);
+    this.root = new TransformNode("root", this.scene); this.furnitureFactory = new FurnitureFactory(this.scene,this.shadow); this.furnitureModels = new FurnitureModelLibrary(this.scene,this.shadow,()=>{this.refreshModels=true;if(this.plantingItems.length)this.renderPlantingPreview(this.plantingItems,true);if(this.activePlan&&!this.dragging&&!this.draggingDraft)this.update(this.activePlan,this.activeFloorId,this.selectedId,this.activeDraft)}); this.makeMeadow(); this.outdoors=new OutdoorScene(this.scene); this.terrain=new TerrainScene(this.scene); this.bindPointers();this.canvas.addEventListener('pointercancel',this.cancelOutdoorStroke);window.addEventListener('blur',this.cancelOutdoorStroke); let frame=0; this.engine.runRenderLoop(() => {this.camera.panningSensibility=precisionPanSensitivity(this.camera.radius);this.camera.minZ=Math.max(closeClipPlane,Math.min(1,this.camera.radius*.001));const start=performance.now();this.scene.render();const renderMs=performance.now()-start;frame+=1;if(frame%30===0){this.canvas.dataset.fps=this.engine.getFps().toFixed(1);this.canvas.dataset.renderMs=renderMs.toFixed(1);this.canvas.dataset.cameraRadius=this.camera.radius.toFixed(3);}}); window.addEventListener("resize", this.resize);
     // Hover does not select furniture; dragging already uses explicit picking.
     this.scene.skipPointerMovePicking = true;
     this.scene.onBeforeRenderObservable.add(() => {
       updatePlanProjection(this.camera,this.engine.getRenderWidth()/this.engine.getRenderHeight());
-      if(this.plantingPreview&&!this.plantingPoints&&!usePlanner.getState().plantingDraft){this.plantingPreview.dispose();this.plantingPreview=undefined;}
+      if(!this.plantingPoints&&!usePlanner.getState().plantingDraft&&this.plantingNodes.size)this.clearPlantingPreview();
+      for(const p of this.plantingNodes.values()){const a=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(performance.now()-p.born)/300);p.node.scaling.setAll(.8+.2*a);for(const m of p.node.getChildMeshes())m.visibility=.7*a;}
+      if(this.terrainStroke&&this.terrainBase&&performance.now()-this.terrainLastPreview>65){this.terrainLastPreview=performance.now();const strength=this.terrainStroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900);this.terrain.update({...this.terrainBase,environment:{background:'plain',grass:'off',...this.terrainBase.environment,terrain:[...(this.terrainBase.environment?.terrain??[]),{...this.terrainStroke,strength}]}});this.scene.getMeshByName('meadow')?.setEnabled(false);}
       if (this.activePlan) this.wallVisibility.update(getWallVisibility(this.activePlan.camera), this.camera.position, this.camera.target, this.engine.getDeltaTime(), window.matchMedia?.("(prefers-reduced-motion: reduce)").matches??false);
     });
   }
+  viewSurroundings(){if(!this.activePlan)return;const b=landscapeBounds(this.activePlan);this.camera.setTarget(new Vector3(b.x,0,b.z));this.camera.mode=0;this.camera.beta=1.05;this.camera.alpha=Math.PI/2;this.camera.upperRadiusLimit=Math.max(100,b.radius*2.5);this.camera.radius=this.activePlan.environment?.background==='city'?650:Math.max(40,b.radius*2.2);this.camera.upperRadiusLimit=Math.max(this.camera.upperRadiusLimit??100,this.camera.radius*2);this.camera.inertialRadiusOffset=0;}
   zoom(factor:number){this.camera.radius=Math.max(closeZoomLimit,Math.min(this.camera.upperRadiusLimit??80,this.camera.radius*factor));this.camera.inertialRadiusOffset=0;}
   focusFloor(plan:PlanDocumentV1,floorId:string){
     applyPlanView(this.camera, plan.camera.mode);
@@ -90,9 +96,10 @@ export class SceneController {
   }
   placementRotation(id:string,x:number,z:number){return cameraFacingRotation(id,this.camera.position,{x:x/1000,z:z/1000});}
   focusSelected(){const item=this.activePlan?.furniture.find(i=>i.id===this.selectedId);if(!item||!this.selectedNode)return;this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;this.camera.inertialRadiusOffset=0;this.camera.setTarget(this.selectedNode.position.add(new Vector3(0,item.heightMm/2000,0)));this.camera.radius=detailFocusRadius(item.widthMm,item.depthMm,item.heightMm);}
+  private cancelOutdoorStroke=()=>{if(this.terrainStroke){this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}}if(this.plantingPoints){this.plantingPoints=undefined;this.clearPlantingPreview();}this.camera.attachControl(this.canvas,true);};
   private resize = () => this.engine.resize();
-  dispose() { window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
-  setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.plantingPreview?.dispose();this.plantingPreview=undefined;this.terrainStroke=undefined;this.terrainCue?.dispose();this.terrainCue=undefined;this.camera.attachControl(this.canvas,true);this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
+  dispose() { this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
+  setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.clearPlantingPreview();this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}this.terrainCue?.dispose();this.terrainCue=undefined;this.camera.attachControl(this.canvas,true);this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
   screenshot() { return this.canvas.toDataURL("image/png"); }
   private pointOnActiveFloor(screenX: number, screenY: number) {
     if (!this.activePlan) return undefined;
@@ -207,11 +214,14 @@ export class SceneController {
   }
   private cancelWallDraft(){for(const m of this.wallSnapMarkers)m.dispose();this.wallSnapMarkers=[];this.wallDraftMesh?.dispose();this.wallDraftMesh=undefined;this.wallDragStart=undefined;this.wallDragCurrent=undefined;this.wallDraft=undefined;}
   private material(name: string, hex: string, alpha = 1) { const key=`${name}:${hex}:${alpha}`,cached=this.solidMaterials.get(key);if(cached)return cached;const mat = new StandardMaterial(name, this.scene); mat.diffuseColor = Color3.FromHexString(hex); mat.roughness = .92; mat.specularColor = new Color3(.08,.07,.05); mat.alpha = alpha;this.solidMaterials.set(key,mat);return mat; }
-  private surfaceMaterial(name:string,finish:SurfaceFinish,alpha=1){const key=`${finish.id}:${alpha}`;const cached=this.surfaceMaterials.get(key);if(cached)return cached;const mat=this.material(`${name}:${finish.id}`,"#ffffff",alpha);const texture=new Texture(finish.texture,this.scene,false,false,Texture.TRILINEAR_SAMPLINGMODE);texture.wrapU=Texture.WRAP_ADDRESSMODE;texture.wrapV=Texture.WRAP_ADDRESSMODE;texture.uScale=finish.scale;texture.vScale=finish.scale;texture.anisotropicFilteringLevel=4;mat.diffuseTexture=texture;mat.specularColor=new Color3(.035,.03,.022);mat.roughness=.96;this.surfaceMaterials.set(key,mat);return mat;}
+  private surfaceMaterial(name:string,finish:SurfaceFinish,alpha=1){const key=`${finish.id}:${alpha}`;const cached=this.surfaceMaterials.get(key);if(cached)return cached;const mat=this.material(`${name}:${finish.id}`,finish.color??"#ffffff",alpha);const texture=new Texture(finish.texture,this.scene,false,false,Texture.TRILINEAR_SAMPLINGMODE);texture.wrapU=Texture.WRAP_ADDRESSMODE;texture.wrapV=Texture.WRAP_ADDRESSMODE;texture.uScale=finish.scale;texture.vScale=finish.scale;texture.anisotropicFilteringLevel=4;mat.diffuseTexture=texture;mat.specularColor=new Color3(.035,.03,.022);mat.roughness=.96;this.surfaceMaterials.set(key,mat);return mat;}
   private makeMeadow() { const ground = MeshBuilder.CreateDisc("meadow", { radius: 15, tessellation: 64 }, this.scene); ground.rotation.x = Math.PI / 2; ground.position.y = -.15; ground.material = this.material("meadow-mat", "#9cab77"); ground.receiveShadows = true; }
   update(plan: PlanDocumentV1, activeFloorId: string, selectedId?: string, draft?: FurniturePlacement) {
+    this.scene.clearColor=plan.environment?.background==='city'?(plan.camera.darkMode?new Color4(.14,.21,.27,1):new Color4(.65,.78,.85,1)):plan.camera.darkMode?new Color4(.12,.16,.13,1):new Color4(.72,.78,.62,1);
+    const night=!!plan.camera.darkMode;const sun=this.scene.getLightByName('sun'),sky=this.scene.getLightByName('sky');if(sun)sun.intensity=night?.12:.72;if(sky)sky.intensity=night?.36:.62;
+    this.camera.maxZ=plan.environment?.background==='city'?30000:10000;
     const previousDraft=this.activeDraft,refreshPreview=this.refreshModels;
-    this.terrain.update(plan);this.scene.getMeshByName('meadow')?.setEnabled(!plan.environment?.terrain?.length);
+    this.terrain.update(plan);this.scene.getMeshByName('meadow')?.setEnabled(!plan.environment?.terrain?.length&&plan.environment?.background!=='city');
     const stamp=architectureKey(plan,activeFloorId,this.tool,this.selectedWallId);
     if(stamp===this.architectureStamp){
       this.activePlan=plan;this.selectedId=selectedId;this.activeDraft=draft;
@@ -242,7 +252,7 @@ export class SceneController {
     }
     this.architectureStamp=stamp;
     this.furnitureNodes.clear();
-    this.scene.clearColor=plan.camera.darkMode?new Color4(.12,.16,.13,1):new Color4(.72,.78,.62,1);
+
     const ground=this.scene.getMaterialByName("meadow-mat");if(ground instanceof StandardMaterial)ground.diffuseColor=Color3.FromHexString(plan.camera.darkMode?"#455748":"#9cab77");
     this.outdoors.update(plan);
     const landscape=landscapeBounds(plan),meadow=this.scene.getMeshByName("meadow");if(meadow){meadow.scaling.setAll(Math.max(35,landscape.radius+8)/15);meadow.position.x=landscape.x;meadow.position.z=landscape.z;}
@@ -268,8 +278,10 @@ export class SceneController {
   private buildFloor(plan: PlanDocumentV1, floor: FloorPlan, ghost: boolean) {
     const scale = plan.gridSizeMm / 1000; const elevation = floor.elevationMm / 1000; const tileMat = this.surfaceMaterial(`tile-${floor.id}`,findFloorFinish(floor.floorFinishId),ghost ? .22 : 1);
     for (const rect of visibleFloorRects(plan,floor.id)) {const cell=rect.cell, width=rect.width/1000,depth=rect.depth/1000;
-      const tile=MeshBuilder.CreateBox(`cell:${cell.x}:${cell.z}`,{width:plan.camera.showGrid?Math.max(.001,width-.006):width,depth:plan.camera.showGrid?Math.max(.001,depth-.006):depth,height:.08},this.scene);
+      const finish=findFloorFinish(floor.cellFinishes?.[`${cell.x},${cell.z}`]??floor.floorFinishId);
+      const tile=MeshBuilder.CreateBox(`cell:${cell.x}:${cell.z}`,{width:plan.camera.showGrid&&!finish.repeatMeters?Math.max(.001,width-.006):width,depth:plan.camera.showGrid&&!finish.repeatMeters?Math.max(.001,depth-.006):depth,height:.08},this.scene);
       tile.parent=this.root;tile.position=new Vector3((rect.x+rect.width/2)/1000,elevation,(rect.z+rect.depth/2)/1000);
+      if(finish.repeatMeters){const positions=tile.getVerticesData('position')!,uvs=tile.getVerticesData('uv')!;for(let i=0;i<positions.length/3;i++){uvs[i*2]=(positions[i*3]+tile.position.x)/finish.repeatMeters[0];uvs[i*2+1]=(positions[i*3+2]+tile.position.z)/finish.repeatMeters[1];}tile.setVerticesData('uv',uvs);}
       tile.material=floor.cellFinishes?.[`${cell.x},${cell.z}`]?this.surfaceMaterial(`tile-${floor.id}`,findFloorFinish(floor.cellFinishes[`${cell.x},${cell.z}`]),ghost?.22:1):tileMat;tile.receiveShadows=true;tile.isPickable=!ghost;
     }
     const boundaries=floorBoundaryWalls(floor,plan.gridSizeMm);
@@ -288,7 +300,8 @@ export class SceneController {
       const center=(piece.start+piece.end)/2000;
       const mesh=MeshBuilder.CreateBox(`wall:${id}`,{width:(piece.end-piece.start)/1000,height:(piece.top-piece.bottom)/1000,depth:.1},this.scene);
       mesh.parent=this.root;mesh.position=new Vector3(horizontal?center:ax,y+(piece.bottom+piece.top)/2000,horizontal?az:center);
-      mesh.rotation.y=wall.rotation.y;mesh.material=this.surfaceMaterial(`wall-mat-${id}`,findWallFinish(finishes?.[piece.paintKey]??finishes?.[id]??finish.id),ghost?.18:1);
+      mesh.rotation.y=wall.rotation.y;const wallFinish=findWallFinish(finishes?.[piece.paintKey]??finishes?.[id]??finish.id);mesh.material=this.surfaceMaterial(`wall-mat-${id}`,wallFinish,ghost?.18:1);
+      if(wallFinish.repeatMeters){const p=mesh.getVerticesData('position')!,uv=mesh.getVerticesData('uv')!;for(let i=0;i<p.length/3;i++){uv[i*2]=(p[i*3]+center)/wallFinish.repeatMeters[0];uv[i*2+1]=(p[i*3+1]+mesh.position.y)/wallFinish.repeatMeters[1];}mesh.setVerticesData('uv',uv);}
       this.wallVisibility.add(mesh, geometry);
       mesh.isPickable=!ghost&&(this.tool==="select"||this.tool==="door"||this.tool==="window"||this.tool==="wall-finish");mesh.receiveShadows=true;this.shadow.addShadowCaster(mesh);
       if(this.selectedWallIds?.has(id)){mesh.renderOverlay=true;mesh.overlayColor=Color3.FromHexString("#e8c775");mesh.overlayAlpha=.22;}
@@ -322,6 +335,16 @@ export class SceneController {
     });
   }
   private buildStairs(x:number,z:number,w:number,d:number,y:number,ghost:boolean){const mat=this.material(`stairs-${x}-${z}`,"#a9815f",ghost?.18:1);for(let i=0;i<10;i++){const step=this.addBox(this.root,"stairs",[w,.12,d/10],[x,y+.06+i*.12,z+i*d/10],mat);step.isPickable=!ghost;}}
+  private clearPlantingPreview(){for(const p of this.plantingNodes.values())p.node.dispose(false,false);this.plantingNodes.clear();this.plantingItems=[];this.plantingAnchor=undefined;}
+  private renderPlantingPreview(items:FurniturePlacement[],refresh=false){
+    this.plantingItems=items;const ids=new Set(items.map(p=>p.id));for(const [id,p] of this.plantingNodes)if(!ids.has(id)){p.node.dispose(false,false);this.plantingNodes.delete(id);}
+    for(const item of items){const existing=this.plantingNodes.get(item.id);if(existing&&(!refresh||existing.loaded))continue;existing?.node.dispose(false,false);const node=new TransformNode(`garden-preview:${item.id}`,this.scene),def=catalog.find(c=>c.id===item.catalogId)!;
+      const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);node.position.set(item.x/1000,((floor?.elevationMm??0)+(item.elevationMm??0)+50)/1000,item.z/1000);node.rotation.y=item.rotation*Math.PI/180;
+      const loaded=this.furnitureModels.build(node,def,item,item.widthMm/1000,item.depthMm/1000,item.heightMm/1000,false);if(!loaded)this.furnitureFactory.build(node,def,item,item.widthMm/1000,item.depthMm/1000,item.heightMm/1000,false);
+      for(const mesh of node.getChildMeshes()){mesh.isPickable=false;this.shadow.removeShadowCaster(mesh);}this.plantingNodes.set(item.id,{node,born:existing?.born??performance.now(),loaded});
+    }
+  }
+  projectPlantingDraft(){if(!this.plantingAnchor)return;const v=this.camera.viewport.toGlobal(this.engine.getRenderWidth(),this.engine.getRenderHeight()),p=Vector3.Project(this.plantingAnchor,Matrix.Identity(),this.scene.getTransformMatrix(),v);return {x:Math.max(90,Math.min(this.canvas.clientWidth-90,p.x*this.canvas.clientWidth/this.engine.getRenderWidth())),y:Math.max(50,Math.min(this.canvas.clientHeight-70,p.y*this.canvas.clientHeight/this.engine.getRenderHeight()))};}
   private bindPointers(){
     let moved=false;
     this.scene.onPointerObservable.add((info)=>{
@@ -332,13 +355,11 @@ export class SceneController {
         if(this.plantingPoints&&hit&&(info.type===PointerEventTypes.POINTERMOVE||info.type===PointerEventTypes.POINTERDOWN)){
           const last=this.plantingPoints.at(-1);if(!last||Math.hypot(hit.x-last.x,hit.z-last.z)>.2){
             if(this.plantingPoints.length<128)this.plantingPoints.push({x:hit.x,z:hit.z});
-            const plants=scatterPlants(s.plan,this.plantingPoints,s.plantingBrush);
-            this.plantingPreview?.dispose();this.plantingPreview=undefined;
-            if(plants.length){const lines=plants.map(p=>Array.from({length:17},(_,i)=>{const a=i*Math.PI/8,r=Math.min(p.widthMm,p.depthMm)/2200;return new Vector3(p.x/1000+r*Math.cos(a),(p.elevationMm!+s.plan.floors.find(f=>f.id===p.floorId)!.elevationMm+50)/1000+.04,p.z/1000+r*Math.sin(a));}));
-              const mesh=MeshBuilder.CreateLineSystem('planting-position-preview',{lines},this.scene);mesh.color=Color3.FromHexString('#e6c46a');mesh.isPickable=false;this.plantingPreview=mesh;}
+            this.renderPlantingPreview(scatterPlants(s.plan,this.plantingPoints,s.plantingBrush));
+            this.plantingAnchor=new Vector3(hit.x,hit.y+.1,hit.z);
           }
         }
-        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.camera.attachControl(this.canvas,true);if(s.plan===this.plantingBase)s.previewPlanting(points);}
+        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.camera.attachControl(this.canvas,true);if(s.plan===this.plantingBase)s.previewPlanting(points);else this.clearPlantingPreview();}
         return;
       }
       if(this.tool.startsWith('terrain-')){
@@ -346,14 +367,14 @@ export class SceneController {
         const hit=this.activePlan?terrainRay(this.activePlan,ray.origin,ray.direction):undefined;
         const point=hit?{x:hit.x*1000,z:hit.z*1000}:undefined;
         if(info.type===PointerEventTypes.POINTERDOWN&&info.event.button===0&&point){
-          const state=usePlanner.getState();this.terrainStroke={kind:this.tool.slice(8) as TerrainStroke['kind'],radius:state.terrainRadius,strength:state.terrainStrength,points:[{x:point.x/1000,z:point.z/1000}]};this.camera.detachControl();
+          this.canvas.setPointerCapture?.((info.event as PointerEvent).pointerId);this.terrainBase=usePlanner.getState().plan;this.terrainStarted=performance.now();const state=usePlanner.getState();this.terrainStroke={kind:this.tool.slice(8) as TerrainStroke['kind'],radius:state.terrainRadius,strength:state.terrainStrength,points:[{x:point.x/1000,z:point.z/1000}]};this.camera.detachControl();
         }
         if(info.type===PointerEventTypes.POINTERMOVE&&point){
           if(!this.terrainCue){this.terrainCue=MeshBuilder.CreateTorus('terrain-brush',{diameter:2,thickness:.025,tessellation:48},this.scene);this.terrainCue.material=this.material('terrain-cue','#e6c46a');this.terrainCue.isPickable=false;}
           this.terrainCue.scaling.set(usePlanner.getState().terrainRadius,1,usePlanner.getState().terrainRadius);this.terrainCue.position.set(point.x/1000,(hit?.y??0)+.06,point.z/1000);
           const stroke=this.terrainStroke,last=stroke?.points.at(-1);if(stroke&&last&&stroke.points.length<64&&Math.hypot(point.x/1000-last.x,point.z/1000-last.z)>.35)stroke.points.push({x:point.x/1000,z:point.z/1000});
         }
-        if(info.type===PointerEventTypes.POINTERUP&&this.terrainStroke){const stroke=this.terrainStroke;this.terrainStroke=undefined;this.camera.attachControl(this.canvas,true);usePlanner.getState().addTerrainStroke(stroke);}
+        if(info.type===PointerEventTypes.POINTERUP&&this.terrainStroke){const stroke=this.terrainStroke;this.terrainStroke=undefined;this.camera.attachControl(this.canvas,true);if(usePlanner.getState().plan===this.terrainBase){stroke.strength=Math.max(.1,stroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900));usePlanner.getState().addTerrainStroke(stroke);}else if(this.activePlan)this.terrain.update(this.activePlan);}
         return;
       }
       if(info.type===PointerEventTypes.POINTERDOWN){

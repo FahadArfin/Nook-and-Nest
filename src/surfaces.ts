@@ -1,3 +1,4 @@
+import expansion from './finishExpansion.json';
 import { modernCounterIds } from './modernCollection';
 import { kitchenTopIds } from "./kitchenCatalog";
 export interface SurfaceFinish {
@@ -6,6 +7,8 @@ export interface SurfaceFinish {
   family: string;
   texture: string;
   scale: number;
+  color?:string;
+  repeatMeters?:[number,number];
 }
 
 export const wallFinishes: SurfaceFinish[] = [
@@ -29,6 +32,9 @@ export const floorFinishes: SurfaceFinish[] = [
   { id: "oatmeal-carpet", name: "Oatmeal", family: "Carpet", texture: "/textures/oatmeal-carpet.jpg", scale: 1.5 },
   { id: "moss-carpet", name: "Moss", family: "Carpet", texture: "/textures/moss-carpet.jpg", scale: 1.5 },
 ];
+
+floorFinishes.push(...expansion.floors as SurfaceFinish[]);
+wallFinishes.push(...expansion.walls as SurfaceFinish[]);
 
 export const countertopFinishes: SurfaceFinish[] = [
   { id: "warm-granite", name: "Warm granite", family: "Stone", texture: "/textures/countertops/warm-granite.jpg", scale: 1.8 },
@@ -54,6 +60,7 @@ export const defaultCountertopFinish = countertopFinishes[0];
 export const defaultDoorFinish = doorFinishes[0];
 
 export function findWallFinish(id?: string) {
+  if(id?.match(/^paint-([0-9a-f]{6})$/i))return {id,name:'Custom paint',family:'Paint',texture:'/textures/finishes/plaster-neutral.jpg',scale:1.5,color:'#'+id.slice(6)};
   return wallFinishes.find((finish) => finish.id === id) ?? defaultWallFinish;
 }
 

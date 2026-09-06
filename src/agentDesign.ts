@@ -80,7 +80,7 @@ export function buildDesign(base:PlanDocumentV1,operations:DesignOperation[]) {
       }
       if(op.action==='remove_wall'){if(!floor.walls.some(w=>w.id===op.id))throw new Error('Unknown interior wall. Outer walls are derived from tiles.');floor.walls=floor.walls.filter(w=>w.id!==op.id);}
       if(op.action==='finish'){
-        const finishes=op.kind==='floor'?floorFinishes:wallFinishes;if(!finishes.some(f=>f.id===op.finishId))throw new Error('Unknown finish ID.');
+        const finishes=op.kind==='floor'?floorFinishes:wallFinishes;if(!finishes.some(f=>f.id===op.finishId)&&!(op.kind==='wall'&&/^paint-[0-9a-f]{6}$/i.test(op.finishId)))throw new Error('Unknown finish ID.');
         if(op.kind==='floor'){
           if(op.wallId)throw new Error('Use cells for floor finishes.');
           if(op.cells){const occupied=new Set(floor.cells.map(c=>`${c.x},${c.z}`));floor.cellFinishes={...floor.cellFinishes};for(const c of op.cells){const key=`${c.x},${c.z}`;if(!occupied.has(key))throw new Error('Cannot finish an unpainted tile.');floor.cellFinishes[key]=op.finishId;}}

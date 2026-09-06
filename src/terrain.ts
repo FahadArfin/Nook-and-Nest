@@ -7,7 +7,9 @@ export function terrainSampler(plan:PlanDocumentV1){
   const rects=plan.floors.flatMap(f=>floorRects(f,plan.gridSizeMm));
   const strokes=plan.environment?.terrain??[];
   return (x:number,z:number)=>{
-    if(rects.some(r=>x*1000>=r.x-250&&x*1000<=r.x+r.width+250&&z*1000>=r.z-250&&z*1000<=r.z+r.depth+250))return {height:-.15,water:false};
+    const foundationDistance=rects.reduce((d,r)=>Math.min(d,Math.hypot(Math.max(r.x/1000-x,0,x-(r.x+r.width)/1000),Math.max(r.z/1000-z,0,z-(r.z+r.depth)/1000))),Infinity);
+    if(foundationDistance<=.25)return {height:-.15,water:false};
+    const t=Math.min(1,(foundationDistance-.25)/1.25),foundationBlend=t*t*(3-2*t);
     let height=-.15,water=false;
     for(const s of strokes){
       let distance=Infinity;
@@ -21,7 +23,7 @@ export function terrainSampler(plan:PlanDocumentV1){
       if(s.kind==='river'){height=Math.min(height,-.15-s.strength*falloff);if(distance<s.radius*.64)water=true;}
       else height+=s.strength*falloff*(s.kind==='raise'?1:-1);
     }
-    return {height:Math.max(-4,Math.min(5,height)),water};
+    return {height:Math.max(-4,Math.min(5,-.15+(height+.15)*foundationBlend)),water:water&&foundationBlend>.9};
   };
 }
 export function terrainRay(plan:PlanDocumentV1,origin:{x:number;y:number;z:number},direction:{x:number;y:number;z:number}){
