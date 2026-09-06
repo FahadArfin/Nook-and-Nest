@@ -1,3 +1,4 @@
+import {preserveCatalogCoordinates} from './planCoordinates';
 import {MeshoptCompression} from '@babylonjs/core/Meshes/Compression/meshoptCompression';
 import {instanceHolidayBranches} from './HolidayBranches';
 import {positionSlidingLeaves} from './SlidingDoors';
@@ -39,7 +40,7 @@ export class FurnitureModelLibrary {
   private ensure(catalogId: string) {
     if (this.disposed || !this.hasModel(catalogId) || this.failed.has(catalogId) || this.containers.has(catalogId) || this.pending.has(catalogId)) return;
     const request = LoadAssetContainerAsync(modelAssetPath(catalogId), this.scene)
-      .then((container) => { if(this.disposed)container.dispose();else this.containers.set(catalogId, container); })
+      .then((container) => { if(this.disposed)container.dispose();else {preserveCatalogCoordinates(container);this.containers.set(catalogId, container);} })
       .catch((error) => { this.failed.add(catalogId);console.warn(`Could not load Blender furniture model ${catalogId}; using procedural fallback.`, error); })
       .finally(() => {
         this.pending.delete(catalogId);
