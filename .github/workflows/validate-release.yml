@@ -35,7 +35,7 @@ jobs:
       - name: Production build
         run: npm run build
       - name: Hosting tests
-        run: npm run test:sites
+        run: npm run test:sites && node --test tests/library-assets.test.mjs
       - name: Release integrity and size limits
         run: node scripts/verify-release.mjs
       - name: Package and verify exact build
