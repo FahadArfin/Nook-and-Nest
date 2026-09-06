@@ -75,3 +75,8 @@
 .dark-mode .library-icon-rail button:hover{background:#404e41}
 .dark-mode .library-icon-rail button[aria-pressed=true]{background:#52664c;color:#f4f2df;border-color:#a1b48a;box-shadow:inset 3px 0 #a1b48a}
 .dark-mode .library-type-heading[aria-pressed=true]{color:#b5c7a0}
+/* Three previews across are the default; the wider browser remains optional. */
+.workspace:has(>.catalog-slot){grid-template-columns:390px minmax(0,1fr) 292px}
+.library-panel .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.library-panel.library-expanded{width:max(390px,min(620px,calc(100vw - 580px)))}
+@media(min-width:1301px){.library-expanded .library-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}

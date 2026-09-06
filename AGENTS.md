@@ -122,3 +122,4 @@ Library navigation preference: retain search and dropdown filters, with a vertic
 
 Plan-to-3D orientation: retain the drawing orientation in 3D (drawing right is world +X, drawing down is world +Z). Use a drawing-aligned default camera and an orthographic Top view for comparison. Preserve saved coordinates, furniture facing, openings and picking when changing rendering conventions; never reanalyze an image to correct a camera/handedness issue.
 
+Library density preference: show three furniture cards per row by default, with enough library width for readable previews and names; retain the left category rail and optional expanded browser.
