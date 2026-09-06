@@ -2,10 +2,28 @@ import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {createLibraryHandler} from '../worker/library-assets.js';
+import {prepareLibrary} from '../scripts/prepare-library-assets.mjs';
+import {mkdtempSync,mkdirSync,writeFileSync,rmSync,existsSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import path from 'node:path';
 
 const bytes=Buffer.from('glTF-example'),hash=createHash('sha256').update(bytes).digest('hex');
 const manifest={assets:{'/models/furniture/test.glb':{sha256:hash,size:bytes.length,type:'model/gltf-binary'},'/models/previews/test.webp':{sha256:hash,size:bytes.length,type:'image/webp'}}};
 const handler=createLibraryHandler(manifest);
+test('keeps decorated HTML pages packaged while including binary and data assets',()=>{
+ const root=mkdtempSync(path.join(tmpdir(),'nook-library-test-'));
+ try {
+  for(const dir of ['models','textures','data/toronto'])mkdirSync(path.join(root,dir),{recursive:true});
+  writeFileSync(path.join(root,'models/test.glb'),bytes);
+  writeFileSync(path.join(root,'data/toronto/attribution.html'),'<p>Credits</p>');
+  writeFileSync(path.join(root,'data/toronto/manifest.json'),'{}');
+  const assets=prepareLibrary(root,path.join(root,'generated'));
+  assert.equal(assets['/models/test.glb'].sha256,hash);
+  assert.equal(assets['/data/toronto/manifest.json'].type,'application/json');
+  assert.equal(assets['/data/toronto/attribution.html'],undefined);
+  assert(existsSync(path.join(root,'data/toronto/attribution.html')));
+ }finally{rmSync(root,{recursive:true,force:true});}
+});
 function environment(){
  const objects=new Map();
  return {objects,LIBRARY_UPLOAD_TOKEN:'test-secret',ASSETS:{fetch:async()=>new Response('packaged')},LIBRARY:{

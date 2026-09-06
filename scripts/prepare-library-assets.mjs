@@ -10,6 +10,9 @@ export function prepareLibrary(root='dist/client', output='.generated') {
     for(const entry of readdirSync(path.join(root,folder),{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))) {
       const relative=folder+'/'+entry.name;
       if(entry.isDirectory()){walk(relative);continue;}
+      // Sites decorates HTML responses. Keep human-readable pages in the app
+      // package; the R2 collection is verified byte-for-byte after delivery.
+      if(/\.html?$/i.test(relative))continue;
       const bytes=readFileSync(path.join(root,relative)),sha256=createHash('sha256').update(bytes).digest('hex');
       if(bytes.length>32*1024*1024)throw Error('Asset exceeds bounded upload size: '+relative);
       assets['/'+relative]={sha256,size:bytes.length,type:types[path.extname(relative)]??'application/octet-stream'};
