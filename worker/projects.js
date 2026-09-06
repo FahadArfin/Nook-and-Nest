@@ -1,4 +1,7 @@
 import staticWorker from "./index.js";
+import {createLibraryHandler} from './library-assets.js';
+import libraryManifest from './library-manifest.js';
+const libraryAssets=createLibraryHandler(libraryManifest);
 import { recognitionApi } from './recognition.js';
 import { validatePlan, MAX_PLAN_BYTES } from "../src/planValidation.ts";
 
@@ -78,6 +81,8 @@ async function api(request, env) {
 }
 
 export default { async fetch(request, env) {
+  const libraryResponse=await libraryAssets(request,env);
+  if(libraryResponse)return libraryResponse;
   const url=new URL(request.url),preview=url.pathname.match(/^\/api\/previews\/([a-z0-9-]+)\.webp$/);
   if(preview&&['GET','HEAD'].includes(request.method)){
     url.pathname='/models/previews/'+preview[1]+'.webp';
