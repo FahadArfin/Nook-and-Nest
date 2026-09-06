@@ -82,7 +82,7 @@ export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?
     try {
       const result=await renderReference(nextFile,nextPage,nextRotation);if(generation!==loadGeneration.current)return;
       let costStatus='';
-      const detection=await recognizeReference(result,controller.signal,{model:'gpt-5.6-luna',force,guidance,status:text=>{costStatus=text;}});if(generation!==loadGeneration.current)return;
+      const detection=await recognizeReference(result,controller.signal,{model:'gpt-6-astra',force,guidance,status:text=>{costStatus=text;}});if(generation!==loadGeneration.current)return;
       const assessment=scaleAssessment(detection);
       if(assessment.scale===undefined){setPendingScale({reference:result,detection,file:nextFile,page:nextPage,rotation:nextRotation,status:costStatus,message:assessment.warnings.join(' ')});return;}
       acceptDetection(result,detection,nextFile,nextPage,nextRotation,costStatus);

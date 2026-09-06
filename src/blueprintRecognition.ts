@@ -7,21 +7,20 @@ import {snapWindow,wallRuns,windowProblem} from './windows';
 import {catalog,isWallOpening} from './catalog';
 import {recognitionKey,cachedRecognition,saveRecognition,type ScanModel} from './recognitionCache';
 
-export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;confirmPremium?:()=>boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
-  const model=options.model??'gpt-5.6-luna',key=await recognitionKey(reference,model,options.guidance);
+export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;status?:(text:string)=>void}={}):Promise<Recognition> {
+  // Legacy model options never select a cheaper model or reuse its cached result.
+  const model='gpt-6-astra' as const,key=await recognitionKey(reference,model,options.guidance);
   signal?.throwIfAborted();
   const cached=options.force?undefined:cachedRecognition(key,reference);
   if(cached){options.status?.('Reused saved analysis — no API charge.');return cached;}
-  const premiumConfirmed=model==='gpt-6-astra'&&options.confirmPremium?.()===true;
-  if(model==='gpt-6-astra'&&!premiumConfirmed)throw new Error('Astra analysis canceled. No API request was made.');
   signal?.throwIfAborted();
-  const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,premiumConfirmed,guidance:options.guidance?.trim()||undefined})});
+  const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,guidance:options.guidance?.trim()||undefined})});
   const body=await response.json().catch(()=>null);
   if(!response.ok||body?.error)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
   signal?.throwIfAborted();
   const result=validateRecognition(body,reference.width,reference.height);
   const saved=saveRecognition(key,result);
-  options.status?.(`${model==='gpt-5.6-luna'?'Luna':'Astra'} analysis complete. ${saved?'Saved on this browser for free reuse.':'Browser cache unavailable; uploading again may incur another charge.'}`);
+  options.status?.(`Astra analysis complete. ${saved?'Saved on this browser for free reuse.':'Browser cache unavailable; uploading again may incur another charge.'}`);
   return result;
 }
 export function roomsOnlyRecognition(result:Recognition):Recognition {return {...result,fixtures:[]};}
