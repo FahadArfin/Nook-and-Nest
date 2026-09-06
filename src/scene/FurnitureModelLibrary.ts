@@ -34,9 +34,10 @@ export class FurnitureModelLibrary {
   private pending = new Map<string, Promise<void>>();
   private failed = new Set<string>();
   private disposed = false;
+  private readyIds=new Set<string>();
   private materialVariants = new Map<string, Material>();
 
-  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: () => void) {this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
+  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void) {this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
 
   hasModel(catalogId: string) { return MODEL_IDS.has(catalogId); }
 
@@ -46,10 +47,10 @@ export class FurnitureModelLibrary {
       .then((container) => { if(this.disposed)container.dispose();else {preserveCatalogCoordinates(container);this.containers.set(catalogId, container);} })
       .catch((error) => { this.failed.add(catalogId);console.warn(`Could not load Blender furniture model ${catalogId}; using procedural fallback.`, error); })
       .finally(() => {
-        this.pending.delete(catalogId);
+        this.pending.delete(catalogId);this.readyIds.add(catalogId);
         // A plan may request many models at once. Wait for the current batch so
         // the scene is rebuilt once, after every requested GLB has settled.
-        if (!this.disposed && this.pending.size === 0) this.onReady();
+        if (!this.disposed && this.pending.size === 0) {const ids=[...this.readyIds];this.readyIds.clear();this.onReady(ids);}
       });
     this.pending.set(catalogId, request);
   }

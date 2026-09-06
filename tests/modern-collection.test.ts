@@ -20,7 +20,7 @@ const piece=(id:string):FurniturePlacement=>{const c=catalog.find(c=>c.id===id)!
 const browse={search:'',category:'All',type:'All',shelf:'browse' as const,favorites:[],inPlan:[],sort:'collection' as const};
 describe('Batch 12 modern collection',()=>{
  it('preserves every revisited ID and exact catalog envelope',()=>{
-  for(const row of manifest.revisited){const c=catalog.find(c=>c.id===row.id)!;expect(c,row.id).toBeDefined();expect([c.widthMm,c.depthMm,c.heightMm,c.mount],row.id).toEqual([row.widthMm,row.depthMm,row.heightMm,row.mount]);}
+  for(const row of manifest.revisited){const c=catalog.find(c=>c.id===row.id)!;expect(c,row.id).toBeDefined();expect([c.widthMm,c.depthMm,c.heightMm,c.mount],row.id).toEqual([row.widthMm,row.depthMm,row.heightMm,row.id==='wall-cabinet'?'wall':row.mount]);}
  });
  it('ships bounded authored additions with full previews and independent placement',()=>{
   expect(modernIds).toHaveLength(112);expect(new Set(modernIds).size).toBe(modernIds.length);

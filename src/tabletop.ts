@@ -4,7 +4,7 @@ import { kitchenTopIds } from "./kitchenCatalog";
 import { catalog } from "./catalog";
 import type { FurniturePlacement, PlanDocumentV1 } from "./types";
 
-export interface PlacementPoint { x:number; z:number; elevationMm?:number }
+export interface PlacementPoint { rotation?:number; x:number; z:number; elevationMm?:number }
 interface Point3 { x:number;y:number;z:number }
 export function tabletopChoices(plan:PlanDocumentV1,item:FurniturePlacement){
   return plan.furniture.filter(owner=>owner.id!==item.id&&owner.floorId===item.floorId&&supportsDesktop(owner)).flatMap(owner=>{

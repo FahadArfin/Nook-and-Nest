@@ -1,5 +1,7 @@
 # Prototype Instructions
 
+Google scenery quality (September 6): prioritize detailed buildings near the apartment and retain visited views in bounded browser memory for smoother rotation. Offer a lighter setting and an optional sharper nearby setting without restarting the Google session or resetting the camera. Keep Google delivery subject to its cache headers and existing streaming controls; do not put Google tiles into R2. User-owned/licensed photogrammetry storage remains a separate future experiment.
+
 R2 migration (September 6, user-approved): move the delivered model, preview and texture collection into Sites-managed R2 without reducing visual quality. Keep original Blender files and full history in GitHub. Publish lightweight, forward-only Sites source snapshots with explicit GitHub/CI provenance; do not rewrite GitHub history or force-push. Use a bridge release with packaged fallbacks, verify every public R2 asset by SHA-256, then publish the exact CI slim archive. Remove the temporary upload secret after migration. This replaces the earlier instruction to keep R2 on hold.
 
 ## Mandatory multi-chat Git workflow
@@ -148,6 +150,8 @@ Toronto scenery preference: combine the City's open orthorectified aerial roof i
 Toronto realism direction: apply geographically aligned aerial imagery to land and roads; use original glass-heavy Toronto-inspired facade textures with lower-rise masonry variety; make the lake gently ripple with moving highlights and day/night color, respecting reduced motion. Do not label generic facade materials as verified photographs of individual buildings.
 
 Google Toronto scenery (user-approved): use opt-in live Photorealistic 3D Tiles, preserve the renderer/session across furniture edits, pause new requests when hidden or manually paused, respect Google cache headers and attribution, and retain the standard city fallback. Never archive Google tile content in R2, saved plans or exports. Keep the key server-side and cap new root sessions per day.
+
+Modular placement preference (September 6): railings, kitchen cabinets/counters and windows should offer reversible end-drag extension with repeated authored sections, exact length and Fit wall controls. Snap railings to exposed floor edges and cabinet backs to walls/neighboring units. New walls default to pale white; preserve explicit saved finishes. Search for doors must include every door and exclude incidental outdoor/fridge text. Keep solarium glazing floor-height compatible and let wall cabinets follow the pointed height. Right-mouse dragging rotates the active piece, with optional 15-degree steps and one undo on release. Draft moves and newly loaded models must retain unrelated floor and furniture meshes.
 
 Luxury balcony collection: this model-creation task uses original detailed Batch 8/9 Blender construction for railing styles, with editable named parts, independent finishes, exact catalog envelopes, reviewed renders and practical exported mesh costs. Keep all existing rail IDs and assets intact. Coordinate final checks and publication through the shared release queue.
 

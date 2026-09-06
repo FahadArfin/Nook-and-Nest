@@ -6,7 +6,14 @@ const [releaseFolder,assetFolder,origin]=process.argv.slice(2);
 const publicOnly=process.argv.includes('--public-only');
 if(!releaseFolder||!assetFolder||!origin||(!publicOnly&&!process.env.NOOK_LIBRARY_UPLOAD_TOKEN))throw Error('Release directory, asset directory, site origin and upload token are required (token omitted for --public-only)');
 const base=new URL(origin);if(base.protocol!=='https:'||base.pathname!=='/')throw Error('Use the verified HTTPS site origin');
-const manifest=JSON.parse(readFileSync(path.join(releaseFolder,'library-manifest.json')));
+const prerequisites=process.argv.includes('--incremental-prerequisites');
+if(prerequisites&&!publicOnly)throw Error('Incremental prerequisites must be verified read-only');
+const manifestName=prerequisites?'incremental-prerequisites.json':'library-manifest.json';
+const manifest=JSON.parse(readFileSync(path.join(releaseFolder,manifestName)));
+if(prerequisites){
+  const receipt=JSON.parse(readFileSync(path.join(releaseFolder,'release.json')));
+  if(manifest.commit_sha!==receipt.commit_sha||createHash('sha256').update(readFileSync(path.join(releaseFolder,manifestName))).digest('hex')!==receipt.archives[manifestName]?.sha256)throw Error('Incremental prerequisites do not match the CI release');
+}
 const headers={Authorization:'Bearer '+process.env.NOOK_LIBRARY_UPLOAD_TOKEN};
 let completed=0,bytes=0,cursor=0;
 const entries=Object.entries(manifest.assets);
@@ -35,6 +42,6 @@ for(;;) {
 }}
 const results=await Promise.allSettled(Array.from({length:3},()=>transfer()));
 for(const result of results)if(result.status==='rejected')throw result.reason;
-const verification={manifest_sha256:createHash('sha256').update(readFileSync(path.join(releaseFolder,'library-manifest.json'))).digest('hex'),completed,bytes,origin:base.origin,verified_at:new Date().toISOString()};
-writeFileSync(path.join(releaseFolder,publicOnly?'r2-public-verification.json':'r2-verification.json'),JSON.stringify(verification,null,2));
+const verification={manifest_sha256:createHash('sha256').update(readFileSync(path.join(releaseFolder,manifestName))).digest('hex'),completed,bytes,origin:base.origin,verified_at:new Date().toISOString()};
+writeFileSync(path.join(releaseFolder,prerequisites?'incremental-r2-verification.json':publicOnly?'r2-public-verification.json':'r2-verification.json'),JSON.stringify(verification,null,2));
 console.log(JSON.stringify(verification));
