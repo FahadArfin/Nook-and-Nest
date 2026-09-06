@@ -1,6 +1,7 @@
 import {luxuryMountHeight} from './luxuryCollection';
 import {modernMountHeight} from './modernCollection';
 import balconyData from './balconyExpansion.json';
+import luxuryBalconyData from './luxuryBalconyExpansion.json';
 import {wallFixtureIds,windowTreatmentIds} from './homeCollection';
 import {cozyRows,cozyMount} from "./cozyCatalog";
 import { interiorRows,interiorWallIds,collectibleIds } from "./interiorCatalog";
@@ -11,6 +12,7 @@ const declaredKitchenWalls=new Set(cozyRows.filter(row=>row[2]==='Kitchen'&&cozy
 export const isKitchenWall=(id:string)=>kitchenWallIds.has(id)||wallFixtureIds.has(id)||declaredKitchenWalls.has(id);
 export const isCeilingMounted=(id:string)=>kitchenCeilingIds.has(id)||cozyMount(id)==="ceiling";
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
+  ...luxuryBalconyData as Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]>,
   ...balconyData as Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]>,
   ...outdoorRows,
   ...cozyRows,

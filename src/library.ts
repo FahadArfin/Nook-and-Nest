@@ -8,7 +8,7 @@ export type LibrarySort = "collection" | "name" | "size";
 
 // Human-readable types are intentionally independent of the render shape.
 const families: Record<string, string[]> = {
-  "Balcony railings": ["balcony-rail-glass","balcony-rail-concrete","balcony-rail-hybrid"],
+  "Balcony railings": catalog.filter(item=>item.id.startsWith('balcony-rail-')).map(item=>item.id),
   "Air conditioning": ["balcony-mini-split"],
   "Closet doors": ["door-closet-single","door-closet-double","door-closet-sliding"],
   "Garden plants": ["lavender-clump","daisy-clump","tulip-planter","raised-flowerbed","balcony-flowerbox","garden-hedge","flowering-shrub","grass-clump"],
