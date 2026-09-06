@@ -39,18 +39,33 @@ with tarfile.open(archive) as tar:
 library = json.loads((root / '.generated/library-manifest.json').read_text())
 asset_names = {'client' + name for name in library['assets']}
 slim_files = [p for p in files if p.relative_to(build).as_posix() not in asset_names]
+# The incremental bridge packages every new/changed asset. Omitted baseline
+# objects are explicit prerequisites, verified live before the release is used.
+baseline = json.loads((root / 'docs/r2-baseline.json').read_text())
+reused = {name: asset for name, asset in library['assets'].items()
+          if baseline['assets'].get(name) == asset}
+reused_names = {'client' + name for name in reused}
+incremental_files = [p for p in files if p.relative_to(build).as_posix() not in reused_names]
+prerequisites = dict(schema=1, assets=reused, commit_sha=sha)
+(output/'incremental-prerequisites.json').write_text(json.dumps(prerequisites,indent=2))
 archives = {}
 for filename, selected, prefix, base in [
     ('sites-release.tar.gz', slim_files, 'dist/', build),
+    ('sites-incremental-bridge.tar.gz', incremental_files, 'dist/', build),
     ('library-assets.tar.gz', [build / name for name in sorted(asset_names)], '', build / 'client'),
 ]:
     with tarfile.open(output / filename, 'w:gz') as tar:
         for p in selected:
             tar.add(p, arcname=prefix+p.relative_to(base).as_posix(), recursive=False)
+    with tarfile.open(output / filename) as tar:
+        assert set(tar.getnames()) == {prefix+p.relative_to(base).as_posix() for p in selected}
+        for p in selected:
+            assert tar.extractfile(prefix+p.relative_to(base).as_posix()).read() == p.read_bytes()
     archives[filename] = dict(sha256=hashlib.sha256((output / filename).read_bytes()).hexdigest(),
                              expanded_bytes=sum(p.stat().st_size for p in selected), file_count=len(selected))
 archives['sites-bridge.tar.gz'] = dict(sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),
                                      expanded_bytes=expanded, file_count=len(files))
+archives['incremental-prerequisites.json'] = dict(sha256=hashlib.sha256((output/'incremental-prerequisites.json').read_bytes()).hexdigest())
 # The hosting snapshot contains the exact application source plus explicit
 # provenance for external inputs. It has no ancestry link to the heavy GitHub
 # history: its parent will be the existing hosting branch, via a normal push.
