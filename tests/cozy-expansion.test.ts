@@ -35,7 +35,7 @@ describe('cozy expansion and placement regressions',()=>{
   expect(modelAssetPath('sofa')).toContain('/models/furniture/sofa.glb?v=');
  });
  it('ships every addition as an editable, dimensioned model and rendered preview',()=>{
-  expect(cozyRows).toHaveLength(231);
+  expect(cozyRows).toHaveLength(245);
   for(const [id,,,w,d,h] of cozyRows){
    expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());
