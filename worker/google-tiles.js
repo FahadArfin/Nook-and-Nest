@@ -28,7 +28,7 @@ export async function googleTiles(request, env, fetcher = fetch) {
   const headers = new Headers();
   for (const name of ['if-none-match','if-modified-since']) if(request.headers.has(name))headers.set(name,request.headers.get(name));
   let response;
-  try { response = await fetcher(upstream, {headers, signal:request.signal, redirect:'error'}); }
+  try { response = await fetcher(upstream, {headers, signal:request.signal, redirect:'manual'}); }
   catch { return error('Google scenery could not connect. Try again later.',502); }
   if (!response.ok && response.status !== 304) {
     // Never forward upstream errors: they can echo credentials or project identifiers.
