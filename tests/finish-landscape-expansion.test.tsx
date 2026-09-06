@@ -68,3 +68,19 @@ it('updates lake day/night and freezes ripple time under reduced motion',()=>{
  expect(material.serialize().floats.time).toBe(before);expect(material.serialize().floats.night).toBe(1);
  Object.defineProperty(window,'matchMedia',{configurable:true,value:previous});scene.dispose();engine.dispose();
 });
+
+import {paintWallGroup} from '../src/wallEditing';
+import {floorBoundaryWalls} from '../src/floorGeometry';
+it('paints partition and boundary groups independently and preserves saved section overrides elsewhere',()=>{
+ const p=createSamplePlan();p.floors[0].walls=[{id:'partition',ax:1,az:1,bx:3,bz:1}];const f=p.floors[0],outer=floorBoundaryWalls(f,p.gridSizeMm)[0].id,inner=f.walls[0].id;
+ const original={...f,wallFinishes:{[outer]:'pale-white',[inner]:'sage-plaster',[inner+'|legacy']:'blue-plaster'}};
+ const painted=paintWallGroup(original,p.gridSizeMm,'exterior','paint-edeae0');
+ expect(painted.wallFinishes?.[outer]).toBe('paint-edeae0');expect(painted.wallFinishes?.[inner+'|legacy']).toBe('blue-plaster');
+ const next=paintWallGroup(painted,p.gridSizeMm,'interior','paint-cdd2ca');expect(next.wallFinishes?.[inner]).toBe('paint-cdd2ca');expect(next.wallFinishes?.[inner+'|legacy']).toBeUndefined();expect(next.cells).toBe(f.cells);
+});
+it('includes authored stone and wood options with physically rectangular formats and smooth paint',()=>{
+ expect(floorFinishes.filter(f=>f.id.startsWith('studio-'))).toHaveLength(32);
+ expect(floorFinishes.find(f=>f.id==='studio-calacatta-80x160')?.repeatMeters).toEqual([.8,1.6]);
+ expect(floorFinishes.filter(f=>f.family==='Stone').length).toBeGreaterThanOrEqual(12);
+ expect(findWallFinish('paint-edeae0').texture).toBe('');expect(findWallFinish('paint-edeae0').name).toBe('Alabaster');
+});
