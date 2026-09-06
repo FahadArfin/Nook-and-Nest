@@ -12,9 +12,10 @@ import { usePlanner } from "../src/store";
 import { fitStair,stairHoles } from "../src/building";
 import { catalog } from "../src/catalog";
 import { EditorApp as App } from "../src/App";
-const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:vi.fn(),zoom:vi.fn(),focus:vi.fn()}));
+const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:vi.fn(),zoom:vi.fn(),focus:vi.fn(),rotation:vi.fn()}));
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
+  setRotationMode(active:boolean){scene.rotation(active)}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()}
   placementRotation(){return 0;} setTool(){} setWallSelection(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
   previewMeasuredRoom(region:unknown){scene.preview(region)}
@@ -22,7 +23,7 @@ vi.mock("../src/scene/SceneController",()=>({SceneController:class{
 }}));
 vi.mock("../src/store",async()=>{const actual=await vi.importActual<typeof import("../src/store")>("../src/store");return {...actual,loadPlan:async()=>actual.usePlanner.getState().plan,savePlan:async()=>{}}});
 const state=()=>usePlanner.getState();
-beforeEach(()=>{state().replacePlan(createSamplePlan());state().setTool("select");state().setCategory("All");state().setSearch("");scene.callbacks=undefined;scene.preview.mockClear();scene.update.mockClear();vi.stubGlobal("requestAnimationFrame",()=>1);vi.stubGlobal("cancelAnimationFrame",()=>{});});
+beforeEach(()=>{state().replacePlan(createSamplePlan());state().setTool("select");state().setCategory("All");state().setSearch("");scene.callbacks=undefined;scene.preview.mockClear();scene.update.mockClear();scene.rotation.mockClear();vi.stubGlobal("requestAnimationFrame",()=>1);vi.stubGlobal("cancelAnimationFrame",()=>{});});
 afterEach(()=>{cleanup();vi.unstubAllGlobals()});
 describe("measured room controls",()=>{
   it("selects a wall before changing its whole plate finish in the right panel",async()=>{
@@ -106,7 +107,7 @@ describe("building editor wiring",()=>{
     act(()=>state().setCategory("Stairs"));const model=catalog.find(c=>c.id==="stairs-floating")!;
     fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(screen.getByRole("toolbar",{name:`Place ${model.name}`})).toBeTruthy();expect(state().plan.furniture).toEqual([]);
-    fireEvent.click(screen.getByRole("button",{name:"Rotate right"}));fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));
+    fireEvent.click(screen.getByRole("button",{name:"Rotate furniture"}));act(()=>scene.callbacks.onRotate(undefined,270));fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));
     expect(state().plan.furniture).toHaveLength(1);expect(state().plan.furniture[0].rotation).toBe(270);expect(state().selectedId).toBeUndefined();
     act(()=>scene.callbacks.onSelect(state().plan.furniture[0].id));expect(screen.getByRole("toolbar",{name:`Edit ${model.name}`})).toBeTruthy();expect(screen.getByLabelText("Connect to floor")).toBeTruthy();
   });
@@ -169,7 +170,7 @@ describe('modular extension review',()=>{
   it('previews a selected cabinet extension, commits one update, and restores it with undo',()=>{
     state().placeFurniture('base-cabinet',1800,1000);const id=state().plan.furniture[0].id;render(<App/>);act(()=>state().select(id));
     const original=state().plan.furniture[0].widthMm,past=state().past.length;
-    fireEvent.click(screen.getByRole('button',{name:'Extend ↔'}));
+    fireEvent.click(screen.getByRole('button',{name:'Extend furniture'}));
     fireEvent.change(screen.getByLabelText('Run length'),{target:{value:'1800'}});
     expect(state().plan.furniture[0].widthMm).toBe(original);expect(state().past).toHaveLength(past);
     expect(screen.getByRole('button',{name:'Drag left end to extend'})).toBeTruthy();
@@ -179,6 +180,18 @@ describe('modular extension review',()=>{
   });
   it('canceling an extension leaves the saved cabinet untouched',()=>{
     state().placeFurniture('base-cabinet',1800,1000);const id=state().plan.furniture[0].id;render(<App/>);act(()=>state().select(id));const before=state().plan;
-    fireEvent.click(screen.getByRole('button',{name:'Extend ↔'}));fireEvent.change(screen.getByLabelText('Run length'),{target:{value:'2400'}});fireEvent.click(screen.getByRole('button',{name:'Cancel placement'}));expect(state().plan).toBe(before);
+    fireEvent.click(screen.getByRole('button',{name:'Extend furniture'}));fireEvent.change(screen.getByLabelText('Run length'),{target:{value:'2400'}});fireEvent.click(screen.getByRole('button',{name:'Cancel placement'}));expect(state().plan).toBe(before);
   });
 });
+
+ it('keeps one opt-in rotation button and only eligible Extend icons in floating toolbars',()=>{
+   state().placeFurniture('base-cabinet',1800,1000);const id=state().plan.furniture[0].id;render(<App/>);act(()=>state().select(id));
+   let toolbar=within(screen.getByRole('toolbar',{name:/Edit/}));
+   expect(toolbar.queryByRole('button',{name:'Rotate left'})).toBeNull();expect(toolbar.queryByRole('button',{name:'Rotate right'})).toBeNull();
+   const rotate=toolbar.getByRole('button',{name:'Rotate furniture'});expect(rotate.getAttribute('aria-pressed')).toBe('false');
+   const before=state().plan;fireEvent.click(rotate);expect(scene.rotation).toHaveBeenLastCalledWith(true);expect(state().plan).toBe(before);
+   expect(screen.getByText(/Drag in the scene to rotate/)).toBeTruthy();fireEvent.click(rotate);expect(scene.rotation).toHaveBeenLastCalledWith(false);
+   fireEvent.click(toolbar.getByRole('button',{name:'Extend furniture'}));toolbar=within(screen.getByRole('toolbar',{name:/Place/}));expect(toolbar.getByRole('button',{name:'Extend furniture'})).toBeTruthy();fireEvent.click(toolbar.getByRole('button',{name:'Rotate furniture'}));fireEvent.click(toolbar.getByRole('button',{name:'Extend furniture'}));expect(screen.getByLabelText('Run length')).toBeTruthy();
+   fireEvent.click(toolbar.getByRole('button',{name:'Cancel placement'}));act(()=>{state().placeFurniture('small-plant');state().select(state().plan.furniture.at(-1)!.id)});
+   toolbar=within(screen.getByRole('toolbar',{name:/Edit/}));expect(toolbar.queryByRole('button',{name:'Extend furniture'})).toBeNull();expect(toolbar.getByRole('button',{name:'Rotate furniture'}).getAttribute('aria-pressed')).toBe('false');
+ });
