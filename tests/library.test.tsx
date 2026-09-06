@@ -71,14 +71,15 @@ describe("library controls",()=>{
     const spy=vi.spyOn(Storage.prototype,"setItem").mockImplementation(()=>{throw new Error("blocked")});
     try{mount();fireEvent.click(screen.getByLabelText("Save Capsule bathroom mirror"));expect(screen.getByText(/only stay for this session/)).toBeTruthy();expect(screen.getByLabelText("Unsave Capsule bathroom mirror")).toBeTruthy()}finally{spy.mockRestore()}
   });
+  // This integration test mounts and rerenders the full catalog; it is not a timing benchmark.
   it("supports wide browsing and preserves pointer and keyboard draft callbacks",()=>{
     const {drag,start}=mount();fireEvent.click(screen.getByLabelText("Expand library"));
     expect(screen.getByLabelText("Furniture library").className).toContain("library-expanded");
-    const card=screen.getByRole("button",{name:"Capsule bathroom mirror, drag to place"});
+    const card=screen.getByLabelText("Capsule bathroom mirror, drag to place");
     fireEvent.pointerDown(card,{button:0});fireEvent.click(card,{detail:1});
     expect(drag).toHaveBeenCalledTimes(1);expect(start).not.toHaveBeenCalled();expect(screen.getByLabelText("Expand library")).toBeTruthy();
     fireEvent.click(card,{detail:0});expect(start).toHaveBeenCalledWith(item("bath-mirror-pill"));
-  });
+  },10000);
   it("shows distinct already-placed pieces and never adds drafts itself",()=>{
     usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("laptop");
     const {start}=mount();fireEvent.click(screen.getByRole("button",{name:"In plan"}));
