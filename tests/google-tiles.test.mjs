@@ -42,3 +42,13 @@ test('invalid requests never reach Google and upstream errors cannot leak secret
   assert.equal((await googleTiles(request('root.json',{'sec-fetch-site':'cross-site'}),environment(),fetcher)).status,403);assert.equal(calls,0);
   const error=await googleTiles(request(),environment(),fetcher);assert.equal(error.status,502);assert.ok(!(await error.text()).includes('secret-test-key'));
 });
+
+
+test('uses Worker-compatible manual redirects and never forwards redirected credentials', async()=>{
+  let calls=0;
+  const response=await googleTiles(new Request('https://app.test/api/google-tiles/v1/3dtiles/datasets/tile.glb?session=test'),{GOOGLE_MAPS_API_KEY:'secret'},async(url,options)=>{
+    calls++;assert.equal(options.redirect,'manual');
+    return new Response('secret upstream redirect',{status:302,headers:{location:'https://unrelated.test/collect'}});
+  });
+  assert.equal(calls,1);assert.equal(response.status,502);assert.equal(response.headers.get('location'),null);assert.doesNotMatch(await response.text(),/secret|unrelated/);
+});
