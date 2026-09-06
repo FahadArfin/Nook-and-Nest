@@ -15,3 +15,9 @@ After merge, the same workflow validates the actual master commit and uploads **
 7. Report the live URL and PR. A successful GitHub workflow means **ready to publish**, not **published**. If master has advanced, use the newer successfully validated release instead of silently rolling back the site.
 
 The user has authorized this routine public release flow. No additional conversational approval is needed. Sites publishing remains an authenticated agent step until a supported external CI deployment API is available. Keep the GitHub workflow deterministic; it does not need an AI agent to run tests. Original Blender modeling and visual review remain part of feature work.
+
+## Incremental bridge when the full upload exceeds connector limits
+
+CI also retains `sites-incremental-bridge.tar.gz`, containing the unchanged application build and all library files absent or changed from `docs/r2-baseline.json`. That baseline is only a candidate reuse list, never proof of current storage. `incremental-prerequisites.json` lists every omitted file and is hashed in the release receipt. Before saving this bridge, run `node scripts/upload-library-assets.mjs RELEASE_DIR EXTRACTED_ASSETS SITE_ORIGIN --public-only --incremental-prerequisites`. Require the resulting `incremental-r2-verification.json` to match the exact prerequisites hash and full entry count. It checks actual bytes and the R2 response header. If any object fails, do not publish this bridge; use the full bridge or repair storage first.
+
+After the gate passes, publish the exact CI incremental bridge using a fresh hosting snapshot. It safely serves new objects from packaged fallbacks while the existing objects remain in R2. Upload the complete library artifact through the new allowlist, verify every hash, remove the temporary secret, then publish the exact slim artifact with another fresh snapshot and verify public assets and live entry hashes. Never publish slim before complete verification.

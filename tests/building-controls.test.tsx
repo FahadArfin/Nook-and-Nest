@@ -163,3 +163,22 @@ it('carries shared appearance through the studio and editor without changing the
  fireEvent.click(screen.getByRole('button',{name:'Use system theme'}));fireEvent.click(screen.getByRole('button',{name:/Free 3D editor/}));const next=state().plan;
  act(()=>{matches=true;listeners.forEach(fn=>fn());});expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);expect(state().plan).toBe(next);localStorage.removeItem('nook-welcome-theme');
 },10000);
+
+
+describe('modular extension review',()=>{
+  it('previews a selected cabinet extension, commits one update, and restores it with undo',()=>{
+    state().placeFurniture('base-cabinet',1800,1000);const id=state().plan.furniture[0].id;render(<App/>);act(()=>state().select(id));
+    const original=state().plan.furniture[0].widthMm,past=state().past.length;
+    fireEvent.click(screen.getByRole('button',{name:'Extend ↔'}));
+    fireEvent.change(screen.getByLabelText('Run length'),{target:{value:'1800'}});
+    expect(state().plan.furniture[0].widthMm).toBe(original);expect(state().past).toHaveLength(past);
+    expect(screen.getByRole('button',{name:'Drag left end to extend'})).toBeTruthy();
+    fireEvent.click(screen.getByRole('button',{name:'Confirm placement'}));
+    expect(state().plan.furniture).toHaveLength(1);expect(state().plan.furniture[0]).toMatchObject({id,widthMm:1800,moduleRun:true});expect(state().past).toHaveLength(past+1);
+    act(()=>state().undo());expect(state().plan.furniture[0].widthMm).toBe(original);
+  });
+  it('canceling an extension leaves the saved cabinet untouched',()=>{
+    state().placeFurniture('base-cabinet',1800,1000);const id=state().plan.furniture[0].id;render(<App/>);act(()=>state().select(id));const before=state().plan;
+    fireEvent.click(screen.getByRole('button',{name:'Extend ↔'}));fireEvent.change(screen.getByLabelText('Run length'),{target:{value:'2400'}});fireEvent.click(screen.getByRole('button',{name:'Cancel placement'}));expect(state().plan).toBe(before);
+  });
+});
