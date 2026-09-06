@@ -111,3 +111,5 @@ Studio workspace preference: use the full viewport like the 3D editor. Put PDF/i
 Combine preference: click multiple room areas directly on the canvas or whole room-list rows, show selected chips/highlights and a nearby naming/type field before applying. Accept overlapping as well as edge-adjacent rectangles while preserving the exact union footprint, remove internal divider spans, and combine in one undo. Prefer the selected bedroom identity over auxiliary Living labels; allow explicit naming such as Master bedroom.
 
 Combined-room editing: a combined room acts as one object by default, with four whole-room resize handles and no internal rectangle selection seams. Scale its parts together to preserve its outline and shared edges. Individual rectangle handles, separation and deletion belong behind an explicit Edit individual rectangles option.
+
+Floor Plan Studio should offer a top-level Reanalyze button that explicitly bypasses the scan cache for the current uploaded page and orientation. Keep ordinary imports cached, use Luna, preserve the draft on failure/cancel, and make a successful replacement undoable.

@@ -93,6 +93,17 @@ describe('analysis cost safeguards (no paid requests)',()=>{
       clearRecognitionCache();await recognizeReference(ref);expect(fetcher).toHaveBeenCalledTimes(2);
     }finally{vi.unstubAllGlobals();}
   });
+  it('forces one fresh request, replaces that cached result, and preserves it when a retry fails',async()=>{
+    vi.stubGlobal('crypto',webcrypto);const values=new Map<string,string>();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k),setItem:(k:string,v:string)=>values.set(k,v)});
+    const fresh=result();fresh.rooms[0].name='Fresh bedroom';
+    const fetcher=vi.fn().mockResolvedValueOnce(Response.json(result())).mockResolvedValueOnce(Response.json(fresh)).mockResolvedValueOnce(Response.json({error:'Unavailable'},{status:503}));vi.stubGlobal('fetch',fetcher);
+    try {
+      await recognizeReference(ref);expect(await recognizeReference(ref,undefined,{force:true})).toEqual(fresh);
+      expect(await recognizeReference(ref)).toEqual(fresh);expect(fetcher).toHaveBeenCalledTimes(2);
+      await expect(recognizeReference(ref,undefined,{force:true})).rejects.toThrow('Unavailable');
+      expect(await recognizeReference(ref)).toEqual(fresh);expect(fetcher).toHaveBeenCalledTimes(3);
+    }finally{vi.unstubAllGlobals();}
+  });
   it('caches completed detections even when scale needs review, without another paid request',async()=>{
     vi.stubGlobal('crypto',webcrypto);const values=new Map<string,string>();vi.stubGlobal('localStorage',{getItem:(k:string)=>values.get(k),setItem:(k:string,v:string)=>values.set(k,v)});
     const detection=result();detection.dimensions.push({...detection.dimensions[0],millimetres:9000});
