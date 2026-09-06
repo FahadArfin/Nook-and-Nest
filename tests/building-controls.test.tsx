@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import React from "react";
 import { afterEach,beforeEach,describe,expect,it,vi } from "vitest";
-import { cleanup,fireEvent,render,screen,act,waitFor } from "@testing-library/react";
+import { cleanup,fireEvent,render,screen,act,waitFor,within } from "@testing-library/react";
 import { OutdoorSettings } from "../src/OutdoorSettings";
 import { ShelfPlacement } from "../src/ShelfPlacement";
 import { shelfChoices } from "../src/shelfSurfaces";
@@ -92,12 +92,13 @@ describe("building editor wiring",()=>{
   });
   it("positions, cancels, and confirms an exact-size room through the editor toolbar",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());fireEvent.click(screen.getByText("Exact room size"));
+    const stage=within(screen.getByLabelText("Interactive 3D apartment editor").parentElement!);
     fireEvent.change(screen.getByLabelText("Room width"),{target:{value:"12' 6\""}});fireEvent.change(screen.getByLabelText("Room depth"),{target:{value:"10"}});
     fireEvent.click(screen.getByRole("button",{name:"Place measured room"}));const before=state().plan;
     act(()=>scene.callbacks.onCell(20,20));expect(scene.preview).toHaveBeenCalled();expect(state().plan).toBe(before);
-    fireEvent.click(screen.getByRole("button",{name:"Cancel tile change"}));expect(state().plan).toBe(before);
-    act(()=>scene.callbacks.onCell(20,20));fireEvent.click(screen.getByRole("button",{name:"Confirm tile change"}));
-    expect(state().plan.floors[0].cellRects).toBeTruthy();expect(state().past).toHaveLength(1);expect(screen.queryByRole("button",{name:"Confirm tile change"})).toBeNull();
+    fireEvent.click(stage.getByRole("button",{name:"Cancel tile change"}));expect(state().plan).toBe(before);
+    act(()=>scene.callbacks.onCell(20,20));fireEvent.click(stage.getByRole("button",{name:"Confirm tile change"}));
+    expect(state().plan.floors[0].cellRects).toBeTruthy();expect(state().past).toHaveLength(1);expect(stage.queryByRole("button",{name:"Confirm tile change"})).toBeNull();
     fireEvent.click(screen.getByRole("button",{name:"Undo"}));expect(state().plan).toEqual(before);
   });
   it("keeps keyboard library placement as a draft when leaving a building tool",async()=>{

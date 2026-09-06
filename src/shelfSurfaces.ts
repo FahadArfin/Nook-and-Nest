@@ -11,6 +11,14 @@ const authored:Record<string,ShelfSurface[]>={
   'ladder-display-shelf':[200,660,1120,1580].map((height,i)=>shelf(`level-${i+1}`,`Shelf ${i+1} (bottom to top)`,height,640,[370,300,230,160][i],i===3?700:420,0,[0,-35,-70,-105][i])),
   'cube-display-shelf':[40,466.667,893.333].flatMap((height,row)=>[-426.667,0,426.667].map((x,col)=>shelf(`bay-${row+1}-${col+1}`,`Row ${row+1}, cubby ${col+1}`,height,376,300,376,x,10))),
 };
+// Conservative clear planes inside Batch 12's open carcasses, including each
+// divider. Match the retained panels in modern_models.py, in millimetres.
+for(const id of ['modular-media-console','modular-low-storage','open-metal-upper']){
+  const def=catalog.find(c=>c.id===id)!;
+  const bottom=id==='open-metal-upper'?0:90,top=def.heightMm-35;
+  const cols=Math.round(def.widthMm/600),bay=(def.widthMm-40)/cols;
+  authored[id]=[bottom+24,bottom+(top-bottom)/2+9].flatMap((height,row)=>Array.from({length:cols},(_,col)=>shelf(`modern-${row}-${col}`,`Shelf ${row+1}, bay ${col+1}`,height,bay-35,def.depthMm-100,(top-bottom)/2-40,(col-(cols-1)/2)*bay,0)));
+}
 export function shelfSurfaces(item:FurniturePlacement):ShelfSurface[]{
   const def=catalog.find(c=>c.id===item.catalogId);if(!def)return [];
   return (authored[item.catalogId]??[]).map(s=>({...s,x:s.x*item.widthMm/def.widthMm,z:s.z*item.depthMm/def.depthMm,width:s.width*item.widthMm/def.widthMm,depth:s.depth*item.depthMm/def.depthMm,height:s.height*item.heightMm/def.heightMm+(item.elevationMm??0),clearance:s.clearance*item.heightMm/def.heightMm}));

@@ -1,3 +1,4 @@
+import {modernDefaultVariant, modernDefaultSurface} from './modernCollection';
 import {WallConstructionControls} from './WallConstructionControls';
 import { Welcome } from "./Welcome";
 import {useAppearance} from './useWelcomeTheme';
@@ -5,7 +6,7 @@ import { BlueprintControls } from "./BlueprintControls";
 import {SlidingDoorSettings} from './SlidingDoorSettings';
 import {slidingDoorIds} from './homeCollection';
 import {TurnButton,FurnitureTurnButton} from "./TurnButton";
-import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Bathtub, Armchair, ArrowClockwise, ArrowCounterClockwise, Bed, Books, Buildings, Camera, Chair, Check, Copy, Door, DownloadSimple, Eye, FileArrowUp, FloppyDisk, FrameCorners, GridFour, HandGrabbing, Info, Lamp, MagnifyingGlass, PaintBrush, Plant, Plus, Ruler, ShareNetwork, SpeakerHigh, SpeakerSlash, SquaresFour, Stairs, Table, Trash, Wall, X } from "@phosphor-icons/react";
 import { catalog, isKitchenWall, isCeilingMounted, isWallMounted, isWindow, isDoor, isStairs, isWallOpening, isSurfaceMounted, hasModelPreview, defaultMountHeight, variants } from "./catalog";
 import { createSamplePlan, encodeShare, formatLength, furnitureOverlaps, parsePlan, rectangleCells, serializePlan, uid } from "./domain";
@@ -125,7 +126,7 @@ export function EditorApp({onHome}:{onHome?:()=>void}) {
     const xs=floor.cells.map((cell)=>cell.x),zs=floor.cells.map((cell)=>cell.z),grid=state.plan.gridSizeMm;
     const x=xs.length?Math.round(((Math.min(...xs)+Math.max(...xs)+1)*grid/2)/50)*50:1700;
     const z=zs.length?Math.round(((Math.min(...zs)+Math.max(...zs)+1)*grid/2)/50)*50:1700;
-    const next: FurniturePlacement={id:uid(),catalogId:item.id,floorId:floor.id,x,z,rotation:controllerRef.current?.placementRotation(item.id,x,z)??0,widthMm:item.widthMm,depthMm:item.depthMm,heightMm:item.heightMm,variant:"sage",surfaceVariant:supportsCountertopFinish(item.id)?defaultCountertopFinish.id:undefined,elevationMm:defaultMountHeight(item.id)};
+    const next: FurniturePlacement={id:uid(),catalogId:item.id,floorId:floor.id,x,z,rotation:controllerRef.current?.placementRotation(item.id,x,z)??0,widthMm:item.widthMm,depthMm:item.depthMm,heightMm:item.heightMm,variant:modernDefaultVariant(item.id),surfaceVariant:supportsCountertopFinish(item.id)?modernDefaultSurface(item.id)??defaultCountertopFinish.id:undefined,elevationMm:defaultMountHeight(item.id)};
     cancelTilePlacement(); focusDraftControls.current=focusControls; state.select(undefined); state.setTool("select"); if(isStairs(item.id))next.toFloorId=state.plan.floors[state.plan.floors.indexOf(floor)+1]?.id; if(isDoor(item.id))next.surfaceVariant=state.activeDoorFinish;
     const mounted=fitStair(state.plan,snapWindow(state.plan,next)); setDraft(mounted); return mounted;
   };
@@ -142,6 +143,12 @@ export function EditorApp({onHome}:{onHome?:()=>void}) {
     const finish=()=>{window.removeEventListener("pointermove",move);window.removeEventListener("pointerup",finish);window.removeEventListener("pointercancel",finish);if(next&&latest){const id=next.id;setDraft(current=>current?.id===id?snapWindow(usePlanner.getState().plan,{...current,...latest}):current);}};
     window.addEventListener("pointermove",move);window.addEventListener("pointerup",finish);window.addEventListener("pointercancel",finish);
   };
+  // Stable library callbacks keep room edits from rebuilding hundreds of cards.
+  // Update their targets after every commit so placement uses the current floor.
+  const libraryActions=useRef({startPlacement,beginPlacementDrag});
+  useLayoutEffect(()=>{libraryActions.current={startPlacement,beginPlacementDrag}});
+  const startLibraryPlacement=useCallback((item:CatalogItem)=>libraryActions.current.startPlacement(item,true),[]);
+  const dragLibraryPlacement=useCallback((item:CatalogItem,event:ReactPointerEvent<HTMLButtonElement>)=>libraryActions.current.beginPlacementDrag(item,event),[]);
   const confirmDraft=()=>{if(!draft||windowProblem(state.plan,draft))return;state.confirmFurniture(draft);setDraft(undefined)};
   const rotateDraft=(degrees:number)=>setDraft((current)=>current?{...current,rotation:windowRotation(current,degrees)}:current);
 
@@ -160,7 +167,7 @@ export function EditorApp({onHome}:{onHome?:()=>void}) {
   if(!ready)return <main className="loading-screen"><img src="/assets/nook-nest-icon.png"/><span>Opening your little home…</span></main>;
   return <main className={`app-shell ${dark?"dark-mode":""}`}>
     <header className="topbar"><div className="brand">{onHome?<button className="brand-home" onClick={onHome} disabled={blueprintBusy||!!agentPreview} aria-label="Back to home" title="Back to home"><img src="/assets/nook-nest-icon.png" alt=""/></button>:<img src="/assets/nook-nest-icon.png" alt=""/>}<div><span>Nook &amp; Nest</span><small>cozy apartment planner</small></div></div><div className="project-title"><input aria-label="Project name" value={state.plan.name} onChange={(e)=>state.rename(e.target.value)}/><span className="saved"><Check weight="bold"/> {saveStatus}</span></div><nav className="top-actions"><AgentControls busy={blueprintBusy||!!draft||!!tileDraft||showSetup||!!dialog||state.tool!=='select'}/><button className="icon-button" onClick={()=>appearance?appearance.chooseTheme(dark?"light":"dark"):state.toggleCameraSetting("darkMode")} aria-label="Night mode" aria-pressed={dark} title="Toggle night mode for the menu, studio and editor"><Lamp/></button><button className="icon-button" onClick={state.undo} disabled={!state.past.length} aria-label="Undo"><ArrowCounterClockwise/></button><button className="icon-button" onClick={state.redo} disabled={!state.future.length} aria-label="Redo"><ArrowClockwise/></button><span className="divider"/><button onClick={()=>setDialog("share")}><ShareNetwork/> Share</button><button onClick={()=>setDialog("project")}><FloppyDisk/> Project</button><button className="icon-button" onClick={()=>setDialog("help")} aria-label="Help"><Info/></button></nav></header>
-    <section className="workspace"><Catalog onBeginDrag={beginPlacementDrag} onStartPlacement={(item)=>startPlacement(item,true)}/><section className="canvas-stage"><canvas ref={canvasRef} aria-label="Interactive 3D apartment editor"/><div className="view-toggle"><button className={state.plan.camera.mode==="isometric"?"active":""} onClick={()=>{cancelTilePlacement();state.setView("isometric")}}><Buildings/> Cozy view</button><button className={state.plan.camera.mode==="top"?"active":""} onClick={()=>{cancelTilePlacement();state.setView("top")}}><GridFour/> Top view</button><button className={state.plan.camera.mode==="dollhouse"?"active":""} onClick={()=>{cancelTilePlacement();state.setView("dollhouse")}}><SquaresFour/> Dollhouse</button></div>
+    <section className="workspace"><Catalog onBeginDrag={dragLibraryPlacement} onStartPlacement={startLibraryPlacement}/><section className="canvas-stage"><canvas ref={canvasRef} aria-label="Interactive 3D apartment editor"/><div className="view-toggle"><button className={state.plan.camera.mode==="isometric"?"active":""} onClick={()=>{cancelTilePlacement();state.setView("isometric")}}><Buildings/> Cozy view</button><button className={state.plan.camera.mode==="top"?"active":""} onClick={()=>{cancelTilePlacement();state.setView("top")}}><GridFour/> Top view</button><button className={state.plan.camera.mode==="dollhouse"?"active":""} onClick={()=>{cancelTilePlacement();state.setView("dollhouse")}}><SquaresFour/> Dollhouse</button></div>
       <div className="bp-entry"><BlueprintControls busy={!!draft||!!tileDraft||showSetup||!!dialog||!!agentPreview||state.tool!=='select'} onCreated={()=>{const s=usePlanner.getState();controllerRef.current?.focusFloor(s.plan,s.activeFloorId)}} onPreview={setFurnishingPreview} onBusy={setBlueprintBusy}/></div>
       <AgentPreviewNotice/>
       {(state.placementNotice||(draft&&(isWallOpening(draft.catalogId)||isKitchenWall(draft.catalogId)||isCeilingMounted(draft.catalogId))))&&<div className="window-placement-note" role="status">{state.placementNotice||(draft&&(windowProblem(state.plan,draft)||(isCeilingMounted(draft.catalogId)?"Move over your island or table · ✓ to place":"Drag along a wall · arrows flip the facing · ✓ to place")))}</div>}
