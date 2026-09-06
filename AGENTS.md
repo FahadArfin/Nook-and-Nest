@@ -117,3 +117,5 @@ Floor Plan Studio should offer a top-level Reanalyze button that explicitly bypa
 Recognition accuracy: use Astra and test prompting changes against real scans before claiming improvement. Offer optional per-scan layout guidance in File, keep guidance-specific caches, and trim detected hall overlaps against enclosed rooms without resizing those rooms. Surface uncertainty; longer prompts or more reasoning alone are not proven fixes.
 
 Analysis model preference (September 2026): use gpt-6-astra for every new floor-plan PDF/image analysis and forced reanalysis. No model selector or separate premium-cost confirmation. Keep the tested general prompt, medium reasoning, model-specific cache isolation, daily quotas, manual fixtures, and user review before 3D. Do not fall back to Luna or DeepSeek silently.
+
+Plan-to-3D orientation: retain the drawing orientation in 3D (drawing right is world +X, drawing down is world +Z). Use a drawing-aligned default camera and an orthographic Top view for comparison. Preserve saved coordinates, furniture facing, openings and picking when changing rendering conventions; never reanalyze an image to correct a camera/handedness issue.
