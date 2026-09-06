@@ -1,4 +1,4 @@
-import {WallConstructionControls} from './WallConstructionControls';
+import {ToolBrowser} from './ToolBrowser';
 import { Welcome } from "./Welcome";
 import {useAppearance} from './useWelcomeTheme';
 import { BlueprintControls } from "./BlueprintControls";
@@ -13,12 +13,10 @@ import { snapWindow, windowProblem, windowRotation } from "./windows";
 import type { PlacementPoint } from "./tabletop";
 import { floorRects, measuredRegion, type MeasuredRegion } from "./floorGeometry";
 import { fitStair, stairWarnings } from "./building";
-import { OutdoorSettings } from "./OutdoorSettings";
 import { TabletopPlacement } from "./TabletopPlacement";
 import { ShelfPlacement } from "./ShelfPlacement";
-import { KitchenDetails, BacksplashShortcut } from "./KitchenDetails";
+import { KitchenDetails } from "./KitchenDetails";
 import { isBacksplash } from "./kitchenCatalog";
-import { MeasuredRoom } from "./MeasuredRoom";
 import { StairSettings } from "./StairSettings";
 import { SceneController } from "./scene/SceneController";
 import { CatalogLibrary as Catalog } from "./CatalogLibrary";
@@ -30,7 +28,7 @@ import { useAgent } from "./webmcp";
 import { FloorBar } from "./FloorBar";
 import { WallVisibilityControl } from "./WallVisibilityControl";
 import { savePlan, usePlanner } from "./store";
-import { countertopFinishes, defaultCountertopFinish, doorFinishes, floorFinishes, supportsCountertopFinish, wallFinishes } from "./surfaces";
+import { countertopFinishes, defaultCountertopFinish, doorFinishes, supportsCountertopFinish } from "./surfaces";
 import type { CatalogItem, FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units } from "./types";
 
 const tools: Array<{ id: Tool; label: string; icon: typeof Armchair }> = [
@@ -57,18 +55,10 @@ function SetupDialog({ onDone }: { onDone(): void }) {
 }
 
 
-function RoomFinishes() {
- const state=usePlanner(),floor=state.plan.floors.find(f=>f.id===state.activeFloorId)!;
- const [target,setTarget]=useState<'Floor'|'Walls'>('Floor'),[scope,setScope]=useState('sections'),[search,setSearch]=useState(''),[family,setFamily]=useState('All'),[pending,setPending]=useState<string>();
- useEffect(()=>{if(state.selectedWallId){setTarget('Walls');setScope('sections');setFamily('All');setSearch('');setPending(undefined)}},[state.selectedWallId]);
- const finishes=target==='Floor'?floorFinishes:wallFinishes,kind=target==='Floor'?'floorFinishId':'wallFinishId';
- const current=scope==='sections'&&state.tool===(target==='Floor'?'floor-finish':'wall-finish')?state.activeSurfaceFinish:target==='Walls'&&state.selectedWallId?floor.wallFinishes?.[state.selectedWallId]:floor[kind];
- return <aside className="inspector-panel finishes-panel"><div className="panel-heading"><div><span className="eyebrow">Materials & construction</span><h2>{floor.name}</h2></div></div><WallConstructionControls/><div className="segmented" role="group" aria-label="Surface"><button className={target==='Floor'?'active':''} onClick={()=>{setTarget('Floor');setFamily('All');setPending(undefined)}}>Floor</button><button className={target==='Walls'?'active':''} onClick={()=>{setTarget('Walls');setFamily('All');setPending(undefined)}}>Walls</button></div><label>Apply to<select aria-label="Finish area" value={scope} onChange={e=>{setScope(e.target.value);setPending(undefined);state.setTool('select')}}><option value="sections">{target==='Floor'?'Paint a section':'Selected wall'}</option><option value="whole">{target==='Floor'?'Whole floor':'All walls on this floor'}</option></select></label><input aria-label="Search finishes" placeholder="Search finishes…" value={search} onChange={e=>setSearch(e.target.value)}/><label>Material<select value={family} onChange={e=>setFamily(e.target.value)}>{['All',...new Set(finishes.map(f=>f.family))].map(f=><option key={f}>{f}</option>)}</select></label><div className="finish-grid finish-library">{finishes.filter(f=>(family==='All'||family===f.family)&&`${f.name} ${f.family}`.toLowerCase().includes(search.toLowerCase())).map(f=><button aria-label={`${target}: ${f.name}`} key={f.id} className={(pending??current)===f.id?'selected':''} onClick={()=>{if(scope==='whole')setPending(f.id);else if(target==='Walls'&&state.selectedWallId)state.finishWall(state.selectedWallId,f.id);else state.setSurfaceBrush(target==='Floor'?'floor-finish':'wall-finish',f.id)}}><span className="finish-thumb" style={{backgroundImage:`url(${f.texture})`}}/><span className="finish-name">{f.name}<small>{f.family}</small></span>{(pending??current)===f.id&&<Check/>}</button>)}</div>{pending&&<button className="primary" onClick={()=>{state.setFloorFinish(kind,pending);setPending(undefined)}}>Apply to {target==='Floor'?'whole floor':'all walls'}</button>}{scope==='sections'&&<p className="finish-intro">{target==='Floor'?'Choose a finish, drag a rectangle, then confirm.':'Select a wall, then choose a finish.'}</p>}{(state.tool==='floor-finish'||state.tool==='wall-finish'||state.tool==='wall-cut')&&<button onClick={()=>state.setTool('select')}>Done editing</button>}<details><summary>More building tools</summary><MeasuredRoom/><BacksplashShortcut/>{state.tool==='door'&&<div className="finish-grid">{doorFinishes.map(f=><button key={f.id} aria-label={`Door: ${f.name}`} onClick={()=>state.setDoorFinish(f.id)}>{f.name}</button>)}</div>}</details><OutdoorSettings/></aside>;
-}
 
-function Inspector() {
+function Inspector({onPlace}: {onPlace(item:CatalogItem):void}) {
   const state=usePlanner(); const selected=state.plan.furniture.find((f)=>f.id===state.selectedId); const item=selected?catalog.find((c)=>c.id===selected.catalogId):undefined; const floor=selected?state.plan.floors.find((f)=>f.id===selected.floorId):undefined;
-  if(!selected||!item)return <RoomFinishes/>;
+  if(!selected||!item)return <ToolBrowser onPlace={onPlace}/>;
   const overlaps=!isWallOpening(selected.catalogId)&&furnitureOverlaps(state.plan.furniture,selected); const updateNumber=(key:"widthMm"|"depthMm"|"heightMm",value:string)=>state.updateFurniture(selected.id,{[key]:Math.max(50,Number(value))});
   return <aside className="inspector-panel"><div className="panel-heading"><div><span className="eyebrow">Selected piece</span><h2>{item.name}</h2></div><button className="icon-button" onClick={()=>state.select(undefined)} aria-label="Close inspector"><X/></button></div>
     {isSurfaceMounted(selected.catalogId)&&<p className="finish-intro">Drag onto a table, counter or display shelf to rest this on it, or over the floor to put it down. Use Rest on a shelf for a precise shelf level. Pieces move independently.</p>}
@@ -173,7 +163,7 @@ export function EditorApp({onHome}:{onHome?:()=>void}) {
       <div className="tool-dock">{tools.map(({id,label,icon:Icon})=><button key={id} className={state.tool===id?"active":""} onClick={()=>{setDraft(undefined);cancelTilePlacement();if(id!=="select")state.select(undefined);if(id==="window"||id==="door"||id==="stairs"){state.setCategory(id==="door"?"Doors":id==="stairs"?"Stairs":"Windows");state.setSearch("");state.setTool("select")}else state.setTool(id)}} title={label}><Icon size={20} weight={state.tool===id?"fill":"regular"}/><span>{label}</span></button>)}</div>
       <div className="canvas-tools"><button onClick={()=>controllerRef.current?.zoom(.75)} aria-label="Zoom in" title="Zoom in">+</button><button onClick={()=>controllerRef.current?.zoom(1.333)} aria-label="Zoom out" title="Zoom out">−</button><button disabled={!selected} onClick={()=>controllerRef.current?.focusSelected()} aria-label="Focus selected furniture" title="Focus selected furniture for detail placement"><MagnifyingGlass/></button><WallVisibilityControl/><button className={state.plan.camera.showGrid?"active":""} onClick={()=>state.toggleCameraSetting("showGrid")} title="Grid labels"><Ruler/></button><button className={state.plan.camera.showClearance?"active":""} onClick={()=>state.toggleCameraSetting("showClearance")} title="Clearance guides"><Eye/></button><button onClick={takeScreenshot} title="Save screenshot"><Camera/></button><button onClick={()=>setMuted(!muted)} title={muted?"Turn sound on":"Mute sound"}>{muted?<SpeakerSlash/>:<SpeakerHigh/>}</button></div>
       <div className="floor-stats"><span><strong>{area.toFixed(1)} m²</strong> floor area</span><i/><span><strong>{placed}</strong> pieces</span><i/><span>Tile {formatLength(state.plan.gridSizeMm,state.plan.units)}</span></div>
-    </section><Inspector/></section>
+    </section><Inspector onPlace={item=>startPlacement(item,true)}/></section>
     <FloorBar onBeforeDelete={()=>{setDraft(undefined);cancelTilePlacement()}}/>
     {showSetup&&<SetupDialog onDone={()=>setShowSetup(false)}/>} {dialog==="project"?<ProjectLibrary onClose={()=>setDialog(undefined)}/>:dialog&&<AppDialog kind={dialog} onClose={()=>setDialog(undefined)}/>}<div className="desktop-gate"><img src="/assets/nook-nest-icon.png"/><h1>Your nest needs a little more room</h1><p>Nook &amp; Nest is ready for full editing on a desktop or wide tablet. Open this page on a larger screen to decorate.</p></div>
   </main>;
