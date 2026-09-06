@@ -21,7 +21,7 @@ describe('Google scenery',()=>{
   });
   it('retains a previously viewed 300 MiB neighbourhood in balanced mode',()=>{
     vi.stubGlobal('requestAnimationFrame',()=>0);
-    const cache=new LRUCache();cache.unloadPriorityCallback=(_a:unknown,_b:unknown)=>0;
+    const cache=new LRUCache();cache.unloadPriorityCallback=()=>0;
     Object.assign(cache,googleQualitySettings('balanced'));
     // The package exposes these methods at runtime but its declarations are incomplete.
     const c=cache as any,removed:number[]=[];
