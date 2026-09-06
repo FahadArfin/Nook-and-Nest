@@ -6,10 +6,10 @@ import {snapWindow,wallRuns,windowProblem} from './windows';
 import {catalog,isWallOpening} from './catalog';
 import {recognitionKey,cachedRecognition,saveRecognition,type ScanModel} from './recognitionCache';
 
-export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;confirmPremium?:()=>boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
+export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;confirmPremium?:()=>boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
   const model=options.model??'gpt-5.6-luna',key=await recognitionKey(reference,model);
   signal?.throwIfAborted();
-  const cached=cachedRecognition(key,reference);
+  const cached=options.force?undefined:cachedRecognition(key,reference);
   if(cached){options.status?.('Reused saved analysis — no API charge.');return cached;}
   const premiumConfirmed=model==='gpt-6-astra'&&options.confirmPremium?.()===true;
   if(model==='gpt-6-astra'&&!premiumConfirmed)throw new Error('Astra analysis canceled. No API request was made.');
