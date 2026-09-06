@@ -37,6 +37,8 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
     for (const s of f.stairs) { if (!["straight", "l-shaped"].includes(s.kind)) fail(); for (const k of ["x", "z", "rotation"]) num(s[k]); num(s.widthMm, 1, 20000); num(s.lengthMm, 1, 30000); if (s.toFloorId && !floors.has(s.toFloorId)) fail(); }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}
+  if(p.environment?.citySource!==undefined&&!['standard','google'].includes(p.environment.citySource))fail();
+  if(p.environment?.cityHeight!==undefined)num(p.environment.cityHeight,100,400);
   if(p.environment?.backdropRotation!==undefined)num(p.environment.backdropRotation,0,360);
   if(p.environment?.terrain!==undefined){arr(p.environment.terrain,128);for(const s of p.environment.terrain){obj(s);if(!['raise','lower','river'].includes(s.kind))fail();num(s.radius,.5,8);num(s.strength,.1,2);arr(s.points,64);if(!s.points.length)fail();for(const pt of s.points){obj(pt);num(pt.x,-10000,10000);num(pt.z,-10000,10000);}}}
   arr(p.furniture, 2000); unique(p.furniture);
