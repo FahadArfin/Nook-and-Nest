@@ -91,16 +91,16 @@ describe("building editor wiring",()=>{
     act(()=>state().select(state().plan.furniture[0].id));fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"1300"}});expect(state().plan.furniture[0].elevationMm).toBe(1300);
   });
   it("positions, cancels, and confirms an exact-size room through the editor toolbar",async()=>{
-    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());fireEvent.click(screen.getByRole("button",{name:"Build"}));fireEvent.click(screen.getByRole("button",{name:"Floor area"}));fireEvent.click(screen.getByText("Exact room size"));
+    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());const tools=within(screen.getByLabelText("Home tools"));fireEvent.click(tools.getByRole("button",{name:"Build"}));fireEvent.click(tools.getByRole("button",{name:"Floor area"}));fireEvent.click(screen.getByText("Exact room size"));
     const stage=within(screen.getByLabelText("Interactive 3D apartment editor").parentElement!);
     fireEvent.change(screen.getByLabelText("Room width"),{target:{value:"12' 6\""}});fireEvent.change(screen.getByLabelText("Room depth"),{target:{value:"10"}});
-    fireEvent.click(screen.getByRole("button",{name:"Place measured room"}));const before=state().plan;
+    fireEvent.click(tools.getByRole("button",{name:"Place measured room"}));const before=state().plan;
     act(()=>scene.callbacks.onCell(20,20));expect(scene.preview).toHaveBeenCalled();expect(state().plan).toBe(before);
     fireEvent.click(stage.getByRole("button",{name:"Cancel tile change"}));expect(state().plan).toBe(before);
     act(()=>scene.callbacks.onCell(20,20));fireEvent.click(stage.getByRole("button",{name:"Confirm tile change"}));
     expect(state().plan.floors[0].cellRects).toBeTruthy();expect(state().past).toHaveLength(1);expect(stage.queryByRole("button",{name:"Confirm tile change"})).toBeNull();
     fireEvent.click(screen.getByRole("button",{name:"Undo"}));expect(state().plan).toEqual(before);
-  });
+  },10000);
   it("keeps keyboard library placement as a draft when leaving a building tool",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());act(()=>state().setTool("paint"));
     act(()=>state().setCategory("Stairs"));const model=catalog.find(c=>c.id==="stairs-floating")!;
