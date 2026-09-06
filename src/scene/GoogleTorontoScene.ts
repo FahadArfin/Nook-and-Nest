@@ -8,13 +8,17 @@ import {floorRects} from '../floorGeometry';
 import type {PlanDocumentV1} from '../types';
 import {googleFrameAllowed,useGoogleScenery} from '../googleScenery';
 import {torontoFrame} from './googleCoordinates';
+import {googleQualitySettings,nearbyDetailWeight} from '../googleSceneryQuality';
 
 class TorontoTiles extends TilesRenderer {
   origin=torontoFrame().origin;
   // Conservative culling, including all intersecting ancestors, limits exploration to downtown.
   calculateTileViewError(tile:any,target:any){
     (TilesRenderer.prototype as any).calculateTileViewError.call(this,tile,target);
-    if(tile.engineData.boundingVolume.distanceToPoint(this.origin)>3500)target.inView=false;
+    const distance=tile.engineData.boundingVolume.distanceToPoint(this.origin);
+    if(distance>3500)target.inView=false;
+    // Full requested detail around the home, smoothly relaxing toward the skyline.
+    target.error/=nearbyDetailWeight(distance);
   }
   calculateBytesUsed(tile:any){
     const container=tile.engineData.container;
@@ -33,6 +37,7 @@ export class GoogleTorontoScene {
   private lastFrame=0;private dirty=true;private cameraStamp='';private running=0;private lastDownload=0;
   private generation=0;private restart=useGoogleScenery.getState().restart;private abort=new AbortController();
   private waiters=new Set<()=>void>();private frameKey='';private failed=false;
+  private lastMetrics=0;
   constructor(private scene:Scene){
     // ECEF positions are millions of metres; preserve precision before subtracting the origin.
     PerformanceConfigurator.SetMatrixPrecision(true);
@@ -40,6 +45,7 @@ export class GoogleTorontoScene {
     this.unsubscribe=useGoogleScenery.subscribe((s,previous)=>{
       if(s.restart!==this.restart){this.restart=s.restart;this.reset();if(this.active)this.start();}
       if(s.paused!==previous.paused)this.wake();
+      if(s.quality!==previous.quality){this.applyQuality();this.wake();}
     });
     document.addEventListener('visibilitychange',this.wake);
   }
@@ -77,12 +83,12 @@ export class GoogleTorontoScene {
     if(this.disposed||this.tiles)return;
     this.started=Date.now();this.failed=false;const generation=++this.generation;
     const tiles=this.tiles=new TorontoTiles(new URL('/api/google-tiles/v1/3dtiles/root.json',location.origin).href,this.scene);
-    tiles.lruCache=new LRUCache();tiles.lruCache.unloadPriorityCallback=DEFAULT_LRU_CACHE.unloadPriorityCallback;tiles.lruCache.minSize=180;tiles.lruCache.maxSize=600;
-    tiles.lruCache.minBytesSize=96*1024*1024;tiles.lruCache.maxBytesSize=256*1024*1024;
+    tiles.lruCache=new LRUCache();tiles.lruCache.unloadPriorityCallback=DEFAULT_LRU_CACHE.unloadPriorityCallback;
+    this.applyQuality();
     tiles.downloadQueue=new DownloadPriorityQueue();tiles.downloadQueue.priorityCallback=DEFAULT_DOWNLOAD_QUEUE.priorityCallback;tiles.downloadQueue.maxJobsPerOrigin=4;
     tiles.parseQueue=new PriorityQueue();tiles.parseQueue.priorityCallback=DEFAULT_PARSE_QUEUE.priorityCallback;tiles.parseQueue.maxJobs=2;
-    tiles.errorTarget=16;tiles.loadSiblings=false;tiles.maxTilesProcessed=200;
-    useGoogleScenery.setState({status:'Loading Toronto…',visible:false,credits:'',requests:0});
+    tiles.loadSiblings=false;tiles.maxTilesProcessed=200;
+    useGoogleScenery.setState({status:'Loading Toronto…',visible:false,credits:'',requests:0,retainedMiB:0,retainedTiles:0,visibleTiles:0});
     const lifetime=this.abort.signal;
     tiles.registerPlugin({name:'NOOK_GOOGLE_STREAM',fetchData:async(url:string,options:RequestInit={})=>{
       const target=new URL(url,location.origin);
@@ -92,7 +98,7 @@ export class GoogleTorontoScene {
       try{
         const response=await fetch(target,{...options,signal,cache:'default',credentials:'same-origin'});
         if(generation!==this.generation)throw new DOMException('Cancelled','AbortError');
-        useGoogleScenery.setState(s=>({requests:s.requests+1}));
+        useGoogleScenery.setState(s=>({requests:s.requests+1,sessions:s.sessions+(target.pathname.endsWith('/root.json')?1:0)}));
         if(!response.ok){let message='Google scenery is unavailable.';try{message=(await response.json()).error??message;}catch{/* Generic error */}this.failed=true;useGoogleScenery.setState({status:message});throw new Error(message);}
         return response;
       } finally {if(generation===this.generation){this.running--;this.dirty=true;this.lastDownload=performance.now();}}
@@ -115,11 +121,26 @@ export class GoogleTorontoScene {
     for(const tile of this.tiles.visibleTiles){const copyright=(tile as any).engineData?.metadata?.asset?.copyright??'';for(const p of copyright.split(';'))if(p.trim())providers.add(p.trim());}
     useGoogleScenery.setState({visible:this.tiles.visibleTiles.size>0,credits:[...providers].sort().join('; ')});
   }
+  private applyQuality(){
+    if(!this.tiles)return;
+    const {errorTarget,...cache}=googleQualitySettings(useGoogleScenery.getState().quality);
+    this.tiles.errorTarget=errorTarget;Object.assign(this.tiles.lruCache,cache);
+    this.dirty=true;
+  }
   private tick(){
     if(!this.tiles||!this.active)return;
     if(this.expired()){const status='Session ended. Loaded scenery stays visible. Start a new session for more detail.';if(useGoogleScenery.getState().status!==status)useGoogleScenery.setState({status});return;}
     if(!this.allowed())return;
-    const now=performance.now();if(now-this.lastFrame<150)return;this.lastFrame=now;
+    const now=performance.now();
+    if(now-this.lastMetrics>1000){this.lastMetrics=now;
+      // 0.5.2 exposes these runtime metrics but omits them from its declarations.
+      const cache=this.tiles.lruCache as LRUCache&{cachedBytes:number;itemList:unknown[]};
+      useGoogleScenery.setState({
+      retainedMiB:Math.round(cache.cachedBytes/1024/1024),retainedTiles:cache.itemList.length,
+      visibleTiles:this.tiles.visibleTiles.size,fps:Math.round(this.scene.getEngine().getFps()),
+      ...(!this.failed?{status:this.running||this.tiles.downloadQueue.running||this.tiles.parseQueue.running?'Loading city detail…':this.tiles.visibleTiles.size?'Toronto ready':'Finding Toronto…'}:{}),
+    });}
+    if(now-this.lastFrame<80)return;this.lastFrame=now;
     const camera=this.scene.activeCamera;if(!camera)return;
     const stamp=[...camera.getViewMatrix().m,...camera.getProjectionMatrix().m].map(n=>n.toFixed(5)).join(',');
     if(stamp!==this.cameraStamp){this.cameraStamp=stamp;this.dirty=true;}
