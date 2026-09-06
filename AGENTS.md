@@ -118,4 +118,8 @@ Recognition accuracy: use Astra and test prompting changes against real scans be
 
 Analysis model preference (September 2026): use gpt-6-astra for every new floor-plan PDF/image analysis and forced reanalysis. No model selector or separate premium-cost confirmation. Keep the tested general prompt, medium reasoning, model-specific cache isolation, daily quotas, manual fixtures, and user review before 3D. Do not fall back to Luna or DeepSeek silently.
 
+Library navigation preference: retain search and dropdown filters, with a vertical category icon rail on the left like the KSP reference, not icon rows at the top. Show furniture types as icon-labeled sections in the adjacent scrollable results. Keep both navigation methods synchronized, keyboard accessible, readable in night mode, and separate from placement or plan history.
+
 Plan-to-3D orientation: retain the drawing orientation in 3D (drawing right is world +X, drawing down is world +Z). Use a drawing-aligned default camera and an orthographic Top view for comparison. Preserve saved coordinates, furniture facing, openings and picking when changing rendering conventions; never reanalyze an image to correct a camera/handedness issue.
+
+Library density preference: show three furniture cards per row by default, with enough library width for readable previews and names; retain the left category rail and optional expanded browser.
