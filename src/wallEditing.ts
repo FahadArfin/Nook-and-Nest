@@ -57,3 +57,11 @@ export function paintWallGroup(floor:FloorPlan,grid:number,group:'interior'|'ext
  for(const id of ids)wallFinishes[id]=finishId;
  return {...floor,wallFinishes};
 }
+
+/** Snap close deletion endpoints to the visible span, without hopping to another wall. */
+export function snapRemovalPoint(wall:WallSegment,point:TileCell,grid:number):TileCell {
+ const horizontal=wall.az===wall.bz,a=Math.min(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz),b=Math.max(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz);
+ const along=Math.max(a,Math.min(b,horizontal?point.x:point.z)),radius=Math.min(150/grid,(b-a)/4);
+ const value=along-a<=radius?a:b-along<=radius?b:along;
+ return horizontal?{x:value,z:wall.az}:{x:wall.ax,z:value};
+}

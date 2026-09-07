@@ -2,10 +2,12 @@ import {subtractRect,type FloorRect} from './floorGeometry';
 import type {WallSegment,TileCell} from './types';
 
 /** Close butt joints without changing saved wall centerlines or painted IDs. */
-export function joinedWallSpan(wall:WallSegment,walls:WallSegment[],grid:number){
+export function joinedWallSpan(wall:WallSegment,walls:WallSegment[],grid:number,cuts:WallSegment[]=[]){
   const horizontal=wall.az===wall.bz,line=(horizontal?wall.az:wall.ax)*grid;
   const ends=[Math.min(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz)*grid,Math.max(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz)*grid];
   return ends.map((end,i)=>{
+    // An intentional removal endpoint is not a corner gap to heal.
+    if(cuts.some(c=>(c.az===c.bz)===horizontal&&Math.abs((horizontal?c.az:c.ax)*grid-line)<.1&&Math.min(horizontal?c.ax:c.az,horizontal?c.bx:c.bz)*grid<=end+.1&&Math.max(horizontal?c.ax:c.az,horizontal?c.bx:c.bz)*grid>=end-.1))return end;
     const crossing=walls.filter(w=>(w.az===w.bz)!==horizontal).map(w=>({line:(horizontal?w.ax:w.az)*grid,start:Math.min(horizontal?w.az:w.ax,horizontal?w.bz:w.bx)*grid,end:Math.max(horizontal?w.az:w.ax,horizontal?w.bz:w.bx)*grid})).filter(w=>Math.abs(w.line-end)<=100&&line>=w.start-100&&line<=w.end+100).sort((a,b)=>Math.abs(a.line-end)-Math.abs(b.line-end))[0];
     return crossing?crossing.line+(i?50:-50):end;
   }) as [number,number];

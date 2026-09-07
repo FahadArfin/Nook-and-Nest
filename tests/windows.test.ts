@@ -1,3 +1,4 @@
+import {snapRemovalPoint} from '../src/wallEditing';
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
 import { catalog, isWindow } from "../src/catalog";
@@ -118,4 +119,12 @@ it('preserves doorless entrances through save/share and cuts a floor-level apert
  const pieces=windowWallPieces({id:'wall',ax:0,az:0,bx:20,bz:0},250,2500,[entrance]);
  expect(pieces.some(piece=>piece.start<entrance.x&&piece.end>entrance.x&&piece.bottom===0)).toBe(false);
  expect(windowProblem(p,entrance)).toBeUndefined();
+});
+
+it('does not heal a deliberate cut back into a nearby corner',()=>{
+ const wall={id:'remaining',ax:0,az:0,bx:9.8,bz:0},corner={id:'corner',ax:10,az:0,bx:10,bz:5},cut={id:'cut',ax:9.8,az:0,bx:10,bz:0};
+ expect(joinedWallSpan(wall,[wall,corner],250,[cut])).toEqual([0,2450]);
+ expect(snapRemovalPoint(corner,{x:10.2,z:.2},250)).toEqual({x:10,z:0});
+ expect(snapRemovalPoint(corner,{x:9.8,z:4.7},250)).toEqual({x:10,z:5});
+ expect(snapRemovalPoint(corner,{x:10.2,z:2},250)).toEqual({x:10,z:2});
 });
