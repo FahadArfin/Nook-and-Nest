@@ -5,6 +5,6 @@ export const modernTopIds=new Set(rows.filter(r=>r[2]==='Kitchen'&&r[8]==='floor
 export const modernCounterIds=new Set([...modernTopIds,'modern-double-sink-counter']);
 export const modernMediaIds=new Set(rows.filter(r=>r[9]==='TV & media'||r[9]==='Side tables').map(r=>r[0] as string));
 export const modernRoundTopIds=new Set(['pill-coffee-table','ribbed-pedestal-side-table','glass-disc-side-table','ceramic-oval-dining-table','round-marble-dining-table','breakfast-tulip-table']);
-export const modernDefaultVariant=(id:string)=>(defaults as Record<string,string>)[id]??'sage';
+export const modernDefaultVariant=(_id:string)=>'white';
 export const modernDefaultSurface=(id:string)=>(defaults as Record<string,string>)[id]?'ivory-marble':undefined;
 export const modernMountHeight=(id:string)=>id==='floating-media-console'?280:rows.some(r=>r[0]===id&&r[2]==='Kitchen'&&r[8]==='wall')?1450:undefined;
