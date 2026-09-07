@@ -1,3 +1,9 @@
+import { NullEngine } from '@babylonjs/core/Engines/nullEngine';
+import { Scene } from '@babylonjs/core/scene';
+import { TransformNode } from '@babylonjs/core/Meshes/transformNode';
+import { Vector3 } from '@babylonjs/core/Maths/math.vector';
+import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
+import { FurnitureLights } from '../src/scene/FurnitureLights';
 import { describe,it,expect } from 'vitest';
 import { readFileSync,existsSync } from 'node:fs';
 import { catalog,defaultMountHeight,isKitchenWall,isCeilingMounted,isSurfaceMounted } from '../src/catalog';
@@ -56,10 +62,10 @@ describe('wall cabinets and backsplash placement',()=>{
   });
 });
 describe('countertop appliances and hanging lights',()=>{
-  it('rests appliances on the counter and rejects overhanging its front',()=>{
+  it('rests appliances on the counter and clamps the footprint inside its front',()=>{
     const p=createSamplePlan(),f=p.floors[0],table={...make('shaker-drawer-cabinet',f.id),x:1000,z:1000};p.furniture=[table];
     for(const id of kitchenSurfaceIds){const item=make(id,f.id),point=tabletopPoint(p,item,{x:1,y:4,z:.95},{x:0,y:-1,z:0});expect(point?.elevationMm,id).toBe(910);}
-    const toaster=make('two-slot-toaster',f.id);expect(tabletopPoint(p,toaster,{x:1,y:4,z:1.29},{x:0,y:-1,z:0})).toBeUndefined();
+    const toaster=make('two-slot-toaster',f.id);expect(tabletopPoint(p,toaster,{x:1,y:4,z:1.29},{x:0,y:-1,z:0})).toMatchObject({z:1110,elevationMm:910});
     table.rotation=90;expect(tabletopPoint(p,{...toaster,rotation:90},{x:.95,y:4,z:1},{x:0,y:-1,z:0})?.elevationMm).toBe(910);
   });
   it('keeps ceiling canopies under the ceiling and rejects impossible fixture heights',()=>{
@@ -71,3 +77,34 @@ describe('countertop appliances and hanging lights',()=>{
     const [first,second]=usePlanner.getState().plan.furniture;expect(first.id).not.toBe(second.id);s.updateFurniture(second.id,{variant:'navy',widthMm:800});expect(usePlanner.getState().plan.furniture[0]).toEqual(first);
   });
 });
+
+
+describe('cozy furnishing placement',()=>{
+ it('aligns a turned microwave and clamps its footprint onto a narrow cabinet',()=>{
+  const p=createSamplePlan(),f=p.floors[0].id;
+  const cabinet={...make('base-cabinet',f),x:1800,z:1800,widthMm:600};p.furniture=[cabinet];
+  const microwave={...make('countertop-microwave',f),rotation:90};
+  const hit=tabletopPoint(p,microwave,{x:2.04,y:3,z:1.95},{x:0,y:-1,z:0});
+  expect(hit).toMatchObject({rotation:0,elevationMm:910});expect(hit!.x).toBeLessThanOrEqual(1845);expect(hit!.z).toBeLessThanOrEqual(1910);
+  expect(tabletopPoint({...p,furniture:[{...cabinet,widthMm:400}]},microwave,{x:1.8,y:3,z:1.8},{x:0,y:-1,z:0})).toBeUndefined();
+ });
+ it('new pieces are white while previous colors survive edits and undo',()=>{
+  const p=createSamplePlan();p.furniture=[make('countertop-microwave',p.floors[0].id)];usePlanner.getState().replacePlan(p);
+  usePlanner.getState().placeFurniture('breakfast-nook-table');expect(usePlanner.getState().plan.furniture.at(-1)!.variant).toBe('white');
+  expect(usePlanner.getState().plan.furniture[0].variant).toBe('cream');usePlanner.getState().undo();expect(usePlanner.getState().plan.furniture).toEqual(p.furniture);
+ });
+ it('includes authored bath rug and independently editable breakfast table and chair',()=>{
+  for(const id of ['bath-ribbed-rug','breakfast-nook-table','breakfast-nook-chair']){
+   expect(catalog.find(c=>c.id===id)).toBeDefined();expect(existsSync(`assets-source/blender/${id}.blend`)).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`)).toBe(true);
+  }
+ });
+});
+
+ it('creates bounded warm fixture lights, follows moved furniture, and disposes lights',()=>{
+  const engine=new NullEngine(),scene=new Scene(engine),lights=new FurnitureLights(scene,()=>true),p=createSamplePlan(),f=p.floors[0].id;
+  p.furniture=Array.from({length:8},(_,i)=>({...make('floor-lamp',f),id:`lamp-${i}`,x:i*1000}));
+  const nodes=new Map(p.furniture.map(item=>{const node=new TransformNode(item.id,scene);node.position.set(item.x/1000,0,0);return [item.id,{node}] as const;}));
+  lights.update(p,f,nodes,Vector3.Zero(),true);expect(scene.lights).toHaveLength(4);expect(scene.lights.every(l=>l.diffuse.r>l.diffuse.b&&l.intensity>0)).toBe(true);
+  expect((scene.lights[0] as any).position.y).toBeCloseTo(1.209);expect(scene.lights[0].getShadowGenerator()).toBeDefined();
+  lights.dispose();expect(scene.lights).toHaveLength(0);scene.dispose();engine.dispose();
+ });

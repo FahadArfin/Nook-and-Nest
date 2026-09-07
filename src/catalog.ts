@@ -15,6 +15,9 @@ export const isCeilingMounted=(id:string)=>kitchenCeilingIds.has(id)||cozyMount(
 const rows: Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]> = [
   ...luxuryBalconyData as Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]>,
   ...balconyData as Array<[string,string,CatalogItem["category"],number,number,number,CatalogItem["shape"],string]>,
+  ["bath-ribbed-rug","Soft ribbed bathroom rug","Bathroom",800,500,18,"rug","Bound cotton bath mat with raised woven ribs and a non-slip backing"],
+  ["breakfast-nook-table","Morning breakfast table","Dining",1100,750,750,"table","Softly rounded white top, oak apron and tapered legs; pair with Morning breakfast chairs"],
+  ["breakfast-nook-chair","Morning breakfast chair","Dining",460,500,820,"seat","Matching oak frame, curved spindle back and a soft white upholstered seat"],
   ...outdoorRows,
   ...cozyRows,
   ...interiorRows,
@@ -106,10 +109,11 @@ export const isWallMounted = (catalogId: string) => cozyMount(catalogId)==="wall
 export const bathroomModelIds = new Set(rows.filter(row=>row[2]==="Bathroom"&&!cozyMount(row[0])).map(row=>row[0]));
 export const defaultMountHeight = (id:string):number|undefined => studioMountHeight(id)??luxuryMountHeight(id)??modernMountHeight(id)??kitchenMountHeight(id)??(id==="window-solarium"?0:windowTreatmentIds.has(id)?(id.startsWith("curtain")?80:650):cozyMount(id)==="ceiling"?1500:id==="floating-nightstand"?350:isDoor(id)?0:id==="wall-hung-sink"?650:id==="floating-bath-vanity"?350:id==="wall-hung-toilet"?150:isWindow(id)?850:isWallMounted(id)?1100:undefined);
 export const workspaceModelIds = new Set(rows.filter(row=>!cozyMount(row[0])&&((row[6]==="device"&&row[2]==="Office")||row[6]==="fan"||["drum-coffee-table","lift-coffee-table","glass-coffee-table","oval-coffee-table","compact-computer-desk","gaming-desk","pedestal-computer-desk","ergonomic-office-chair","gaming-chair"].includes(row[0]))).map(row=>row[0]));
-export const isSurfaceMounted = (id:string) => cozyMount(id)==="surface"||collectibleIds.has(id)||["books-upright","books-stacked","small-plant"].includes(id)||kitchenSurfaceIds.has(id)||["slim-tv","tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","soundbar","desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
+export const isSurfaceMounted = (id:string) => cozyMount(id)==="surface"||collectibleIds.has(id)||["books-upright","books-stacked","small-plant","table-lamp"].includes(id)||kitchenSurfaceIds.has(id)||["slim-tv","tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","soundbar","desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
 export const hasModelPreview = (id:string) => rows.some(row=>row[0]===id);
 export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isCeilingMounted(id)?"ceiling":isWallMounted(id)?"wall":isSurfaceMounted(id)?"surface":"floor" }));
 export const variants = {
+  white: "#f5f4ef",
   sage: "#97a67c", clay: "#c4775f", oat: "#d9c5a3", rose: "#c89490",
   ink: "#5d6965", navy: "#53687d", rust: "#9f5d47", cream: "#eee4d1",
 };

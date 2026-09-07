@@ -11,8 +11,8 @@ const piece=(id:string,patch:Partial<FurniturePlacement>={}):FurniturePlacement=
 const gltf=(id:string)=>{const b=readFileSync(`public/models/furniture/${id}.glb`);return JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());};
 
 describe("bathroom collection",()=>{
-  it("ships 19 original editable models and thumbnails with exact millimetre envelopes",()=>{
-    expect(bathroomModelIds.size).toBe(19);
+  it("ships 20 original editable models and thumbnails with exact millimetre envelopes",()=>{
+    expect(bathroomModelIds.size).toBe(20);
     for(const id of bathroomModelIds){
       expect(hasModelPreview(id)).toBe(true);
       expect(existsSync(`assets-source/blender/${id}.blend`)).toBe(true);

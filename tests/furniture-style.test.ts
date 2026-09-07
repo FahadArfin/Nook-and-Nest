@@ -41,7 +41,7 @@ describe("handcrafted furniture design system", () => {
     expect(FURNITURE_STYLE.defaultRoughness).toBeGreaterThan(.85);
     expect(Object.values(FURNITURE_STYLE.wood)).not.toContain("#000000");
     expect(Object.values(FURNITURE_STYLE.fabric)).not.toContain("#ffffff");
-    expect(Object.keys(variants)).toHaveLength(8);
+    expect(Object.keys(variants)).toHaveLength(9);
   });
 
   it("ships an editable Blender source and a non-empty GLB for every catalog item", () => {

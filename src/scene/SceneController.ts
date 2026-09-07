@@ -1,3 +1,4 @@
+import { FurnitureLights } from './FurnitureLights';
 import {snapRemovalPoint} from '../wallEditing';
 import {joinedWallSpan} from '../architectureSurfaces';
 import {angularStep,pointerAngle} from '../rotationGesture';
@@ -74,6 +75,7 @@ export class SceneController {
   private furnitureNodes = new Map<string, {node:TransformNode; signature:string}>();
   private solidMaterials=new Map<string,StandardMaterial>();
   private outdoors:OutdoorScene;
+  private fixtureLights?:FurnitureLights;
   private neutralPreview=false;
   private paintWallIds:string[]=[];
   setPaintPreview(neutral:boolean,ids:string[]){
@@ -100,8 +102,8 @@ export class SceneController {
     this.scene.imageProcessingConfiguration.exposure=neutral?1:.72;
     this.scene.imageProcessingConfiguration.contrast=neutral?1:1.12;
     const sun=this.scene.getLightByName('sun'),sky=this.scene.getLightByName('sky') as HemisphericLight;
-    if(sun){sun.intensity=neutral?.18:night?.12:.72;sun.diffuse=neutral?Color3.White():new Color3(1,.86,.68);}
-    if(sky){sky.intensity=neutral?.95:night?.36:.62;sky.diffuse=neutral?Color3.White():new Color3(1,.91,.78);sky.groundColor=neutral?new Color3(.82,.82,.82):new Color3(.3,.37,.28);}
+    if(sun){sun.intensity=night?.08:neutral?.18:.72;sun.diffuse=neutral?Color3.White():new Color3(1,.86,.68);}
+    if(sky){sky.intensity=night?.25:neutral?.95:.62;sky.diffuse=neutral?Color3.White():new Color3(1,.91,.78);sky.groundColor=neutral?new Color3(.82,.82,.82):new Color3(.3,.37,.28);}
     this.canvas.dataset.colorPreview=neutral?'neutral':'cozy';
   }
   private selectedWallId?:string;
@@ -122,6 +124,7 @@ export class SceneController {
     this.scene.skipPointerMovePicking = true;
     this.scene.onBeforeRenderObservable.add(() => {
       this.updateEditingGuides();
+      if(this.activePlan){this.fixtureLights??=new FurnitureLights(this.scene,m=>this.wallVisibility.allowsShadow(m));this.fixtureLights.update(this.activePlan,this.activeFloorId,this.furnitureNodes,this.camera.position,this.neutralPreview);}
       updatePlanProjection(this.camera,this.engine.getRenderWidth()/this.engine.getRenderHeight());
       if(!this.plantingPoints&&!usePlanner.getState().plantingDraft&&this.plantingNodes.size)this.clearPlantingPreview();
       for(const p of this.plantingNodes.values()){const a=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(performance.now()-p.born)/300);p.node.scaling.setAll(.8+.2*a);for(const m of p.node.getChildMeshes())m.visibility=.7*a;}
@@ -188,7 +191,7 @@ export class SceneController {
   private cancelOutdoorStroke=()=>{this.pointerHeld=false;this.cancelFocus();if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;}if(this.terrainStroke){this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}}if(this.plantingPoints){this.plantingPoints=undefined;this.clearPlantingPreview();}this.resumeCameraControls();};
   private contextMenu=(event:Event)=>{if(this.tool==='select')event.preventDefault();};
   private resize = () => this.engine.resize();
-  dispose() { this.canvas.removeEventListener('wheel',this.cancelFocus);window.removeEventListener('pointerdown',this.cameraPointerDown,true);window.removeEventListener('pointerup',this.cameraPointerUp,true);this.rotationGuide?.dispose();this.canvas.removeEventListener('contextmenu',this.contextMenu);this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
+  dispose() { this.fixtureLights?.dispose();this.canvas.removeEventListener('wheel',this.cancelFocus);window.removeEventListener('pointerdown',this.cameraPointerDown,true);window.removeEventListener('pointerup',this.cameraPointerUp,true);this.rotationGuide?.dispose();this.canvas.removeEventListener('contextmenu',this.contextMenu);this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
   setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.clearPlantingPreview();this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}this.terrainCue?.dispose();this.terrainCue=undefined;this.resumeCameraControls();this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
   screenshot() { return this.canvas.toDataURL("image/png"); }
   private pointOnActiveFloor(screenX: number, screenY: number) {
@@ -559,6 +562,8 @@ export class SceneController {
         if(info.event.button!==0)return;
         moved=false;
         let pick=this.scene.pick(this.scene.pointerX,this.scene.pointerY); let name=pick?.pickedMesh?.name||"";
+        // A selected draft remains draggable even when a wall or counter is in front.
+        if(this.tool==='select'&&this.activeDraft){const draftPick=this.scene.pick(this.scene.pointerX,this.scene.pointerY,m=>m.isPickable&&m.name==='draft-preview');if(draftPick?.hit){pick=draftPick;name='draft-preview';}}
         if(this.tool==="select"&&this.selectedId&&!this.activeDraft){const selected=this.scene.pick(this.scene.pointerX,this.scene.pointerY,m=>m.isPickable&&m.name===`item:${this.selectedId}`);if(selected?.hit){pick=selected;name=selected.pickedMesh?.name??"";}else if(name.startsWith("item:")){name=`item:${this.selectedId}`;}}
         if(this.tool==="measured-room"){const cell=this.cellAtPointer(this.scene.pointerX,this.scene.pointerY);if(cell)this.callbacks.onCell(cell.x,cell.z);return;
         }else if(this.tool==="paint"||this.tool==="erase"||this.tool==="floor-finish"){

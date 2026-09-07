@@ -170,3 +170,5 @@ Editor geometry and placement refinement: close small wall corner gaps without r
 Studio wall editing: show all analyzed interior and boundary wall segments as yellow selectable lines. Provide exact endpoint editing, adding and deleting with draft undo, and preserve corrections through 3D conversion and reopening. Wall-removal gestures in 3D must lock to the clicked visible wall instead of projecting clicks on its face onto a different floor line.
 
 Wall deletion must preserve continuous supporting floor geometry and tile mesh reuse. Intentional cuts must remain open at corners, and the removal tool must be able to pick visible walls while hidden walls remain excluded. Snap near-end removal drags to the same wall endpoint to prevent residual slivers.
+
+New furnishing preference: start newly placed furniture in soft white rather than sage green. Preserve saved colors and independent material overrides. Lighting fixtures should cast bounded warm light into the room. Breakfast tables and matching chairs remain separate editable pieces.
