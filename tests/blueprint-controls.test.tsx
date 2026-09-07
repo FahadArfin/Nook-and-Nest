@@ -228,3 +228,19 @@ describe('automatic furnishing review',()=>{
     expect(screen.queryByRole('dialog',{name:'Review automatic furnishing'})).not.toBeInTheDocument();expect(onPreview).toHaveBeenLastCalledWith(undefined);expect(usePlanner.getState().plan.name).toBe('Newer home');
   });
 });
+
+it('selects, edits and deletes a boundary wall and preserves it through conversion and reopening',()=>{
+ const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
+ const line=screen.getAllByLabelText('Wall segment')[0];
+ fireEvent.pointerDown(line,{button:0,clientX:0,clientY:0,pointerId:1});fireEvent.pointerUp(screen.getByLabelText('Top-down floor plan drawing'),{pointerId:1});
+ expect(screen.getByText('Edit wall segment')).toBeInTheDocument();
+ fireEvent.change(screen.getByLabelText('Start Y (m)'),{target:{value:'0.1'}});fireEvent.blur(screen.getByLabelText('Start Y (m)'));
+ expect(screen.getByLabelText('Start Y (m)')).toHaveValue(.1);
+ expect(usePlanner.getState().plan).toBe(original);
+ fireEvent.click(screen.getByRole('button',{name:'Delete wall segment'}));
+ fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
+ expect(screen.getAllByLabelText('Wall segment').some(e=>e.getAttribute('y1')==='100')).toBe(true);
+ fireEvent.click(screen.getByRole('button',{name:/Review & create 3D/}));fireEvent.click(screen.getByRole('button',{name:/Confirm & create 3D home/}));
+ expect(usePlanner.getState().plan.floors[0].walls.some(w=>w.id.startsWith('edited:')&&w.az*250===100)).toBe(true);
+ cleanup();render(<BlueprintStudio onClose={()=>{}}/>);expect(screen.getAllByLabelText('Wall segment').some(e=>e.getAttribute('y1')==='100')).toBe(true);
+});

@@ -109,7 +109,7 @@ export class SceneController {
   setWallSelection(id?:string){this.selectedWallId=id;}
   private wallVisibility = new WallVisibilityController();
   private floorWallGeometry = new Map<string, WallGeometry[]>();
-  private engine: Engine; private scene: Scene; private camera: ArcRotateCamera; private root: TransformNode; private callbacks: Callbacks; private tool: Tool = "select"; private dragging?: string; private draggedPosition?: PlacementPoint; private draggingDraft = false; private tileDragStart?: TileCell; private tileDragCurrent?: TileCell; private tileDraftRoot?: TransformNode; private tileDraftCells: TileCell[]=[]; private tileDraftPresent=true; private measuredDraft?:MeasuredRegion; private tileDraftAnchor?: Vector3; private wallDragStart?:TileCell; private wallDragCurrent?:TileCell; private wallDraft?:Omit<WallSegment,"id">; private wallDraftMesh?:Mesh; private surfaceMaterials=new Map<string,StandardMaterial>(); private activePlan?: PlanDocumentV1; private activeFloorId = ""; private selectedId?: string; private activeDraft?: FurniturePlacement; private previewNode?: TransformNode; private selectedNode?: TransformNode; private draftPosition?: PlacementPoint; private shadow: ShadowGenerator; private furnitureFactory: FurnitureFactory; private furnitureModels: FurnitureModelLibrary;
+  private engine: Engine; private scene: Scene; private camera: ArcRotateCamera; private root: TransformNode; private callbacks: Callbacks; private tool: Tool = "select"; private dragging?: string; private draggedPosition?: PlacementPoint; private draggingDraft = false; private tileDragStart?: TileCell; private tileDragCurrent?: TileCell; private tileDraftRoot?: TransformNode; private tileDraftCells: TileCell[]=[]; private tileDraftPresent=true; private measuredDraft?:MeasuredRegion; private tileDraftAnchor?: Vector3; private wallDragStart?:TileCell; private wallDragCurrent?:TileCell; private cutTarget?:WallSegment; private cutPointerY?:number; private wallDraft?:Omit<WallSegment,"id">; private wallDraftMesh?:Mesh; private surfaceMaterials=new Map<string,StandardMaterial>(); private activePlan?: PlanDocumentV1; private activeFloorId = ""; private selectedId?: string; private activeDraft?: FurniturePlacement; private previewNode?: TransformNode; private selectedNode?: TransformNode; private draftPosition?: PlacementPoint; private shadow: ShadowGenerator; private furnitureFactory: FurnitureFactory; private furnitureModels: FurnitureModelLibrary;
   constructor(private canvas: HTMLCanvasElement, callbacks: Callbacks) {
     this.callbacks = callbacks; this.engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
     this.scene = new Scene(this.engine); configurePlanCoordinates(this.scene); this.scene.clearColor = new Color4(0.72, 0.78, 0.62, 1); this.scene.ambientColor = new Color3(.12,.11,.09); this.scene.imageProcessingConfiguration.exposure=.72; this.scene.imageProcessingConfiguration.contrast=1.12;
@@ -278,7 +278,7 @@ export class SceneController {
   private wallPointAtPointer(screenX:number,screenY:number) {
     if(!this.activePlan)return;
     const ray=this.scene.createPickingRay(screenX,screenY,Matrix.Identity(),this.camera);
-    const y=(this.activePlan.floors.find(f=>f.id===this.activeFloorId)?.elevationMm??0)/1000;
+    const y=this.cutPointerY??(this.activePlan.floors.find(f=>f.id===this.activeFloorId)?.elevationMm??0)/1000;
     const t=(y-ray.origin.y)/ray.direction.y;if(!Number.isFinite(t)||t<=0)return;
     const point=ray.origin.add(ray.direction.scale(t)),s=this.activePlan.gridSizeMm/1000;
     return {x:point.x/s,z:point.z/s};
@@ -288,7 +288,8 @@ export class SceneController {
     this.wallDraftMesh?.dispose();this.wallDraftMesh=undefined;
     for(const m of this.wallSnapMarkers)m.dispose();this.wallSnapMarkers=[];
     const floor=this.activePlan.floors.find(f=>f.id===this.activeFloorId);if(!floor)return;
-    const {end,connected}=snapWallEnd(floor,this.activePlan.gridSizeMm,start,point);
+    const target=this.cutTarget,horizontal=target?.az===target?.bz;
+    const {end,connected}=target?{end:horizontal?{x:Math.max(Math.min(target.ax,target.bx),Math.min(Math.max(target.ax,target.bx),point.x)),z:target.az}:{x:target.ax,z:Math.max(Math.min(target.az,target.bz),Math.min(Math.max(target.az,target.bz),point.z))},connected:true}:snapWallEnd(floor,this.activePlan.gridSizeMm,start,point);
     this.wallDraft=wallBetween(start,end);
     const s=this.activePlan.gridSizeMm/1000,y=floor.elevationMm/1000,h=floor.heightMm/1000;
     // Ground-level connection targets remain legible beside a full-height preview.
@@ -304,7 +305,7 @@ export class SceneController {
     mesh.material=this.material("inside-wall-preview-mat",this.tool==="wall-cut"?"#ce6253":connected?"#c1b36c":"#79ad58",.52);
     mesh.renderOutline=true;mesh.outlineColor=Color3.FromHexString(connected?"#f9d478":"#527d3e");mesh.outlineWidth=.018;mesh.isPickable=false;this.wallDraftMesh=mesh;
   }
-  private cancelWallDraft(){for(const m of this.wallSnapMarkers)m.dispose();this.wallSnapMarkers=[];this.wallDraftMesh?.dispose();this.wallDraftMesh=undefined;this.wallDragStart=undefined;this.wallDragCurrent=undefined;this.wallDraft=undefined;}
+  private cancelWallDraft(){this.cutTarget=undefined;this.cutPointerY=undefined;for(const m of this.wallSnapMarkers)m.dispose();this.wallSnapMarkers=[];this.wallDraftMesh?.dispose();this.wallDraftMesh=undefined;this.wallDragStart=undefined;this.wallDragCurrent=undefined;this.wallDraft=undefined;}
   private material(name: string, hex: string, alpha = 1) { const key=`${name}:${hex}:${alpha}`,cached=this.solidMaterials.get(key);if(cached)return cached;const mat = new StandardMaterial(name, this.scene); mat.diffuseColor = Color3.FromHexString(hex); mat.roughness = .92; mat.specularColor = new Color3(.08,.07,.05); mat.alpha = alpha;this.solidMaterials.set(key,mat);return mat; }
   private surfaceMaterial(name:string,finish:SurfaceFinish,alpha=1){
     const key=`${finish.id}:${alpha}`,cached=this.surfaceMaterials.get(key);if(cached)return cached;
@@ -560,7 +561,14 @@ export class SceneController {
         }else if(this.tool==="paint"||this.tool==="erase"||this.tool==="floor-finish"){
           const cell=this.cellAtPointer(this.scene.pointerX,this.scene.pointerY); if(!cell)return; this.tileDragStart=cell; this.tileDragCurrent=cell; this.renderTileDraft(cell,cell,this.tool!=="erase"); this.callbacks.onSelect(undefined); this.camera.detachControl();
         }else if(this.tool==="wall"||this.tool==="wall-cut"){
-          const point=this.wallPointAtPointer(this.scene.pointerX,this.scene.pointerY),floor=this.activePlan?.floors.find(f=>f.id===this.activeFloorId);if(!point||!floor)return;const start=snapWallStart(floor,this.activePlan!.gridSizeMm,point);this.wallDragStart=start;this.wallDragCurrent=point;this.renderWallDraft(start,start);this.callbacks.onSelect(undefined);this.camera.detachControl();
+          const floor=this.activePlan?.floors.find(f=>f.id===this.activeFloorId);if(!floor)return;
+          if(this.tool==='wall-cut'){const hit=this.scene.pick(this.scene.pointerX,this.scene.pointerY,m=>m.isPickable&&m.name.startsWith('wall:')&&m.metadata?.paintFloorId===this.activeFloorId);const id=hit?.pickedMesh?.name.slice(5);this.cutTarget=[...floorBoundaryWalls(floor,this.activePlan!.gridSizeMm),...floor.walls].find(w=>w.id===id);if(!this.cutTarget)return;
+            const picked=this.cutTarget,grid=this.activePlan!.gridSizeMm,horizontal=picked.az===picked.bz,center=(horizontal?picked.ax+picked.bx:picked.az+picked.bz)*grid/2;
+            const visible=new Set(this.root.getChildMeshes().filter(m=>m.isPickable&&m.metadata?.paintFloorId===this.activeFloorId).map(m=>m.name.slice(5)));
+            const run=wallRuns(floor,grid,w=>visible.has(w.id)).find(r=>r.horizontal===horizontal&&Math.abs(r.line-(horizontal?picked.az:picked.ax)*grid)<.01&&center>=r.start&&center<=r.end);
+            if(run)this.cutTarget={id:picked.id,ax:(horizontal?run.start:run.line)/grid,az:(horizontal?run.line:run.start)/grid,bx:(horizontal?run.end:run.line)/grid,bz:(horizontal?run.line:run.end)/grid};
+            this.cutPointerY=hit?.pickedPoint?.y;}
+          const point=this.wallPointAtPointer(this.scene.pointerX,this.scene.pointerY);if(!point)return;const target=this.cutTarget;const start=target?(target.az===target.bz?{x:Math.max(Math.min(target.ax,target.bx),Math.min(Math.max(target.ax,target.bx),point.x)),z:target.az}:{x:target.ax,z:Math.max(Math.min(target.az,target.bz),Math.min(Math.max(target.az,target.bz),point.z))}):snapWallStart(floor,this.activePlan!.gridSizeMm,point);this.wallDragStart=start;this.wallDragCurrent=point;this.renderWallDraft(start,start);this.callbacks.onSelect(undefined);this.camera.detachControl();
         }else if(name==="draft-preview"&&this.tool==="select"){
           this.draggingDraft=true; this.suspendCameraPointers();
         }else if(name.startsWith("item:")&&this.tool==="select"){
