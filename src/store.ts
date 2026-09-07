@@ -77,7 +77,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   terrainRadius:2,terrainStrength:.6,
   setTerrainBrush:(radius,strength)=>set({terrainRadius:Math.max(.5,Math.min(8,radius)),terrainStrength:Math.max(.1,Math.min(2,strength))}),
   addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};validatePlan(plan);return commit(state,plan);}),
-  neutralPreview:false, setNeutralPreview:neutralPreview=>set({neutralPreview}),
+  neutralPreview:true, setNeutralPreview:neutralPreview=>set({neutralPreview}),
   wallSelectionActive:false, paintWallIds:[],
   beginWallSelection:()=>set({wallSelectionActive:true,paintWallIds:[],wallBrushActive:false,selectedWallId:undefined,selectedId:undefined,tool:'wall-finish'}),
   clearWallSelection:()=>set({paintWallIds:[]}),

@@ -7,7 +7,7 @@ import {usePlanner} from '../src/store';
 import {createSamplePlan} from '../src/domain';
 import {floorBoundaryWalls} from '../src/floorGeometry';
 const s=()=>usePlanner.getState();
-beforeEach(()=>{s().replacePlan(createSamplePlan());s().setTool('select');s().select(undefined)});
+beforeEach(()=>{s().setNeutralPreview(true);s().replacePlan(createSamplePlan());s().setTool('select');s().select(undefined)});
 afterEach(cleanup);
 it('browses tasks without altering architecture and cancels a planting preview on exit',()=>{
  render(<ToolBrowser onPlace={vi.fn()}/>);const before=s().plan;
@@ -83,3 +83,14 @@ it('neutral preview is transient and leaves plan, history and night preference a
  expect(s().neutralPreview).toBe(true);fireEvent.click(screen.getByRole('switch',{name:'Neutral preview lighting'}));expect(s().neutralPreview).toBe(false);
  expect(s().plan).toBe(before);expect(s().past).toHaveLength(0);unmount();expect(s().neutralPreview).toBe(false);
 });
+
+it('preserves lighting across Decorate, Build and Landscape navigation in both modes',()=>{
+ render(<ToolBrowser onPlace={vi.fn()}/>);const before=s().plan;
+ for(const neutral of [true,false]){
+  act(()=>s().setNeutralPreview(neutral));
+  for(const name of ['Build','Landscape','Decorate']){fireEvent.click(screen.getByRole('button',{name}));expect(s().neutralPreview).toBe(neutral);}
+  expect((screen.getByRole('switch',{name:'Neutral preview lighting'}) as HTMLInputElement).checked).toBe(neutral);
+ }
+ expect(s().plan).toBe(before);expect(s().past).toHaveLength(0);
+});
+
