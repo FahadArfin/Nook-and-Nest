@@ -22,7 +22,7 @@ const piece=(p:ReturnType<typeof setup>,id:string,patch:Partial<FurniturePlaceme
 function renderer(){
  const engine=new NullEngine(),scene=new Scene(engine),camera=new ArcRotateCamera('camera',1,.6,10,new Vector3(2,0,2),scene);
  const r:any=Object.create(SceneController.prototype);
- Object.assign(r,{scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
+ Object.assign(r,{paintWallIds:[],paintSelectionGuides:[],neutralPreview:false,scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
  r.cancelFocus=()=>{r.focusMotion=undefined};
  return {r,scene,dispose:()=>{scene.dispose();engine.dispose()}};
 }
@@ -113,3 +113,11 @@ describe('modular placement regression',()=>{
  it('adapts focus for narrow viewports and respects reduced motion',()=>{
   const {r,dispose}=renderer();vi.stubGlobal('matchMedia',()=>({matches:true}));try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;r.engine.getRenderWidth=()=>400;r.engine.getRenderHeight=()=>1000;r.updateEditingGuides(0);expect(r.camera.radius).toBe(10);expect(r.focusMotion).toBeUndefined();}finally{dispose();vi.unstubAllGlobals()}
  });
+
+it('switches neutral lighting without rebuilding walls, changing camera framing, or mutating the plan',()=>{
+ const {r,scene,dispose}=renderer();try{const p=setup();r.update(p,p.floors[0].id);const meshes=[...scene.meshes],radius=r.camera.radius;
+ r.setPaintPreview(true,[]);expect(scene.imageProcessingConfiguration.exposure).toBe(1);expect(scene.imageProcessingConfiguration.contrast).toBe(1);
+ expect(scene.meshes).toEqual(meshes);expect(r.camera.radius).toBe(radius);expect(p.camera.darkMode).toBeUndefined();
+ r.setPaintPreview(false,[]);expect(scene.imageProcessingConfiguration.exposure).toBe(.72);expect(scene.meshes).toEqual(meshes);
+ }finally{dispose()}
+});

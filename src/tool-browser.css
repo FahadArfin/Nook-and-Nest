@@ -74,3 +74,28 @@
 .finish-footer{padding-top:12px;padding-bottom:12px}.finish-footer p{margin-bottom:0}.finish-collection .tool-visual-grid small{padding:0 2px 4px;margin-top:-5px;font-size:10px;line-height:1.4}
 .paint-collection-tabs{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:12px}.tool-browser .paint-collection-tabs button{font-size:11px;padding:6px 8px}.paint-family{margin:14px 0}.paint-family h4{font-size:12px;margin:0 0 8px;font-weight:600}.paint-samples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.tool-browser .paint-samples button{display:flex;flex-direction:column;align-items:stretch;padding:5px;text-align:left;gap:5px}.paint-samples .paint-chip{height:52px;border-radius:4px;border:1px solid #8883}.paint-samples strong{font-size:11px;line-height:1.3}.paint-samples small{font-size:10px;opacity:.7}.paint-credit{font-size:10px;line-height:1.5;opacity:.75}.paint-credit a{color:inherit}
 @media(max-height:750px){.finish-workflow .tool-hint{display:none}.finish-workflow{padding-top:8px}.app-shell .finish-workflow h2{font-size:19px;margin-bottom:8px}.tool-browser .finish-workflow label{margin:8px 0 4px}.finish-current>span,.finish-current>img{width:32px;height:32px}}
+
+/* Guided Paint Studio: keep scope and confirmation anchored around the sample library. */
+.finish-step{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:700;margin:0 0 10px}
+.finish-step>span{display:inline-flex;align-items:center;justify-content:center;border-radius:50%;width:17px;height:17px;background:var(--sage);color:var(--paper);font-size:11px}
+.scope-cards{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.tool-browser .scope-cards button{flex-direction:column;gap:5px;min-height:72px;font-size:12px;border-radius:12px}
+.tool-browser .scope-cards button[aria-pressed=true]{background:color-mix(in srgb,var(--sage) 9%,var(--paper));color:var(--ink);border-color:var(--sage);box-shadow:inset 0 0 0 1px var(--sage)}
+.selection-summary{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);border-radius:12px;margin-top:10px;padding:3px 12px;font-size:12px;min-height:36px}
+.tool-browser .selection-summary button{padding:5px;border:0;font-size:12px}
+.guided-collection .tool-search{margin-bottom:10px}.guided-collection .material-types{margin-bottom:12px}
+.guided-collection .paint-picker{margin-top:0}.guided-collection .paint-picker h3{font-size:11px;font-weight:500;opacity:.7}
+.tool-browser .guided-collection .paint-samples button{position:relative;border:0;padding:0 0 5px;background:transparent;color:var(--ink);gap:3px;border-radius:8px}
+.guided-collection .paint-samples{gap:12px 9px}.guided-collection .paint-chip{height:62px;border-radius:8px}.guided-collection .paint-samples strong{font-size:11px}.paint-selected{position:absolute;right:6px;top:6px;background:#fffaf0;color:#54694a;border-radius:50%;padding:4px;width:23px;height:23px}
+.tool-browser .neutral-preview{display:flex;align-items:center;gap:8px;margin:8px 0 12px;font-size:11px;font-weight:500}
+.neutral-preview span{flex:1}.tool-browser .neutral-preview input{width:32px;height:18px;accent-color:#637a53;cursor:pointer}
+.tile-formats{display:flex;gap:5px;flex-wrap:wrap;margin:8px 0}.tool-browser .tile-formats button{font-size:11px;padding:6px}
+@media(max-height:800px){.tool-browser .scope-cards button{min-height:54px;gap:2px;padding:6px}.scope-cards svg{height:23px}.guided-workflow .selection-summary{margin-top:6px}.guided-collection .paint-chip{height:48px}.finish-footer .finish-current{margin-bottom:5px}.finish-step{margin-bottom:7px}}
+
+.guided-workflow,.guided-collection,.finish-footer{font-family:Nunito,sans-serif}.tool-browser .finish-step{font-family:Nunito,sans-serif}.tool-browser .neutral-preview input{appearance:none;border-radius:12px;background:#a8aea0;border:1px solid var(--line);padding:0;position:relative;flex:none}.tool-browser .neutral-preview input:checked{background:#637a53}.neutral-preview input:before{content:"";display:block;width:12px;height:12px;border-radius:50%;background:#fffaf0;margin:2px;transition:transform .15s}.neutral-preview input:checked:before{transform:translateX(13px)}
+
+.wall-material-types{margin:0 0 10px;font-size:11px}.wall-material-types summary{cursor:pointer;padding:3px 0}.wall-material-types .material-types{margin-top:8px}.guided-collection .paint-collection-tabs[aria-label="Color family"]{flex-wrap:nowrap;overflow:auto;scrollbar-width:thin}.guided-collection .paint-collection-tabs[aria-label="Color family"] button{flex:none}.paint-collections{font-size:11px}.guided-collection .paint-picker .paint-collections summary{padding:4px 0}.guided-collection .paint-collections h3{margin-top:10px}
+
+@media(max-height:800px){
+ .tool-browser.inspector-panel{padding-top:8px}.tool-browser .task-tabs button{padding:7px 3px}.tool-browser .task-subtabs{margin:8px 0 2px}.tool-browser .guided-workflow{padding-top:5px}.app-shell .guided-workflow h2{font-size:20px;margin-bottom:6px}.tool-browser .scope-cards button{min-height:43px;padding:4px;gap:1px}.scope-cards svg{height:20px}.selection-summary{min-height:29px;padding:0 8px}.tool-browser .finish-collection{padding-top:6px}.finish-current>img,.finish-current>span{width:28px;height:28px}.finish-current small{display:none}.finish-current strong{margin:0;font-size:12px}.finish-footer{padding-top:6px;padding-bottom:6px}.tool-browser .neutral-preview{margin:5px 0}.finish-footer .tool-footer-actions button,.finish-footer>button{padding:6px 10px}.finish-footer p{font-size:10px;margin-top:4px}.guided-collection .tool-search{margin-bottom:5px}.guided-collection .tool-search input{padding:7px 0}
+}
