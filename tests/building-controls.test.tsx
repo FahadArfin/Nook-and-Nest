@@ -17,7 +17,7 @@ vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setRotationMode(active:boolean){scene.rotation(active)}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()}
-  placementRotation(){return 0;} setTool(){} setWallSelection(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
+  placementRotation(){return 0;} setTool(){} setWallSelection(){} setPaintPreview(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
   previewMeasuredRoom(region:unknown){scene.preview(region)}
   projectPreview(){return {x:200,y:200}} projectSelected(){return {x:200,y:200}} projectTileDraft(){return {x:200,y:200}}
 }}));
@@ -30,8 +30,8 @@ describe("measured room controls",()=>{
     const p=createSamplePlan();p.floors[0].walls=[{id:"inside-test",ax:2,az:2,bx:5,bz:2}];state().replacePlan(p);
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
     act(()=>scene.callbacks.onWall("inside-test"));expect(state().selectedWallId).toBe("inside-test");expect(state().past).toHaveLength(0);
-    expect((screen.getByLabelText("Finish area") as HTMLSelectElement).selectedOptions[0].text).toBe("Selected wall");
-    fireEvent.click(screen.getByRole("button",{name:"Walls: Soft sage"}));
+    expect(screen.getByText("1 wall selected")).toBeTruthy();
+    fireEvent.click(screen.getByRole("button",{name:"Walls: Soft sage"}));expect(state().past).toHaveLength(0);fireEvent.click(screen.getByRole("button",{name:"Paint 1 wall"}));
     expect(state().plan.floors[0].wallFinishes).toEqual({"inside-test":"sage-plaster"});expect(state().past).toHaveLength(1);
     act(()=>state().undo());expect(state().plan.floors[0].wallFinishes).toBeUndefined();
   });

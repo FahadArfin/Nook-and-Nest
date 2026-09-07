@@ -70,6 +70,36 @@ export class SceneController {
   private furnitureNodes = new Map<string, {node:TransformNode; signature:string}>();
   private solidMaterials=new Map<string,StandardMaterial>();
   private outdoors:OutdoorScene;
+  private neutralPreview=false;
+  private paintWallIds:string[]=[];
+  setPaintPreview(neutral:boolean,ids:string[]){
+    this.neutralPreview=neutral;this.paintWallIds=ids;
+    if(this.activePlan){this.updateLighting(this.activePlan);this.updatePaintSelection();}
+  }
+  private paintSelectionGuides:Mesh[]=[];
+  private updatePaintSelection(){
+    for(const guide of this.paintSelectionGuides)guide.dispose();this.paintSelectionGuides=[];
+    const floor=this.activePlan?.floors.find(f=>f.id===this.activeFloorId);if(!floor||!this.activePlan)return;
+    for(const id of this.paintWallIds){
+      const ids=new Set(wallPlateIds(floor,this.activePlan.gridSizeMm,id));
+      const meshes=this.root.getChildMeshes().filter(m=>m.metadata?.paintFloorId===this.activeFloorId&&ids.has(m.name.slice(5))&&m.name.startsWith('wall:'));
+      if(!meshes.length)continue;
+      let min=new Vector3(Infinity,Infinity,Infinity),max=new Vector3(-Infinity,-Infinity,-Infinity);
+      for(const mesh of meshes){mesh.computeWorldMatrix(true);const box=mesh.getBoundingInfo().boundingBox;min=Vector3.Minimize(min,box.minimumWorld);max=Vector3.Maximize(max,box.maximumWorld);}
+      const corners=[new Vector3(min.x,min.y,min.z),new Vector3(max.x,min.y,min.z),new Vector3(max.x,min.y,max.z),new Vector3(min.x,min.y,max.z),new Vector3(min.x,max.y,min.z),new Vector3(max.x,max.y,min.z),new Vector3(max.x,max.y,max.z),new Vector3(min.x,max.y,max.z)];
+      const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+      const guide=MeshBuilder.CreateLineSystem('paint-selection',{lines:edges.map(([a,b])=>[corners[a],corners[b]])},this.scene);guide.color=Color3.FromHexString('#d2aa53');guide.isPickable=false;guide.metadata={hosts:meshes};this.paintSelectionGuides.push(guide);
+    }
+  }
+  private updateLighting(plan:PlanDocumentV1){
+    const neutral=this.neutralPreview,night=!!plan.camera.darkMode;
+    this.scene.imageProcessingConfiguration.exposure=neutral?1:.72;
+    this.scene.imageProcessingConfiguration.contrast=neutral?1:1.12;
+    const sun=this.scene.getLightByName('sun'),sky=this.scene.getLightByName('sky') as HemisphericLight;
+    if(sun){sun.intensity=neutral?.18:night?.12:.72;sun.diffuse=neutral?Color3.White():new Color3(1,.86,.68);}
+    if(sky){sky.intensity=neutral?.95:night?.36:.62;sky.diffuse=neutral?Color3.White():new Color3(1,.91,.78);sky.groundColor=neutral?new Color3(.82,.82,.82):new Color3(.3,.37,.28);}
+    this.canvas.dataset.colorPreview=neutral?'neutral':'cozy';
+  }
   private selectedWallId?:string;
   private selectedWallIds=new Set<string>();
   private wallSnapMarkers:Mesh[]=[];
@@ -92,6 +122,7 @@ export class SceneController {
       if(!this.plantingPoints&&!usePlanner.getState().plantingDraft&&this.plantingNodes.size)this.clearPlantingPreview();
       for(const p of this.plantingNodes.values()){const a=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(performance.now()-p.born)/300);p.node.scaling.setAll(.8+.2*a);for(const m of p.node.getChildMeshes())m.visibility=.7*a;}
       if(this.terrainStroke&&this.terrainBase&&performance.now()-this.terrainLastPreview>65){this.terrainLastPreview=performance.now();const strength=this.terrainStroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900);this.terrain.update({...this.terrainBase,environment:{background:'plain',grass:'off',...this.terrainBase.environment,terrain:[...(this.terrainBase.environment?.terrain??[]),{...this.terrainStroke,strength}]}});this.scene.getMeshByName('meadow')?.setEnabled(false);}
+      for(const guide of this.paintSelectionGuides){const hosts=guide.metadata.hosts as Mesh[];guide.visibility=Math.max(0,...hosts.filter(m=>m.isEnabled()).map(m=>m.visibility));}
       if (this.activePlan) this.wallVisibility.update(getWallVisibility(this.activePlan.camera), this.camera.position, this.camera.target, this.engine.getDeltaTime(), window.matchMedia?.("(prefers-reduced-motion: reduce)").matches??false);
     });
   }
@@ -314,7 +345,7 @@ export class SceneController {
     }
     this.architectureTool=this.tool;this.architectureWall=this.selectedWallId;
     this.scene.clearColor=plan.environment?.background==='city'?(plan.camera.darkMode?new Color4(.14,.21,.27,1):new Color4(.65,.78,.85,1)):plan.camera.darkMode?new Color4(.12,.16,.13,1):new Color4(.72,.78,.62,1);
-    const night=!!plan.camera.darkMode;const sun=this.scene.getLightByName('sun'),sky=this.scene.getLightByName('sky');if(sun)sun.intensity=night?.12:.72;if(sky)sky.intensity=night?.36:.62;
+    this.updateLighting(plan);
     this.camera.maxZ=plan.environment?.background==='city'?30000:10000;
     const previousDraft=this.activeDraft,refreshPreview=!!draft&&this.refreshModels?.has(draft.catalogId);
     this.terrain.update(plan);this.scene.getMeshByName('meadow')?.setEnabled(!plan.environment?.terrain?.length&&plan.environment?.background!=='city');
@@ -359,7 +390,7 @@ export class SceneController {
     this.activePlan = plan; this.activeFloorId = activeFloorId; this.selectedId = selectedId; this.activeDraft = draft; this.draftPosition = draft ? { x: draft.x, z: draft.z, elevationMm:draft.elevationMm } : undefined; this.previewNode = undefined; this.selectedNode = undefined; this.tileDraftRoot=undefined; this.tileDraftCells=[]; this.tileDraftAnchor=undefined; for (const node of [...this.root.getChildren()]) node.dispose(false, false); if(!retainFurniture)this.furnitureFactory.resetMaterials();
     const activeIndex = plan.floors.findIndex((f) => f.id === activeFloorId); const floors = plan.camera.mode === "dollhouse" ? plan.floors : plan.floors.filter((f, i) => f.id === activeFloorId || (plan.camera.ghostBelow && i === activeIndex - 1));
     for (const floor of floors) this.buildFloor(plan, floor, floor.id !== activeFloorId);
-    for(const tile of floorTiles)tile.parent=this.root;
+    this.updatePaintSelection();for(const tile of floorTiles)tile.parent=this.root;
     for(const [id,entry] of this.furnitureNodes)if(entry.node.parent!==this.root){entry.node.dispose(false,false);this.furnitureNodes.delete(id);}
     this.refreshModels?.clear();
     const activeFloor = plan.floors[activeIndex];
@@ -400,7 +431,7 @@ export class SceneController {
     for(const piece of splitWallSections(id,pieces,this.activePlan?.gridSizeMm??250)){
       const center=(piece.start+piece.end)/2000;
       const mesh=MeshBuilder.CreateBox(`wall:${id}`,{width:(piece.end-piece.start)/1000,height:(piece.top-piece.bottom)/1000,depth:.1},this.scene);
-      mesh.parent=this.root;mesh.position=new Vector3(horizontal?center:ax,y+(piece.bottom+piece.top)/2000,horizontal?az:center);
+      mesh.metadata={paintFloorId:ghost?undefined:this.activeFloorId};mesh.parent=this.root;mesh.position=new Vector3(horizontal?center:ax,y+(piece.bottom+piece.top)/2000,horizontal?az:center);
       mesh.rotation.y=wall.rotation.y;const wallFinish=findWallFinish(finishes?.[piece.paintKey]??finishes?.[id]??finish.id);mesh.material=this.surfaceMaterial(`wall-mat-${id}`,wallFinish,ghost?.18:1);
       if(wallFinish.repeatMeters){const p=mesh.getVerticesData('position')!,uv=mesh.getVerticesData('uv')!;for(let i=0;i<p.length/3;i++){uv[i*2]=(p[i*3]+center)/wallFinish.repeatMeters[0];uv[i*2+1]=(p[i*3+1]+mesh.position.y)/wallFinish.repeatMeters[1];}mesh.setVerticesData('uv',uv);}
       this.wallVisibility.add(mesh, geometry);

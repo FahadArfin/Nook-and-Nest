@@ -13,7 +13,7 @@ import { createBlankPlan, decodeShare, toggleCell, toggleCells, uid } from "./do
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 import { validatePlan } from "./planValidation";
 import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
-import { paintWallPlate, paintWallGroup } from "./wallEditing";
+import { paintWallPlate, wallPlateIds, paintWallGroup } from "./wallEditing";
 import {windowRotation} from './windows';
 import {scatterPlants,type PlantingBrush} from './planting';
 
@@ -26,6 +26,9 @@ interface PlannerState {
   terrainRadius:number;terrainStrength:number;setTerrainBrush(radius:number,strength:number):void;
   addTerrainStroke(stroke:import('./terrain').TerrainStroke):void;
   cutWalls(cuts:Omit<WallSegment,"id">[],railingId?:string):void;
+  neutralPreview:boolean; setNeutralPreview(value:boolean):void;
+  wallSelectionActive:boolean; paintWallIds:string[];
+  beginWallSelection():void; clearWallSelection():void; finishSelectedWalls(finishId:string):void;
   wallBrushActive:boolean; finishWallGroup(group:"interior"|"exterior",finishId:string):void;
   selectedWallId?:string; selectWall(id?:string):void;
   cycleWallVisibility(): void;
@@ -74,8 +77,16 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   terrainRadius:2,terrainStrength:.6,
   setTerrainBrush:(radius,strength)=>set({terrainRadius:Math.max(.5,Math.min(8,radius)),terrainStrength:Math.max(.1,Math.min(2,strength))}),
   addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};validatePlan(plan);return commit(state,plan);}),
+  neutralPreview:false, setNeutralPreview:neutralPreview=>set({neutralPreview}),
+  wallSelectionActive:false, paintWallIds:[],
+  beginWallSelection:()=>set({wallSelectionActive:true,paintWallIds:[],wallBrushActive:false,selectedWallId:undefined,selectedId:undefined,tool:'wall-finish'}),
+  clearWallSelection:()=>set({paintWallIds:[]}),
+  finishSelectedWalls:finishId=>set(s=>{
+    if(!s.paintWallIds.length)return {};
+    return {...commit(s,{...s.plan,floors:s.plan.floors.map(f=>f.id===s.activeFloorId?s.paintWallIds.reduce((next,id)=>paintWallPlate(next,s.plan.gridSizeMm,id,finishId),f):f)}),paintWallIds:[]};
+  }),
   wallBrushActive:false,
-  selectWall:selectedWallId=>{const s=get();if(selectedWallId&&s.wallBrushActive&&s.tool==='wall-finish'){s.finishWall(selectedWallId,s.activeSurfaceFinish);return;}set({selectedWallId,selectedId:undefined,tool:"wall-finish",wallBrushActive:false});},
+  selectWall:selectedWallId=>{const s=get();if(selectedWallId&&s.wallSelectionActive){const floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;const ids=wallPlateIds(floor,s.plan.gridSizeMm,selectedWallId).sort();if(!ids.length)return;const id=ids[0];set({paintWallIds:s.paintWallIds.includes(id)?s.paintWallIds.filter(w=>w!==id):[...s.paintWallIds,id]});return;}if(selectedWallId&&s.wallBrushActive&&s.tool==='wall-finish'){s.finishWall(selectedWallId,s.activeSurfaceFinish);return;}set({selectedWallId,selectedId:undefined,tool:"wall-finish",wallBrushActive:false});},
   finishWallGroup:(group,finishId)=>set(s=>commit(s,{...s.plan,floors:s.plan.floors.map(f=>f.id===s.activeFloorId?paintWallGroup(f,s.plan.gridSizeMm,group,finishId):f)})),
   commitDesign:(base,plan)=>set(state=>{if(state.plan!==base||plan.id!==base.id)throw new Error('The apartment changed. Read it again and prepare a new design.');validatePlan(plan);return {...commit(state,structuredClone(plan),null),tool:'select',placementNotice:undefined};}),
   setEnvironment:patch=>set(state=>commit(state,{...state.plan,environment:{background:"plain",grass:"off",...state.plan.environment,...patch}})),
@@ -83,12 +94,12 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   setRoomSize:roomSize=>set({roomSize,tool:"measured-room",selectedId:undefined}),
   addMeasuredRoom:region=>set(state=>{try{const checked=measuredRegion(state.plan.gridSizeMm,region.origin,region.widthMm,region.depthMm);return commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?addMeasuredRegion(f,state.plan.gridSizeMm,checked):f)});}catch(e){return {placementNotice:(e as Error).message};}}),
   activeSurfaceFinish:"honey-oak",
-  setSurfaceBrush:(tool,activeSurfaceFinish)=>set({tool,activeSurfaceFinish,wallBrushActive:tool==="wall-finish",selectedId:undefined,selectedWallId:undefined}),
+  setSurfaceBrush:(tool,activeSurfaceFinish)=>set({tool,activeSurfaceFinish,wallSelectionActive:false,paintWallIds:[],wallBrushActive:tool==="wall-finish",selectedId:undefined,selectedWallId:undefined}),
   finishCells:(cells,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>{if(f.id!==state.activeFloorId)return f;const occupied=new Set(f.cells.map(c=>`${c.x},${c.z}`));const cellFinishes={...f.cellFinishes};for(const c of cells){const key=`${c.x},${c.z}`;if(occupied.has(key))cellFinishes[key]=finishId;}return {...f,cellFinishes};})})),
   finishWall:(id,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?paintWallPlate(f,state.plan.gridSizeMm,id,finishId):f)})),
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
-  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
-  replacePlan: (plan) => set({ plan, wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
+  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
+  replacePlan: (plan) => set({ plan, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),
   setView: (mode) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, mode } })),
@@ -103,7 +114,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     if (key === "transparentWalls") {camera.transparentWalls=getWallVisibility(state.plan.camera)==="all-visible";camera.wallVisibility = camera.transparentWalls ? "near-hidden" : "all-visible";}
     return commit(state, { ...state.plan, camera });
   }),
-  setActiveFloor: (activeFloorId) => set({ activeFloorId, wallBrushActive:false, selectedId: undefined, selectedWallId:undefined }),
+  setActiveFloor: (activeFloorId) => set({ activeFloorId, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, selectedId: undefined, selectedWallId:undefined }),
   addFloor: () => set((state) => { const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), ...(previous.cellRects?{cellRects:structuredClone(previous.cellRects)}:{}), walls: [], openings: [], stairs: [], floorFinishId: previous.floorFinishId, wallFinishId: previous.wallFinishId }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
   deleteFloor: (floorId) => set((state) => {
     const targetId = floorId ?? state.activeFloorId;
@@ -131,8 +142,8 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const edited={...existing,...patch};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
   duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWallOpening(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
   deleteSelected: () => set((state) => state.selectedId ? commit(state, { ...state.plan, furniture: state.plan.furniture.filter((f) => f.id !== state.selectedId) }, null) : state),
-  undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], selectedId: undefined, selectedWallId:undefined }; }),
-  redo: () => set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), selectedId: undefined, selectedWallId:undefined }; }),
+  undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], paintWallIds:[], selectedId: undefined, selectedWallId:undefined }; }),
+  redo: () => set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), paintWallIds:[], selectedId: undefined, selectedWallId:undefined }; }),
 }));
 
 let dbPromise: ReturnType<typeof openDB> | undefined;

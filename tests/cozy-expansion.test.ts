@@ -60,7 +60,7 @@ describe('cozy expansion and placement regressions',()=>{
      const p=createSamplePlan(),id=p.floors[0].id,item=piece('tv-55',id);p.furniture=[item];
      const floor=MeshBuilder.CreateBox('existing-floor',{},scene),node=new TransformNode('item:tv-55',scene),model=MeshBuilder.CreateBox('tv-model',{},scene);model.parent=node;
      const renderer=Object.create(SceneController.prototype) as any;
-     Object.assign(renderer,{scene,camera:{maxZ:10000},tool:'select',architectureStamp:architectureKey(p,id,'select'),terrain:{update:()=>{}},outdoors:{update:()=>{}},furnitureNodes:new Map([[item.id,{node,signature:JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0})}]])});
+     Object.assign(renderer,{canvas:{dataset:{}},scene,camera:{maxZ:10000},tool:'select',architectureStamp:architectureKey(p,id,'select'),terrain:{update:()=>{}},outdoors:{update:()=>{}},furnitureNodes:new Map([[item.id,{node,signature:JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0})}]])});
      for(let i=0;i<100;i++){const next={...p,furniture:[{...item,x:2000+i*10}]};renderer.update(next,id,i%2?item.id:undefined);}
      expect(scene.meshes).toHaveLength(2);expect(floor.isDisposed()).toBe(false);expect(model.isDisposed()).toBe(false);expect(node.position.x).toBeCloseTo(2.99);expect(model.isPickable).toBe(true);
    }finally{scene.dispose();engine.dispose();}
