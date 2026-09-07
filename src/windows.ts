@@ -25,7 +25,19 @@ export function wallRuns(floor: FloorPlan, grid: number, include?: (wall:WallSeg
   }
   runs.sort((a,b)=>Number(a.horizontal)-Number(b.horizontal)||a.line-b.line||a.start-b.start);
   const merged:WallRun[]=[];
-  for(const run of runs){const last=merged.at(-1);if(last&&last.horizontal===run.horizontal&&Math.abs(last.line-run.line)<.01&&run.start<=last.end+.01)last.end=Math.max(last.end,run.end);else merged.push({...run});}
+  // Group nearly identical centerlines before sorting along the wall. Sorting
+  // by raw line first can put a right-hand remnant before a left-hand wall.
+  // A one-sided overlap check would then discard the entire left-hand span.
+  for(let i=0;i<runs.length;){
+    const first=runs[i],group:WallRun[]=[];
+    while(i<runs.length&&runs[i].horizontal===first.horizontal&&Math.abs(runs[i].line-first.line)<.01)group.push(runs[i++]);
+    group.sort((a,b)=>a.start-b.start);
+    let last:WallRun|undefined;
+    for(const run of group){
+      if(last&&run.start<=last.end+.01)last.end=Math.max(last.end,run.end);
+      else {last={...run,line:first.line};merged.push(last);}
+    }
+  }
   if(!include)cache.runs=merged;
   return merged;
 }

@@ -302,7 +302,7 @@ export class SceneController {
     }
     if(!this.wallDraft)return;
     const a=this.wallDraft,ax=a.ax*s,az=a.az*s,bx=a.bx*s,bz=a.bz*s;
-    const mesh=MeshBuilder.CreateBox("inside-wall-preview",{width:Math.hypot(bx-ax,bz-az),height:h,depth:.1},this.scene);
+    const mesh=MeshBuilder.CreateBox("inside-wall-preview",{width:Math.hypot(bx-ax,bz-az),height:h+(this.tool==="wall-cut"?.008:0),depth:this.tool==="wall-cut"?.112:.1},this.scene);
     mesh.parent=this.root;mesh.position=new Vector3((ax+bx)/2,y+h/2,(az+bz)/2);mesh.rotation.y=-Math.atan2(bz-az,bx-ax);
     mesh.material=this.material("inside-wall-preview-mat",this.tool==="wall-cut"?"#ce6253":connected?"#c1b36c":"#79ad58",.52);
     mesh.renderOutline=true;mesh.outlineColor=Color3.FromHexString(connected?"#f9d478":"#527d3e");mesh.outlineWidth=.018;mesh.isPickable=false;this.wallDraftMesh=mesh;
