@@ -5,9 +5,34 @@ import { createSamplePlan, rectangleCells, serializePlan, parsePlan, encodeShare
 import { snapWindow, windowProblem, wallRuns, windowRotation, windowWallPieces } from "../src/windows";
 import { usePlanner } from "../src/store";
 import type { FurniturePlacement } from "../src/types";
+import {angularStep,pointerAngle} from '../src/rotationGesture';
+import {joinedWallSpan,floorSurfaceRects} from '../src/architectureSurfaces';
 
 const plan=()=>{const p=createSamplePlan("Windows","metric");p.gridSizeMm=250;p.floors=[{...p.floors[0],id:"floor",heightMm:2500,cells:rectangleCells(20,16),walls:[],openings:[]}];p.furniture=[];return p;};
 const item=(patch:Partial<FurniturePlacement>={}):FurniturePlacement=>({id:"window",catalogId:"window-casement",floorId:"floor",x:2300,z:0,widthMm:1200,depthMm:220,heightMm:1250,rotation:0,elevationMm:850,variant:"cream",...patch});
+
+it('keeps circular rotation continuous across the angle seam and ignores the center',()=>{
+ expect(angularStep(179,-179)).toBe(2);expect(angularStep(-179,179)).toBe(-2);
+ expect([0,90,180,270].map(a=>angularStep(a,(a+90)%360))).toEqual([90,90,90,90]);
+ expect(pointerAngle(0,0,0,0)).toBeUndefined();expect(pointerAngle(100,0,0,0)).toBe(0);
+});
+it('closes nearby perpendicular wall ends while leaving isolated ends untouched',()=>{
+ const a={id:'a',ax:0,az:0,bx:10,bz:0},b={id:'b',ax:10,az:.1,bx:10,bz:10};
+ expect(joinedWallSpan(a,[a,b],250)).toEqual([0,2550]);
+ expect(joinedWallSpan(a,[a],250)).toEqual([0,2500]);
+});
+it('joins finish boundaries at off-grid walls and removes visible slabs inside walls',()=>{
+ const walls=[{id:'partition',ax:1.2,az:0,bx:1.2,bz:4}];
+ const rects=[{x:0,z:0,width:250,depth:250,cell:{x:0,z:0}},{x:250,z:0,width:250,depth:250,cell:{x:1,z:0}}];
+ const parts=floorSurfaceRects(rects,walls,250);
+ expect(parts).toEqual([{x:0,z:0,width:250,depth:250,cell:{x:0,z:0}},{x:350,z:0,width:150,depth:250,cell:{x:1,z:0}}]);
+});
+it('corrects only legacy default sink heights when reopening a project',()=>{
+ const p=plan();p.furniture=[item({catalogId:'sink-cabinet',heightMm:930}),item({id:'custom',catalogId:'sink-cabinet',heightMm:1000})];
+ usePlanner.getState().replacePlan(p);
+ expect(usePlanner.getState().plan.furniture.map(f=>f.heightMm)).toEqual([1090,1000]);
+ expect(p.furniture[0].heightMm).toBe(930);
+});
 
 describe("wall-mounted window planning",()=>{
   beforeEach(()=>usePlanner.getState().replacePlan(plan()));

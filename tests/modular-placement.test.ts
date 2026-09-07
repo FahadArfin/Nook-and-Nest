@@ -22,7 +22,7 @@ const piece=(p:ReturnType<typeof setup>,id:string,patch:Partial<FurniturePlaceme
 function renderer(){
  const engine=new NullEngine(),scene=new Scene(engine),camera=new ArcRotateCamera('camera',1,.6,10,new Vector3(2,0,2),scene);
  const r:any=Object.create(SceneController.prototype);
- Object.assign(r,{paintWallIds:[],paintSelectionGuides:[],neutralPreview:false,scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
+ Object.assign(r,{paintWallIds:[],paintSelectionGuides:[],neutralPreview:false,scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600,getBoundingClientRect:()=>({left:0,top:0,width:800,height:600})},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
  r.cancelFocus=()=>{r.focusMotion=undefined};
  return {r,scene,dispose:()=>{scene.dispose();engine.dispose()}};
 }
@@ -81,24 +81,38 @@ describe('modular placement regression',()=>{
  it('enabled right-drag previews rotation without plan mutation and commits once on release',()=>{
    const {r,scene,dispose}=renderer();try{
      const p=setup(),base=piece(p,'base-cabinet',{z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);
-     const onRotate=vi.fn();r.callbacks={onRotate};r.camera.attachControl=vi.fn();r.camera.detachControl=vi.fn();r.setRotationMode(true);r.bindPointers();
-     const send=(type:number,x:number,shift=false)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:x,shiftKey:shift,preventDefault:()=>{}},pickInfo:null} as any);
-     send(PointerEventTypes.POINTERDOWN,100);send(PointerEventTypes.POINTERMOVE,175);expect(r.selectedNode.rotation.y*180/Math.PI).toBeCloseTo(37.5);expect(onRotate).not.toHaveBeenCalled();
-     send(PointerEventTypes.POINTERMOVE,180,true);expect(r.selectedNode.rotation.y*180/Math.PI).toBeCloseTo(45);
-     send(PointerEventTypes.POINTERUP,180,true);expect(onRotate).toHaveBeenCalledExactlyOnceWith(base.id,45);expect(p.furniture[0].rotation).toBe(0);
+     const onRotate=vi.fn();r.callbacks={onRotate};r.camera.attachControl=vi.fn();r.camera.detachControl=vi.fn();r.setRotationMode(true);scene.updateTransformMatrix(true);r.bindPointers();
+     const send=(type:number,x:number,shift=false)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:x,clientY:100,shiftKey:shift,preventDefault:()=>{}},pickInfo:null} as any);
+     send(PointerEventTypes.POINTERDOWN,100);const d=r.rotationDrag,start=d.lastAngle;
+     const arc=(type:number,delta:number,shift=false)=>{const a=(start-delta)*Math.PI/180;scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:d.centerX+100*Math.cos(a),clientY:d.centerY+100*Math.sin(a),shiftKey:shift},pickInfo:null} as any)};
+     arc(PointerEventTypes.POINTERMOVE,37.5);expect(r.selectedNode.rotation.y*180/Math.PI).toBeCloseTo(37.5);expect(onRotate).not.toHaveBeenCalled();
+     arc(PointerEventTypes.POINTERMOVE,40,true);expect(r.selectedNode.rotation.y*180/Math.PI).toBeCloseTo(45);
+     arc(PointerEventTypes.POINTERUP,40,true);expect(onRotate).toHaveBeenCalledExactlyOnceWith(base.id,45);expect(p.furniture[0].rotation).toBe(0);
    }finally{dispose()}
  });
  it('loading a different model retains all existing model nodes',()=>{
    const {r,dispose}=renderer();try{const p=setup();p.furniture=[piece(p,'base-cabinet',{z:1000})];r.update(p,p.floors[0].id);const node=r.furnitureNodes.get(p.furniture[0].id).node;r.refreshModels.add('window-solarium');r.update(p,p.floors[0].id);expect(r.furnitureNodes.get(p.furniture[0].id).node).toBe(node);expect(node.isDisposed()).toBe(false);}finally{dispose()}
+ });
+ it('keeps the selected TV active when its stand is clicked and deselects on empty floor',()=>{
+   const {r,scene,dispose}=renderer();try{
+     const p=setup(),tv=piece(p,'slim-tv'),stand=piece(p,'tv-stand');p.furniture=[tv,stand];r.update(p,p.floors[0].id,tv.id);
+     r.callbacks={onSelect:vi.fn()};r.bindPointers();
+     vi.spyOn(scene,'pick').mockImplementation((_x,_y,predicate)=>predicate?{hit:false} as any:{hit:true,pickedMesh:{name:`item:${stand.id}`}} as any);
+     const send=(type:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:0},pickInfo:null} as any);
+     send(PointerEventTypes.POINTERDOWN);expect(r.dragging).toBe(tv.id);expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(tv.id);
+     send(PointerEventTypes.POINTERUP);
+     vi.mocked(scene.pick).mockReturnValue({hit:true,pickedMesh:{name:'cell:1:1'}} as any);
+     send(PointerEventTypes.POINTERDOWN);expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(undefined);
+   }finally{dispose()}
  });
 
 });
 
  it('leaves ordinary right-drag to the camera, gates rotation, and cancels an unfinished turn',()=>{
   const {r,scene,dispose}=renderer();try{const p=setup(),base=piece(p,'base-cabinet',{z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.callbacks={onRotate:vi.fn()};r.camera.attachControl=vi.fn();r.camera.detachControl=vi.fn();r.bindPointers();
-   const send=(type:number,x:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:x,preventDefault:()=>{}},pickInfo:null} as any);
+   const send=(type:number,x:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:x,clientY:100,preventDefault:()=>{}},pickInfo:null} as any);
    send(PointerEventTypes.POINTERDOWN,0);send(PointerEventTypes.POINTERMOVE,100);expect(r.rotationDrag).toBeUndefined();expect(r.selectedNode.rotation.y).toBe(0);expect(r.camera.detachControl).not.toHaveBeenCalled();
-   r.setRotationMode(true);r.updateEditingGuides(0);expect(r.rotationGuide.isEnabled()).toBe(true);send(PointerEventTypes.POINTERDOWN,0);send(PointerEventTypes.POINTERMOVE,100);expect(r.selectedNode.rotation.y).not.toBe(0);
+   r.setRotationMode(true);scene.updateTransformMatrix(true);r.updateEditingGuides(0);expect(r.rotationGuide.isEnabled()).toBe(true);send(PointerEventTypes.POINTERDOWN,0);send(PointerEventTypes.POINTERMOVE,100);expect(r.selectedNode.rotation.y).not.toBe(0);
    r.setRotationMode(false);expect(r.selectedNode.rotation.y).toBe(0);expect(r.rotationGuide.isEnabled()).toBe(false);expect(r.callbacks.onRotate).not.toHaveBeenCalled();expect(r.camera.detachControl).not.toHaveBeenCalled();
   }finally{dispose()}
  });
