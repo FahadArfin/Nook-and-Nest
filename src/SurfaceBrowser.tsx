@@ -11,7 +11,8 @@ export function SurfaceBrowser(){
  const s=usePlanner(),floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;
  const [target,setTarget]=useState<'Floor'|'Walls'>(s.selectedWallId?'Walls':'Floor');
  const [scope,setScope]=useState<Scope>('sections'),[family,setFamily]=useState(s.selectedWallId?'Paint':'All'),[search,setSearch]=useState(''),[pending,setPending]=useState<string>(),[message,setMessage]=useState('');
- useEffect(()=>{s.setNeutralPreview(true);return()=>{usePlanner.getState().setNeutralPreview(false);if(usePlanner.getState().wallSelectionActive)usePlanner.getState().setTool('select')}},[]);
+ // Lighting belongs to the editor, not the lifetime of this panel.
+ useEffect(()=>()=>{if(usePlanner.getState().wallSelectionActive)usePlanner.getState().setTool('select')},[]);
  useEffect(()=>{if(s.selectedWallId){setTarget('Walls');setFamily('Paint');setScope('sections');setPending(undefined)}},[s.selectedWallId]);
  useEffect(()=>{setPending(undefined);setMessage('')},[s.activeFloorId]);
  useEffect(()=>{if(collectionRef.current)collectionRef.current.scrollTop=0},[target,family,search]);
