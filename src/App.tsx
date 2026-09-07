@@ -121,7 +121,7 @@ export function EditorApp({onHome}:{onHome?:()=>void}) {
   const [mobilePanel,setMobilePanel]=useState<'library'|'tools'>();
   const [previewOpen,setPreviewOpen]=useState(false);const closePreview=useCallback(()=>setPreviewOpen(false),[]);
   const state=usePlanner(); const canvasRef=useRef<HTMLCanvasElement>(null); const controllerRef=useRef<SceneController|undefined>(undefined); const placementControlsRef=useRef<HTMLDivElement>(null); const selectedControlsRef=useRef<HTMLDivElement>(null); const tileControlsRef=useRef<HTMLDivElement>(null); const plantingControlsRef=useRef<HTMLDivElement>(null); const focusDraftControls=useRef(false); const [draft,setDraft]=useState<FurniturePlacement|undefined>(); const [tileDraft,setTileDraft]=useState<{cells:TileCell[];present:boolean;region?:MeasuredRegion}|undefined>(); const ready=true; const [showSetup,setShowSetup]=useState(false); const [dialog,setDialog]=useState<"help"|"project"|"share"|undefined>(new URLSearchParams(location.search).has("projects")?"project":undefined); const [muted,setMuted]=useState(true);
-  const previewShots=useMemo(()=>homeShots(state.plan,state.activeFloorId),[state.plan,state.activeFloorId]);
+  const previewShots=useMemo(()=>homeShots(state.plan,state.activeFloorId),[state.plan.floors,state.plan.gridSizeMm,state.activeFloorId]);
   const dark=appearance?.dark??!!state.plan.camera.darkMode;
   const floor=state.plan.floors.find((f)=>f.id===state.activeFloorId)!; const area=floorRects(floor,state.plan.gridSizeMm).reduce((sum,r)=>sum+r.width*r.depth,0)/1_000_000; const placed=state.plan.furniture.filter((f)=>f.floorId===floor.id).length;
   const [rotationActive,setRotationActive]=useState(false);
