@@ -211,7 +211,7 @@ export class SceneController {
   private cancelTouchEdit(){
     this.cancelOutdoorStroke();
     const item=this.activeDraft??this.activePlan?.furniture.find(f=>f.id===this.dragging),node=this.activeDraft?this.previewNode:this.selectedNode;
-    if(item&&node){const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);node.position.set(item.x/1000,((floor?.elevationMm??0)+(item.elevationMm??0)+50)/1000,item.z/1000);node.rotation.y=item.rotation*Math.PI/180;}
+    if(item&&node){const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);node.position.set(item.x/1000,((floor?.elevationMm??0)+(item.elevationMm??0)+(isWallOpening(item.catalogId)?0:isStairs(item.catalogId)?40:50))/1000,item.z/1000);node.rotation.y=item.rotation*Math.PI/180;}
     this.dragging=undefined;this.draggingDraft=false;this.draggedPosition=undefined;this.draftPosition=undefined;
     if(this.tileDragStart)this.cancelTileDraft();this.cancelWallDraft();
   };
