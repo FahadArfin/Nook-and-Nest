@@ -30,6 +30,30 @@ describe("wall-mounted window planning",()=>{
     p.floors[0].cells=[];expect(windowProblem(p,item())).toMatch(/No wall/);
   });
   it("keeps flips wall aligned",()=>{expect(windowRotation(item(),15)).toBe(180);expect(windowRotation(item({rotation:90}),-15)).toBe(270);expect(windowRotation(item({catalogId:"sofa"}),15)).toBe(15);});
+  it.each([0,180])('allows a closet door beside a perpendicular opening (rotation %s)',rotation=>{
+    const p=plan();
+    p.floors[0].walls=[{id:'hall',ax:2,az:0,bx:2,bz:16}];
+    const closet=item({catalogId:'door-closet-double',x:700,widthMm:1200,heightMm:2100,elevationMm:0,rotation});
+    // The nearby door is on the crossing wall, not the closet wall.
+    p.furniture=[item({id:'hall-door',catalogId:'door-flush',x:500,z:0,rotation:90,widthMm:900,heightMm:2100,elevationMm:0})];
+    expect(windowProblem(p,closet)).toBeUndefined();
+    usePlanner.getState().replacePlan(p);
+    usePlanner.getState().confirmFurniture(closet);
+    expect(usePlanner.getState().plan.furniture).toHaveLength(2);
+    usePlanner.getState().undo();
+    expect(usePlanner.getState().plan.furniture).toEqual(p.furniture);
+    // A flipped opening on the SAME wall must still block overlapping placement.
+    p.furniture=[{...closet,id:'existing',rotation:180-rotation}];
+    expect(windowProblem(p,closet)).toMatch(/overlaps/);
+  });
+  it('ignores perpendicular openings when checking wall cabinet coverage',()=>{
+    const p=plan();
+    const cabinet=item({catalogId:'wall-cabinet',x:600,z:251,widthMm:700,depthMm:400,heightMm:700,elevationMm:1500});
+    p.furniture=[item({id:'crossing',x:500,z:0,rotation:90})];
+    expect(windowProblem(p,cabinet)).toBeUndefined();
+    p.furniture[0].rotation=180;
+    expect(windowProblem(p,cabinet)).toMatch(/covers/);
+  });
   it("cuts apertures across multiple tile segments and restores the wall on removal",()=>{
     const wall={id:"edge",ax:0,az:0,bx:20,bz:0};const pieces=windowWallPieces(wall,250,2500,[item()]);
     const area=pieces.reduce((sum,p)=>sum+(p.end-p.start)*(p.top-p.bottom),0);
