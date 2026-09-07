@@ -190,7 +190,7 @@ describe('modular extension review',()=>{
    expect(toolbar.queryByRole('button',{name:'Rotate left'})).toBeNull();expect(toolbar.queryByRole('button',{name:'Rotate right'})).toBeNull();
    const rotate=toolbar.getByRole('button',{name:'Rotate furniture'});expect(rotate.getAttribute('aria-pressed')).toBe('false');
    const before=state().plan;fireEvent.click(rotate);expect(scene.rotation).toHaveBeenLastCalledWith(true);expect(state().plan).toBe(before);
-   expect(screen.getByText(/Drag in the scene to rotate/)).toBeTruthy();fireEvent.click(rotate);expect(scene.rotation).toHaveBeenLastCalledWith(false);
+   expect(screen.getByText(/Drag around the ring to rotate/)).toBeTruthy();fireEvent.click(rotate);expect(scene.rotation).toHaveBeenLastCalledWith(false);
    fireEvent.click(toolbar.getByRole('button',{name:'Extend furniture'}));toolbar=within(screen.getByRole('toolbar',{name:/Place/}));expect(toolbar.getByRole('button',{name:'Extend furniture'})).toBeTruthy();fireEvent.click(toolbar.getByRole('button',{name:'Rotate furniture'}));fireEvent.click(toolbar.getByRole('button',{name:'Extend furniture'}));expect(screen.getByLabelText('Run length')).toBeTruthy();
    fireEvent.click(toolbar.getByRole('button',{name:'Cancel placement'}));act(()=>{state().placeFurniture('small-plant');state().select(state().plan.furniture.at(-1)!.id)});
    toolbar=within(screen.getByRole('toolbar',{name:/Edit/}));expect(toolbar.queryByRole('button',{name:'Extend furniture'})).toBeNull();expect(toolbar.getByRole('button',{name:'Rotate furniture'}).getAttribute('aria-pressed')).toBe('false');

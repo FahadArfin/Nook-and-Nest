@@ -69,15 +69,17 @@ export class FurnitureModelLibrary {
       this.materialVariants.set(key, clone);
       return clone;
     }
+    const isFrame=item.catalogId==="window-solarium"&&!source.name.includes("glazing");
     const isTintable = source.name.includes("upholstery-textured") || source.name.includes("variant-surface") || source.name.includes("door-surface") || source.name==="ceramic-tiles";
     const isCountertop = source.name.includes("countertop-surface");
     const isDoorSurface=source.name.includes("door-surface");
-    if (!isTintable && !isCountertop && !isDoorSurface && !ghost && !custom) return source;
+    if (!isTintable && !isCountertop && !isDoorSurface && !ghost && !custom && !isFrame) return source;
     const key = `${source.uniqueId}:${colorsKey}:${isTintable ? item.variant : "base"}:${isCountertop||isDoorSurface ? item.surfaceVariant??"warm-granite" : "none"}:${ghost ? "ghost" : "solid"}`;
     const cached = this.materialVariants.get(key);
     if (cached) return cached;
     const clone = source.clone(`model-${key}`);
     if (!clone) return source;
+    if(isFrame)clone.zOffset=-2;
     if (clone instanceof PBRMaterial) {
       if (isTintable) {
         const tint = variants[item.variant as keyof typeof variants] ?? variants.sage;

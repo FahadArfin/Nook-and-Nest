@@ -1,3 +1,4 @@
+import {correctLegacySinkHeight} from './domain';
 import {modernDefaultVariant, modernDefaultSurface} from './modernCollection';
 import {subtractWallCuts} from './wallCuts';
 import {geometryKey} from './blueprint';
@@ -99,7 +100,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   finishWall:(id,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?paintWallPlate(f,state.plan.gridSizeMm,id,finishId):f)})),
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
   setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
-  replacePlan: (plan) => set({ plan, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
+  replacePlan: (plan) => set({ plan:correctLegacySinkHeight(plan), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),
   setView: (mode) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, mode } })),
