@@ -1,3 +1,4 @@
+import {removeWallSections} from '../src/wallConstruction';
 import {snapRemovalPoint} from '../src/wallEditing';
 import { describe, expect, it, beforeEach } from "vitest";
 import { readFileSync } from "node:fs";
@@ -127,4 +128,28 @@ it('does not heal a deliberate cut back into a nearby corner',()=>{
  expect(snapRemovalPoint(corner,{x:10.2,z:.2},250)).toEqual({x:10,z:0});
  expect(snapRemovalPoint(corner,{x:9.8,z:4.7},250)).toEqual({x:10,z:5});
  expect(snapRemovalPoint(corner,{x:10.2,z:2},250)).toEqual({x:10,z:2});
+});
+
+// Rounded imported coordinates next to a full-precision edited remnant.
+const closetSegments=()=>[
+ {id:'closet-front',ax:5.5643,az:27.6247,bx:9.1404,bz:27.6247},
+ {id:'hall-remnant',ax:13.738506935480146,az:27.6246719160105,bx:14.366797900262467,bz:27.6246719160105}
+];
+it.each([false,true])('retains separated near-collinear walls in either orientation (%s)',vertical=>{
+ const p=plan();p.gridSizeMm=304.8;const f=p.floors[0];f.cells=[];
+ f.walls=closetSegments().map(w=>vertical?{id:w.id,ax:w.az,az:w.ax,bx:w.bz,bz:w.bx}:w);
+ const runs=wallRuns(f,p.gridSizeMm);
+ expect(runs).toHaveLength(2);
+ expect(runs[0].start).toBeCloseTo(1695.99864,4);expect(runs[0].end).toBeCloseTo(2785.99392,4);
+ expect(runs[1].start-runs[0].end).toBeGreaterThan(1400);
+ const door=snapWindow(p,item({catalogId:'door-closet-single',x:vertical?8420:2100,z:vertical?2100:8420,widthMm:600,heightMm:2050}));
+ expect(vertical?door.z:door.x).toBeCloseTo(2100);expect(windowProblem(p,door)).toBeUndefined();
+ const cut=removeWallSections(p,f.id,[f.walls[0]]);
+ expect(cut.floors[0].walls).toEqual([f.walls[1]]);expect(f.walls).toHaveLength(2);
+ expect(cut.floors[0].cells).toEqual(f.cells);
+});
+it('merges touching near-collinear spans in along-wall order, including a bridging span',()=>{
+ const p=plan(),f=p.floors[0];f.cells=[];
+ f.walls=[{id:'right',ax:8,az:4,bx:12,bz:4},{id:'left',ax:0,az:4.00002,bx:4,bz:4.00002},{id:'bridge',ax:4,az:4.00001,bx:8,bz:4.00001}];
+ expect(wallRuns(f,250)).toEqual([{horizontal:true,line:1000,start:0,end:3000}]);
 });
