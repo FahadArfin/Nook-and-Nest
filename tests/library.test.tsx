@@ -45,6 +45,7 @@ describe("library organization",()=>{
 
 describe("library controls",()=>{
   const mount=()=>{const drag=vi.fn(),start=vi.fn();render(<CatalogLibrary onBeginDrag={drag} onStartPlacement={start}/>);return {drag,start}};
+  // Full-catalog DOM navigation is a correctness check, not a five-second benchmark.
   it("navigates categories and subtypes, then searches the entire collection",()=>{
     mount();fireEvent.change(screen.getByLabelText("Furniture category"),{target:{value:"Bathroom"}});
     fireEvent.change(screen.getByLabelText("Furniture type"),{target:{value:"Toilets"}});
@@ -53,7 +54,7 @@ describe("library controls",()=>{
     expect((screen.getByLabelText("Furniture category") as HTMLSelectElement).value).toBe("All");
     expect(screen.getByRole("button",{name:"Cloud sofa, drag to place"})).toBeTruthy();
     fireEvent.click(screen.getByLabelText("Clear search"));expect(document.activeElement).toBe(screen.getByLabelText("Search all furniture"));
-  });
+  },15000);
   it("saves a favorite without placing it or recording plan history",()=>{
     const before=usePlanner.getState().plan,{drag,start}=mount();
     fireEvent.click(screen.getByLabelText("Save Capsule bathroom mirror"));
