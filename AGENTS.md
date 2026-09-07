@@ -181,3 +181,7 @@ Studio and presentation preference: retain unfinished per-floor Studio drafts in
 Mobile editor preference: support iPhone and Android with a full canvas, expandable Furniture/Edit panels, finger-sized controls and tap-to-place catalog cards. Two-finger pan/pinch must cancel unfinished editing gestures without committing accidental furniture or wall changes. Keep Center home beside zoom and preserve the current view mode.
 
 Toolbar preference: bottom dock contains Arrange, Paint tiles, Erase and Add wall only. Paint tiles opens a gently animated floor-finish tray with material and size choices. Wall visibility uses an eye icon; omit the clearance-guides toolbar button.
+
+Apartment reading collection: compact full and queen beds retain proper mattress dimensions while reducing frame bulk. Add small bedside tables and independently placeable lamps, shaped bath mats with genuine open fixture cutouts, varied original classic/photographic framed art, supportive reading seating and a slowly rotating globe. Shower glass must flip left/right without changing its footprint; save the choice and support undo. Globe rotation must respect reduced motion and pause while hidden.
+
+Everyday sectional preference: add normal Ashley-inspired L-shaped sofas with varied padded arm profiles, matte connected upholstery and left/right chaise choices, labeled as viewed from the front. Keep the compact tailored option distinct from deeper family sectionals.

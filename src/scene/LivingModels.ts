@@ -1,3 +1,5 @@
+import {Quaternion} from '@babylonjs/core/Maths/math.vector';
+import {globeAngle} from '../apartmentCollection';
 import {ShaderMaterial} from '@babylonjs/core/Materials/shaderMaterial';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import {Vector3} from '@babylonjs/core/Maths/math.vector';
@@ -58,6 +60,12 @@ export class LivingModels{
    const ripples=root.getDescendants(false).filter(n=>motionData(n).motion_role==='fountain_ripple'&&!motionData(n.parent).motion_role) as TransformNode[];
    const rest=ripples.map(node=>({node,scale:node.scaling.clone(),index:Number(motionData(node).motion_index)}));
    this.entries.set(root,time=>{for(const r of rest){const scale=1+.12*Math.sin(time*2-r.index*1.8);r.node.scaling.set(r.scale.x*scale,r.scale.y,r.scale.z*scale);}});
+  }
+  if(id==='library-rotating-globe'){
+   const parts=root.getDescendants(false).filter(n=>motionData(n).motion_role==='globe'&&motionData(n.parent).motion_role!=='globe') as TransformNode[];
+   const rest=parts.map(node=>({node,rotation:node.rotationQuaternion?.clone()??Quaternion.FromEulerVector(node.rotation)}));
+   const axis=new Vector3(Math.sin(23.4*Math.PI/180),Math.cos(23.4*Math.PI/180),0);
+   this.entries.set(root,time=>{for(const r of rest)r.node.rotationQuaternion=r.rotation.multiply(Quaternion.RotationAxis(axis,globeAngle(time)));});
   }
   if(id.endsWith('-aquarium')){
    const nodes=root.getDescendants(false).filter(n=>motionData(n).motion_role&&!motionData(n.parent).motion_role) as TransformNode[];

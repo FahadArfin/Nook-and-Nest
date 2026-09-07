@@ -1,10 +1,11 @@
+import apartment from './apartmentExpansion.json';
 import original from './cozyExpansion.json';
 import additions from './homeExpansion.json';
 import modern from './modernExpansion.json';
 import luxury from './luxuryExpansion.json';
 import appliances from './applianceExpansion.json';
 import studio from './studioExpansion.json';
-const data=[...original,...additions,...modern,...luxury,...appliances,...studio];
+const data=[...original,...additions,...modern,...luxury,...appliances,...studio,...apartment];
 import type {CatalogItem} from './types';
 export const cozyRows=data.map(r=>r.slice(0,8)) as Array<[string,string,CatalogItem['category'],number,number,number,CatalogItem['shape'],string]>;
 export const cozyMount=(id:string)=>data.find(r=>r[0]===id)?.[8];
