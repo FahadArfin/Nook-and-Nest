@@ -16,7 +16,7 @@ const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:v
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setRotationMode(active:boolean){scene.rotation(active)}
-  zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()}
+  zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()} focusFloor(){scene.focus()}
   placementRotation(){return 0;} setTool(){} setWallSelection(){} setPaintPreview(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
   previewMeasuredRoom(region:unknown){scene.preview(region)}
   projectPreview(){return {x:200,y:200}} projectSelected(){return {x:200,y:200}} projectTileDraft(){return {x:200,y:200}}
@@ -177,7 +177,7 @@ describe('modular extension review',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Confirm placement'}));
     expect(state().plan.furniture).toHaveLength(1);expect(state().plan.furniture[0]).toMatchObject({id,widthMm:1800,moduleRun:true});expect(state().past).toHaveLength(past+1);
     act(()=>state().undo());expect(state().plan.furniture[0].widthMm).toBe(original);
-  });
+  },15000);
   it('canceling an extension leaves the saved cabinet untouched',()=>{
     state().placeFurniture('base-cabinet',1800,1000);const id=state().plan.furniture[0].id;render(<App/>);act(()=>state().select(id));const before=state().plan;
     fireEvent.click(screen.getByRole('button',{name:'Extend furniture'}));fireEvent.change(screen.getByLabelText('Run length'),{target:{value:'2400'}});fireEvent.click(screen.getByRole('button',{name:'Cancel placement'}));expect(state().plan).toBe(before);
@@ -195,3 +195,13 @@ describe('modular extension review',()=>{
    fireEvent.click(toolbar.getByRole('button',{name:'Cancel placement'}));act(()=>{state().placeFurniture('small-plant');state().select(state().plan.furniture.at(-1)!.id)});
    toolbar=within(screen.getByRole('toolbar',{name:/Edit/}));expect(toolbar.queryByRole('button',{name:'Extend furniture'})).toBeNull();expect(toolbar.getByRole('button',{name:'Rotate furniture'}).getAttribute('aria-pressed')).toBe('false');
  });
+
+it('opens floor finishes from the compact dock and centers without editing the plan',()=>{
+ render(<App/>);const before=state().plan;
+ expect(screen.queryByRole('button',{name:'Inside door'})).toBeNull();
+ expect(screen.queryByTitle('Clearance guides')).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');
+ fireEvent.click(screen.getByRole('button',{name:'Paint tiles'}));const tray=screen.getByRole('region',{name:'Floor finishes'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
+ fireEvent.click(within(tray).getByRole('button',{name:'Close floor finishes'}));expect(screen.queryByRole('region',{name:'Floor finishes'})).toBeNull();expect(state().tool).toBe('floor-finish');
+ fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
+},15000);

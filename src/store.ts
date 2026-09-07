@@ -10,7 +10,7 @@ import { defaultCountertopFinish, defaultDoorFinish, supportsCountertopFinish } 
 import { addMeasuredRegion, measuredRegion, paintFloorCells, type MeasuredRegion } from "./floorGeometry";
 import { fitStair } from "./building";
 import { snapWindow, windowProblem } from "./windows";
-import { createBlankPlan, decodeShare, toggleCell, toggleCells, uid } from "./domain";
+import { createBlankPlan, encodeShare, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
 import { validatePlan } from "./planValidation";
 import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
@@ -126,7 +126,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
       ? [{ ...state.plan.floors[0], cells: [], walls: [], openings: [], stairs: [], ...(state.plan.floors[0].cellRects?{cellRects:{}}:{}), ...(state.plan.floors[0].cellFinishes?{cellFinishes:{}}:{}), ...(state.plan.floors[0].wallFinishes?{wallFinishes:{}}:{}) }]
       : state.plan.floors.filter(f => f.id !== targetId).map(f => ({ ...f, stairs: f.stairs.filter(stair => stair.toFloorId !== targetId) }));
     const activeFloorId = floors.some(f => f.id === state.activeFloorId) ? state.activeFloorId : floors[Math.max(0, index - 1)].id;
-    return { ...commit(state, { ...state.plan, floors, furniture: state.plan.furniture.filter(f => f.floorId !== targetId).map(f=>f.toFloorId===targetId?{...f,toFloorId:undefined}:f) }, null), activeFloorId, placementNotice: undefined };
+    return { ...commit(state, { ...state.plan, ...(state.plan.studioDrafts?{studioDrafts:Object.fromEntries(Object.entries(state.plan.studioDrafts).filter(([id])=>id!==targetId))}:{}), floors, furniture: state.plan.furniture.filter(f => f.floorId !== targetId).map(f=>f.toFloorId===targetId?{...f,toFloorId:undefined}:f) }, null), activeFloorId, placementNotice: undefined };
   }),
   renameFloor: (name) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, name } : f) })),
   paintCell: (x, z, present) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? paintFloorCells(f,[{x,z}],present) : f) })),
@@ -153,7 +153,7 @@ export async function savePlan(plan: PlanDocumentV1) { const db = await getDb();
 export async function listLocalPlans(): Promise<PlanDocumentV1[]> { const db=await getDb(); const all=await db.getAll("projects"); const map=new Map<string,PlanDocumentV1>(); for(const p of all)if(p?.schemaVersion===1&&p.id)map.set(p.id,p); return [...map.values()].sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)); }
 export async function getCloudRevision(owner:string,id:string):Promise<number> { return (await (await getDb()).get("projects",`cloud:${owner}:${id}`))??0; }
 export async function saveCloudRevision(owner:string,id:string,revision:number) { await (await getDb()).put("projects",revision,`cloud:${owner}:${id}`); }
-export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return decodeShare(hash); const db = await getDb(); return db.get("projects", "active"); }
+export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const share = new URLSearchParams(location.hash.slice(1)).get('share');if(share){if(!/^[a-f0-9]{32}$/.test(share))throw new Error('Invalid share link.');const response=await fetch('/api/shares/'+share);const data=await response.json();if(!response.ok)throw new Error(data.error);return decodeShare(encodeShare(data.plan));} const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return decodeShare(hash); const db = await getDb(); return db.get("projects", "active"); }
 
 export async function deleteLocalPlan(id: string) {
  const db=await getDb(),tx=db.transaction("projects","readwrite");

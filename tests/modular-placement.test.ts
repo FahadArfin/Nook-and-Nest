@@ -111,7 +111,7 @@ describe('modular placement regression',()=>{
 
  it('leaves ordinary right-drag to the camera, gates rotation, and cancels an unfinished turn',()=>{
   const {r,scene,dispose}=renderer();try{const p=setup(),base=piece(p,'base-cabinet',{z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.callbacks={onRotate:vi.fn()};r.camera.attachControl=vi.fn();r.camera.detachControl=vi.fn();r.bindPointers();
-   const send=(type:number,x:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,clientX:x,clientY:100,preventDefault:()=>{}},pickInfo:null} as any);
+   const send=(type:number,x:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:2,altKey:true,clientX:x,clientY:100,preventDefault:()=>{}},pickInfo:null} as any);
    send(PointerEventTypes.POINTERDOWN,0);send(PointerEventTypes.POINTERMOVE,100);expect(r.rotationDrag).toBeUndefined();expect(r.selectedNode.rotation.y).toBe(0);expect(r.camera.detachControl).not.toHaveBeenCalled();
    r.setRotationMode(true);scene.updateTransformMatrix(true);r.updateEditingGuides(0);expect(r.rotationGuide.isEnabled()).toBe(true);send(PointerEventTypes.POINTERDOWN,0);send(PointerEventTypes.POINTERMOVE,100);expect(r.selectedNode.rotation.y).not.toBe(0);
    r.setRotationMode(false);expect(r.selectedNode.rotation.y).toBe(0);expect(r.rotationGuide.isEnabled()).toBe(false);expect(r.callbacks.onRotate).not.toHaveBeenCalled();expect(r.camera.detachControl).not.toHaveBeenCalled();

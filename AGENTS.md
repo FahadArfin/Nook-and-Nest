@@ -175,3 +175,9 @@ New furnishing preference: start newly placed furniture in soft white rather tha
 
 Saving feedback preference: keep a visible Save control and an explicit on-device autosave status. Only confirm saving after storage succeeds; offer retry, a downloadable backup and an explicit online-save path without implying local autosave is a cloud save.
 Floor plan room editor preference: show Width and Depth only, defaulting to separate feet and inches fields with an optional Metric button. Move rooms by dragging the drawing; do not expose Left/Top coordinates in the room details. Unit switches must never resize the geometry.
+
+Studio and presentation preference: retain unfinished per-floor Studio drafts in device and online project saves; keep reference files device-local. Top-view object selection must never automatically zoom or pan. Rotation should stick at 45-degree multiples with a free-rotation override. Share short immutable snapshots of the confirmed home, excluding private Studio drafts. Preview beside Save offers a slideshow, optional gentle orbit, picture downloads, and restores editor framing on exit.
+
+Mobile editor preference: support iPhone and Android with a full canvas, expandable Furniture/Edit panels, finger-sized controls and tap-to-place catalog cards. Two-finger pan/pinch must cancel unfinished editing gestures without committing accidental furniture or wall changes. Keep Center home beside zoom and preserve the current view mode.
+
+Toolbar preference: bottom dock contains Arrange, Paint tiles, Erase and Add wall only. Paint tiles opens a gently animated floor-finish tray with material and size choices. Wall visibility uses an eye icon; omit the clearance-guides toolbar button.

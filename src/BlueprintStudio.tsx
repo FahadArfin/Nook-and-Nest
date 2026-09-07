@@ -1,3 +1,7 @@
+import {bindTouchNavigation} from "./touchNavigation";
+import {saveStudioReference,loadStudioReference} from './studioReference';
+import {savePlan,getCloudRevision,saveCloudRevision} from './store';
+import {cloudSession,saveCloudProject} from './cloudProjects';
 import {RoomDimensions} from './RoomDimensions';
 import {subtractWallCuts} from './wallCuts';
 import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react';
@@ -29,11 +33,11 @@ function LengthField({label,value,factor,onChange}:{label:string;value:number;fa
 export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?:()=>void}) {
   const appearance=useAppearance();
   const savedDark=usePlanner(s=>!!s.plan.camera.darkMode);
-  const [base]=useState(()=>usePlanner.getState().plan),[floorId]=useState(()=>usePlanner.getState().activeFloorId);
-  const [initial]=useState(()=>draftFromFloor(base,floorId));
+  const [base,setBase]=useState(()=>usePlanner.getState().plan),[floorId]=useState(()=>usePlanner.getState().activeFloorId);
+  const [initial]=useState(()=>base.studioDrafts?.[floorId]?.draft??draftFromFloor(base,floorId));
   const [draft,setDraft]=useState<BlueprintDraft>(initial),[past,setPast]=useState<BlueprintDraft[]>([]),[future,setFuture]=useState<BlueprintDraft[]>([]);
   const [mode,setMode]=useState<Mode>('select'),[kind,setKind]=useState<RoomKind>('Living'),[selected,setSelected]=useState<string>(),[review,setReview]=useState(false),[checked,setChecked]=useState(false);
-  const [reference,setReference]=useState<PlanReference>(),[file,setFile]=useState<File>(),[page,setPage]=useState(1),[rotation,setRotation]=useState(0),[loading,setLoading]=useState(false),[opacity,setOpacity]=useState(.65),[imageScale,setImageScale]=useState(10),[calibrated,setCalibrated]=useState(false);
+  const [reference,setReference]=useState<PlanReference>(),[file,setFile]=useState<File>(),[page,setPage]=useState(1),[rotation,setRotation]=useState(0),[loading,setLoading]=useState(false),[opacity,setOpacity]=useState(.65),[imageScale,setImageScale]=useState(base.studioDrafts?.[floorId]?.imageScale??10),[calibrated,setCalibrated]=useState(base.studioDrafts?.[floorId]?.calibrated??false);
   const [workStage,setWorkStage]=useState('Opening file'),[elapsed,setElapsed]=useState(0);
   useEffect(()=>{if(!loading)return;setElapsed(0);const started=Date.now(),timer=window.setInterval(()=>setElapsed(Math.floor((Date.now()-started)/1000)),1000);return()=>clearInterval(timer);},[loading]);
   const [guidance,setGuidance]=useState('');
@@ -50,9 +54,14 @@ export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?
   const analysisAbort=useRef<AbortController | undefined>(undefined);
   const [scaleLine,setScaleLine]=useState<{a:Point;b:Point}>(),[knownLength,setKnownLength]=useState(''),[fixtureId,setFixtureId]=useState('washer');
   const [entrance,setEntrance]=useState(false);
-  const [view,setView]=useState({x:-500,z:-500,width:14000,height:11000}),[cursor,setCursor]=useState<Point>();
+  const [view,setView]=useState(base.studioDrafts?.[floorId]?.view??{x:-500,z:-500,width:14000,height:11000}),[cursor,setCursor]=useState<Point>();
   const [gesture,setGesture]=useState<{a:Point;b:Point;before:BlueprintDraft;selected?:string;handle?:string;wholeRoom?:boolean;mode:Mode;view:typeof view}>();
   const svgRef=useRef<SVGSVGElement>(null),dialogRef=useRef<HTMLDialogElement>(null),loadGeneration=useRef(0),uploadRef=useRef<HTMLInputElement>(null);
+  const touchState=useRef({gesture,loading,review});touchState.current={gesture,loading,review};
+  useEffect(()=>{const svg=svgRef.current;if(!svg)return;
+    const cancel=()=>{const g=touchState.current.gesture;if(g)setDraft(g.before);setGesture(undefined);setSnapped(false)};
+    return bindTouchNavigation(svg,{begin:cancel,cancel,end:()=>{},move:(dx,dy,ratio)=>{if(touchState.current.loading||touchState.current.review)return;const box=svg.getBoundingClientRect();setView(v=>{const pixelScale=Math.min(box.width/v.width,box.height/v.height);if(!pixelScale)return v;const scale=Math.max(500,Math.min(100000,v.width*ratio))/v.width;return {x:v.x-dx/pixelScale+v.width*(1-scale)/2,z:v.z-dy/pixelScale+v.height*(1-scale)/2,width:v.width*scale,height:v.height*scale}})}});
+  },[]);
   const handleSize=24/Math.max(.00001,Math.min((svgRef.current?.clientWidth||700)/view.width,(svgRef.current?.clientHeight||700)/view.height));
   const factor=unit==='m'?1000:unit==='ft'?304.8:1;
   const floorName=base.floors.find(f=>f.id===floorId)!.name;
@@ -78,8 +87,23 @@ export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?
     if(!xs.length){setView({x:-500,z:-500,width:14000,height:11000});return;}
     const x=Math.min(...xs)-500,z=Math.min(...zs)-500;setView({x,z,width:Math.max(2000,Math.max(...xs)-x+500),height:Math.max(2000,Math.max(...zs)-z+500)});
   };
-  useEffect(()=>{fit();},[]);
-  const close=()=>{if((past.length||reference)&&!window.confirm('Discard this unconfirmed floor-plan draft? Your 3D home has not changed.'))return;onClose();};
+  useEffect(()=>{if(!base.studioDrafts?.[floorId])fit();},[]);
+  const [savingDraft,setSavingDraft]=useState(false),[savedDraft,setSavedDraft]=useState<BlueprintDraft|undefined>(base.studioDrafts?.[floorId]?.draft);
+  const [referenceLoading,setReferenceLoading]=useState(!!base.studioDrafts?.[floorId]);
+  const [draftSaveStatus,setDraftSaveStatus]=useState(base.studioDrafts?.[floorId]?'Saved draft resumed':'');
+  useEffect(()=>{let active=true;if(base.studioDrafts?.[floorId])loadStudioReference(base.id,floorId).then(r=>{if(active&&r){setReference(r.reference);setFile(r.file);setPage(r.page);setRotation(r.rotation);}}).catch(()=>{if(active)setNotice('Draft restored. Reimport the reference image if needed.');}).finally(()=>{if(active)setReferenceLoading(false)});return()=>{active=false};},[]);
+  const saveDraft=async(online=false)=>{
+    if(savingDraft||stale||referenceLoading)return;setSavingDraft(true);setError('');
+    const snapshot=draft;
+    const next={...base,updatedAt:new Date().toISOString(),studioDrafts:{...base.studioDrafts,[floorId]:{draft:snapshot,savedAt:new Date().toISOString(),imageScale,calibrated,view}}};
+    try{
+      await saveStudioReference(base.id,floorId,{reference,file,page,rotation});await savePlan(next);
+      if(usePlanner.getState().plan!==base)throw new Error('The home changed while saving. Reopen Studio before continuing.');
+      usePlanner.setState({plan:next});setBase(next);setSavedDraft(snapshot);setDraftSaveStatus('Draft saved on this device');
+      if(online){const session=await cloudSession();if(!session.userId)throw new Error('Draft saved on this device. Sign in through Project to save online.');const expected=await getCloudRevision(session.userId,next.id);const result=await saveCloudProject(next,expected);await saveCloudRevision(session.userId,next.id,result.revision);setDraftSaveStatus('Draft saved online - reference stays on this device');}
+    }catch(e){setError((e as Error).message);}finally{setSavingDraft(false);}
+  };
+  const close=()=>{if(savingDraft)return;if(draft!==savedDraft&&(past.length||reference)&&!window.confirm('Close without saving your latest studio edits? Use Save draft to keep them. Your 3D home has not changed.'))return;onClose();};
   async function load(nextFile:File,nextPage=1,nextRotation=0,force=false) {
     setMenu(undefined);setPendingScale(undefined);setFile(nextFile);setPage(nextPage);setRotation(nextRotation);
     analysisAbort.current?.abort();const controller=new AbortController();analysisAbort.current=controller;
@@ -171,9 +195,10 @@ export function BlueprintStudio({onClose,onCreated}:{onClose:()=>void;onCreated?
     return <button key={item.label} aria-label={`Place ${item.label}`} title={`Drag ${item.label} onto plan`} onPointerDown={e=>{if(e.button!==0)return;skipPaletteClick.current=false;paletteStart.current={x:e.clientX,y:e.clientY};e.currentTarget.setPointerCapture?.(e.pointerId);}} onPointerMove={e=>{const start=paletteStart.current;if(!start||Math.hypot(e.clientX-start.x,e.clientY-start.y)<5)return;const bounds=svgRef.current!.getBoundingClientRect();if(e.clientX>=bounds.left&&e.clientX<=bounds.right&&e.clientY>=bounds.top&&e.clientY<=bounds.bottom)setPalettePreview({...item,...point(e)});else setPalettePreview(undefined);}} onPointerUp={e=>{const start=paletteStart.current;paletteStart.current=undefined;if(!start||Math.hypot(e.clientX-start.x,e.clientY-start.y)<5)return;skipPaletteClick.current=true;const bounds=svgRef.current!.getBoundingClientRect();if(e.clientX>=bounds.left&&e.clientX<=bounds.right&&e.clientY>=bounds.top&&e.clientY<=bounds.bottom)placeItem(item.id,item.doorless,point(e));setPalettePreview(undefined);}} onPointerCancel={()=>{paletteStart.current=undefined;setPalettePreview(undefined);}} onClick={()=>{if(skipPaletteClick.current){skipPaletteClick.current=false;return;}setFixtureId(item.id);setEntrance(!!item.doorless);setMode('fixture');setPalette(undefined);}}><BlueprintSymbol symbol={item.symbol} width={38} height={38}/><span>{item.label}</span></button>;
   }
   const zoom=(amount:number)=>setView(v=>{const width=Math.max(1500,Math.min(150000,v.width*amount)),height=v.height*width/v.width;return {x:v.x+(v.width-width)/2,z:v.z+(v.height-height)/2,width,height};});
-  const apply=()=>{if(!plan||stale||problems.length)return;try{usePlanner.getState().commitDesign(base,plan);onCreated?.();onClose();}catch(e){setError((e as Error).message);}};
+  const apply=()=>{if(!plan||stale||problems.length)return;try{usePlanner.getState().commitDesign(base,{...plan,studioDrafts:{...base.studioDrafts,[floorId]:{draft,savedAt:new Date().toISOString(),imageScale,calibrated,view}}});void saveStudioReference(base.id,floorId,{reference,file,page,rotation}).catch(()=>{});onCreated?.();onClose();}catch(e){setError((e as Error).message);}};
   return <dialog ref={dialogRef} className="blueprint-dialog" data-theme={(appearance?.dark??savedDark)?'dark':'light'} aria-labelledby="blueprint-title" onCancel={e=>{e.preventDefault();if(menu||palette||mode!=='select'){setMenu(undefined);setPalette(undefined);setMode('select');setCombineIds([]);}else close();}} onKeyDown={e=>{e.stopPropagation();if((e.key==='Delete'||e.key==='Backspace')&&!(e.target as Element).closest('input,select,textarea')&&!review){e.preventDefault();remove();}}}>
-    <header className="bp-header"><div><span className="eyebrow">{floorName} · unsaved draft</span><h1 id="blueprint-title">Floor plan studio</h1></div><nav className="bp-menus" aria-label="Studio menus"><button disabled={loading||review} aria-expanded={menu==='file'} onClick={()=>setMenu(menu==='file'?undefined:'file')}>File</button><button aria-expanded={menu==='view'} onClick={()=>setMenu(menu==='view'?undefined:'view')}>View</button></nav><button disabled={loading||review||!file} title={file?"Run a fresh Astra analysis, bypassing saved results":"Import a PDF or image first"} onClick={()=>{if(file&&window.confirm("Run a fresh analysis? This uses Astra again and may incur an API charge. It replaces the studio drawing on success; Undo restores your edits."))void load(file,page,rotation,true);}}><ArrowClockwise size={18}/> Reanalyze</button><button onClick={close} aria-label="Close floor plan studio"><X size={22}/></button></header>
+    <header className="bp-header"><div><span className="eyebrow">{floorName} · {draft===savedDraft?'saved draft':'unsaved draft'}</span><h1 id="blueprint-title">Floor plan studio</h1></div><nav className="bp-menus" aria-label="Studio menus"><button disabled={loading||review} aria-expanded={menu==='file'} onClick={()=>setMenu(menu==='file'?undefined:'file')}>File</button><button aria-expanded={menu==='view'} onClick={()=>setMenu(menu==='view'?undefined:'view')}>View</button></nav><button disabled={loading||review||!file} title={file?"Run a fresh Astra analysis, bypassing saved results":"Import a PDF or image first"} onClick={()=>{if(file&&window.confirm("Run a fresh analysis? This uses Astra again and may incur an API charge. It replaces the studio drawing on success; Undo restores your edits."))void load(file,page,rotation,true);}}><ArrowClockwise size={18}/> Reanalyze</button><button disabled={savingDraft||loading||stale||referenceLoading} onClick={()=>void saveDraft()}>Save draft</button><button disabled={savingDraft||loading||stale||referenceLoading} onClick={()=>void saveDraft(true)}>Save draft online</button><button onClick={close} aria-label="Close floor plan studio"><X size={22}/></button></header>
+    {draftSaveStatus&&<p className="bp-save-status" role="status">{draftSaveStatus}. Reopen this project → Floor plan to continue editing.</p>}
     <div className="bp-file-menu" hidden={menu!=='file'}><button disabled={loading} onClick={()=>{uploadRef.current?.click();setMenu(undefined);}}><FileArrowUp/> Import PDF or image…</button><small>New scans use online analysis and may incur an API charge. Cached scans are reused.</small><details className="bp-scan-guidance"><summary>Analysis guidance (optional)</summary><label>Tell Astra about this layout<textarea aria-label="Analysis guidance" maxLength={1500} rows={4} value={guidance} disabled={loading} onChange={e=>setGuidance(e.target.value)} placeholder="Example: The hallway stays left of the bedroom closets. The small room below the bathroom is laundry."/></label><small>Used on your next import or Reanalyze. Describe room boundaries, names or corrections; dimensions still need review.</small></details><input hidden ref={uploadRef} type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" aria-label="Upload floor plan reference" onChange={e=>{const f=e.target.files?.[0];e.target.value='';if(!f)return;if(draft.rooms.length&&!window.confirm('Analyze a new floor plan from this file? This replaces only the unconfirmed drawing; your 3D home is unchanged.'))return;void load(f);}}/>
         <div className="bp-button-row"><button onClick={()=>{if(draft.rooms.length&&!window.confirm('Clear this unconfirmed drawing?'))return;commit(emptyDraft());setSelected(undefined);setReview(false);fit([]);}}>Blank drawing</button><button onClick={()=>{if(past.length&&!window.confirm('Replace the draft with the current 3D floor?'))return;commit(draftFromFloor(base,floorId));setReference(undefined);setFile(undefined);setSelected(undefined);fit(initial.rooms,undefined);}}>Use current floor</button></div>
 <button onClick={()=>setNotice(clearRecognitionCache()?'Saved analyses cleared. Future imports may incur a charge.':'Could not clear cache.')}>Clear saved analyses</button></div>
