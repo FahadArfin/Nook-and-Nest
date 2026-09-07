@@ -120,7 +120,8 @@ export function blueprintPlan(base:PlanDocumentV1,floorId:string,draft:Blueprint
   const original=base.floors.find(f=>f.id===floorId);if(!original)throw new Error('This floor no longer exists.');
   const floor=floorFromRooms(original,base.gridSizeMm,draft.rooms);
   const generated=cutBlueprintWalls(roomDividers(floor,base.gridSizeMm,draft.rooms),draft.wallCuts??[]);
-  const walls=[...generated,...cutBlueprintWalls(draft.walls,draft.wallCuts??[])].filter(w=>!draft.omittedWalls.includes(w.id));
+  // Explicit Studio replacements may occupy a span removed from generated room boundaries.
+  const walls=[...generated,...draft.walls.flatMap(w=>w.id.startsWith("edited:")?[w]:cutBlueprintWalls([w],draft.wallCuts??[]))].filter(w=>!draft.omittedWalls.includes(w.id));
   const seen=new Set<string>();floor.walls=walls.filter(w=>{const points=[`${w.ax},${w.az}`,`${w.bx},${w.bz}`].sort().join(':');if(seen.has(points))return false;seen.add(points);return true;});
   floor.wallCuts=structuredClone(draft.wallCuts??[]);
   floor.blueprint={rooms:structuredClone(draft.rooms),geometryKey:geometryKey(floor),generatedWallIds:generated.map(w=>w.id),wallCuts:structuredClone(draft.wallCuts??[]),omittedWalls:[...draft.omittedWalls]};

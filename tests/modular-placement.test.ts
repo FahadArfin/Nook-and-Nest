@@ -1,3 +1,4 @@
+import {removeWallSections} from '../src/wallConstruction';
 // @vitest-environment jsdom
 import {describe,it,expect,vi} from 'vitest';
 import {PointerEventTypes} from '@babylonjs/core/Events/pointerEvents';
@@ -134,4 +135,17 @@ it('switches neutral lighting without rebuilding walls, changing camera framing,
  expect(scene.meshes).toEqual(meshes);expect(r.camera.radius).toBe(radius);expect(p.camera.darkMode).toBeUndefined();
  r.setPaintPreview(false,[]);expect(scene.imageProcessingConfiguration.exposure).toBe(.72);expect(scene.meshes).toEqual(meshes);
  }finally{dispose()}
+});
+
+it('projects a removal gesture at its clicked wall height and locks its preview to that wall',()=>{
+ const {r,scene,dispose}=renderer();try{
+  const p=setup();r.activePlan=p;r.activeFloorId=p.floors[0].id;r.tool='wall-cut';r.wallSnapMarkers=[];
+  r.cutPointerY=1.2;r.cutTarget={id:'hall',ax:2.3,az:3.4,bx:8.3,bz:3.4};
+  vi.spyOn(scene,'createPickingRay').mockReturnValue({origin:new Vector3(1,3,1),direction:new Vector3(0,-1,1)} as any);
+  const point=r.wallPointAtPointer(100,100);expect(point.z).toBeCloseTo(2800/p.gridSizeMm);
+  r.renderWallDraft({x:2.3,z:3.4},{x:8,z:15});
+  expect(r.wallDraft).toEqual({ax:2.3,az:3.4,bx:8,bz:3.4});
+  const cut=removeWallSections({...p,floors:[{...p.floors[0],walls:[r.cutTarget]}]},r.activeFloorId,[r.wallDraft]);
+  expect(cut.floors[0].walls[0].ax).toBe(8);
+ }finally{dispose();}
 });
