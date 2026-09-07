@@ -172,3 +172,5 @@ Studio wall editing: show all analyzed interior and boundary wall segments as ye
 Wall deletion must preserve continuous supporting floor geometry and tile mesh reuse. Intentional cuts must remain open at corners, and the removal tool must be able to pick visible walls while hidden walls remain excluded. Snap near-end removal drags to the same wall endpoint to prevent residual slivers.
 
 New furnishing preference: start newly placed furniture in soft white rather than sage green. Preserve saved colors and independent material overrides. Lighting fixtures should cast bounded warm light into the room. Breakfast tables and matching chairs remain separate editable pieces.
+
+Saving feedback preference: keep a visible Save control and an explicit on-device autosave status. Only confirm saving after storage succeeds; offer retry, a downloadable backup and an explicit online-save path without implying local autosave is a cloud save.

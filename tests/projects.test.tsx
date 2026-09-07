@@ -76,3 +76,35 @@ it("opens older online versions as a separate project without replacing the orig
   expect((await listLocalPlans()).some(p=>p.id===before.id)).toBe(true);
   expect(await getCloudRevision("history-user",loaded.id)).toBe(0);
 });
+import {SaveControl} from '../src/SaveControl';
+it('only confirms autosave after storage succeeds and offers explicit save destinations',async()=>{
+ const plan=createSamplePlan('Save status');let finish!:()=>void;
+ const persist=vi.fn(()=>new Promise<void>(resolve=>{finish=resolve;}));const projects=vi.fn();
+ render(<SaveControl plan={plan} onProjects={projects} persist={persist}/>);
+ expect(screen.getByRole('status').textContent).toContain('Saving on this device');
+ await waitFor(()=>expect(persist).toHaveBeenCalledOnce());finish();
+ await waitFor(()=>expect(screen.getByRole('status').textContent).toContain('Autosaved on this device'));
+ fireEvent.click(screen.getByText('Save', {exact:true}));
+ expect(screen.getByText(/Last saved at/)).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:/Save online/}));expect(projects).toHaveBeenCalledOnce();
+ fireEvent.keyDown(window,{key:'s',ctrlKey:true});expect(persist).toHaveBeenCalledTimes(2);finish();
+});
+it('shows a storage failure and lets the user retry without claiming success',async()=>{
+ const persist=vi.fn().mockRejectedValueOnce(new Error('quota')).mockResolvedValue(undefined);
+ render(<SaveControl plan={createSamplePlan('Retry')} onProjects={()=>{}} persist={persist}/>);
+ await waitFor(()=>expect(screen.getByRole('status').textContent).toContain('Save failed'));
+ fireEvent.click(screen.getByText('Save',{exact:true}));
+ expect(screen.getByRole('alert').textContent).toContain('could not save');
+ fireEvent.click(screen.getByRole('button',{name:/Retry saving/}));
+ await waitFor(()=>expect(screen.getByRole('status').textContent).toContain('Autosaved'));
+});
+it('does not mark a newer edit saved when an older write finishes',async()=>{
+ let finish!:()=>void;const persist=vi.fn(()=>new Promise<void>(resolve=>{finish=resolve;}));const plan=createSamplePlan('Before');
+ const view=render(<SaveControl plan={plan} onProjects={()=>{}} persist={persist}/>);
+ await waitFor(()=>expect(persist).toHaveBeenCalledOnce());
+ view.rerender(<SaveControl plan={{...plan,name:'After'}} onProjects={()=>{}} persist={persist}/>);finish();
+ expect(screen.getByRole('status').textContent).toContain('Saving');
+ await waitFor(()=>expect(persist).toHaveBeenCalledTimes(2));finish();
+ await waitFor(()=>expect(screen.getByRole('status').textContent).toContain('Autosaved'));
+});
+
