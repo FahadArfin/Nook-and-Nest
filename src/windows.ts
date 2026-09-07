@@ -61,6 +61,8 @@ export function snapWindow(plan:PlanDocumentV1,item:FurniturePlacement, allowedR
   return {...item,x:nearest.x,z:nearest.z,rotation:nearest.rotation,elevationMm:isDoor(item.catalogId)?0:Math.round(Math.max(item.catalogId==="window-solarium"?0:100,Math.min(item.elevationMm??defaultMountHeight(item.catalogId)??850,floor.heightMm-item.heightMm-(item.catalogId==="window-solarium"?25:100))))};
 }
 const angleDistance=(a:number,b:number)=>Math.abs(((a-b+540)%360)-180);
+// An opening on a perpendicular wall is not part of this wall's occupied span.
+const alignedOpening=(item:FurniturePlacement,horizontal:boolean)=>Math.abs(Math.sin((item.rotation-(horizontal?0:90))*Math.PI/180))<.001;
 export const windowRotation=(item:FurniturePlacement,step:number)=>((item.rotation+(isWallOpening(item.catalogId)||isKitchenWall(item.catalogId)?Math.sign(step)*180:isStairs(item.catalogId)?Math.sign(step)*90:step))+360)%360;
 
 export function windowProblem(plan:PlanDocumentV1,item:FurniturePlacement):string|undefined {
@@ -73,7 +75,7 @@ export function windowProblem(plan:PlanDocumentV1,item:FurniturePlacement):strin
     if(!horizontal&&Math.abs(Math.cos(angle))>.001)return "Align this piece with a wall.";
     const along=horizontal?item.x:item.z,back=(horizontal?item.z:item.x)-(item.depthMm/2+51)*(horizontal?Math.cos(angle):Math.sin(angle));
     if(!wallRuns(floor,plan.gridSizeMm).some(r=>r.horizontal===horizontal&&Math.abs(r.line-back)<1&&along-item.widthMm/2>=r.start-.01&&along+item.widthMm/2<=r.end+.01))return "No wall long enough here. Add a wall or reduce this piece's width.";
-    if(!windowTreatmentIds.has(item.catalogId)&&plan.furniture.some(o=>o.floorId===item.floorId&&isWallOpening(o.catalogId)&&Math.abs((horizontal?o.z:o.x)-back)<1&&Math.abs((horizontal?o.x:o.z)-along)<(item.widthMm+o.widthMm)/2&&bottom+50<(o.elevationMm??0)+o.heightMm&&bottom+50+item.heightMm>(o.elevationMm??0)))return "This covers a door or window. Move it, or use smaller panels around the opening.";
+    if(!windowTreatmentIds.has(item.catalogId)&&plan.furniture.some(o=>o.floorId===item.floorId&&isWallOpening(o.catalogId)&&alignedOpening(o,horizontal)&&Math.abs((horizontal?o.z:o.x)-back)<1&&Math.abs((horizontal?o.x:o.z)-along)<(item.widthMm+o.widthMm)/2&&bottom+50<(o.elevationMm??0)+o.heightMm&&bottom+50+item.heightMm>(o.elevationMm??0)))return "This covers a door or window. Move it, or use smaller panels around the opening.";
     return;
   }
   if(!isWallOpening(item.catalogId))return;
@@ -88,7 +90,7 @@ export function windowProblem(plan:PlanDocumentV1,item:FurniturePlacement):strin
   if(!fits)return "No wall long enough here. Add a wall or reduce the opening width.";
   const bottom=isDoor(item.catalogId)?0:item.elevationMm??850;
   if((!isDoor(item.catalogId)&&bottom<(item.catalogId==="window-solarium"?0:100))||bottom+item.heightMm>floor.heightMm-(isDoor(item.catalogId)||item.catalogId==="window-solarium"?24:99))return "Keep the window between the floor and ceiling.";
-  const overlaps=plan.furniture.some(other=>other.id!==item.id&&other.floorId===item.floorId&&isWallOpening(other.catalogId)&&Math.abs((horizontal?other.z:other.x)-line)<1&&Math.abs((horizontal?other.x:other.z)-along)<(other.widthMm+item.widthMm)/2+30&&bottom<(other.elevationMm??850)+other.heightMm&&bottom+item.heightMm>(other.elevationMm??850));
+  const overlaps=plan.furniture.some(other=>other.id!==item.id&&other.floorId===item.floorId&&isWallOpening(other.catalogId)&&alignedOpening(other,horizontal)&&Math.abs((horizontal?other.z:other.x)-line)<1&&Math.abs((horizontal?other.x:other.z)-along)<(other.widthMm+item.widthMm)/2+30&&bottom<(other.elevationMm??850)+other.heightMm&&bottom+item.heightMm>(other.elevationMm??850));
   if(overlaps)return "This overlaps another door or window. Move it along the wall.";
 }
 
