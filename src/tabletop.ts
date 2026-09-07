@@ -47,7 +47,7 @@ export function tabletopPoint(plan:PlanDocumentV1,item:FurniturePlacement,origin
     }
     if(Math.abs(localX)+halfW>table.widthMm/2||localZ-halfD< -table.depthMm/2||localZ+halfD>table.depthMm/2-frontInset)return [];
     // Round/oval coffee tables need an ellipse containment check at each corner.
-    if(modernRoundTopIds.has(table.catalogId)||['pedestal-dining-table','patio-bistro-table','pedestal-nightstand','drum-coffee-table','oval-coffee-table','round-table','side-table'].includes(table.catalogId)){
+    if(modernRoundTopIds.has(table.catalogId)||['apartment-bedside-round-pedestal','pedestal-dining-table','patio-bistro-table','pedestal-nightstand','drum-coffee-table','oval-coffee-table','round-table','side-table'].includes(table.catalogId)){
       if(((Math.abs(localX)+halfW)/(table.widthMm/2))**2+((Math.abs(localZ)+halfD)/(table.depthMm/2))**2>1)return [];
     }
     return [{x:table.x+localX*Math.cos(angle)+localZ*Math.sin(angle),z:table.z-localX*Math.sin(angle)+localZ*Math.cos(angle),rotation,elevationMm,distance}];

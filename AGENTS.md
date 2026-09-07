@@ -175,3 +175,7 @@ New furnishing preference: start newly placed furniture in soft white rather tha
 
 Saving feedback preference: keep a visible Save control and an explicit on-device autosave status. Only confirm saving after storage succeeds; offer retry, a downloadable backup and an explicit online-save path without implying local autosave is a cloud save.
 Floor plan room editor preference: show Width and Depth only, defaulting to separate feet and inches fields with an optional Metric button. Move rooms by dragging the drawing; do not expose Left/Top coordinates in the room details. Unit switches must never resize the geometry.
+
+Apartment reading collection: compact full and queen beds retain proper mattress dimensions while reducing frame bulk. Add small bedside tables and independently placeable lamps, shaped bath mats with genuine open fixture cutouts, varied original classic/photographic framed art, supportive reading seating and a slowly rotating globe. Shower glass must flip left/right without changing its footprint; save the choice and support undo. Globe rotation must respect reduced motion and pause while hidden.
+
+Everyday sectional preference: add normal Ashley-inspired L-shaped sofas with varied padded arm profiles, matte connected upholstery and left/right chaise choices, labeled as viewed from the front. Keep the compact tailored option distinct from deeper family sectionals.

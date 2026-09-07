@@ -1,3 +1,4 @@
+import {showerScaleX} from '../apartmentCollection';
 import { FurnitureLights } from './FurnitureLights';
 import {snapRemovalPoint} from '../wallEditing';
 import {joinedWallSpan} from '../architectureSurfaces';
@@ -476,7 +477,7 @@ export class SceneController {
     if(!preview)this.furnitureNodes.set(item.id,{node,signature:JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0})}); if(!preview&&!ghost&&item.id===this.selectedId)this.selectedNode=node;
     const w=item.widthMm/1000,d=item.depthMm/1000,h=item.heightMm/1000;
     if(!(isDoor(item.catalogId)&&item.doorless))for(const segment of moduleSegments(item)){
-      const part=new TransformNode(`module:${item.id}`,this.scene);part.parent=node;part.position.x=segment.offset/1000;
+      const part=new TransformNode(`module:${item.id}`,this.scene);part.parent=node;part.position.x=segment.offset/1000;part.scaling.x=showerScaleX(item);
       if(!this.furnitureModels.build(part,def,item,segment.width/1000,d,h,ghost))this.furnitureFactory.build(part,def,item,segment.width/1000,d,h,ghost);
     }
     if (!preview && isWallOpening(item.catalogId)) {

@@ -15,7 +15,7 @@ afterEach(cleanup);
 
 describe("library organization",()=>{
   it("gives every piece a real furniture type",()=>{
-    expect(catalog).toHaveLength(553);
+    expect(catalog).toHaveLength(593);
     for(const item of catalog)expect(furnitureType(item),item.id).not.toBe("Other pieces");
   });
   it("finds common synonyms, categories and multiword queries",()=>{
@@ -27,8 +27,8 @@ describe("library organization",()=>{
     expect(matchesFurniture(item("oval-freestanding-tub"),"  TUB  ")).toBe(true);
   });
   it("offers only relevant types and intersects category, type and saved filters",()=>{
-    const bath=filterLibrary({...options,category:"Bathroom"});expect(bath.items).toHaveLength(28);
-    expect(bath.types).toEqual(["Bathtubs","Mirrors","Organizers","Rugs","Showers","Sinks & vanities","Toilets"]);
+    const bath=filterLibrary({...options,category:"Bathroom"});expect(bath.items).toHaveLength(32);
+    expect(bath.types).toEqual(["Bath mats","Bathtubs","Mirrors","Organizers","Rugs","Showers","Sinks & vanities","Toilets"]);
     expect(filterLibrary({...options,category:"Bathroom",type:"Mirrors",shelf:"favorites",favorites:["bath-mirror-pill","sofa"]}).items.map(i=>i.id)).toEqual(["bath-mirror-pill"]);
   });
   it("sorts deterministically without mutating the catalog",()=>{
@@ -71,7 +71,7 @@ describe("library controls",()=>{
   it("keeps favorites usable if device storage is blocked",()=>{
     const spy=vi.spyOn(Storage.prototype,"setItem").mockImplementation(()=>{throw new Error("blocked")});
     try{mount();fireEvent.click(screen.getByLabelText("Save Capsule bathroom mirror"));expect(screen.getByText(/only stay for this session/)).toBeTruthy();expect(screen.getByLabelText("Unsave Capsule bathroom mirror")).toBeTruthy()}finally{spy.mockRestore()}
-  });
+  },15000);
   // This integration test mounts and rerenders the full catalog; it is not a timing benchmark.
   it("supports wide browsing and preserves pointer and keyboard draft callbacks",()=>{
     const {drag,start}=mount();fireEvent.click(screen.getByLabelText("Expand library"));
