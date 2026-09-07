@@ -10,6 +10,7 @@ import { createSamplePlan } from '../src/domain';
 import { usePlanner } from '../src/store';
 vi.mock('../src/blueprintImport',()=>({renderReference:vi.fn(async(file:File)=>{if(file.name==='broken.pdf')throw new Error('Invalid PDF');return {url:'data:image/png;base64,AA',width:1000,height:800,pages:2,name:file.name};})}));
 vi.mock('../src/blueprintRecognition',async(importOriginal)=>({...await importOriginal<typeof import('../src/blueprintRecognition')>(),recognizeReference:vi.fn(async()=>({rooms:[{name:'Detected bedroom',kind:'Bedroom',x:0,y:0,width:500,height:400,enclosed:true,note:''}],dimensions:[{text:'5 m',millimetres:5000,ax:0,ay:0,bx:500,by:0}],fixtures:[],warnings:[]}))}));
+function metricField(label:string){const toggle=screen.queryByRole('button',{name:'Metric'});if(toggle)fireEvent.click(toggle);return screen.getByLabelText(label);}
 const room:BlueprintRoom={id:'bedroom',name:'Main bedroom',kind:'Bedroom',x:0,z:0,width:5000,depth:5000,enclosed:true};
 function setupPlan(){const p=createSamplePlan('Test home','metric');p.gridSizeMm=250;p.floors=p.floors.slice(0,1);p.furniture=[];const plan=blueprintPlan(p,p.floors[0].id,{rooms:[room],walls:[],omittedWalls:[],fixtures:[]});usePlanner.getState().replacePlan(plan);return usePlanner.getState().plan;}
 beforeEach(()=>{
@@ -25,7 +26,7 @@ describe('floor plan studio flow',()=>{
   it('keeps the 3D home untouched until the explicit review confirmation and supports undo',()=>{
     const original=usePlanner.getState().plan,onClose=vi.fn();render(<BlueprintStudio onClose={onClose}/>);
     fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));
-    fireEvent.change(screen.getByLabelText('width (m)'),{target:{value:'4.321'}});fireEvent.blur(screen.getByLabelText('width (m)'));
+    fireEvent.change(metricField('width (m)'),{target:{value:'4.321'}});fireEvent.blur(metricField('width (m)'));
     expect(usePlanner.getState().plan).toBe(original);expect(usePlanner.getState().past).toHaveLength(0);
     fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
     expect(screen.getByRole('button',{name:/Confirm & create 3D home/})).toBeEnabled();
@@ -37,7 +38,7 @@ describe('floor plan studio flow',()=>{
   });
   it('has reversible drawing history independent of the home history',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-    fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));fireEvent.change(screen.getByLabelText('width (m)'),{target:{value:'4'}});fireEvent.blur(screen.getByLabelText('width (m)'));
+    fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));fireEvent.change(metricField('width (m)'),{target:{value:'4'}});fireEvent.blur(metricField('width (m)'));
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('button',{name:/Main bedroom/})).toHaveTextContent('5.00 × 5.00');
     fireEvent.click(screen.getByRole('button',{name:'Redo drawing'}));expect(screen.getByRole('button',{name:/Main bedroom/})).toHaveTextContent('4.00 × 5.00');expect(usePlanner.getState().plan).toBe(original);
   });
@@ -62,7 +63,7 @@ describe('floor plan studio flow',()=>{
     vi.mocked(recognizeReference).mockResolvedValueOnce({rooms:[{name:'Living room',kind:'Living',x:0,y:0,width:500,height:300,enclosed:false,note:''},{name:'Living room — extension',kind:'Living',x:0,y:300,width:200,height:200,enclosed:false,note:''},{name:'Closet',kind:'Closet',x:500,y:0,width:100,height:100,enclosed:true,note:''}],dimensions:[{text:'5 m',millimetres:5000,ax:0,ay:0,bx:500,by:0}],fixtures:[],warnings:[]});
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
     await screen.findByRole('heading',{name:'Rooms & spaces · 2'});expect(screen.getAllByRole('button',{name:/Living room/})).toHaveLength(1);expect(screen.queryByRole('heading',{name:'Closets & circulation'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:/Living room/}));
-    fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Lounge'}});fireEvent.change(screen.getByLabelText('Left (m)'),{target:{value:'1'}});fireEvent.blur(screen.getByLabelText('Left (m)'));
+    fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Lounge'}});const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(canvas.querySelector('[data-object="scan-room-0"] rect')!,{button:0,clientX:500,clientY:500});fireEvent.pointerMove(canvas,{clientX:1500,clientY:500});fireEvent.pointerUp(canvas);
     const parts=screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelectorAll('[data-object="scan-room-0"] rect');expect(parts).toHaveLength(2);expect(parts[0].getAttribute('x')).toBe('1000');expect(parts[1].getAttribute('x')).toBe('1000');expect(screen.getByRole('heading',{name:'Rooms & spaces · 2'}).parentElement!.querySelectorAll('.bp-room-row')).toHaveLength(2);
   });
   it('keeps the existing draft on analysis failure',async()=>{
@@ -99,7 +100,7 @@ describe('floor plan studio flow',()=>{
     fireEvent.change(screen.getByLabelText('Printed length (metres)'),{target:{value:'5'}});
     fireEvent.click(screen.getByRole('button',{name:'Confirm measurement & load rooms'}));
     fireEvent.click(await screen.findByRole('button',{name:/Recovered bedroom/}));
-    expect(screen.getByLabelText('width (m)')).toHaveValue(4);
+    expect(metricField('width (m)')).toHaveValue(4);
     expect(vi.mocked(recognizeReference).mock.calls.length-beforeCalls).toBe(1);
     expect(usePlanner.getState().plan).toBe(original);
   });
@@ -125,9 +126,9 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),handle=canvas.querySelector('[data-handle="se"]')!;
     fireEvent.pointerDown(handle,{clientX:5000,clientY:5000,button:0});fireEvent.pointerMove(canvas,{clientX:4300,clientY:4700});fireEvent.pointerUp(canvas,{clientX:4300,clientY:4700});
-    expect(screen.getByLabelText('width (m)')).toHaveValue(4.3);expect(screen.getByLabelText('depth (m)')).toHaveValue(4.7);
+    expect(metricField('width (m)')).toHaveValue(4.3);expect(metricField('depth (m)')).toHaveValue(4.7);
     expect(usePlanner.getState().plan).toBe(original);fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
-    fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByLabelText('width (m)')).toHaveValue(5);
+    fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(metricField('width (m)')).toHaveValue(5);
   });
   it('lets a user select, rename and delete an overlapped false dining area',()=>{
     const original=usePlanner.getState().plan,base=structuredClone(original),id=base.floors[0].id;
@@ -151,7 +152,7 @@ describe('floor plan studio flow',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),rect=canvas.querySelector('[data-object="bedroom"] rect')!;
     fireEvent.pointerDown(rect,{clientX:500,clientY:500,button:0});fireEvent.pointerMove(canvas,{clientX:1500,clientY:1500});fireEvent.pointerUp(canvas,{clientX:1500,clientY:1500});
-    expect(screen.getByLabelText('Left (m)')).toHaveValue(1);expect(screen.getByLabelText('Top (m)')).toHaveValue(1);expect(usePlanner.getState().plan).toBe(original);
+    expect(rect.getAttribute('x')).toBe('1000');expect(rect.getAttribute('y')).toBe('1000');expect(usePlanner.getState().plan).toBe(original);
   });
   it('keeps import and settings in menus and shows the inspector only on selection',()=>{
     render(<BlueprintStudio onClose={()=>{}}/>);
@@ -168,7 +169,7 @@ describe('floor plan studio flow',()=>{
     usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[room,{...room,id:'two',name:'Room two',x:5000},{...room,id:'three',name:'Room three',x:10000}],walls:[],omittedWalls:[],fixtures:[]}));
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Combine rooms'}));
     for(const name of ['Main bedroom','Room three','Room two'])fireEvent.click(screen.getByRole('checkbox',{name:`Combine ${name}`}));
-    fireEvent.click(screen.getByRole('button',{name:'Combine selected (3)'}));expect(screen.getByRole('heading',{name:'Rooms & spaces · 1'})).toBeVisible();expect(screen.getByLabelText('width (m)')).toHaveValue(15);
+    fireEvent.click(screen.getByRole('button',{name:'Combine selected (3)'}));expect(screen.getByRole('heading',{name:'Rooms & spaces · 1'})).toBeVisible();expect(metricField('width (m)')).toHaveValue(15);
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('heading',{name:'Rooms & spaces · 3'})).toBeVisible();
   });
   it('click-selects overlapping bedroom pieces and names the combined bedroom in one undo',()=>{
@@ -189,9 +190,9 @@ describe('floor plan studio flow',()=>{
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});
     expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(4);expect(screen.queryByRole('button',{name:'Rectangle 2'})).toBeNull();
     fireEvent.pointerDown(canvas.querySelector('[data-handle="se"]')!,{button:0,clientX:4000,clientY:3000});fireEvent.pointerMove(canvas,{clientX:9000,clientY:6000});fireEvent.pointerUp(canvas);
-    expect(screen.getByLabelText('width (m)')).toHaveValue(10);expect(screen.getByLabelText('depth (m)')).toHaveValue(6);
+    expect(metricField('width (m)')).toHaveValue(10);expect(metricField('depth (m)')).toHaveValue(6);
     const extension=canvas.querySelector('rect[data-object="extension"]')!;expect(extension.getAttribute('width')).toBe('2000');expect(extension.getAttribute('y')).toBe('4000');
-    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByLabelText('width (m)')).toHaveValue(5);
+    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(metricField('width (m)')).toHaveValue(5);
     fireEvent.click(screen.getByLabelText('Edit individual rectangles'));expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(8);
   });
   it('drags a fixture icon onto the plan, deletes it, and undoes deletion',()=>{
@@ -208,7 +209,7 @@ describe('floor plan studio flow',()=>{
     usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[room,{...room,id:'two',name:'Room two',x:5300}],walls:[],omittedWalls:[],fixtures:[]}));render(<BlueprintStudio onClose={()=>{}}/>);
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),part=canvas.querySelector('[data-object="two"] rect')!;
     fireEvent.pointerDown(part,{button:0,clientX:5500,clientY:1000});fireEvent.pointerMove(canvas,{clientX:5240,clientY:1000});expect(screen.getByText('Shared wall snapped')).toBeVisible();fireEvent.pointerUp(canvas);
-    expect(screen.getByLabelText('Left (m)')).toHaveValue(5);fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Room two/}));expect(screen.getByLabelText('Left (m)')).toHaveValue(5.3);
+    expect(part.getAttribute('x')).toBe('5000');fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Room two/}));expect(canvas.querySelector('[data-object="two"] rect')!.getAttribute('x')).toBe('5300');
   });
   it('rejects conversion when another action has changed the home',()=>{
     render(<BlueprintStudio onClose={()=>{}}/>);act(()=>usePlanner.getState().rename('Changed'));
@@ -243,4 +244,18 @@ it('selects, edits and deletes a boundary wall and preserves it through conversi
  fireEvent.click(screen.getByRole('button',{name:/Review & create 3D/}));fireEvent.click(screen.getByRole('button',{name:/Confirm & create 3D home/}));
  expect(usePlanner.getState().plan.floors[0].walls.some(w=>w.id.startsWith('edited:')&&w.az*250===100)).toBe(true);
  cleanup();render(<BlueprintStudio onClose={()=>{}}/>);expect(screen.getAllByLabelText('Wall segment').some(e=>e.getAttribute('y1')==='100')).toBe(true);
+});
+
+it('defaults room dimensions to feet and inches, hides coordinates and preserves geometry through unit switches',()=>{
+ render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));
+ expect(screen.getByLabelText('Width feet')).toHaveValue(16);expect(screen.getByLabelText('Width inches')).toHaveValue(4.875);
+ expect(screen.queryByLabelText(/Left/)).toBeNull();expect(screen.queryByLabelText(/Top \(/)).toBeNull();
+ const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),rect=canvas.querySelector('[data-object="bedroom"] rect')!;
+ fireEvent.blur(screen.getByLabelText('Width inches'));expect(rect.getAttribute('width')).toBe('5000');
+ fireEvent.click(screen.getByRole('button',{name:'Metric'}));expect(screen.getByLabelText('width (m)')).toHaveValue(5);
+ fireEvent.click(screen.getByRole('button',{name:'Feet & inches'}));expect(rect.getAttribute('width')).toBe('5000');
+ fireEvent.change(screen.getByLabelText('Width feet'),{target:{value:'9'}});fireEvent.blur(screen.getByLabelText('Width feet'));
+ fireEvent.change(screen.getByLabelText('Width inches'),{target:{value:'6'}});fireEvent.blur(screen.getByLabelText('Width inches'));
+ expect(rect.getAttribute('width')).toBe('2896');expect(rect.getAttribute('x')).toBe('0');
+ fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByLabelText('Width inches')).toHaveValue(4.875);
 });

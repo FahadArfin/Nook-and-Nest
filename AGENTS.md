@@ -174,3 +174,4 @@ Wall deletion must preserve continuous supporting floor geometry and tile mesh r
 New furnishing preference: start newly placed furniture in soft white rather than sage green. Preserve saved colors and independent material overrides. Lighting fixtures should cast bounded warm light into the room. Breakfast tables and matching chairs remain separate editable pieces.
 
 Saving feedback preference: keep a visible Save control and an explicit on-device autosave status. Only confirm saving after storage succeeds; offer retry, a downloadable backup and an explicit online-save path without implying local autosave is a cloud save.
+Floor plan room editor preference: show Width and Depth only, defaulting to separate feet and inches fields with an optional Metric button. Move rooms by dragging the drawing; do not expose Left/Top coordinates in the room details. Unit switches must never resize the geometry.
