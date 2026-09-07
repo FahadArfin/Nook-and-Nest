@@ -143,9 +143,24 @@ it('projects a removal gesture at its clicked wall height and locks its preview 
   r.cutPointerY=1.2;r.cutTarget={id:'hall',ax:2.3,az:3.4,bx:8.3,bz:3.4};
   vi.spyOn(scene,'createPickingRay').mockReturnValue({origin:new Vector3(1,3,1),direction:new Vector3(0,-1,1)} as any);
   const point=r.wallPointAtPointer(100,100);expect(point.z).toBeCloseTo(2800/p.gridSizeMm);
-  r.renderWallDraft({x:2.3,z:3.4},{x:8,z:15});
-  expect(r.wallDraft).toEqual({ax:2.3,az:3.4,bx:8,bz:3.4});
+  r.renderWallDraft({x:2.3,z:3.4},{x:6,z:15});
+  expect(r.wallDraft).toEqual({ax:2.3,az:3.4,bx:6,bz:3.4});
   const cut=removeWallSections({...p,floors:[{...p.floors[0],walls:[r.cutTarget]}]},r.activeFloorId,[r.wallDraft]);
-  expect(cut.floors[0].walls[0].ax).toBe(8);
+  expect(cut.floors[0].walls[0].ax).toBe(6);
+ }finally{dispose();}
+});
+
+it('retains every floor mesh and its full area when repeatedly cutting hallway walls',()=>{
+ const {r,scene,dispose}=renderer();try{
+  const p=setup(),floor=p.floors[0];p.camera.showGrid=false;floor.walls=[{id:'hall',ax:2.3,az:3.4,bx:18,bz:3.4},{id:'return',ax:18,az:3.4,bx:18,bz:6}];
+  r.tool='wall-cut';r.update(p,floor.id);const tiles=scene.meshes.filter(m=>m.name.startsWith('cell:'));
+  const wallMeshes=scene.meshes.filter(m=>m.name==='wall:hall');
+  expect(wallMeshes.length).toBeGreaterThan(0);expect(wallMeshes.every(m=>m.isPickable)).toBe(true);
+  expect(tiles.length).toBe(floor.cells.length);
+  for(const tile of tiles){tile.computeWorldMatrix(true);const extent=tile.getBoundingInfo().boundingBox.extendSizeWorld;expect(extent.x*2).toBeCloseTo(p.gridSizeMm/1000);expect(extent.z*2).toBeCloseTo(p.gridSizeMm/1000);}
+  const removed=removeWallSections(p,floor.id,[floor.walls[0]]);r.update(removed,floor.id);
+  expect(scene.meshes.filter(m=>m.name.startsWith('cell:'))).toEqual(tiles);
+  expect(removed.floors[0].cells).toEqual(floor.cells);
+  r.update(p,floor.id);expect(scene.meshes.filter(m=>m.name.startsWith('cell:'))).toEqual(tiles);
  }finally{dispose();}
 });

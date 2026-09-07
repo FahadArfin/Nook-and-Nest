@@ -1,4 +1,5 @@
-import {joinedWallSpan,floorSurfaceRects} from '../architectureSurfaces';
+import {snapRemovalPoint} from '../wallEditing';
+import {joinedWallSpan} from '../architectureSurfaces';
 import {angularStep,pointerAngle} from '../rotationGesture';
 import {extendFurniture,moduleSegments,isRailing} from '../modularFurniture';
 import {configurePlanCoordinates, planViewAngles, applyPlanView, updatePlanProjection} from './planCoordinates';
@@ -289,6 +290,7 @@ export class SceneController {
     for(const m of this.wallSnapMarkers)m.dispose();this.wallSnapMarkers=[];
     const floor=this.activePlan.floors.find(f=>f.id===this.activeFloorId);if(!floor)return;
     const target=this.cutTarget,horizontal=target?.az===target?.bz;
+    if(target)point=snapRemovalPoint(target,point,this.activePlan.gridSizeMm);
     const {end,connected}=target?{end:horizontal?{x:Math.max(Math.min(target.ax,target.bx),Math.min(Math.max(target.ax,target.bx),point.x)),z:target.az}:{x:target.ax,z:Math.max(Math.min(target.az,target.bz),Math.min(Math.max(target.az,target.bz),point.z))},connected:true}:snapWallEnd(floor,this.activePlan.gridSizeMm,start,point);
     this.wallDraft=wallBetween(start,end);
     const s=this.activePlan.gridSizeMm/1000,y=floor.elevationMm/1000,h=floor.heightMm/1000;
@@ -421,8 +423,9 @@ export class SceneController {
     const scale = plan.gridSizeMm / 1000; const elevation = floor.elevationMm / 1000; const tileMat = this.surfaceMaterial(`tile-${floor.id}`,findFloorFinish(floor.floorFinishId),ghost ? .22 : 1);
     const boundaries=floorBoundaryWalls(floor,plan.gridSizeMm),walls=[...boundaries,...floor.walls];
     const validOpenings=plan.furniture.filter(item=>item.floorId===floor.id&&isWallOpening(item.catalogId)&&!windowProblem(plan,item));
-    const baseWalls=walls.flatMap(w=>windowWallPieces(w,plan.gridSizeMm,floor.heightMm,validOpenings).filter(p=>p.bottom<40).map(p=>w.az===w.bz?{...w,ax:p.start/plan.gridSizeMm,bx:p.end/plan.gridSizeMm}:{...w,az:p.start/plan.gridSizeMm,bz:p.end/plan.gridSizeMm}));
-    for (const rect of this.retainFloorTiles?[]:floorSurfaceRects(visibleFloorRects(plan,floor.id),floor.walls,plan.gridSizeMm,baseWalls)) {const cell=rect.cell, width=rect.width/1000,depth=rect.depth/1000;
+    // Floors are continuous supporting surfaces. Walls occlude them; cutting a wall
+    // must never clip, shift, or remove the floor below it.
+    for (const rect of this.retainFloorTiles?[]:visibleFloorRects(plan,floor.id)) {const cell=rect.cell, width=rect.width/1000,depth=rect.depth/1000;
       const finish=findFloorFinish(floor.cellFinishes?.[`${cell.x},${cell.z}`]??floor.floorFinishId);
       const surfaceKey=JSON.stringify([floor.id,rect,finish.id,ghost,plan.camera.showGrid,elevation]);const existingTile=this.reusableTiles.get(surfaceKey);if(existingTile){existingTile.parent=this.root;this.reusableTiles.delete(surfaceKey);continue;}
       const tile=MeshBuilder.CreateBox(`cell:${cell.x}:${cell.z}`,{width:plan.camera.showGrid&&!finish.repeatMeters?Math.max(.001,width-.006):width,depth:plan.camera.showGrid&&!finish.repeatMeters?Math.max(.001,depth-.006):depth,height:.08},this.scene);
@@ -432,7 +435,7 @@ export class SceneController {
     }
     this.selectedWallIds=new Set(!ghost&&this.selectedWallId?wallPlateIds(floor,plan.gridSizeMm,this.selectedWallId):[]);
     this.floorWallGeometry.set(floor.id, walls.map(wall => ({ ax:wall.ax*scale, az:wall.az*scale, bx:wall.bx*scale, bz:wall.bz*scale, boundary:boundaries.includes(wall) })));
-    for(const wall of walls)this.buildWall(wall.id,wall.ax*scale,wall.az*scale,wall.bx*scale,wall.bz*scale,elevation,ghost,findWallFinish(floor.wallFinishId),floor.openings.find(o=>o.wallKey===wall.id),floor.heightMm,windowWallPieces(wall,plan.gridSizeMm,floor.heightMm,validOpenings).map(p=>{const [start,end]=joinedWallSpan(wall,walls,plan.gridSizeMm),a=Math.min(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm,b=Math.max(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm;return {...p,start:Math.abs(p.start-a)<.01?start:p.start,end:Math.abs(p.end-b)<.01?end:p.end}}),floor.wallFinishes,boundaries.includes(wall));
+    for(const wall of walls)this.buildWall(wall.id,wall.ax*scale,wall.az*scale,wall.bx*scale,wall.bz*scale,elevation,ghost,findWallFinish(floor.wallFinishId),floor.openings.find(o=>o.wallKey===wall.id),floor.heightMm,windowWallPieces(wall,plan.gridSizeMm,floor.heightMm,validOpenings).map(p=>{const [start,end]=joinedWallSpan(wall,walls,plan.gridSizeMm,floor.wallCuts??[]),a=Math.min(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm,b=Math.max(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm;return {...p,start:Math.abs(p.start-a)<.01?start:p.start,end:Math.abs(p.end-b)<.01?end:p.end}}),floor.wallFinishes,boundaries.includes(wall));
     for (const stair of floor.stairs) this.buildStairs(stair.x/1000, stair.z/1000, stair.widthMm/1000, stair.lengthMm/1000, elevation, ghost);
     for (const item of plan.furniture.filter((f) => f.floorId === floor.id)) this.buildFurniture(item, elevation, ghost);
   }
@@ -447,7 +450,7 @@ export class SceneController {
       mesh.rotation.y=wall.rotation.y;const wallFinish=findWallFinish(finishes?.[piece.paintKey]??finishes?.[id]??finish.id);mesh.material=this.surfaceMaterial(`wall-mat-${id}`,wallFinish,ghost?.18:1);
       if(wallFinish.repeatMeters){const p=mesh.getVerticesData('position')!,uv=mesh.getVerticesData('uv')!;for(let i=0;i<p.length/3;i++){uv[i*2]=(p[i*3]+center)/wallFinish.repeatMeters[0];uv[i*2+1]=(p[i*3+1]+mesh.position.y)/wallFinish.repeatMeters[1];}mesh.setVerticesData('uv',uv);}
       this.wallVisibility.add(mesh, geometry);
-      mesh.isPickable=!ghost&&(this.tool==="select"||this.tool==="door"||this.tool==="window"||this.tool==="wall-finish");mesh.receiveShadows=true;this.shadow.addShadowCaster(mesh);
+      mesh.isPickable=!ghost&&(this.tool==="wall-cut"||this.tool==="select"||this.tool==="door"||this.tool==="window"||this.tool==="wall-finish");mesh.receiveShadows=true;this.shadow.addShadowCaster(mesh);
       if(this.selectedWallIds?.has(id)){mesh.renderOverlay=true;mesh.overlayColor=Color3.FromHexString("#e8c775");mesh.overlayAlpha=.22;}
     }
     if(opening?.kind==="window"){ const marker=MeshBuilder.CreateBox(`opening:${id}`,{width:.8,height:.68,depth:.12},this.scene); marker.parent=this.root; marker.position=wall.position.clone(); marker.position.y=y+1.02; marker.rotation.y=wall.rotation.y; marker.material=this.material(`opening-mat-${id}`,"#9ec8c3",ghost?.15:.65); this.wallVisibility.add(marker,geometry); marker.isPickable=!ghost&&(this.tool==="door"||this.tool==="window"||this.tool==="wall-finish"); }else if(opening?.kind==="door"){const root=new TransformNode(`door:${opening.id}`,this.scene);root.parent=this.root;this.wallVisibility.add(root,geometry);root.position=new Vector3((ax+bx)/2,y,(az+bz)/2);root.rotation.y=wall.rotation.y;const alpha=ghost?.16:1,doorMat=this.surfaceMaterial(`door-mat-${opening.id}`,findDoorFinish(opening.finishId),alpha),frameMat=this.material(`door-frame-${opening.id}`,"#6f533d",alpha);const slab=this.addBox(root,`opening:${id}`,[.78,1.38,.13],[0,.69,-.02],doorMat);slab.isPickable=!ghost&&(this.tool==="door"||this.tool==="window"||this.tool==="wall-finish");for(const x of [-.45,.45])this.addBox(root,"door-frame",[.09,1.52,.16],[x,.76,0],frameMat);this.addBox(root,"door-header",[.99,.09,.16],[0,1.48,0],frameMat);for(const z of [.38,.72,1.06])this.addBox(root,"door-panel",[.58,.035,.025],[0,z,-.09],frameMat);const knob=MeshBuilder.CreateSphere("door-knob",{diameter:.08,segments:10},this.scene);knob.parent=root;knob.position=new Vector3(.28,.72,-.11);knob.material=this.material("door-knob-mat","#9d7446",alpha);}
@@ -568,7 +571,7 @@ export class SceneController {
             const run=wallRuns(floor,grid,w=>visible.has(w.id)).find(r=>r.horizontal===horizontal&&Math.abs(r.line-(horizontal?picked.az:picked.ax)*grid)<.01&&center>=r.start&&center<=r.end);
             if(run)this.cutTarget={id:picked.id,ax:(horizontal?run.start:run.line)/grid,az:(horizontal?run.line:run.start)/grid,bx:(horizontal?run.end:run.line)/grid,bz:(horizontal?run.line:run.end)/grid};
             this.cutPointerY=hit?.pickedPoint?.y;}
-          const point=this.wallPointAtPointer(this.scene.pointerX,this.scene.pointerY);if(!point)return;const target=this.cutTarget;const start=target?(target.az===target.bz?{x:Math.max(Math.min(target.ax,target.bx),Math.min(Math.max(target.ax,target.bx),point.x)),z:target.az}:{x:target.ax,z:Math.max(Math.min(target.az,target.bz),Math.min(Math.max(target.az,target.bz),point.z))}):snapWallStart(floor,this.activePlan!.gridSizeMm,point);this.wallDragStart=start;this.wallDragCurrent=point;this.renderWallDraft(start,start);this.callbacks.onSelect(undefined);this.camera.detachControl();
+          const point=this.wallPointAtPointer(this.scene.pointerX,this.scene.pointerY);if(!point)return;const target=this.cutTarget;const start=target?snapRemovalPoint(target,point,this.activePlan!.gridSizeMm):snapWallStart(floor,this.activePlan!.gridSizeMm,point);this.wallDragStart=start;this.wallDragCurrent=point;this.renderWallDraft(start,start);this.callbacks.onSelect(undefined);this.camera.detachControl();
         }else if(name==="draft-preview"&&this.tool==="select"){
           this.draggingDraft=true; this.suspendCameraPointers();
         }else if(name.startsWith("item:")&&this.tool==="select"){
