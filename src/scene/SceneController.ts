@@ -1,3 +1,4 @@
+import {sunDirection,type SunSettings} from '../sunlight';
 import {bindTouchNavigation} from "../touchNavigation";
 import type {HomeShot} from '../previewShots';
 
@@ -87,6 +88,8 @@ export class SceneController {
   private outdoors:OutdoorScene;
   private fixtureLights?:FurnitureLights;
   private neutralPreview=false;
+  private sunPreview?:SunSettings;
+  setSunPreview(value?:SunSettings){this.sunPreview=value;if(this.activePlan)this.updateLighting(this.activePlan);}
   private paintWallIds:string[]=[];
   setPaintPreview(neutral:boolean,ids:string[]){
     this.neutralPreview=neutral;this.paintWallIds=ids;
@@ -108,13 +111,25 @@ export class SceneController {
     }
   }
   private updateLighting(plan:PlanDocumentV1){
-    const neutral=this.neutralPreview,night=!!plan.camera.darkMode;
-    this.scene.imageProcessingConfiguration.exposure=neutral?1:.72;
-    this.scene.imageProcessingConfiguration.contrast=neutral?1:1.12;
-    const sun=this.scene.getLightByName('sun'),sky=this.scene.getLightByName('sky') as HemisphericLight;
+    const settings=this.sunPreview??plan.environment?.sun,simulating=!!settings?.enabled;
+    const neutral=this.neutralPreview,night=!simulating&&!!plan.camera.darkMode;
+    this.scene.imageProcessingConfiguration.exposure=simulating?1:neutral?1:.72;
+    this.scene.imageProcessingConfiguration.contrast=simulating?1:neutral?1:1.12;
+    const sun=this.scene.getLightByName('sun') as DirectionalLight,sky=this.scene.getLightByName('sky') as HemisphericLight;
     if(sun){sun.intensity=night?.08:neutral?.18:.72;sun.diffuse=neutral?Color3.White():new Color3(1,.86,.68);}
     if(sky){sky.intensity=night?.25:neutral?.95:.62;sky.diffuse=neutral?Color3.White():new Color3(1,.91,.78);sky.groundColor=neutral?new Color3(.82,.82,.82):new Color3(.3,.37,.28);}
-    this.canvas.dataset.colorPreview=neutral?'neutral':'cozy';
+    if(sun){
+      if(simulating&&settings){
+        const direction=sunDirection(settings);sun.direction=new Vector3(direction.x,direction.y,direction.z);
+        const rects=plan.floors.flatMap(f=>floorRects(f,plan.gridSizeMm));
+        const xs=rects.flatMap(r=>[r.x,r.x+r.width]),zs=rects.flatMap(r=>[r.z,r.z+r.depth]);
+        const center=new Vector3(xs.length?(Math.min(...xs)+Math.max(...xs))/2000:0,Math.max(0,...plan.floors.map(f=>f.elevationMm))/1000,zs.length?(Math.min(...zs)+Math.max(...zs))/2000:0);
+        sun.position=center.subtract(sun.direction.scale(60));sun.intensity=1.15;
+        const warmth=Math.max(0,(35-settings.elevation)/30);sun.diffuse=new Color3(1,1-.2*warmth,1-.4*warmth);
+        if(sky){sky.intensity=.32;sky.diffuse=new Color3(.86,.92,1);sky.groundColor=new Color3(.35,.35,.32)}
+      }else{sun.direction=new Vector3(-.8,-1.5,.7);sun.position=new Vector3(10,18,-10);}
+    }
+    this.canvas.dataset.colorPreview=simulating?'sunlight':neutral?'neutral':'cozy';
   }
   private selectedWallId?:string;
   private selectedWallIds=new Set<string>();

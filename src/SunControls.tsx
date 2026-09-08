@@ -1,0 +1,11 @@
+import {useEffect,useState,useRef} from 'react';
+import {usePlanner} from './store';
+import {defaultSun,type SunSettings} from './sunlight';
+export function SunControls({onPreview}:{onPreview:(s?:SunSettings)=>void}){
+ const s=usePlanner(),saved=s.plan.environment?.sun??defaultSun;
+ const [value,setValue]=useState(saved),preview=useRef(onPreview);preview.current=onPreview;
+ useEffect(()=>setValue(saved),[saved]);
+ useEffect(()=>{preview.current(value);return()=>preview.current(undefined)},[value]);
+ const commit=(next:SunSettings)=>{setValue(next);if(JSON.stringify(next)!==JSON.stringify(saved))s.setEnvironment({sun:next})};
+ return <div className="sun-controls"><div><h2>Sunlight & shadows</h2><p>Explore how sunlight falls through your windows and across your rooms.</p><button aria-pressed={value.enabled} onClick={()=>commit({...value,enabled:!value.enabled})}>{value.enabled?'Stop sun preview':'Start sun preview'}</button><p>Direction follows the plan: north is the top edge. This is an illustrative preview, not a location or date calculation. Use Show all walls for enclosed-room shadows.</p></div><div><div className="sun-presets">{[{name:'Morning',azimuth:90,elevation:20},{name:'Midday',azimuth:180,elevation:65},{name:'Evening',azimuth:270,elevation:15}].map(p=><button key={p.name} onClick={()=>commit({enabled:true,azimuth:p.azimuth,elevation:p.elevation})}>{p.name}</button>)}</div><label>Sun direction <strong>{value.azimuth}°</strong><input aria-label="Sun direction" type="range" min="0" max="360" step="1" value={value.azimuth} onChange={e=>setValue({...value,enabled:true,azimuth:+e.target.value})} onPointerUp={()=>commit(value)} onKeyUp={()=>commit(value)} onBlur={()=>commit(value)} onPointerCancel={()=>setValue(saved)}/></label><label>Sun height <strong>{value.elevation}°</strong><input aria-label="Sun height" type="range" min="5" max="85" step="1" value={value.elevation} onChange={e=>setValue({...value,enabled:true,elevation:+e.target.value})} onPointerUp={()=>commit(value)} onKeyUp={()=>commit(value)} onBlur={()=>commit(value)} onPointerCancel={()=>setValue(saved)}/></label><p>Lower sun creates longer shadows. Settings save with your project; Undo restores the previous setting.</p></div></div>;
+}

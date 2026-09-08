@@ -6,11 +6,11 @@ import {materialGroups} from './materialGroups';
 import {PaintPicker} from './PaintPicker';
 
 type Scope='sections'|'brush'|'whole'|'exterior';
-export function SurfaceBrowser({floorOnly=false}:{floorOnly?:boolean}={}){
+export function SurfaceBrowser({floorOnly=false,wallsOnly=false}:{floorOnly?:boolean;wallsOnly?:boolean}={}){
  const collectionRef=useRef<HTMLDivElement>(null);
  const s=usePlanner(),floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;
- const [target,setTarget]=useState<'Floor'|'Walls'>(!floorOnly&&s.selectedWallId?'Walls':'Floor');
- const [scope,setScope]=useState<Scope>('sections'),[family,setFamily]=useState(!floorOnly&&s.selectedWallId?'Paint':'All'),[search,setSearch]=useState(''),[pending,setPending]=useState<string>(),[message,setMessage]=useState('');
+ const [target,setTarget]=useState<'Floor'|'Walls'>(wallsOnly||!floorOnly&&s.selectedWallId?'Walls':'Floor');
+ const [scope,setScope]=useState<Scope>(wallsOnly?'brush':'sections'),[family,setFamily]=useState(wallsOnly||!floorOnly&&s.selectedWallId?'Paint':'All'),[search,setSearch]=useState(''),[pending,setPending]=useState<string>(),[message,setMessage]=useState('');
  // Lighting belongs to the editor, not the lifetime of this panel.
  useEffect(()=>()=>{if(!floorOnly&&usePlanner.getState().wallSelectionActive)usePlanner.getState().setTool('select')},[]);
  useEffect(()=>{if(!floorOnly&&s.selectedWallId){setTarget('Walls');setFamily('Paint');setScope('sections');setPending(undefined)}},[s.selectedWallId]);
@@ -28,7 +28,7 @@ export function SurfaceBrowser({floorOnly=false}:{floorOnly?:boolean}={}){
  const apply=()=>{if(!pending)return;if(scope==='sections'&&target==='Walls'){if(s.wallSelectionActive)s.finishSelectedWalls(pending);else if(s.selectedWallId)s.finishWall(s.selectedWallId,pending);else return;}else if(scope==='exterior')s.finishWallGroup('exterior',pending);else s.setFloorFinish(kind,pending);setMessage(`Applied ${chosen.name}. Undo restores the previous finishes.`);setPending(undefined)};
  const scopes=target==='Walls'?[{id:'brush',name:'Brush',icon:PaintRoller},{id:'sections',name:'Select walls',icon:Wall},{id:'whole',name:'All walls',icon:Selection},{id:'exterior',name:'Outer walls',icon:BoundingBox}]:[{id:'sections',name:'Paint area',icon:PaintRoller},{id:'whole',name:'Whole floor',icon:GridFour}];
  return <>
-  {!floorOnly&&<div className="task-subtabs" aria-label="Surface">{(['Walls','Floor'] as const).map(t=><button key={t} aria-pressed={target===t} onClick={()=>{s.setTool('select');setTarget(t);setScope(t==='Walls'?'brush':'sections');setFamily(t==='Walls'?'Paint':'All');setSearch('');setPending(undefined);setMessage('')}}>{t==='Walls'?<PaintRoller/>:<GridFour/>}{t}</button>)}</div>}
+  {!floorOnly&&!wallsOnly&&<div className="task-subtabs" aria-label="Surface">{(['Walls','Floor'] as const).map(t=><button key={t} aria-pressed={target===t} onClick={()=>{s.setTool('select');setTarget(t);setScope(t==='Walls'?'brush':'sections');setFamily(t==='Walls'?'Paint':'All');setSearch('');setPending(undefined);setMessage('')}}>{t==='Walls'?<PaintRoller/>:<GridFour/>}{t}</button>)}</div>}
   <div className="finish-workflow guided-workflow">
    <h2>Make it yours</h2>
    <h3 className="finish-step"><span>1</span>Select surfaces</h3>
@@ -46,7 +46,7 @@ export function SurfaceBrowser({floorOnly=false}:{floorOnly?:boolean}={}){
   <footer className="tool-footer finish-footer">
    <div className="finish-current">{chosen.texture?<img src={chosen.texture} alt=""/>:<span style={{background:chosen.color}}/>}<div><small>{pending?'Ready to apply':'Current finish'}</small><strong>{chosen.name}</strong></div></div>
    {variants.length>1&&<div className="tile-formats" aria-label="Tile size">{variants.map(v=><button key={v.id} aria-pressed={chosen.id===v.id} onClick={()=>choose(v.id)}>{v.name.split('\u00b7').at(-1)?.trim()}</button>)}</div>}
-   <label className="neutral-preview"><Sun size={20}/><span>Neutral preview lighting</span><input type="checkbox" role="switch" checked={s.neutralPreview} onChange={e=>s.setNeutralPreview(e.target.checked)}/></label>
+   <label className="neutral-preview"><Sun size={20}/><span>Neutral preview lighting</span><input type="checkbox" role="switch" checked={s.neutralPreview&&!s.plan.environment?.sun?.enabled} onChange={e=>{if(e.target.checked&&s.plan.environment?.sun?.enabled)s.setEnvironment({sun:{...s.plan.environment.sun,enabled:false}});s.setNeutralPreview(e.target.checked)}}/></label>
    {pending?<div className="tool-footer-actions"><button className="primary" disabled={target==='Walls'&&scope==='sections'&&!count} onClick={apply}>{action}</button><button onClick={()=>setPending(undefined)}>Cancel</button></div>:(s.tool==='floor-finish'||s.tool==='wall-finish')&&<button onClick={()=>s.setTool('select')}>Done painting</button>}
    {message&&<p role="status">{message}</p>}
   </footer>
