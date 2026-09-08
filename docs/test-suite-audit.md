@@ -6,7 +6,7 @@ Measured on Windows with two Vitest workers against master `f71e711` after the 3
 
 | Area | Baseline | Action |
 | --- | ---: | --- |
-| Full application suite | 433 passing tests, 92.3 seconds wall time | Preserve full regression scope; measure again after cleanup |
+| Full application suite | 433 passing tests, 92.3 seconds wall time | 432 passing tests across the same 42 files, 48.2 seconds after cleanup |
 | Building/editor controls | 25.97 seconds of test execution | Start with a real empty catalog search; placement tests explicitly search for their required real furniture |
 | Library controls | 21.23 seconds of test execution | Use a real one-item search for favorites, storage failure, expansion and callback checks; retain full-library rendering and navigation coverage |
 | Two broad geometry scans | 0.72 seconds together, including other cozy regressions | Retain these inexpensive fidelity checks |
@@ -31,3 +31,9 @@ The standalone Vitest configuration loads React transforms without development p
 - Release validation still runs application, asset, hosting, library, build and artifact integrity checks as documented in `release-workflow.md`.
 
 For a comparable profile: `npm test -- --reporter=json --outputFile=.generated/test-profile.json`. Compare test-file execution separately from wall time, since import/setup, filesystem caches and concurrent machine activity affect the latter. Do not turn these measurements into flaky timeout assertions.
+
+## Complete after-run and release validation
+
+After integrating the other task's `52eae41` bottom-tools update, the automatically discovered suite passed **432 tests in all 42 files in 48.2 seconds**, compared with the 92.3-second baseline. This is approximately **48% less wall time** on this machine. One redundant navigation case was consolidated; its assertions remain covered. The final run's building-controls and library execution times were 2.79 and 3.78 seconds. Type checking, production build, all 3 asset checks, 10 hosting checks, 5 library checks and release integrity checks passed. The application asset manifest remains unchanged by this test-only feature.
+
+The full runs occurred sequentially in the same isolated checkout with the same two-worker limit. Filesystem caches and the intervening bottom-tools integration can affect exact timings; the focused same-source UI comparison independently confirms the dominant reduction in repeated rendering. No timeouts were raised, tests skipped, coverage modes disabled, or release jobs removed.
