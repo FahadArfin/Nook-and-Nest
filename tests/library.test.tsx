@@ -15,7 +15,7 @@ afterEach(cleanup);
 
 describe("library organization",()=>{
   it("gives every piece a real furniture type",()=>{
-    expect(catalog).toHaveLength(593);
+    expect(catalog).toHaveLength(630);
     for(const item of catalog)expect(furnitureType(item),item.id).not.toBe("Other pieces");
   });
   it("finds common synonyms, categories and multiword queries",()=>{
@@ -27,7 +27,7 @@ describe("library organization",()=>{
     expect(matchesFurniture(item("oval-freestanding-tub"),"  TUB  ")).toBe(true);
   });
   it("offers only relevant types and intersects category, type and saved filters",()=>{
-    const bath=filterLibrary({...options,category:"Bathroom"});expect(bath.items).toHaveLength(32);
+    const bath=filterLibrary({...options,category:"Bathroom"});expect(bath.items).toHaveLength(36);
     expect(bath.types).toEqual(["Bath mats","Bathtubs","Mirrors","Organizers","Rugs","Showers","Sinks & vanities","Toilets"]);
     expect(filterLibrary({...options,category:"Bathroom",type:"Mirrors",shelf:"favorites",favorites:["bath-mirror-pill","sofa"]}).items.map(i=>i.id)).toEqual(["bath-mirror-pill"]);
   });
