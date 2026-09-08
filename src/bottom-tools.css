@@ -1,0 +1,40 @@
+/* A shallow workbench anchored to the canvas edge, above the persistent dock. */
+main.app-shell section.workspace.bottom-tools-open{grid-template-columns:340px minmax(0,1fr)}
+.workspace.bottom-tools-open>.inspector-panel{display:none}
+.bottom-tools{position:absolute;inset:auto 0 0;z-index:40;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:12px 12px 0 0;box-shadow:0 -8px 30px #26332125;padding-bottom:80px;display:flex;flex-direction:column;max-height:calc(100% - 90px);box-sizing:border-box;animation:bottom-tools-rise .4s ease-out}
+.bottom-tools>header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 18px;border-bottom:1px solid var(--line)}
+.bottom-tools>header nav{display:flex;gap:6px}
+.bottom-tools>header button{min-height:44px;font-size:14px}
+.bottom-tools-body{min-height:0;display:grid;grid-template-columns:220px minmax(0,1fr) 220px;max-height:min(340px,42dvh);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+.bottom-tools-body>div,.bottom-tools-body>footer{min-width:0;padding:16px!important;margin:0;border:0}
+.bottom-tools-body>.finish-workflow,.bottom-tools-body>.finish-footer{border-right:1px solid var(--line);overflow:auto}
+.bottom-tools .finish-workflow h2,.bottom-tools .finish-step{display:none}
+.bottom-tools .scope-cards{grid-template-columns:1fr;gap:8px}
+.bottom-tools .scope-cards button{min-height:48px;flex-direction:row;font-size:14px}
+.bottom-tools .scope-cards svg{width:22px;height:22px}
+.bottom-tools .finish-collection{overflow:auto}
+.bottom-tools .tool-search{margin-bottom:10px}
+.bottom-tools .material-types{margin-bottom:12px}
+.bottom-tools .tool-visual-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px}
+.bottom-tools .tool-visual-grid img{aspect-ratio:1.5;max-height:90px}
+.bottom-tools .tool-visual-grid strong{font-size:13px;padding-bottom:0}
+.bottom-tools .tool-visual-grid small{display:none}
+.bottom-tools .tool-hint,.bottom-tools p{font-size:14px;line-height:1.5}
+.bottom-tools .finish-footer{border-left:1px solid var(--line)}
+.bottom-tools .finish-footer>button{min-height:44px}
+.bottom-tools .neutral-preview{font-size:12px}
+.bottom-tools-wall .bottom-tools-body,.bottom-tools-erase .bottom-tools-body{grid-template-columns:240px minmax(0,1fr)}
+.bottom-tools .bottom-tool-intro{border-right:1px solid var(--line)}
+.bottom-tools .bottom-tool-intro h2{font-size:22px;margin-bottom:10px}
+.bottom-tools .wall-construction{padding:16px!important;overflow:auto}
+.bottom-tools .wall-construction>.build-choices{max-width:460px;margin-bottom:10px}
+.bottom-tools .build-choices button{min-height:52px;flex-direction:row}
+.bottom-tools .wall-construction label{margin:10px 0;max-width:460px}
+.bottom-tools .erase-targets{display:flex;gap:8px;flex-wrap:wrap}
+.bottom-tools .erase-targets button{min-height:48px}
+.bottom-tools-open .tool-dock{z-index:41;box-shadow:none;bottom:10px}
+.bottom-tools-open .floor-stats,.bottom-tools-open .touch-hint{display:none}
+@keyframes bottom-tools-rise{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@media(max-width:1100px){main.app-shell section.workspace.bottom-tools-open{grid-template-columns:minmax(0,1fr)}.bottom-tools-body{grid-template-columns:170px minmax(0,1fr)}.bottom-tools .finish-footer{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:center;gap:10px;border-top:1px solid var(--line)}.bottom-tools .finish-footer>*{margin:0}.bottom-tools .finish-footer>button{width:auto}.bottom-tools{padding-bottom:64px}.bottom-tools>header{padding:8px}.bottom-tools-open .tool-dock{bottom:6px}}
+@media(max-width:600px){.bottom-tools>header{gap:4px}.bottom-tools>header button{padding:8px;font-size:12px}.bottom-tools>header>button span{display:none}.bottom-tools-body{display:block;max-height:40dvh}.bottom-tools-body>.finish-workflow{padding:10px 12px!important}.bottom-tools .scope-cards{grid-template-columns:1fr 1fr}.bottom-tools .tool-visual-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.bottom-tools .finish-collection{overflow:visible}.bottom-tools .finish-footer{display:flex}.bottom-tools .wall-construction{overflow:visible}.bottom-tools .bottom-tool-intro{border-right:0}.bottom-tools .bottom-tool-intro p{margin:6px 0}.bottom-tools .scope-cards button{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.bottom-tools{animation:none}}

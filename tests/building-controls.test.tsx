@@ -200,8 +200,9 @@ it('opens floor finishes from the compact dock and centers without editing the p
  render(<App/>);const before=state().plan;
  expect(screen.queryByRole('button',{name:'Inside door'})).toBeNull();
  expect(screen.queryByTitle('Clearance guides')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');
- fireEvent.click(screen.getByRole('button',{name:'Paint tiles'}));const tray=screen.getByRole('region',{name:'Floor finishes'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');expect(screen.getByRole('region',{name:'Wall tools'})).toBeTruthy();
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint tiles'}));const tray=screen.getByRole('region',{name:'Floor finishes'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
  fireEvent.click(within(tray).getByRole('button',{name:'Close floor finishes'}));expect(screen.queryByRole('region',{name:'Floor finishes'})).toBeNull();expect(state().tool).toBe('floor-finish');
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=screen.getByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Wall section'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floor area'}));expect(state().tool).toBe('erase');
  fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
 },15000);

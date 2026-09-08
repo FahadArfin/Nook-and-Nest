@@ -185,3 +185,5 @@ Toolbar preference: bottom dock contains Arrange, Paint tiles, Erase and Add wal
 Apartment reading collection: compact full and queen beds retain proper mattress dimensions while reducing frame bulk. Add small bedside tables and independently placeable lamps, shaped bath mats with genuine open fixture cutouts, varied original classic/photographic framed art, supportive reading seating and a slowly rotating globe. Shower glass must flip left/right without changing its footprint; save the choice and support undo. Globe rotation must respect reduced motion and pause while hidden.
 
 Everyday sectional preference: add normal Ashley-inspired L-shaped sofas with varied padded arm profiles, matte connected upholstery and left/right chaise choices, labeled as viewed from the front. Keep the compact tailored option distinct from deeper family sectionals.
+
+Bottom tool panel preference: Paint tiles, Erase and Add wall share a wide, shallow rectangular panel rising from the canvas bottom. Keep the dock visible, move these controls out of the right sidebar while open, and preserve room visibility and touch-sized actions.

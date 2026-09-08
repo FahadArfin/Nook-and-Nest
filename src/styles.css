@@ -101,19 +101,13 @@
  .bp-drawing svg{touch-action:none}.home-preview button{min-width:44px}
 }
 
-.floor-finish-tray{position:absolute;bottom:82px;left:50%;transform:translateX(-50%);width:min(580px,calc(100% - 24px));max-height:65%;z-index:40;display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 -8px 40px #26332133;overflow:auto;animation:floor-tray-open .45s ease-out}
-.floor-finish-tray>header{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;position:sticky;top:0;background:var(--paper);z-index:2;border-bottom:1px solid var(--line)}
-.floor-finish-tray>header button{display:flex;align-items:center;gap:6px;min-height:44px;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px}
-.floor-finish-tray .finish-workflow,.floor-finish-tray .finish-collection,.floor-finish-tray .finish-details{flex-shrink:0}.floor-finish-tray .finish-collection{overflow:visible}
-@keyframes floor-tray-open{from{opacity:0;transform:translate(-50%,40px)}to{opacity:1;transform:translate(-50%,0)}}
-@media(max-width:1100px){.tool-dock{bottom:6px;max-width:calc(100% - 12px);overflow-x:auto}.tool-dock button{min-width:54px;min-height:44px}.floor-finish-tray{bottom:70px;max-height:65%}.bp-entry{top:62px;left:6px;transform:none;max-width:calc(100% - 62px);white-space:normal}.bp-entry>button{font-size:12px;padding:6px}.canvas-tools{top:112px}.touch-hint{bottom:68px}.blueprint-dialog{inset:0}.blueprint-dialog[open]{display:flex;flex-direction:column}.blueprint-dialog>.bp-workspace{flex:1;height:auto;min-height:0}}
+@media(max-width:1100px){.tool-dock{bottom:6px;max-width:calc(100% - 12px);overflow-x:auto}.tool-dock button{min-width:54px;min-height:44px}.bp-entry{top:62px;left:6px;transform:none;max-width:calc(100% - 62px);white-space:normal}.bp-entry>button{font-size:12px;padding:6px}.canvas-tools{top:112px}.touch-hint{bottom:68px}.blueprint-dialog{inset:0}.blueprint-dialog[open]{display:flex;flex-direction:column}.blueprint-dialog>.bp-workspace{flex:1;height:auto;min-height:0}}
 
 @media(pointer:coarse){.selected-color-row{grid-template-columns:repeat(4,44px)}.placement-controls .selected-color-row button{width:44px;height:44px}.save-control summary{min-height:44px}}
-@media(max-width:1100px){.save-popover{position:fixed!important;top:95px;left:8px;right:8px;width:auto!important;max-height:65dvh;overflow:auto}.bp-workspace{position:relative}.bp-workspace .bp-sidebar{top:0}.floor-finish-tray .finish-footer{flex-shrink:0}.home-preview footer{max-height:40dvh;overflow:auto}}
+@media(max-width:1100px){.save-popover{position:fixed!important;top:95px;left:8px;right:8px;width:auto!important;max-height:65dvh;overflow:auto}.bp-workspace{position:relative}.bp-workspace .bp-sidebar{top:0}.home-preview footer{max-height:40dvh;overflow:auto}}
 
-.floor-finish-tray>.finish-workflow,.floor-finish-tray>.finish-collection,.floor-finish-tray>.finish-footer{padding-left:16px;padding-right:16px;flex:0 0 auto}
 @media(max-width:1100px){.app-shell .workspace:has(>.tool-browser),.app-shell .workspace:has(>.catalog-slot){grid-template-columns:minmax(0,1fr)}.app-shell>.topbar{padding-top:calc(5px + env(safe-area-inset-top))}}
-@media(max-width:1100px) and (max-height:500px){.mobile-panel-library .workspace>.catalog-slot,.mobile-panel-tools .workspace>.inspector-panel{height:100%}.floor-finish-tray{max-height:calc(100% - 74px)}}
+@media(max-width:1100px) and (max-height:500px){.mobile-panel-library .workspace>.catalog-slot,.mobile-panel-tools .workspace>.inspector-panel{height:100%}}
 
 @media(max-width:1100px){.app-shell>.topbar{z-index:70}.agent-panel{position:fixed;top:105px;left:8px;right:8px;width:auto;max-height:65dvh}.save-popover button,.agent-panel button{white-space:normal}}
 
