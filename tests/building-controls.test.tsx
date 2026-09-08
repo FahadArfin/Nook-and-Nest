@@ -23,7 +23,9 @@ vi.mock("../src/scene/SceneController",()=>({SceneController:class{
 }}));
 vi.mock("../src/store",async()=>{const actual=await vi.importActual<typeof import("../src/store")>("../src/store");return {...actual,loadPlan:async()=>actual.usePlanner.getState().plan,savePlan:async()=>{}}});
 const state=()=>usePlanner.getState();
-beforeEach(()=>{state().replacePlan(createSamplePlan());state().setTool("select");state().setCategory("All");state().setSearch("");scene.callbacks=undefined;scene.preview.mockClear();scene.update.mockClear();scene.rotation.mockClear();vi.stubGlobal("requestAnimationFrame",()=>1);vi.stubGlobal("cancelAnimationFrame",()=>{});});
+// Editor wiring does not need 630 unrelated catalog cards. Tests that browse
+// furniture explicitly enter their real search below; the catalog itself is not mocked.
+beforeEach(()=>{state().replacePlan(createSamplePlan());state().setTool("select");state().setCategory("All");state().setSearch("__editor_control_test__");scene.callbacks=undefined;scene.preview.mockClear();scene.update.mockClear();scene.rotation.mockClear();vi.stubGlobal("requestAnimationFrame",()=>1);vi.stubGlobal("cancelAnimationFrame",()=>{});});
 afterEach(()=>{cleanup();vi.unstubAllGlobals()});
 describe("measured room controls",()=>{
   it("selects a wall before changing its whole plate finish in the right panel",async()=>{
@@ -104,7 +106,7 @@ describe("building editor wiring",()=>{
   },10000);
   it("keeps keyboard library placement as a draft when leaving a building tool",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());act(()=>state().setTool("paint"));
-    act(()=>state().setCategory("Stairs"));const model=catalog.find(c=>c.id==="stairs-floating")!;
+    act(()=>{state().setCategory("Stairs");state().setSearch("stairs")});const model=catalog.find(c=>c.id==="stairs-floating")!;
     fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(screen.getByRole("toolbar",{name:`Place ${model.name}`})).toBeTruthy();expect(state().plan.furniture).toEqual([]);
     fireEvent.click(screen.getByRole("button",{name:"Rotate furniture"}));act(()=>scene.callbacks.onRotate(undefined,270));fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));

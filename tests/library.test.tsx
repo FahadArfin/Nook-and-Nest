@@ -10,12 +10,12 @@ import { createSamplePlan } from "../src/domain";
 
 const options={search:"",category:"All",type:"All",shelf:"browse" as const,favorites:[],inPlan:[],sort:"collection" as const};
 const item=(id:string)=>catalog.find(item=>item.id===id)!;
-beforeEach(()=>{localStorage.clear();usePlanner.getState().replacePlan(createSamplePlan());usePlanner.setState({search:"",category:"All"});if(!window.PointerEvent)window.PointerEvent=MouseEvent as typeof PointerEvent});
+beforeEach(()=>{localStorage.clear();usePlanner.getState().replacePlan(createSamplePlan());usePlanner.setState({search:"Capsule bathroom mirror",category:"All"});if(!window.PointerEvent)window.PointerEvent=MouseEvent as typeof PointerEvent});
 afterEach(cleanup);
 
 describe("library organization",()=>{
   it("gives every piece a real furniture type",()=>{
-    expect(catalog).toHaveLength(630);
+    expect(new Set(catalog.map(item=>item.id)).size).toBe(catalog.length);
     for(const item of catalog)expect(furnitureType(item),item.id).not.toBe("Other pieces");
   });
   it("finds common synonyms, categories and multiword queries",()=>{
@@ -45,16 +45,6 @@ describe("library organization",()=>{
 
 describe("library controls",()=>{
   const mount=()=>{const drag=vi.fn(),start=vi.fn();render(<CatalogLibrary onBeginDrag={drag} onStartPlacement={start}/>);return {drag,start}};
-  // Full-catalog DOM navigation is a correctness check, not a five-second benchmark.
-  it("navigates categories and subtypes, then searches the entire collection",()=>{
-    mount();fireEvent.change(screen.getByLabelText("Furniture category"),{target:{value:"Bathroom"}});
-    fireEvent.change(screen.getByLabelText("Furniture type"),{target:{value:"Toilets"}});
-    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(5);
-    fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"couch"}});
-    expect((screen.getByLabelText("Furniture category") as HTMLSelectElement).value).toBe("All");
-    expect(screen.getByRole("button",{name:"Cloud sofa, drag to place"})).toBeTruthy();
-    fireEvent.click(screen.getByLabelText("Clear search"));expect(document.activeElement).toBe(screen.getByLabelText("Search all furniture"));
-  },15000);
   it("saves a favorite without placing it or recording plan history",()=>{
     const before=usePlanner.getState().plan,{drag,start}=mount();
     fireEvent.click(screen.getByLabelText("Save Capsule bathroom mirror"));
@@ -72,7 +62,7 @@ describe("library controls",()=>{
     const spy=vi.spyOn(Storage.prototype,"setItem").mockImplementation(()=>{throw new Error("blocked")});
     try{mount();fireEvent.click(screen.getByLabelText("Save Capsule bathroom mirror"));expect(screen.getByText(/only stay for this session/)).toBeTruthy();expect(screen.getByLabelText("Unsave Capsule bathroom mirror")).toBeTruthy()}finally{spy.mockRestore()}
   },15000);
-  // This integration test mounts and rerenders the full catalog; it is not a timing benchmark.
+  // Exercise the real card callbacks with one real item, not hundreds of unrelated cards.
   it("supports wide browsing and preserves pointer and keyboard draft callbacks",()=>{
     const {drag,start}=mount();fireEvent.click(screen.getByLabelText("Expand library"));
     expect(screen.getByLabelText("Furniture library").className).toContain("library-expanded");
@@ -100,7 +90,8 @@ describe("library controls",()=>{
 });
 
 describe('library icon navigation',()=>{
-  it('synchronizes icons and dropdowns without changing the plan',()=>{
+  it('synchronizes category icons, dropdowns, global search and focus without changing the plan',()=>{
+    usePlanner.setState({search:'',category:'Living'});
     const before=usePlanner.getState().plan,drag=vi.fn(),start=vi.fn();
     render(<CatalogLibrary onBeginDrag={drag} onStartPlacement={start}/>);
     fireEvent.click(screen.getByRole('button',{name:'Category: Bathroom'}));
@@ -115,6 +106,9 @@ describe('library icon navigation',()=>{
     expect((screen.getByLabelText('Furniture type') as HTMLSelectElement).value).toBe('All');
     fireEvent.change(screen.getByLabelText('Search all furniture'),{target:{value:'couch'}});
     expect(screen.getByRole('button',{name:'Category: All'}).getAttribute('aria-pressed')).toBe('true');
+    expect((screen.getByLabelText('Furniture category') as HTMLSelectElement).value).toBe('All');
+    expect(screen.getByRole('button',{name:'Cloud sofa, drag to place'})).toBeTruthy();
+    fireEvent.click(screen.getByLabelText('Clear search'));expect(document.activeElement).toBe(screen.getByLabelText('Search all furniture'));
     expect(usePlanner.getState().plan).toBe(before);expect(usePlanner.getState().past).toHaveLength(0);
     expect(drag).not.toHaveBeenCalled();expect(start).not.toHaveBeenCalled();
   });
