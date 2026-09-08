@@ -1,0 +1,8 @@
+import {useState} from 'react';
+import {encodeShare} from './domain';
+import type {PlanDocumentV1} from './types';
+export function ShortShare({plan}:{plan:PlanDocumentV1}){
+ const [url,setUrl]=useState(''),[busy,setBusy]=useState(false),[error,setError]=useState(''),[copied,setCopied]=useState(false);
+ const create=async()=>{setBusy(true);setCopied(false);setError('');try{const response=await fetch('/api/shares',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:{...plan,studioDrafts:undefined}})});const data=await response.json();if(!response.ok)throw new Error(data.error);setUrl(`${location.origin}/#share=${data.id}`);}catch(e){setError((e as Error).message);}finally{setBusy(false);}};
+ return <><span className="eyebrow">Share your furnished home</span><h2>Create a short link</h2><p>Anyone with the link can open an editable copy. Later edits do not change that copy. Your unfinished Studio drafts stay private.</p><button className="primary" disabled={busy} onClick={()=>void create()}>{busy?'Creating link…':url?'Create updated link':'Create short link'}</button>{error&&<p role="alert">{error}</p>}{url&&<div className="share-box"><input aria-label="Short share link" readOnly value={url}/><button onClick={async()=>{try{await navigator.clipboard.writeText(url);setCopied(true);}catch{setError('Copy the link from the field above.');}}}>{copied?'Copied':'Copy link'}</button></div>}<details><summary>Share without signing in</summary><p>This self-contained link is longer and works without online storage.</p><button onClick={()=>{setUrl(`${location.origin}/#plan=${encodeShare({...plan,studioDrafts:undefined})}`);setCopied(false);}}>Use long link</button></details></>;
+}

@@ -31,7 +31,7 @@ export function ProjectLibrary({ onClose, onOpen, browseOnly=false }: { onClose(
     }
     await savePlan(next); replace(next); historyClear(); onClose(); onOpen?.();
   };
-  const historyClear = () => { if (location.hash.includes("plan=")) window.history.replaceState(null, "", location.pathname + location.search); };
+  const historyClear = () => { if (/plan=|share=/.test(location.hash)) window.history.replaceState(null, "", location.pathname + location.search); };
   const refresh = async () => { setLocals(await listLocalPlans()); if (session?.signedIn) setOnline((await cloudProjects()).projects); };
   const saveOnline = (asCopy = false) => run(async () => {
     if (!session?.userId) throw new Error("Sign in again to save.");

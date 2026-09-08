@@ -13,6 +13,7 @@ export interface FurniturePlacement { showerMirrored?:boolean; moduleRun?:boolea
 export interface FloorPlan { wallCuts?:WallSegment[]; id: string; name: string; elevationMm: number; heightMm: number; cells: TileCell[]; walls: WallSegment[]; openings: Opening[]; stairs: StairPlacement[]; floorFinishId?: string; wallFinishId?: string; cellRects?:Record<string,FloorRect[]>; cellFinishes?: Record<string,string>; wallFinishes?: Record<string,string>; blueprint?: { rooms:import('./blueprint').BlueprintRoom[]; geometryKey:string; generatedWallIds?:string[]; wallCuts?:WallSegment[]; omittedWalls?:string[] } }
 export interface PlanDocumentV1 {
   schemaVersion: 1; id: string; name: string; createdAt: string; updatedAt: string; units: Units; gridSizeMm: number;
+  studioDrafts?: Record<string, {draft:import('./blueprint').BlueprintDraft;savedAt:string;imageScale:number;calibrated:boolean;view:{x:number;z:number;width:number;height:number}}>;
   floors: FloorPlan[]; furniture: FurniturePlacement[];
   environment?: { background: "plain"|"city"|"suburban"|"rural"|"farm"|"medieval"; grass:"off"|"sparse"|"lush"; backdropRotation?:number; citySource?:'standard'|'google'; cityHeight?:number; terrain?:import('./terrain').TerrainStroke[] };
   camera: { mode: ViewMode; ghostBelow: boolean; showGrid: boolean; showClearance: boolean; wallVisibility?: WallVisibility; transparentWalls?: boolean; darkMode?: boolean };

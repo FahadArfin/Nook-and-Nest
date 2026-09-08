@@ -6,14 +6,14 @@ import {materialGroups} from './materialGroups';
 import {PaintPicker} from './PaintPicker';
 
 type Scope='sections'|'brush'|'whole'|'exterior';
-export function SurfaceBrowser(){
+export function SurfaceBrowser({floorOnly=false}:{floorOnly?:boolean}={}){
  const collectionRef=useRef<HTMLDivElement>(null);
  const s=usePlanner(),floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;
- const [target,setTarget]=useState<'Floor'|'Walls'>(s.selectedWallId?'Walls':'Floor');
- const [scope,setScope]=useState<Scope>('sections'),[family,setFamily]=useState(s.selectedWallId?'Paint':'All'),[search,setSearch]=useState(''),[pending,setPending]=useState<string>(),[message,setMessage]=useState('');
+ const [target,setTarget]=useState<'Floor'|'Walls'>(!floorOnly&&s.selectedWallId?'Walls':'Floor');
+ const [scope,setScope]=useState<Scope>('sections'),[family,setFamily]=useState(!floorOnly&&s.selectedWallId?'Paint':'All'),[search,setSearch]=useState(''),[pending,setPending]=useState<string>(),[message,setMessage]=useState('');
  // Lighting belongs to the editor, not the lifetime of this panel.
- useEffect(()=>()=>{if(usePlanner.getState().wallSelectionActive)usePlanner.getState().setTool('select')},[]);
- useEffect(()=>{if(s.selectedWallId){setTarget('Walls');setFamily('Paint');setScope('sections');setPending(undefined)}},[s.selectedWallId]);
+ useEffect(()=>()=>{if(!floorOnly&&usePlanner.getState().wallSelectionActive)usePlanner.getState().setTool('select')},[]);
+ useEffect(()=>{if(!floorOnly&&s.selectedWallId){setTarget('Walls');setFamily('Paint');setScope('sections');setPending(undefined)}},[s.selectedWallId]);
  useEffect(()=>{setPending(undefined);setMessage('')},[s.activeFloorId]);
  useEffect(()=>{if(collectionRef.current)collectionRef.current.scrollTop=0},[target,family,search]);
  const finishes=target==='Floor'?floorFinishes:wallFinishes,kind=target==='Floor'?'floorFinishId':'wallFinishId';
@@ -28,7 +28,7 @@ export function SurfaceBrowser(){
  const apply=()=>{if(!pending)return;if(scope==='sections'&&target==='Walls'){if(s.wallSelectionActive)s.finishSelectedWalls(pending);else if(s.selectedWallId)s.finishWall(s.selectedWallId,pending);else return;}else if(scope==='exterior')s.finishWallGroup('exterior',pending);else s.setFloorFinish(kind,pending);setMessage(`Applied ${chosen.name}. Undo restores the previous finishes.`);setPending(undefined)};
  const scopes=target==='Walls'?[{id:'brush',name:'Brush',icon:PaintRoller},{id:'sections',name:'Select walls',icon:Wall},{id:'whole',name:'All walls',icon:Selection},{id:'exterior',name:'Outer walls',icon:BoundingBox}]:[{id:'sections',name:'Paint area',icon:PaintRoller},{id:'whole',name:'Whole floor',icon:GridFour}];
  return <>
-  <div className="task-subtabs" aria-label="Surface">{(['Walls','Floor'] as const).map(t=><button key={t} aria-pressed={target===t} onClick={()=>{s.setTool('select');setTarget(t);setScope(t==='Walls'?'brush':'sections');setFamily(t==='Walls'?'Paint':'All');setSearch('');setPending(undefined);setMessage('')}}>{t==='Walls'?<PaintRoller/>:<GridFour/>}{t}</button>)}</div>
+  {!floorOnly&&<div className="task-subtabs" aria-label="Surface">{(['Walls','Floor'] as const).map(t=><button key={t} aria-pressed={target===t} onClick={()=>{s.setTool('select');setTarget(t);setScope(t==='Walls'?'brush':'sections');setFamily(t==='Walls'?'Paint':'All');setSearch('');setPending(undefined);setMessage('')}}>{t==='Walls'?<PaintRoller/>:<GridFour/>}{t}</button>)}</div>}
   <div className="finish-workflow guided-workflow">
    <h2>Make it yours</h2>
    <h3 className="finish-step"><span>1</span>Select surfaces</h3>

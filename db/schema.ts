@@ -1,4 +1,4 @@
-import { integer, sqliteTable, text, primaryKey } from "drizzle-orm/sqlite-core";
+import { integer, sqliteTable, text, primaryKey, index } from "drizzle-orm/sqlite-core";
 
 // Every lookup includes ownerId. Versions are immutable; restoring creates a new version.
 export const projectVersions = sqliteTable("project_versions", {
@@ -16,3 +16,5 @@ export const recognitionUsage = sqliteTable('recognition_usage', {
   day: text('day').notNull(),
   count: integer('count').notNull().default(0),
 }, t => [primaryKey({columns:[t.ownerId,t.day]})]);
+
+export const sharedPlans=sqliteTable("shared_plans",{id:text("id").primaryKey(),ownerId:text("owner_id").notNull(),createdAt:text("created_at").notNull(),document:text("document").notNull()},t=>[index("shared_plans_owner_idx").on(t.ownerId)]);

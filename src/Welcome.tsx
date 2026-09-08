@@ -19,7 +19,7 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
  const [error,setError]=useState('');
  useEffect(()=>{let active=true;
   (async()=>{try{const plan=showcase?showcase():await loadPlan();if(!active)return;if(plan)usePlanner.getState().replacePlan(plan);
-   if(showcase||new URLSearchParams(location.hash.slice(1)).has('plan'))setEditing(true);
+   if(showcase||(new URLSearchParams(location.hash.slice(1)).has('plan')||new URLSearchParams(location.hash.slice(1)).has('share')))setEditing(true);
   }catch{if(active)setError('We could not open the saved or shared project. Your existing saves have not been removed.');}
   finally{if(active)setReady(true);}})();return()=>{active=false};
  },[]);

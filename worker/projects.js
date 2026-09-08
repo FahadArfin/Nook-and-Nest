@@ -1,3 +1,4 @@
+import {shares} from './shares.js';
 import {googleTiles} from './google-tiles.js';
 import staticWorker from "./index.js";
 import {createLibraryHandler} from './library-assets.js';
@@ -97,6 +98,6 @@ export default { async fetch(request, env) {
   if(url.pathname==='/api/floor-plan/recognize') {
     try{return await recognitionApi(request,env);}catch{return fail('Image analysis is temporarily unavailable. Your home has not changed.',503);}
   }
-  try { return await api(request, env); }
+  try { const shared=await shares(request,env);if(shared)return shared;return await api(request, env); }
   catch { return fail("Online saves are temporarily unavailable. Your local build is unchanged.", 503); }
 } };

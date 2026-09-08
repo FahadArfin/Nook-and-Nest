@@ -14,6 +14,7 @@ export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPla
   onBeginDrag(item:CatalogItem,event:PointerEvent<HTMLButtonElement>):void;
   onStartPlacement(item:CatalogItem):void;
 }) {
+  const touchCard=useRef(false);
   const search = usePlanner(s=>s.search), category = usePlanner(s=>s.category);
   const setSearch = usePlanner(s=>s.setSearch), setCategory = usePlanner(s=>s.setCategory);
   const units = usePlanner(s=>s.plan.units), placed = usePlanner(s=>s.plan.furniture);
@@ -60,7 +61,7 @@ export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPla
     {(category!=="All"||type!=="All"||search)&&<button className="library-reset" onClick={reset}><X size={12}/> Clear filters</button>}
     <div ref={scrollRef} className="library-results" id="library-results">
       {items.length?<div className="library-groups">{groups.map(group=>{const TypeIcon=libraryIcon(group.name);return <section className="library-type-section" key={group.name} aria-label={group.name}><button className="library-type-heading" aria-label={`Type: ${group.name}`} aria-pressed={type===group.name} title={`Show only ${group.name}`} onClick={()=>setType(type===group.name?"All":group.name)}><TypeIcon size={21} aria-hidden="true"/><strong>{group.name}</strong><small>{group.items.length}</small></button><div className="catalog-grid library-grid">{group.items.map(item=>{const Icon=icons[item.shape]??SquaresFour, saved=favorites.includes(item.id);return <article className="library-item" key={item.id}>
-        <button className="catalog-card" draggable={false} aria-label={`${item.name}, drag to place`} title={`${item.name} — ${item.description}`} onPointerDown={event=>{if(event.button===0){setExpanded(false);onBeginDrag(item,event)}}} onClick={event=>{if(event.detail===0)start(item)}}>
+        <button className="catalog-card" draggable={false} aria-label={`${item.name}, drag to place`} title={`${item.name} — ${item.description}`} onPointerDown={event=>{touchCard.current=event.pointerType==='touch';if(!touchCard.current&&event.button===0){setExpanded(false);onBeginDrag(item,event)}}} onClick={event=>{if(event.detail===0||touchCard.current){touchCard.current=false;start(item)}}}>
           <span className={`item-illustration ${item.shape} ${hasModelPreview(item.id)?"has-model-preview":""}`}>{hasModelPreview(item.id)?<img src={modelAssetPath(item.id,true)} alt="" loading="lazy" draggable={false}/>:<Icon size={38} weight="duotone"/>}</span>
           <span className="item-copy"><span className="item-family">{furnitureType(item)}</span><strong>{item.name}</strong><small>{formatLength(item.widthMm,units)} × {formatLength(isWallOpening(item.id)?item.heightMm:item.depthMm,units)}</small></span>
           <HandGrabbing className="item-drag-hint" size={14}/>

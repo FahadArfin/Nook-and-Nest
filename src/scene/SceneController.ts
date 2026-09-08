@@ -1,8 +1,11 @@
+import {bindTouchNavigation} from "../touchNavigation";
+import type {HomeShot} from '../previewShots';
+
 import {showerScaleX} from '../apartmentCollection';
 import { FurnitureLights } from './FurnitureLights';
 import {snapRemovalPoint} from '../wallEditing';
 import {joinedWallSpan} from '../architectureSurfaces';
-import {angularStep,pointerAngle} from '../rotationGesture';
+import {angularStep,pointerAngle,stickyRotation} from '../rotationGesture';
 import {extendFurniture,moduleSegments,isRailing} from '../modularFurniture';
 import {configurePlanCoordinates, planViewAngles, applyPlanView, updatePlanProjection} from './planCoordinates';
 import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
@@ -52,6 +55,11 @@ import {cameraFacingRotation} from '../placementFacing';
 
 interface Callbacks { onCell(x: number, z: number): void; onWallSegment(wall:Omit<WallSegment,"id">):void; onTileDraft(cells: TileCell[], present: boolean): void; onSelect(id?: string): void; onMove(id: string, xMm: number, zMm: number, elevationMm?:number,rotation?:number): void; onDraftMove(xMm: number, zMm: number, elevationMm?:number,rotation?:number): void; onRotate(id:string|undefined,rotation:number):void; onWall(id: string): void }
 export class SceneController {
+  private homePreview?:{target:Vector3;alpha:number;beta:number;radius:number;mode:number};
+  private homeOrbit=false;
+  beginHomePreview(){if(this.homePreview)return;this.engine.resize();this.cancelFocus();this.homePreview={target:this.camera.target.clone(),alpha:this.camera.alpha,beta:this.camera.beta,radius:this.camera.radius,mode:this.camera.mode};this.camera.detachControl();this.rotationGuide?.setEnabled(false);}
+  showHomeShot(shot:HomeShot,orbit=false){if(!shot)return;this.homeOrbit=orbit;this.camera.mode=0;this.camera.setTarget(new Vector3(shot.x,shot.y,shot.z));this.camera.alpha=shot.alpha;this.camera.beta=shot.beta;this.camera.radius=Math.min(this.camera.upperRadiusLimit??80,shot.radius*Math.max(1,this.engine.getRenderHeight()/this.engine.getRenderWidth()));this.camera.inertialAlphaOffset=0;this.camera.inertialBetaOffset=0;this.camera.inertialRadiusOffset=0;this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;}
+  endHomePreview(){const saved=this.homePreview;if(!saved)return;this.homePreview=undefined;this.homeOrbit=false;this.camera.setTarget(saved.target);Object.assign(this.camera,{alpha:saved.alpha,beta:saved.beta,radius:saved.radius,mode:saved.mode});this.camera.attachControl(this.canvas,true);requestAnimationFrame(()=>this.engine.resize());}
   private plantingPoints?:Array<{x:number;z:number}>;
   private plantingNodes=new Map<string,{node:TransformNode;born:number;loaded:boolean}>();
   private plantingItems:FurniturePlacement[]=[];
@@ -116,33 +124,41 @@ export class SceneController {
   private engine: Engine; private scene: Scene; private camera: ArcRotateCamera; private root: TransformNode; private callbacks: Callbacks; private tool: Tool = "select"; private dragging?: string; private draggedPosition?: PlacementPoint; private draggingDraft = false; private tileDragStart?: TileCell; private tileDragCurrent?: TileCell; private tileDraftRoot?: TransformNode; private tileDraftCells: TileCell[]=[]; private tileDraftPresent=true; private measuredDraft?:MeasuredRegion; private tileDraftAnchor?: Vector3; private wallDragStart?:TileCell; private wallDragCurrent?:TileCell; private cutTarget?:WallSegment; private cutPointerY?:number; private wallDraft?:Omit<WallSegment,"id">; private wallDraftMesh?:Mesh; private surfaceMaterials=new Map<string,StandardMaterial>(); private activePlan?: PlanDocumentV1; private activeFloorId = ""; private selectedId?: string; private activeDraft?: FurniturePlacement; private previewNode?: TransformNode; private selectedNode?: TransformNode; private draftPosition?: PlacementPoint; private shadow: ShadowGenerator; private furnitureFactory: FurnitureFactory; private furnitureModels: FurnitureModelLibrary;
   constructor(private canvas: HTMLCanvasElement, callbacks: Callbacks) {
     this.callbacks = callbacks; this.engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
+    if(window.matchMedia?.("(pointer: coarse)").matches)this.engine.setHardwareScalingLevel(1/Math.min(window.devicePixelRatio||1,1.5));
     this.scene = new Scene(this.engine); configurePlanCoordinates(this.scene); this.scene.clearColor = new Color4(0.72, 0.78, 0.62, 1); this.scene.ambientColor = new Color3(.12,.11,.09); this.scene.imageProcessingConfiguration.exposure=.72; this.scene.imageProcessingConfiguration.contrast=1.12;
     this.camera = new ArcRotateCamera("camera", planViewAngles("isometric").alpha, planViewAngles("isometric").beta, 18, new Vector3(2, 0, 2), this.scene); this.camera.attachControl(canvas, true); this.camera.lowerRadiusLimit = closeZoomLimit; this.camera.minZ=closeClipPlane; this.camera.upperRadiusLimit = 80; this.camera.wheelPrecision = 35; Object.assign(this.camera, comfortableCamera);
     const hemi = new HemisphericLight("sky", new Vector3(0.2, 1, 0.1), this.scene); hemi.intensity = .62; hemi.diffuse = new Color3(1, .91, .78); hemi.groundColor = new Color3(.3,.37,.28);
     const sun = new DirectionalLight("sun", new Vector3(-.8, -1.5, .7), this.scene); sun.position = new Vector3(10, 18, -10); sun.intensity = .72; sun.diffuse=new Color3(1,.86,.68); this.shadow = new ShadowGenerator(1024, sun); this.shadow.useBlurExponentialShadowMap = true; this.shadow.blurKernel = 24; this.shadow.setDarkness(.3); this.shadow.customAllowRendering=subMesh=>this.wallVisibility.allowsShadow(subMesh.getMesh());
-    this.root = new TransformNode("root", this.scene); this.furnitureFactory = new FurnitureFactory(this.scene,this.shadow); this.furnitureModels = new FurnitureModelLibrary(this.scene,this.shadow,(ids)=>{ids.forEach(id=>this.refreshModels.add(id));if(this.plantingItems.length)this.renderPlantingPreview(this.plantingItems,true);if(this.activePlan&&!this.dragging&&!this.draggingDraft&&!this.rotationDrag)this.update(this.activePlan,this.activeFloorId,this.selectedId,this.activeDraft)}); this.makeMeadow(); this.outdoors=new OutdoorScene(this.scene); this.terrain=new TerrainScene(this.scene); this.bindPointers();this.canvas.addEventListener('contextmenu',this.contextMenu);this.canvas.addEventListener('wheel',this.cancelFocus,{passive:true});window.addEventListener('pointerdown',this.cameraPointerDown,true);window.addEventListener('pointerup',this.cameraPointerUp,true);this.canvas.addEventListener('pointercancel',this.cancelOutdoorStroke);window.addEventListener('blur',this.cancelOutdoorStroke); let frame=0; this.engine.runRenderLoop(() => {this.camera.panningSensibility=precisionPanSensitivity(this.camera.radius);this.camera.minZ=Math.max(closeClipPlane,Math.min(1,this.camera.radius*.001));const start=performance.now();this.scene.render();const renderMs=performance.now()-start;frame+=1;if(frame%30===0){this.canvas.dataset.fps=this.engine.getFps().toFixed(1);this.canvas.dataset.renderMs=renderMs.toFixed(1);this.canvas.dataset.cameraRadius=this.camera.radius.toFixed(3);}}); window.addEventListener("resize", this.resize);
+    this.root = new TransformNode("root", this.scene); this.furnitureFactory = new FurnitureFactory(this.scene,this.shadow); this.furnitureModels = new FurnitureModelLibrary(this.scene,this.shadow,(ids)=>{ids.forEach(id=>this.refreshModels.add(id));if(this.plantingItems.length)this.renderPlantingPreview(this.plantingItems,true);if(this.activePlan&&!this.dragging&&!this.draggingDraft&&!this.rotationDrag)this.update(this.activePlan,this.activeFloorId,this.selectedId,this.activeDraft)}); this.makeMeadow(); this.outdoors=new OutdoorScene(this.scene); this.terrain=new TerrainScene(this.scene); this.bindPointers();
+    this.touchCleanup=bindTouchNavigation(canvas,{
+      begin:()=>{this.cancelTouchEdit();this.camera.detachControl();this.camera.inertialAlphaOffset=0;this.camera.inertialBetaOffset=0;this.camera.inertialRadiusOffset=0;this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;},
+      move:(dx,dy,scale)=>{if(this.homePreview)return;const distance=this.camera.radius*2*Math.tan(this.camera.fov/2)/Math.max(1,canvas.clientHeight);const right=this.camera.getDirection(Vector3.Right()),up=this.camera.getDirection(Vector3.Up());right.y=0;up.y=0;this.camera.setTarget(this.camera.target.add(right.scale(-dx*distance)).add(up.scale(dy*distance)));this.zoom(scale);},
+      end:()=>{if(!this.homePreview)this.resumeCameraControls()},cancel:()=>this.cancelTouchEdit()
+    });this.canvas.addEventListener('contextmenu',this.contextMenu);this.canvas.addEventListener('wheel',this.cancelFocus,{passive:true});window.addEventListener('pointerdown',this.cameraPointerDown,true);window.addEventListener('pointerup',this.cameraPointerUp,true);this.canvas.addEventListener('pointercancel',this.cancelOutdoorStroke);window.addEventListener('blur',this.cancelOutdoorStroke); let frame=0; this.engine.runRenderLoop(() => {this.camera.panningSensibility=precisionPanSensitivity(this.camera.radius);this.camera.minZ=Math.max(closeClipPlane,Math.min(1,this.camera.radius*.001));const start=performance.now();this.scene.render();const renderMs=performance.now()-start;frame+=1;if(frame%30===0){this.canvas.dataset.fps=this.engine.getFps().toFixed(1);this.canvas.dataset.renderMs=renderMs.toFixed(1);this.canvas.dataset.cameraRadius=this.camera.radius.toFixed(3);}}); window.addEventListener("resize", this.resize);
     // Hover does not select furniture; dragging already uses explicit picking.
     this.scene.skipPointerMovePicking = true;
     this.scene.onBeforeRenderObservable.add(() => {
-      this.updateEditingGuides();
+      if(this.homePreview&&this.homeOrbit&&!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches)this.camera.alpha+=Math.min(50,this.engine.getDeltaTime())*.00012;
+      if(!this.homePreview)this.updateEditingGuides();
       if(this.activePlan){this.fixtureLights??=new FurnitureLights(this.scene,m=>this.wallVisibility.allowsShadow(m));this.fixtureLights.update(this.activePlan,this.activeFloorId,this.furnitureNodes,this.camera.position,this.neutralPreview);}
       updatePlanProjection(this.camera,this.engine.getRenderWidth()/this.engine.getRenderHeight());
       if(!this.plantingPoints&&!usePlanner.getState().plantingDraft&&this.plantingNodes.size)this.clearPlantingPreview();
       for(const p of this.plantingNodes.values()){const a=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(performance.now()-p.born)/300);p.node.scaling.setAll(.8+.2*a);for(const m of p.node.getChildMeshes())m.visibility=.7*a;}
       if(this.terrainStroke&&this.terrainBase&&performance.now()-this.terrainLastPreview>65){this.terrainLastPreview=performance.now();const strength=this.terrainStroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900);this.terrain.update({...this.terrainBase,environment:{background:'plain',grass:'off',...this.terrainBase.environment,terrain:[...(this.terrainBase.environment?.terrain??[]),{...this.terrainStroke,strength}]}});this.scene.getMeshByName('meadow')?.setEnabled(false);}
       for(const guide of this.paintSelectionGuides){const hosts=guide.metadata.hosts as Mesh[];guide.visibility=Math.max(0,...hosts.filter(m=>m.isEnabled()).map(m=>m.visibility));}
-      if (this.activePlan) this.wallVisibility.update(getWallVisibility(this.activePlan.camera), this.camera.position, this.camera.target, this.engine.getDeltaTime(), window.matchMedia?.("(prefers-reduced-motion: reduce)").matches??false);
+      if (this.activePlan) this.wallVisibility.update(this.homePreview?'near-hidden':getWallVisibility(this.activePlan.camera), this.camera.position, this.camera.target, this.engine.getDeltaTime(), window.matchMedia?.("(prefers-reduced-motion: reduce)").matches??false);
     });
   }
   viewSurroundings(){if(!this.activePlan)return;const b=landscapeBounds(this.activePlan);this.camera.setTarget(new Vector3(b.x,0,b.z));this.camera.mode=0;this.camera.beta=1.05;this.camera.alpha=Math.PI/2;this.camera.upperRadiusLimit=Math.max(100,b.radius*2.5);this.camera.radius=this.activePlan.environment?.background==='city'?650:Math.max(40,b.radius*2.2);this.camera.upperRadiusLimit=Math.max(this.camera.upperRadiusLimit??100,this.camera.radius*2);this.camera.inertialRadiusOffset=0;}
   zoom(factor:number){this.cancelFocus();this.camera.radius=Math.max(closeZoomLimit,Math.min(this.camera.upperRadiusLimit??80,this.camera.radius*factor));this.camera.inertialRadiusOffset=0;}
   focusFloor(plan:PlanDocumentV1,floorId:string){
+    this.cancelFocus();
     applyPlanView(this.camera, plan.camera.mode);
     this.camera.inertialAlphaOffset=0;this.camera.inertialBetaOffset=0;
     const floor=plan.floors.find(f=>f.id===floorId);if(!floor?.cells.length)return;
     let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;for(const r of floorRects(floor,plan.gridSizeMm)){left=Math.min(left,r.x);right=Math.max(right,r.x+r.width);top=Math.min(top,r.z);bottom=Math.max(bottom,r.z+r.depth);}
     this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;this.camera.inertialRadiusOffset=0;
-    this.camera.setTarget(new Vector3((left+right)/2000,floor.elevationMm/1000+.3,(top+bottom)/2000));const radius=Math.max(6,Math.max(right-left,bottom-top)/1000*1.8);this.camera.upperRadiusLimit=Math.max(80,radius);this.camera.radius=radius;
+    this.camera.setTarget(new Vector3((left+right)/2000,floor.elevationMm/1000+.3,(top+bottom)/2000));const radius=Math.max(6,Math.max(right-left,bottom-top)/1000*1.8*Math.max(1,this.engine.getRenderHeight()/this.engine.getRenderWidth()));this.camera.upperRadiusLimit=Math.max(80,radius);this.camera.radius=radius;
   }
   placementRotation(id:string,x:number,z:number){return cameraFacingRotation(id,this.camera.position,{x:x/1000,z:z/1000});}
   private cancelFocus=()=>{this.focusMotion=undefined;};
@@ -165,7 +181,7 @@ export class SceneController {
   private updateEditingGuides(now=performance.now()){
     const item=this.activeDraft??this.activePlan?.furniture.find(f=>f.id===this.selectedId),node=this.activeDraft?this.previewNode:this.selectedNode;
     const key=item?`${this.activePlan?.id}:${item.floorId}:${item.id}`:'';
-    if(key!==this.editingKey){this.editingKey=key;this.focusMotion=item?{}:undefined;}
+    if(key!==this.editingKey){this.editingKey=key;this.focusMotion=item&&this.activePlan?.camera.mode!=='top'?{}:undefined;}
     if(!item||!node){this.rotationGuide?.setEnabled(false);return;}
     if(this.focusMotion&&!this.pointerHeld&&!this.dragging&&!this.draggingDraft&&!this.rotationDrag){
       const motion=this.focusMotion;
@@ -191,8 +207,16 @@ export class SceneController {
   }
   private cancelOutdoorStroke=()=>{this.pointerHeld=false;this.cancelFocus();if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;}if(this.terrainStroke){this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}}if(this.plantingPoints){this.plantingPoints=undefined;this.clearPlantingPreview();}this.resumeCameraControls();};
   private contextMenu=(event:Event)=>{if(this.tool==='select')event.preventDefault();};
+  private touchCleanup?:()=>void;
+  private cancelTouchEdit(){
+    this.cancelOutdoorStroke();
+    const item=this.activeDraft??this.activePlan?.furniture.find(f=>f.id===this.dragging),node=this.activeDraft?this.previewNode:this.selectedNode;
+    if(item&&node){const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);node.position.set(item.x/1000,((floor?.elevationMm??0)+(item.elevationMm??0)+(isWallOpening(item.catalogId)?0:isStairs(item.catalogId)?40:50))/1000,item.z/1000);node.rotation.y=item.rotation*Math.PI/180;}
+    this.dragging=undefined;this.draggingDraft=false;this.draggedPosition=undefined;this.draftPosition=undefined;
+    if(this.tileDragStart)this.cancelTileDraft();this.cancelWallDraft();
+  };
   private resize = () => this.engine.resize();
-  dispose() { this.fixtureLights?.dispose();this.canvas.removeEventListener('wheel',this.cancelFocus);window.removeEventListener('pointerdown',this.cameraPointerDown,true);window.removeEventListener('pointerup',this.cameraPointerUp,true);this.rotationGuide?.dispose();this.canvas.removeEventListener('contextmenu',this.contextMenu);this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
+  dispose() { this.touchCleanup?.();this.fixtureLights?.dispose();this.canvas.removeEventListener('wheel',this.cancelFocus);window.removeEventListener('pointerdown',this.cameraPointerDown,true);window.removeEventListener('pointerup',this.cameraPointerUp,true);this.rotationGuide?.dispose();this.canvas.removeEventListener('contextmenu',this.contextMenu);this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
   setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.clearPlantingPreview();this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}this.terrainCue?.dispose();this.terrainCue=undefined;this.resumeCameraControls();this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
   screenshot() { return this.canvas.toDataURL("image/png"); }
   private pointOnActiveFloor(screenX: number, screenY: number) {
@@ -355,6 +379,7 @@ export class SceneController {
   }
   update(plan: PlanDocumentV1, activeFloorId: string, selectedId?: string, draft?: FurniturePlacement) {
     const previous=this.activePlan;
+    if(plan.camera.mode==='top'&&previous?.camera.mode!=='top')this.cancelFocus();
     if(previous&&previous.id===plan.id&&previous.gridSizeMm===plan.gridSizeMm&&previous.floors===plan.floors&&previous.furniture===plan.furniture&&previous.environment===plan.environment&&JSON.stringify(previous.camera)===JSON.stringify(plan.camera)&&this.activeFloorId===activeFloorId&&this.selectedId===selectedId&&!this.refreshModels?.size&&this.architectureTool===this.tool&&this.architectureWall===this.selectedWallId){
       this.activePlan=plan;this.updateDraft(plan,activeFloorId,draft);return;
     }
@@ -513,6 +538,7 @@ export class SceneController {
   private bindPointers(){
     let moved=false;
     this.scene.onPointerObservable.add((info)=>{
+      if(this.homePreview)return;
       if(this.tool==='planting'){
         const s=usePlanner.getState(),ray=this.scene.createPickingRay(this.scene.pointerX,this.scene.pointerY,Matrix.Identity(),this.camera);
         const hit=terrainRay(s.plan,ray.origin,ray.direction);
@@ -552,7 +578,7 @@ export class SceneController {
           const next=pointerAngle(info.event.clientX,info.event.clientY,drag.centerX,drag.centerY);if(next===undefined){drag.lastAngle=undefined;return;}if(drag.lastAngle!==undefined)drag.total+=angularStep(drag.lastAngle,next);drag.lastAngle=next;let angle=drag.item.rotation-drag.total;
           if(isWallOpening(drag.item.catalogId)||isKitchenWall(drag.item.catalogId))angle=drag.item.rotation+Math.round((angle-drag.item.rotation)/180)*180;
           else if(isStairs(drag.item.catalogId))angle=drag.item.rotation+Math.round((angle-drag.item.rotation)/90)*90;
-          else if(info.event.shiftKey)angle=Math.round(angle/15)*15;
+          else angle=stickyRotation(angle,drag.rotation,info.event.altKey,info.event.shiftKey);
           drag.rotation=((angle%360)+360)%360;drag.node.rotation.y=drag.rotation*Math.PI/180;
         }else if(info.type===PointerEventTypes.POINTERUP){
           this.rotationDrag=undefined;this.resumeCameraControls();
