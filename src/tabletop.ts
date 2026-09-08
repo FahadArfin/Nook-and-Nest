@@ -1,3 +1,4 @@
+import {designedHomeTopIds,designedHomeRoundIds} from './designedHomeCollection';
 import { modernTopIds, modernMediaIds, modernRoundTopIds } from './modernCollection';
 import { shelfSurfaces,fitsShelf } from "./shelfSurfaces";
 import { kitchenTopIds,kitchenSurfaceIds } from "./kitchenCatalog";
@@ -17,7 +18,7 @@ export function tabletopChoices(plan:PlanDocumentV1,item:FurniturePlacement){
 // Only simple continuous tops: L-shaped desks need an explicit height input
 // rather than a misleading rectangular hit area across their empty corner.
 export function supportsDesktop(item:FurniturePlacement) {
-  return (item.catalogId==="bambu-p2s"||item.catalogId.startsWith("desk-mat-")||modernTopIds.has(item.catalogId)||modernMediaIds.has(item.catalogId)||kitchenTopIds.has(item.catalogId)||["cane-nightstand","floating-nightstand","base-cabinet","kitchen-counter","tv-stand","slatted-tv-stand","open-media-bench","cane-tv-stand"].includes(item.catalogId)||catalog.find(c=>c.id===item.catalogId)?.shape==="table")&&!['corner-desk','nesting-tables','tray-side-table'].includes(item.catalogId);
+  return (designedHomeTopIds.has(item.catalogId)||item.catalogId==="bambu-p2s"||item.catalogId.startsWith("desk-mat-")||modernTopIds.has(item.catalogId)||modernMediaIds.has(item.catalogId)||kitchenTopIds.has(item.catalogId)||["cane-nightstand","floating-nightstand","base-cabinet","kitchen-counter","tv-stand","slatted-tv-stand","open-media-bench","cane-tv-stand"].includes(item.catalogId)||catalog.find(c=>c.id===item.catalogId)?.shape==="table")&&!['corner-desk','nesting-tables','tray-side-table'].includes(item.catalogId);
 }
 export function tabletopPoint(plan:PlanDocumentV1,item:FurniturePlacement,origin:Point3,direction:Point3):PlacementPoint|undefined {
   const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor||Math.abs(direction.y)<.00001)return;
@@ -47,7 +48,7 @@ export function tabletopPoint(plan:PlanDocumentV1,item:FurniturePlacement,origin
     }
     if(Math.abs(localX)+halfW>table.widthMm/2||localZ-halfD< -table.depthMm/2||localZ+halfD>table.depthMm/2-frontInset)return [];
     // Round/oval coffee tables need an ellipse containment check at each corner.
-    if(modernRoundTopIds.has(table.catalogId)||['apartment-bedside-round-pedestal','pedestal-dining-table','patio-bistro-table','pedestal-nightstand','drum-coffee-table','oval-coffee-table','round-table','side-table'].includes(table.catalogId)){
+    if(designedHomeRoundIds.has(table.catalogId)||modernRoundTopIds.has(table.catalogId)||['apartment-bedside-round-pedestal','pedestal-dining-table','patio-bistro-table','pedestal-nightstand','drum-coffee-table','oval-coffee-table','round-table','side-table'].includes(table.catalogId)){
       if(((Math.abs(localX)+halfW)/(table.widthMm/2))**2+((Math.abs(localZ)+halfD)/(table.depthMm/2))**2>1)return [];
     }
     return [{x:table.x+localX*Math.cos(angle)+localZ*Math.sin(angle),z:table.z-localX*Math.sin(angle)+localZ*Math.cos(angle),rotation,elevationMm,distance}];

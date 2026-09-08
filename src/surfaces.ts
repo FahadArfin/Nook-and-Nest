@@ -1,3 +1,4 @@
+import {designedHomeCounterIds} from './designedHomeCollection';
 import studio from './materialStudio.json';
 import paints from './paintCollection.json';
 import {luxurySinkIds} from './luxuryCollection';
@@ -57,7 +58,7 @@ export const doorFinishes: SurfaceFinish[] = [
 ];
 
 const countertopCatalogIds = new Set(["console-vanity","reed-double-vanity","base-cabinet", "sink-cabinet", "kitchen-counter", "kitchen-island", "single-bath-vanity", "double-bath-vanity", "floating-bath-vanity"]);
-export const supportsCountertopFinish = (catalogId: string) => luxurySinkIds.has(catalogId)||modernCounterIds.has(catalogId)||countertopCatalogIds.has(catalogId)||kitchenTopIds.has(catalogId)||catalogId==="backsplash-slab";
+export const supportsCountertopFinish = (catalogId: string) => designedHomeCounterIds.has(catalogId)||luxurySinkIds.has(catalogId)||modernCounterIds.has(catalogId)||countertopCatalogIds.has(catalogId)||kitchenTopIds.has(catalogId)||catalogId==="backsplash-slab";
 
 export const defaultWallFinish = wallFinishes[0];
 export const defaultFloorFinish = floorFinishes[0];
