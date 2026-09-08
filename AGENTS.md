@@ -186,4 +186,5 @@ Apartment reading collection: compact full and queen beds retain proper mattress
 
 Everyday sectional preference: add normal Ashley-inspired L-shaped sofas with varied padded arm profiles, matte connected upholstery and left/right chaise choices, labeled as viewed from the front. Keep the compact tailored option distinct from deeper family sectionals.
 
+Bottom tool panel preference: Paint tiles, Erase and Add wall share a wide, shallow rectangular panel rising from the canvas bottom. Keep the dock visible, move these controls out of the right sidebar while open, and preserve room visibility and touch-sized actions.
 Designed home collection preference: add distinct designed media units, culturally inspired original carpets, modern stone/wood/glass coffee tables, slim top-freezer refrigerators, white farmhouse sinks, varied recessed bathroom basins, woven solarium seating, compact luxury dressers with separately placeable mirrors, and slim landscape rubber entry mats. Preserve editable Blender parts, dimensions, independent material colors and support surfaces.
