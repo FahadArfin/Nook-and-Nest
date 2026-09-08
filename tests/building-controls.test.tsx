@@ -16,6 +16,7 @@ const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:v
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setMoveMode(_active:boolean){}
+  setSunPreview(){}
   setRotationMode(active:boolean){scene.rotation(active)}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()} focusFloor(){scene.focus()}
   placementRotation(){return 0;} setTool(){} setWallSelection(){} setPaintPreview(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
@@ -29,11 +30,11 @@ const state=()=>usePlanner.getState();
 beforeEach(()=>{state().replacePlan(createSamplePlan());state().setTool("select");state().setCategory("All");state().setSearch("__editor_control_test__");scene.callbacks=undefined;scene.preview.mockClear();scene.update.mockClear();scene.rotation.mockClear();vi.stubGlobal("requestAnimationFrame",()=>1);vi.stubGlobal("cancelAnimationFrame",()=>{});});
 afterEach(()=>{cleanup();vi.unstubAllGlobals()});
 describe("measured room controls",()=>{
-  it("selects a wall before changing its whole plate finish in the right panel",async()=>{
+  it("selects a wall before changing its whole plate finish in the bottom drawer",async()=>{
     const p=createSamplePlan();p.floors[0].walls=[{id:"inside-test",ax:2,az:2,bx:5,bz:2}];state().replacePlan(p);
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
     act(()=>scene.callbacks.onWall("inside-test"));expect(state().selectedWallId).toBe("inside-test");expect(state().past).toHaveLength(0);
-    expect(screen.getByText("1 wall selected")).toBeTruthy();
+    await screen.findByRole("region",{name:"Wall finishes"});expect(screen.getByText("1 wall selected")).toBeTruthy();
     fireEvent.click(screen.getByRole("button",{name:"Walls: Soft sage"}));expect(state().past).toHaveLength(0);fireEvent.click(screen.getByRole("button",{name:"Paint 1 wall"}));
     expect(state().plan.floors[0].wallFinishes).toEqual({"inside-test":"sage-plaster"});expect(state().past).toHaveLength(1);
     act(()=>state().undo());expect(state().plan.floors[0].wallFinishes).toBeUndefined();
@@ -74,7 +75,7 @@ describe("stair connection controls",()=>{
 describe("building editor wiring",()=>{
   it("opens backsplash browsing without placing anything, then confirms and edits a panel",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());const before=state().plan;
-    fireEvent.click(screen.getByRole("button",{name:"Build"}));fireEvent.click(screen.getByRole("button",{name:"Openings"}));expect(screen.queryByRole("button",{name:"Add kitchen backsplash"})).toBeNull();fireEvent.click(screen.getByRole("button",{name:/Remove wall segment/}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
+    fireEvent.click(screen.getByRole("button",{name:"Add wall"}));await screen.findByRole("region",{name:"Wall tools"});fireEvent.click(screen.getByRole("button",{name:"Openings"}));expect(screen.queryByRole("button",{name:"Add kitchen backsplash"})).toBeNull();fireEvent.click(screen.getByRole("button",{name:/Remove wall segment/}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
     const model=catalog.find(c=>c.id==="backsplash-subway")!;fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(state().plan.furniture).toEqual([]);fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));expect(state().plan.furniture).toHaveLength(1);
     const id=state().plan.furniture[0].id;act(()=>scene.callbacks.onSelect(id));
@@ -95,7 +96,7 @@ describe("building editor wiring",()=>{
     act(()=>state().select(state().plan.furniture[0].id));fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"1300"}});expect(state().plan.furniture[0].elevationMm).toBe(1300);
   });
   it("positions, cancels, and confirms an exact-size room through the editor toolbar",async()=>{
-    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());const tools=within(screen.getByLabelText("Home tools"));fireEvent.click(tools.getByRole("button",{name:"Build"}));fireEvent.click(tools.getByRole("button",{name:"Floor area"}));fireEvent.click(screen.getByText("Exact room size"));
+    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());fireEvent.click(screen.getByRole("button",{name:"Add wall"}));const tools=within(await screen.findByRole("region",{name:"Wall tools"}));fireEvent.click(tools.getByRole("button",{name:"Floor area"}));fireEvent.click(screen.getByText("Exact room size"));
     const stage=within(screen.getByLabelText("Interactive 3D apartment editor").parentElement!);
     fireEvent.change(screen.getByLabelText("Room width"),{target:{value:"12' 6\""}});fireEvent.change(screen.getByLabelText("Room depth"),{target:{value:"10"}});
     fireEvent.click(tools.getByRole("button",{name:"Place measured room"}));const before=state().plan;
@@ -199,14 +200,14 @@ describe('modular extension review',()=>{
    toolbar=within(screen.getByRole('toolbar',{name:/Edit/}));expect(toolbar.queryByRole('button',{name:'Extend furniture'})).toBeNull();expect(toolbar.getByRole('button',{name:'Rotate furniture'}).getAttribute('aria-pressed')).toBe('false');
  });
 
-it('opens floor finishes from the compact dock and centers without editing the plan',()=>{
+it('opens floor finishes from the compact dock and centers without editing the plan',async()=>{
  render(<App/>);const before=state().plan;
  expect(screen.queryByRole('button',{name:'Inside door'})).toBeNull();
  expect(screen.queryByTitle('Clearance guides')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');expect(screen.getByRole('region',{name:'Wall tools'})).toBeTruthy();
- fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint tiles'}));const tray=screen.getByRole('region',{name:'Floor finishes'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
- fireEvent.click(within(tray).getByRole('button',{name:'Close floor finishes'}));expect(screen.queryByRole('region',{name:'Floor finishes'})).toBeNull();expect(state().tool).toBe('floor-finish');
- fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=screen.getByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Wall section'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floor area'}));expect(state().tool).toBe('erase');
+ fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');expect(await screen.findByRole('region',{name:'Wall tools'})).toBeTruthy();
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint tiles'}));const tray=await screen.findByRole('region',{name:'Floor finishes'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
+ fireEvent.click(within(tray).getByRole('button',{name:'Close floor finishes'}));expect(screen.queryByRole('region',{name:'Floor finishes'})).toBeNull();expect(state().tool).toBe('select');
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=await screen.findByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Wall section'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floor area'}));expect(state().tool).toBe('erase');
  fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
 },15000);
 
@@ -223,3 +224,13 @@ it('uses an icon-only opt-in Move toggle, swaps the end actions and keeps colors
  fireEvent.click(toolbar.getByRole('button',{name:'Done editing'}));act(()=>state().select(id));
  expect(screen.getByRole('button',{name:'Move furniture'}).getAttribute('aria-pressed')).toBe('false');
 });
+
+it('keeps home tools in dock drawers and reserves the inspector for selected furniture',async()=>{
+ render(<App/>);expect(screen.queryByRole('button',{name:'Decorate'})).toBeNull();expect(document.querySelector('.workspace>.inspector-panel')).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Land formation'}));const land=await screen.findByRole('region',{name:'Land formation'});
+ fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');
+ fireEvent.click(within(land).getByRole('button',{name:'Plants'}));expect(screen.getByLabelText('Search plants')).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'Land formation'}));expect(state().tool).toBe('select');
+ fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
+ fireEvent.click(screen.getByRole('button',{name:'Paint tiles'}));await screen.findByRole('region',{name:'Floor finishes'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
+},15000);
