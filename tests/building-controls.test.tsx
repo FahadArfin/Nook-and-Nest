@@ -15,6 +15,7 @@ import { EditorApp as App } from "../src/App";
 const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:vi.fn(),zoom:vi.fn(),focus:vi.fn(),rotation:vi.fn()}));
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
+  setMoveMode(_active:boolean){}
   setRotationMode(active:boolean){scene.rotation(active)}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()} focusFloor(){scene.focus()}
   placementRotation(){return 0;} setTool(){} setWallSelection(){} setPaintPreview(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
@@ -208,3 +209,17 @@ it('opens floor finishes from the compact dock and centers without editing the p
  fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=screen.getByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Wall section'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floor area'}));expect(state().tool).toBe('erase');
  fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
 },15000);
+
+it('uses an icon-only opt-in Move toggle, swaps the end actions and keeps colors out of the toolbar',()=>{
+ state().placeFurniture('small-plant');const id=state().plan.furniture.at(-1)!.id;render(<App/>);act(()=>state().select(id));
+ const toolbar=within(screen.getByRole('toolbar',{name:/Edit/}));
+ expect(toolbar.getAllByRole('button').map(b=>b.getAttribute('aria-label'))).toEqual(['Done editing','Rotate furniture','Move furniture','Remove furniture']);
+ expect(toolbar.queryByRole('group',{name:'Furniture color'})).toBeNull();
+ const move=toolbar.getByRole('button',{name:'Move furniture'}),rotate=toolbar.getByRole('button',{name:'Rotate furniture'});
+ expect(move.getAttribute('aria-pressed')).toBe('false');expect(move.textContent).toBe('');
+ fireEvent.click(move);expect(move.getAttribute('aria-pressed')).toBe('true');
+ fireEvent.click(rotate);expect(move.getAttribute('aria-pressed')).toBe('false');expect(rotate.getAttribute('aria-pressed')).toBe('true');
+ fireEvent.click(move);expect(rotate.getAttribute('aria-pressed')).toBe('false');
+ fireEvent.click(toolbar.getByRole('button',{name:'Done editing'}));act(()=>state().select(id));
+ expect(screen.getByRole('button',{name:'Move furniture'}).getAttribute('aria-pressed')).toBe('false');
+});

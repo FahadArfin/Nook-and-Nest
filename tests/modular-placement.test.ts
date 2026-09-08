@@ -97,7 +97,7 @@ describe('modular placement regression',()=>{
  it('keeps the selected TV active when its stand is clicked and deselects on empty floor',()=>{
    const {r,scene,dispose}=renderer();try{
      const p=setup(),tv=piece(p,'slim-tv'),stand=piece(p,'tv-stand');p.furniture=[tv,stand];r.update(p,p.floors[0].id,tv.id);
-     r.callbacks={onSelect:vi.fn()};r.bindPointers();
+     r.callbacks={onSelect:vi.fn()};r.setMoveMode(true);r.bindPointers();
      vi.spyOn(scene,'pick').mockImplementation((_x,_y,predicate)=>predicate?{hit:false} as any:{hit:true,pickedMesh:{name:`item:${stand.id}`}} as any);
      const send=(type:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:0},pickInfo:null} as any);
      send(PointerEventTypes.POINTERDOWN);expect(r.dragging).toBe(tv.id);expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(tv.id);
@@ -163,4 +163,20 @@ it('retains every floor mesh and its full area when repeatedly cutting hallway w
   expect(removed.floors[0].cells).toEqual(floor.cells);
   r.update(p,floor.id);expect(scene.meshes.filter(m=>m.name.startsWith('cell:'))).toEqual(tiles);
  }finally{dispose();}
+});
+
+it('requires explicit movement and resets it across selections while preserving camera gestures',()=>{
+ const {r,scene,dispose}=renderer();try{
+  const p=setup(),a=piece(p,'small-plant'),b=piece(p,'base-cabinet');p.furniture=[a,b];r.update(p,p.floors[0].id,a.id);
+  const onMove=vi.fn();r.callbacks={onSelect:vi.fn(),onMove};r.suspendCameraPointers=vi.fn();r.bindPointers();
+  vi.spyOn(scene,'pick').mockReturnValue({hit:true,pickedMesh:{name:`item:${a.id}`}} as any);
+  const send=(type:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:0},pickInfo:null} as any);
+  send(PointerEventTypes.POINTERDOWN);send(PointerEventTypes.POINTERMOVE);send(PointerEventTypes.POINTERUP);
+  expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(a.id);expect(r.dragging).toBeUndefined();expect(r.suspendCameraPointers).not.toHaveBeenCalled();expect(onMove).not.toHaveBeenCalled();
+  r.setMoveMode(true);send(PointerEventTypes.POINTERDOWN);expect(r.dragging).toBe(a.id);expect(r.suspendCameraPointers).toHaveBeenCalledOnce();
+  r.positionForItem=()=>({x:1200,z:900,elevationMm:0});send(PointerEventTypes.POINTERMOVE);send(PointerEventTypes.POINTERUP);expect(onMove).toHaveBeenCalledOnce();
+  r.update(p,p.floors[0].id,b.id);expect(r.moveSelection).toBeUndefined();
+  r.setMoveMode(true);r.setRotationMode(true);expect(r.moveSelection).toBeUndefined();r.setMoveMode(true);expect(r.rotationMode).toBe(false);
+  r.update(p,p.floors[0].id);r.update(p,p.floors[0].id,b.id);expect(r.moveSelection).toBeUndefined();
+ }finally{dispose()}
 });
