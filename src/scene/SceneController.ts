@@ -73,6 +73,7 @@ export class SceneController {
   private architectureStamp = '';
   private retainFloorTiles=false;
   private rotationMode=false;
+  private moveSelection?:string;
   private rotationGuide?:TransformNode;
   private editingKey='';
   private pointerHeld=false;
@@ -172,7 +173,13 @@ export class SceneController {
     this.cameraPointersSuspended=false;this.camera.attachControl(this.canvas,true);
   }
   focusSelected(){if(this.activeDraft||this.selectedId)this.focusMotion={};}
+  setMoveMode(enabled:boolean){
+    if(!enabled&&this.dragging)this.cancelTouchEdit();
+    this.moveSelection=enabled?this.selectedId:undefined;
+    if(enabled)this.setRotationMode(false);
+  }
   setRotationMode(enabled:boolean){
+    if(enabled)this.setMoveMode(false);
     if(this.rotationMode===enabled)return;
     if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;this.resumeCameraControls();}
     this.rotationMode=enabled;
@@ -379,6 +386,7 @@ export class SceneController {
   }
   update(plan: PlanDocumentV1, activeFloorId: string, selectedId?: string, draft?: FurniturePlacement) {
     const previous=this.activePlan;
+    if(this.selectedId!==selectedId||this.activeFloorId!==activeFloorId||previous?.id!==plan.id||draft)this.setMoveMode(false);
     if(plan.camera.mode==='top'&&previous?.camera.mode!=='top')this.cancelFocus();
     if(previous&&previous.id===plan.id&&previous.gridSizeMm===plan.gridSizeMm&&previous.floors===plan.floors&&previous.furniture===plan.furniture&&previous.environment===plan.environment&&JSON.stringify(previous.camera)===JSON.stringify(plan.camera)&&this.activeFloorId===activeFloorId&&this.selectedId===selectedId&&!this.refreshModels?.size&&this.architectureTool===this.tool&&this.architectureWall===this.selectedWallId){
       this.activePlan=plan;this.updateDraft(plan,activeFloorId,draft);return;
@@ -607,7 +615,11 @@ export class SceneController {
         }else if(name==="draft-preview"&&this.tool==="select"){
           this.draggingDraft=true; this.suspendCameraPointers();
         }else if(name.startsWith("item:")&&this.tool==="select"){
-          this.draggedPosition=undefined; this.dragging=name.split(":")[1]; this.callbacks.onSelect(this.dragging); this.selectedNode=this.furnitureNodes.get(this.dragging!)?.node; this.suspendCameraPointers();
+          const id=name.split(":")[1];
+          this.callbacks.onSelect(id);
+          if(this.moveSelection===id&&this.selectedId===id){
+            this.draggedPosition=undefined;this.dragging=id;this.selectedNode=this.furnitureNodes.get(id)?.node;this.suspendCameraPointers();
+          }
         }else if(this.tool==="select"&&!this.activeDraft){this.callbacks.onSelect(undefined);
         }else if(name.startsWith("cell:")){
           const[,x,z]=name.split(":"); this.callbacks.onCell(Number(x),Number(z));
