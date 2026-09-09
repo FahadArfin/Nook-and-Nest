@@ -180,3 +180,18 @@ it('requires explicit movement and resets it across selections while preserving 
   r.update(p,p.floors[0].id);r.update(p,p.floors[0].id,b.id);expect(r.moveSelection).toBeUndefined();
  }finally{dispose()}
 });
+import {Ray} from '@babylonjs/core/Culling/ray';
+it.each([new Vector3(0,-1,0),new Vector3(-.3,-1,-.4).normalize()])('keeps an off-center grab anchored through the first furniture drag movement (%s)',direction=>{
+ const {r,scene,dispose}=renderer();try{
+  const p=setup(),chair=piece(p,'hm-embody-chair',{x:2000,z:1500,elevationMm:0});p.furniture=[chair];r.update(p,p.floors[0].id,chair.id);
+  const origin=new Vector3(3,6,4);vi.spyOn(scene,'createPickingRay').mockImplementation(()=>new Ray(origin.clone(),direction.clone()));
+  r.beginFurnitureDrag(chair);r.dragging=chair.id;
+  expect(r.positionForItem(0,0,chair)).toMatchObject({x:2000,z:1500,elevationMm:0});
+  origin.x+=.12;origin.z+=.07;
+  expect(r.positionForItem(0,0,chair)).toMatchObject({x:2120,z:1570,elevationMm:0});
+  expect(p.furniture[0]).toEqual(chair);
+  // The same anchor also applies when grabbing a pending in-scene placement.
+  r.dragging=undefined;r.activeDraft=chair;r.beginFurnitureDrag(chair);r.draggingDraft=true;
+  expect(r.positionForItem(0,0,chair)).toMatchObject({x:2000,z:1500});
+ }finally{dispose()}
+});
