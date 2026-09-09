@@ -76,7 +76,7 @@ export class TerrainScene{
       const gx=x/2,gz=z/2,ix=Math.min(n-1,Math.floor(gx)),iz=Math.min(n-1,Math.floor(gz)),fx=gx-ix,fz=gz-iz,a=iz*sim.size+ix,b=a+1,c=a+sim.size,d=c+1,i=z*renderSize+x;
       const blend=(v:ArrayLike<number>,stride=1,axis=0)=>((v[a*stride+axis]*(1-fx)+v[b*stride+axis]*fx)*(1-fz)+(v[c*stride+axis]*(1-fx)+v[d*stride+axis]*fx)*fz);
       const depth=blend(sim.depth);this.waterDepth[i]=depth;
-      this.waterPositions[i*3]=bounds.minX+gx*bounds.dx;this.waterPositions[i*3+1]=blend(sim.bed)+depth+.003;this.waterPositions[i*3+2]=bounds.minZ+gz*bounds.dz;
+      this.waterPositions[i*3]=bounds.minX+gx*bounds.dx;this.waterPositions[i*3+1]=(fx+fz<=1?sim.bed[a]+(sim.bed[b]-sim.bed[a])*fx+(sim.bed[c]-sim.bed[a])*fz:sim.bed[d]+(sim.bed[c]-sim.bed[d])*(1-fx)+(sim.bed[b]-sim.bed[d])*(1-fz))+depth+.003;this.waterPositions[i*3+2]=bounds.minZ+gz*bounds.dz;
       this.waterFlow[i*2]=blend(sim.flow,2);this.waterFlow[i*2+1]=blend(sim.flow,2,1);
     }
     mesh.updateVerticesData(VertexBuffer.PositionKind,this.waterPositions,true);
