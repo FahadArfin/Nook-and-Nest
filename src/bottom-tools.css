@@ -121,3 +121,12 @@ main.app-shell section.workspace.no-inspector{grid-template-columns:340px minmax
 .landscape-detail .task-content{padding:0}
 @media(max-width:600px){.landscape-detail{width:min(310px,calc(100vw - 32px))}.bottom-tools{padding-bottom:0}}
 @media(prefers-reduced-motion:reduce){.bottom-tools,.landscape-detail{transition:none}}
+
+/* Landscape workbenches share the roomy, floating paint layout. */
+.bottom-tools-landscape{width:min(780px,calc(100% - 24px))}
+.landscape-detail{width:100%;max-height:min(440px,calc(100dvh - 230px));transform-origin:bottom center}
+.landscape-detail .plant-choices{grid-template-columns:repeat(auto-fill,minmax(100px,1fr));max-height:210px;overflow:auto}
+.landscape-detail .brush-controls{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.bottom-tools-body>.task-subtabs{grid-column:1/-1;display:flex;gap:8px;padding:8px 12px}
+.bottom-tools-body>.task-subtabs button{flex:0 0 110px;min-height:40px}
+@media(max-width:600px){.landscape-detail{width:100%}.landscape-detail .brush-controls{gap:8px}}
