@@ -11,7 +11,7 @@ uniform float time;uniform float night;uniform vec3 eye;
 varying vec2 vUv;varying float vDepth;varying vec2 vWorld;varying vec2 vFlow;varying float vHeight;
 float swell(vec2 p){return sin(p.x*2.7+p.y*1.3-time*.85)*.018+sin(p.y*4.1-p.x*1.7+time*.65)*.011+sin(p.x*13.0+p.y*9.0-time*1.1)*.0025+sin(p.y*21.0-p.x*7.0+time*.8)*.0012;}
 void main(){
- vec2 p=vWorld-vFlow*mod(time,40.0)*.15;float h=swell(p);vec3 normal=normalize(vec3((h-swell(p+vec2(.025,0.0)))/.025,1.0,(h-swell(p+vec2(0.0,.025)))/.025));
+ vec2 p=vWorld-vFlow*sin(time*.025)*6.0;float h=swell(p);vec3 normal=normalize(vec3((h-swell(p+vec2(.025,0.0)))/.025,1.0,(h-swell(p+vec2(0.0,.025)))/.025));
  vec3 view=normalize(eye-vec3(vWorld.x,vHeight,vWorld.y));float facing=max(dot(normal,view),0.0);float fresnel=.035+.55*pow(1.0-facing,5.0);
  float depth=smoothstep(0.0,1.4,vDepth);vec3 body=mix(vec3(.35,.58,.48),vec3(.055,.25,.28),depth);
  vec3 reflected=reflect(-view,normal);vec3 sky=mix(vec3(.59,.66,.57),vec3(.48,.67,.78),smoothstep(0.0,.8,reflected.y));

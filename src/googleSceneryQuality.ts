@@ -2,7 +2,7 @@ export type GoogleQuality = 'economy' | 'balanced' | 'retained' | 'high';
 
 /** Decoded geometry/texture estimates, not a promise about total browser/GPU memory. */
 export const GOOGLE_QUALITY = {
-  economy: {label:'Lighter', error:16, memoryMiB:256, tiles:1200},
+  economy: {label:'Lighter', error:16, memoryMiB:128, tiles:1200},
   balanced: {label:'Balanced', error:8, memoryMiB:512, tiles:2400},
   retained: {label:'Smooth rotation', error:8, memoryMiB:1024, tiles:4800},
   high: {label:'Sharper nearby', error:4, memoryMiB:1024, tiles:4800},
@@ -10,7 +10,7 @@ export const GOOGLE_QUALITY = {
 
 export function defaultGoogleQuality(memoryGiB?:number):GoogleQuality {
   if(memoryGiB!==undefined&&memoryGiB<=4)return 'economy';
-  return memoryGiB!==undefined&&memoryGiB>=8?'retained':'balanced';
+  return memoryGiB!==undefined&&memoryGiB>=8?'balanced':'economy';
 }
 
 /** Distance to a tile's bounding volume keeps large intersecting ancestors traversable. */

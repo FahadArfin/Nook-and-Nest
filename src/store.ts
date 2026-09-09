@@ -1,3 +1,9 @@
+import {isVegetation} from './vegetation';
+import {importPlan} from './planImport';
+import {boundedHistory} from './historyBudget';
+import {terrainSampler} from './terrain';
+import {paintGrassCoverage} from './grassCoverage';
+import {freeze} from "immer";
 import {correctLegacySinkHeight} from './domain';
 import {modernDefaultVariant, modernDefaultSurface} from './modernCollection';
 import {subtractWallCuts} from './wallCuts';
@@ -21,6 +27,7 @@ import {scatterPlants,type PlantingBrush} from './planting';
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
   turnSnapshot?:Snapshot;turnId?:string;beginTurn(id:string):void;turnFurniture(id:string,degrees:number):void;finishTurn():void;
+  paintCoverage(points:Array<{x:number;z:number}>):void;
   plantingBrush:PlantingBrush;setPlantingBrush(brush:PlantingBrush):void;
   plantingDraft?:{base:PlanDocumentV1;items:FurniturePlacement[]};
   previewPlanting(points:Array<{x:number;z:number}>):void;confirmPlanting():void;cancelPlanting():void;
@@ -53,8 +60,8 @@ interface PlannerState {
 }
 
 const initialPlan = createBlankPlan();
-const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.plan), activeFloorId: state.activeFloorId });
-const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
+const snap = (state: PlannerState): Snapshot => ({ plan: freeze(state.plan, true), activeFloorId: state.activeFloorId });
+const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: freeze({ ...plan, updatedAt: new Date().toISOString() },true), selectedId: selectedId === null ? undefined : selectedId, past: boundedHistory([...state.past, snap(state)]), future: [] });
 
 export const usePlanner = create<PlannerState>((set, get) => ({
   beginTurn:id=>{get().finishTurn();set(s=>({turnSnapshot:snap(s),turnId:id}));},
@@ -64,7 +71,8 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     const problem=windowProblem(s.plan,candidate);if(problem)return {placementNotice:problem};
     return {plan:{...s.plan,updatedAt:new Date().toISOString(),furniture:s.plan.furniture.map(f=>f.id===id?candidate:f)}};
   }),
-  finishTurn:()=>set(s=>({...(s.turnSnapshot&&JSON.stringify(s.turnSnapshot.plan.furniture)!==JSON.stringify(s.plan.furniture)?{past:[...s.past.slice(-39),s.turnSnapshot],future:[]}:{}),turnSnapshot:undefined,turnId:undefined})),
+  finishTurn:()=>set(s=>({...(s.turnSnapshot&&s.turnSnapshot.plan.furniture!==s.plan.furniture?{past:boundedHistory([...s.past,s.turnSnapshot]),future:[]}:{}),turnSnapshot:undefined,turnId:undefined})),
+  paintCoverage:points=>set(s=>commit(s,{...s.plan,environment:{background:'plain',grass:'off',...s.plan.environment,grassCoverage:paintGrassCoverage(s.plan,points,s.plantingBrush)}})),
   plantingBrush:{catalogId:'grass-clump',radius:1.5,spacing:.5},
   setPlantingBrush:plantingBrush=>set({plantingBrush,plantingDraft:undefined}),
   previewPlanting:points=>set(s=>({plantingDraft:{base:s.plan,items:scatterPlants(s.plan,points,s.plantingBrush)}})),
@@ -79,7 +87,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   wallDrawHeight:0,setWallDrawHeight:wallDrawHeight=>set({wallDrawHeight}),
   terrainRadius:2,terrainStrength:.6,
   setTerrainBrush:(radius,strength)=>set({terrainRadius:Math.max(.5,Math.min(8,radius)),terrainStrength:Math.max(.1,Math.min(2,strength))}),
-  addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};validatePlan(plan);return commit(state,plan);}),
+  addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};const sample=terrainSampler(plan),previousSample=terrainSampler(state.plan);plan.furniture=plan.furniture.map(p=>{const floor=plan.floors.find(f=>f.id===p.floorId)!;const follows=p.terrainAnchored===true||(p.terrainAnchored===undefined&&isVegetation(p.catalogId)&&Math.abs((p.elevationMm??0)+floor.elevationMm+50-previousSample(p.x/1000,p.z/1000).height*1000)<2);if(!follows)return p;const elevationMm=Math.round(sample(p.x/1000,p.z/1000).height*1000)-floor.elevationMm-50;return elevationMm===p.elevationMm?p:{...p,terrainAnchored:true,elevationMm}});validatePlan(plan);return commit(state,plan);}),
   neutralPreview:true, setNeutralPreview:neutralPreview=>set({neutralPreview}),
   wallSelectionActive:false, paintWallIds:[],
   beginWallSelection:()=>set({wallSelectionActive:true,paintWallIds:[],wallBrushActive:false,selectedWallId:undefined,selectedId:undefined,tool:'wall-finish'}),
@@ -102,7 +110,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   finishWall:(id,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?paintWallPlate(f,state.plan.gridSizeMm,id,finishId):f)})),
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
   setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
-  replacePlan: (plan) => set({ plan:correctLegacySinkHeight(plan), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
+  replacePlan: (plan) => set({ plan:correctLegacySinkHeight(structuredClone(plan)), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),
   setView: (mode) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, mode } })),
@@ -142,7 +150,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: modernDefaultVariant(catalogId), surfaceVariant: supportsCountertopFinish(catalogId) ? modernDefaultSurface(catalogId)??defaultCountertopFinish.id : undefined, elevationMm:defaultMountHeight(catalogId) }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
   confirmFurniture: (item) => set((state) => {const mounted=fitStair(state.plan,snapWindow(state.plan,item)),problem=windowProblem(state.plan,mounted);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:[...state.plan.furniture,mounted]},null),placementNotice:undefined};}),
   moveFurniture: (id,x,z) => get().updateFurniture(id,{x,z}),
-  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const edited={...existing,...patch};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
+  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const edited={...existing,...patch,...('elevationMm' in patch?{terrainAnchored:false}:{})};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
   duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWallOpening(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
   deleteSelected: () => set((state) => state.selectedId ? commit(state, { ...state.plan, furniture: state.plan.furniture.filter((f) => f.id !== state.selectedId) }, null) : state),
   undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], paintWallIds:[], selectedId: undefined, selectedWallId:undefined }; }),
@@ -151,16 +159,16 @@ export const usePlanner = create<PlannerState>((set, get) => ({
 
 let dbPromise: ReturnType<typeof openDB> | undefined;
 const getDb = () => dbPromise ??= openDB("nook-and-nest", 1, { upgrade(db) { if (!db.objectStoreNames.contains("projects")) db.createObjectStore("projects"); } });
-export async function savePlan(plan: PlanDocumentV1) { const db = await getDb(); const tx=db.transaction("projects","readwrite"); await tx.store.put(plan,"active"); await tx.store.put(plan,"project:"+plan.id); await tx.done; }
+export async function savePlan(plan: PlanDocumentV1) { const db = await getDb(); const tx=db.transaction("projects","readwrite"); await tx.store.put({activeProjectId:plan.id},"active"); await tx.store.put(plan,"project:"+plan.id); await tx.done; }
 export async function listLocalPlans(): Promise<PlanDocumentV1[]> { const db=await getDb(); const all=await db.getAll("projects"); const map=new Map<string,PlanDocumentV1>(); for(const p of all)if(p?.schemaVersion===1&&p.id)map.set(p.id,p); return [...map.values()].sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)); }
 export async function getCloudRevision(owner:string,id:string):Promise<number> { return (await (await getDb()).get("projects",`cloud:${owner}:${id}`))??0; }
 export async function saveCloudRevision(owner:string,id:string,revision:number) { await (await getDb()).put("projects",revision,`cloud:${owner}:${id}`); }
-export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const share = new URLSearchParams(location.hash.slice(1)).get('share');if(share){if(!/^[a-f0-9]{32}$/.test(share))throw new Error('Invalid share link.');const response=await fetch('/api/shares/'+share);const data=await response.json();if(!response.ok)throw new Error(data.error);return decodeShare(encodeShare(data.plan));} const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return decodeShare(hash); const db = await getDb(); return db.get("projects", "active"); }
+export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const share = new URLSearchParams(location.hash.slice(1)).get('share');if(share){if(!/^[a-f0-9]{32}$/.test(share))throw new Error('Invalid share link.');const response=await fetch('/api/shares/'+share);const data=await response.json();if(!response.ok)throw new Error(data.error);validatePlan(data.plan); const now=new Date().toISOString();return {...correctLegacySinkHeight(data.plan),id:uid(),name:data.plan.name+' copy',createdAt:now,updatedAt:now};} const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return importPlan(hash,true); const db = await getDb(); const active=await db.get("projects", "active"); return active?.activeProjectId?db.get("projects","project:"+active.activeProjectId):active; }
 
 export async function deleteLocalPlan(id: string) {
  const db=await getDb(),tx=db.transaction("projects","readwrite");
  const active=await tx.store.get("active");
  await tx.store.delete("project:"+id);
- if(active?.id===id)await tx.store.delete("active");
+ if(active?.id===id||active?.activeProjectId===id)await tx.store.delete("active");
  await tx.done;
 }

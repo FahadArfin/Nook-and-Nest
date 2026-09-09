@@ -29,7 +29,7 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
  return <main className="welcome-page" data-theme={dark?'dark':'light'}>
   <div className="welcome-layout">
    <header className="welcome-header"><a href="/" aria-label="Nook and Nest home"><img src="/assets/nook-nest-icon.png" alt="" width="60" height="60"/><span>Nook &amp; Nest</span></a>
-    <div className="welcome-header-right"><span className="welcome-tagline"><Leaf size={20}/> Your next happy place</span>
+    <div className="welcome-header-right"><span className="welcome-tagline"><Leaf size={20}/> Beta 2 · Your next happy place</span>
      <div className="welcome-theme" role="group" aria-label="Appearance">
       <button aria-label="Use system theme" aria-pressed={theme==='system'} title="Follow your device appearance" onClick={()=>chooseTheme('system')}><Monitor/><span>System</span></button>
       <button aria-label="Use light theme" aria-pressed={theme==='light'} title="Light theme" onClick={()=>chooseTheme('light')}><Sun/><span>Light</span></button>

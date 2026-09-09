@@ -1,3 +1,7 @@
+import {RenderMetrics} from '../renderMetrics';
+import {GrassCoverageRenderer} from './GrassCoverageRenderer';
+import {paintGrassCoverage} from '../grassCoverage';
+import {FrameBudget} from '../frameBudget';
 import {isVegetation} from '../vegetation';
 import {GrassRenderer} from './GrassRenderer';
 import {VertexData} from '@babylonjs/core/Meshes/mesh.vertexData';
@@ -59,6 +63,7 @@ import {cameraFacingRotation} from '../placementFacing';
 
 interface Callbacks { onCell(x: number, z: number): void; onWallSegment(wall:Omit<WallSegment,"id">):void; onTileDraft(cells: TileCell[], present: boolean): void; onSelect(id?: string): void; onMove(id: string, xMm: number, zMm: number, elevationMm?:number,rotation?:number): void; onDraftMove(xMm: number, zMm: number, elevationMm?:number,rotation?:number): void; onRotate(id:string|undefined,rotation:number):void; onWall(id: string): void }
 export class SceneController {
+  private frameBudget=new FrameBudget();private baseResolution=1;
   private homePreview?:{target:Vector3;alpha:number;beta:number;radius:number;mode:number};
   private homeOrbit=false;
   beginHomePreview(){if(this.homePreview)return;this.engine.resize();this.cancelFocus();this.homePreview={target:this.camera.target.clone(),alpha:this.camera.alpha,beta:this.camera.beta,radius:this.camera.radius,mode:this.camera.mode};this.camera.detachControl();this.rotationGuide?.setEnabled(false);}
@@ -82,11 +87,12 @@ export class SceneController {
   private editingKey='';
   private pointerHeld=false;
   private cameraPointersSuspended=false;
+  private metrics=new RenderMetrics();private renderUntil=0;private lastRender=0;private cameraFrame='';private animatedScene=false;
   private focusMotion?:{started?:number;from?:Vector3;target?:Vector3;radius?:number;toRadius?:number};
   private rotationDrag?:{item:FurniturePlacement;node:TransformNode;centerX:number;centerY:number;lastAngle?:number;total:number;rotation:number;draft:boolean};
   private architectureTool?:Tool;private architectureWall?:string;
   private refreshModels = new Set<string>();
-  private grassRenderer?:GrassRenderer;private previewGrass?:GrassRenderer;
+  private coverageRenderer?:GrassCoverageRenderer;private grassRenderer?:GrassRenderer;private previewGrass?:GrassRenderer;
   private furnitureNodes = new Map<string, {node:TransformNode; signature:string}>();
   private solidMaterials=new Map<string,StandardMaterial>();
   private outdoors:OutdoorScene;
@@ -144,18 +150,19 @@ export class SceneController {
   private floorWallGeometry = new Map<string, WallGeometry[]>();
   private engine: Engine; private scene: Scene; private camera: ArcRotateCamera; private root: TransformNode; private callbacks: Callbacks; private tool: Tool = "select"; private dragging?: string; private draggedPosition?: PlacementPoint; private draggingDraft = false; private tileDragStart?: TileCell; private tileDragCurrent?: TileCell; private tileDraftRoot?: TransformNode; private tileDraftCells: TileCell[]=[]; private tileDraftPresent=true; private measuredDraft?:MeasuredRegion; private tileDraftAnchor?: Vector3; private wallDragStart?:TileCell; private wallDragCurrent?:TileCell; private cutTarget?:WallSegment; private cutPointerY?:number; private wallDraft?:Omit<WallSegment,"id">; private wallDraftMesh?:Mesh; private surfaceMaterials=new Map<string,StandardMaterial>(); private activePlan?: PlanDocumentV1; private activeFloorId = ""; private selectedId?: string; private activeDraft?: FurniturePlacement; private previewNode?: TransformNode; private selectedNode?: TransformNode; private draftPosition?: PlacementPoint; private shadow: ShadowGenerator; private furnitureFactory: FurnitureFactory; private furnitureModels: FurnitureModelLibrary;
   constructor(private canvas: HTMLCanvasElement, callbacks: Callbacks) {
-    this.callbacks = callbacks; this.engine = new Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true }, true);
+    this.callbacks = callbacks; this.engine = new Engine(canvas, true, { preserveDrawingBuffer: false, stencil: true }, true);
+    this.engine.renderEvenInBackground=false;
     if(window.matchMedia?.("(pointer: coarse)").matches)this.engine.setHardwareScalingLevel(1/Math.min(window.devicePixelRatio||1,1.5));
     this.scene = new Scene(this.engine); configurePlanCoordinates(this.scene); this.scene.clearColor = new Color4(0.72, 0.78, 0.62, 1); this.scene.ambientColor = new Color3(.12,.11,.09); this.scene.imageProcessingConfiguration.exposure=.72; this.scene.imageProcessingConfiguration.contrast=1.12;
     this.camera = new ArcRotateCamera("camera", planViewAngles("isometric").alpha, planViewAngles("isometric").beta, 18, new Vector3(2, 0, 2), this.scene); this.camera.attachControl(canvas, true); this.camera.lowerRadiusLimit = closeZoomLimit; this.camera.minZ=closeClipPlane; this.camera.upperRadiusLimit = 80; this.camera.wheelPrecision = 35; Object.assign(this.camera, comfortableCamera);
     const hemi = new HemisphericLight("sky", new Vector3(0.2, 1, 0.1), this.scene); hemi.intensity = .62; hemi.diffuse = new Color3(1, .91, .78); hemi.groundColor = new Color3(.3,.37,.28);
-    const sun = new DirectionalLight("sun", new Vector3(-.8, -1.5, .7), this.scene); sun.position = new Vector3(10, 18, -10); sun.intensity = .72; sun.diffuse=new Color3(1,.86,.68); this.shadow = new ShadowGenerator(1024, sun); this.shadow.useBlurExponentialShadowMap = true; this.shadow.blurKernel = 24; this.shadow.setDarkness(.3); this.shadow.customAllowRendering=subMesh=>this.wallVisibility.allowsShadow(subMesh.getMesh());
-    this.root = new TransformNode("root", this.scene); this.furnitureFactory = new FurnitureFactory(this.scene,this.shadow); this.furnitureModels = new FurnitureModelLibrary(this.scene,this.shadow,(ids)=>{ids.forEach(id=>this.refreshModels.add(id));if(this.plantingItems.length)this.renderPlantingPreview(this.plantingItems,true);if(this.activePlan&&!this.dragging&&!this.draggingDraft&&!this.rotationDrag)this.update(this.activePlan,this.activeFloorId,this.selectedId,this.activeDraft)}); this.makeMeadow(); this.outdoors=new OutdoorScene(this.scene); this.terrain=new TerrainScene(this.scene); this.bindPointers();
+    const sun = new DirectionalLight("sun", new Vector3(-.8, -1.5, .7), this.scene); sun.position = new Vector3(10, 18, -10); sun.intensity = .72; sun.diffuse=new Color3(1,.86,.68); this.shadow = new ShadowGenerator(1024, sun); this.shadow.getShadowMap()!.refreshRate=0;this.shadow.useBlurExponentialShadowMap = true; this.shadow.blurKernel = 24; this.shadow.setDarkness(.3); this.shadow.customAllowRendering=subMesh=>this.wallVisibility.allowsShadow(subMesh.getMesh());
+    this.root = new TransformNode("root", this.scene); this.furnitureFactory = new FurnitureFactory(this.scene,this.shadow); this.furnitureModels = new FurnitureModelLibrary(this.scene,this.shadow,(ids)=>{ids.forEach(id=>this.refreshModels.add(id));this.coverageRenderer?.invalidate();if(this.plantingItems.length)this.renderPlantingPreview(this.plantingItems,true);if(this.activePlan&&!this.dragging&&!this.draggingDraft&&!this.rotationDrag)this.update(this.activePlan,this.activeFloorId,this.selectedId,this.activeDraft)}); this.makeMeadow(); this.outdoors=new OutdoorScene(this.scene); this.terrain=new TerrainScene(this.scene); this.bindPointers();
     this.touchCleanup=bindTouchNavigation(canvas,{
       begin:()=>{this.cancelTouchEdit();this.camera.detachControl();this.camera.inertialAlphaOffset=0;this.camera.inertialBetaOffset=0;this.camera.inertialRadiusOffset=0;this.camera.inertialPanningX=0;this.camera.inertialPanningY=0;},
       move:(dx,dy,scale)=>{if(this.homePreview)return;const distance=this.camera.radius*2*Math.tan(this.camera.fov/2)/Math.max(1,canvas.clientHeight);const right=this.camera.getDirection(Vector3.Right()),up=this.camera.getDirection(Vector3.Up());right.y=0;up.y=0;this.camera.setTarget(this.camera.target.add(right.scale(-dx*distance)).add(up.scale(dy*distance)));this.zoom(scale);},
       end:()=>{if(!this.homePreview)this.resumeCameraControls()},cancel:()=>this.cancelTouchEdit()
-    });this.canvas.addEventListener('contextmenu',this.contextMenu);this.canvas.addEventListener('wheel',this.cancelFocus,{passive:true});window.addEventListener('pointerdown',this.cameraPointerDown,true);window.addEventListener('pointerup',this.cameraPointerUp,true);this.canvas.addEventListener('pointercancel',this.cancelOutdoorStroke);window.addEventListener('blur',this.cancelOutdoorStroke); let frame=0; this.engine.runRenderLoop(() => {this.camera.panningSensibility=precisionPanSensitivity(this.camera.radius);this.camera.minZ=Math.max(closeClipPlane,Math.min(1,this.camera.radius*.001));const start=performance.now();this.scene.render();const renderMs=performance.now()-start;frame+=1;if(frame%30===0){this.canvas.dataset.fps=this.engine.getFps().toFixed(1);this.canvas.dataset.renderMs=renderMs.toFixed(1);this.canvas.dataset.cameraRadius=this.camera.radius.toFixed(3);}}); window.addEventListener("resize", this.resize);
+    });this.canvas.addEventListener('contextmenu',this.contextMenu);this.canvas.addEventListener('wheel',this.cancelFocus,{passive:true});window.addEventListener('pointerdown',this.cameraPointerDown,true);window.addEventListener('pointerup',this.cameraPointerUp,true);this.canvas.addEventListener('pointercancel',this.cancelOutdoorStroke);window.addEventListener('blur',this.cancelOutdoorStroke); this.baseResolution=this.engine.getHardwareScalingLevel();let frame=0; this.scene.onNewMeshAddedObservable.add(()=>{this.renderUntil=performance.now()+1000});this.engine.runRenderLoop(() => {const now=performance.now();const cameraFrame=[this.camera.alpha,this.camera.beta,this.camera.radius,this.camera.target.x,this.camera.target.y,this.camera.target.z,this.camera.inertialAlphaOffset,this.camera.inertialBetaOffset,this.camera.inertialRadiusOffset,this.camera.inertialPanningX,this.camera.inertialPanningY].join(':');if(cameraFrame!==this.cameraFrame){this.cameraFrame=cameraFrame;this.shadow?.getShadowMap?.()?.resetRefreshCounter();this.renderUntil=now+1000}if(!this.animatedScene&&!this.pointerHeld&&!this.homePreview&&!this.focusMotion&&now>this.renderUntil&&now-this.lastRender<1000)return;this.lastRender=now;if(this.animatedScene||this.pointerHeld)this.shadow?.getShadowMap?.()?.resetRefreshCounter();this.camera.panningSensibility=precisionPanSensitivity(this.camera.radius);this.camera.minZ=Math.max(closeClipPlane,Math.min(1,this.camera.radius*.001));const start=performance.now();this.scene.render();const renderMs=performance.now()-start;this.metrics.record(renderMs);if(this.frameBudget.sample(renderMs))this.engine.setHardwareScalingLevel(this.baseResolution*this.frameBudget.scale);frame+=1;if(frame%30===0){this.canvas.dataset.fps=this.engine.getFps().toFixed(1);this.canvas.dataset.renderMs=renderMs.toFixed(1);this.canvas.dataset.renderP95=this.metrics.p95.toFixed(1);this.canvas.dataset.longTasks=String(this.metrics.longTasks);this.canvas.dataset.triangles=String(this.scene.getActiveIndices()/3);this.canvas.dataset.resolutionScale=this.engine.getHardwareScalingLevel().toFixed(2);this.canvas.dataset.cameraRadius=this.camera.radius.toFixed(3);}}); window.addEventListener("resize", this.resize);
     // Hover does not select furniture; dragging already uses explicit picking.
     this.scene.skipPointerMovePicking = true;
     this.scene.onBeforeRenderObservable.add(() => {
@@ -232,7 +239,7 @@ export class SceneController {
       this.rotationGuide.scaling.set(radius,1,radius);this.rotationGuide.position.set(node.position.x,(this.activePlan?.floors.find(f=>f.id===item.floorId)?.elevationMm??0)/1000+.065,node.position.z);this.rotationGuide.setEnabled(true);
     }else this.rotationGuide?.setEnabled(false);
   }
-  private cancelOutdoorStroke=()=>{this.pointerHeld=false;this.cancelFocus();if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;}if(this.terrainStroke){this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}}if(this.plantingPoints){this.plantingPoints=undefined;this.clearPlantingPreview();}this.resumeCameraControls();};
+  private cancelOutdoorStroke=()=>{this.pointerHeld=false;this.cancelFocus();if(this.rotationDrag){this.rotationDrag.node.rotation.y=this.rotationDrag.item.rotation*Math.PI/180;this.rotationDrag=undefined;}if(this.terrainStroke){this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}}if(this.plantingPoints){this.plantingPoints=undefined;this.clearPlantingPreview();if(this.activePlan)this.coverageRenderer?.update(this.activePlan);}this.resumeCameraControls();};
   private contextMenu=(event:Event)=>{if(this.tool==='select')event.preventDefault();};
   private touchCleanup?:()=>void;
   private cancelTouchEdit(){
@@ -243,9 +250,9 @@ export class SceneController {
     if(this.tileDragStart)this.cancelTileDraft();this.cancelWallDraft();
   };
   private resize = () => this.engine.resize();
-  dispose() { this.touchCleanup?.();this.fixtureLights?.dispose();this.canvas.removeEventListener('wheel',this.cancelFocus);window.removeEventListener('pointerdown',this.cameraPointerDown,true);window.removeEventListener('pointerup',this.cameraPointerUp,true);this.rotationGuide?.dispose();this.canvas.removeEventListener('contextmenu',this.contextMenu);this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
-  setTool(tool: Tool) { if(tool!==this.tool){this.plantingPoints=undefined;this.clearPlantingPreview();this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}this.terrainCue?.dispose();this.terrainCue=undefined;this.resumeCameraControls();this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
-  screenshot() { return this.canvas.toDataURL("image/png"); }
+  dispose() { this.metrics.dispose();this.touchCleanup?.();this.fixtureLights?.dispose();this.canvas.removeEventListener('wheel',this.cancelFocus);window.removeEventListener('pointerdown',this.cameraPointerDown,true);window.removeEventListener('pointerup',this.cameraPointerUp,true);this.rotationGuide?.dispose();this.canvas.removeEventListener('contextmenu',this.contextMenu);this.canvas.removeEventListener('pointercancel',this.cancelOutdoorStroke);window.removeEventListener('blur',this.cancelOutdoorStroke);this.clearPlantingPreview();window.removeEventListener("resize", this.resize); this.coverageRenderer?.dispose();this.outdoors.dispose();this.terrain.dispose(); this.furnitureModels.dispose(); this.scene.dispose(); this.engine.dispose(); }
+  setTool(tool: Tool) { if(tool!==this.tool){if(this.activePlan)this.coverageRenderer?.update(this.activePlan);this.plantingPoints=undefined;this.clearPlantingPreview();this.terrainStroke=undefined;if(this.activePlan){this.terrain.update(this.activePlan);this.scene.getMeshByName('meadow')?.setEnabled(!this.activePlan.environment?.terrain?.length&&this.activePlan.environment?.background!=='city');}this.terrainCue?.dispose();this.terrainCue=undefined;this.resumeCameraControls();this.cancelTileDraft();this.cancelWallDraft();} this.tool = tool; }
+  screenshot() { this.scene.render();return this.canvas.toDataURL("image/png"); }
   private pointOnActiveFloor(screenX: number, screenY: number) {
     if (!this.activePlan) return undefined;
     const ray = this.scene.createPickingRay(screenX, screenY, Matrix.Identity(), this.camera);
@@ -418,12 +425,14 @@ export class SceneController {
     return {x:point.x*this.canvas.clientWidth/this.engine.getRenderWidth(),y:point.y*this.canvas.clientHeight/this.engine.getRenderHeight()};
   }
   update(plan: PlanDocumentV1, activeFloorId: string, selectedId?: string, draft?: FurniturePlacement) {
+    this.renderUntil=performance.now()+1000;this.shadow?.getShadowMap?.()?.resetRefreshCounter();
+    this.animatedScene=!!plan.environment?.terrain?.some(s=>s.kind==='river')||plan.furniture.some(p=>/aquarium|fireplace|christmas|clock/.test(p.catalogId));
     const previous=this.activePlan;
     if(this.selectedId!==selectedId||this.activeFloorId!==activeFloorId||previous?.id!==plan.id||draft)this.setMoveMode(false);
     if(plan.camera.mode==='top'&&previous?.camera.mode!=='top')this.cancelFocus();
     this.grassRenderer??=new GrassRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any,true,this.shadow);
     if(this.refreshModels&&[...this.refreshModels].some(isVegetation))this.grassRenderer.invalidate();
-    this.grassRenderer.update(plan,activeFloorId,selectedId,draft?.id);
+    this.grassRenderer.update(plan,activeFloorId,selectedId,draft?.id);this.coverageRenderer??=new GrassCoverageRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any);this.coverageRenderer.update(plan);
     if(previous&&previous.id===plan.id&&previous.gridSizeMm===plan.gridSizeMm&&previous.floors===plan.floors&&previous.furniture===plan.furniture&&previous.environment===plan.environment&&JSON.stringify(previous.camera)===JSON.stringify(plan.camera)&&this.activeFloorId===activeFloorId&&this.selectedId===selectedId&&!this.refreshModels?.size&&this.architectureTool===this.tool&&this.architectureWall===this.selectedWallId){
       this.activePlan=plan;this.updateDraft(plan,activeFloorId,draft);return;
     }
@@ -506,6 +515,8 @@ export class SceneController {
       if(finish.repeatMeters){const positions=tile.getVerticesData('position')!,uvs=tile.getVerticesData('uv')!;for(let i=0;i<positions.length/3;i++){uvs[i*2]=(positions[i*3]+tile.position.x)/finish.repeatMeters[0];uvs[i*2+1]=(positions[i*3+2]+tile.position.z)/finish.repeatMeters[1];}tile.setVerticesData('uv',uvs);}
       tile.material=floor.cellFinishes?.[`${cell.x},${cell.z}`]?this.surfaceMaterial(`tile-${floor.id}`,findFloorFinish(floor.cellFinishes[`${cell.x},${cell.z}`]),ghost?.22:1):tileMat;tile.receiveShadows=true;tile.isPickable=!ghost;
     }
+    // Large floors retain exact UVs and gaps while reducing draw submissions.
+    if(!this.retainFloorTiles&&floor.cells.length>512){const groups=new Map<string,Mesh[]>();for(const child of this.root.getChildMeshes(true)){if(!(child instanceof Mesh)||!child.name.startsWith('cell:')||child.position.y!==elevation)continue;const key=child.material?.uniqueId+':'+Math.floor(child.position.x/8)+':'+Math.floor(child.position.z/8),list=groups.get(key)??[];list.push(child);groups.set(key,list)}for(const [key,meshes] of groups){if(meshes.length<2)continue;const merged=Mesh.MergeMeshes(meshes,true,true,undefined,false,false);if(merged){merged.name='cell:batch:'+key;merged.parent=this.root;merged.metadata={floorBatch:true};merged.isPickable=!ghost;merged.receiveShadows=true;}}}
     // Invisible in the cutaway camera, but opaque in the sun shadow pass.
     const ceiling=new Mesh('sun-ceiling:'+floor.id,this.scene),data=new VertexData(),positions:number[]=[],indices:number[]=[];
     for(const r of floorRects(floor,plan.gridSizeMm)){
@@ -602,11 +613,11 @@ export class SceneController {
         if(this.plantingPoints&&hit&&(info.type===PointerEventTypes.POINTERMOVE||info.type===PointerEventTypes.POINTERDOWN)){
           const last=this.plantingPoints.at(-1);if(!last||Math.hypot(hit.x-last.x,hit.z-last.z)>.2){
             if(this.plantingPoints.length<8192)this.plantingPoints.push({x:hit.x,z:hit.z});
-            this.renderPlantingPreview(scatterPlants(s.plan,this.plantingPoints,s.plantingBrush));
+            if(s.plantingBrush.coverage&&s.plantingBrush.catalogId==='grass-clump')this.coverageRenderer?.update({...s.plan,environment:{background:'plain',grass:'off',...s.plan.environment,grassCoverage:paintGrassCoverage(s.plan,this.plantingPoints,s.plantingBrush)}});else this.renderPlantingPreview(scatterPlants(s.plan,this.plantingPoints,s.plantingBrush).filter(p=>!this.terrain?.isWet?.(p.x/1000,p.z/1000)));
             this.plantingAnchor=new Vector3(hit.x,hit.y+.1,hit.z);
           }
         }
-        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.resumeCameraControls();if(s.plan===this.plantingBase){s.previewPlanting(points);usePlanner.getState().confirmPlanting();this.clearPlantingPreview();}else this.clearPlantingPreview();}
+        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.resumeCameraControls();if(s.plan===this.plantingBase){if(s.plantingBrush.coverage&&s.plantingBrush.catalogId==='grass-clump')s.paintCoverage(points);else{s.previewPlanting(points);const draft=usePlanner.getState().plantingDraft;if(draft)usePlanner.setState({plantingDraft:{...draft,items:draft.items.filter(p=>!this.terrain?.isWet?.(p.x/1000,p.z/1000))}});usePlanner.getState().confirmPlanting();}this.clearPlantingPreview();}else this.clearPlantingPreview();}
         return;
       }
       if(this.tool.startsWith('terrain-')){
@@ -670,7 +681,7 @@ export class SceneController {
           }
         }else if(this.tool==="select"&&!this.activeDraft){this.callbacks.onSelect(undefined);
         }else if(name.startsWith("cell:")){
-          const[,x,z]=name.split(":"); this.callbacks.onCell(Number(x),Number(z));
+          if(pick?.pickedMesh?.metadata?.floorBatch&&pick.pickedPoint&&this.activePlan){const grid=this.activePlan.gridSizeMm/1000;this.callbacks.onCell(Math.floor(pick.pickedPoint.x/grid),Math.floor(pick.pickedPoint.z/grid))}else{const[,x,z]=name.split(':');this.callbacks.onCell(Number(x),Number(z));}
         }else if(name==="edit-grid"&&pick?.pickedPoint&&this.activePlan){
           const grid=this.activePlan.gridSizeMm/1000; this.callbacks.onCell(Math.floor(pick.pickedPoint.x/grid),Math.floor(pick.pickedPoint.z/grid));
         }else if(name.startsWith("wall:"))this.callbacks.onWall(name.slice(5));

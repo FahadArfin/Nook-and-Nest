@@ -80,3 +80,6 @@
 .library-panel .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .library-panel.library-expanded{width:max(390px,min(620px,calc(100vw - 580px)))}
 @media(min-width:1301px){.library-expanded .library-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* Skip offscreen group layout and paint while retaining keyboard navigation. */
+.library-type-section { content-visibility: auto; contain-intrinsic-size: auto 420px; }

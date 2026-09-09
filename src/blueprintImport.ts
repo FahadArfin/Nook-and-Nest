@@ -1,3 +1,4 @@
+import {imageDimensions} from './imageDimensions';
 export interface PlanReference { url:string; width:number; height:number; pages:number; name:string }
 export const MAX_REFERENCE_BYTES=25*1024*1024;
 export function checkReferenceFile(file:Pick<File,'name'|'size'|'type'>) {
@@ -26,6 +27,7 @@ export async function renderReference(file:File,pageNumber=1,rotation=0):Promise
       await page.render({canvas,canvasContext:context,viewport,annotationMode:pdfjs.AnnotationMode.DISABLE}).promise;
     } finally {await task.destroy();}
   } else {
+    const dimensions=imageDimensions(new Uint8Array(await file.arrayBuffer()));if(!dimensions.width||!dimensions.height||dimensions.width*dimensions.height>40_000_000)throw new Error('This image is too large. Resize it to under 40 megapixels.');
     const bitmap=await createImageBitmap(file);
     try {
       if(bitmap.width*bitmap.height>40_000_000)throw new Error('This image is too large. Resize it to under 40 megapixels.');

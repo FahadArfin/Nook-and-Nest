@@ -9,6 +9,8 @@ import type { CatalogItem } from "./types";
 import "./library.css";
 import { LibraryIconRail, libraryIcon } from "./LibraryIconRail";
 
+const membershipCache=new WeakMap<object,string>();
+const membership=(items:import('./types').FurniturePlacement[])=>{let key=membershipCache.get(items);if(key===undefined){key=[...new Set(items.map(p=>p.catalogId))].sort().join('|');membershipCache.set(items,key)}return key};
 const icons: Record<string, typeof Armchair> = { seat:Armchair, table:Table, bed:Bed, storage:Books, lamp:Lamp, plant:Plant, rug:GridFour, decor:SquaresFour, window:FrameCorners };
 export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPlacement}: {
   onBeginDrag(item:CatalogItem,event:PointerEvent<HTMLButtonElement>):void;
@@ -17,13 +19,13 @@ export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPla
   const touchCard=useRef(false);
   const search = usePlanner(s=>s.search), category = usePlanner(s=>s.category);
   const setSearch = usePlanner(s=>s.setSearch), setCategory = usePlanner(s=>s.setCategory);
-  const units = usePlanner(s=>s.plan.units), placed = usePlanner(s=>s.plan.furniture);
+  const units = usePlanner(s=>s.plan.units), membershipKey = usePlanner(s=>membership(s.plan.furniture));
   const [shelf,setShelf] = useState<LibraryShelf>("browse"), [type,setType] = useState("All");
   const [sort,setSort] = useState<LibrarySort>("collection"), [expanded,setExpanded] = useState(false);
   const [storageWarning,setStorageWarning] = useState(false);
   const [favorites,setFavorites] = useState<string[]>(()=>{try{return parseFavorites(localStorage.getItem(favoritesKey))}catch{return []}});
   const scrollRef = useRef<HTMLDivElement>(null), searchRef = useRef<HTMLInputElement>(null);
-  const inPlan = useMemo(()=>[...new Set(placed.map(item=>item.catalogId))],[placed]);
+  const inPlan = useMemo(()=>membershipKey?membershipKey.split('|'):[],[membershipKey]);
   const {items,types} = useMemo(()=>filterLibrary({search,category,type,shelf,favorites,inPlan,sort}),[search,category,type,shelf,favorites,inPlan,sort]);
   useEffect(()=>{setType("All");if(["Windows","Doors","Stairs"].includes(category))setShelf("browse")},[category]);
   useEffect(()=>{if(scrollRef.current)scrollRef.current.scrollTop=0},[category,type,search,shelf,sort]);

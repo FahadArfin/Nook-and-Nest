@@ -74,3 +74,5 @@ test('bridge keeps packaged fallback; missing library assets never become SPA HT
  env.LIBRARY.get=async()=>{throw Error('outage');};
  assert.equal((await handler(req('/models/furniture/test.glb'),env)).status,503);
 });
+
+test('beta bootstrap is opt-in and copies only integrity-checked release assets',async()=>{const env=environment();assert.equal((await handler(req('/api/beta-library-bootstrap'),env)).status,404);env.BETA_LIBRARY_BOOTSTRAP='1';env.ASSETS.fetch=async()=>new Response(bytes);const response=await handler(req('/api/beta-library-bootstrap?batch=0'),env);const data=await response.json();assert(data.results.every(r=>r.ready));assert.equal(env.objects.size,1);env.BETA_LIBRARY_BOOTSTRAP='0';assert.equal((await handler(req('/api/beta-library-bootstrap'),env)).status,404);});

@@ -1,0 +1,5 @@
+/** Conservative estimate of newly retained immutable data (not a heap measurement). */
+const estimates=new WeakMap<object,number>();
+function size(value:unknown):number{if(typeof value==='string')return 32+value.length*2;if(!value||typeof value!=='object')return 16;const cached=estimates.get(value);if(cached!==undefined)return cached;const n=48+Object.entries(value).reduce((total,[key,v])=>total+key.length*2+8+size(v),0);if(Object.isFrozen(value))estimates.set(value,n);return n;}
+function delta(value:any,previous:any):number{if(value===previous)return 0;if(!value||typeof value!=='object'||!previous||typeof previous!=='object')return size(value);return 48+Object.entries(value).reduce((n,[key,v])=>n+8+key.length*2+delta(v,previous[key]),0);}
+export function boundedHistory<T extends {plan:unknown}>(items:T[],limit=64*1024*1024):T[]{let total=0,start=items.length;for(let i=items.length-1;i>=0&&items.length-i<=40;i--){const cost=delta(items[i].plan,items[i+1]?.plan);if(total+cost>limit&&start<items.length)break;total+=cost;start=i;}return items.slice(start);}

@@ -5,7 +5,7 @@ import {terrainSampler} from './terrain';
 import type {FurniturePlacement,PlanDocumentV1} from './types';
 
 export const plantingIds=['grass-clump','daisy-clump','lavender-clump','wildflower-patch','fountain-grass','blue-fescue','coneflower-drift'];
-export interface PlantingBrush {catalogId:string;radius:number;spacing:number;density?:number}
+export interface PlantingBrush {coverage?:boolean;eraseCoverage?:boolean;catalogId:string;radius:number;spacing:number;density?:number}
 export const plantingStrokeLimit=vegetationLimit;
 const strokeCache=new WeakMap<PlanDocumentV1,{signature:string;furniture:PlanDocumentV1['furniture'];points:Array<{x:number;z:number}>;seen:Set<string>;items:FurniturePlacement[]}>();
 const collisionCache=new WeakMap<PlanDocumentV1,{items:FurniturePlacement[];grid:Map<string,FurniturePlacement[]>}>();
@@ -37,7 +37,7 @@ export function scatterPlants(plan:PlanDocumentV1,points:Array<{x:number;z:numbe
    if(rects.some(r=>x*1000>=r.x-pad*1000&&x*1000<=r.x+r.width+pad*1000&&z*1000>=r.z-pad*1000&&z*1000<=r.z+r.depth+pad*1000))continue;
    if((collisions.get(Math.floor(x/4)+':'+Math.floor(z/4))??[]).some(p=>{const a=p.rotation*Math.PI/180,dx=x*1000-p.x,dz=z*1000-p.z;return Math.abs(dx*Math.cos(a)-dz*Math.sin(a))<p.widthMm/2+pad*1000&&Math.abs(dx*Math.sin(a)+dz*Math.cos(a))<p.depthMm/2+pad*1000;}))continue;
    const ground=sample(x,z);if(ground.water)continue;
-   result.push({id:`plant-${c.id}-${Math.round(spacing*10000)}-${ix}-${iz}`,catalogId:c.id,floorId:floor.id,x:Math.round(x*1000),z:Math.round(z*1000),rotation:Math.round(noise(ix,iz,71)*360),widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,elevationMm:Math.round(ground.height*1000)-floor.elevationMm-50,variant:'sage'});
+   result.push({terrainAnchored:true,id:`plant-${c.id}-${Math.round(spacing*10000)}-${ix}-${iz}`,catalogId:c.id,floorId:floor.id,x:Math.round(x*1000),z:Math.round(z*1000),rotation:Math.round(noise(ix,iz,71)*360),widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,elevationMm:Math.round(ground.height*1000)-floor.elevationMm-50,variant:'sage'});
   }
  }
  return result;

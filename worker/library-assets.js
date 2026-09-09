@@ -4,6 +4,14 @@ export function createLibraryHandler(manifest) {
   const reply=(error,status)=>Response.json({error},{status,headers:{'Cache-Control':'no-store'}});
   return async function library(request,env) {
     const url=new URL(request.url),upload=url.pathname.match(/^\/api\/library-upload\/([a-f0-9]{64})$/);
+    if(url.pathname==='/api/beta-library-bootstrap'){
+      if(env.BETA_LIBRARY_BOOTSTRAP!=='1'||!env.LIBRARY)return reply('Not found',404);
+      if(request.method!=='GET')return reply('Method not allowed',405);
+      const batch=Number(url.searchParams.get('batch')??0),names=Object.keys(assets);if(!Number.isInteger(batch)||batch<0||batch>=Math.ceil(names.length/32))return reply('Invalid batch',400);
+      const selected=names.slice(batch*32,(batch+1)*32),results=[];
+      for(const name of selected){const target=new URL(request.url);target.pathname='/api/library-assets'+name;target.search='';const response=await library(new Request(target),env);if(response.body)await response.body.cancel();results.push({name,ready:response.headers.get('X-Nook-Asset-Storage')==='r2'});}
+      return Response.json({batch,batches:Math.ceil(names.length/32),results},{headers:{'Cache-Control':'no-store'}});
+    }
     if(url.pathname.startsWith('/api/library-upload/')) {
       if(!env.LIBRARY_UPLOAD_TOKEN||request.headers.get('authorization')!=='Bearer '+env.LIBRARY_UPLOAD_TOKEN)return reply('Unauthorized',401);
       if(!upload||!byHash.has(upload[1]))return reply('Unknown release asset',404);
@@ -42,7 +50,15 @@ export function createLibraryHandler(manifest) {
       // Bridge release keeps packaged copies until every R2 object is verified.
       const fallbackUrl=new URL(request.url);fallbackUrl.pathname=name;
       const response=await env.ASSETS.fetch(new Request(fallbackUrl,request));
+      if(response.status===404&&env.BETA_LIBRARY_BOOTSTRAP==='1'&&env.LIBRARY){
+        // Copy only manifest-listed PUBLIC assets; never proxy user data or credentials.
+        // R2 verifies the immutable expected digest before the asset is served.
+        try{const upstream=await fetch('https://nook-and-nest.fwad101.chatgpt.site/api/library-assets'+name,{redirect:'error'});
+          if(upstream.ok&&Number(upstream.headers.get('content-length'))===asset.size){await env.LIBRARY.put('library/'+asset.sha256,upstream.body,{sha256:asset.sha256,httpMetadata:{contentType:asset.type},customMetadata:{sha256:asset.sha256}});return library(request,{...env,BETA_LIBRARY_BOOTSTRAP:'0'});}
+        }catch{}
+      }
       if(response.status===404)return reply('Collection asset temporarily unavailable',503);
+      if(response.ok&&env.BETA_LIBRARY_BOOTSTRAP==='1'&&env.LIBRARY){try{await env.LIBRARY.put('library/'+asset.sha256,response.body,{sha256:asset.sha256,httpMetadata:{contentType:asset.type},customMetadata:{sha256:asset.sha256}});return library(request,{...env,BETA_LIBRARY_BOOTSTRAP:'0'});}catch{return reply('Asset integrity check failed',503);}}
       const fallback=new Response(response.body,response);fallback.headers.set('Content-Type',asset.type);return fallback;
     }
     if(request.headers.get('if-none-match')?.split(/\s*,\s*/).some(value=>value===etag||value==='W/'+etag||value==='*'))return new Response(null,{status:304,headers});
