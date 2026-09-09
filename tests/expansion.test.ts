@@ -132,3 +132,14 @@ it("deletes only the owner's matching online revision and rejects cross-site or 
  expect((await call(db,`/api/projects/${p.id}`,"bob")).status).toBe(200);
  expect((await call(db,`/api/projects/${p.id}`,"alice",{plan:p,expectedRevision:1})).status).toBe(409);
 });
+
+it("saves dense grass privately without exceeding a D1 row and preserves revision protection", async()=>{
+ const db=database(),plan=createSamplePlan(),c=catalog.find(c=>c.id==='grass-clump')!,path=`/api/projects/${plan.id}`;
+ plan.furniture=Array.from({length:20000},(_,i)=>({id:'g'+i,catalogId:c.id,floorId:plan.floors[0].id,x:i,z:0,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'}));
+ expect((await call(db,path,'alice',{plan,expectedRevision:0})).status).toBe(200);
+ expect((await (await call(db,path)).json()).plan).toEqual(plan);
+ const row=await db.prepare('SELECT document FROM project_versions WHERE project_id = ?').bind(plan.id).first() as {document:string};
+ expect(row.document.length).toBeLessThan(1_900_000);
+ expect((await call(db,path,'alice',{plan,expectedRevision:0})).status).toBe(409);
+ expect((await call(db,path,'bob')).status).toBe(404);
+});
