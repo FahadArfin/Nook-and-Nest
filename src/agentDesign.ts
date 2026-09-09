@@ -96,7 +96,7 @@ export function buildDesign(base:PlanDocumentV1,operations:DesignOperation[]) {
   }
   // Architecture changes must not leave existing mounted openings unsupported.
   for(const item of plan.furniture){const problem=windowProblem({...plan,furniture:plan.furniture.filter(f=>f.id!==item.id)},item);if(problem)throw new Error(`${item.catalogId}: ${problem}`);}
-  validatePlan(plan);if(new TextEncoder().encode(JSON.stringify(plan)).length>MAX_PLAN_BYTES)throw new Error('The design exceeds the 1 MB project limit.');
+  validatePlan(plan);if(new TextEncoder().encode(JSON.stringify(plan)).length>MAX_PLAN_BYTES)throw new Error('The design exceeds the 8 MB project limit.');
   return {plan,keys,changedIds:[...changed],warnings:designWarnings(plan)};
 }
 

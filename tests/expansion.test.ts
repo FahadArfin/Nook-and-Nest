@@ -60,7 +60,7 @@ describe("editor regressions", () => {
   it("rejects malformed imports instead of casting them into a working plan", () => {
     for (const p of [null, {}, { schemaVersion: 1, floors: [], furniture: [] }, { ...createSamplePlan(), gridSizeMm: 0 }, { ...createSamplePlan(), camera: null }]) expect(() => parsePlan(JSON.stringify(p))).toThrow();
     const p = createSamplePlan(); p.floors[0].cells[0].x = Infinity; expect(() => parsePlan(JSON.stringify(p))).toThrow();
-    expect(() => parsePlan(" ".repeat(1_000_001))).toThrow(/limit/);
+    expect(() => parsePlan(" ".repeat(8_000_001))).toThrow(/limit/);
   });
 });
 
@@ -115,7 +115,7 @@ describe("private cloud project API against SQLite", () => {
     const db = database(), plan = createSamplePlan(), path = `/api/projects/${plan.id}`;
     expect((await call(db, path, "alice", { plan: { ...plan, floors: [] }, expectedRevision: 0 })).status).toBe(400);
     expect((await call(db, path, "alice", { plan, expectedRevision: -1 })).status).toBe(400);
-    expect((await call(db, path, "alice", { plan, expectedRevision: 0, extra: "x".repeat(1_001_000) })).status).toBe(413);
+    expect((await call(db, path, "alice", { plan, expectedRevision: 0, extra: "x".repeat(8_001_000) })).status).toBe(413);
     expect((await (await call(db, "/api/projects")).json()).projects).toEqual([]);
   });
 });

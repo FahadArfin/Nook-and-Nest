@@ -105,3 +105,19 @@ main.app-shell section.workspace.no-inspector{grid-template-columns:340px minmax
 .canvas-tools .zoom-control button{border:0;border-radius:0;box-shadow:none;touch-action:none}
 .canvas-tools .zoom-control button+button{border-top:1px solid var(--line)}
 .compact-tool-popover .sun-enable{min-height:36px;margin-bottom:6px;width:100%;font-size:11px}
+/* Floating, button-anchored workbenches leave a visible gap above the dock. */
+.bottom-tools{bottom:82px;border-radius:18px;padding-bottom:0;width:min(940px,calc(100% - 24px));max-height:calc(100% - 150px);transform:translate(-50%,18px) scale(.94);transition:transform 450ms cubic-bezier(.22,1,.36,1),opacity 300ms ease;box-shadow:0 12px 38px #15291f33;overflow:hidden}
+.bottom-tools.is-open{transform:translate(-50%,0) scale(1)}
+.bottom-tools-wall{width:260px}
+.bottom-tools-landscape{width:310px;background:transparent;border:0;box-shadow:none;overflow:visible;max-height:none}
+.bottom-tools-landscape>header{display:none}
+.bottom-tools-landscape .bottom-tools-body{overflow:visible;max-height:none}
+.bottom-tools-landscape .bottom-tools-body>div{padding:0!important}
+.landscape-menus nav{display:flex;gap:6px;padding:8px;background:var(--paper);border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 26px #15291f30}
+.landscape-menus nav button{flex:1;min-height:44px;font-size:13px}
+.landscape-detail{position:absolute;bottom:72px;width:min(480px,calc(100vw - 32px));right:0;box-sizing:border-box;max-height:min(420px,calc(100dvh - 250px));overflow:auto;padding:14px;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 38px #15291f33;opacity:0;transform:translateY(14px) scale(.96);transform-origin:bottom right;transition:transform 300ms ease,opacity 300ms ease}
+.landscape-detail.is-open{opacity:1;transform:translateY(0) scale(1)}
+.landscape-detail .plant-choices{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.landscape-detail .task-content{padding:0}
+@media(max-width:600px){.landscape-detail{width:min(310px,calc(100vw - 32px))}.bottom-tools{padding-bottom:0}}
+@media(prefers-reduced-motion:reduce){.bottom-tools,.landscape-detail{transition:none}}

@@ -1,3 +1,4 @@
+import {GrassRenderer} from './GrassRenderer';
 import {VertexData} from '@babylonjs/core/Meshes/mesh.vertexData';
 import {sunDirection,type SunSettings} from '../sunlight';
 import {bindTouchNavigation} from "../touchNavigation";
@@ -84,6 +85,7 @@ export class SceneController {
   private rotationDrag?:{item:FurniturePlacement;node:TransformNode;centerX:number;centerY:number;lastAngle?:number;total:number;rotation:number;draft:boolean};
   private architectureTool?:Tool;private architectureWall?:string;
   private refreshModels = new Set<string>();
+  private grassRenderer?:GrassRenderer;private previewGrass?:GrassRenderer;
   private furnitureNodes = new Map<string, {node:TransformNode; signature:string}>();
   private solidMaterials=new Map<string,StandardMaterial>();
   private outdoors:OutdoorScene;
@@ -418,6 +420,9 @@ export class SceneController {
     const previous=this.activePlan;
     if(this.selectedId!==selectedId||this.activeFloorId!==activeFloorId||previous?.id!==plan.id||draft)this.setMoveMode(false);
     if(plan.camera.mode==='top'&&previous?.camera.mode!=='top')this.cancelFocus();
+    this.grassRenderer??=new GrassRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any,true,this.shadow);
+    if(this.refreshModels?.has('grass-clump'))this.grassRenderer.invalidate();
+    this.grassRenderer.update(plan,activeFloorId,selectedId,draft?.id);
     if(previous&&previous.id===plan.id&&previous.gridSizeMm===plan.gridSizeMm&&previous.floors===plan.floors&&previous.furniture===plan.furniture&&previous.environment===plan.environment&&JSON.stringify(previous.camera)===JSON.stringify(plan.camera)&&this.activeFloorId===activeFloorId&&this.selectedId===selectedId&&!this.refreshModels?.size&&this.architectureTool===this.tool&&this.architectureWall===this.selectedWallId){
       this.activePlan=plan;this.updateDraft(plan,activeFloorId,draft);return;
     }
@@ -431,7 +436,7 @@ export class SceneController {
     if(stamp===this.architectureStamp){
       this.activePlan=plan;this.selectedId=selectedId;this.activeDraft=draft;
       if(!usePlanner.getState().turnId)this.outdoors.update(plan);
-      const ids=new Set(plan.furniture.map(f=>f.id));
+      const ids=new Set(plan.furniture.filter(f=>f.catalogId!=='grass-clump'||f.id===selectedId).map(f=>f.id));
       for(const [id,entry] of this.furnitureNodes)if(!ids.has(id)){entry.node.dispose(false,false);this.furnitureNodes.delete(id);}
       for(const item of plan.furniture){
         const entry=this.furnitureNodes.get(item.id);if(!entry)continue;
@@ -446,7 +451,7 @@ export class SceneController {
       }
       this.refreshModels?.clear();
       this.selectedNode=this.furnitureNodes.get(selectedId??'')?.node;
-      for(const [id,{node}] of this.furnitureNodes){const item=plan.furniture.find(p=>p.id===id);const width=item?Math.min(.025,Math.min(item.widthMm,item.depthMm,item.heightMm)*.00002):.025;for(const mesh of node.getChildMeshes()){mesh.renderOutline=id===selectedId&&mesh.metadata?.livingMaterial!=='live-clock-display';mesh.outlineColor=new Color3(.42,.57,.31);mesh.outlineWidth=width;}}
+      const itemMap=new Map(plan.furniture.map(p=>[p.id,p]));for(const [id,{node}] of this.furnitureNodes){const item=itemMap.get(id);const width=item?Math.min(.025,Math.min(item.widthMm,item.depthMm,item.heightMm)*.00002):.025;for(const mesh of node.getChildMeshes()){mesh.renderOutline=id===selectedId&&mesh.metadata?.livingMaterial!=='live-clock-display';mesh.outlineColor=new Color3(.42,.57,.31);mesh.outlineWidth=width;}}
       this.activeDraft=previousDraft;
       this.updateDraft(plan,activeFloorId,draft,refreshPreview);
       return;
@@ -534,6 +539,7 @@ export class SceneController {
   }
   private addBox(parent:TransformNode,name:string,size:[number,number,number],pos:[number,number,number],mat:StandardMaterial){const box=MeshBuilder.CreateBox(name,{width:size[0],height:size[1],depth:size[2]},this.scene);box.parent=parent;box.position=new Vector3(...pos);box.material=mat;box.receiveShadows=true;this.shadow.addShadowCaster(box);return box;}
   private buildFurniture(item:FurniturePlacement,elevation:number,ghost:boolean,preview=false){
+    if(!preview&&item.catalogId==='grass-clump'&&item.id!==this.selectedId)return;
     const def=catalog.find((c)=>c.id===item.catalogId); if(!def)return;
     const signature=JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0});
     const existing=preview?undefined:this.furnitureNodes.get(item.id);
@@ -573,9 +579,10 @@ export class SceneController {
     });
   }
   private buildStairs(x:number,z:number,w:number,d:number,y:number,ghost:boolean){const mat=this.material(`stairs-${x}-${z}`,"#a9815f",ghost?.18:1);for(let i=0;i<10;i++){const step=this.addBox(this.root,"stairs",[w,.12,d/10],[x,y+.06+i*.12,z+i*d/10],mat);step.isPickable=!ghost;}}
-  private clearPlantingPreview(){for(const p of this.plantingNodes.values())p.node.dispose(false,false);this.plantingNodes.clear();this.plantingItems=[];this.plantingAnchor=undefined;}
+  private clearPlantingPreview(){this.previewGrass?.clear();for(const p of this.plantingNodes.values())p.node.dispose(false,false);this.plantingNodes.clear();this.plantingItems=[];this.plantingAnchor=undefined;}
   private renderPlantingPreview(items:FurniturePlacement[],refresh=false){
-    this.plantingItems=items;const ids=new Set(items.map(p=>p.id));for(const [id,p] of this.plantingNodes)if(!ids.has(id)){p.node.dispose(false,false);this.plantingNodes.delete(id);}
+    if(items.length&&items.every(p=>p.catalogId==='grass-clump')&&this.activePlan){this.plantingItems=items;this.previewGrass??=new GrassRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any,false);if(refresh)this.previewGrass.invalidate();this.previewGrass.update({...this.activePlan,furniture:items},items[0].floorId);return;}
+    this.previewGrass?.clear();this.plantingItems=items;const ids=new Set(items.map(p=>p.id));for(const [id,p] of this.plantingNodes)if(!ids.has(id)){p.node.dispose(false,false);this.plantingNodes.delete(id);}
     for(const item of items){const existing=this.plantingNodes.get(item.id);if(existing&&(!refresh||existing.loaded))continue;existing?.node.dispose(false,false);const node=new TransformNode(`garden-preview:${item.id}`,this.scene),def=catalog.find(c=>c.id===item.catalogId)!;
       const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);node.position.set(item.x/1000,((floor?.elevationMm??0)+(item.elevationMm??0)+50)/1000,item.z/1000);node.rotation.y=item.rotation*Math.PI/180;
       const loaded=this.furnitureModels.build(node,def,item,item.widthMm/1000,item.depthMm/1000,item.heightMm/1000,false);if(!loaded)this.furnitureFactory.build(node,def,item,item.widthMm/1000,item.depthMm/1000,item.heightMm/1000,false);
@@ -636,7 +643,7 @@ export class SceneController {
       if(info.type===PointerEventTypes.POINTERDOWN){
         if(info.event.button!==0)return;
         moved=false;
-        let pick=this.scene.pick(this.scene.pointerX,this.scene.pointerY); let name=pick?.pickedMesh?.name||"";
+        let pick=this.scene.pick(this.scene.pointerX,this.scene.pointerY); let name=pick?.pickedMesh?.name||"";if(pick?.pickedMesh?.metadata?.grassIds&&pick.thinInstanceIndex>=0)name=`item:${pick.pickedMesh.metadata.grassIds[pick.thinInstanceIndex]}`;
         // A selected draft remains draggable even when a wall or counter is in front.
         if(this.tool==='select'&&this.activeDraft){const draftPick=this.scene.pick(this.scene.pointerX,this.scene.pointerY,m=>m.isPickable&&m.name==='draft-preview');if(draftPick?.hit){pick=draftPick;name='draft-preview';}}
         if(this.tool==="select"&&this.selectedId&&!this.activeDraft){const selected=this.scene.pick(this.scene.pointerX,this.scene.pointerY,m=>m.isPickable&&m.name===`item:${this.selectedId}`);if(selected?.hit){pick=selected;name=selected.pickedMesh?.name??"";}else if(name.startsWith("item:")){name=`item:${this.selectedId}`;}}

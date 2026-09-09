@@ -15,5 +15,5 @@ it('rejects anonymous creation, cross-origin writes, invalid and oversized plans
  expect((await shares(req('{}',false),{DB})).status).toBe(401);
  expect((await shares(req('{}',true,'https://evil.test'),{DB})).status).toBe(403);
  expect((await shares(req('{}'),{DB})).status).toBe(400);
- expect((await shares(req('x'.repeat(1000200)),{DB})).status).toBe(413);expect(writes).toBe(0);
+ expect((await shares(req('x'.repeat(8000200)),{DB})).status).toBe(413);expect(writes).toBe(0);
 });

@@ -9,7 +9,7 @@ import {scatterPlants} from '../src/planting';
 import {createSamplePlan,serializePlan,parsePlan,encodeShare,decodeShare} from '../src/domain';
 import {usePlanner} from '../src/store';
 import {terrainSampler} from '../src/terrain';
-const brush={catalogId:'grass-clump',radius:2,spacing:.5};
+const brush={catalogId:'daisy-clump',radius:2,spacing:.5};
 describe('garden planting brush',()=>{
  it('turns a Babylon pointer stroke into a live preview then one committed stroke',()=>{
   const engine=new NullEngine(),scene=new Scene(engine),s=usePlanner.getState();s.replacePlan(createSamplePlan());s.cancelPlanting();s.setPlantingBrush(brush);

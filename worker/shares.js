@@ -11,7 +11,7 @@ export async function shares(request,env){
  if(request.headers.get('origin')!==url.origin||request.headers.get('sec-fetch-site')==='cross-site')return json({error:'Create links from this site.'},403);
  if(!request.headers.get('content-type')?.startsWith('application/json'))return json({error:'Send a JSON plan.'},415);
  const reader=request.body?.getReader();if(!reader)return json({error:'Missing plan.'},400);
- let size=0;const chunks=[];for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>MAX_PLAN_BYTES+100){await reader.cancel();return json({error:'Plan exceeds the 1 MB share limit.'},413);}chunks.push(value);}
+ let size=0;const chunks=[];for(;;){const {done,value}=await reader.read();if(done)break;size+=value.length;if(size>MAX_PLAN_BYTES+100){await reader.cancel();return json({error:'Plan exceeds the 8 MB share limit.'},413);}chunks.push(value);}
  const bytes=new Uint8Array(size);let offset=0;for(const c of chunks){bytes.set(c,offset);offset+=c.length;}
  let plan;try{plan=JSON.parse(new TextDecoder().decode(bytes)).plan;validatePlan(plan);}catch{return json({error:'Invalid plan.'},400);}
  // Unfinished studio work is private; only share the confirmed furnished home.
