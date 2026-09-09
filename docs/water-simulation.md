@@ -18,3 +18,5 @@ The grid has 161 by 161 samples (25,921 cells), with one east and south flux per
 Tests cover gradual source filling, dry disconnected basins, terrain-induced inflow/outflow, conservation without sources, still water, long-step bounding and blocked foundations. GPU/device FPS is not implied by CPU step timings.
 
 Local solver-only benchmark: 25,921 cells, 30 warm-up steps followed by 300 measured steps averaged 0.87 ms per step on the development machine (Node). This excludes mesh uploads and GPU rendering and is not a browser FPS guarantee.
+
+September 9 follow-up: River now adds water without carving new terrain. New strokes persist `carve:false`; missing values preserve legacy channels. Local source levels sit above the sampled bed so flat land can receive water and flow follows height differences. The shoreline uses a 321-square bilinear display mesh over the unchanged 161-square physics grid. This reduces diagonal edge artifacts but is still a height-field approximation, not an infinitely detailed shoreline. A local NullEngine measurement including simulation and mesh updates averaged 2.64 ms over 300 steps; GPU uploads/rendering are excluded.

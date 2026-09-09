@@ -1,6 +1,6 @@
 import {floorRects} from './floorGeometry';
 import type {PlanDocumentV1} from './types';
-export interface TerrainStroke {kind:'raise'|'lower'|'river';radius:number;strength:number;points:Array<{x:number;z:number}>}
+export interface TerrainStroke {kind:'raise'|'lower'|'river';radius:number;strength:number;carve?:boolean;points:Array<{x:number;z:number}>}
 export const terrainLimit=128;
 /** Metres. A bounded height field, with untouched apartment foundations. */
 export function terrainSampler(plan:PlanDocumentV1){
@@ -13,7 +13,7 @@ export function terrainSampler(plan:PlanDocumentV1){
     const foundationDistance=(buckets.get(Math.floor(x/4)+':'+Math.floor(z/4))??[]).reduce((d,r)=>Math.min(d,Math.hypot(Math.max(r.x/1000-x,0,x-(r.x+r.width)/1000),Math.max(r.z/1000-z,0,z-(r.z+r.depth)/1000))),Infinity);
     if(foundationDistance<=.25)return {height:-.15,water:false};
     const t=Math.min(1,(foundationDistance-.25)/1.25),foundationBlend=t*t*(3-2*t);
-    let height=-.15,water=false;
+    let height=-.15,water=false,sourceDepth=0;
     for(const s of strokes){
       let distance=Infinity;
       for(let i=0;i<s.points.length;i++){
@@ -23,10 +23,10 @@ export function terrainSampler(plan:PlanDocumentV1){
       }
       if(distance>=s.radius)continue;
       const falloff=(1-(distance/s.radius)**2)**2;
-      if(s.kind==='river'){height=Math.min(height,-.15-s.strength*falloff);if(distance<s.radius*.64)water=true;}
+      if(s.kind==='river'){if(s.carve!==false)height=Math.min(height,-.15-s.strength*falloff);if(distance<s.radius*.64){water=true;if(s.carve===false)sourceDepth=Math.max(sourceDepth,s.strength);}}
       else height+=s.strength*falloff*(s.kind==='raise'?1:-1);
     }
-    return {height:Math.max(-4,Math.min(5,-.15+(height+.15)*foundationBlend)),water:water&&foundationBlend>.9};
+    height=Math.max(-4,Math.min(5,-.15+(height+.15)*foundationBlend));return {height,water:water&&foundationBlend>.9,waterLevel:sourceDepth?height+sourceDepth:-.2};
   };
 }
 export function terrainRay(plan:PlanDocumentV1,origin:{x:number;y:number;z:number},direction:{x:number;y:number;z:number}){
