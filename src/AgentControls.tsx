@@ -1,3 +1,4 @@
+import {catalog} from './catalog';
 import { useEffect } from 'react';
 import { Robot, X, Check, ArrowCounterClockwise } from '@phosphor-icons/react';
 import { agentTools, applyProposal, browserModelContext, discardProposal, registerAgentTools, useAgent } from './webmcp';
@@ -13,8 +14,8 @@ export function AgentControls({busy}:{busy:boolean}) {
   return <div className="agent-entry">
     <button onClick={()=>useAgent.setState({open:!agent.open})} aria-label="Decorate with an agent" aria-expanded={agent.open} className={pending?'agent-has-proposal':''}><Robot/><span>Agent</span>{pending&&<span className="agent-dot"/>}</button>
     {agent.open&&<section className="agent-panel" aria-labelledby="agent-heading">
-      <div className="agent-heading"><div><span className="eyebrow">A second pair of creative eyes</span><h2 id="agent-heading">Decorate together</h2></div><button aria-label="Close agent panel" onClick={()=>useAgent.setState({open:false})}><X/></button></div>
-      <p>Ask your browser’s agent to furnish your apartment. It can choose from all 216 pieces, arrange a room, style individual parts, and place the little finishing touches.</p>
+      <div className="agent-heading"><div><span className="eyebrow">Custom furnishing requests</span><h2 id="agent-heading">Browser agent</h2></div><button aria-label="Close agent panel" onClick={()=>useAgent.setState({open:false})}><X/></button></div>
+      <p>Ask your browser’s agent to furnish your apartment. It can choose from all {catalog.length} pieces, arrange a room, style individual parts, and place the little finishing touches.</p>
       <div className="agent-connection" role="status">{agent.status==='ready'?`${agentTools.length} native tools connected`:agent.status==='unsupported'?'This browser does not expose WebMCP yet':agent.status==='error'?'Agent connection unavailable':'Connecting native tools…'}</div>
       {agent.status==='unsupported'&&<p>Open this site in ChatGPT’s in-app browser or a browser with WebMCP enabled. Manual decorating still works normally.</p>}
       <label className="agent-permission"><input type="checkbox" checked={agent.allowApply} disabled={agent.paused} onChange={e=>useAgent.setState({allowApply:e.target.checked})}/><span><strong>Let my agent apply designs</strong><small>{agent.allowApply?'Direct edits allowed for this project in this tab. You can undo them.':'Review first: only you can apply the proposal.'}</small></span></label>

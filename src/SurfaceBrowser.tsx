@@ -7,6 +7,7 @@ import {PaintPicker} from './PaintPicker';
 
 type Scope='sections'|'brush'|'whole'|'exterior';
 export function SurfaceBrowser({floorOnly=false,wallsOnly=false}:{floorOnly?:boolean;wallsOnly?:boolean}={}){
+ const [minimized,setMinimized]=useState(false);
  const collectionRef=useRef<HTMLDivElement>(null);
  const s=usePlanner(),floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;
  const [target,setTarget]=useState<'Floor'|'Walls'>(wallsOnly||!floorOnly&&s.selectedWallId?'Walls':'Floor');
@@ -27,15 +28,15 @@ export function SurfaceBrowser({floorOnly=false,wallsOnly=false}:{floorOnly?:boo
  const action=scope==='sections'&&target==='Walls'?`Paint ${count} wall${count===1?'':'s'}`:scope==='exterior'?'Paint outer walls':target==='Floor'?'Apply to whole floor':'Paint all walls';
  const apply=()=>{if(!pending)return;if(scope==='sections'&&target==='Walls'){if(s.wallSelectionActive)s.finishSelectedWalls(pending);else if(s.selectedWallId)s.finishWall(s.selectedWallId,pending);else return;}else if(scope==='exterior')s.finishWallGroup('exterior',pending);else s.setFloorFinish(kind,pending);setMessage(`Applied ${chosen.name}. Undo restores the previous finishes.`);setPending(undefined)};
  const scopes=target==='Walls'?[{id:'brush',name:'Brush',icon:PaintRoller},{id:'sections',name:'Select walls',icon:Wall},{id:'whole',name:'All walls',icon:Selection},{id:'exterior',name:'Outer walls',icon:BoundingBox}]:[{id:'sections',name:'Paint area',icon:PaintRoller},{id:'whole',name:'Whole floor',icon:GridFour}];
- return <>
+ return <><button className="paint-collapse" aria-expanded={!minimized} onClick={()=>setMinimized(!minimized)}>{minimized?"Choose another finish":"Minimize palette to paint"}</button>
   {!floorOnly&&!wallsOnly&&<div className="task-subtabs" aria-label="Surface">{(['Walls','Floor'] as const).map(t=><button key={t} aria-pressed={target===t} onClick={()=>{s.setTool('select');setTarget(t);setScope(t==='Walls'?'brush':'sections');setFamily(t==='Walls'?'Paint':'All');setSearch('');setPending(undefined);setMessage('')}}>{t==='Walls'?<PaintRoller/>:<GridFour/>}{t}</button>)}</div>}
   <div className="finish-workflow guided-workflow">
    <h2>Make it yours</h2>
    <h3 className="finish-step"><span>1</span>Select surfaces</h3>
    <div className="scope-cards" aria-label="Painting scope">{scopes.map(({id,name,icon:Icon})=><button key={id} aria-pressed={scope===id} onClick={()=>changeScope(id as Scope)}><Icon size={30} weight="light"/>{name}</button>)}</div>
-   {target==='Walls'&&scope==='sections'?<div className="selection-summary"><span aria-live="polite">{count} wall{count===1?'':'s'} selected</span><button onClick={()=>{s.clearWallSelection();if(s.selectedWallId){s.setTool('select');s.beginWallSelection()}}}>Clear</button></div>:<p className="tool-hint">{scope==='brush'?'Choose a color, then click walls to paint.':scope==='sections'?'Drag over floor tiles, then confirm.':'Applies on this floor only.'}</p>}
+   {target==='Walls'&&scope==='sections'?<div className="selection-summary"><span aria-live="polite">{count} wall{count===1?'':'s'} selected</span><button onClick={()=>{s.clearWallSelection();if(s.selectedWallId){s.setTool('select');s.beginWallSelection()}}}>Clear</button></div>:<p className="tool-hint">{scope==='brush'?'Editing live · click walls to paint. Undo restores each change.':scope==='sections'?'Preview · drag an area, then confirm with the checkmark.':'Applies on this floor only.'}</p>}
   </div>
-  <div ref={collectionRef} className="task-content finish-collection guided-collection">
+  <div ref={collectionRef} hidden={minimized} className="task-content finish-collection guided-collection">
    <h3 className="finish-step"><span>2</span>{target==='Walls'?'Choose a color or finish':'Choose a material'}</h3>
    <div className="tool-search"><MagnifyingGlass/><input aria-label="Search finishes" placeholder={target==='Walls'?'Search colors or finishes':'Search materials'} value={search} onChange={e=>setSearch(e.target.value)}/></div>
    {target==='Floor'?<div className="material-types" aria-label="Material type">{['All',...new Set(finishes.map(f=>f.family))].map(f=><button key={f} aria-pressed={family===f} onClick={()=>setFamily(f)}>{f}</button>)}</div>:<details className="wall-material-types"><summary>Paint & other finishes</summary><div className="material-types" aria-label="Material type">{['All',...new Set(finishes.map(f=>f.family))].map(f=><button key={f} aria-pressed={family===f} onClick={()=>setFamily(f)}>{f}</button>)}</div></details>}

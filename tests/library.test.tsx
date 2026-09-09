@@ -74,10 +74,9 @@ describe("library controls",()=>{
   it("shows distinct already-placed pieces and never adds drafts itself",()=>{
     usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("laptop");
     const {start}=mount();fireEvent.click(screen.getByRole("button",{name:"In plan"}));
-    const ids=new Set(usePlanner.getState().plan.furniture.map(i=>i.catalogId));
-    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(ids.size);
-    const before=usePlanner.getState().plan;fireEvent.click(screen.getAllByRole("button",{name:/drag to place/})[0],{detail:0});
-    expect(start).toHaveBeenCalledOnce();expect(usePlanner.getState().plan).toBe(before);
+    expect(screen.getAllByRole('button',{name:'Select'})).toHaveLength(usePlanner.getState().plan.furniture.length);
+    const before=usePlanner.getState().plan;fireEvent.click(screen.getAllByRole('button',{name:'Select'})[0]);
+    expect(start).not.toHaveBeenCalled();expect(usePlanner.getState().plan).toBe(before);expect(usePlanner.getState().selectedId).toBe(before.furniture[0].id);
   });
   it("shows an actionable empty search and keeps editing shortcuts out of library controls",()=>{
     mount();fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"no-such-piece"}});

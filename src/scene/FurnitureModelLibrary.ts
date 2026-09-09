@@ -80,7 +80,7 @@ export class FurnitureModelLibrary {
       const cached = this.materialVariants.get(key);
       if (cached) return cached;
       const clone = source.clone(`model-${key}`);
-      if (!clone) return source;
+      if (!clone) return source;clone.metadata={...clone.metadata,nookPart:source.name};
       clone.subMaterials = source.subMaterials.map((material) => material ? this.materialFor(material, item, ghost) : null);
       this.materialVariants.set(key, clone);
       return clone;
@@ -94,7 +94,7 @@ export class FurnitureModelLibrary {
     const cached = this.materialVariants.get(key);
     if (cached) return cached;
     const clone = source.clone(`model-${key}`);
-    if (!clone) return source;
+    if (!clone) return source;clone.metadata={...clone.metadata,nookPart:source.name};
     if(isFrame)clone.zOffset=-2;
     if (clone instanceof PBRMaterial) {
       if (isTintable) {

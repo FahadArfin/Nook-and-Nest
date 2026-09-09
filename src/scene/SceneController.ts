@@ -108,6 +108,10 @@ export class SceneController {
   private placement!: PlacementController;
   private floorPaint!: FloorPaintController;
   private landscape!: LandscapeController;
+  private renderQuality: 'auto'|'battery'|'high'='auto';
+  setRenderQuality(quality:'auto'|'battery'|'high'){this.renderQuality=quality;this.engine.setHardwareScalingLevel(this.baseResolution*(quality==='battery'?1.7:quality==='high'?1:this.frameBudget.scale));this.renderUntil=performance.now()+1000;}
+  private partHighlights:import('@babylonjs/core/Meshes/abstractMesh').AbstractMesh[]=[];
+  highlightPart(slot?:string){for(const mesh of this.partHighlights)mesh.showBoundingBox=false;this.partHighlights=[];if(slot&&this.selectedNode){for(const mesh of this.selectedNode.getChildMeshes()){if((mesh.material?.metadata?.nookPart??mesh.material?.name)===slot){mesh.showBoundingBox=true;this.partHighlights.push(mesh);}}}this.renderUntil=performance.now()+1000;}
   private frameBudget = new FrameBudget();
   private baseResolution = 1;
 
@@ -525,7 +529,7 @@ export class SceneController {
       this.scene.render();
       const renderMs = performance.now() - start;
       this.metrics.record(renderMs);
-      if (this.frameBudget.sample(renderMs))
+      if (this.frameBudget.sample(renderMs)&&this.renderQuality==='auto')
         this.engine.setHardwareScalingLevel(
           this.baseResolution * this.frameBudget.scale,
         );
@@ -852,9 +856,14 @@ export class SceneController {
     }
     this.tool = tool;
   }
-  screenshot() {
+  pictureFrame(format:'screen'|'landscape'|'portrait'|'square') {if(format==='screen')return undefined;const box=this.canvas.getBoundingClientRect(),ratio=format==='portrait'?9/16:format==='square'?1:16/9,width=Math.min(box.width,box.height*ratio),height=width/ratio;return {left:box.left+(box.width-width)/2,top:box.top+(box.height-height)/2,width,height};}
+  screenshot(format:'screen'|'landscape'|'portrait'|'square'='screen') {
     this.scene.render();
-    return this.canvas.toDataURL("image/png");
+    if(format==='screen')return this.canvas.toDataURL('image/png');
+    const [w,h]=format==='portrait'?[900,1600]:format==='square'?[1200,1200]:[1600,900];
+    const output=document.createElement('canvas');output.width=w;output.height=h;const context=output.getContext('2d');if(!context)throw new Error('Picture export unavailable');
+    const ratio=Math.max(w/this.canvas.width,h/this.canvas.height),sw=w/ratio,sh=h/ratio;
+    context.drawImage(this.canvas,(this.canvas.width-sw)/2,(this.canvas.height-sh)/2,sw,sh,0,0,w,h);return output.toDataURL('image/png');
   }
 
   movePreviewFromClient(

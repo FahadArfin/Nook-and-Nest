@@ -34,7 +34,7 @@ it('does not schedule a focus motion on top-view selection',()=>{
  Object.assign(c,{activePlan:p,selectedId:'a',selectedNode:{position:Vector3.Zero()},editingKey:'',rotationMode:false,camera:{radius:20}});c.initializeControllers();c.updateEditingGuides();expect(c.cameraControls.focusMotion).toBeUndefined();expect(c.camera.radius).toBe(20);
 });
 it('preview pauses, advances views, and restores through cleanup without changing a plan',()=>{
- const p=createSamplePlan(),shots=homeShots(p,p.floors[0].id),controller:any={beginHomePreview:vi.fn(),showHomeShot:vi.fn(),endHomePreview:vi.fn()};
+ const p=createSamplePlan(),shots=homeShots(p,p.floors[0].id),controller:any={pictureFrame:vi.fn(),beginHomePreview:vi.fn(),showHomeShot:vi.fn(),endHomePreview:vi.fn()};
  const ui=render(<HomePreview shots={shots} controller={controller} onClose={()=>{}} canCapture/>);expect(controller.beginHomePreview).toHaveBeenCalledTimes(1);fireEvent.click(screen.getByLabelText('Next view'));expect(controller.showHomeShot).toHaveBeenLastCalledWith(shots[1],false);fireEvent.click(screen.getByText('Play slideshow'));expect(screen.getByText('Pause')).toBeTruthy();ui.unmount();expect(controller.endHomePreview).toHaveBeenCalledTimes(1);
 });
 

@@ -13,7 +13,7 @@ import { fitStair,stairHoles } from "../src/building";
 import { catalog } from "../src/catalog";
 import { EditorApp as App } from "../src/App";
 const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:vi.fn(),zoom:vi.fn(),focus:vi.fn(),rotation:vi.fn()}));
-vi.mock("../src/scene/SceneController",()=>({SceneController:class{
+vi.mock("../src/scene/SceneController",()=>({SceneController:class{setRenderQuality(){} highlightPart(){}
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setMoveMode(_active:boolean){}
   setSunPreview(){}
@@ -79,7 +79,7 @@ describe("building editor wiring",()=>{
     const model=catalog.find(c=>c.id==="backsplash-subway")!;fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(state().plan.furniture).toEqual([]);fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));expect(state().plan.furniture).toHaveLength(1);
     const id=state().plan.furniture[0].id;act(()=>scene.callbacks.onSelect(id));
-    fireEvent.change(screen.getByLabelText("grout color"),{target:{value:"#ccbbaa"}});fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"920"}});
+    fireEvent.change(screen.getByLabelText("Grout color (grout)"),{target:{value:"#ccbbaa"}});fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"920"}});
     expect(state().plan.furniture[0].materialColors?.grout).toBe("#ccbbaa");expect(state().plan.furniture[0].elevationMm).toBe(920);
     expect(screen.getAllByRole("button",{name:"Flip"})).toHaveLength(2);
   },10000);
@@ -227,10 +227,10 @@ it('uses an icon-only opt-in Move toggle, swaps the end actions and keeps colors
 
 it('keeps home tools in dock drawers and reserves the inspector for selected furniture',async()=>{
  render(<App/>);expect(screen.queryByRole('button',{name:'Decorate'})).toBeNull();expect(document.querySelector('.workspace>.inspector-panel')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Land formation'}));const land=await screen.findByRole('region',{name:'Land formation'});
+ fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));const land=await screen.findByRole('region',{name:'Outdoors'});
  fireEvent.click(within(land).getByRole('button',{name:'Terrain'}));await screen.findByRole('button',{name:'Hill'});fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');
  fireEvent.click(within(land).getByRole('button',{name:'Plants'}));await screen.findByLabelText('Search plants');expect(screen.getByLabelText('Search plants')).toBeTruthy();
- fireEvent.click(screen.getByRole('button',{name:'Land formation'}));expect(state().tool).toBe('select');
+ fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));expect(state().tool).toBe('select');
  expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
  expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.click(screen.getByRole('button',{name:'Nighttime'}));expect(state().plan.environment?.sun?.night).toBe(true);act(()=>state().undo());expect(state().plan.environment?.sun?.night).toBeUndefined();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.keyDown(screen.getByRole('button',{name:'Morning'}),{key:'Escape'});expect(state().plan.environment?.sun?.enabled).toBe(true);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();
  fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.pointerDown(document.body);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();expect(state().plan.environment?.sun?.enabled).toBe(true);

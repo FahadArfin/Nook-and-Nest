@@ -1,3 +1,5 @@
+import {AccessibleDialog} from './AccessibleDialog';
+import {catalog} from './catalog';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { Check, GridFour, Sparkle, X } from '@phosphor-icons/react';
@@ -24,9 +26,9 @@ export function BlueprintControls({busy,onPreview,onBusy,onCreated}:{busy:boolea
   };
   return <>
     <button disabled={busy||!!proposal} onClick={()=>{setError('');setOpen(true);}}><GridFour/> Floor plan</button>
-    <button disabled={busy||open||!!proposal} onClick={generate}><Sparkle/> Auto furnish</button>
+    <button disabled={busy||open||!!proposal} onClick={generate}><Sparkle/> Quick layout</button>
     {open&&createPortal(<BlueprintStudio onClose={()=>setOpen(false)} onCreated={onCreated}/>,document.body)}
-    {proposal&&createPortal(<div className="bp-arrangement-shield"><section className="bp-arrangement" role="dialog" aria-label="Review automatic furnishing" onKeyDown={e=>e.stopPropagation()}><div><span className="eyebrow">Unsaved 3D preview</span><h2>{proposal.added.length} library pieces, ready to review</h2></div>{proposal.skipped.length>0&&<details><summary>{proposal.skipped.length} pieces left out because of limited space</summary><ul>{proposal.skipped.map((s,i)=><li key={i}>{s}</li>)}</ul></details>}<div className="bp-button-row"><button className="primary" onClick={()=>{try{usePlanner.getState().commitDesign(proposal.base,proposal.plan);cancel();}catch(e){setError((e as Error).message);}}}><Check/> Apply furnishing · one undo</button><button onClick={cancel}><X/> Discard preview</button></div></section></div>,document.body)}
+    {proposal&&createPortal(<div className="bp-arrangement-shield"><AccessibleDialog label="Review automatic furnishing" onClose={cancel}><div><span className="eyebrow">Unsaved 3D preview</span><h2>{proposal.added.length} library pieces, ready to review</h2></div><p>{proposal.base.furniture.length} existing pieces retained · 0 removed. Uncheck any addition to leave it out.</p><div className="proposal-pieces">{proposal.added.map(item=><label key={item.id}><input type="checkbox" checked={proposal.plan.furniture.some(p=>p.id===item.id)} onChange={e=>{const plan={...proposal.plan,furniture:e.target.checked?[...proposal.plan.furniture,item]:proposal.plan.furniture.filter(p=>p.id!==item.id)};setProposal({...proposal,plan});onPreview(plan)}}/>{catalog.find(c=>c.id===item.catalogId)?.name??item.catalogId}</label>)}</div>{proposal.skipped.length>0&&<details><summary>{proposal.skipped.length} pieces left out because of limited space</summary><ul>{proposal.skipped.map((s,i)=><li key={i}>{s}</li>)}</ul></details>}<div className="bp-button-row"><button className="primary" onClick={()=>{try{usePlanner.getState().commitDesign(proposal.base,proposal.plan);cancel();}catch(e){setError((e as Error).message);}}}><Check/> Apply furnishing · one undo</button><button onClick={cancel}><X/> Discard preview</button></div></AccessibleDialog></div>,document.body)}
     {error&&createPortal(<div className="bp-controls-notice" role="alert">{error}<button aria-label="Dismiss floor plan notice" onClick={()=>setError('')}><X/></button></div>,document.body)}
   </>;
 }
