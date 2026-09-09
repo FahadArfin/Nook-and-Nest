@@ -2,7 +2,7 @@
 
 A cozy 3D apartment planner where you and your browser's AI agent can design, furnish, and personalize a home together.
 
-[Open the live planner](https://nook-and-nest.fwad101.chatgpt.site/) Â· [WebMCP integration](docs/webmcp.md) · [Repository map](docs/repository-map.md)
+[Open the live planner](https://nook-and-nest.fwad101.chatgpt.site/) · [WebMCP integration](docs/webmcp.md) | [Repository map](docs/repository-map.md)
 
 <img src="public/assets/nook-nest-icon.png" alt="Nook & Nest miniature cottage icon" width="180" />
 
@@ -71,15 +71,15 @@ The build emits `dist/client/`, a Worker entry at `dist/server/index.js`, and ge
 
 ## Project layout
 
-- `src/` â€” React interface, plan state, validation, catalog, and Babylon.js scene controller.
-- `src/webmcp.ts`, `src/agentDesign.ts`, `src/agentSchema.ts` â€” native tool registration and validated batch proposals.
-- `assets-source/blender/` â€” editable furniture and environment source models.
-- `assets-source/art/`, `assets-source/textures/` â€” artwork and texture sources.
-- `public/models/` â€” browser-ready GLBs, catalog previews, and model metadata.
-- `tools/blender/` â€” model construction, export, and preview-rendering scripts.
-- `worker/`, `db/`, `drizzle/` â€” hosted private project storage and migrations.
-- `tests/` â€” editor, geometry, placement, persistence, and WebMCP tests.
-- `docs/` â€” design research, integration notes, and release checks.
+- `src/` — React interface, plan state, validation, catalog, and Babylon.js scene controller.
+- `src/webmcp.ts`, `src/agentDesign.ts`, `src/agentSchema.ts` — native tool registration and validated batch proposals.
+- `assets-source/blender/` — editable furniture and environment source models.
+- `assets-source/art/`, `assets-source/textures/` — artwork and texture sources.
+- `public/models/` — browser-ready GLBs, catalog previews, and model metadata.
+- `tools/blender/` — model construction, export, and preview-rendering scripts.
+- `worker/`, `db/`, `drizzle/` — hosted private project storage and migrations.
+- `tests/` — editor, geometry, placement, persistence, and WebMCP tests.
+- `docs/` — design research, integration notes, and release checks.
 
 To rebuild models on Windows with Blender installed, run `tools/blender/build-models.ps1`. Model generation can overwrite generated Blender/GLB assets, so preserve any hand-edited versions first. Preview rendering accepts model IDs, for example:
 
