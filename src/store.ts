@@ -1,3 +1,4 @@
+import {paintVegetationField,fieldPlacement} from './vegetationField';
 import {isVegetation} from './vegetation';
 import {importPlan} from './planImport';
 import {boundedHistory} from './historyBudget';
@@ -28,6 +29,7 @@ interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
   turnSnapshot?:Snapshot;turnId?:string;beginTurn(id:string):void;turnFurniture(id:string,degrees:number):void;finishTurn():void;
   paintCoverage(points:Array<{x:number;z:number}>):void;
+  paintField(points:Array<{x:number;z:number}>):void;
   plantingBrush:PlantingBrush;setPlantingBrush(brush:PlantingBrush):void;
   plantingDraft?:{base:PlanDocumentV1;items:FurniturePlacement[]};
   previewPlanting(points:Array<{x:number;z:number}>):void;confirmPlanting():void;cancelPlanting():void;
@@ -72,6 +74,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     return {plan:{...s.plan,updatedAt:new Date().toISOString(),furniture:s.plan.furniture.map(f=>f.id===id?candidate:f)}};
   }),
   finishTurn:()=>set(s=>({...(s.turnSnapshot&&s.turnSnapshot.plan.furniture!==s.plan.furniture?{past:boundedHistory([...s.past,s.turnSnapshot]),future:[]}:{}),turnSnapshot:undefined,turnId:undefined})),
+  paintField:points=>set(s=>{const vegetationField=paintVegetationField(s.plan,points,s.plantingBrush);const plan={...s.plan,environment:{background:'plain' as const,grass:'off' as const,...s.plan.environment,vegetationField}};validatePlan(plan);return commit(s,plan);}),
   paintCoverage:points=>set(s=>commit(s,{...s.plan,environment:{background:'plain',grass:'off',...s.plan.environment,grassCoverage:paintGrassCoverage(s.plan,points,s.plantingBrush)}})),
   plantingBrush:{catalogId:'grass-clump',radius:1.5,spacing:.5},
   setPlantingBrush:plantingBrush=>set({plantingBrush,plantingDraft:undefined}),
@@ -109,7 +112,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   finishCells:(cells,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>{if(f.id!==state.activeFloorId)return f;const occupied=new Set(f.cells.map(c=>`${c.x},${c.z}`));const cellFinishes={...f.cellFinishes};for(const c of cells){const key=`${c.x},${c.z}`;if(occupied.has(key))cellFinishes[key]=finishId;}return {...f,cellFinishes};})})),
   finishWall:(id,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?paintWallPlate(f,state.plan.gridSizeMm,id,finishId):f)})),
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
-  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
+  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set(s=>{const item=selectedId?fieldPlacement(s.plan,selectedId):undefined;if(!item)return {selectedId,selectedWallId:undefined,placementNotice:undefined};if(s.plan.furniture.filter(p=>isVegetation(p.catalogId)).length>=22000||Object.keys(s.plan.environment!.vegetationField!.removed).length>=22000)return {placementNotice:'Individual edit capacity reached. Landscape brushing is still available.'};const field=s.plan.environment!.vegetationField!;const plan={...s.plan,environment:{...s.plan.environment!,vegetationField:{...field,removed:{...field.removed,[item.id]:true}}},furniture:[...s.plan.furniture,item]};validatePlan(plan);return {...commit(s,plan,item.id),selectedWallId:undefined,placementNotice:undefined};}),
   replacePlan: (plan) => set({ plan:correctLegacySinkHeight(structuredClone(plan)), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),

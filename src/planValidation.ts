@@ -1,3 +1,4 @@
+import {validateVegetationField} from './vegetationField';
 import {isVegetation,vegetationLimit} from './vegetation';
 import {showerIds} from './apartmentCollection';
 import {isDoor} from './catalog';
@@ -49,6 +50,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}
+  if(p.environment?.vegetationField!==undefined)validateVegetationField(p.environment.vegetationField);
   if(p.environment?.grassCoverage!==undefined){obj(p.environment.grassCoverage);const entries=Object.entries(p.environment.grassCoverage);if(entries.length>160000)fail();for(const [key,density] of entries){if(!/^-?\d{1,3}:-?\d{1,3}$/.test(key))fail();const [x,z]=key.split(':').map(Number);num(x,-200,199);num(z,-200,199);num(density,1,9);if(!Number.isInteger(density))fail();}}
   if(p.environment?.sun!==undefined){const s=p.environment.sun;obj(s);if(typeof s.enabled!=='boolean'||(s.night!==undefined&&typeof s.night!=='boolean'))fail();num(s.azimuth,0,360);num(s.elevation,5,85);}
   if(p.environment?.citySource!==undefined&&!['standard','google'].includes(p.environment.citySource))fail();

@@ -32,3 +32,5 @@ These resolve superseded instructions retained in the contracts:
 Use docs/asset-pipeline.md before editing generated files. Use docs/performance-scenes.md for reproducible performance validation. Preserve aquarium fidelity exactly and keep original Blender sources, IDs, dimensions and material keys.
 
 Record new durable prototype preferences here or in the relevant contract. The full pre-consolidation guide is preserved verbatim in docs/history/AGENTS-before-maintenance.md (baseline 78a82e7). Historical conflicts do not override the explicit latest-wins rules above. No user requirements were discarded.
+
+Two-million vegetation direction: painted landscape fields use compact deterministic cells and stable per-plant edit IDs. Preserve old individually placed plants. Keep visible geometry bounded, generate visibility in a worker, retain original models nearby and captured model views at distance, and validate saving, undo, painting, selection and sustained camera movement against two-million fixtures. Do not equate logical plant count with simultaneous full-detail rendering or claim untested device performance.

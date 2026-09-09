@@ -1,3 +1,5 @@
+import {paintVegetationField} from '../vegetationField';
+import type {VegetationFieldRenderer} from './VegetationFieldRenderer';
 import { ArcRotateCamera } from "@babylonjs/core/Cameras/arcRotateCamera";
 import "@babylonjs/core/Culling/ray";
 import { Engine } from "@babylonjs/core/Engines/engine";
@@ -36,6 +38,7 @@ export interface LandscapeControllerHost {
   engine: Engine;
   canvas: HTMLCanvasElement;
   tool: Tool;
+  fieldRenderer?:VegetationFieldRenderer;
   coverageRenderer: GrassCoverageRenderer | undefined;
   terrain: TerrainScene;
   resumeCameraControls: () => void;
@@ -171,6 +174,8 @@ export class LandscapeController {
       ),
     };
   }
+  private fieldPreview?:ReturnType<typeof paintVegetationField>;
+  private fieldProcessed=0;
   handlePointer(info: PointerInfo) {
     if (this.host.tool === "planting") {
       const s = usePlanner.getState(),
@@ -191,6 +196,7 @@ export class LandscapeController {
           (info.event as PointerEvent).pointerId,
         );
         this.plantingPoints = [];
+        this.fieldPreview=undefined;this.fieldProcessed=0;
         this.plantingBase = s.plan;
         this.host.camera.detachControl();
       }
@@ -204,7 +210,8 @@ export class LandscapeController {
         if (!last || Math.hypot(hit.x - last.x, hit.z - last.z) > 0.2) {
           if (this.plantingPoints.length < 8192)
             this.plantingPoints.push({ x: hit.x, z: hit.z });
-          if (
+          if(s.plantingBrush.field){if(performance.now()-this.terrainLastPreview>48){this.terrainLastPreview=performance.now();this.host.fieldRenderer?.update({...s.plan,environment:{background:'plain',grass:'off',...s.plan.environment,vegetationField:this.fieldPreview=paintVegetationField({...s.plan,environment:{background:'plain',grass:'off',...s.plan.environment,vegetationField:this.fieldPreview??s.plan.environment?.vegetationField}},this.plantingPoints.slice(Math.max(0,this.fieldProcessed-1)),s.plantingBrush)}});this.fieldProcessed=this.plantingPoints.length;}}
+          else if (
             s.plantingBrush.coverage &&
             s.plantingBrush.catalogId === "grass-clump"
           )
@@ -243,7 +250,8 @@ export class LandscapeController {
         this.plantingPoints = undefined;
         this.host.resumeCameraControls();
         if (s.plan === this.plantingBase) {
-          if (
+          if(s.plantingBrush.field)s.paintField(points);
+          else if (
             s.plantingBrush.coverage &&
             s.plantingBrush.catalogId === "grass-clump"
           )

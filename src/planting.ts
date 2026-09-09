@@ -5,7 +5,7 @@ import {terrainSampler} from './terrain';
 import type {FurniturePlacement,PlanDocumentV1} from './types';
 
 export const plantingIds=['grass-clump','daisy-clump','lavender-clump','wildflower-patch','fountain-grass','blue-fescue','coneflower-drift'];
-export interface PlantingBrush {coverage?:boolean;eraseCoverage?:boolean;catalogId:string;radius:number;spacing:number;density?:number}
+export interface PlantingBrush {field?:boolean;coverage?:boolean;eraseCoverage?:boolean;catalogId:string;radius:number;spacing:number;density?:number}
 export const plantingStrokeLimit=vegetationLimit;
 const strokeCache=new WeakMap<PlanDocumentV1,{signature:string;furniture:PlanDocumentV1['furniture'];points:Array<{x:number;z:number}>;seen:Set<string>;items:FurniturePlacement[]}>();
 const collisionCache=new WeakMap<PlanDocumentV1,{items:FurniturePlacement[];grid:Map<string,FurniturePlacement[]>}>();

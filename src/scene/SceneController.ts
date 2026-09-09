@@ -1,3 +1,4 @@
+import {VegetationFieldRenderer} from './VegetationFieldRenderer';
 import { VertexData } from "@babylonjs/core/Meshes/mesh.vertexData";
 import { FrameBudget } from "../frameBudget";
 import { RenderMetrics } from "../renderMetrics";
@@ -149,6 +150,7 @@ export class SceneController {
   private architectureTool?: Tool;
   private architectureWall?: string;
   private refreshModels = new Set<string>();
+  fieldRenderer?:VegetationFieldRenderer;
   private coverageRenderer?: GrassCoverageRenderer;
   private grassRenderer?: GrassRenderer;
   private furnitureNodes = new Map<
@@ -401,6 +403,7 @@ export class SceneController {
       this.shadow,
       (ids) => {
         ids.forEach((id) => this.refreshModels.add(id));
+        this.fieldRenderer?.invalidate(ids);
         if (ids.includes('grass-clump')) this.coverageRenderer?.invalidate();
         if (this.landscape.plantingItems.length)
           this.landscape.renderPlantingPreview(
@@ -758,7 +761,7 @@ export class SceneController {
     if (this.landscape.plantingPoints) {
       this.landscape.plantingPoints = undefined;
       this.landscape.clearPlantingPreview();
-      if (this.activePlan) this.coverageRenderer?.update(this.activePlan);
+      if (this.activePlan) {this.coverageRenderer?.update(this.activePlan);this.fieldRenderer?.update(this.activePlan);}
     }
     this.cameraControls.resumeCameraControls();
   };
@@ -819,6 +822,7 @@ export class SceneController {
     this.landscape.clearPlantingPreview();
     window.removeEventListener("resize", this.resize);
     this.coverageRenderer?.dispose();
+    this.fieldRenderer?.dispose();
     this.outdoors.dispose();
     this.terrain.dispose();
     this.furnitureModels.dispose();
@@ -827,7 +831,7 @@ export class SceneController {
   }
   setTool(tool: Tool) {
     if (tool !== this.tool) {
-      if (this.activePlan) this.coverageRenderer?.update(this.activePlan);
+      if (this.activePlan) {this.coverageRenderer?.update(this.activePlan);this.fieldRenderer?.update(this.activePlan);}
       this.landscape.plantingPoints = undefined;
       this.landscape.clearPlantingPreview();
       this.landscape.terrainStroke = undefined;
@@ -1186,6 +1190,9 @@ export class SceneController {
       this.furnitureFactory as any,
     );
     this.coverageRenderer.update(plan);
+    if(plan.environment?.vegetationField)this.camera.upperRadiusLimit=600;
+    if(plan.environment?.vegetationField||usePlanner.getState().plantingBrush.field)this.fieldRenderer ??= new VegetationFieldRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any);
+    this.fieldRenderer?.update(plan);
     if (
       previous &&
       previous.id === plan.id &&
@@ -2319,6 +2326,7 @@ export class SceneController {
       set tool(value) {
         owner.tool = value;
       },
+      get fieldRenderer(){return owner.fieldRenderer ??= new VegetationFieldRenderer(owner.scene,owner.furnitureModels,owner.furnitureFactory as any);},
       get coverageRenderer() {
         return owner.coverageRenderer;
       },
@@ -2456,6 +2464,7 @@ export class SceneController {
         let name = pick?.pickedMesh?.name || "";
         if (pick?.pickedMesh?.metadata?.grassIds && pick.thinInstanceIndex >= 0)
           name = `item:${pick.pickedMesh.metadata.grassIds[pick.thinInstanceIndex]}`;
+        if(this.tool==='select'&&!this.activeDraft){const fieldId=this.fieldRenderer?.pick(this.scene.createPickingRay(this.scene.pointerX,this.scene.pointerY,Matrix.Identity(),this.camera),pick?.hit?pick.distance:Infinity);if(fieldId)name='item:'+fieldId;}
         // A selected draft remains draggable even when a wall or counter is in front.
         if (this.tool === "select" && this.activeDraft) {
           const draftPick = this.scene.pick(
@@ -2577,7 +2586,7 @@ export class SceneController {
           this.draggingDraft = true;
           this.cameraControls.suspendCameraPointers();
         } else if (name.startsWith("item:") && this.tool === "select") {
-          const id = name.split(":")[1];
+          const id = name.slice(5);
           this.callbacks.onSelect(id);
           if (this.moveSelection === id && this.selectedId === id) {
             this.placement.beginFurnitureDrag(
