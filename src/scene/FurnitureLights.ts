@@ -8,6 +8,7 @@ import type { TransformNode } from '@babylonjs/core/Meshes/transformNode';
 import { catalog, isCeilingMounted } from '../catalog';
 import type { PlanDocumentV1 } from '../types';
 
+const lightingIds=new Set(catalog.filter(c=>c.category==='Lighting').map(c=>c.id));
 /** Four warm pools nearest the camera; cached shadows include walls, not the bulb. */
 export class FurnitureLights {
   private lights=new Map<string,{light:SpotLight;shadow:ShadowGenerator}>();
@@ -15,7 +16,7 @@ export class FurnitureLights {
   constructor(private scene:Scene,private allowsShadow:(mesh:AbstractMesh)=>boolean){}
   update(plan:PlanDocumentV1,floorId:string,nodes:Map<string,{node:TransformNode}>,camera:Vector3,neutral:boolean){
     const now=performance.now();if(now<this.nextUpdate)return;this.nextUpdate=now+150;
-    const candidates=plan.furniture.filter(p=>p.floorId===floorId&&catalog.find(c=>c.id===p.catalogId)?.category==='Lighting'&&nodes.has(p.id))
+    const candidates=plan.furniture.filter(p=>p.floorId===floorId&&lightingIds.has(p.catalogId)&&nodes.has(p.id))
       .sort((a,b)=>Math.hypot(a.x/1000-camera.x,a.z/1000-camera.z)-Math.hypot(b.x/1000-camera.x,b.z/1000-camera.z)).slice(0,4);
     const ids=new Set(candidates.map(p=>p.id));
     for(const [id,entry] of this.lights)if(!ids.has(id)){entry.shadow.dispose();entry.light.dispose();this.lights.delete(id);}
