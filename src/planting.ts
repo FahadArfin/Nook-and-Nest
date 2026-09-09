@@ -4,17 +4,17 @@ import {terrainSampler} from './terrain';
 import type {FurniturePlacement,PlanDocumentV1} from './types';
 
 export const plantingIds=['grass-clump','daisy-clump','lavender-clump','wildflower-patch','fountain-grass','blue-fescue','coneflower-drift'];
-export interface PlantingBrush {catalogId:string;radius:number;spacing:number}
-export const plantingStrokeLimit=64;
+export interface PlantingBrush {catalogId:string;radius:number;spacing:number;density?:number}
+export const plantingStrokeLimit=512;
 /** Deterministic world-space jittered lattice: retracing a stroke never duplicates plants. */
 export function scatterPlants(plan:PlanDocumentV1,points:Array<{x:number;z:number}>,brush:PlantingBrush):FurniturePlacement[]{
  const c=catalog.find(c=>c.id===brush.catalogId),floor=[...plan.floors].sort((a,b)=>a.elevationMm-b.elevationMm)[0];
  if(!c||!floor||!plantingIds.includes(c.id)||!points.length||!Number.isFinite(brush.radius)||!Number.isFinite(brush.spacing))return [];
- const radius=Math.max(.5,Math.min(4,brush.radius)),spacing=Math.max(.3,Math.min(2,brush.spacing)),sample=terrainSampler(plan);
+ const radius=Math.max(.5,Math.min(4,brush.radius)),spacing=Math.max(.12,Math.min(2,brush.spacing/Math.sqrt(Math.max(1,Math.min(9,brush.density??1)))) ),sample=terrainSampler(plan);
  const rects=plan.floors.flatMap(f=>floorRects(f,plan.gridSizeMm)),seen=new Set<string>(),result:FurniturePlacement[]=[];
  const pad=Math.max(c.widthMm,c.depthMm)/2000;
  const noise=(x:number,z:number,s:number)=>{let n=Math.imul(x,374761393)^Math.imul(z,668265263)^s;n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967296;};
- for(const point of points.slice(0,128)){
+ for(const point of points.slice(0,1024)){
   if(!Number.isFinite(point.x)||!Number.isFinite(point.z)||Math.abs(point.x)>200||Math.abs(point.z)>200)continue;
   for(let ix=Math.floor((point.x-radius)/spacing);ix<=Math.ceil((point.x+radius)/spacing);ix++)for(let iz=Math.floor((point.z-radius)/spacing);iz<=Math.ceil((point.z+radius)/spacing);iz++){
    if(result.length>=Math.min(plantingStrokeLimit,2000-plan.furniture.length))return result;

@@ -6,8 +6,11 @@ export const terrainLimit=128;
 export function terrainSampler(plan:PlanDocumentV1){
   const rects=plan.floors.flatMap(f=>floorRects(f,plan.gridSizeMm));
   const strokes=plan.environment?.terrain??[];
+  const buckets=new Map<string,typeof rects>();
+  for(const r of rects)for(let bx=Math.floor((r.x/1000-1.5)/4);bx<=Math.floor(((r.x+r.width)/1000+1.5)/4);bx++)for(let bz=Math.floor((r.z/1000-1.5)/4);bz<=Math.floor(((r.z+r.depth)/1000+1.5)/4);bz++){const key=bx+':'+bz;const entries=buckets.get(key)??[];entries.push(r);buckets.set(key,entries)}
+
   return (x:number,z:number)=>{
-    const foundationDistance=rects.reduce((d,r)=>Math.min(d,Math.hypot(Math.max(r.x/1000-x,0,x-(r.x+r.width)/1000),Math.max(r.z/1000-z,0,z-(r.z+r.depth)/1000))),Infinity);
+    const foundationDistance=(buckets.get(Math.floor(x/4)+':'+Math.floor(z/4))??[]).reduce((d,r)=>Math.min(d,Math.hypot(Math.max(r.x/1000-x,0,x-(r.x+r.width)/1000),Math.max(r.z/1000-z,0,z-(r.z+r.depth)/1000))),Infinity);
     if(foundationDistance<=.25)return {height:-.15,water:false};
     const t=Math.min(1,(foundationDistance-.25)/1.25),foundationBlend=t*t*(3-2*t);
     let height=-.15,water=false;

@@ -6,7 +6,7 @@ export type WallVisibility = "near-hidden" | "all-hidden" | "all-visible";
 export type Category = "Outdoor" | "Living" | "Bedroom" | "Dining" | "Office" | "Kitchen" | "Storage" | "Lighting" | "Decor" | "Windows" | "Bathroom" | "Doors" | "Stairs";
 
 export interface TileCell { x: number; z: number }
-export interface WallSegment { id: string; ax: number; az: number; bx: number; bz: number }
+export interface WallSegment { heightMm?:number; id: string; ax: number; az: number; bx: number; bz: number }
 export interface Opening { id: string; kind: "door" | "window"; wallKey: string; offset: number; widthMm: number; finishId?: string }
 export interface StairPlacement { id: string; kind: "straight" | "l-shaped"; x: number; z: number; rotation: number; widthMm: number; lengthMm: number; toFloorId?: string }
 export interface FurniturePlacement { showerMirrored?:boolean; moduleRun?:boolean; id: string; catalogId: string; floorId: string; x: number; z: number; rotation: number; widthMm: number; depthMm: number; heightMm: number; variant: string; toFloorId?: string; stairRiseMm?: number; surfaceVariant?: string; materialColors?: Record<string,string>; openFraction?:number; doorless?:boolean; elevationMm?: number }

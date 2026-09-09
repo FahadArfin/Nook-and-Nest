@@ -33,6 +33,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       }
     }
     unique(f.walls); unique(f.openings); unique(f.stairs);
+    for(const w of f.walls)if(w.heightMm!==undefined)num(w.heightMm,100,20000);
     for (const w of f.walls) for (const k of ["ax", "az", "bx", "bz"]) num(w[k], -10000, 10000);
     for (const o of f.openings) { if (!["door", "window"].includes(o.kind)) fail(); str(o.wallKey); num(o.offset, 0, 1); num(o.widthMm, 1, 20000); }
     for (const s of f.stairs) { if (!["straight", "l-shaped"].includes(s.kind)) fail(); for (const k of ["x", "z", "rotation"]) num(s[k]); num(s.widthMm, 1, 20000); num(s.lengthMm, 1, 30000); if (s.toFloorId && !floors.has(s.toFloorId)) fail(); }

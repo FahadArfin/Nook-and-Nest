@@ -195,3 +195,11 @@ it.each([new Vector3(0,-1,0),new Vector3(-.3,-1,-.4).normalize()])('keeps an off
   expect(r.positionForItem(0,0,chair)).toMatchObject({x:2000,z:1500});
  }finally{dispose()}
 });
+it('renders a half wall without lowering other walls and supplies an invisible sun ceiling',()=>{
+ const {r,scene,dispose}=renderer();try{const p=setup(),floor=p.floors[0];floor.walls=[{id:'half-test',ax:3,az:3,bx:8,bz:3,heightMm:1200}];p.environment={background:'plain',grass:'off',sun:{enabled:true,azimuth:90,elevation:20}};r.update(p,floor.id);
+ const half=scene.meshes.filter(m=>m.name==='wall:half-test');expect(half.length).toBeGreaterThan(0);for(const m of half){m.computeWorldMatrix(true);expect(m.getBoundingInfo().boundingBox.maximumWorld.y).toBeCloseTo(floor.elevationMm/1000+1.2)}
+ const roof=scene.getMeshByName('sun-ceiling:'+floor.id)!;expect(roof.isEnabled()).toBe(true);expect(roof.isPickable).toBe(false);expect((roof.material as StandardMaterial).disableColorWrite).toBe(true);expect((roof.material as StandardMaterial).disableDepthWrite).toBe(true);expect(r.shadow.addShadowCaster).toHaveBeenCalledWith(roof);
+ r.update({...p,environment:{...p.environment!,sun:{...p.environment!.sun!,enabled:false}}},floor.id);expect(scene.getMeshByName(roof.name)!.isEnabled()).toBe(false);
+ const cut=removeWallSections(p,floor.id,[{ax:5,az:3,bx:6,bz:3}]);expect(cut.floors[0].walls.every(w=>w.heightMm===1200)).toBe(true);
+ }finally{dispose()}
+});
