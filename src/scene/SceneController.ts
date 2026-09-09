@@ -234,7 +234,7 @@ export class SceneController {
     this.cancelOutdoorStroke();
     const item=this.activeDraft??this.activePlan?.furniture.find(f=>f.id===this.dragging),node=this.activeDraft?this.previewNode:this.selectedNode;
     if(item&&node){const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);node.position.set(item.x/1000,((floor?.elevationMm??0)+(item.elevationMm??0)+(isWallOpening(item.catalogId)?0:isStairs(item.catalogId)?40:50))/1000,item.z/1000);node.rotation.y=item.rotation*Math.PI/180;}
-    this.dragging=undefined;this.draggingDraft=false;this.draggedPosition=undefined;this.draftPosition=undefined;
+    this.dragGrabOffset=undefined;this.dragging=undefined;this.draggingDraft=false;this.draggedPosition=undefined;this.draftPosition=undefined;
     if(this.tileDragStart)this.cancelTileDraft();this.cancelWallDraft();
   };
   private resize = () => this.engine.resize();
@@ -250,12 +250,25 @@ export class SceneController {
     const point = ray.origin.add(ray.direction.scale(distance));
     return { x: Math.round(point.x * 20) * 50, z: Math.round(point.z * 20) * 50 };
   }
+  private dragGrabOffset?:{x:number;z:number};
+  private beginFurnitureDrag(item?:FurniturePlacement){
+    this.dragGrabOffset=undefined;
+    if(!item||!this.activePlan||isRailing(item.catalogId)||isWallOpening(item.catalogId)||isKitchenWall(item.catalogId)||isStairs(item.catalogId))return;
+    const floor=this.activePlan.floors.find(f=>f.id===item.floorId);if(!floor)return;
+    const ray=this.scene.createPickingRay(this.scene.pointerX,this.scene.pointerY,Matrix.Identity(),this.camera);
+    const distance=((floor.elevationMm+(item.elevationMm??0)+50)/1000-ray.origin.y)/ray.direction.y;
+    if(!Number.isFinite(distance)||distance<=0)return;
+    this.dragGrabOffset={x:item.x/1000-ray.origin.x-distance*ray.direction.x,z:item.z/1000-ray.origin.z-distance*ray.direction.z};
+  }
   private positionForItem(screenX:number,screenY:number,item?:FurniturePlacement):PlacementPoint|undefined {
     const ray=this.scene.createPickingRay(screenX,screenY,Matrix.Identity(),this.camera);
+    // Shift the placement ray, before support tests, to keep the original grab point.
+    if(this.dragGrabOffset&&(this.dragging===item?.id||this.draggingDraft)){
+      ray.origin=ray.origin.add(new Vector3(this.dragGrabOffset.x,0,this.dragGrabOffset.z));
+    }
     const movable=item&&!isRailing(item.catalogId)&&!isWallOpening(item.catalogId)&&!isKitchenWall(item.catalogId)&&!isStairs(item.catalogId)&&catalog.find(c=>c.id===item.catalogId)?.mount==="floor";
     const floorPoint=item&&this.activePlan&&(movable||isSurfaceMounted(item.catalogId))?outsidePlacementPoint(this.activePlan,item,ray.origin,ray.direction):this.pointOnActiveFloor(screenX,screenY);
     if(item&&isSurfaceMounted(item.catalogId)&&this.activePlan){
-      const ray=this.scene.createPickingRay(screenX,screenY,Matrix.Identity(),this.camera);
       return tabletopPoint(this.activePlan,item,ray.origin,ray.direction)??floorPoint;
     }
     if(!item||(!isWallOpening(item.catalogId)&&!isKitchenWall(item.catalogId))||!this.activePlan)return floorPoint;
@@ -628,12 +641,12 @@ export class SceneController {
             this.cutPointerY=hit?.pickedPoint?.y;}
           const point=this.wallPointAtPointer(this.scene.pointerX,this.scene.pointerY);if(!point)return;const target=this.cutTarget;const start=target?snapRemovalPoint(target,point,this.activePlan!.gridSizeMm):snapWallStart(floor,this.activePlan!.gridSizeMm,point);this.wallDragStart=start;this.wallDragCurrent=point;this.renderWallDraft(start,start);this.callbacks.onSelect(undefined);this.camera.detachControl();
         }else if(name==="draft-preview"&&this.tool==="select"){
-          this.draggingDraft=true; this.suspendCameraPointers();
+          this.beginFurnitureDrag(this.activeDraft);this.draggingDraft=true; this.suspendCameraPointers();
         }else if(name.startsWith("item:")&&this.tool==="select"){
           const id=name.split(":")[1];
           this.callbacks.onSelect(id);
           if(this.moveSelection===id&&this.selectedId===id){
-            this.draggedPosition=undefined;this.dragging=id;this.selectedNode=this.furnitureNodes.get(id)?.node;this.suspendCameraPointers();
+            this.beginFurnitureDrag(this.activePlan?.furniture.find(f=>f.id===id));this.draggedPosition=undefined;this.dragging=id;this.selectedNode=this.furnitureNodes.get(id)?.node;this.suspendCameraPointers();
           }
         }else if(this.tool==="select"&&!this.activeDraft){this.callbacks.onSelect(undefined);
         }else if(name.startsWith("cell:")){
@@ -659,10 +672,10 @@ export class SceneController {
       }else if(info.type===PointerEventTypes.POINTERUP&&this.wallDragStart){
         const wall=this.wallDraft;this.cancelWallDraft();this.resumeCameraControls();if(wall)this.callbacks.onWallSegment(wall);
       }else if(info.type===PointerEventTypes.POINTERUP&&this.draggingDraft){
-        this.draggingDraft=false; this.resumeCameraControls(); if(this.draftPosition)this.callbacks.onDraftMove(this.draftPosition.x,this.draftPosition.z,this.draftPosition.elevationMm,this.draftPosition.rotation);
+        this.dragGrabOffset=undefined;this.draggingDraft=false; this.resumeCameraControls(); if(this.draftPosition)this.callbacks.onDraftMove(this.draftPosition.x,this.draftPosition.z,this.draftPosition.elevationMm,this.draftPosition.rotation);
       }else if(info.type===PointerEventTypes.POINTERUP&&this.dragging){
         if(moved&&this.draggedPosition)this.callbacks.onMove(this.dragging,this.draggedPosition.x,this.draggedPosition.z,this.draggedPosition.elevationMm,this.draggedPosition.rotation);
-        this.draggedPosition=undefined;this.dragging=undefined; this.resumeCameraControls();
+        this.dragGrabOffset=undefined;this.draggedPosition=undefined;this.dragging=undefined; this.resumeCameraControls();
       }
     });
   }
