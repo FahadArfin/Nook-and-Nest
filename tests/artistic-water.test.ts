@@ -10,11 +10,12 @@ it('preserves water through sculpting and expanded terrain bounds',()=>{
     const plan=createSamplePlan();plan.environment={background:'plain',grass:'off',terrain:[{kind:'river',radius:2,strength:1,points:[{x:-10,z:-10}]}]};terrain.update(plan);
     for(let i=0;i<120;i++)(terrain as any).advanceWater(1/30);
     const before=(terrain as any).simulation.volume();expect(before).toBeGreaterThan(0);
-    plan.environment.terrain!.push({kind:'hollow',radius:3,strength:1,points:[{x:-12,z:-10}]});terrain.update(plan);
+    plan.environment.terrain!.push({kind:'lower',radius:3,strength:1,points:[{x:-12,z:-10}]});terrain.update(plan);
     expect((terrain as any).simulation.volume()).toBeCloseTo(before,8);
-    plan.environment.terrain!.push({kind:'hollow',radius:3,strength:1,points:[{x:-60,z:-10}]});terrain.update(plan);
+    plan.environment.terrain!.push({kind:'lower',radius:3,strength:1,points:[{x:-60,z:-10}]});terrain.update(plan);
     const sim=(terrain as any).simulation;
     expect(sim.volume()).toBeCloseTo(before,8);
     expect(Array.from(sim.depth as Float64Array).every((d,i)=>!sim.blocked[i]||d===0)).toBe(true);
   }finally{terrain.dispose();scene.dispose();engine.dispose()}
 });
+
