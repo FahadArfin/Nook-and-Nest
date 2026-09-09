@@ -31,7 +31,7 @@ export class FurnitureLights {
       const node=nodes.get(item.id)!.node;
       const ceiling=isCeilingMounted(item.catalogId);
       entry.light.position.copyFrom(node.position).addInPlace(new Vector3(0,ceiling?.015:item.heightMm*.00078,0));
-      entry.light.intensity=plan.camera.darkMode?2.1:neutral?.65:1.1;
+      entry.light.intensity=(plan.environment?.sun?.enabled?plan.environment.sun.night:plan.camera.darkMode)?2.1:neutral?.65:1.1;
       const own=new Set(node.getChildMeshes());
       entry.light.excludedMeshes=[...own];
       const meshes=this.scene.meshes.filter(m=>m.isEnabled()&&!own.has(m)&&!m.name.startsWith('rotation-')&&m.name!=='draft-footprint'&&(m.name.startsWith('wall:')||m.name.startsWith('item:')));

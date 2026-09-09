@@ -21,9 +21,9 @@ it('retains exiting drawers, switches after closing, and exposes no repeated doc
  const view=render(<BottomTools {...props} mode="paint"/>);advance(0);advance(20);
  const floor=screen.getByRole('region',{name:'Floor finishes'});expect(floor.classList.contains('is-open')).toBe(true);
  expect(within(floor).queryByRole('button',{name:'Paint tiles'})).toBeNull();expect(within(floor).queryByRole('button',{name:'Erase'})).toBeNull();
- view.rerender(<BottomTools {...props} mode="erase"/>);expect(floor.getAttribute('aria-hidden')).toBe('true');expect(floor.hasAttribute('inert')).toBe(true);
- advance(649);expect(floor.isConnected).toBe(true);advance(1);advance(20);expect(screen.getByRole('region',{name:'Erase tools'})).toBeTruthy();
- view.rerender(<BottomTools {...props}/>);expect(screen.queryByRole('region',{name:'Erase tools'})).toBeNull();advance(650);expect(document.querySelector('.bottom-tools')).toBeNull();
+ view.rerender(<BottomTools {...props} mode="wall"/>);expect(floor.getAttribute('aria-hidden')).toBe('true');expect(floor.hasAttribute('inert')).toBe(true);
+ advance(649);expect(floor.isConnected).toBe(true);advance(1);advance(20);expect(screen.getByRole('region',{name:'Wall tools'})).toBeTruthy();
+ view.rerender(<BottomTools {...props}/>);expect(screen.queryByRole('region',{name:'Wall tools'})).toBeNull();advance(650);expect(document.querySelector('.bottom-tools')).toBeNull();
 });
 it('previews slider changes live and commits a single undoable saved sun setting',()=>{
  const plan=createBlankPlan();usePlanner.setState({plan,past:[],future:[]});const preview=vi.fn();render(<SunControls onPreview={preview}/>);
@@ -38,11 +38,12 @@ it('changes actual directional lighting without mutating the apartment and resto
  try{const plan=createBlankPlan(),r:any=Object.create(SceneController.prototype);Object.assign(r,{scene,activePlan:plan,neutralPreview:true,canvas:{dataset:{}}});
  r.setSunPreview({enabled:true,azimuth:90,elevation:20});expect(sun.direction.x).toBeLessThan(0);expect(sun.direction.z).toBeCloseTo(0);expect(sun.direction.length()).toBeCloseTo(1);const low=sun.direction.y;
  r.setSunPreview({enabled:true,azimuth:270,elevation:65});expect(sun.direction.x).toBeGreaterThan(0);expect(sun.direction.y).toBeLessThan(low);expect(sky.intensity).toBe(.32);expect(plan.environment?.sun).toBeUndefined();
+ r.setSunPreview({enabled:true,night:true,azimuth:180,elevation:45});expect(sun.intensity).toBe(.035);expect(sky.intensity).toBe(.16);
  r.setSunPreview();expect(sun.direction.asArray()).toEqual([-.8,-1.5,.7]);expect(sky.intensity).toBe(.95);expect(sunDirection({enabled:true,azimuth:0,elevation:45}).z).toBeGreaterThan(0);
  }finally{scene.dispose();engine.dispose()}
 });
 
 it('cancels a pending switch when the original drawer is selected again',()=>{
  vi.useFakeTimers();usePlanner.getState().replacePlan(createBlankPlan());const props={onClose:vi.fn(),onPlace:vi.fn(),onViewScenery:vi.fn(),onSunPreview:vi.fn()};
- const view=render(<BottomTools {...props} mode="erase"/>);advance(0);advance(20);view.rerender(<BottomTools {...props} mode="sun"/>);advance(300);view.rerender(<BottomTools {...props} mode="erase"/>);advance(20);advance(650);expect(screen.getByRole('region',{name:'Erase tools'})).toBeTruthy();expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();
+ const view=render(<BottomTools {...props} mode="wall"/>);advance(0);advance(20);view.rerender(<BottomTools {...props} mode="landscape"/>);advance(300);view.rerender(<BottomTools {...props} mode="wall"/>);advance(20);advance(650);expect(screen.getByRole('region',{name:'Wall tools'})).toBeTruthy();expect(screen.queryByRole('region',{name:'Land formation'})).toBeNull();
 });

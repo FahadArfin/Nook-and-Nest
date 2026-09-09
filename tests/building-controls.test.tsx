@@ -207,7 +207,7 @@ it('opens floor finishes from the compact dock and centers without editing the p
  fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');expect(await screen.findByRole('region',{name:'Wall tools'})).toBeTruthy();
  fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint tiles'}));const tray=await screen.findByRole('region',{name:'Floor finishes'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
  fireEvent.click(within(tray).getByRole('button',{name:'Close floor finishes'}));expect(screen.queryByRole('region',{name:'Floor finishes'})).toBeNull();expect(state().tool).toBe('select');
- fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=await screen.findByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Wall section'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floor area'}));expect(state().tool).toBe('erase');
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=await screen.findByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Walls'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floors'}));expect(state().tool).toBe('erase');
  fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
 },15000);
 
@@ -231,6 +231,8 @@ it('keeps home tools in dock drawers and reserves the inspector for selected fur
  fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');
  fireEvent.click(within(land).getByRole('button',{name:'Plants'}));expect(screen.getByLabelText('Search plants')).toBeTruthy();
  fireEvent.click(screen.getByRole('button',{name:'Land formation'}));expect(state().tool).toBe('select');
- fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
+ expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
+ fireEvent.click(screen.getByRole('button',{name:'Nighttime'}));expect(state().plan.environment?.sun?.night).toBe(true);act(()=>state().undo());expect(state().plan.environment?.sun?.night).toBeUndefined();expect(screen.getByRole('button',{name:'Morning'}).getAttribute('aria-pressed')).toBe('true');fireEvent.keyDown(screen.getByRole('button',{name:'Morning'}),{key:'Escape'});expect(state().plan.environment?.sun?.enabled).toBe(false);fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));
+
  fireEvent.click(screen.getByRole('button',{name:'Paint tiles'}));await screen.findByRole('region',{name:'Floor finishes'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
 },15000);
