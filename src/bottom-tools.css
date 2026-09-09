@@ -130,3 +130,29 @@ main.app-shell section.workspace.no-inspector{grid-template-columns:340px minmax
 .bottom-tools-body>.task-subtabs{grid-column:1/-1;display:flex;gap:8px;padding:8px 12px}
 .bottom-tools-body>.task-subtabs button{flex:0 0 110px;min-height:40px}
 @media(max-width:600px){.landscape-detail{width:100%}.landscape-detail .brush-controls{gap:8px}}
+
+/* Keep target/scope controls in a short rail; materials start immediately at the top. */
+.bottom-tools-paint .bottom-tools-body{grid-template-columns:126px minmax(0,1fr) 150px;grid-template-rows:auto 1fr;max-height:min(350px,48dvh)}
+.bottom-tools-paint .bottom-tools-body>.task-subtabs{grid-column:1;grid-row:1;gap:4px;padding:8px!important;flex-wrap:wrap;align-content:start}
+.bottom-tools-paint .bottom-tools-body>.task-subtabs button{flex:1 1 48px;min-height:36px;padding:6px;font-size:12px}
+.bottom-tools-paint .finish-workflow{grid-column:1;grid-row:2;padding:0 8px 8px!important}
+.bottom-tools-paint .finish-collection{grid-column:2;grid-row:1/span 2;padding:8px!important}
+.bottom-tools-paint .finish-footer{grid-column:3;grid-row:1/span 2;padding:8px!important}
+.bottom-tools-paint .tool-search{margin-bottom:6px}
+.bottom-tools-paint .material-types{margin-bottom:6px}
+.bottom-tools-paint .tool-visual-grid{gap:6px}
+/* All landscape options occupy the same wide workbench as paint, with tabs above. */
+.bottom-tools-landscape{width:min(940px,calc(100% - 24px));background:var(--paper);border:1px solid var(--line);box-shadow:0 12px 38px #15291f33;overflow:hidden;max-height:calc(100% - 150px)}
+.bottom-tools-landscape>header{display:flex}
+.landscape-menus{display:flex;flex-direction:column}
+.landscape-menus nav{order:-1;background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none;padding:6px 12px;justify-content:flex-start}
+.landscape-menus nav button{flex:0 1 150px;min-height:36px}
+.landscape-detail{position:relative;bottom:auto;right:auto;width:100%;border:0;border-radius:0;box-shadow:none;padding:12px;max-height:min(350px,48dvh)}
+.landscape-detail>strong{display:none}
+.landscape-detail .terrain-browser{display:grid;grid-template-columns:200px minmax(0,1fr);gap:8px 20px}
+.landscape-detail .terrain-browser h2{display:none}
+.landscape-detail .terrain-browser .build-choices{grid-row:1/span 2;display:flex;flex-direction:column;margin:0}
+.landscape-detail .terrain-browser .tool-footer-actions{grid-column:2}
+.landscape-detail .planting-browser h2{display:none}
+@media(max-width:700px){.bottom-tools-paint .bottom-tools-body{grid-template-columns:105px minmax(0,1fr)}.bottom-tools-paint .finish-footer{grid-column:1/-1;grid-row:3}.landscape-detail .terrain-browser{grid-template-columns:120px minmax(0,1fr)}}
+@media(max-width:480px){.bottom-tools-paint .bottom-tools-body{display:grid}.bottom-tools-paint .finish-collection{overflow:auto}.landscape-detail .terrain-browser{display:block}.landscape-detail .terrain-browser .build-choices{flex-direction:row}}
