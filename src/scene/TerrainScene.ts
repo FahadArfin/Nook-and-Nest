@@ -1,25 +1,25 @@
+import {artisticWater} from './ArtisticWater';
+import type {ShaderMaterial} from '@babylonjs/core/Materials/shaderMaterial';
 import {basinWater} from '../basinWater';
 import {VertexBuffer} from '@babylonjs/core/Buffers/buffer';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {VertexData} from '@babylonjs/core/Meshes/mesh.vertexData';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
-import {DynamicTexture} from '@babylonjs/core/Materials/Textures/dynamicTexture';
 import {Color3} from '@babylonjs/core/Maths/math.color';
 import type {Scene} from '@babylonjs/core/scene';
 import type {PlanDocumentV1} from '../types';
 import {landscapeBounds} from '../outdoors';
 import {terrainSampler} from '../terrain';
 export class TerrainScene{
-  private positions:number[]=[];private target:number[]=[];private indices:number[]=[];private gridKey='';private ground?:Mesh;private water?:Mesh;private key='';private soil:StandardMaterial;private river:StandardMaterial;private texture:DynamicTexture;
+  private positions:number[]=[];private target:number[]=[];private indices:number[]=[];private gridKey='';private ground?:Mesh;private water?:Mesh;private key='';private soil:StandardMaterial;private river:ShaderMaterial;private time=0;
   constructor(private scene:Scene){
     this.soil=new StandardMaterial('sculpted-ground',scene);this.soil.diffuseColor=Color3.FromHexString('#9cab77');this.soil.specularColor=Color3.Black();this.soil.backFaceCulling=false;
-    this.river=new StandardMaterial('flowing-river',scene);this.river.diffuseColor=Color3.FromHexString('#80b9bb');this.river.specularColor=new Color3(.2,.3,.3);this.river.alpha=.84;this.river.backFaceCulling=false;
-    this.texture=new DynamicTexture('water-ripples',{width:64,height:64},scene,false);const c=this.texture.getContext();c.fillStyle='#8fbdbb';c.fillRect(0,0,64,64);c.strokeStyle='#bddbd0';c.lineWidth=2;for(let y=0;y<64;y+=16){c.beginPath();for(let x=0;x<=64;x+=4)c.lineTo(x,y+3*Math.sin(x*Math.PI/32));c.stroke();}this.texture.update();this.texture.uScale=12;this.texture.vScale=12;this.river.diffuseTexture=this.texture;
+    this.river=artisticWater(scene);
     scene.onBeforeRenderObservable.add(()=>{
-      if(this.ground&&this.target.length){let changed=false;const a=1;for(let i=1;i<this.positions.length;i+=3){const d=this.target[i]-this.positions[i];if(Math.abs(d)>.001){this.positions[i]+=d*a;changed=true}else this.positions[i]=this.target[i];}if(changed){const normals:number[]=[];VertexData.ComputeNormals(this.positions,this.indices,normals,{useRightHandedSystem:this.scene.useRightHandedSystem});this.ground.updateVerticesData(VertexBuffer.PositionKind,this.positions,true);this.ground.updateVerticesData(VertexBuffer.NormalKind,normals);}}if(!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches)this.texture.vOffset=(this.texture.vOffset+scene.getEngine().getDeltaTime()*.000012)%1;});
+      if(this.ground&&this.target.length){let changed=false;const a=1;for(let i=1;i<this.positions.length;i+=3){const d=this.target[i]-this.positions[i];if(Math.abs(d)>.001){this.positions[i]+=d*a;changed=true}else this.positions[i]=this.target[i];}if(changed){const normals:number[]=[];VertexData.ComputeNormals(this.positions,this.indices,normals,{useRightHandedSystem:this.scene.useRightHandedSystem});this.ground.updateVerticesData(VertexBuffer.PositionKind,this.positions,true);this.ground.updateVerticesData(VertexBuffer.NormalKind,normals);}}if(!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches){this.time+=Math.min(50,scene.getEngine().getDeltaTime())/1000;this.river.setFloat('time',this.time)};});
   }
   update(plan:PlanDocumentV1){
-    const key=JSON.stringify([plan.environment?.terrain,plan.floors.map(f=>[f.cells,f.cellRects]),plan.gridSizeMm,plan.camera.darkMode]);if(key===this.key)return;this.key=key;
+    const key=JSON.stringify([plan.environment?.terrain,plan.floors.map(f=>[f.cells,f.cellRects]),plan.gridSizeMm,plan.camera.darkMode,plan.environment?.sun?.night]);if(key===this.key)return;this.key=key;
     this.water?.dispose();this.water=undefined;const strokes=plan.environment?.terrain;if(!strokes?.length){this.ground?.dispose();this.ground=undefined;this.gridKey='';this.target=[];return;}
     this.soil.diffuseColor=Color3.FromHexString(plan.camera.darkMode?'#455748':'#9cab77');const sample=terrainSampler(plan);
     const bounds=landscapeBounds(plan),radius=Math.max(35,bounds.radius+8),points=strokes.flatMap(s=>s.points),minX=Math.min(bounds.x-radius,...points.map(p=>p.x-10)),maxX=Math.max(bounds.x+radius,...points.map(p=>p.x+10)),minZ=Math.min(bounds.z-radius,...points.map(p=>p.z-10)),maxZ=Math.max(bounds.z+radius,...points.map(p=>p.z+10));
@@ -30,12 +30,12 @@ export class TerrainScene{
       const px=minX+(x+.5)*(maxX-minX)/n,pz=minZ+(z+.5)*(maxZ-minZ)/n;
       seeds.push(sample(px,pz).water);
     }
-    const {positions:waterPositions,indices:waterIndices,uvs:waterUvs}=basinWater(positions,n,seeds);
+    const {positions:waterPositions,indices:waterIndices,uvs:waterUvs,beds}=basinWater(positions,n,seeds);
     const make=(name:string,p:number[],i:number[],uv:number[])=>{const mesh=new Mesh(name,this.scene),data=new VertexData(),normals:number[]=[];VertexData.ComputeNormals(p,i,normals,{useRightHandedSystem:this.scene.useRightHandedSystem});data.positions=p;data.indices=i;data.normals=normals;data.uvs=uv;data.applyToMesh(mesh,true);mesh.isPickable=false;return mesh;};
     const gridKey=JSON.stringify([minX,maxX,minZ,maxZ,n]);
     if(!this.ground||this.gridKey!==gridKey){this.ground?.dispose();this.gridKey=gridKey;this.positions=[...positions];this.indices=indices;this.ground=make('sculpted-landscape',this.positions,indices,uvs);this.ground.material=this.soil;this.ground.receiveShadows=true;}this.target=positions;
-    if(waterIndices.length){this.water=make('river-surface',waterPositions,waterIndices,waterUvs);this.water.material=this.river;}
+    if(waterIndices.length){this.water=make('river-surface',waterPositions,waterIndices,waterUvs);this.water.setVerticesData('waterDepth',beds.map(y=>Math.max(0,-.20-y)),false,1);this.water.material=this.river;this.river.setFloat('night',plan.environment?.sun?.night||plan.camera.darkMode?1:0);}
   }
-  dispose(){this.ground?.dispose();this.water?.dispose();this.soil.dispose();this.river.dispose();this.texture.dispose();}
+  dispose(){this.ground?.dispose();this.water?.dispose();this.soil.dispose();this.river.dispose();}
 }
 

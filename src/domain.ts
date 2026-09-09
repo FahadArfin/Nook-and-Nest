@@ -31,7 +31,7 @@ export function createBlankPlan(name = "My cozy home", units: Units = "imperial"
   return {...template, floors: [{...template.floors[0], cells: [], walls: [], openings: [], stairs: []}], furniture: []};
 }
 export function serializePlan(plan: PlanDocumentV1): string { return JSON.stringify(plan, null, 2); }
-export function parsePlan(json: string): PlanDocumentV1 { if(new TextEncoder().encode(json).length > MAX_PLAN_BYTES) throw new Error("Project exceeds the 1 MB limit."); const parsed:unknown=JSON.parse(json); validatePlan(parsed); return correctLegacySinkHeight(parsed); }
+export function parsePlan(json: string): PlanDocumentV1 { if(new TextEncoder().encode(json).length > MAX_PLAN_BYTES) throw new Error("Project exceeds the 8 MB limit."); const parsed:unknown=JSON.parse(json); validatePlan(parsed); return correctLegacySinkHeight(parsed); }
 export function encodeShare(plan: PlanDocumentV1): string { return LZString.compressToEncodedURIComponent(JSON.stringify(plan)); }
 export function decodeShare(payload: string): PlanDocumentV1 { const json = LZString.decompressFromEncodedURIComponent(payload); if (!json) throw new Error("The shared project link is incomplete."); const parsed = parsePlan(json); return { ...parsed, id: uid(), name: `${parsed.name} copy`, createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() }; }
 export function validateStair(widthMm: number, lengthMm: number, heightMm: number): string[] { const warnings: string[] = []; if (widthMm < 800) warnings.push("Stair width is below 80 cm."); if (lengthMm < heightMm * 1.1) warnings.push("Stair run may be too short for this floor height."); return warnings; }

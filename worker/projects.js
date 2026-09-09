@@ -1,3 +1,4 @@
+import {encodeStoredPlan,decodeStoredPlan} from './plan-storage.js';
 import {shares} from './shares.js';
 import {googleTiles} from './google-tiles.js';
 import staticWorker from "./index.js";
@@ -54,20 +55,20 @@ async function api(request, env) {
     const row = revision
       ? await db.prepare("SELECT document, revision FROM project_versions WHERE owner_id = ? AND project_id = ? AND revision = ?").bind(owner, id, Number(revision)).first()
       : await db.prepare("SELECT document, revision FROM project_versions WHERE owner_id = ? AND project_id = ? ORDER BY revision DESC LIMIT 1").bind(owner, id).first();
-    return row ? json({ plan: JSON.parse(row.document), revision: row.revision }) : fail("Project not found.", 404);
+    return row ? json({ plan: await decodeStoredPlan(row.document), revision: row.revision }) : fail("Project not found.", 404);
   }
   if (request.method !== "POST" || match[2]) return fail("Method not allowed.", 405);
   // Bound the stream itself; Content-Length is not trusted.
   const reader = request.body?.getReader(); if (!reader) return fail("Missing project.", 400);
   let bytes = 0; const chunks = [];
-  for (;;) { const { done, value } = await reader.read(); if (done) break; bytes += value.byteLength; if (bytes > MAX_PLAN_BYTES + 1000) { await reader.cancel(); return fail("Project exceeds the 1 MB online save limit. Export a backup instead.", 413); } chunks.push(value); }
+  for (;;) { const { done, value } = await reader.read(); if (done) break; bytes += value.byteLength; if (bytes > MAX_PLAN_BYTES + 1000) { await reader.cancel(); return fail("Project exceeds the 8 MB online save limit. Export a backup instead.", 413); } chunks.push(value); }
   const body = new Uint8Array(bytes); let offset = 0; for (const chunk of chunks) { body.set(chunk, offset); offset += chunk.length; }
   let plan, expectedRevision;
   try { ({ plan, expectedRevision } = JSON.parse(new TextDecoder().decode(body))); validatePlan(plan); }
   catch { return fail("This project contains invalid or unsupported data.", 400); }
   if (plan.id !== id || !Number.isSafeInteger(expectedRevision) || expectedRevision < 0) return fail("Invalid save version.", 400);
-  const document = JSON.stringify(plan);
-  if (new TextEncoder().encode(document).length > MAX_PLAN_BYTES) return fail("Project exceeds the 1 MB online save limit.", 413);
+  let document;
+  try { document = await encodeStoredPlan(plan); } catch (error) { if (error instanceof RangeError) return fail(error.message, 413); throw error; }
   if (!expectedRevision) {
     const row = await db.prepare("SELECT COUNT(DISTINCT project_id) AS count FROM project_versions WHERE owner_id = ?").bind(owner).first();
     if (row.count >= 100) return fail("Your library has reached 100 projects. Export a backup to keep another build.", 409);

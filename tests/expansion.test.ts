@@ -60,7 +60,7 @@ describe("editor regressions", () => {
   it("rejects malformed imports instead of casting them into a working plan", () => {
     for (const p of [null, {}, { schemaVersion: 1, floors: [], furniture: [] }, { ...createSamplePlan(), gridSizeMm: 0 }, { ...createSamplePlan(), camera: null }]) expect(() => parsePlan(JSON.stringify(p))).toThrow();
     const p = createSamplePlan(); p.floors[0].cells[0].x = Infinity; expect(() => parsePlan(JSON.stringify(p))).toThrow();
-    expect(() => parsePlan(" ".repeat(1_000_001))).toThrow(/limit/);
+    expect(() => parsePlan(" ".repeat(8_000_001))).toThrow(/limit/);
   });
 });
 
@@ -115,7 +115,7 @@ describe("private cloud project API against SQLite", () => {
     const db = database(), plan = createSamplePlan(), path = `/api/projects/${plan.id}`;
     expect((await call(db, path, "alice", { plan: { ...plan, floors: [] }, expectedRevision: 0 })).status).toBe(400);
     expect((await call(db, path, "alice", { plan, expectedRevision: -1 })).status).toBe(400);
-    expect((await call(db, path, "alice", { plan, expectedRevision: 0, extra: "x".repeat(1_001_000) })).status).toBe(413);
+    expect((await call(db, path, "alice", { plan, expectedRevision: 0, extra: "x".repeat(8_001_000) })).status).toBe(413);
     expect((await (await call(db, "/api/projects")).json()).projects).toEqual([]);
   });
 });
@@ -131,4 +131,15 @@ it("deletes only the owner's matching online revision and rejects cross-site or 
  expect((await call(db,`/api/projects/${p.id}`,"alice")).status).toBe(404);
  expect((await call(db,`/api/projects/${p.id}`,"bob")).status).toBe(200);
  expect((await call(db,`/api/projects/${p.id}`,"alice",{plan:p,expectedRevision:1})).status).toBe(409);
+});
+
+it("saves dense grass privately without exceeding a D1 row and preserves revision protection", async()=>{
+ const db=database(),plan=createSamplePlan(),c=catalog.find(c=>c.id==='grass-clump')!,path=`/api/projects/${plan.id}`;
+ plan.furniture=Array.from({length:20000},(_,i)=>({id:'g'+i,catalogId:c.id,floorId:plan.floors[0].id,x:i,z:0,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'}));
+ expect((await call(db,path,'alice',{plan,expectedRevision:0})).status).toBe(200);
+ expect((await (await call(db,path)).json()).plan).toEqual(plan);
+ const row=await db.prepare('SELECT document FROM project_versions WHERE project_id = ?').bind(plan.id).first() as {document:string};
+ expect(row.document.length).toBeLessThan(1_900_000);
+ expect((await call(db,path,'alice',{plan,expectedRevision:0})).status).toBe(409);
+ expect((await call(db,path,'bob')).status).toBe(404);
 });
