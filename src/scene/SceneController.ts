@@ -401,7 +401,7 @@ export class SceneController {
       this.shadow,
       (ids) => {
         ids.forEach((id) => this.refreshModels.add(id));
-        this.coverageRenderer?.invalidate();
+        if (ids.includes('grass-clump')) this.coverageRenderer?.invalidate();
         if (this.landscape.plantingItems.length)
           this.landscape.renderPlantingPreview(
             this.landscape.plantingItems,
@@ -1178,7 +1178,7 @@ export class SceneController {
       this.shadow,
     );
     if (this.refreshModels && [...this.refreshModels].some(isVegetation))
-      this.grassRenderer.invalidate();
+      this.grassRenderer.invalidate([...this.refreshModels]);
     this.grassRenderer.update(plan, activeFloorId, selectedId, draft?.id);
     this.coverageRenderer ??= new GrassCoverageRenderer(
       this.scene,

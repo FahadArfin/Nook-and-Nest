@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [master]
   push:
-    branches: [master, codex/feature-optimization, codex/natural-meadow, codex/repo-maintenance]
+    branches: [master, codex/feature-optimization, codex/natural-meadow, codex/repo-maintenance, codex/vegetation-crash]
   workflow_dispatch:
 
 permissions:
@@ -43,7 +43,7 @@ jobs:
       - name: Package and verify exact build
         run: python3 scripts/package-ci-release.py
       - name: Retain validated master or isolated Beta 2 release
-        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/codex/feature-optimization' || github.ref == 'refs/heads/codex/natural-meadow' || github.ref == 'refs/heads/codex/repo-maintenance') && github.event_name != 'pull_request'
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/codex/feature-optimization' || github.ref == 'refs/heads/codex/natural-meadow' || github.ref == 'refs/heads/codex/repo-maintenance' || github.ref == 'refs/heads/codex/vegetation-crash') && github.event_name != 'pull_request'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: sites-release-${{ github.sha }}

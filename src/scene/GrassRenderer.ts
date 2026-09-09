@@ -1,3 +1,4 @@
+import {MultiMaterial} from '@babylonjs/core/Materials/multiMaterial';
 import {Geometry} from '@babylonjs/core/Meshes/geometry';
 import {VertexBuffer} from '@babylonjs/core/Buffers/buffer';
 import {isVegetation} from '../vegetation';
@@ -28,14 +29,20 @@ export class GrassRenderer{
   if(!this.library.build(node,def,{...item,id:'grass-source'},def.widthMm/1000,def.depthMm/1000,def.heightMm/1000,ghost)){if(this.fallback)this.fallback.build(node,def,item,def.widthMm/1000,def.depthMm/1000,def.heightMm/1000,ghost);else {node.dispose();return}}
   const meshes:Mesh[]=[];
   for(const source of node.getChildMeshes()){if(!(source instanceof Mesh)||!source.getTotalVertices())continue;source.computeWorldMatrix(true);const mesh=source.clone('grass-template',null,true)!;mesh.makeGeometryUnique();mesh.bakeTransformIntoVertices(source.getWorldMatrix());mesh.parent=null;mesh.position.setAll(0);mesh.rotation.setAll(0);mesh.rotationQuaternion=null;mesh.scaling.setAll(1);mesh.setEnabled(false);mesh.isPickable=false;mesh.metadata={...mesh.metadata,botanicalPart:source.name};meshes.push(mesh)}
-  node.dispose(false,false);this.prototypes.set(key,meshes);return meshes;
+  node.dispose(false,false);
+  // Authored/fallback leaves can contain dozens of separate meshes. Collapse
+  // static parts with the same material once, not once per spatial patch.
+  // Positions were baked above; no triangles, UVs or materials are simplified.
+  const byMaterial=new Map<number,Mesh[]>();for(const mesh of meshes){const id=mesh.material instanceof MultiMaterial? -mesh.uniqueId-2:mesh.material?.uniqueId??-1;const group=byMaterial.get(id)??[];group.push(mesh);byMaterial.set(id,group)}
+  const merged:Mesh[]=[];for(const group of byMaterial.values()){const mesh=group.length===1?group[0]:Mesh.MergeMeshes(group,true,true,undefined,false,false);if(!mesh)throw new Error('Could not batch vegetation geometry');mesh.setEnabled(false);mesh.isPickable=false;mesh.metadata={...mesh.metadata,botanicalPart:group.map(m=>m.metadata?.botanicalPart??m.name).join(' ')};merged.push(mesh)}
+  this.prototypes.set(key,merged);return merged;
  }
  update(plan:PlanDocumentV1,floorId:string,selected?:string,draft?:string){
   const mode=plan.camera.mode+':'+plan.camera.ghostBelow;if(this.last?.items===plan.furniture&&this.last.floors===plan.floors&&this.last.floor===floorId&&this.last.selected===selected&&this.last.draft===draft&&this.last.mode===mode)return;this.last={items:plan.furniture,floors:plan.floors,floor:floorId,selected,draft,mode};
   const active=plan.floors.findIndex(f=>f.id===floorId),below=plan.camera.ghostBelow?plan.floors[active-1]?.id:undefined;
   const items=plan.furniture.filter(p=>isVegetation(p.catalogId)&&p.id!==selected&&p.id!==draft&&(p.floorId===floorId||p.floorId===below||plan.camera.mode==='dollhouse'));
   const stamp=JSON.stringify([items,plan.floors.map(f=>[f.id,f.elevationMm]),floorId]);if(stamp===this.stamp)return;this.stamp=stamp;
-  const groups=new Map<string,FurniturePlacement[]>();for(const item of items){const key=JSON.stringify([item.catalogId,item.floorId,item.floorId!==floorId,Math.floor(item.x/6000),Math.floor(item.z/6000),item.variant,item.materialColors]);const list=groups.get(key)??[];list.push(item);groups.set(key,list)}
+  const groups=new Map<string,FurniturePlacement[]>();for(const item of items){const key=JSON.stringify([item.catalogId,item.floorId,item.floorId!==floorId,Math.floor(item.x/(item.catalogId==='grass-clump'?6000:24000)),Math.floor(item.z/(item.catalogId==='grass-clump'?6000:24000)),item.variant,item.materialColors]);const list=groups.get(key)??[];list.push(item);groups.set(key,list)}
   for(const [key,p] of this.patches)if(!groups.has(key)){[...p.meshes,...p.far].forEach(m=>m.dispose(false,false));this.patches.delete(key)}
   for(const [key,list] of groups){const elevation=plan.floors.find(f=>f.id===list[0].floorId)!.elevationMm,signature=JSON.stringify([list,elevation]);if(this.patches.get(key)?.signature===signature)continue;
    const ghost=list[0].floorId!==floorId;const source=this.prototype(list[0],ghost);if(!source){this.stamp='';this.last=undefined;continue}const old=this.patches.get(key);if(old)[...old.meshes,...old.far].forEach(m=>m.dispose(false,false));
@@ -45,6 +52,13 @@ export class GrassRenderer{
   }
  }
  clear(){for(const p of this.patches.values())[...p.meshes,...p.far].forEach(m=>m.dispose(false,false));this.patches.clear();this.stamp='';this.last=undefined}
- invalidate(){this.dispose();this.stamp='';this.last=undefined}
+ invalidate(ids?:string[]){
+  if(!ids){this.dispose();}else{
+   const changed=new Set(ids);
+   for(const [key,p] of this.patches)if(changed.has(JSON.parse(key)[0])){[...p.meshes,...p.far].forEach(m=>m.dispose(false,false));this.patches.delete(key)}
+   for(const [key,meshes] of this.prototypes)if(changed.has(JSON.parse(key)[0])){for(const mesh of meshes){this.distant.get(mesh)?.dispose(false,false);this.distant.delete(mesh);mesh.dispose(false,false)}this.prototypes.delete(key)}
+  }
+  this.stamp='';this.last=undefined;
+ }
  dispose(){for(const p of this.patches.values())[...p.meshes,...p.far].forEach(m=>m.dispose(false,false));for(const p of this.prototypes.values())p.forEach(m=>m.dispose(false,false));for(const m of this.distant.values())m.dispose(false,false);this.distant.clear();this.patches.clear();this.prototypes.clear()}
 }

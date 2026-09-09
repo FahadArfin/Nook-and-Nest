@@ -14,3 +14,6 @@ document.querySelector<HTMLButtonElement>('#capture')!.onclick=()=>{const token=
 };
 document.querySelector<HTMLButtonElement>('#export')!.onclick=()=>{if(!report){status.textContent='Complete a capture first.';return;}const url=URL.createObjectURL(new Blob([JSON.stringify(report,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='nook-performance.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
 window.addEventListener('beforeunload',()=>renderer.dispose());reset();
+
+// Development-only access for inspecting renderer allocations in DevTools.
+export {renderer};
