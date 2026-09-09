@@ -92,3 +92,7 @@ blender --background --python tools/blender/render_catalog.py -- sofa
 This is a visual planning tool, not architectural, structural, electrical, plumbing, or building-code advice. Footprint and height warnings are conservative layout checks, not a guarantee of circulation or installation clearance. Online snapshots are explicit saves, not real-time collaboration.
 
 The visual direction is inspired by cozy miniature-world games, but the furniture models and artwork used in the app were created for this project. Research references and development comparison images are not part of the original asset collection and remain attributable to their respective owners. Third-party dependencies retain their own licenses. No general open-source license has been selected for the project source and original assets.
+
+## Maintenance and performance
+
+Start with [repository map](docs/repository-map.md), [asset ownership](docs/asset-pipeline.md), and [repeatable performance scenes](docs/performance-scenes.md). Active requirements live in AGENTS.md and linked contracts; the original guide remains archived verbatim.

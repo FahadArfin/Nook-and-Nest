@@ -52,9 +52,9 @@ describe("three wall visibility modes",()=>{
     const def=catalog.find(c=>c.id==="window-picture")!,item: FurniturePlacement={...def,id:"test",catalogId:def.id,floorId:p.floors[0].id,x:2000,z:0,rotation:0,variant:"sage"};
     const renderer=Object.create(SceneController.prototype) as any;
     Object.assign(renderer,{activePlan:p,activeFloorId:p.floors[0].id,wallVisibility:new WallVisibilityController(),camera:{position:new Vector3(2,1.4,-6),target:new Vector3(2,1.4,2)},scene:{createPickingRay:()=>new Ray(new Vector3(2,1.4,-6),new Vector3(0,0,1))}});
-    const result=renderer.positionForItem(0,0,item);expect(result.z).toBe(4000);expect(result.x).toBe(2000);
-    p.camera.wallVisibility="all-visible";expect(renderer.positionForItem(0,0,item).z).toBe(0);
-    p.camera.wallVisibility="all-hidden";expect(renderer.positionForItem(0,0,item)).toBeUndefined();
+    renderer.initializeControllers();const result=renderer.placement.positionForItem(0,0,item);expect(result.z).toBe(4000);expect(result.x).toBe(2000);
+    p.camera.wallVisibility="all-visible";expect(renderer.placement.positionForItem(0,0,item).z).toBe(0);
+    p.camera.wallVisibility="all-hidden";expect(renderer.placement.positionForItem(0,0,item)).toBeUndefined();
   });
   it("snaps inside walls to endpoints and perpendicular junctions without adding an extra tile",()=>{
     const f={...createSamplePlan().floors[0],cells:[],walls:[{id:"a",ax:1,az:1,bx:1,bz:4},{id:"b",ax:4,az:0,bx:4,bz:5}]};

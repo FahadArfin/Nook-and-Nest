@@ -33,13 +33,11 @@ Useful checks: `npm run check`, `npm test`, `npm run test:assets`, `npm run buil
 
 Production uses `master`. Beta 2 has a separate Site identity, database and asset storage. The Beta branches carry a different hosting manifest and release configuration: do not merge that identity into production. Verify `.openai/hosting.json` and the current Site before deploying. Keep source, generated assets and deployment receipts distinguishable.
 
-## Recommended next organization work
+## Maintenance tools
 
-- **Extract interaction controllers incrementally.** `SceneController.ts` mixes camera, picking, terrain/planting strokes and scene updates. Extract one tested responsibility at a time; avoid a giant move-only rewrite alongside behavioral changes.
-- **Split editor workbenches from the app shell.** `App.tsx` and `BlueprintStudio.tsx` are large. Move cohesive panels and their state hooks behind clear interfaces while keeping saved-plan ownership centralized.
-- **Add small architecture decision records.** Record why coverage differs from individual plants, why water is shallow-water simulation, and how Beta release isolation works. Link decisions from this map rather than duplicating requirements everywhere.
-- **Make generated-file ownership explicit.** Add an input/generator/output manifest for model metadata, previews and GLBs, then verify it in CI. This prevents editing an output that a later export overwrites.
-- **Add a reproducible performance scene pack.** Include small, dense meadow, mixed vegetation and water-edit fixtures with fixed camera positions and a short device test procedure. Record frame-time percentiles and memory, not only subjective smoothness.
-- **Separate current guidance from historical notes carefully.** The growing `AGENTS.md` contains superseded UI directions. A reviewed consolidation into current contracts plus linked history would reduce ambiguity; do not silently delete user requirements.
+- Interaction owners: `CameraControls`, `PlacementController`, `FloorPaintController`, `LandscapeController`; `SceneController` remains the event-order and scene synchronization coordinator. Interfaces use live getters so plan changes do not leave stale snapshots.
+- [Asset pipeline](asset-pipeline.md) and its checked JSON manifest identify source, generator and output ownership.
+- [Performance scenes](performance-scenes.md) provide deterministic workloads and an exportable browser timing harness.
+- [Current contracts](contracts/editor.md) and the root guide resolve active requirements; [original history](history/AGENTS-before-maintenance.md) preserves the complete prior guide.
 
-These are recommendations, not completed refactors. This change adds the map and fixes natural meadow scatter only.
+Next candidates are extracting cohesive App/BlueprintStudio panels and adding hardware benchmark evidence. These are not claimed complete by this maintenance pass.
