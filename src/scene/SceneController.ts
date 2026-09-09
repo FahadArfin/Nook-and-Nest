@@ -1,3 +1,4 @@
+import {isVegetation} from '../vegetation';
 import {GrassRenderer} from './GrassRenderer';
 import {VertexData} from '@babylonjs/core/Meshes/mesh.vertexData';
 import {sunDirection,type SunSettings} from '../sunlight';
@@ -421,7 +422,7 @@ export class SceneController {
     if(this.selectedId!==selectedId||this.activeFloorId!==activeFloorId||previous?.id!==plan.id||draft)this.setMoveMode(false);
     if(plan.camera.mode==='top'&&previous?.camera.mode!=='top')this.cancelFocus();
     this.grassRenderer??=new GrassRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any,true,this.shadow);
-    if(this.refreshModels?.has('grass-clump'))this.grassRenderer.invalidate();
+    if(this.refreshModels&&[...this.refreshModels].some(isVegetation))this.grassRenderer.invalidate();
     this.grassRenderer.update(plan,activeFloorId,selectedId,draft?.id);
     if(previous&&previous.id===plan.id&&previous.gridSizeMm===plan.gridSizeMm&&previous.floors===plan.floors&&previous.furniture===plan.furniture&&previous.environment===plan.environment&&JSON.stringify(previous.camera)===JSON.stringify(plan.camera)&&this.activeFloorId===activeFloorId&&this.selectedId===selectedId&&!this.refreshModels?.size&&this.architectureTool===this.tool&&this.architectureWall===this.selectedWallId){
       this.activePlan=plan;this.updateDraft(plan,activeFloorId,draft);return;
@@ -436,7 +437,7 @@ export class SceneController {
     if(stamp===this.architectureStamp){
       this.activePlan=plan;this.selectedId=selectedId;this.activeDraft=draft;
       if(!usePlanner.getState().turnId)this.outdoors.update(plan);
-      const ids=new Set(plan.furniture.filter(f=>f.catalogId!=='grass-clump'||f.id===selectedId).map(f=>f.id));
+      const ids=new Set(plan.furniture.filter(f=>!isVegetation(f.catalogId)||f.id===selectedId).map(f=>f.id));
       for(const [id,entry] of this.furnitureNodes)if(!ids.has(id)){entry.node.dispose(false,false);this.furnitureNodes.delete(id);}
       for(const item of plan.furniture){
         const entry=this.furnitureNodes.get(item.id);if(!entry)continue;
@@ -539,7 +540,7 @@ export class SceneController {
   }
   private addBox(parent:TransformNode,name:string,size:[number,number,number],pos:[number,number,number],mat:StandardMaterial){const box=MeshBuilder.CreateBox(name,{width:size[0],height:size[1],depth:size[2]},this.scene);box.parent=parent;box.position=new Vector3(...pos);box.material=mat;box.receiveShadows=true;this.shadow.addShadowCaster(box);return box;}
   private buildFurniture(item:FurniturePlacement,elevation:number,ghost:boolean,preview=false){
-    if(!preview&&item.catalogId==='grass-clump'&&item.id!==this.selectedId)return;
+    if(!preview&&isVegetation(item.catalogId)&&item.id!==this.selectedId)return;
     const def=catalog.find((c)=>c.id===item.catalogId); if(!def)return;
     const signature=JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0});
     const existing=preview?undefined:this.furnitureNodes.get(item.id);
@@ -581,7 +582,7 @@ export class SceneController {
   private buildStairs(x:number,z:number,w:number,d:number,y:number,ghost:boolean){const mat=this.material(`stairs-${x}-${z}`,"#a9815f",ghost?.18:1);for(let i=0;i<10;i++){const step=this.addBox(this.root,"stairs",[w,.12,d/10],[x,y+.06+i*.12,z+i*d/10],mat);step.isPickable=!ghost;}}
   private clearPlantingPreview(){this.previewGrass?.clear();for(const p of this.plantingNodes.values())p.node.dispose(false,false);this.plantingNodes.clear();this.plantingItems=[];this.plantingAnchor=undefined;}
   private renderPlantingPreview(items:FurniturePlacement[],refresh=false){
-    if(items.length&&items.every(p=>p.catalogId==='grass-clump')&&this.activePlan){this.plantingItems=items;this.previewGrass??=new GrassRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any,false);if(refresh)this.previewGrass.invalidate();this.previewGrass.update({...this.activePlan,furniture:items},items[0].floorId);return;}
+    if(items.length&&items.every(p=>isVegetation(p.catalogId))&&this.activePlan){this.plantingItems=items;this.previewGrass??=new GrassRenderer(this.scene,this.furnitureModels,this.furnitureFactory as any,false);if(refresh)this.previewGrass.invalidate();this.previewGrass.update({...this.activePlan,furniture:items},items[0].floorId);return;}
     this.previewGrass?.clear();this.plantingItems=items;const ids=new Set(items.map(p=>p.id));for(const [id,p] of this.plantingNodes)if(!ids.has(id)){p.node.dispose(false,false);this.plantingNodes.delete(id);}
     for(const item of items){const existing=this.plantingNodes.get(item.id);if(existing&&(!refresh||existing.loaded))continue;existing?.node.dispose(false,false);const node=new TransformNode(`garden-preview:${item.id}`,this.scene),def=catalog.find(c=>c.id===item.catalogId)!;
       const floor=this.activePlan?.floors.find(f=>f.id===item.floorId);node.position.set(item.x/1000,((floor?.elevationMm??0)+(item.elevationMm??0)+50)/1000,item.z/1000);node.rotation.y=item.rotation*Math.PI/180;
@@ -600,7 +601,7 @@ export class SceneController {
         if(info.type===PointerEventTypes.POINTERDOWN&&info.event.button===0&&hit&&!s.plantingDraft){this.canvas.setPointerCapture?.((info.event as PointerEvent).pointerId);this.plantingPoints=[];this.plantingBase=s.plan;this.camera.detachControl();}
         if(this.plantingPoints&&hit&&(info.type===PointerEventTypes.POINTERMOVE||info.type===PointerEventTypes.POINTERDOWN)){
           const last=this.plantingPoints.at(-1);if(!last||Math.hypot(hit.x-last.x,hit.z-last.z)>.2){
-            if(this.plantingPoints.length<1024)this.plantingPoints.push({x:hit.x,z:hit.z});
+            if(this.plantingPoints.length<8192)this.plantingPoints.push({x:hit.x,z:hit.z});
             this.renderPlantingPreview(scatterPlants(s.plan,this.plantingPoints,s.plantingBrush));
             this.plantingAnchor=new Vector3(hit.x,hit.y+.1,hit.z);
           }

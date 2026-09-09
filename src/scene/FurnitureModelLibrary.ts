@@ -1,3 +1,4 @@
+import {isVegetation} from '../vegetation';
 import modernMaterialAliases from '../modernMaterialAliases.json';
 import {preserveCatalogCoordinates} from './planCoordinates';
 import {MeshoptCompression} from '@babylonjs/core/Meshes/Compression/meshoptCompression';
@@ -126,7 +127,7 @@ export class FurnitureModelLibrary {
       if (typedMesh.material) typedMesh.material = this.materialFor(typedMesh.material, item, ghost);
       const shadowless=typedMesh.metadata.livingMaterial?.startsWith('holiday-light-')||['aquarium-clear-glass','aquarium-water-surface','aquarium-air-bubble','golden-flame','warm-light'].includes(typedMesh.metadata.livingMaterial);
       typedMesh.receiveShadows = !shadowless;
-      if(!shadowless&&item.catalogId!=='grass-clump')this.shadow.addShadowCaster(typedMesh);
+      if(!shadowless&&!isVegetation(item.catalogId))this.shadow.addShadowCaster(typedMesh);
     }
     positionSlidingLeaves(wrapper,item.openFraction);
     if(!ghost){this.living.attach(wrapper,item.catalogId,nominalWidth,nominalDepth,nominalHeight);this.clocks.attach(wrapper,item.catalogId);}

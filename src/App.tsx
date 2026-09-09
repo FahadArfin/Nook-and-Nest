@@ -45,8 +45,8 @@ import { countertopFinishes, defaultCountertopFinish, doorFinishes, supportsCoun
 import type { CatalogItem, FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units } from "./types";
 
 const tools: Array<{ id: BottomToolMode|'select'; label: string; icon: typeof Armchair }> = [
-  { id: "select", label: "Arrange", icon: Armchair }, { id: "paint", label: "Paint tiles", icon: PaintBrush }, { id: "erase", label: "Erase", icon: Trash },
-  { id: "wall", label: "Add wall", icon: Wall }, {id:"walls",label:"Paint walls",icon:PaintRoller}, {id:"landscape",label:"Land formation",icon:Mountains},
+  { id: "select", label: "Arrange", icon: Armchair }, { id: "paint", label: "Paint", icon: PaintBrush }, { id: "erase", label: "Erase", icon: Trash },
+  { id: "wall", label: "Add wall", icon: Wall }, {id:"landscape",label:"Land formation",icon:Mountains},
 ];
 
 function download(name: string, content: string, type: string) { const anchor = document.createElement("a"); anchor.href = URL.createObjectURL(new Blob([content], { type })); anchor.download = name; anchor.click(); URL.revokeObjectURL(anchor.href); }
@@ -126,7 +126,7 @@ export function EditorApp({onHome}:{onHome?:()=>void}) {
   const [previewOpen,setPreviewOpen]=useState(false);const closePreview=useCallback(()=>setPreviewOpen(false),[]);
   const state=usePlanner();
   useEffect(()=>{if(state.selectedId)setToolTray(undefined)},[state.selectedId]);
-  useEffect(()=>{if(state.selectedWallId)setToolTray("walls")},[state.selectedWallId]);
+  useEffect(()=>{if(state.selectedWallId)setToolTray("paint")},[state.selectedWallId]);
   const canvasRef=useRef<HTMLCanvasElement>(null); const controllerRef=useRef<SceneController|undefined>(undefined); const placementControlsRef=useRef<HTMLDivElement>(null); const selectedControlsRef=useRef<HTMLDivElement>(null); const tileControlsRef=useRef<HTMLDivElement>(null); const plantingControlsRef=useRef<HTMLDivElement>(null); const focusDraftControls=useRef(false); const [draft,setDraft]=useState<FurniturePlacement|undefined>(); const [tileDraft,setTileDraft]=useState<{cells:TileCell[];present:boolean;region?:MeasuredRegion}|undefined>(); const ready=true; const [showSetup,setShowSetup]=useState(false); const [dialog,setDialog]=useState<"help"|"project"|"share"|undefined>(new URLSearchParams(location.search).has("projects")?"project":undefined); const [muted,setMuted]=useState(true);
   const previewShots=useMemo(()=>homeShots(state.plan,state.activeFloorId),[state.plan.floors,state.plan.gridSizeMm,state.activeFloorId]);
   const dark=appearance?.dark??!!state.plan.camera.darkMode;

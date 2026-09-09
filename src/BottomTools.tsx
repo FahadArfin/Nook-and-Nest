@@ -9,7 +9,7 @@ import {SurfaceBrowser} from './SurfaceBrowser';
 import './bottom-tools.css';
 
 export type BottomToolMode='paint'|'walls'|'erase'|'wall'|'landscape';
-const titles:Record<BottomToolMode,string>={paint:'Floor finishes',walls:'Wall finishes',erase:'Erase tools',wall:'Wall tools',landscape:'Land formation'};
+const titles:Record<BottomToolMode,string>={paint:'Paint surfaces',walls:'Wall finishes',erase:'Erase tools',wall:'Wall tools',landscape:'Land formation'};
 export function BottomTools({mode,onClose,onPlace,onViewScenery,onBrowseLibrary}:{mode?:BottomToolMode;onBrowseLibrary?:()=>void;onClose:()=>void;onPlace:(item:CatalogItem)=>void;onViewScenery:()=>void}){
  const panel=useRef<HTMLElement>(null);
  const [shown,setShown]=useState<BottomToolMode>(),[open,setOpen]=useState(false);
@@ -22,12 +22,12 @@ export function BottomTools({mode,onClose,onPlace,onViewScenery,onBrowseLibrary}
   const timer=setTimeout(()=>setShown(mode),shown&&!reduced?650:0);
   return()=>clearTimeout(timer);
  },[drawerMode,shown]);
- useLayoutEffect(()=>{const el=panel.current;if(!el||!shown)return;const host=el.parentElement!;const labels={paint:'Paint tiles',walls:'Paint walls',wall:'Add wall',landscape:'Land formation',erase:'Erase'};const place=()=>{const button=Array.from(host.querySelectorAll<HTMLButtonElement>('.tool-dock button')).find(b=>b.textContent?.trim()===labels[shown]);if(!button)return;const h=host.getBoundingClientRect(),b=button.getBoundingClientRect(),width=el.offsetWidth;const center=Math.max(width/2+10,Math.min(b.left+b.width/2-h.left,h.width-width/2-10));el.style.left=center+'px';el.style.bottom=(h.bottom-b.top+12)+'px';el.style.transformOrigin=`${b.left+b.width/2-h.left-center+width/2}px bottom`};place();const observer=typeof ResizeObserver==='undefined'?undefined:new ResizeObserver(place);observer?.observe(el);observer?.observe(host);window.addEventListener('resize',place);return()=>{observer?.disconnect();window.removeEventListener('resize',place)}},[shown]);
+ useLayoutEffect(()=>{const el=panel.current;if(!el||!shown)return;const host=el.parentElement!;const labels={paint:'Paint',walls:'Paint',wall:'Add wall',landscape:'Land formation',erase:'Erase'};const place=()=>{const button=Array.from(host.querySelectorAll<HTMLButtonElement>('.tool-dock button')).find(b=>b.textContent?.trim()===labels[shown]);if(!button)return;const h=host.getBoundingClientRect(),b=button.getBoundingClientRect(),width=el.offsetWidth;const center=Math.max(width/2+10,Math.min(b.left+b.width/2-h.left,h.width-width/2-10));el.style.left=center+'px';el.style.bottom=(h.bottom-b.top+12)+'px';el.style.transformOrigin=`${b.left+b.width/2-h.left-center+width/2}px bottom`};place();const observer=typeof ResizeObserver==='undefined'?undefined:new ResizeObserver(place);observer?.observe(el);observer?.observe(host);window.addEventListener('resize',place);return()=>{observer?.disconnect();window.removeEventListener('resize',place)}},[shown]);
  if(!shown)return null;
  return <section ref={panel} className={`bottom-tools tool-browser bottom-tools-${shown} ${open?'is-open':''}`} aria-label={titles[shown]} aria-hidden={!open} inert={!open}>
-  <header><strong>{titles[shown]}</strong><button onClick={onClose} aria-label={shown==='paint'?'Close floor finishes':'Close bottom tools'}><X size={20}/><span>Back to floor</span></button></header>
+  <header><strong>{titles[shown]}</strong><button onClick={onClose} aria-label={shown==='paint'?'Close paint surfaces':'Close bottom tools'}><X size={20}/><span>Back to floor</span></button></header>
   <div className="bottom-tools-body" key={shown}>
-   {shown==='paint'?<SurfaceBrowser floorOnly/>:shown==='walls'?<SurfaceBrowser wallsOnly/>:shown==='landscape'?<LandscapeMenus onPlace={onPlace} onView={onViewScenery} onBrowseLibrary={onBrowseLibrary}/>:shown==='wall'?<WallHeightChoices/>:null}
+   {shown==='paint'?<SurfaceBrowser/>:shown==='walls'?<SurfaceBrowser wallsOnly/>:shown==='landscape'?<LandscapeMenus onPlace={onPlace} onView={onViewScenery} onBrowseLibrary={onBrowseLibrary}/>:shown==='wall'?<WallHeightChoices/>:null}
 
   </div>
  </section>;

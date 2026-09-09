@@ -16,7 +16,7 @@ describe('garden planting brush',()=>{
   const controller:any=Object.create(SceneController.prototype);controller.plantingNodes=new Map();controller.plantingItems=[];controller.activePlan=usePlanner.getState().plan;controller.furnitureModels={build:vi.fn(()=>false)};controller.furnitureFactory={build:(node:any)=>{const m=MeshBuilder.CreateBox('plant',{},scene);m.parent=node}};controller.shadow={removeShadowCaster:vi.fn()};controller.scene=scene;controller.tool='planting';controller.canvas={setPointerCapture:vi.fn()};controller.camera={detachControl:vi.fn(),attachControl:vi.fn()};
   vi.spyOn(scene,'createPickingRay').mockReturnValue({origin:new Vector3(-5,10,-5),direction:new Vector3(0,-1,0)} as any);
   try{controller.bindPointers();const fire=(type:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:0,pointerId:1},pickInfo:null} as any);
-   fire(PointerEventTypes.POINTERDOWN);expect(controller.plantingNodes.size).toBeGreaterThan(0);for(const {node} of controller.plantingNodes.values())expect(node.getChildMeshes()[0].isPickable).toBe(false);expect(usePlanner.getState().plan.furniture).toHaveLength(0);
+   fire(PointerEventTypes.POINTERDOWN);expect(scene.meshes.filter(m=>m.name==='grass-patch').length).toBeGreaterThan(0);for(const m of scene.meshes.filter(m=>m.name==='grass-patch'))expect(m.isPickable).toBe(false);expect(usePlanner.getState().plan.furniture).toHaveLength(0);
    fire(PointerEventTypes.POINTERUP);expect(controller.camera.attachControl).toHaveBeenCalled();expect(usePlanner.getState().plantingDraft).toBeUndefined();expect(usePlanner.getState().past).toHaveLength(1);expect(usePlanner.getState().plan.furniture.length).toBeGreaterThan(0);
   }finally{scene.dispose();engine.dispose();s.cancelPlanting();}
  });
@@ -40,7 +40,15 @@ describe('garden planting brush',()=>{
  });
  it('rejects stale previews and stays within the saved furniture budget',()=>{
   const s=usePlanner.getState();s.replacePlan(createSamplePlan());s.previewPlanting([{x:-5,z:-5}]);s.rename('Changed');s.confirmPlanting();expect(usePlanner.getState().plan.furniture).toHaveLength(0);expect(usePlanner.getState().placementNotice).toContain('changed');
-  const p=createSamplePlan(),one=scatterPlants(p,[{x:-20,z:-20}],brush)[0];p.furniture=Array.from({length:1998},(_,i)=>({...one,id:`old-${i}`,x:40000,z:40000}));expect(scatterPlants(p,[{x:-5,z:-5}],brush)).toHaveLength(2);
+  const p=createSamplePlan(),one=scatterPlants(p,[{x:-20,z:-20}],brush)[0];p.furniture=Array.from({length:21998},(_,i)=>({...one,id:`old-${i}`,x:40000,z:40000}));expect(scatterPlants(p,[{x:-5,z:-5}],brush)).toHaveLength(2);
   expect(scatterPlants(p,[{x:NaN,z:0}],brush)).toHaveLength(0);expect(scatterPlants(p,[{x:-5,z:-5}],{...brush,catalogId:'sofa'})).toHaveLength(0);
  });
+});
+
+it('continues dense strokes beyond 512 with interpolated coverage and one undo',()=>{
+ const p=createSamplePlan(),b={catalogId:'grass-clump',radius:2,spacing:.3,density:9},points=[{x:-10,z:-10}];
+ const first=scatterPlants(p,points,b);expect(first.length).toBeGreaterThan(512);
+ points.push({x:-25,z:-10});const next=scatterPlants(p,points,b);expect(next.length).toBeGreaterThan(first.length*2);expect(next.some(f=>f.x<-17000&&f.x>-18000)).toBe(true);
+ expect(next.slice(0,first.length)).toEqual(first);expect(scatterPlants(p,points,b)).toEqual(next);
+ const s=usePlanner.getState();s.replacePlan(p);s.setPlantingBrush(b);s.previewPlanting(points);s.confirmPlanting();expect(usePlanner.getState().past).toHaveLength(1);expect(usePlanner.getState().plan.furniture.length).toBe(next.length);s.undo();expect(usePlanner.getState().plan.furniture).toEqual(p.furniture);
 });

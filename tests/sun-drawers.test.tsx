@@ -19,8 +19,8 @@ it('retains exiting drawers, switches after closing, and exposes no repeated doc
  vi.useFakeTimers();usePlanner.getState().replacePlan(createBlankPlan());
  const props={onClose:vi.fn(),onPlace:vi.fn(),onViewScenery:vi.fn(),onSunPreview:vi.fn()};
  const view=render(<BottomTools {...props} mode="paint"/>);advance(0);advance(20);
- const floor=screen.getByRole('region',{name:'Floor finishes'});expect(floor.classList.contains('is-open')).toBe(true);
- expect(within(floor).queryByRole('button',{name:'Paint tiles'})).toBeNull();expect(within(floor).queryByRole('button',{name:'Erase'})).toBeNull();
+ const floor=screen.getByRole('region',{name:'Paint surfaces'});expect(floor.classList.contains('is-open')).toBe(true);
+ expect(within(floor).queryByRole('button',{name:'Paint'})).toBeNull();expect(within(floor).queryByRole('button',{name:'Erase'})).toBeNull();
  view.rerender(<BottomTools {...props} mode="wall"/>);expect(floor.getAttribute('aria-hidden')).toBe('true');expect(floor.hasAttribute('inert')).toBe(true);
  advance(649);expect(floor.isConnected).toBe(true);advance(1);advance(20);expect(screen.getByRole('region',{name:'Wall tools'})).toBeTruthy();
  view.rerender(<BottomTools {...props}/>);expect(screen.queryByRole('region',{name:'Wall tools'})).toBeNull();advance(650);expect(document.querySelector('.bottom-tools')).toBeNull();

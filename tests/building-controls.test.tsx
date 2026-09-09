@@ -34,7 +34,7 @@ describe("measured room controls",()=>{
     const p=createSamplePlan();p.floors[0].walls=[{id:"inside-test",ax:2,az:2,bx:5,bz:2}];state().replacePlan(p);
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
     act(()=>scene.callbacks.onWall("inside-test"));expect(state().selectedWallId).toBe("inside-test");expect(state().past).toHaveLength(0);
-    await screen.findByRole("region",{name:"Wall finishes"});expect(screen.getByText("1 wall selected")).toBeTruthy();
+    await screen.findByRole("region",{name:"Paint surfaces"});expect(screen.getByText("1 wall selected")).toBeTruthy();
     fireEvent.click(screen.getByRole("button",{name:"Walls: Soft sage"}));expect(state().past).toHaveLength(0);fireEvent.click(screen.getByRole("button",{name:"Paint 1 wall"}));
     expect(state().plan.floors[0].wallFinishes).toEqual({"inside-test":"sage-plaster"});expect(state().past).toHaveLength(1);
     act(()=>state().undo());expect(state().plan.floors[0].wallFinishes).toBeUndefined();
@@ -205,8 +205,8 @@ it('opens floor finishes from the compact dock and centers without editing the p
  expect(screen.queryByRole('button',{name:'Inside door'})).toBeNull();
  expect(screen.queryByTitle('Clearance guides')).toBeNull();
  fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');expect(await screen.findByRole('region',{name:'Wall tools'})).toBeTruthy();
- fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint tiles'}));const tray=await screen.findByRole('region',{name:'Floor finishes'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
- fireEvent.click(within(tray).getByRole('button',{name:'Close floor finishes'}));expect(screen.queryByRole('region',{name:'Floor finishes'})).toBeNull();expect(state().tool).toBe('select');
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint'}));const tray=await screen.findByRole('region',{name:'Paint surfaces'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();fireEvent.click(within(tray).getByRole('button',{name:'Walls'}));expect(within(tray).getByRole('button',{name:'All walls'})).toBeTruthy();fireEvent.click(within(tray).getByRole('button',{name:'Floor'}));expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
+ fireEvent.click(within(tray).getByRole('button',{name:'Close paint surfaces'}));expect(screen.queryByRole('region',{name:'Paint surfaces'})).toBeNull();expect(state().tool).toBe('select');
  fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=await screen.findByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Walls'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floors'}));expect(state().tool).toBe('erase');
  fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
 },15000);
@@ -236,5 +236,5 @@ it('keeps home tools in dock drawers and reserves the inspector for selected fur
  fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.pointerDown(document.body);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();expect(state().plan.environment?.sun?.enabled).toBe(true);
 
 
- fireEvent.click(screen.getByRole('button',{name:'Paint tiles'}));await screen.findByRole('region',{name:'Floor finishes'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
+ fireEvent.click(screen.getByRole('button',{name:'Paint'}));await screen.findByRole('region',{name:'Paint surfaces'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
 },15000);

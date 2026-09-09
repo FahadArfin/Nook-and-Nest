@@ -1,3 +1,4 @@
+import {isVegetation,vegetationLimit} from './vegetation';
 import {catalog} from './catalog';
 import {floorRects} from './floorGeometry';
 import {terrainSampler} from './terrain';
@@ -5,7 +6,8 @@ import type {FurniturePlacement,PlanDocumentV1} from './types';
 
 export const plantingIds=['grass-clump','daisy-clump','lavender-clump','wildflower-patch','fountain-grass','blue-fescue','coneflower-drift'];
 export interface PlantingBrush {catalogId:string;radius:number;spacing:number;density?:number}
-export const plantingStrokeLimit=512;
+export const plantingStrokeLimit=vegetationLimit;
+const strokeCache=new WeakMap<PlanDocumentV1,{signature:string;furniture:PlanDocumentV1['furniture'];points:Array<{x:number;z:number}>;seen:Set<string>;items:FurniturePlacement[]}>();
 const collisionCache=new WeakMap<PlanDocumentV1,{items:FurniturePlacement[];grid:Map<string,FurniturePlacement[]>}>();
 function nearbyItems(plan:PlanDocumentV1){const cached=collisionCache.get(plan);if(cached?.items===plan.furniture)return cached.grid;const grid=new Map<string,FurniturePlacement[]>();for(const p of plan.furniture){const r=Math.hypot(p.widthMm,p.depthMm)/2000+2;for(let x=Math.floor((p.x/1000-r)/4);x<=Math.floor((p.x/1000+r)/4);x++)for(let z=Math.floor((p.z/1000-r)/4);z<=Math.floor((p.z/1000+r)/4);z++){const key=x+':'+z,list=grid.get(key)??[];list.push(p);grid.set(key,list)}}collisionCache.set(plan,{items:plan.furniture,grid});return grid;}
 
@@ -14,12 +16,19 @@ export function scatterPlants(plan:PlanDocumentV1,points:Array<{x:number;z:numbe
  const c=catalog.find(c=>c.id===brush.catalogId),floor=[...plan.floors].sort((a,b)=>a.elevationMm-b.elevationMm)[0];
  if(!c||!floor||!plantingIds.includes(c.id)||!points.length||!Number.isFinite(brush.radius)||!Number.isFinite(brush.spacing))return [];
  const radius=Math.max(.5,Math.min(4,brush.radius)),spacing=Math.max(.12,Math.min(2,brush.spacing/Math.sqrt(Math.max(1,Math.min(9,brush.density??1)))) ),sample=terrainSampler(plan);
- const rects=plan.floors.flatMap(f=>floorRects(f,plan.gridSizeMm)),seen=new Set<string>(),result:FurniturePlacement[]=[];
- const budget=brush.catalogId==='grass-clump'?20000-plan.furniture.filter(p=>p.catalogId==='grass-clump').length:2000-plan.furniture.filter(p=>p.catalogId!=='grass-clump').length;
+ const rects=plan.floors.flatMap(f=>floorRects(f,plan.gridSizeMm));
+ const signature=JSON.stringify([brush,plan.environment?.terrain,plan.floors]),cached=strokeCache.get(plan);
+ const reuse=cached?.signature===signature&&cached.furniture===plan.furniture&&cached.points.length<=points.length&&cached.points.every((p,i)=>p.x===points[i].x&&p.z===points[i].z);
+ const seen=reuse?cached.seen:new Set<string>(),result=reuse?[...cached.items]:[];
+ const start=reuse?cached.points.length:0;
+ strokeCache.set(plan,{signature,furniture:plan.furniture,points:points.map(p=>({...p})),seen,items:result});
+ const budget=vegetationLimit-plan.furniture.filter(p=>isVegetation(p.catalogId)).length;
  const collisions=nearbyItems(plan);
  const pad=Math.max(c.widthMm,c.depthMm)/2000;
  const noise=(x:number,z:number,s:number)=>{let n=Math.imul(x,374761393)^Math.imul(z,668265263)^s;n=Math.imul(n^(n>>>13),1274126177);return ((n^(n>>>16))>>>0)/4294967296;};
- for(const point of points.slice(0,1024)){
+ const sampled:Array<{x:number;z:number}>=[];
+ for(let i=start;i<Math.min(points.length,8192);i++){const p=points[i],a=points[i-1]??p,d=Math.hypot(p.x-a.x,p.z-a.z),steps=Math.min(1600,Math.max(1,Math.ceil(d/(radius*.5))));for(let j=1;j<=steps;j++)sampled.push({x:a.x+(p.x-a.x)*j/steps,z:a.z+(p.z-a.z)*j/steps})}
+ for(const point of sampled){
   if(!Number.isFinite(point.x)||!Number.isFinite(point.z)||Math.abs(point.x)>200||Math.abs(point.z)>200)continue;
   for(let ix=Math.floor((point.x-radius)/spacing);ix<=Math.ceil((point.x+radius)/spacing);ix++)for(let iz=Math.floor((point.z-radius)/spacing);iz<=Math.ceil((point.z+radius)/spacing);iz++){
    if(result.length>=Math.min(plantingStrokeLimit,budget))return result;

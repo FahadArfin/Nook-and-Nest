@@ -22,3 +22,12 @@ it('batches thousands of detailed grass placements, reuses untouched patches and
  }finally{view.dispose();library.dispose();scene.dispose();engine.dispose()}
 });
 it('gives grass its own budget while preserving IDs in backups',()=>{const p=createSamplePlan(),c=catalog.find(c=>c.id==='grass-clump')!;p.furniture=Array.from({length:2100},(_,i)=>({id:'g'+i,catalogId:c.id,floorId:p.floors[0].id,x:i,z:0,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'}));expect(parsePlan(serializePlan(p))).toEqual(p);p.furniture=p.furniture.map(f=>({...f,catalogId:'small-plant'}));expect(()=>validatePlan(p)).toThrow()});
+
+it('batches different outdoor species separately without losing detailed geometry or edit IDs',async()=>{
+ const engine=new NullEngine(),scene=new Scene(engine),library=new FurnitureModelLibrary(scene,{addShadowCaster:vi.fn()} as any,()=>{}),view=new GrassRenderer(scene,library),plan=createSamplePlan();
+ try{plan.furniture=[];for(const id of ['daisy-clump','spruce-tree']){const asset=await LoadAssetContainerAsync(readFileSync('public/models/furniture/'+id+'.glb'),scene,{pluginExtension:'.glb',pluginOptions:{gltf:{skipMaterials:true}}});preserveCatalogCoordinates(asset);(library as any).containers.set(id,asset);const c=catalog.find(c=>c.id===id)!;
+ for(let i=0;i<400;i++)plan.furniture.push({id:id+i,catalogId:id,floorId:plan.floors[0].id,x:i%20*300,z:Math.floor(i/20)*300,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'});}
+ view.update(plan,plan.floors[0].id);const batches=scene.meshes.filter(m=>m.name==='grass-patch'&&m.isEnabled());expect(batches.length).toBeLessThan(20);expect(new Set(batches.flatMap(m=>m.metadata.grassIds)).size).toBe(800);expect(batches.every(m=>m.getTotalVertices()>100)).toBe(true);
+ view.update(plan,plan.floors[0].id,'spruce-tree0');expect(scene.meshes.filter(m=>m.name==='grass-patch').every(m=>!m.metadata.grassIds.includes('spruce-tree0'))).toBe(true);
+ }finally{view.dispose();library.dispose();scene.dispose();engine.dispose()}
+});
