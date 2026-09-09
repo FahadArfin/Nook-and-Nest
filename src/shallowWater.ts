@@ -3,17 +3,17 @@
  * Rendering state only: terrain/source strokes remain the saved source of truth. */
 export class ShallowWater {
  readonly depth:Float64Array; readonly bed:Float64Array; readonly source:Uint8Array;
- readonly flow:Float32Array;readonly blocked:Uint8Array;
+ readonly sourceLevel:Float64Array;readonly flow:Float32Array;readonly blocked:Uint8Array;
  private qx:Float64Array; private qz:Float64Array; private outgoing:Float64Array;
  constructor(readonly size:number,readonly dx:number,readonly dz:number){
-  const count=size*size;this.depth=new Float64Array(count);this.bed=new Float64Array(count);this.source=new Uint8Array(count);this.flow=new Float32Array(count*2);this.blocked=new Uint8Array(count);
+  const count=size*size;this.depth=new Float64Array(count);this.bed=new Float64Array(count);this.source=new Uint8Array(count);this.sourceLevel=new Float64Array(count).fill(-.2);this.flow=new Float32Array(count*2);this.blocked=new Uint8Array(count);
   this.qx=new Float64Array(count);this.qz=new Float64Array(count);this.outgoing=new Float64Array(count);
  }
  setTerrain(bed:ArrayLike<number>,source:ArrayLike<number>,blocked?:ArrayLike<number>){this.bed.set(bed);this.source.set(source);if(blocked)this.blocked.set(blocked);else this.blocked.fill(0);}
  step(dt=1/30,sourceRate=.18){
   dt=Math.max(0,Math.min(1/30,dt));if(!dt)return;
   const {size:n,depth:h,bed:b,qx,qz,outgoing:o}=this;o.fill(0);this.flow.fill(0);
-  for(let i=0;i<h.length;i++)if(this.source[i]&&!this.blocked[i])h[i]+=Math.max(0,Math.min(sourceRate*dt,-.2-b[i]-h[i]));
+  for(let i=0;i<h.length;i++)if(this.source[i]&&!this.blocked[i])h[i]+=Math.max(0,Math.min(sourceRate*dt,this.sourceLevel[i]-b[i]-h[i]));
   const edge=(i:number,j:number,q:Float64Array,spacing:number)=>{
    if(this.blocked[i]||this.blocked[j]){q[i]=0;return;}
    const a=b[i]+h[i],c=b[j]+h[j],wet=Math.max(0,Math.max(a,c)-Math.max(b[i],b[j]));

@@ -614,7 +614,7 @@ export class SceneController {
         const hit=this.activePlan?terrainRay(this.activePlan,ray.origin,ray.direction):undefined;
         const point=hit?{x:hit.x*1000,z:hit.z*1000}:undefined;
         if(info.type===PointerEventTypes.POINTERDOWN&&info.event.button===0&&point){
-          this.canvas.setPointerCapture?.((info.event as PointerEvent).pointerId);this.terrainBase=usePlanner.getState().plan;this.terrainStarted=performance.now();const state=usePlanner.getState();this.terrainStroke={kind:this.tool.slice(8) as TerrainStroke['kind'],radius:state.terrainRadius,strength:state.terrainStrength,points:[{x:point.x/1000,z:point.z/1000}]};this.camera.detachControl();
+          this.canvas.setPointerCapture?.((info.event as PointerEvent).pointerId);this.terrainBase=usePlanner.getState().plan;this.terrainStarted=performance.now();const state=usePlanner.getState();this.terrainStroke={carve:false,kind:this.tool.slice(8) as TerrainStroke['kind'],radius:state.terrainRadius,strength:state.terrainStrength,points:[{x:point.x/1000,z:point.z/1000}]};this.camera.detachControl();
         }
         if(info.type===PointerEventTypes.POINTERMOVE&&point){
           if(!this.terrainCue){this.terrainCue=MeshBuilder.CreateTorus('terrain-brush',{diameter:2,thickness:.025,tessellation:48},this.scene);this.terrainCue.material=this.material('terrain-cue','#e6c46a');this.terrainCue.isPickable=false;}
