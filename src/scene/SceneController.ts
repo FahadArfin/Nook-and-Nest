@@ -1,3 +1,4 @@
+import {VertexData} from '@babylonjs/core/Meshes/mesh.vertexData';
 import {sunDirection,type SunSettings} from '../sunlight';
 import {bindTouchNavigation} from "../touchNavigation";
 import type {HomeShot} from '../previewShots';
@@ -129,6 +130,7 @@ export class SceneController {
         if(sky){sky.intensity=settings.night?.16:.32;sky.diffuse=new Color3(.86,.92,1);sky.groundColor=new Color3(.35,.35,.32)}
       }else{sun.direction=new Vector3(-.8,-1.5,.7);sun.position=new Vector3(10,18,-10);}
     }
+    for(const mesh of this.scene.meshes)if(mesh.name.startsWith('sun-ceiling:'))mesh.setEnabled(simulating);
     this.canvas.dataset.colorPreview=simulating?'sunlight':neutral?'neutral':'cozy';
   }
   private selectedWallId?:string;
@@ -159,8 +161,8 @@ export class SceneController {
       if(this.activePlan){this.fixtureLights??=new FurnitureLights(this.scene,m=>this.wallVisibility.allowsShadow(m));this.fixtureLights.update(this.activePlan,this.activeFloorId,this.furnitureNodes,this.camera.position,this.neutralPreview);}
       updatePlanProjection(this.camera,this.engine.getRenderWidth()/this.engine.getRenderHeight());
       if(!this.plantingPoints&&!usePlanner.getState().plantingDraft&&this.plantingNodes.size)this.clearPlantingPreview();
-      for(const p of this.plantingNodes.values()){const a=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?1:Math.min(1,(performance.now()-p.born)/300);p.node.scaling.setAll(.8+.2*a);for(const m of p.node.getChildMeshes())m.visibility=.7*a;}
-      if(this.terrainStroke&&this.terrainBase&&performance.now()-this.terrainLastPreview>65){this.terrainLastPreview=performance.now();const strength=this.terrainStroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900);this.terrain.update({...this.terrainBase,environment:{background:'plain',grass:'off',...this.terrainBase.environment,terrain:[...(this.terrainBase.environment?.terrain??[]),{...this.terrainStroke,strength}]}});this.scene.getMeshByName('meadow')?.setEnabled(false);}
+      for(const p of this.plantingNodes.values()){const a=1;p.node.scaling.setAll(.8+.2*a);for(const m of p.node.getChildMeshes())m.visibility=.7*a;}
+      if(this.terrainStroke&&this.terrainBase&&performance.now()-this.terrainLastPreview>65){this.terrainLastPreview=performance.now();const strength=this.terrainStroke.strength;this.terrain.update({...this.terrainBase,environment:{background:'plain',grass:'off',...this.terrainBase.environment,terrain:[...(this.terrainBase.environment?.terrain??[]),{...this.terrainStroke,strength}]}});this.scene.getMeshByName('meadow')?.setEnabled(false);}
       for(const guide of this.paintSelectionGuides){const hosts=guide.metadata.hosts as Mesh[];guide.visibility=Math.max(0,...hosts.filter(m=>m.isEnabled()).map(m=>m.visibility));}
       if (this.activePlan) this.wallVisibility.update(this.homePreview?'near-hidden':getWallVisibility(this.activePlan.camera), this.camera.position, this.camera.target, this.engine.getDeltaTime(), window.matchMedia?.("(prefers-reduced-motion: reduce)").matches??false);
     });
@@ -356,7 +358,7 @@ export class SceneController {
     if(target)point=snapRemovalPoint(target,point,this.activePlan.gridSizeMm);
     const {end,connected}=target?{end:horizontal?{x:Math.max(Math.min(target.ax,target.bx),Math.min(Math.max(target.ax,target.bx),point.x)),z:target.az}:{x:target.ax,z:Math.max(Math.min(target.az,target.bz),Math.min(Math.max(target.az,target.bz),point.z))},connected:true}:snapWallEnd(floor,this.activePlan.gridSizeMm,start,point);
     this.wallDraft=wallBetween(start,end);
-    const s=this.activePlan.gridSizeMm/1000,y=floor.elevationMm/1000,h=floor.heightMm/1000;
+    const s=this.activePlan.gridSizeMm/1000,y=floor.elevationMm/1000,h=(this.tool==='wall'?(usePlanner.getState().wallDrawHeight||floor.heightMm):floor.heightMm)/1000;
     // Ground-level connection targets remain legible beside a full-height preview.
     for(const [index,p] of [start,end].entries()){
       const marker=MeshBuilder.CreateCylinder("wall-snap-target",{diameter:.16,height:.035,tessellation:16},this.scene);
@@ -498,9 +500,19 @@ export class SceneController {
       if(finish.repeatMeters){const positions=tile.getVerticesData('position')!,uvs=tile.getVerticesData('uv')!;for(let i=0;i<positions.length/3;i++){uvs[i*2]=(positions[i*3]+tile.position.x)/finish.repeatMeters[0];uvs[i*2+1]=(positions[i*3+2]+tile.position.z)/finish.repeatMeters[1];}tile.setVerticesData('uv',uvs);}
       tile.material=floor.cellFinishes?.[`${cell.x},${cell.z}`]?this.surfaceMaterial(`tile-${floor.id}`,findFloorFinish(floor.cellFinishes[`${cell.x},${cell.z}`]),ghost?.22:1):tileMat;tile.receiveShadows=true;tile.isPickable=!ghost;
     }
+    // Invisible in the cutaway camera, but opaque in the sun shadow pass.
+    const ceiling=new Mesh('sun-ceiling:'+floor.id,this.scene),data=new VertexData(),positions:number[]=[],indices:number[]=[];
+    for(const r of floorRects(floor,plan.gridSizeMm)){
+      const outdoor=floor.blueprint?.rooms.some(room=>room.kind==='Outdoor'&&r.x+r.width/2>=room.x&&r.x+r.width/2<=room.x+room.width&&r.z+r.depth/2>=room.z&&r.z+r.depth/2<=room.z+room.depth);if(outdoor)continue;
+      const a=positions.length/3,x=r.x/1000,z=r.z/1000,b=(r.x+r.width)/1000,d=(r.z+r.depth)/1000,y=elevation+floor.heightMm/1000;
+      positions.push(x,y,z,b,y,z,x,y,d,b,y,d);indices.push(a,a+1,a+2,a+1,a+3,a+2);
+    }
+    data.positions=positions;data.indices=indices;data.normals=positions.map((_,i)=>i%3===1?1:0);data.applyToMesh(ceiling);
+    const roofMat=this.material('sun-ceiling-mask','#ffffff');roofMat.disableColorWrite=true;roofMat.disableDepthWrite=true;roofMat.backFaceCulling=false;
+    ceiling.material=roofMat;ceiling.parent=this.root;ceiling.isPickable=false;ceiling.setEnabled(!this.neutralPreview&&!!plan.environment?.sun?.enabled);this.shadow.addShadowCaster(ceiling);
     this.selectedWallIds=new Set(!ghost&&this.selectedWallId?wallPlateIds(floor,plan.gridSizeMm,this.selectedWallId):[]);
     this.floorWallGeometry.set(floor.id, walls.map(wall => ({ ax:wall.ax*scale, az:wall.az*scale, bx:wall.bx*scale, bz:wall.bz*scale, boundary:boundaries.includes(wall) })));
-    for(const wall of walls)this.buildWall(wall.id,wall.ax*scale,wall.az*scale,wall.bx*scale,wall.bz*scale,elevation,ghost,findWallFinish(floor.wallFinishId),floor.openings.find(o=>o.wallKey===wall.id),floor.heightMm,windowWallPieces(wall,plan.gridSizeMm,floor.heightMm,validOpenings).map(p=>{const [start,end]=joinedWallSpan(wall,walls,plan.gridSizeMm,floor.wallCuts??[]),a=Math.min(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm,b=Math.max(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm;return {...p,start:Math.abs(p.start-a)<.01?start:p.start,end:Math.abs(p.end-b)<.01?end:p.end}}),floor.wallFinishes,boundaries.includes(wall));
+    for(const wall of walls)this.buildWall(wall.id,wall.ax*scale,wall.az*scale,wall.bx*scale,wall.bz*scale,elevation,ghost,findWallFinish(floor.wallFinishId),floor.openings.find(o=>o.wallKey===wall.id),(wall.heightMm??floor.heightMm),windowWallPieces(wall,plan.gridSizeMm,(wall.heightMm??floor.heightMm),validOpenings).map(p=>{const [start,end]=joinedWallSpan(wall,walls,plan.gridSizeMm,floor.wallCuts??[]),a=Math.min(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm,b=Math.max(wall.ax===wall.bx?wall.az:wall.ax,wall.ax===wall.bx?wall.bz:wall.bx)*plan.gridSizeMm;return {...p,start:Math.abs(p.start-a)<.01?start:p.start,end:Math.abs(p.end-b)<.01?end:p.end}}),floor.wallFinishes,boundaries.includes(wall));
     for (const stair of floor.stairs) this.buildStairs(stair.x/1000, stair.z/1000, stair.widthMm/1000, stair.lengthMm/1000, elevation, ghost);
     for (const item of plan.furniture.filter((f) => f.floorId === floor.id)) this.buildFurniture(item, elevation, ghost);
   }
@@ -581,12 +593,12 @@ export class SceneController {
         if(info.type===PointerEventTypes.POINTERDOWN&&info.event.button===0&&hit&&!s.plantingDraft){this.canvas.setPointerCapture?.((info.event as PointerEvent).pointerId);this.plantingPoints=[];this.plantingBase=s.plan;this.camera.detachControl();}
         if(this.plantingPoints&&hit&&(info.type===PointerEventTypes.POINTERMOVE||info.type===PointerEventTypes.POINTERDOWN)){
           const last=this.plantingPoints.at(-1);if(!last||Math.hypot(hit.x-last.x,hit.z-last.z)>.2){
-            if(this.plantingPoints.length<128)this.plantingPoints.push({x:hit.x,z:hit.z});
+            if(this.plantingPoints.length<1024)this.plantingPoints.push({x:hit.x,z:hit.z});
             this.renderPlantingPreview(scatterPlants(s.plan,this.plantingPoints,s.plantingBrush));
             this.plantingAnchor=new Vector3(hit.x,hit.y+.1,hit.z);
           }
         }
-        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.resumeCameraControls();if(s.plan===this.plantingBase)s.previewPlanting(points);else this.clearPlantingPreview();}
+        if(info.type===PointerEventTypes.POINTERUP&&info.event.button===0&&this.plantingPoints){const points=this.plantingPoints;this.plantingPoints=undefined;this.resumeCameraControls();if(s.plan===this.plantingBase){s.previewPlanting(points);usePlanner.getState().confirmPlanting();this.clearPlantingPreview();}else this.clearPlantingPreview();}
         return;
       }
       if(this.tool.startsWith('terrain-')){
@@ -601,7 +613,7 @@ export class SceneController {
           this.terrainCue.scaling.set(usePlanner.getState().terrainRadius,1,usePlanner.getState().terrainRadius);this.terrainCue.position.set(point.x/1000,(hit?.y??0)+.06,point.z/1000);
           const stroke=this.terrainStroke,last=stroke?.points.at(-1);if(stroke&&last&&stroke.points.length<64&&Math.hypot(point.x/1000-last.x,point.z/1000-last.z)>.35)stroke.points.push({x:point.x/1000,z:point.z/1000});
         }
-        if(info.type===PointerEventTypes.POINTERUP&&this.terrainStroke){const stroke=this.terrainStroke;this.terrainStroke=undefined;this.resumeCameraControls();if(usePlanner.getState().plan===this.terrainBase){stroke.strength=Math.max(.1,stroke.strength*Math.min(1,(performance.now()-this.terrainStarted)/900));usePlanner.getState().addTerrainStroke(stroke);}else if(this.activePlan)this.terrain.update(this.activePlan);}
+        if(info.type===PointerEventTypes.POINTERUP&&this.terrainStroke){const stroke=this.terrainStroke;this.terrainStroke=undefined;this.resumeCameraControls();if(usePlanner.getState().plan===this.terrainBase){usePlanner.getState().addTerrainStroke(stroke);}else if(this.activePlan)this.terrain.update(this.activePlan);}
         return;
       }
       if(info.type===PointerEventTypes.POINTERDOWN && (info.event.button===0||info.event.button===2) && this.rotationMode && this.tool==='select'){

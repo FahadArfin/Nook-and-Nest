@@ -24,6 +24,7 @@ interface PlannerState {
   plantingBrush:PlantingBrush;setPlantingBrush(brush:PlantingBrush):void;
   plantingDraft?:{base:PlanDocumentV1;items:FurniturePlacement[]};
   previewPlanting(points:Array<{x:number;z:number}>):void;confirmPlanting():void;cancelPlanting():void;
+  wallDrawHeight:number;setWallDrawHeight(height:number):void;
   terrainRadius:number;terrainStrength:number;setTerrainBrush(radius:number,strength:number):void;
   addTerrainStroke(stroke:import('./terrain').TerrainStroke):void;
   cutWalls(cuts:Omit<WallSegment,"id">[],railingId?:string):void;
@@ -75,6 +76,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     const plan={...s.plan,furniture:[...s.plan.furniture,...draft.items.map(p=>({...p,id:uid()}))]};
     validatePlan(plan);return {...commit(s,plan,null),plantingDraft:undefined,placementNotice:undefined};
   }),
+  wallDrawHeight:0,setWallDrawHeight:wallDrawHeight=>set({wallDrawHeight}),
   terrainRadius:2,terrainStrength:.6,
   setTerrainBrush:(radius,strength)=>set({terrainRadius:Math.max(.5,Math.min(8,radius)),terrainStrength:Math.max(.1,Math.min(2,strength))}),
   addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};validatePlan(plan);return commit(state,plan);}),
@@ -134,7 +136,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   setWallHeight: heightMm=>set(state=>{if(!Number.isFinite(heightMm)||heightMm<1200||heightMm>5000)return {};const floor=state.plan.floors.find(f=>f.id===state.activeFloorId)!;const above=state.plan.floors.filter(f=>f.elevationMm>floor.elevationMm).sort((a,b)=>a.elevationMm-b.elevationMm)[0];if(above&&floor.elevationMm+heightMm>above.elevationMm)return {placementNotice:'This height reaches the floor above.'};return commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===floor.id?{...f,heightMm}:f)});}),
   setFloorFinish: (kind, finishId) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((floor) => floor.id === state.activeFloorId ? { ...floor, [kind]: finishId, ...(kind==="floorFinishId"?{cellFinishes:{}}:{wallFinishes:{}}) } : floor) })),
   cutWalls:(cuts,railingId)=>set(s=>({...commit(s,removeWallSections(s.plan,s.activeFloorId,cuts,railingId)),selectedWallId:undefined,tool:s.tool==="wall-cut"?"wall-cut":"select"})),
-  addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? (()=>{const added={...wall,id:uid()},next={...f,walls:[...f.walls,added],wallCuts:subtractWallCuts(f.wallCuts??[],[added])};if(f.blueprint)next.blueprint={...f.blueprint,wallCuts:next.wallCuts,geometryKey:geometryKey(next)};return next})() : f) })),
+  addWall: (wall) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? (()=>{const added={...wall,...(state.wallDrawHeight?{heightMm:Math.min(f.heightMm,state.wallDrawHeight)}:{}),id:uid()},next={...f,walls:[...f.walls,added],wallCuts:subtractWallCuts(f.wallCuts??[],[added])};if(f.blueprint)next.blueprint={...f.blueprint,wallCuts:next.wallCuts,geometryKey:geometryKey(next)};return next})() : f) })),
   addOpening: (kind, wallKey) => set((state) => commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, openings: [...f.openings, { id: uid(), kind, wallKey, offset: .5, widthMm: kind === "door" ? 914 : 1100, finishId: kind==="door"?state.activeDoorFinish:undefined }] } : f) })),
   addStair: (x, z) => set((state) => { const floorIndex = state.plan.floors.findIndex((f) => f.id === state.activeFloorId); const next = state.plan.floors[floorIndex + 1]; return commit(state, { ...state.plan, floors: state.plan.floors.map((f) => f.id === state.activeFloorId ? { ...f, stairs: [...f.stairs, { id: uid(), kind: "straight", x, z, rotation: 0, widthMm: 950, lengthMm: 3000, toFloorId: next?.id }] } : f) }); }),
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: modernDefaultVariant(catalogId), surfaceVariant: supportsCountertopFinish(catalogId) ? modernDefaultSurface(catalogId)??defaultCountertopFinish.id : undefined, elevationMm:defaultMountHeight(catalogId) }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),

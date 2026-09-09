@@ -75,7 +75,7 @@ describe("stair connection controls",()=>{
 describe("building editor wiring",()=>{
   it("opens backsplash browsing without placing anything, then confirms and edits a panel",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());const before=state().plan;
-    fireEvent.click(screen.getByRole("button",{name:"Add wall"}));await screen.findByRole("region",{name:"Wall tools"});fireEvent.click(screen.getByRole("button",{name:"Openings"}));expect(screen.queryByRole("button",{name:"Add kitchen backsplash"})).toBeNull();fireEvent.click(screen.getByRole("button",{name:/Remove wall segment/}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
+    fireEvent.click(screen.getByRole("button",{name:"Erase"}));await screen.findByRole("region",{name:"Erase tools"});fireEvent.click(screen.getByRole("button",{name:"Walls"}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
     const model=catalog.find(c=>c.id==="backsplash-subway")!;fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(state().plan.furniture).toEqual([]);fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));expect(state().plan.furniture).toHaveLength(1);
     const id=state().plan.furniture[0].id;act(()=>scene.callbacks.onSelect(id));
@@ -96,10 +96,10 @@ describe("building editor wiring",()=>{
     act(()=>state().select(state().plan.furniture[0].id));fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"1300"}});expect(state().plan.furniture[0].elevationMm).toBe(1300);
   });
   it("positions, cancels, and confirms an exact-size room through the editor toolbar",async()=>{
-    render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());fireEvent.click(screen.getByRole("button",{name:"Add wall"}));const tools=within(await screen.findByRole("region",{name:"Wall tools"}));fireEvent.click(tools.getByRole("button",{name:"Floor area"}));fireEvent.click(screen.getByText("Exact room size"));
+    render(<><App/><MeasuredRoom/></>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());fireEvent.click(screen.getByText("Exact room size"));
     const stage=within(screen.getByLabelText("Interactive 3D apartment editor").parentElement!);
     fireEvent.change(screen.getByLabelText("Room width"),{target:{value:"12' 6\""}});fireEvent.change(screen.getByLabelText("Room depth"),{target:{value:"10"}});
-    fireEvent.click(tools.getByRole("button",{name:"Place measured room"}));const before=state().plan;
+    fireEvent.click(screen.getByRole("button",{name:"Place measured room"}));const before=state().plan;
     act(()=>scene.callbacks.onCell(20,20));expect(scene.preview).toHaveBeenCalled();expect(state().plan).toBe(before);
     fireEvent.click(stage.getByRole("button",{name:"Cancel tile change"}));expect(state().plan).toBe(before);
     act(()=>scene.callbacks.onCell(20,20));fireEvent.click(stage.getByRole("button",{name:"Confirm tile change"}));
@@ -143,7 +143,7 @@ describe("outdoor and detail controls",()=>{
   });
   it("exposes zoom buttons and only enables detail focus after selection",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
-    fireEvent.click(screen.getByRole("button",{name:"Zoom in"}));expect(scene.zoom).toHaveBeenCalledWith(.75);
+    fireEvent.click(screen.getByRole("button",{name:"Zoom in"}));expect(scene.zoom).toHaveBeenCalledWith(Math.exp(-.09));
     expect((screen.getByRole("button",{name:"Focus selected furniture"}) as HTMLButtonElement).disabled).toBe(true);
     act(()=>{state().placeFurniture("small-plant");state().select(state().plan.furniture[0].id)});
     fireEvent.click(screen.getByRole("button",{name:"Focus selected furniture"}));expect(scene.focus).toHaveBeenCalled();
@@ -232,7 +232,9 @@ it('keeps home tools in dock drawers and reserves the inspector for selected fur
  fireEvent.click(within(land).getByRole('button',{name:'Plants'}));expect(screen.getByLabelText('Search plants')).toBeTruthy();
  fireEvent.click(screen.getByRole('button',{name:'Land formation'}));expect(state().tool).toBe('select');
  expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
- fireEvent.click(screen.getByRole('button',{name:'Nighttime'}));expect(state().plan.environment?.sun?.night).toBe(true);act(()=>state().undo());expect(state().plan.environment?.sun?.night).toBeUndefined();expect(screen.getByRole('button',{name:'Morning'}).getAttribute('aria-pressed')).toBe('true');fireEvent.keyDown(screen.getByRole('button',{name:'Morning'}),{key:'Escape'});expect(state().plan.environment?.sun?.enabled).toBe(false);fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));
+ expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.click(screen.getByRole('button',{name:'Nighttime'}));expect(state().plan.environment?.sun?.night).toBe(true);act(()=>state().undo());expect(state().plan.environment?.sun?.night).toBeUndefined();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.keyDown(screen.getByRole('button',{name:'Morning'}),{key:'Escape'});expect(state().plan.environment?.sun?.enabled).toBe(true);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.pointerDown(document.body);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();expect(state().plan.environment?.sun?.enabled).toBe(true);
+
 
  fireEvent.click(screen.getByRole('button',{name:'Paint tiles'}));await screen.findByRole('region',{name:'Floor finishes'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
 },15000);
