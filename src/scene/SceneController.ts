@@ -124,9 +124,9 @@ export class SceneController {
         const rects=plan.floors.flatMap(f=>floorRects(f,plan.gridSizeMm));
         const xs=rects.flatMap(r=>[r.x,r.x+r.width]),zs=rects.flatMap(r=>[r.z,r.z+r.depth]);
         const center=new Vector3(xs.length?(Math.min(...xs)+Math.max(...xs))/2000:0,Math.max(0,...plan.floors.map(f=>f.elevationMm))/1000,zs.length?(Math.min(...zs)+Math.max(...zs))/2000:0);
-        sun.position=center.subtract(sun.direction.scale(60));sun.intensity=1.15;
-        const warmth=Math.max(0,(35-settings.elevation)/30);sun.diffuse=new Color3(1,1-.2*warmth,1-.4*warmth);
-        if(sky){sky.intensity=.32;sky.diffuse=new Color3(.86,.92,1);sky.groundColor=new Color3(.35,.35,.32)}
+        sun.position=center.subtract(sun.direction.scale(60));sun.intensity=settings.night?.035:1.15;
+        const warmth=Math.max(0,(35-settings.elevation)/30);sun.diffuse=settings.night?new Color3(.55,.65,1):new Color3(1,1-.2*warmth,1-.4*warmth);
+        if(sky){sky.intensity=settings.night?.16:.32;sky.diffuse=new Color3(.86,.92,1);sky.groundColor=new Color3(.35,.35,.32)}
       }else{sun.direction=new Vector3(-.8,-1.5,.7);sun.position=new Vector3(10,18,-10);}
     }
     this.canvas.dataset.colorPreview=simulating?'sunlight':neutral?'neutral':'cozy';

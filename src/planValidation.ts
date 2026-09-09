@@ -47,7 +47,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}
-  if(p.environment?.sun!==undefined){const s=p.environment.sun;obj(s);if(typeof s.enabled!=='boolean')fail();num(s.azimuth,0,360);num(s.elevation,5,85);}
+  if(p.environment?.sun!==undefined){const s=p.environment.sun;obj(s);if(typeof s.enabled!=='boolean'||(s.night!==undefined&&typeof s.night!=='boolean'))fail();num(s.azimuth,0,360);num(s.elevation,5,85);}
   if(p.environment?.citySource!==undefined&&!['standard','google'].includes(p.environment.citySource))fail();
   if(p.environment?.cityHeight!==undefined)num(p.environment.cityHeight,100,400);
   if(p.environment?.backdropRotation!==undefined)num(p.environment.backdropRotation,0,360);
