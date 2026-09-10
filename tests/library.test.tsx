@@ -71,12 +71,8 @@ describe("library controls",()=>{
     expect(drag).toHaveBeenCalledTimes(1);expect(start).not.toHaveBeenCalled();expect(screen.getByLabelText("Expand library")).toBeTruthy();
     fireEvent.click(card,{detail:0});expect(start).toHaveBeenCalledWith(item("bath-mirror-pill"));
   },10000);
-  it("shows distinct already-placed pieces and never adds drafts itself",()=>{
-    usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("laptop");
-    const {start}=mount();fireEvent.click(screen.getByRole("button",{name:"In plan"}));
-    expect(screen.getAllByRole('button',{name:'Select'})).toHaveLength(usePlanner.getState().plan.furniture.length);
-    const before=usePlanner.getState().plan;fireEvent.click(screen.getAllByRole('button',{name:'Select'})[0]);
-    expect(start).not.toHaveBeenCalled();expect(usePlanner.getState().plan).toBe(before);expect(usePlanner.getState().selectedId).toBe(before.furniture[0].id);
+  it("keeps browsing focused on models without plan objects or sorting controls",()=>{
+    const {start}=mount();const before=usePlanner.getState().plan;expect(screen.queryByRole('button',{name:'In plan'})).toBeNull();expect(screen.queryByLabelText('Sort furniture')).toBeNull();fireEvent.click(screen.getAllByRole('button',{name:'Filter by Wall mounted'})[0]);expect(start).not.toHaveBeenCalled();expect(usePlanner.getState().plan).toBe(before);
   });
   it("shows an actionable empty search and keeps editing shortcuts out of library controls",()=>{
     mount();fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"no-such-piece"}});
@@ -84,7 +80,7 @@ describe("library controls",()=>{
     expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(catalog.length-1);
     const listener=vi.fn();window.addEventListener("keydown",listener);
     try{fireEvent.keyDown(screen.getByLabelText("Furniture category"),{key:"r"});expect(listener).not.toHaveBeenCalled()}finally{window.removeEventListener("keydown",listener)}
-    expect(within(screen.getByRole("group",{name:"Library collection"})).getAllByRole("button")).toHaveLength(3);
+    expect(within(screen.getByRole("group",{name:"Library collection"})).getAllByRole("button")).toHaveLength(2);
   },10000);
 });
 

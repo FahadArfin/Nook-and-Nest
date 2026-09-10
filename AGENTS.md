@@ -50,3 +50,5 @@ Floor Plan Studio uses a floating bottom dock matching 3D for Select, Add wall a
 Compact palette actions use icon buttons with accessible names and hover labels. All Studio drawing tools share the bottom dock; openings and fixtures expand upward. Studio logo returns home through unsaved-draft protection.
 
 Editor and Studio headers group branding, title, and actions compactly on the left; avoid automatic spacer margins and wrap controls on narrow screens.
+
+Library browsing uses descriptive model tags from category, mounting metadata and explicit model names. Keep Browse and Saved; omit In plan and the collection-sort dropdown. Tags filter without placement or plan mutation.

@@ -57,6 +57,12 @@ const families: Record<string, string[]> = {
 const typeById = new Map(Object.entries(families).flatMap(([family, ids]) => ids.map(id => [id, family] as const)));
 const typeAliases:Record<string,string>={"Pendants":"Pendant lights","Shelves":"Shelves & books","Bookcases":"Shelves & books","Lamps":"Table & floor lamps","Table lamps":"Table & floor lamps","Floor lamps":"Table & floor lamps"};
 export const furnitureType = (item: CatalogItem) => {const name=cozyType(item.id) ?? typeById.get(item.id) ?? "Other pieces";return typeAliases[name]??name;};
+export function modelTags(item:CatalogItem):string[]{
+ const tags:string[]=[item.category];const mount={wall:'Wall mounted',surface:'Tabletop',ceiling:'Ceiling mounted',floor:'Floor standing'};
+ if(item.mount)tags.push(mount[item.mount]);
+ for(const [pattern,label] of [[/\bround\b/i,'Round'],[/\bcorner\b/i,'Corner'],[/\bmodular\b/i,'Modular'],[/\bstorage\b/i,'Storage'],[/\badjustable\b/i,'Adjustable'],[/\barch(?:ed)?\b/i,'Arched']] as const)if(pattern.test(item.name))tags.push(label);
+ return tags;
+}
 const synonyms: Record<string, string> = {
   couch:"sofa", settee:"sofa", washroom:"bathroom", restroom:"bathroom", lavatory:"toilet",
   television:"tv", fridge:"refrigerator", computer:"computer", tub:"bathtub", basin:"sink",
