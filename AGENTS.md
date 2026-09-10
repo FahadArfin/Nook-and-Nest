@@ -56,3 +56,5 @@ Library browsing uses descriptive model tags from category, mounting metadata an
 Studio places Select/Move and Pan only in the bottom drawing dock. File, View and Import belong in the toolbar above the drawing, with their menus anchored below that row.
 
 Floor tabs use an adjacent plus and per-floor options for duplicate, vertical reorder and deletion. Dragging changes physical floor order, not just tab presentation. Preserve Undo and delete confirmation. Browser Back/Forward navigates editor and Studio with unsaved-draft protection.
+
+Floor tabs highlight the full selected tab including compact vertical dots. The menu contains only Clone, Delete and Rename. Drag left/right to reorder physical building levels; retain delete confirmation, last-layer clearing and Undo.
