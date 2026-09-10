@@ -21,8 +21,8 @@ it('keeps previous saves in My projects, opens them explicitly, and returns home
  fireEvent.click(screen.getByText('Home'));await screen.findByRole('navigation',{name:'Start planning'});expect((await listLocalPlans()).map(p=>p.name)).toEqual(['Saved home']);
 });
 it('confirms local deletion and does not recreate the deleted active project while browsing',async()=>{
- const p=createSamplePlan('Remove me');await savePlan(p);render(<Welcome Editor={Editor}/>);const button=screen.getByRole('button',{name:/My projects/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));fireEvent.click(button);await screen.findByText('Remove me');
- const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);fireEvent.click(screen.getByLabelText('Actions for Remove me'));fireEvent.click(screen.getByRole('button',{name:'Delete local copy'}));expect(await loadPlan()).toEqual(p);
+ const p=createSamplePlan('Remove me');await savePlan(p);render(<Welcome Editor={Editor}/>);const button=screen.getByRole('button',{name:/My projects/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));fireEvent.click(button);await within(await screen.findByRole('dialog',{name:'Your projects'})).findByText('Remove me');
+ const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);fireEvent.click(await screen.findByLabelText('Actions for Remove me'));fireEvent.click(screen.getByRole('button',{name:'Delete local copy'}));expect(await loadPlan()).toEqual(p);
  confirm.mockReturnValue(true);fireEvent.click(screen.getByRole('button',{name:'Delete local copy'}));await screen.findByText('Deleted “Remove me”.');expect(await listLocalPlans()).toEqual([]);expect(await loadPlan()).toBeUndefined();confirm.mockRestore();
 });
 it('preserves explicit shared-plan links instead of replacing them with a blank project',async()=>{
