@@ -6,7 +6,7 @@ import { autoFurnish, draftFromFloor } from './blueprint';
 import { usePlanner } from './store';
 import type { PlanDocumentV1 } from './types';
 
-export function BlueprintControls({busy,onPreview,onBusy,onCreated}:{busy:boolean;onPreview:(plan?:PlanDocumentV1)=>void;onBusy:(busy:boolean)=>void;onCreated?:()=>void}) {
+export function BlueprintControls({busy,onPreview,onBusy,onCreated,onHome}:{onHome?:()=>void;busy:boolean;onPreview:(plan?:PlanDocumentV1)=>void;onBusy:(busy:boolean)=>void;onCreated?:()=>void}) {
   const state=usePlanner(),[open,setOpen]=useState(false),[error,setError]=useState('');
   useEffect(()=>{onBusy(open);return()=>onBusy(false);},[open,onBusy]);
   const generate=()=>{
@@ -22,7 +22,7 @@ export function BlueprintControls({busy,onPreview,onBusy,onCreated}:{busy:boolea
   return <>
     <button disabled={busy} onClick={()=>{setError('');setOpen(true);}}><GridFour/> Floor plan</button>
     <button disabled={busy||open} onClick={generate}><Sparkle/> Quick layout</button>
-    {open&&createPortal(<BlueprintStudio onClose={()=>setOpen(false)} onCreated={onCreated}/>,document.body)}
+    {open&&createPortal(<BlueprintStudio onHome={onHome} onClose={()=>setOpen(false)} onCreated={onCreated}/>,document.body)}
     {error&&createPortal(<div className="bp-controls-notice" role="alert">{error}<button aria-label="Dismiss floor plan notice" onClick={()=>setError('')}><X/></button></div>,document.body)}
   </>;
 }

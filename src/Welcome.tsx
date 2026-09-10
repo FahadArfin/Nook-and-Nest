@@ -53,6 +53,6 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
    <div className="welcome-art"><img src={dark?'/assets/welcome-dollhouse-dark.webp':'/assets/welcome-dollhouse-light.webp'} alt="A cozy miniature room with a sage sofa, oak staircase and glowing arched window; inspiration for your own space" fetchPriority="high"/></div>
   </div>
   {projects&&ready&&<ProjectLibrary browseOnly onClose={()=>setProjects(false)} onOpen={()=>setEditing(true)}/>}
-  {studio&&<BlueprintStudio onClose={()=>setStudio(false)} onCreated={()=>setEditing(true)}/>}
+  {studio&&<BlueprintStudio onHome={()=>{setStudio(false);setEditing(false)}} onClose={()=>setStudio(false)} onCreated={()=>setEditing(true)}/>}
  </main>;
 }

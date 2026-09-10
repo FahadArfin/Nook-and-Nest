@@ -46,3 +46,5 @@ Palette refinement: align Paint and Outdoors at one shared canvas-centered posit
 Beta refinement: consolidate structural tools under Build with Walls/Floors and Add/Remove; use rounded project-sort toggles and three recent local project previews on the welcome page. Remove the generic example and top More button. Studio reuses branded editor header styling and a fit/zoom rail; its Rooms sidebar uses one sliding icon toggle.
 
 Floor Plan Studio uses a floating bottom dock matching 3D for Select, Add wall and Remove wall; paint and outdoor actions stay in 3D.
+
+Compact palette actions use icon buttons with accessible names and hover labels. All Studio drawing tools share the bottom dock; openings and fixtures expand upward. Studio logo returns home through unsaved-draft protection.

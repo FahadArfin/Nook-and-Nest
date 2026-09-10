@@ -5,7 +5,7 @@ import {Surroundings} from './ToolBrowser';
 import {TerrainSettings} from './TerrainSettings';
 import {PlantingSettings} from './PlantingSettings';
 import type {CatalogItem} from './types';
-import {X} from '@phosphor-icons/react';
+import {X,SlidersHorizontal,Check} from '@phosphor-icons/react';
 import {SurfaceBrowser} from './SurfaceBrowser';
 import './bottom-tools.css';
 
@@ -51,7 +51,7 @@ function LandscapeMenus({onPlace,onView,onBrowseLibrary,onCompactChange}:{onPlac
  const s=usePlanner();
  const label=s.tool==='planting'?'Plant brush':s.tool==='terrain-raise'?'Hill brush':s.tool==='terrain-lower'?'Hollow brush':s.tool==='terrain-river'?'River brush':'Surroundings';
  return <div className="landscape-menus">
- {compact&&<div className="active-tool-strip"><strong>{label}</strong><QuickBrushControls/><button onClick={expand}>Change outdoor options</button><button onClick={()=>s.setTool('select')}>Done</button></div>}
+ {compact&&<div className="active-tool-strip"><strong>{label}</strong><QuickBrushControls/><button className="compact-action" aria-label="Change outdoor options" title="Outdoor options" onClick={expand}><SlidersHorizontal size={20}/></button><button className="compact-action" aria-label="Done sculpting or planting" title="Done" onClick={()=>s.setTool('select')}><Check size={20}/></button></div>}
  <div hidden={compact} className="outdoor-palette"><nav className="task-subtabs" aria-label="Landscape tools">{['Terrain','Plants','Surroundings'].map(label=><button key={label} aria-pressed={choice===label} onClick={()=>{s.setTool('select');setChoice(label)}}>{label}</button>)}</nav>
  <div className="landscape-detail is-open" aria-label={choice+' options'}>{choice==='Terrain'?<TerrainSettings onChoose={collapse}/>:choice==='Plants'?<PlantingSettings onPlace={onPlace} onChoose={collapse}/>:<Surroundings onView={onView} onBrowseLibrary={onBrowseLibrary} onChoose={collapse}/>}</div></div></div>;
 }

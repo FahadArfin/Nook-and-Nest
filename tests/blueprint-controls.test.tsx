@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach,beforeEach,describe,expect,it,vi } from 'vitest';
-import { act,cleanup,fireEvent,render,screen } from '@testing-library/react';
+import { act,cleanup,fireEvent,render,screen,within } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import {recognizeReference} from '../src/blueprintRecognition';
 import { BlueprintStudio } from '../src/BlueprintStudio';
@@ -260,4 +260,11 @@ it('defaults room dimensions to feet and inches, hides coordinates and preserves
  fireEvent.change(screen.getByLabelText('Width inches'),{target:{value:'6'}});fireEvent.blur(screen.getByLabelText('Width inches'));
  expect(rect.getAttribute('width')).toBe('2896');expect(rect.getAttribute('x')).toBe('0');
  fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByLabelText('Width inches')).toHaveValue('4 7/8');
+});
+
+it('groups every drawing action in the bottom dock and protects home navigation',()=>{
+ const onHome=vi.fn(),onClose=vi.fn();render(<BlueprintStudio onHome={onHome} onClose={onClose}/>);
+ const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'}));
+ for(const name of ['Inside wall','Remove wall section','Draw room area','Add room by dimensions','Combine rooms','Doors, entrances and windows','Choose optional fixtures'])expect(dock.getByRole('button',{name})).toBeTruthy();
+ fireEvent.click(dock.getByRole('button',{name:'Add room by dimensions'}));vi.mocked(window.confirm).mockReturnValue(false);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onHome).not.toHaveBeenCalled();expect(onClose).not.toHaveBeenCalled();vi.mocked(window.confirm).mockReturnValue(true);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onClose).toHaveBeenCalledOnce();expect(onHome).toHaveBeenCalledOnce();
 });
