@@ -104,6 +104,8 @@ describe('analysis cost safeguards (no paid requests)',()=>{
       expect(fetcher).toHaveBeenCalledTimes(1);expect(status).toHaveBeenCalledWith(expect.stringContaining('no API charge'));
       expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
       expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey(ref,'gpt-6-astra'));
+      expect(await recognitionKey(ref,'gpt-5.6-luna','',false)).toBe(await recognitionKey(ref,'gpt-5.6-luna'));
+      expect(await recognitionKey(ref,'gpt-5.6-luna','',true)).not.toBe(await recognitionKey(ref,'gpt-5.6-luna'));
       expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey({...ref,width:999},'gpt-5.6-luna'));
       await recognizeReference(ref,undefined,{model:'gpt-5.6-luna'});expect(fetcher).toHaveBeenCalledTimes(1);
       clearRecognitionCache();await recognizeReference(ref);expect(fetcher).toHaveBeenCalledTimes(2);
