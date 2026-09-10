@@ -41,3 +41,6 @@
 .bottom-tools.is-compact .landscape-menus{padding:0!important}
 @media(max-width:700px){.canvas-stage>.editor-navigation{top:6px;left:6px;right:6px;max-width:calc(100% - 12px);width:auto}.editor-navigation button{min-height:44px!important}.canvas-stage>.canvas-tools{top:66px;right:6px}.canvas-stage>.canvas-tools button,.canvas-tools .performance-control>summary{width:40px;min-width:40px;height:40px;min-height:40px}.canvas-tools .zoom-control{width:40px}}
 @media(max-height:640px){.canvas-stage>.canvas-tools{display:grid;grid-template-columns:38px 38px;width:90px}.canvas-tools .zoom-control{grid-column:1/-1;flex-direction:row;width:auto;justify-content:space-between}.canvas-stage>.editor-navigation{max-width:calc(100% - 116px)}}
+.canvas-stage>.floor-stats{top:auto;bottom:90px}
+.bottom-tools{transition:transform 650ms cubic-bezier(.22,.61,.36,1),opacity 650ms ease,width 350ms ease,max-height 350ms ease}
+@media(prefers-reduced-motion:reduce){.bottom-tools{transition:none}}
