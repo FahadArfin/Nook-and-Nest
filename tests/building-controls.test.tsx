@@ -141,12 +141,12 @@ describe("outdoor and detail controls",()=>{
     fireEvent.click(screen.getByRole("button",{name:"Browse outdoor furniture"}));expect(state().category).toBe("Outdoor");
     act(()=>state().undo());expect(state().plan.environment?.grass).toBe("off");
   });
-  it("exposes zoom buttons and only enables detail focus after selection",async()=>{
+  it("exposes zoom without a redundant focus button",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
     fireEvent.click(screen.getByRole("button",{name:"Zoom in"}));expect(scene.zoom).toHaveBeenCalledWith(Math.exp(-.09));
-    expect((screen.getByRole("button",{name:"Focus selected furniture"}) as HTMLButtonElement).disabled).toBe(true);
+    expect(screen.queryByRole("button",{name:"Focus selected furniture"})).toBeNull();
     act(()=>{state().placeFurniture("small-plant");state().select(state().plan.furniture[0].id)});
-    fireEvent.click(screen.getByRole("button",{name:"Focus selected furniture"}));expect(scene.focus).toHaveBeenCalled();
+    expect(screen.queryByRole("button",{name:"Focus selected furniture"})).toBeNull();
   });
 });
 
