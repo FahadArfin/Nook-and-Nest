@@ -26,7 +26,7 @@ export function FloorBar({ onBeforeDelete }: { onBeforeDelete(): void }) {
       <button className="floor-action" onClick={state.addFloor}><Plus size={17}/> Add floor</button>
       <button ref={triggerRef} className="floor-action floor-delete" onClick={()=>setTargetId(state.activeFloorId)}><Trash size={17}/>{onlyFloor?"Clear floor":"Delete floor"}</button>
     </div>
-    <div className="floor-options"><label><input type="checkbox" checked={state.plan.camera.ghostBelow} onChange={()=>state.toggleCameraSetting("ghostBelow")}/><span/> Ghost floor below</label></div>
+
     <dialog className="floor-delete-dialog" ref={dialogRef} aria-labelledby="floor-delete-title" aria-describedby="floor-delete-description" onCancel={event=>{event.preventDefault();close()}} onKeyDown={event=>event.stopPropagation()}>
       <span className="eyebrow">{onlyFloor?"Start this floor fresh":"Remove a floor"}</span>
       <h2 id="floor-delete-title">{onlyFloor?"Clear":"Delete"} “{target?.name}”?</h2>

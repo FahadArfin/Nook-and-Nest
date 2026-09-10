@@ -1,9 +1,9 @@
-import {createExamplePlan} from './examplePlan';
+import {PlanThumbnail} from './PlanThumbnail';
 import './ux.css';
 import {useEffect,useState,type ComponentType} from 'react';
 import {CaretRight,Armchair,FolderOpen,GridFour,Leaf,LockSimple,Monitor,Sun,Moon} from '@phosphor-icons/react';
 import {AppearanceContext,useAppearance,useWelcomeTheme} from './useWelcomeTheme';
-import {createBlankPlan,createSamplePlan} from './domain';
+import {createBlankPlan} from './domain';
 import {loadPlan,savePlan,usePlanner,listLocalPlans} from './store';
 import {ProjectLibrary} from './ProjectLibrary';
 import {BlueprintStudio} from './BlueprintStudio';
@@ -18,7 +18,7 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
  const {theme,chooseTheme,dark}=useAppearance()!;
  const [ready,setReady]=useState(false),[editing,setEditing]=useState(false),[studio,setStudio]=useState(false);
  const [projects,setProjects]=useState(new URLSearchParams(location.search).has('projects'));
- const [error,setError]=useState('');const [recent,setRecent]=useState<PlanDocumentV1>();useEffect(()=>{let active=true;listLocalPlans().then(plans=>{if(active)setRecent(plans.sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt))[0])}).catch(()=>{});return()=>{active=false}},[]);
+ const [error,setError]=useState('');const [recent,setRecent]=useState<PlanDocumentV1[]>([]);useEffect(()=>{let active=true;listLocalPlans().then(plans=>{if(active)setRecent(plans.sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)).slice(0,3))}).catch(()=>{});return()=>{active=false}},[editing,projects]);
  useEffect(()=>{let active=true;
   (async()=>{try{const plan=showcase?showcase():await loadPlan();if(!active)return;if(plan)usePlanner.getState().replacePlan(plan);
    if(showcase||(new URLSearchParams(location.hash.slice(1)).has('plan')||new URLSearchParams(location.hash.slice(1)).has('share')))setEditing(true);
@@ -46,9 +46,8 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
      <button disabled={!ready} className="welcome-choice welcome-primary" onClick={()=>start(true)}><span className="welcome-choice-icon"><GridFour/></span><span className="welcome-choice-copy"><span className="welcome-choice-title">Create floor plan</span><span className="welcome-choice-description">Draw your rooms or trace a reference,<br className="welcome-wide-break"/> then bring your layout into 3D.</span></span><CaretRight className="welcome-choice-arrow"/></button>
      <button disabled={!ready} className="welcome-choice welcome-editor" onClick={()=>start(false)}><span className="welcome-choice-icon"><Armchair/></span><span className="welcome-choice-copy"><span className="welcome-choice-title">Free 3D editor</span><span className="welcome-choice-description">Furnish, explore, and visualize<br className="welcome-wide-break"/> your space in 3D.</span></span><CaretRight className="welcome-choice-arrow"/></button>
      <button disabled={!ready} className="welcome-choice welcome-projects" onClick={()=>setProjects(true)}><span className="welcome-choice-icon"><FolderOpen/></span><span className="welcome-choice-copy"><span className="welcome-choice-title">My projects</span><span className="welcome-choice-description">Open your saved spaces and<br className="welcome-wide-break"/> pick up where you left off.</span></span><CaretRight className="welcome-choice-arrow"/></button>
-     <button className="welcome-example" disabled={!ready} onClick={()=>{usePlanner.getState().replacePlan(createExamplePlan());setEditing(true)}}>Try an example apartment</button>
-     {recent&&<button disabled={!ready} onClick={()=>{usePlanner.getState().replacePlan(recent);setEditing(true)}}>Continue {recent.name}</button>}
     </nav>
+    <section className="welcome-recents" aria-labelledby="recent-heading"><header><div><span className="eyebrow">Your next chapter</span><h2 id="recent-heading">Continue where you left off</h2></div><button onClick={()=>setProjects(true)}>View all <CaretRight/></button></header>{recent.length?<div className="recent-grid">{recent.map(project=><button className="recent-project" disabled={!ready} key={project.id} onClick={()=>{usePlanner.getState().replacePlan(project);window.history.replaceState(null,'',location.pathname);setEditing(true)}}><PlanThumbnail plan={project}/><strong>{project.name}</strong><small>{new Date(project.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · On this device</small><span>Continue <CaretRight/></span></button>)}</div>:<p>Your spaces will appear here as you create. Start a floor plan or explore the free editor.</p>}</section>
     <footer className="welcome-footer"><LockSimple size={17}/> No account needed · Saved on this device</footer>
    </section>
    <div className="welcome-art"><img src={dark?'/assets/welcome-dollhouse-dark.webp':'/assets/welcome-dollhouse-light.webp'} alt="A cozy miniature room with a sage sofa, oak staircase and glowing arched window; inspiration for your own space" fetchPriority="high"/></div>

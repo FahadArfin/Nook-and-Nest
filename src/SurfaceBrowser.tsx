@@ -7,7 +7,7 @@ import {PaintPicker} from './PaintPicker';
 
 type Scope='sections'|'brush'|'whole'|'exterior';
 export function SurfaceBrowser({floorOnly=false,wallsOnly=false,onCompactChange}:{floorOnly?:boolean;wallsOnly?:boolean;onCompactChange?:(compact:boolean)=>void}={}){
- const [minimized,setMinimized]=useState(false);
+ const [minimized,setMinimized]=useState(false),[recent,setRecent]=useState<string[]>([]);
  const collectionRef=useRef<HTMLDivElement>(null);
  const s=usePlanner(),floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;
  const [target,setTarget]=useState<'Floor'|'Walls'>(wallsOnly||!floorOnly&&s.selectedWallId?'Walls':'Floor');
@@ -23,13 +23,13 @@ export function SurfaceBrowser({floorOnly=false,wallsOnly=false,onCompactChange}
  const chosen=(target==='Floor'?findFloorFinish:findWallFinish)(pending??current);
  const variants=groups.find(g=>g.variants.some(f=>f.id===chosen.id))?.variants??[];
  const changeScope=(next:Scope)=>{setScope(next);setPending(undefined);setMessage('');s.setTool('select');if(target==='Walls'&&next==='sections')s.beginWallSelection()};
- const choose=(id:string)=>{if(onCompactChange){setMinimized(true);onCompactChange(true)}setMessage('');usePlanner.setState({activeSurfaceFinish:id});if(scope==='whole'||scope==='exterior'||(target==='Walls'&&scope==='sections'))setPending(id);else s.setSurfaceBrush(target==='Floor'?'floor-finish':'wall-finish',id)};
+ const choose=(id:string)=>{setRecent(old=>[id,...old.filter(v=>v!==id)].slice(0,6));if(onCompactChange){setMinimized(true);onCompactChange(true)}setMessage('');usePlanner.setState({activeSurfaceFinish:id});if(scope==='whole'||scope==='exterior'||(target==='Walls'&&scope==='sections'))setPending(id);else s.setSurfaceBrush(target==='Floor'?'floor-finish':'wall-finish',id)};
  const count=s.wallSelectionActive?s.paintWallIds.length:s.selectedWallId?1:0;
  const action=scope==='sections'&&target==='Walls'?`Paint ${count} wall${count===1?'':'s'}`:scope==='exterior'?'Paint outer walls':target==='Floor'?'Apply to whole floor':'Paint all walls';
  const apply=()=>{if(!pending)return;if(scope==='sections'&&target==='Walls'){if(s.wallSelectionActive)s.finishSelectedWalls(pending);else if(s.selectedWallId)s.finishWall(s.selectedWallId,pending);else return;}else if(scope==='exterior')s.finishWallGroup('exterior',pending);else s.setFloorFinish(kind,pending);setMessage(`Applied ${chosen.name}. Undo restores the previous finishes.`);setPending(undefined)};
  const scopes=target==='Walls'?[{id:'brush',name:'Brush',icon:PaintRoller},{id:'sections',name:'Select walls',icon:Wall},{id:'whole',name:'All walls',icon:Selection},{id:'exterior',name:'Outer walls',icon:BoundingBox}]:[{id:'sections',name:'Paint area',icon:PaintRoller},{id:'whole',name:'Whole floor',icon:GridFour}];
- if(minimized&&onCompactChange)return <div className="active-tool-strip"><strong>{chosen.name}</strong><button onClick={()=>{setMinimized(false);onCompactChange(false)}}>Change finish</button>{pending?<button disabled={target==='Walls'&&scope==='sections'&&!count} onClick={apply}>{action}</button>:<button onClick={()=>s.setTool('select')}>Done painting</button>}{pending&&<button onClick={()=>setPending(undefined)}>Cancel</button>}</div>;
- return <><button className="paint-collapse" aria-expanded={!minimized} onClick={()=>setMinimized(!minimized)}>{minimized?"Choose another finish":"Minimize palette to paint"}</button>
+ if(minimized&&onCompactChange)return <div className="active-tool-strip"><strong>{chosen.name}</strong><div className="quick-finishes" role="group" aria-label="Quick finishes">{[...new Set([chosen.id,...recent.filter(id=>finishes.some(f=>f.id===id)),...finishes.slice(0,6).map(f=>f.id)])].slice(0,6).map(id=>{const finish=(target==='Floor'?findFloorFinish:findWallFinish)(id);return <button key={id} aria-label={`Use ${finish.name}`} title={finish.name} aria-pressed={id===chosen.id} style={{backgroundColor:finish.color??'#e4d7bd',backgroundImage:finish.texture?`url(${finish.texture})`:undefined}} onClick={()=>choose(id)}/>})}</div><button onClick={()=>{setMinimized(false);onCompactChange(false)}}>Change finish</button>{pending?<button disabled={target==='Walls'&&scope==='sections'&&!count} onClick={apply}>{action}</button>:<button onClick={()=>s.setTool('select')}>Done painting</button>}{pending&&<button onClick={()=>setPending(undefined)}>Cancel</button>}</div>;
+ return <>{!onCompactChange&&<button className="paint-collapse" aria-expanded={!minimized} onClick={()=>setMinimized(!minimized)}>{minimized?"Choose another finish":"Minimize palette to paint"}</button>}
   {!floorOnly&&!wallsOnly&&<div className="task-subtabs" aria-label="Surface">{(['Walls','Floor'] as const).map(t=><button key={t} aria-pressed={target===t} onClick={()=>{s.setTool('select');setTarget(t);setScope(t==='Walls'?'brush':'sections');setFamily(t==='Walls'?'Paint':'All');setSearch('');setPending(undefined);setMessage('')}}>{t==='Walls'?<PaintRoller/>:<GridFour/>}{t}</button>)}</div>}
   <div className="finish-workflow guided-workflow">
    <h2>Make it yours</h2>

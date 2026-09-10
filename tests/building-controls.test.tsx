@@ -75,7 +75,7 @@ describe("stair connection controls",()=>{
 describe("building editor wiring",()=>{
   it("opens backsplash browsing without placing anything, then confirms and edits a panel",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());const before=state().plan;
-    fireEvent.click(screen.getByRole("button",{name:"Erase"}));await screen.findByRole("region",{name:"Erase tools"});fireEvent.click(screen.getByRole("button",{name:"Walls"}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
+    fireEvent.click(screen.getByRole("button",{name:"Build"}));const build=await screen.findByRole("region",{name:"Build tools"});fireEvent.click(within(build).getByRole("button",{name:"Remove"}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
     const model=catalog.find(c=>c.id==="backsplash-subway")!;fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(state().plan.furniture).toEqual([]);fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));expect(state().plan.furniture).toHaveLength(1);
     const id=state().plan.furniture[0].id;act(()=>scene.callbacks.onSelect(id));
@@ -204,10 +204,10 @@ it('opens floor finishes from the compact dock and centers without editing the p
  render(<App/>);const before=state().plan;
  expect(screen.queryByRole('button',{name:'Inside door'})).toBeNull();
  expect(screen.queryByTitle('Clearance guides')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');expect(await screen.findByRole('region',{name:'Wall tools'})).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'Build'}));expect(state().tool).toBe('wall');expect(await screen.findByRole('region',{name:'Build tools'})).toBeTruthy();
  fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint'}));const tray=await screen.findByRole('region',{name:'Paint surfaces'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();fireEvent.click(within(tray).getByRole('button',{name:'Walls'}));expect(within(tray).getByRole('button',{name:'All walls'})).toBeTruthy();fireEvent.click(within(tray).getByRole('button',{name:'Floor'}));expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
  fireEvent.click(within(tray).getByRole('button',{name:'Close paint surfaces'}));expect(screen.queryByRole('region',{name:'Paint surfaces'})).toBeNull();expect(state().tool).toBe('select');
- fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=await screen.findByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Walls'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floors'}));expect(state().tool).toBe('erase');
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Build'}));const build=await screen.findByRole('region',{name:'Build tools'});fireEvent.click(within(build).getByRole('button',{name:'Remove'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(build).getByRole('button',{name:'Floors'}));expect(state().tool).toBe('erase');fireEvent.click(within(build).getByRole('button',{name:'Add'}));expect(state().tool).toBe('paint');
  fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
 },15000);
 
@@ -228,7 +228,7 @@ it('uses an icon-only opt-in Move toggle, swaps the end actions and keeps colors
 it('keeps home tools in dock drawers and reserves the inspector for selected furniture',async()=>{
  render(<App/>);expect(screen.queryByRole('button',{name:'Decorate'})).toBeNull();expect(document.querySelector('.workspace>.inspector-panel')).toBeNull();
  fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));const land=await screen.findByRole('region',{name:'Outdoors'});
- fireEvent.click(within(land).getByRole('button',{name:'Terrain'}));await screen.findByRole('button',{name:'Hill'});fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');
+ fireEvent.click(within(land).getByRole('button',{name:'Terrain'}));await screen.findByRole('button',{name:'Hill'});fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');fireEvent.change(screen.getByLabelText('Quick terrain brush size'),{target:{value:'6'}});expect(state().terrainRadius).toBe(6);
  expect(within(land).queryByRole('button',{name:'Hill'})).toBeNull();fireEvent.click(within(land).getByRole('button',{name:'Change outdoor options'}));fireEvent.click(within(land).getByRole('button',{name:'Plants'}));await screen.findByLabelText('Search plants');expect(screen.getByLabelText('Search plants')).toBeTruthy();
  fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));expect(state().tool).toBe('select');
  expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
@@ -245,4 +245,13 @@ it('collapses paint after choosing a finish and preserves the brush when reopene
  expect(within(tray).queryByLabelText('Search finishes')).toBeNull();expect(state().tool).toBe('floor-finish');
  const chosen=state().activeSurfaceFinish;fireEvent.click(within(tray).getByRole('button',{name:'Change finish'}));
  expect(within(tray).getByLabelText('Search finishes')).toBeTruthy();expect(state().activeSurfaceFinish).toBe(chosen);expect(state().tool).toBe('floor-finish');
+});
+
+it('keeps rendering and ghost-floor controls in the sliding settings panel',()=>{
+ render(<App/>);expect(screen.queryByRole('switch',{name:'Ghost floor below'})).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Settings'}));const settings=screen.getByRole('region',{name:'Settings'});
+ fireEvent.click(within(settings).getByRole('button',{name:'Battery'}));expect(localStorage.getItem('nook-render-quality')).toBe('battery');
+ const before=state().plan.camera.ghostBelow;fireEvent.click(within(settings).getByRole('switch',{name:'Ghost floor below'}));expect(state().plan.camera.ghostBelow).toBe(!before);
+ fireEvent.keyDown(within(settings).getByRole('button',{name:'Auto'}),{key:'Escape'});expect(screen.queryByRole('region',{name:'Settings'})).toBeNull();
+ localStorage.removeItem('nook-render-quality');
 });

@@ -40,3 +40,7 @@ September 9 UX review: keep phone drawing space available with a dismissible Roo
 Beta controls refinement: Quick layout applies directly with one-step Undo, without a review menu. Keep view and planning actions side by side. Paint and Outdoors share tabbed floating palettes that collapse after choosing a finish, plant or terrain tool; retain the active tool and an explicit reopen control. Camera controls use consistent compact icon buttons. Beta-only publication remains in effect.
 
 Free editor cleanup: do not show an empty-plan starter card over the canvas; use the existing top Floor plan button. Remove the right-side selected-furniture magnifier, retaining zoom +/- and Center home.
+
+Palette refinement: align Paint and Outdoors at one shared canvas-centered position and width. Collapsed palettes retain quick size/strength or density sliders and paint swatches. Settings slides out with concise quality choices and a hover/focus/tap information control; Ghost floor below belongs inside Settings.
+
+Beta refinement: consolidate structural tools under Build with Walls/Floors and Add/Remove; use rounded project-sort toggles and three recent local project previews on the welcome page. Remove the generic example and top More button. Studio reuses branded editor header styling and a fit/zoom rail; its Rooms sidebar uses one sliding icon toggle.

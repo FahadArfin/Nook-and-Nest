@@ -5,9 +5,9 @@ import {usePlanner} from './store';
 import {defaultSun} from './sunlight';
 
 /** Portal into the canvas so scrolling toolbars cannot clip their popovers. */
-function ToolPopover({anchor,open,side,label,onClose,children}:{anchor:RefObject<HTMLButtonElement|null>;open:boolean;side:'above'|'left';label:string;onClose:()=>void;children:ReactNode}){
+export function ToolPopover({anchor,open,side,label,onClose,children}:{anchor:RefObject<HTMLButtonElement|null>;open:boolean;side:'above'|'left';label:string;onClose:()=>void;children:ReactNode}){
  const panel=useRef<HTMLDivElement>(null),[host,setHost]=useState<Element|null>(null);
- useEffect(()=>{if(!open||label!=='Sunlight')return;const dismiss=(e:PointerEvent)=>{if(!panel.current?.contains(e.target as Node)&&!anchor.current?.contains(e.target as Node))onClose()};document.addEventListener('pointerdown',dismiss);return()=>document.removeEventListener('pointerdown',dismiss)},[open,onClose,anchor,label]);
+ useEffect(()=>{if(!open||side!=='left')return;const dismiss=(e:PointerEvent)=>{if(!panel.current?.contains(e.target as Node)&&!anchor.current?.contains(e.target as Node))onClose()};document.addEventListener('pointerdown',dismiss);return()=>document.removeEventListener('pointerdown',dismiss)},[open,onClose,anchor,side]);
 
  useLayoutEffect(()=>{setHost(anchor.current?.closest('.canvas-stage')??null)},[anchor]);
  useLayoutEffect(()=>{

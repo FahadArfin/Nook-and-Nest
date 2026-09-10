@@ -17,7 +17,7 @@ it('opens on the menu without saving a starter project, and creates a completely
 it('keeps previous saves in My projects, opens them explicitly, and returns home safely',async()=>{
  const p=createSamplePlan('Saved home');await savePlan(p);render(<Welcome Editor={Editor}/>);
  const button=screen.getByRole('button',{name:/My projects/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));expect(screen.queryByRole('region',{name:'Editor'})).toBeNull();fireEvent.click(button);
- const title=await screen.findByText('Saved home');fireEvent.click(within(title.closest('article')!).getByRole('button',{name:'Open'}));await screen.findByRole('region',{name:'Editor'});expect(usePlanner.getState().plan).toEqual(p);
+ const library=await screen.findByRole('dialog',{name:'Your projects'});const title=await within(library).findByText('Saved home');fireEvent.click(within(title.closest('article')!).getByRole('button',{name:'Open'}));await screen.findByRole('region',{name:'Editor'});expect(usePlanner.getState().plan).toEqual(p);
  fireEvent.click(screen.getByText('Home'));await screen.findByRole('navigation',{name:'Start planning'});expect((await listLocalPlans()).map(p=>p.name)).toEqual(['Saved home']);
 });
 it('confirms local deletion and does not recreate the deleted active project while browsing',async()=>{
@@ -56,4 +56,13 @@ it('follows live OS appearance by default, preserves manual preference, and clea
 it('keeps the appearance control usable when browser storage is blocked',async()=>{
  const get=vi.spyOn(Storage.prototype,'getItem').mockImplementation(()=>{throw new Error('blocked');});const set=vi.spyOn(Storage.prototype,'setItem').mockImplementation(()=>{throw new Error('blocked');});
  const {container}=render(<Welcome Editor={Editor}/>);fireEvent.click(screen.getByLabelText('Use dark theme'));expect(container.querySelector('main')?.getAttribute('data-theme')).toBe('dark');fireEvent.click(screen.getByLabelText('Use light theme'));expect(container.querySelector('main')?.getAttribute('data-theme')).toBe('light');get.mockRestore();set.mockRestore();
+});
+
+it('shows only the three most recent device projects and opens a chosen card',async()=>{
+ for(let i=0;i<4;i++)await savePlan({...createSamplePlan('Recent '+i),updatedAt:`2026-09-0${i+1}T12:00:00.000Z`});
+ render(<Welcome Editor={Editor}/>);const section=await screen.findByRole('region',{name:'Continue where you left off'});await within(section).findByText('Recent 3');expect(within(section).queryByText('Recent 0')).toBeNull();expect(within(section).getAllByRole('button')).toHaveLength(4);fireEvent.click(within(section).getByRole('button',{name:/Recent 2/}));expect(usePlanner.getState().plan.name).toBe('Recent 2');
+});
+
+it('sorts projects through rounded toggle buttons without opening or changing a plan',async()=>{
+ await savePlan({...createSamplePlan('Zebra'),updatedAt:'2026-09-09T12:00:00.000Z'});await savePlan({...createSamplePlan('Aspen'),updatedAt:'2026-09-08T12:00:00.000Z'});render(<Welcome Editor={Editor}/>);const entry=screen.getByRole('button',{name:/My projects/});await waitFor(()=>expect(entry.hasAttribute('disabled')).toBe(false));fireEvent.click(entry);const dialog=await screen.findByRole('dialog',{name:'Your projects'});await within(dialog).findByText('Zebra');const sorts=within(dialog).getByRole('group',{name:'Sort projects'});fireEvent.click(within(sorts).getByRole('button',{name:'Name A–Z'}));expect(within(sorts).getByRole('button',{name:'Name A–Z'}).getAttribute('aria-pressed')).toBe('true');expect(within(dialog).getAllByRole('article')[0].textContent).toContain('Aspen');expect(screen.queryByRole('region',{name:'Editor'})).toBeNull();
 });
