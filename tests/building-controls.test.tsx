@@ -229,7 +229,7 @@ it('keeps home tools in dock drawers and reserves the inspector for selected fur
  render(<App/>);expect(screen.queryByRole('button',{name:'Decorate'})).toBeNull();expect(document.querySelector('.workspace>.inspector-panel')).toBeNull();
  fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));const land=await screen.findByRole('region',{name:'Outdoors'});
  fireEvent.click(within(land).getByRole('button',{name:'Terrain'}));await screen.findByRole('button',{name:'Hill'});fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');
- fireEvent.click(within(land).getByRole('button',{name:'Plants'}));await screen.findByLabelText('Search plants');expect(screen.getByLabelText('Search plants')).toBeTruthy();
+ expect(within(land).queryByRole('button',{name:'Hill'})).toBeNull();fireEvent.click(within(land).getByRole('button',{name:'Change outdoor options'}));fireEvent.click(within(land).getByRole('button',{name:'Plants'}));await screen.findByLabelText('Search plants');expect(screen.getByLabelText('Search plants')).toBeTruthy();
  fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));expect(state().tool).toBe('select');
  expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
  expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.click(screen.getByRole('button',{name:'Nighttime'}));expect(state().plan.environment?.sun?.night).toBe(true);act(()=>state().undo());expect(state().plan.environment?.sun?.night).toBeUndefined();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.keyDown(screen.getByRole('button',{name:'Morning'}),{key:'Escape'});expect(state().plan.environment?.sun?.enabled).toBe(true);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();
@@ -238,3 +238,11 @@ it('keeps home tools in dock drawers and reserves the inspector for selected fur
 
  fireEvent.click(screen.getByRole('button',{name:'Paint'}));await screen.findByRole('region',{name:'Paint surfaces'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
 },15000);
+
+it('collapses paint after choosing a finish and preserves the brush when reopened',async()=>{
+ render(<App/>);fireEvent.click(screen.getByRole('button',{name:'Paint'}));const tray=await screen.findByRole('region',{name:'Paint surfaces'});
+ fireEvent.click(within(tray).getByRole('button',{name:'Floor: Honey oak'}));
+ expect(within(tray).queryByLabelText('Search finishes')).toBeNull();expect(state().tool).toBe('floor-finish');
+ const chosen=state().activeSurfaceFinish;fireEvent.click(within(tray).getByRole('button',{name:'Change finish'}));
+ expect(within(tray).getByLabelText('Search finishes')).toBeTruthy();expect(state().activeSurfaceFinish).toBe(chosen);expect(state().tool).toBe('floor-finish');
+});

@@ -216,18 +216,20 @@ describe('floor plan studio flow',()=>{
     expect(screen.getByRole('alert')).toHaveTextContent('home changed');expect(screen.getByRole('button',{name:'Review & create 3D →'})).toBeDisabled();
   });
 });
-describe('automatic furnishing review',()=>{
-  it('previews without saving, discards, and applies in one undo step',()=>{
-    const original=usePlanner.getState().plan,onPreview=vi.fn();render(<BlueprintControls busy={false} onPreview={onPreview} onBusy={()=>{}}/>);
-    fireEvent.click(screen.getByRole('button',{name:'Quick layout'}));expect(onPreview).toHaveBeenCalled();expect(usePlanner.getState().plan).toBe(original);expect(screen.getByRole('dialog',{name:'Review automatic furnishing'})).toBeVisible();
-    fireEvent.click(screen.getByRole('button',{name:'Discard preview'}));expect(onPreview).toHaveBeenLastCalledWith(undefined);expect(usePlanner.getState().plan).toBe(original);
-    fireEvent.click(screen.getByRole('button',{name:'Quick layout'}));fireEvent.click(screen.getByRole('button',{name:'Apply furnishing · one undo'}));expect(usePlanner.getState().plan.furniture).toHaveLength(3);expect(usePlanner.getState().past).toHaveLength(1);
-    act(()=>usePlanner.getState().undo());expect(usePlanner.getState().plan).toEqual(original);
-  });
-  it('discards stale furnishing previews instead of overwriting newer work',()=>{
-    const onPreview=vi.fn();render(<BlueprintControls busy={false} onPreview={onPreview} onBusy={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Quick layout'}));act(()=>usePlanner.getState().rename('Newer home'));
-    expect(screen.queryByRole('dialog',{name:'Review automatic furnishing'})).not.toBeInTheDocument();expect(onPreview).toHaveBeenLastCalledWith(undefined);expect(usePlanner.getState().plan.name).toBe('Newer home');
-  });
+describe('direct quick layout',()=>{
+ it('places furniture immediately with one undo and no review menu',()=>{
+  const original=usePlanner.getState().plan;render(<BlueprintControls busy={false} onPreview={vi.fn()} onBusy={()=>{}}/>);
+  fireEvent.click(screen.getByRole('button',{name:'Quick layout'}));
+  expect(screen.queryByRole('dialog',{name:'Review automatic furnishing'})).toBeNull();
+  expect(usePlanner.getState().plan.furniture).toHaveLength(3);expect(usePlanner.getState().past).toHaveLength(1);
+  act(()=>usePlanner.getState().undo());expect(usePlanner.getState().plan).toEqual(original);
+ });
+ it('retains existing furniture and does not duplicate suggestions',()=>{
+  render(<BlueprintControls busy={false} onPreview={vi.fn()} onBusy={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Quick layout'}));
+  const placed=usePlanner.getState().plan.furniture;
+  fireEvent.click(screen.getByRole('button',{name:'Quick layout'}));
+  expect(usePlanner.getState().plan.furniture).toEqual(placed);expect(usePlanner.getState().past).toHaveLength(1);
+ });
 });
 
 it('selects, edits and deletes a boundary wall and preserves it through conversion and reopening',()=>{

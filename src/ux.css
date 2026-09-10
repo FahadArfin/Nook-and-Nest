@@ -12,3 +12,32 @@
 .scenery-previews{display:flex;gap:8px;overflow:auto;margin:8px 0}.scenery-previews button{display:grid;flex:0 0 100px;text-transform:capitalize;padding:5px}.scenery-previews img{width:90px;height:65px;object-fit:contain}.plan-objects nav{display:flex;gap:8px;align-items:center;font-size:12px}
 
 .preview-crop-frame{position:fixed;pointer-events:none;border:2px dashed #f8edcd;box-shadow:0 0 0 100vmax #0003;z-index:-1}.preview-crop-frame span{position:absolute;top:6px;left:6px;padding:4px;background:#183125;color:white;font-size:12px}
+/* One planning row, and an evenly sized camera rail. */
+.canvas-stage>.editor-navigation{position:absolute;top:12px;left:12px;right:76px;display:flex;align-items:center;gap:8px;z-index:12;width:max-content;max-width:calc(100% - 88px);overflow-x:auto;scrollbar-width:thin;padding:2px}
+.editor-navigation>.view-toggle,.editor-navigation>.bp-entry{position:static;transform:none;inset:auto;flex-shrink:0;width:auto;max-width:none;margin:0;padding:4px;white-space:nowrap;background:var(--paper);border:1px solid var(--line);border-radius:14px;box-shadow:0 3px 12px #26332112}
+.editor-navigation button{min-height:38px!important;font-size:12px!important;padding:7px 9px!important;white-space:nowrap}
+.canvas-stage>.canvas-tools{top:14px;right:12px;width:48px;gap:3px;padding:5px;align-items:center;background:var(--paper);border:1px solid var(--line);border-radius:18px;box-shadow:0 6px 22px #26332122;overflow:visible;max-height:none;z-index:15}
+.canvas-stage>.canvas-tools button,.canvas-tools .performance-control>summary{box-sizing:border-box;width:38px;min-width:38px;height:38px;min-height:38px;padding:0;border:0;border-radius:11px;background:transparent;color:var(--ink);box-shadow:none;display:grid;place-items:center;cursor:pointer}
+.canvas-stage>.canvas-tools button:hover,.canvas-tools .performance-control>summary:hover{background:var(--line)}
+.canvas-stage>.canvas-tools button.active{background:var(--sage);color:white}
+.canvas-stage>.canvas-tools button:disabled{opacity:.35}
+.canvas-tools .zoom-control{display:flex;flex-direction:column;gap:2px;width:38px;padding:3px 0;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);border-radius:0;background:transparent;box-shadow:none}
+.canvas-tools .zoom-control button+button{border:0}
+.canvas-tools .performance-control,.canvas-tools .performance-control[open]{position:relative;inset:auto;width:38px;max-width:none;padding:0;border:0;background:transparent}
+.canvas-tools .performance-control>summary{list-style:none}.canvas-tools .performance-control>summary::-webkit-details-marker{display:none}
+.quality-popover{position:absolute;right:48px;bottom:0;width:230px;max-width:calc(100vw - 90px);background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 6px 24px #26332125}
+/* Outdoors follows the same top tabs and wide content area as Paint. */
+.bottom-tools-landscape{width:min(940px,calc(100% - 24px))}
+.bottom-tools .outdoor-palette>nav.task-subtabs{display:flex;flex-direction:row;gap:6px;margin:0;padding:0 0 10px;border:0;justify-content:flex-start}
+.bottom-tools .outdoor-palette>nav.task-subtabs button{flex:0 1 130px;min-height:40px;border-radius:10px}
+.bottom-tools .landscape-detail{transform:none;opacity:1;padding:0;transition:none}
+.bottom-tools [hidden]{display:none!important}
+.bottom-tools.is-compact{width:min(560px,calc(100% - 24px));max-height:170px;padding-bottom:0}
+.bottom-tools.is-compact>header{display:none}
+.bottom-tools.is-compact .bottom-tools-body{display:block;max-height:150px;overflow:auto}
+.bottom-tools .active-tool-strip{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;padding:10px!important;min-height:44px}
+.active-tool-strip strong{font-size:13px;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.active-tool-strip button{min-height:40px;font-size:12px}
+.bottom-tools.is-compact .landscape-menus{padding:0!important}
+@media(max-width:700px){.canvas-stage>.editor-navigation{top:6px;left:6px;right:6px;max-width:calc(100% - 12px);width:auto}.editor-navigation button{min-height:44px!important}.canvas-stage>.canvas-tools{top:66px;right:6px}.canvas-stage>.canvas-tools button,.canvas-tools .performance-control>summary{width:40px;min-width:40px;height:40px;min-height:40px}.canvas-tools .zoom-control{width:40px}}
+@media(max-height:640px){.canvas-stage>.canvas-tools{display:grid;grid-template-columns:38px 38px;width:90px}.canvas-tools .zoom-control{grid-column:1/-1;flex-direction:row;width:auto;justify-content:space-between}.canvas-stage>.editor-navigation{max-width:calc(100% - 116px)}}
