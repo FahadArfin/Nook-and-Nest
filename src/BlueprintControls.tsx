@@ -1,3 +1,4 @@
+import {useEditorRoute,navigateEditor,leaveStudio} from './editorNavigation';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { GridFour, Sparkle, X } from '@phosphor-icons/react';
@@ -7,7 +8,7 @@ import { usePlanner } from './store';
 import type { PlanDocumentV1 } from './types';
 
 export function BlueprintControls({busy,onPreview,onBusy,onCreated,onHome}:{onHome?:()=>void;busy:boolean;onPreview:(plan?:PlanDocumentV1)=>void;onBusy:(busy:boolean)=>void;onCreated?:()=>void}) {
-  const state=usePlanner(),[open,setOpen]=useState(false),[error,setError]=useState('');
+  const state=usePlanner(),route=useEditorRoute(),open=route==='studio-editor',[error,setError]=useState('');const setOpen=(value:boolean)=>value?navigateEditor('studio-editor'):leaveStudio();
   useEffect(()=>{onBusy(open);return()=>onBusy(false);},[open,onBusy]);
   const generate=()=>{
     setError('');

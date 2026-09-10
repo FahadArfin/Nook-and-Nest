@@ -52,3 +52,7 @@ Compact palette actions use icon buttons with accessible names and hover labels.
 Editor and Studio headers group branding, title, and actions compactly on the left; avoid automatic spacer margins and wrap controls on narrow screens.
 
 Library browsing uses descriptive model tags from category, mounting metadata and explicit model names. Keep Browse and Saved; omit In plan and the collection-sort dropdown. Tags filter without placement or plan mutation.
+
+Studio places Select/Move and Pan only in the bottom drawing dock. File, View and Import belong in the toolbar above the drawing, with their menus anchored below that row.
+
+Floor tabs use an adjacent plus and per-floor options for duplicate, vertical reorder and deletion. Dragging changes physical floor order, not just tab presentation. Preserve Undo and delete confirmation. Browser Back/Forward navigates editor and Studio with unsaved-draft protection.
