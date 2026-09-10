@@ -48,3 +48,5 @@ Beta refinement: consolidate structural tools under Build with Walls/Floors and 
 Floor Plan Studio uses a floating bottom dock matching 3D for Select, Add wall and Remove wall; paint and outdoor actions stay in 3D.
 
 Compact palette actions use icon buttons with accessible names and hover labels. All Studio drawing tools share the bottom dock; openings and fixtures expand upward. Studio logo returns home through unsaved-draft protection.
+
+Editor and Studio headers group branding, title, and actions compactly on the left; avoid automatic spacer margins and wrap controls on narrow screens.
