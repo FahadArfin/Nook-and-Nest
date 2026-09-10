@@ -1,7 +1,7 @@
 /** Bounded, deterministic image evidence. Coordinates always refer to the original. */
 export const PIPELINE_VERSION='luna-geometry-v1';
 export interface WallCandidate {axis:'h'|'v';x:number;y:number;width:number;height:number}
-export interface ScanEvidence {version:string;walls:WallCandidate[];crops:{image:string;x:number;y:number;width:number;height:number}[]}
+export interface ScanEvidence {version:string;walls:WallCandidate[];crops:{image:string;x:number;y:number;width:number;height:number}[];wallView?:{version:'wall-support-v1';image:string}}
 export function extractWallCandidates(rgba:Uint8ClampedArray,width:number,height:number,sourceWidth=width,sourceHeight=height):WallCandidate[] {
   if(width<1||height<1||width*height>2_560_000||rgba.length!==width*height*4)throw new Error('Invalid analysis pixels.');
   const stride=width+1,integral=new Uint32Array(stride*(height+1));
@@ -25,5 +25,6 @@ export function validateEvidence(value:unknown,width:number,height:number):ScanE
   const e=value as ScanEvidence;
   const box=(r:{x:number;y:number;width:number;height:number})=>r&&[r.x,r.y,r.width,r.height].every(Number.isFinite)&&r.x>=0&&r.y>=0&&r.width>0&&r.height>0&&r.x+r.width<=width+.1&&r.y+r.height<=height+.1;
   if(!e||e.version!==PIPELINE_VERSION||!Array.isArray(e.walls)||e.walls.length>160||!e.walls.every(w=>box(w)&&['h','v'].includes(w.axis))||!Array.isArray(e.crops)||e.crops.length>4||!e.crops.every(c=>box(c)&&typeof c.image==='string'&&c.image.length<1_500_000&&/^data:image\/jpeg;base64,[A-Za-z0-9+/]+=*$/.test(c.image)))throw new Error('Invalid analysis evidence. Reimport the image.');
+  if(e.wallView!==undefined&&(!e.wallView||e.wallView.version!=='wall-support-v1'||typeof e.wallView.image!=='string'||e.wallView.image.length>1_500_000||!/^data:image\/png;base64,[A-Za-z0-9+/]+=*$/.test(e.wallView.image)))throw new Error('Invalid wall evidence. Reimport the image.');
   return e;
 }

@@ -60,3 +60,5 @@ Studio places Select/Move and Pan only in the bottom drawing dock. File, View an
 Floor tabs use an adjacent plus and per-floor options for duplicate, vertical reorder and deletion. Dragging changes physical floor order, not just tab presentation. Preserve Undo and delete confirmation. Browser Back/Forward navigates editor and Studio with unsaved-draft protection.
 
 Floor tabs highlight the full selected tab including compact vertical dots. The menu contains only Clone, Delete and Rename. Drag left/right to reorder physical building levels; retain delete confirmation, last-layer clearing and Undo.
+
+Wall-analysis research: adapt floor-plan image-processing ideas into the existing editable planner rather than Blender scene generation. Evaluate with Luna on Beta 2; preserve the primary site and keep unproven methods explicitly experimental.

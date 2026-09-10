@@ -8,15 +8,15 @@ import {catalog,isWallOpening} from './catalog';
 import {recognitionKey,cachedRecognition,saveRecognition,type ScanModel} from './recognitionCache';
 import {prepareRecognition} from './prepareRecognition';
 
-export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;status?:(text:string)=>void}={}):Promise<Recognition> {
+export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;wallView?:boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
   // Beta always uses Luna; old model selections never trigger premium calls.
-  const model='gpt-5.6-luna' as const,key=await recognitionKey(reference,model,options.guidance);
+  const model='gpt-5.6-luna' as const,key=await recognitionKey(reference,model,options.guidance,options.wallView);
   signal?.throwIfAborted();
   const cached=options.force?undefined:cachedRecognition(key,reference);
   if(cached){options.status?.('Reused saved analysis — no API charge.');return cached;}
   signal?.throwIfAborted();
   options.status?.('Preparing wall geometry and detail crops…');
-  const evidence=await prepareRecognition(reference,signal);signal?.throwIfAborted();
+  const evidence=await prepareRecognition(reference,signal,options.wallView);signal?.throwIfAborted();
   options.status?.('Luna is reading labels, measurements and room boundaries…');
   const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,evidence,guidance:options.guidance?.trim()||undefined})});
   const body=await response.json().catch(()=>null);

@@ -34,4 +34,9 @@ describe('Luna geometry pipeline',()=>{
     const fetcher=vi.fn().mockResolvedValue(Response.json({status:'incomplete'}));await expect(analyzeFloorPlanPipeline('',1000,800,'fake',undefined,fetcher)).rejects.toThrow('did not finish');expect(fetcher).toHaveBeenCalledTimes(1);
     const controller=new AbortController();controller.abort();await expect(analyzeFloorPlanPipeline('',1000,800,'fake',undefined,fetcher,controller.signal)).rejects.toThrow();expect(fetcher).toHaveBeenCalledTimes(1);
   });
+  it('adds an optional aligned wall view to both Luna stages while retaining all broad crops',async()=>{
+    const fetcher=vi.fn().mockResolvedValueOnce(envelope({spaces:[],measurements:[],warnings:[]})).mockResolvedValueOnce(envelope(result()));
+    await analyzeFloorPlanPipeline('data:image/png;base64,AA==',1000,800,'fake',{version:PIPELINE_VERSION,walls:[],crops:[{image:'data:image/jpeg;base64,AA==',x:0,y:0,width:500,height:400}],wallView:{version:'wall-support-v1',image:'data:image/png;base64,AQ=='}},fetcher);
+    expect(fetcher).toHaveBeenCalledTimes(2);for(const args of fetcher.mock.calls){const body=JSON.parse(args[1].body),content=body.input[0].content;expect(body.model).toBe('gpt-5.6-luna');expect(content.filter((c:{type:string})=>c.type==='input_image')).toHaveLength(3);expect(content.some((c:{text?:string})=>c.text?.includes('no room labels or inferred doorway closures'))).toBe(true);}
+  });
 });
