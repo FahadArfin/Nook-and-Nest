@@ -60,3 +60,5 @@ Studio places Select/Move and Pan only in the bottom drawing dock. File, View an
 Floor tabs use an adjacent plus and per-floor options for duplicate, vertical reorder and deletion. Dragging changes physical floor order, not just tab presentation. Preserve Undo and delete confirmation. Browser Back/Forward navigates editor and Studio with unsaved-draft protection.
 
 Floor tabs highlight the full selected tab including compact vertical dots. The menu contains only Clone, Delete and Rename. Drag left/right to reorder physical building levels; retain delete confirmation, last-layer clearing and Undo.
+
+Living welcome menu: use the selected Fireside Evening composition, cream serif title and pill actions over full-bleed cozy artwork. Fireside, Rainy afternoon and Sunday morning each have matched day/night art. Rotate every two local calendar days from first visit; Next pins the chosen scene locally until auto is restored. Appearance and motion controls never mutate projects; pause on hidden/editor surfaces and respect reduced motion.
