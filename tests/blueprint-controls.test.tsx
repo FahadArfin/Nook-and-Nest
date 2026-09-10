@@ -266,5 +266,11 @@ it('groups every drawing action in the bottom dock and protects home navigation'
  const onHome=vi.fn(),onClose=vi.fn();render(<BlueprintStudio onHome={onHome} onClose={onClose}/>);
  const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'}));
  for(const name of ['Inside wall','Remove wall section','Draw room area','Add room by dimensions','Combine rooms','Doors, entrances and windows','Choose optional fixtures'])expect(dock.getByRole('button',{name})).toBeTruthy();
- fireEvent.click(dock.getByRole('button',{name:'Add room by dimensions'}));vi.mocked(window.confirm).mockReturnValue(false);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onHome).not.toHaveBeenCalled();expect(onClose).not.toHaveBeenCalled();vi.mocked(window.confirm).mockReturnValue(true);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onClose).toHaveBeenCalledOnce();expect(onHome).toHaveBeenCalledOnce();
+ fireEvent.click(dock.getByRole('button',{name:'Add room by dimensions'}));vi.mocked(window.confirm).mockReturnValue(false);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onHome).not.toHaveBeenCalled();expect(onClose).not.toHaveBeenCalled();vi.mocked(window.confirm).mockReturnValue(true);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onClose).not.toHaveBeenCalled();expect(onHome).toHaveBeenCalledOnce();
+});
+
+it('keeps navigation in the bottom dock and document actions above the drawing',()=>{
+ render(<BlueprintStudio onClose={vi.fn()}/>);const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'})),actions=within(screen.getByRole('toolbar',{name:'Studio actions'}));
+ expect(dock.getByRole('button',{name:'Select and resize rooms'})).toBeTruthy();const pan=dock.getByRole('button',{name:'Pan drawing'});fireEvent.click(pan);expect(pan).toHaveAttribute('aria-pressed','true');
+ expect(actions.queryByRole('button',{name:'Pan drawing'})).toBeNull();expect(actions.getByRole('button',{name:'File'})).toBeTruthy();expect(actions.getByRole('button',{name:'View'})).toBeTruthy();expect(actions.getByRole('button',{name:'Import'})).toBeTruthy();fireEvent.click(actions.getByRole('button',{name:'View'}));expect(screen.getByLabelText('Measurement units')).toBeVisible();
 });
