@@ -61,6 +61,8 @@ Floor tabs use an adjacent plus and per-floor options for duplicate, vertical re
 
 Floor tabs highlight the full selected tab including compact vertical dots. The menu contains only Clone, Delete and Rename. Drag left/right to reorder physical building levels; retain delete confirmation, last-layer clearing and Undo.
 
+Living welcome menu: use the selected Fireside Evening composition, cream serif title and pill actions over full-bleed cozy artwork. Fireside, Rainy afternoon and Sunday morning each have matched day/night art. Rotate every two local calendar days from first visit; Next pins the chosen scene locally until auto is restored. Appearance and motion controls never mutate projects; pause on hidden/editor surfaces and respect reduced motion.
+
 Wall-analysis research: adapt floor-plan image-processing ideas into the existing editable planner rather than Blender scene generation. Evaluate with Luna on Beta 2; preserve the primary site and keep unproven methods explicitly experimental.
 
 Doorway ownership preference (September 10): rooms may be concave or stepped. A confirmed closed doorway determines which room owns its entry recess. Preview both affected room shapes before applying one undoable correction; preserve existing total floor area and distinguish missing floor from wrong labels. Keep computational door closures separate from physical walls.

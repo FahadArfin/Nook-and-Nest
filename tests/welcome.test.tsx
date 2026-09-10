@@ -11,7 +11,7 @@ const Editor=({onHome}:{onHome?:()=>void})=><section aria-label="Editor"><button
 beforeEach(async()=>{window.history.replaceState(null,'','/');for(const p of await listLocalPlans())await deleteLocalPlan(p.id);usePlanner.getState().replacePlan(createBlankPlan());HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};vi.stubGlobal('fetch',vi.fn(async()=>new Response(JSON.stringify({signedIn:false,available:false}),{headers:{'content-type':'application/json'}})));});
 afterEach(()=>{cleanup();vi.unstubAllGlobals();});
 it('opens on the menu without saving a starter project, and creates a completely blank 3D plan',async()=>{
- render(<Welcome Editor={Editor}/>);const button=screen.getByRole('button',{name:/Free 3D editor/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));
+ render(<Welcome Editor={Editor}/>);const button=screen.getByRole('button',{name:/Open 3D editor/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));
  expect(screen.queryByRole('region',{name:'Editor'})).toBeNull();expect(await listLocalPlans()).toEqual([]);
  fireEvent.click(button);expect(screen.getByRole('region',{name:'Editor'})).toBeTruthy();const p=usePlanner.getState().plan;expect(p.furniture).toEqual([]);expect(p.floors).toHaveLength(1);expect(p.floors[0].cells).toEqual([]);expect(p.floors[0].walls).toEqual([]);
 });
@@ -43,15 +43,15 @@ it('browses an empty library without creating a phantom project',async()=>{
 it('follows live OS appearance by default, preserves manual preference, and cleans up listeners',async()=>{
  localStorage.clear();let matches=true;const listeners=new Set<()=>void>();
  vi.stubGlobal('matchMedia',vi.fn(()=>({get matches(){return matches;},addEventListener:(_name:string,fn:()=>void)=>listeners.add(fn),removeEventListener:(_name:string,fn:()=>void)=>listeners.delete(fn)})));
- const {container,unmount}=render(<Welcome Editor={Editor}/>);await waitFor(()=>expect(screen.getByRole('button',{name:/Free 3D editor/}).hasAttribute('disabled')).toBe(false));
+ const {container,unmount}=render(<Welcome Editor={Editor}/>);await waitFor(()=>expect(screen.getByRole('button',{name:/Open 3D editor/}).hasAttribute('disabled')).toBe(false));
  const page=()=>container.querySelector('.welcome-page')!;const before=usePlanner.getState().plan;
- expect(page().getAttribute('data-theme')).toBe('dark');expect(screen.getByLabelText('Use system theme').getAttribute('aria-pressed')).toBe('true');
+ expect(page().getAttribute('data-theme')).toBe('dark');fireEvent.click(screen.getByLabelText('Background preferences'));expect(screen.getByLabelText('Use system theme').getAttribute('aria-pressed')).toBe('true');
  const {act}=await import('@testing-library/react');act(()=>{matches=false;listeners.forEach(fn=>fn());});expect(page().getAttribute('data-theme')).toBe('light');
  fireEvent.click(screen.getByLabelText('Use dark theme'));expect(localStorage.getItem('nook-welcome-theme')).toBe('dark');
  act(()=>{matches=true;listeners.forEach(fn=>fn());matches=false;listeners.forEach(fn=>fn());});expect(page().getAttribute('data-theme')).toBe('dark');expect(usePlanner.getState().plan).toBe(before);expect(await listLocalPlans()).toEqual([]);
  unmount();expect(listeners.size).toBe(0);
  const next=render(<Welcome Editor={Editor}/>);expect(next.container.querySelector('main')?.getAttribute('data-theme')).toBe('dark');
- fireEvent.click(screen.getByLabelText('Use system theme'));expect(next.container.querySelector('main')?.getAttribute('data-theme')).toBe('light');
+ fireEvent.click(screen.getByLabelText('Background preferences'));fireEvent.click(screen.getByLabelText('Use system theme'));expect(next.container.querySelector('main')?.getAttribute('data-theme')).toBe('light');
  localStorage.clear();
 });
 it('keeps the appearance control usable when browser storage is blocked',async()=>{
@@ -61,7 +61,7 @@ it('keeps the appearance control usable when browser storage is blocked',async()
 
 it('shows only the three most recent device projects and opens a chosen card',async()=>{
  for(let i=0;i<4;i++)await savePlan({...createSamplePlan('Recent '+i),updatedAt:`2026-09-0${i+1}T12:00:00.000Z`});
- render(<Welcome Editor={Editor}/>);const section=await screen.findByRole('region',{name:'Continue where you left off'});await within(section).findByText('Recent 3');expect(within(section).queryByText('Recent 0')).toBeNull();expect(within(section).getAllByRole('button')).toHaveLength(4);fireEvent.click(within(section).getByRole('button',{name:/Recent 2/}));expect(usePlanner.getState().plan.name).toBe('Recent 2');
+ render(<Welcome Editor={Editor}/>);const section=await screen.findByRole('region',{name:'Continue where you left off'});await within(section).findByText('Recent 3');expect(within(section).queryByText('Recent 0')).toBeNull();expect(within(section).getAllByRole('button')).toHaveLength(3);fireEvent.click(within(section).getByRole('button',{name:/Recent 2/}));expect(usePlanner.getState().plan.name).toBe('Recent 2');
 });
 
 it('sorts projects through rounded toggle buttons without opening or changing a plan',async()=>{
@@ -70,5 +70,5 @@ it('sorts projects through rounded toggle buttons without opening or changing a 
 
 it('navigates from 3D to Studio and back/forward with native browser history',async()=>{
  const Navigable=({onHome}:{onHome?:()=>void})=><section aria-label="Editor"><BlueprintControls busy={false} onPreview={()=>{}} onBusy={()=>{}} onHome={onHome}/></section>;
- render(<Welcome Editor={Navigable}/>);const start=screen.getByRole('button',{name:/Free 3D editor/});await waitFor(()=>expect(start.hasAttribute('disabled')).toBe(false));fireEvent.click(start);fireEvent.click(screen.getByRole('button',{name:'Floor plan'}));await screen.findByRole('dialog',{name:'Floor plan studio'});const plan=usePlanner.getState().plan;window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());expect(screen.getByRole('region',{name:'Editor'})).toBeTruthy();expect(usePlanner.getState().plan).toBe(plan);window.history.forward();const studio=await screen.findByRole('dialog',{name:'Floor plan studio'});fireEvent.click(within(within(studio).getByRole('toolbar',{name:'Floor plan editing'})).getByRole('button',{name:'Add room by dimensions'}));const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);window.history.back();await waitFor(()=>expect(confirm).toHaveBeenCalled());await waitFor(()=>expect(window.history.state.nookNavigation.screen).toBe('studio-editor'));expect(screen.getByRole('dialog',{name:'Floor plan studio'})).toBeTruthy();confirm.mockReturnValue(true);window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());confirm.mockRestore();
+ render(<Welcome Editor={Navigable}/>);const start=screen.getByRole('button',{name:/Open 3D editor/});await waitFor(()=>expect(start.hasAttribute('disabled')).toBe(false));fireEvent.click(start);fireEvent.click(screen.getByRole('button',{name:'Floor plan'}));await screen.findByRole('dialog',{name:'Floor plan studio'});const plan=usePlanner.getState().plan;window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());expect(screen.getByRole('region',{name:'Editor'})).toBeTruthy();expect(usePlanner.getState().plan).toBe(plan);window.history.forward();const studio=await screen.findByRole('dialog',{name:'Floor plan studio'});fireEvent.click(within(within(studio).getByRole('toolbar',{name:'Floor plan editing'})).getByRole('button',{name:'Add room by dimensions'}));const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);window.history.back();await waitFor(()=>expect(confirm).toHaveBeenCalled());await waitFor(()=>expect(window.history.state.nookNavigation.screen).toBe('studio-editor'));expect(screen.getByRole('dialog',{name:'Floor plan studio'})).toBeTruthy();confirm.mockReturnValue(true);window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());confirm.mockRestore();
 });
