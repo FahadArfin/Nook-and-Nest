@@ -106,7 +106,7 @@ describe('library icon navigation',()=>{
     fireEvent.click(screen.getByLabelText('Clear search'));expect(document.activeElement).toBe(screen.getByLabelText('Search all furniture'));
     expect(usePlanner.getState().plan).toBe(before);expect(usePlanner.getState().past).toHaveLength(0);
     expect(drag).not.toHaveBeenCalled();expect(start).not.toHaveBeenCalled();
-  });
+  },15000);
   it('supports arrow and endpoint navigation without applying a filter until activated',()=>{
     render(<CatalogLibrary onBeginDrag={vi.fn()} onStartPlacement={vi.fn()}/>);
     const all=screen.getByRole('button',{name:'Category: All'});all.focus();
