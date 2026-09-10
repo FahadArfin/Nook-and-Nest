@@ -44,3 +44,5 @@ Free editor cleanup: do not show an empty-plan starter card over the canvas; use
 Palette refinement: align Paint and Outdoors at one shared canvas-centered position and width. Collapsed palettes retain quick size/strength or density sliders and paint swatches. Settings slides out with concise quality choices and a hover/focus/tap information control; Ghost floor below belongs inside Settings.
 
 Beta refinement: consolidate structural tools under Build with Walls/Floors and Add/Remove; use rounded project-sort toggles and three recent local project previews on the welcome page. Remove the generic example and top More button. Studio reuses branded editor header styling and a fit/zoom rail; its Rooms sidebar uses one sliding icon toggle.
+
+Floor Plan Studio uses a floating bottom dock matching 3D for Select, Add wall and Remove wall; paint and outdoor actions stay in 3D.
