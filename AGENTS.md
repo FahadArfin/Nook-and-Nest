@@ -16,6 +16,8 @@ Run the local preview yourself. Keep secrets out of logs and artifacts. Keep cha
 
 ## Latest-wins interaction rules
 
+Beta Luna analysis (September 10): use local wall evidence and detail crops with a bounded two-pass Luna pipeline. Keep dimension conflicts visible, preserve source coordinates and editable review, and do not silently invoke Astra. Version analysis caches when the pipeline changes. Keep private test scans and API credentials outside Git. Publish only to Beta 2 while this pipeline is evaluated.
+
 These resolve superseded instructions retained in the contracts:
 - Selecting furniture does not enable movement. Movement is explicitly toggled and defaults off; selection/recoloring must preserve zoom. The anchored toolbar has confirm, rotation, movement and cancel controls. Colors belong in the inspector, not the anchored toolbar.
 - One Paint button opens Walls/Floor choices. Bottom workbenches float as wide rounded rectangles above the dock, with smooth transitions and reduced-motion support. Land formation opens Terrain/Plants/Landscape choices. Remove duplicated tool tabs and unused right panels.
