@@ -1,3 +1,4 @@
+import {DoorBoundaryRepair} from './DoorBoundaryRepair';
 import {useEffect,useRef,useState} from 'react';
 import {blueprintPlan,combineBlueprintRooms,roomGroups,type BlueprintDraft} from './blueprint';
 import type {PlanDocumentV1} from './types';
@@ -7,17 +8,18 @@ import {spanChoices} from './openingGeometry';
 import {applyReviewedOpening,splitRoomLabel} from './openingCorrections';
 import type {OpeningAnswer,Span} from './openingReviewContract';
 
-export interface ReviewOverlay {span:Span;color:string;label:string}
+export interface ReviewOverlay {span?:Span;rect?:import('./doorBoundaryGeometry').PixelRect;filled?:boolean;color:string;label:string}
 interface Props {base:PlanDocumentV1;floorId:string;draft:BlueprintDraft;reference:PlanReference;scale:number;span?:Span;disabled:boolean;onSpan:(span:Span|undefined)=>void;onOverlay:(lines:ReviewOverlay[])=>void;onDraw:()=>void;onCommit:(draft:BlueprintDraft)=>void}
 export function OpeningReview({base,floorId,draft,reference,scale,span,disabled,onSpan,onOverlay,onDraw,onCommit}:Props){
   const [evidence,setEvidence]=useState<OpeningEvidence>(),[busy,setBusy]=useState(''),[message,setMessage]=useState(''),[answer,setAnswer]=useState<OpeningAnswer>(),[choice,setChoice]=useState(0),[kind,setKind]=useState<'door'|'window'|'open'>('door');
   const [first,setFirst]=useState(''),[second,setSecond]=useState(''),[axis,setAxis]=useState<'h'|'v'>('v'),[percent,setPercent]=useState(50),[tab,setTab]=useState<'doors'|'rooms'>('doors');
+  const [repairOverlay,setRepairOverlay]=useState<ReviewOverlay[]>([]);
   const abort=useRef<AbortController|undefined>(undefined),latest=useRef({draft,reference,span});latest.current={draft,reference,span};
   const groups=roomGroups(draft.rooms),choices=span?spanChoices(span,reference.width,reference.height):[],active=choices[choice]??choices[0],room=groups.find(r=>r.id===first);
   const split:Span|undefined=room?(axis==='v'?{ax:(room.x+room.width*percent/100)/scale,bx:(room.x+room.width*percent/100)/scale,ay:room.z/scale,by:(room.z+room.depth)/scale}:{ax:room.x/scale,bx:(room.x+room.width)/scale,ay:(room.z+room.depth*percent/100)/scale,by:(room.z+room.depth*percent/100)/scale}):undefined;
   useEffect(()=>{abort.current?.abort();setBusy('');setEvidence(undefined);setAnswer(undefined);setMessage('');onSpan(undefined);return()=>abort.current?.abort();},[reference]);
   useEffect(()=>{abort.current?.abort();setBusy('');setAnswer(undefined);setChoice(0);},[draft,span]);
-  useEffect(()=>{onOverlay(tab==='rooms'?(split?[{span:split,color:'#16898b',label:'Label split — no wall'}]:[]):active?[{span:active,color:'#c35435',label:`Doorway candidate ${choice+1}`}]:[]);},[span,choice,tab,first,axis,percent,draft,scale]);
+  useEffect(()=>{onOverlay(tab==='rooms'?(split?[{span:split,color:'#16898b',label:'Label split — no wall'}]:[]):active?[{span:active,color:'#c35435',label:`Doorway candidate ${choice+1}`},...repairOverlay]:[]);},[span,choice,tab,first,axis,percent,draft,scale,repairOverlay]);
   const run=async(local:boolean)=>{
     abort.current?.abort();const controller=new AbortController();abort.current=controller;const snapshot=latest.current;
     setBusy(local?'Checking source walls…':'Luna is inspecting this close-up…');setMessage('');setAnswer(undefined);
@@ -35,7 +37,7 @@ export function OpeningReview({base,floorId,draft,reference,scale,span,disabled,
       <button disabled={disabled||!!busy} onClick={onDraw}>Draw doorway span on image</button>
       {active&&<><label>Doorway orientation<select value={choice} onChange={e=>{setChoice(Number(e.target.value));setAnswer(undefined);}}>{choices.map((c,i)=><option key={c.id} value={i}>{i===0?'Original span':`Rotate around jamb · ${i}`}</option>)}</select></label><button disabled={disabled||!!busy} onClick={()=>void run(false)}>Inspect close-up with Luna</button><small>One bounded Luna request; counts toward the daily analysis limit. Identical close-ups are reused in this session.</small>
       {answer&&<p role="status"><strong>{answer.kind} · {answer.confidence} confidence{answer.choiceId==='none'?' · no candidate accepted':''}</strong><br/>{answer.note}</p>}
-      <label>Apply as<select value={kind} onChange={e=>setKind(e.target.value as typeof kind)}><option value="door">Door</option><option value="window">Window</option><option value="open">Open entrance</option></select></label><button disabled={disabled||!!busy} onClick={()=>change(()=>applyReviewedOpening(base,floorId,draft,active,scale,kind))}>Apply selected opening</button><small>Confirm the red span against the image. A matching wall is required; uncertain suggestions are never applied automatically.</small></>}
+      <label>Apply as<select value={kind} onChange={e=>setKind(e.target.value as typeof kind)}><option value="door">Door</option><option value="window">Window</option><option value="open">Open entrance</option></select></label><button disabled={disabled||!!busy} onClick={()=>change(()=>applyReviewedOpening(base,floorId,draft,active,scale,kind))}>Apply selected opening</button><small>Confirm the red span against the image. A matching wall is required; uncertain suggestions are never applied automatically.</small><DoorBoundaryRepair base={base} floorId={floorId} draft={draft} reference={reference} scale={scale} span={active} evidence={evidence} disabled={disabled||!!busy} onOverlay={setRepairOverlay} onCommit={onCommit}/></>}
     </>:<>
       <label>Room<select value={first} onChange={e=>setFirst(e.target.value)}><option value="">Choose a room</option>{groups.map(r=><option key={r.id} value={r.id}>{r.name}</option>)}</select></label>
       <label>Join with<select value={second} onChange={e=>setSecond(e.target.value)}><option value="">Choose an adjoining room</option>{groups.filter(r=>r.id!==first).map(r=><option key={r.id} value={r.id}>{r.name}</option>)}</select></label><button disabled={disabled||!first||!second} onClick={()=>change(()=>combineBlueprintRooms(draft,first,second,base.gridSizeMm))}>Apply join spaces</button><small>Joins the labels and removes their shared divider and any openings on it. Use only where the source shows one open space.</small>

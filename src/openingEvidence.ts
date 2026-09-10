@@ -1,6 +1,6 @@
 import type {PlanReference} from './blueprintImport';
 import {OPENING_REVIEW_VERSION,validateOpeningAnswer,type OpeningAnswer,type OpeningChoice,type Span} from './openingReviewContract';
-export interface OpeningEvidence {outside:Uint8Array;width:number;height:number;gaps:Span[]}
+export interface OpeningEvidence {outside:Uint8Array;width:number;height:number;gaps:Span[];walls:Uint8Array;lines:import('./recognitionEvidence').WallCandidate[]}
 export async function prepareOpeningEvidence(ref:PlanReference,signal:AbortSignal):Promise<OpeningEvidence> {
   const image=await createImageBitmap(await(await fetch(ref.url,{signal})).blob());
   try{
