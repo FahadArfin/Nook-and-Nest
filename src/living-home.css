@@ -53,15 +53,6 @@
 @media(max-width:650px){.living-menu{margin-bottom:28px}.living-recents{align-self:center}.living-recents h2{font-size:21px}}
 
 .living-footer{margin-top:auto}
-.living-recents-menu{position:relative;width:100%;z-index:4;text-shadow:none}
-.living-recents-menu>button{width:100%}
-.living-recents-popup{position:absolute;top:100%;left:0;padding-top:12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:min(570px,calc(100vw - 100px));animation:scene-arrive .18s ease both}
-.living-menu nav .living-recent-tile{aspect-ratio:1;min-height:0;border-radius:24px;background:#f5e9d2;color:#283528;border:1px solid #e5d7ba;box-shadow:0 10px 30px #0003;padding:14px;display:flex;flex-direction:column;gap:8px;justify-content:center;font-family:inherit;font-size:16px}
-.living-recent-tile .project-thumbnail{width:100%;height:85px;min-height:0;object-fit:contain;border-radius:12px;background:#ddd8c6;display:grid;place-items:center;font-size:12px}
-.living-recent-tile strong{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:Fraunces,serif;font-weight:500;font-size:16px}
-.living-recent-tile small{font-size:12px}
-.living-recents-popup>p{grid-column:1/-1;background:#f5e9d2;color:#283528;border-radius:20px;padding:20px;margin:0;font-size:15px;box-shadow:0 10px 30px #0003}
-@media(max-width:650px){.living-recents-popup{width:calc(100vw - 40px);left:50%;transform:translateX(-50%);gap:8px}.living-menu nav .living-recent-tile{border-radius:20px;padding:9px}.living-recent-tile .project-thumbnail{height:60px}.living-recent-tile strong{font-size:13px}.living-recents-menu:has(.living-recents-popup){margin-bottom:165px}}
-@media(prefers-reduced-motion:reduce){.living-recents-popup{animation:none}}
 
-@media(max-width:650px){.living-recent-tile .project-thumbnail{height:40px;flex-shrink:0}.living-recent-tile strong,.living-recent-tile small{flex-shrink:0}}
+.living-preferences{order:initial;flex-basis:auto}.living-preferences summary{width:48px;height:48px;padding:0;justify-content:center;border-radius:50%}
+@media(max-width:650px){.living-preferences summary{width:44px;height:44px}}
