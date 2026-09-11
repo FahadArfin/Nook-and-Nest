@@ -41,3 +41,13 @@
 @media(min-width:1001px) and (min-height:721px){.living-menu{margin-top:-58px}.living-menu nav{width:min(340px,86%)}}
 .living-background[data-moving=false] .living-current{animation:scene-arrive 1s ease both}
 .living-background[data-moving=false] .living-firelight{animation:none;opacity:.12}
+/* Recent work stays close to the primary actions, in a compact vertical card. */
+.living-recents{width:min(370px,100%);align-self:flex-start;flex-direction:column;align-items:stretch;gap:12px;padding:18px 20px;margin-top:auto}
+.living-recents h2{flex:none;font-size:22px}.living-recents h2 br{display:none}
+.living-recent-list{grid-template-columns:1fr;gap:0}
+.living-recent{border-left:0;border-top:1px solid #6f785c38;border-radius:8px;padding:10px 0;gap:12px}
+.living-recent:last-child{padding-bottom:0}
+.living-recent .project-thumbnail{width:52px;height:52px;font-size:10px}
+.living-recent strong{font-size:16px}.living-recent>span{gap:4px}.living-recent small{font-size:12px}
+.living-recents>p{font-size:15px}.living-recents>p span{font-size:13px}
+@media(max-width:650px){.living-menu{margin-bottom:28px}.living-recents{align-self:center}.living-recents h2{font-size:21px}}

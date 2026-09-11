@@ -62,3 +62,6 @@ Floor tabs use an adjacent plus and per-floor options for duplicate, vertical re
 Floor tabs highlight the full selected tab including compact vertical dots. The menu contains only Clone, Delete and Rename. Drag left/right to reorder physical building levels; retain delete confirmation, last-layer clearing and Undo.
 
 Living welcome menu: use the selected Fireside Evening composition, cream serif title and pill actions over full-bleed cozy artwork. Fireside, Rainy afternoon and Sunday morning each have matched day/night art. Rotate every two local calendar days from first visit; Next pins the chosen scene locally until auto is restored. Appearance and motion controls never mutate projects; pause on hidden/editor surfaces and respect reduced motion.
+
+## Beta separation (user correction, September 10)
+General app UX, menu, furniture and landscape work belongs on beta1. Beta 2 and its Site are reserved for floor-plan automation research. Never publish general UI changes to Beta 2. Resolve the beta1 Site identity separately before publishing. The welcome recent-project panel must be compact and vertical, with up to three stacked projects rather than a full-width strip.
