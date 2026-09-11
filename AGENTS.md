@@ -79,3 +79,5 @@ Welcome polish: offset the main group down/inward on wide desktops, lighter typo
 Scene motion refinement: animate fireplace flames and candle wicks, slow glass rain, sleeping-cat breathing, cup steam and gentle curtain billow inside their authored image regions. Keep the room and UI stationary; bound animation resolution and frame rate, stop while hidden or paused, and retain static art for reduced motion. General UX remains Beta 1 only.
 
 Motion masks must follow object interiors rather than rectangular bounds: keep pillows, plants, shelves and fireplace masonry still. Prefer the photographed fire texture over drawn flame tongues. Include sleeping-dog breathing and restrained coffee/candle wisps in Fireside.
+
+Beta 1 floor-plan studio UX: keep a compact readable header in both themes, a collapsible Rooms drawer with an internal close control on mobile, drawing tools in the bottom dock, and a clear local tracing versus online recognition choice in Import. Show the target floor and replacement consequences before applying a drawing to 3D.

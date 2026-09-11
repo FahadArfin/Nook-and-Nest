@@ -30,12 +30,13 @@ describe('floor plan studio flow',()=>{
     expect(usePlanner.getState().plan).toBe(original);expect(usePlanner.getState().past).toHaveLength(0);
     fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
     expect(screen.getByRole('button',{name:/Confirm & create 3D home/})).toBeEnabled();
-    expect(screen.queryByText('Check the empty home')).toBeNull();
+    expect(screen.queryByText('Check the empty home')).toBeNull();expect(screen.getByText(/This drawing will replace/)).toBeVisible();expect(screen.queryByRole('toolbar',{name:'Floor plan editing'})).toBeNull();
 
     fireEvent.click(screen.getByRole('button',{name:/Confirm & create 3D home/}));
     expect(onClose).toHaveBeenCalledOnce();expect(usePlanner.getState().plan.floors[0].blueprint!.rooms[0].width).toBe(4321);expect(usePlanner.getState().past).toHaveLength(1);
     act(()=>usePlanner.getState().undo());expect(usePlanner.getState().plan).toEqual(original);
   });
+  it('closes the room panel and restores focus to its toggle',()=>{render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Close rooms panel'}));expect(screen.getByRole('button',{name:'Toggle rooms panel'})).toHaveAttribute('aria-expanded','false');expect(screen.getByRole('button',{name:'Toggle rooms panel'})).toHaveFocus();fireEvent.click(screen.getByRole('button',{name:'Toggle rooms panel'}));expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();});
   it('has reversible drawing history independent of the home history',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
     fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));fireEvent.change(metricField('Width metres'),{target:{value:'4'}});fireEvent.blur(metricField('Width metres'));
@@ -48,14 +49,14 @@ describe('floor plan studio flow',()=>{
     expect(await screen.findByRole('button',{name:/Detected bedroom/})).toHaveTextContent('5 m × 4 m');
     fireEvent.click(screen.getByRole('button',{name:'View'}));fireEvent.click(screen.getByText('Measurements & analysis notes'));expect(screen.getByText('5 m = 5.000 m')).toBeVisible();expect(screen.getByRole('button',{name:'Review & create 3D →'})).toBeEnabled();expect(usePlanner.getState().plan).toBe(original);
   });
-  it('offers fresh reanalysis in the header with cancellation and undo of replaced edits',async()=>{
+  it('offers reanalysis in Import with cancellation and undo of replaced edits',async()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-    const button=screen.getByRole('button',{name:'Reanalyze'});expect(button.closest('header')).not.toBeNull();expect(button).toBeDisabled();
+    expect(screen.queryByRole('button',{name:'Reanalyze'})).toBeNull();
     fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
-    await screen.findByRole('button',{name:/Detected bedroom/});expect(button).toBeEnabled();
+    await screen.findByRole('button',{name:/Detected bedroom/});fireEvent.click(screen.getByRole('button',{name:'Import'}));const button=screen.getByRole('button',{name:'Reanalyze'});expect(button.closest('header')).toBeNull();expect(button).toBeEnabled();
     fireEvent.click(screen.getByRole('button',{name:/Detected bedroom/}));fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'My edited room'}});
     const before=vi.mocked(recognizeReference).mock.calls.length;vi.mocked(window.confirm).mockReturnValueOnce(false);fireEvent.click(button);expect(vi.mocked(recognizeReference).mock.calls.length).toBe(before);
-    fireEvent.click(screen.getByRole('button',{name:'File'}));fireEvent.click(screen.getByText('Analysis guidance (optional)'));fireEvent.change(screen.getByLabelText('Analysis guidance'),{target:{value:'Hall stays left of bedroom closets'}});fireEvent.click(button);await screen.findByRole('button',{name:/Detected bedroom/});
+    fireEvent.click(screen.getByText('Analysis guidance (optional)'));fireEvent.change(screen.getByLabelText('Analysis guidance'),{target:{value:'Hall stays left of bedroom closets'}});fireEvent.click(button);await screen.findByRole('button',{name:/Detected bedroom/});
     expect(vi.mocked(recognizeReference).mock.calls.at(-1)?.[2]).toEqual(expect.objectContaining({force:true,model:'gpt-5.6-luna',guidance:'Hall stays left of bedroom closets'}));
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('button',{name:/My edited room/})).toBeVisible();expect(usePlanner.getState().plan).toBe(original);
   });
@@ -159,8 +160,8 @@ describe('floor plan studio flow',()=>{
     expect(screen.queryByRole('heading',{name:'Edit room'})).toBeNull();
     expect(screen.queryByLabelText('Analysis model')).toBeNull();
     expect(screen.queryByRole('button',{name:'Import PDF or image…'})).toBeNull();
-    fireEvent.click(screen.getByRole('button',{name:'File'}));expect(screen.getByRole('button',{name:'Import PDF or image…'})).toBeVisible();
-    fireEvent.click(screen.getByRole('button',{name:'File'}));fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByRole('heading',{name:'Edit room'})).toBeVisible();
+    fireEvent.click(screen.getByRole('button',{name:'Import'}));expect(screen.getByRole('button',{name:'Choose PDF or image'})).toBeVisible();fireEvent.click(screen.getByRole('button',{name:/Trace it yourself/}));expect(screen.getByRole('button',{name:/Trace it yourself/})).toHaveAttribute('aria-pressed','true');
+    fireEvent.click(screen.getByRole('button',{name:'Import'}));fireEvent.click(screen.getByRole('button',{name:/Main bedroom/}));expect(screen.getByRole('heading',{name:'Edit room'})).toBeVisible();
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(canvas,{button:0,clientX:9000,clientY:9000});fireEvent.pointerUp(canvas);
     expect(screen.queryByRole('heading',{name:'Edit room'})).toBeNull();expect(screen.queryByText('Overlapping rooms')).toBeNull();
   });
