@@ -7,7 +7,7 @@ export function addUnassignedRegions(input:Recognition,width:number,height:numbe
   // A connected-stroke bounding box can span an L junction and contain empty
   // floor. Never treat those broad boxes as solid walls. Verified model spans
   // provide zero-area barriers across those junctions instead.
-  walls=walls.filter(w=>(w.axis==='h'?w.height:w.width)<=Math.max(12,Math.max(width,height)*.012));
+  walls=walls.filter(w=>w.solid||(w.axis==='h'?w.height:w.width)<=Math.max(12,Math.max(width,height)*.012));
   const spans=input.walls??[];
   const xs=[0,width,...input.rooms.flatMap(r=>[r.x,r.x+r.width]),...walls.flatMap(w=>[w.x,w.x+w.width]),...spans.flatMap(w=>[w.ax,w.bx])];
   const ys=[0,height,...input.rooms.flatMap(r=>[r.y,r.y+r.height]),...walls.flatMap(w=>[w.y,w.y+w.height]),...spans.flatMap(w=>[w.ay,w.by])];
