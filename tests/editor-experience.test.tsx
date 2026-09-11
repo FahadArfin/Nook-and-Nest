@@ -38,10 +38,10 @@ describe('persistent editor preferences',()=>{
     expect(usePlanner.getState().past).toHaveLength(0);
   });
   it('opens a pinned palette after its anchor becomes available and selects a brush without painting',()=>{
-    act(()=>rememberFinish('honey-oak'));const plan=usePlanner.getState().plan;
-    render(<div className="canvas-stage"><QuickPinSettings/><PinnedControls/></div>);
+    act(()=>rememberFinish('honey-oak'));const plan=usePlanner.getState().plan,onOpen=vi.fn();
+    render(<div className="canvas-stage"><QuickPinSettings/><PinnedControls onOpen={onOpen}/></div>);
     fireEvent.click(screen.getByLabelText('Recent finishes'));fireEvent.click(screen.getByRole('button',{name:'Pinned recent finishes'}));
-    expect(screen.getByRole('region',{name:'Pinned options'})).toBeTruthy();fireEvent.click(screen.getByRole('button',{name:'Paint with Honey oak'}));
+    expect(onOpen).toHaveBeenCalledTimes(1);expect(screen.getByRole('region',{name:'Pinned options'})).toBeTruthy();fireEvent.click(screen.getByRole('button',{name:'Paint with Honey oak'}));
     expect(usePlanner.getState().tool).toBe('floor-finish');expect(usePlanner.getState().plan).toBe(plan);expect(usePlanner.getState().past).toHaveLength(0);
   });
 });

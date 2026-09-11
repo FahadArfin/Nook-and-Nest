@@ -29,7 +29,7 @@ export function PlacementTip(){const prefs=useEditorPreferences();if(prefs.dismi
 
 export function QuickPinSettings(){const prefs=useEditorPreferences();return <fieldset className="quick-pin-settings"><legend><PushPin size={15}/>Keep close</legend>{([{id:'brush',name:'Brush size & strength'},{id:'finishes',name:'Recent finishes'},{id:'grid',name:'Grid labels'}] as {id:QuickPin;name:string}[]).map(pin=><label key={pin.id}><span>{pin.name}</span><input type="checkbox" checked={prefs.pins.includes(pin.id)} onChange={()=>toggleQuickPin(pin.id)}/></label>)}</fieldset>;}
 
-export function PinnedControls(){
+export function PinnedControls({onOpen}:{onOpen?:()=>void}={}){
   const prefs=useEditorPreferences(),s=usePlanner(),anchor=useRef<HTMLButtonElement>(null),[open,setOpen]=useState<'brush'|'finishes'>();
   const brushing=s.tool==='planting'||s.tool.startsWith('terrain-');
   const finishes=prefs.recentFinishes.map(id=>floorFinishes.find(f=>f.id===id)??wallFinishes.find(f=>f.id===id)).filter(f=>!!f);
@@ -41,7 +41,7 @@ export function PinnedControls(){
     else if(state.tool.startsWith('terrain-')){state.setTerrainBrush(Math.max(.5,Math.min(8,state.terrainRadius+delta)),state.terrainStrength);event.preventDefault();}
   };window.addEventListener('keydown',changeSize);return()=>window.removeEventListener('keydown',changeSize);},[]);
   if(!prefs.pins.length)return null;
-  const toggle=(value:'brush'|'finishes',button:HTMLButtonElement)=>{anchor.current=button;setOpen(open===value?undefined:value);};
+  const toggle=(value:'brush'|'finishes',button:HTMLButtonElement)=>{anchor.current=button;if(open!==value)onOpen?.();setOpen(open===value?undefined:value);};
   return <div className="pinned-controls" role="group" aria-label="Pinned controls">
     {prefs.pins.includes('grid')&&<button title="Grid labels" aria-label="Pinned grid labels" aria-pressed={s.plan.camera.showGrid} onClick={()=>s.toggleCameraSetting('showGrid')}><GridFour size={19}/></button>}
     {prefs.pins.includes('brush')&&brushing&&<button title="Brush controls" aria-label="Pinned brush controls" aria-expanded={open==='brush'} onClick={e=>toggle('brush',e.currentTarget)}><SlidersHorizontal size={19}/></button>}
