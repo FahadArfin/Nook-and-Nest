@@ -53,10 +53,12 @@ describe('browsing continuity',()=>{
     expect(inRoomCollection(catalog.find(i=>i.id==='queen-bed')!,'kitchen')).toBe(false);
   });
   it('recent navigation and filter removal never place a model',()=>{
+    // Start with one real result. Testing every catalog card belongs to library.test.tsx.
+    usePlanner.setState({search:'Button tufted sofa'});
     act(()=>rememberModel('sofa'));const start=vi.fn(),plan=usePlanner.getState().plan;
     render(<CatalogLibrary onBeginDrag={vi.fn()} onStartPlacement={start}/>);
     fireEvent.click(screen.getByRole('button',{name:'Recent'}));expect(screen.getAllByRole('button',{name:/drag to place/})).toHaveLength(1);
-    fireEvent.click(screen.getByRole('button',{name:'Browse'}));fireEvent.click(screen.getByRole('button',{name:/^Filters/}));fireEvent.click(within(screen.getByRole('group',{name:'Browse by room'})).getByRole('button',{name:'Bedroom'}));expect(screen.getByRole('button',{name:'Remove Bedroom filter'})).toBeTruthy();
+    fireEvent.click(screen.getByRole('button',{name:/^Filters/}));fireEvent.click(within(screen.getByRole('group',{name:'Browse by room'})).getByRole('button',{name:'Bedroom'}));expect(screen.getByRole('button',{name:'Remove Bedroom filter'})).toBeTruthy();
     fireEvent.click(screen.getByRole('button',{name:'Remove Bedroom filter'}));expect(usePlanner.getState().plan).toBe(plan);expect(start).not.toHaveBeenCalled();
   });
 });
