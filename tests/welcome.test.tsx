@@ -61,7 +61,7 @@ it('keeps the appearance control usable when browser storage is blocked',async()
 
 it('shows only the three most recent device projects and opens a chosen card',async()=>{
  for(let i=0;i<4;i++)await savePlan({...createSamplePlan('Recent '+i),updatedAt:`2026-09-0${i+1}T12:00:00.000Z`});
- render(<Welcome Editor={Editor}/>);const section=await screen.findByRole('region',{name:'Continue where you left off'});await within(section).findByText('Recent 3');expect(within(section).queryByText('Recent 0')).toBeNull();expect(within(section).getAllByRole('button')).toHaveLength(3);fireEvent.click(within(section).getByRole('button',{name:/Recent 2/}));expect(usePlanner.getState().plan.name).toBe('Recent 2');
+ render(<Welcome Editor={Editor}/>);fireEvent.mouseEnter(screen.getByRole('button',{name:'Recents'}).parentElement!);const section=await screen.findByRole('region',{name:'Recent projects'});await within(section).findByText('Recent 3');expect(within(section).queryByText('Recent 0')).toBeNull();expect(within(section).getAllByRole('button')).toHaveLength(3);fireEvent.click(within(section).getByRole('button',{name:/Recent 2/}));expect(usePlanner.getState().plan.name).toBe('Recent 2');
 });
 
 it('sorts projects through rounded toggle buttons without opening or changing a plan',async()=>{

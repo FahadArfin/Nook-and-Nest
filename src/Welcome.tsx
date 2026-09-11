@@ -2,7 +2,7 @@ import {useEditorRoute,navigateEditor,leaveStudio} from './editorNavigation';
 import {PlanThumbnail} from './PlanThumbnail';
 import './ux.css';
 import {useEffect,useState,type ComponentType} from 'react';
-import {ArrowRight,HouseLine,FolderOpen,LockSimple,Monitor,Sun,Moon,SkipForward,Pause,Play,ArrowsClockwise} from '@phosphor-icons/react';
+import {HouseLine,FolderOpen,LockSimple,Monitor,Sun,Moon,SkipForward,Pause,Play,ArrowsClockwise} from '@phosphor-icons/react';
 import {AppearanceContext,useAppearance,useWelcomeTheme} from './useWelcomeTheme';
 import {createBlankPlan} from './domain';
 import {loadPlan,savePlan,usePlanner,listLocalPlans} from './store';
@@ -22,6 +22,7 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
  const [ready,setReady]=useState(false);const route=useEditorRoute(),editing=route==='editor'||route==='studio-editor',studio=route==='studio-home';const setEditing=(value:boolean)=>navigateEditor(value?'editor':'home');const setStudio=(value:boolean)=>value?navigateEditor('studio-home'):leaveStudio();
  const [projects,setProjects]=useState(new URLSearchParams(location.search).has('projects'));
  const ambience=useHomeAmbience(!editing&&!studio&&!projects);
+ const [recentsOpen,setRecentsOpen]=useState(false);
  const [error,setError]=useState('');const [recent,setRecent]=useState<PlanDocumentV1[]>([]);useEffect(()=>{let active=true;listLocalPlans().then(plans=>{if(active)setRecent(plans.sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)).slice(0,3))}).catch(()=>{});return()=>{active=false}},[editing,projects]);
  useEffect(()=>{let active=true;
   (async()=>{try{const plan=showcase?showcase():await loadPlan();if(!active)return;if(plan)usePlanner.getState().replacePlan(plan);
@@ -48,13 +49,15 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
     <p>Come in. Get comfortable.</p>
     {error&&<p role="alert" className="welcome-error">{error}</p>}
     <nav aria-label="Start planning">
-     <button disabled={!ready} className="living-start" onClick={()=>start(true)}>Create floor plan <ArrowRight/></button>
-     <button disabled={!ready} className="living-editor" aria-label="Open 3D editor" onClick={()=>start(false)}>Open 3D editor <ArrowRight/></button>
+     <button disabled={!ready} className="living-start" onClick={()=>start(true)}>Create floor plan</button>
+     <button disabled={!ready} className="living-editor" aria-label="Open 3D editor" onClick={()=>start(false)}>Open 3D editor</button>
+     <div className="living-recents-menu" onMouseEnter={()=>setRecentsOpen(true)} onMouseLeave={()=>setRecentsOpen(false)} onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget))setRecentsOpen(false)}} onKeyDown={e=>{if(e.key==='Escape'){e.stopPropagation();e.currentTarget.querySelector('button')?.focus();setRecentsOpen(false)}}}>
+      <button className="living-editor" aria-expanded={recentsOpen} aria-controls="recent-projects" onClick={()=>setRecentsOpen(true)} onFocus={()=>setRecentsOpen(true)}>Recents</button>
+      {recentsOpen&&<div id="recent-projects" className="living-recents-popup" role="region" aria-label="Recent projects">
+       {recent.length?recent.map(project=><button className="living-recent-tile" disabled={!ready} key={project.id} onClick={()=>{usePlanner.getState().replacePlan(project);window.history.replaceState(window.history.state,'',location.pathname);setEditing(true)}}><PlanThumbnail plan={project}/><strong>{project.name}</strong><small>{new Date(project.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</small></button>):<p>No recent projects yet. Your saved projects will appear here.</p>}
+      </div>}
+     </div>
     </nav>
-   </section>
-   <section className="living-recents" aria-labelledby="recent-heading">
-    <h2 id="recent-heading">Continue where<br/> you left off</h2>
-    {recent.length?<div className="living-recent-list">{recent.map(project=><button className="living-recent" disabled={!ready} key={project.id} onClick={()=>{usePlanner.getState().replacePlan(project);window.history.replaceState(window.history.state,'',location.pathname);setEditing(true)}}><PlanThumbnail plan={project}/><span><strong>{project.name}</strong><small>{new Date(project.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</small></span><ArrowRight size={18}/></button>)}</div>:<p>Your next happy place starts here.<br/><span>Create a plan, and come back to it anytime.</span></p>}
    </section>
    <footer className="living-footer"><span><LockSimple size={14}/>Saved on this device</span><button className="living-icon" aria-label={ambience.pref.paused?'Resume background motion':'Pause background motion'} aria-pressed={ambience.pref.paused} onClick={ambience.pause}>{ambience.pref.paused?<Play size={23}/>:<Pause size={23}/>}</button></footer>
   </div>
