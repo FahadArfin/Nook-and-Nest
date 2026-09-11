@@ -80,3 +80,8 @@
 .library-panel .library-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .library-panel.library-expanded{width:max(390px,min(620px,calc(100vw - 580px)))}
 @media(min-width:1301px){.library-expanded .library-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+
+/* Skip offscreen group layout and paint while retaining keyboard navigation. */
+.library-type-section { content-visibility: auto; contain-intrinsic-size: auto 420px; }
+
+.library-tags{display:flex;flex-wrap:wrap;gap:5px;max-height:92px;overflow:auto;margin:8px 0}.library-tags button{border:1px solid var(--line);border-radius:999px;background:transparent;color:var(--muted);padding:5px 9px;font-size:11px;cursor:pointer}.library-tags button{min-height:32px}.library-tags button[aria-pressed=true]{background:#647951;color:white;border-color:#647951}.library-type-heading{border-bottom:1px solid var(--line);padding-bottom:10px!important;margin-top:12px}.library-type-heading small{border-radius:999px;background:#70835e18;padding:3px 8px}.library-shelves{grid-template-columns:repeat(2,minmax(0,1fr))}

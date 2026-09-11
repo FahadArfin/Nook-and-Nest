@@ -30,8 +30,8 @@ export class OutdoorScene {
     this.google?.update(plan);
     const env=plan.environment??{background:'plain',grass:'off'};
     for(const material of this.assets.get('backdrop-city')?.materials??[])if(material instanceof PBRMaterial){const night=!!plan.camera.darkMode;material.emissiveColor=(material.name==='city-window-lights'||material.emissiveTexture?.name==='Toronto window lights')?(night?new Color3(1,.66,.27):Color3.Black()):Color3.Black();material.environmentIntensity=night?.25:1;}
-    const key=JSON.stringify([env,plan.floors.map(f=>[f.cells,f.cellRects]),plan.gridSizeMm,plan.furniture.map(f=>[f.x,f.z,f.widthMm,f.depthMm,f.rotation])]);if(key===this.key)return;this.key=key;
-    this.root?.dispose(false,false);this.root=new TransformNode('outdoor-scenery',this.scene);const bounds=landscapeBounds(plan);
+    const bounds=landscapeBounds(plan);const key=JSON.stringify([env.background,env.citySource,env.backdropRotation,env.grass,bounds,plan.floors.map(f=>[f.cells,f.cellRects]),plan.gridSizeMm,env.grass!=='off'?[env.terrain,plan.furniture.map(f=>[f.x,f.z,f.widthMm,f.depthMm,f.rotation])]:null]);if(key===this.key)return;this.key=key;
+    this.root?.dispose(false,false);this.root=new TransformNode('outdoor-scenery',this.scene);
     if(env.background!=='plain'&&!(env.background==='city'&&env.citySource==='google')){
       const id=`backdrop-${env.background}`,asset=this.assets.get(id);if(!asset)this.load(id);else{
         const group=new TransformNode('distant-surroundings',this.scene);group.parent=this.root;group.rotation.y=(env.backdropRotation??0)*Math.PI/180;group.position.set(bounds.x,groundY,bounds.z);if(env.background==='city')group.scaling.setAll(1);else group.scaling.set(bounds.radius/20,1,bounds.radius/20);

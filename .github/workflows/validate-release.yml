@@ -26,6 +26,8 @@ jobs:
           node-version: '22.14.0'
           cache: npm
       - run: npm ci
+      - name: Asset pipeline references
+        run: npm run assets:verify
       - name: Type check
         run: npm run check
       - name: Application tests

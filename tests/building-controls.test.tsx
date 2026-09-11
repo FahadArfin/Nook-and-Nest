@@ -13,7 +13,7 @@ import { fitStair,stairHoles } from "../src/building";
 import { catalog } from "../src/catalog";
 import { EditorApp as App } from "../src/App";
 const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:vi.fn(),zoom:vi.fn(),focus:vi.fn(),rotation:vi.fn()}));
-vi.mock("../src/scene/SceneController",()=>({SceneController:class{
+vi.mock("../src/scene/SceneController",()=>({SceneController:class{setRenderQuality(){} highlightPart(){}
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setMoveMode(_active:boolean){}
   setSunPreview(){}
@@ -75,11 +75,11 @@ describe("stair connection controls",()=>{
 describe("building editor wiring",()=>{
   it("opens backsplash browsing without placing anything, then confirms and edits a panel",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());const before=state().plan;
-    fireEvent.click(screen.getByRole("button",{name:"Erase"}));await screen.findByRole("region",{name:"Erase tools"});fireEvent.click(screen.getByRole("button",{name:"Walls"}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
+    fireEvent.click(screen.getByRole("button",{name:"Build"}));const build=await screen.findByRole("region",{name:"Build tools"});fireEvent.click(within(build).getByRole("button",{name:"Remove"}));expect(state().tool).toBe("wall-cut");expect(state().plan).toBe(before);fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"backsplash"}});
     const model=catalog.find(c=>c.id==="backsplash-subway")!;fireEvent.click(screen.getByRole("button",{name:`${model.name}, drag to place`}),{detail:0});
     expect(state().plan.furniture).toEqual([]);fireEvent.click(screen.getByRole("button",{name:"Confirm placement"}));expect(state().plan.furniture).toHaveLength(1);
     const id=state().plan.furniture[0].id;act(()=>scene.callbacks.onSelect(id));
-    fireEvent.change(screen.getByLabelText("grout color"),{target:{value:"#ccbbaa"}});fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"920"}});
+    fireEvent.change(screen.getByLabelText("Grout color (grout)"),{target:{value:"#ccbbaa"}});fireEvent.change(screen.getByLabelText("Height from floor"),{target:{value:"920"}});
     expect(state().plan.furniture[0].materialColors?.grout).toBe("#ccbbaa");expect(state().plan.furniture[0].elevationMm).toBe(920);
     expect(screen.getAllByRole("button",{name:"Flip"})).toHaveLength(2);
   },10000);
@@ -141,12 +141,12 @@ describe("outdoor and detail controls",()=>{
     fireEvent.click(screen.getByRole("button",{name:"Browse outdoor furniture"}));expect(state().category).toBe("Outdoor");
     act(()=>state().undo());expect(state().plan.environment?.grass).toBe("off");
   });
-  it("exposes zoom buttons and only enables detail focus after selection",async()=>{
+  it("exposes zoom without a redundant focus button",async()=>{
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());
     fireEvent.click(screen.getByRole("button",{name:"Zoom in"}));expect(scene.zoom).toHaveBeenCalledWith(Math.exp(-.09));
-    expect((screen.getByRole("button",{name:"Focus selected furniture"}) as HTMLButtonElement).disabled).toBe(true);
+    expect(screen.queryByRole("button",{name:"Focus selected furniture"})).toBeNull();
     act(()=>{state().placeFurniture("small-plant");state().select(state().plan.furniture[0].id)});
-    fireEvent.click(screen.getByRole("button",{name:"Focus selected furniture"}));expect(scene.focus).toHaveBeenCalled();
+    expect(screen.queryByRole("button",{name:"Focus selected furniture"})).toBeNull();
   });
 });
 
@@ -155,17 +155,17 @@ it('carries shared appearance through the studio and editor without changing the
  let matches=true;const listeners=new Set<()=>void>();vi.stubGlobal('matchMedia',()=>({get matches(){return matches;},addEventListener:(_name:string,fn:()=>void)=>listeners.add(fn),removeEventListener:(_name:string,fn:()=>void)=>listeners.delete(fn)}));
  Object.defineProperty(HTMLDialogElement.prototype,'showModal',{configurable:true,value(){this.setAttribute('open','');}});
  const {container}=render(<Welcome Editor={App}/>);
- const studio=screen.getByRole('button',{name:/Create floor plan/});await waitFor(()=>expect(studio.hasAttribute('disabled')).toBe(false));fireEvent.click(studio);
+ const studio=screen.getByRole('button',{name:/Draw a floor plan/});await waitFor(()=>expect(studio.hasAttribute('disabled')).toBe(false));fireEvent.click(studio);
  expect(screen.getByRole('dialog',{name:'Floor plan studio'}).getAttribute('data-theme')).toBe('dark');
  act(()=>{matches=false;listeners.forEach(fn=>fn());});expect(screen.getByRole('dialog',{name:'Floor plan studio'}).getAttribute('data-theme')).toBe('light');
  fireEvent.click(screen.getByRole('button',{name:'Close floor plan studio'}));fireEvent.click(screen.getByRole('button',{name:'Use dark theme'}));
- fireEvent.click(screen.getByRole('button',{name:/Free 3D editor/}));
+ fireEvent.click(screen.getByRole('button',{name:/Design in 3D/}));
  expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);
  const plan=state().plan;const past=state().past;
  fireEvent.click(screen.getByRole('button',{name:'Night mode'}));expect(container.querySelector('.app-shell.dark-mode')).toBeNull();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(false);
  expect(state().plan).toBe(plan);expect(state().past).toBe(past);expect(localStorage.getItem('nook-welcome-theme')).toBe('light');
- fireEvent.click(screen.getByRole('button',{name:'Back to home'}));await screen.findByRole('button',{name:'Use light theme'});expect(screen.getByRole('button',{name:'Use light theme'}).getAttribute('aria-pressed')).toBe('true');
- fireEvent.click(screen.getByRole('button',{name:'Use system theme'}));fireEvent.click(screen.getByRole('button',{name:/Free 3D editor/}));const next=state().plan;
+ fireEvent.click(screen.getByRole('button',{name:'Back to home'}));await screen.findByRole('button',{name:'Use dark theme'});expect(container.querySelector('main')?.getAttribute('data-theme')).toBe('light');
+ fireEvent.click(screen.getByLabelText('Background preferences'));fireEvent.click(screen.getByRole('button',{name:'Use system theme'}));fireEvent.click(screen.getByRole('button',{name:/Design in 3D/}));const next=state().plan;
  act(()=>{matches=true;listeners.forEach(fn=>fn());});expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);expect(state().plan).toBe(next);localStorage.removeItem('nook-welcome-theme');
 },10000);
 
@@ -204,10 +204,10 @@ it('opens floor finishes from the compact dock and centers without editing the p
  render(<App/>);const before=state().plan;
  expect(screen.queryByRole('button',{name:'Inside door'})).toBeNull();
  expect(screen.queryByTitle('Clearance guides')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Add wall'}));expect(state().tool).toBe('wall');expect(await screen.findByRole('region',{name:'Wall tools'})).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'Build'}));expect(state().tool).toBe('wall');expect(await screen.findByRole('region',{name:'Build tools'})).toBeTruthy();
  fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Paint'}));const tray=await screen.findByRole('region',{name:'Paint surfaces'});expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();fireEvent.click(within(tray).getByRole('button',{name:'Walls'}));expect(within(tray).getByRole('button',{name:'All walls'})).toBeTruthy();fireEvent.click(within(tray).getByRole('button',{name:'Floor'}));expect(within(tray).getByRole('button',{name:'Whole floor'})).toBeTruthy();
  fireEvent.click(within(tray).getByRole('button',{name:'Close paint surfaces'}));expect(screen.queryByRole('region',{name:'Paint surfaces'})).toBeNull();expect(state().tool).toBe('select');
- fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Erase'}));const erase=await screen.findByRole('region',{name:'Erase tools'});fireEvent.click(within(erase).getByRole('button',{name:'Walls'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(erase).getByRole('button',{name:'Floors'}));expect(state().tool).toBe('erase');
+ fireEvent.click(within(screen.getByRole('toolbar',{name:'Floor editing'})).getByRole('button',{name:'Build'}));const build=await screen.findByRole('region',{name:'Build tools'});fireEvent.click(within(build).getByRole('button',{name:'Remove'}));expect(state().tool).toBe('wall-cut');fireEvent.click(within(build).getByRole('button',{name:'Floors'}));expect(state().tool).toBe('erase');fireEvent.click(within(build).getByRole('button',{name:'Add'}));expect(state().tool).toBe('paint');
  fireEvent.click(screen.getByRole('button',{name:'Center home'}));expect(scene.focus).toHaveBeenCalled();expect(state().plan).toBe(before);
 },15000);
 
@@ -227,10 +227,10 @@ it('uses an icon-only opt-in Move toggle, swaps the end actions and keeps colors
 
 it('keeps home tools in dock drawers and reserves the inspector for selected furniture',async()=>{
  render(<App/>);expect(screen.queryByRole('button',{name:'Decorate'})).toBeNull();expect(document.querySelector('.workspace>.inspector-panel')).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Land formation'}));const land=await screen.findByRole('region',{name:'Land formation'});
- fireEvent.click(within(land).getByRole('button',{name:'Terrain'}));await screen.findByRole('button',{name:'Hill'});fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');
- fireEvent.click(within(land).getByRole('button',{name:'Plants'}));await screen.findByLabelText('Search plants');expect(screen.getByLabelText('Search plants')).toBeTruthy();
- fireEvent.click(screen.getByRole('button',{name:'Land formation'}));expect(state().tool).toBe('select');
+ fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));const land=await screen.findByRole('region',{name:'Outdoors'});
+ fireEvent.click(within(land).getByRole('button',{name:'Terrain'}));await screen.findByRole('button',{name:'Hill'});fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');fireEvent.change(screen.getByLabelText('Quick terrain brush size'),{target:{value:'6'}});expect(state().terrainRadius).toBe(6);
+ expect(within(land).queryByRole('button',{name:'Hill'})).toBeNull();fireEvent.click(within(land).getByRole('button',{name:'Change outdoor options'}));fireEvent.click(within(land).getByRole('button',{name:'Plants'}));await screen.findByLabelText('Search plants');expect(screen.getByLabelText('Search plants')).toBeTruthy();
+ fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));expect(state().tool).toBe('select');
  expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
  expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.click(screen.getByRole('button',{name:'Nighttime'}));expect(state().plan.environment?.sun?.night).toBe(true);act(()=>state().undo());expect(state().plan.environment?.sun?.night).toBeUndefined();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.keyDown(screen.getByRole('button',{name:'Morning'}),{key:'Escape'});expect(state().plan.environment?.sun?.enabled).toBe(true);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();
  fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.pointerDown(document.body);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();expect(state().plan.environment?.sun?.enabled).toBe(true);
@@ -238,3 +238,20 @@ it('keeps home tools in dock drawers and reserves the inspector for selected fur
 
  fireEvent.click(screen.getByRole('button',{name:'Paint'}));await screen.findByRole('region',{name:'Paint surfaces'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
 },15000);
+
+it('collapses paint after choosing a finish and preserves the brush when reopened',async()=>{
+ render(<App/>);fireEvent.click(screen.getByRole('button',{name:'Paint'}));const tray=await screen.findByRole('region',{name:'Paint surfaces'});
+ fireEvent.click(within(tray).getByRole('button',{name:'Floor: Honey oak'}));
+ expect(within(tray).queryByLabelText('Search finishes')).toBeNull();expect(state().tool).toBe('floor-finish');
+ const chosen=state().activeSurfaceFinish;fireEvent.click(within(tray).getByRole('button',{name:'Change finish'}));
+ expect(within(tray).getByLabelText('Search finishes')).toBeTruthy();expect(state().activeSurfaceFinish).toBe(chosen);expect(state().tool).toBe('floor-finish');
+});
+
+it('keeps rendering and ghost-floor controls in the sliding settings panel',()=>{
+ render(<App/>);expect(screen.queryByRole('switch',{name:'Ghost floor below'})).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Settings'}));const settings=screen.getByRole('region',{name:'Settings'});
+ fireEvent.click(within(settings).getByRole('button',{name:'Battery'}));expect(localStorage.getItem('nook-render-quality')).toBe('battery');
+ const before=state().plan.camera.ghostBelow;fireEvent.click(within(settings).getByRole('switch',{name:'Ghost floor below'}));expect(state().plan.camera.ghostBelow).toBe(!before);
+ fireEvent.keyDown(within(settings).getByRole('button',{name:'Auto'}),{key:'Escape'});expect(screen.queryByRole('region',{name:'Settings'})).toBeNull();
+ localStorage.removeItem('nook-render-quality');
+});

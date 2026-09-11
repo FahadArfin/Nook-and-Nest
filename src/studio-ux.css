@@ -1,0 +1,80 @@
+/* Studio audit fixes: scoped above legacy editor/UX cascade rules. */
+.blueprint-dialog[open]{--bp-panel:var(--paper);--bp-muted:var(--muted,#65705f);font-size:14px}
+.blueprint-dialog[open] .bp-header{background:var(--paper);color:var(--ink);border-color:var(--line);min-height:66px;gap:12px;flex-wrap:nowrap}
+.blueprint-dialog[open] .bp-header .bp-studio-title{min-width:0;margin:0 12px;flex:0 1 auto}
+.blueprint-dialog[open] .bp-header .eyebrow{color:var(--bp-muted);font-size:11px;display:block}
+.blueprint-dialog[open] .bp-header h1{color:var(--ink);font-size:19px;line-height:1.35}
+.blueprint-dialog[open] .bp-header .brand span{color:var(--ink)}
+.blueprint-dialog[open] .bp-header .brand small{color:var(--bp-muted)}
+.blueprint-dialog[open] button{min-height:42px}
+.blueprint-dialog[open] .bp-header .bp-save-button{flex-shrink:0}
+.blueprint-dialog[open] .bp-header>button:last-child{min-width:42px;margin-left:0}
+.blueprint-dialog[open] .bp-save-status{margin:0;padding:6px 16px;font-size:13px;color:var(--ink);background:var(--paper)}
+.blueprint-dialog[open] .bp-sidebar-heading{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--paper);z-index:2;padding:8px 0;border-bottom:1px solid var(--line)}
+.blueprint-dialog[open] .bp-sidebar-heading button{width:42px;padding:8px}
+.blueprint-dialog[open] .bp-sidebar h2{font-family:inherit;font-size:15px}
+.blueprint-dialog[open] .bp-review h2{font-family:Fraunces,serif;font-size:23px}
+.blueprint-dialog[open] .bp-empty-help,.blueprint-dialog[open] .bp-review-hint{color:var(--bp-muted);line-height:1.6}
+.blueprint-dialog[open] .bp-toolbar{flex-wrap:wrap;max-height:none;overflow:visible;min-height:56px}
+.blueprint-dialog[open] .bp-instruction{display:flex;align-items:center;gap:12px;min-height:42px;max-height:none;font-size:13px;flex-shrink:0}
+.blueprint-dialog[open] .bp-active-tool{font-size:12px;white-space:nowrap;padding:4px 8px;border:1px solid var(--line);border-radius:7px}
+.blueprint-dialog[open] .studio-starters{top:46%;transform:translate(-50%,-50%);width:min(420px,calc(100% - 110px));padding:24px;gap:12px;box-shadow:0 12px 32px #10201818;max-height:calc(100% - 220px);overflow:auto}
+.blueprint-dialog[open] .studio-starters>strong{font-family:Fraunces,serif;font-size:26px;font-weight:500}
+.blueprint-dialog[open] .studio-starters p{margin:0 0 2px;color:var(--bp-muted)}
+.blueprint-dialog[open] .studio-starters button{justify-content:flex-start;text-align:left;gap:14px;min-height:65px;padding:12px 16px;border-radius:13px}
+.blueprint-dialog[open] .studio-starters button>svg{width:24px;height:24px;flex-shrink:0}
+.blueprint-dialog[open] .studio-starters button span{display:grid;gap:4px}
+.blueprint-dialog[open] .studio-starters button strong{font-size:15px;font-weight:650}
+.blueprint-dialog[open] .studio-starters small{font-size:12px;line-height:1.4}
+.blueprint-dialog[open] .studio-starters button.primary small{color:inherit}
+.blueprint-dialog[open] .bp-bottom-dock[hidden]{display:none}
+.blueprint-dialog[open] .bp-dock-buttons>button{min-width:68px;min-height:58px;font-size:12px}
+.blueprint-dialog[open] .bp-dock-buttons>button.active{background:#58744f;color:#fff;box-shadow:inset 0 0 0 2px #d2dcb9}
+.blueprint-dialog[open] .bp-file-menu{color:var(--ink);background:var(--paper);padding:16px;gap:12px}
+.blueprint-dialog[open] .bp-file-menu p{font-size:13px;line-height:1.55;margin:0}
+.blueprint-dialog[open] .bp-file-menu summary{font-size:13px;padding:5px 0}
+.blueprint-dialog[open] .bp-file-menu[hidden]{display:none}
+.blueprint-dialog[open] .bp-import-choices{display:grid;gap:8px}
+.blueprint-dialog[open] .bp-import-choices button{text-align:left;justify-content:flex-start;padding:12px}
+.blueprint-dialog[open] .bp-import-choices button span{display:grid;gap:4px}
+.blueprint-dialog[open] .bp-import-choices small{font-size:12px}
+.blueprint-dialog[open] .bp-import-choices button[aria-pressed=true]{border-color:#a18143;box-shadow:inset 0 0 0 1px #a18143}
+.blueprint-dialog[open] .bp-footer{flex-shrink:0;min-height:58px}
+.blueprint-dialog[open] :focus-visible{outline:3px solid #bc8734;outline-offset:3px}
+@media(max-width:700px){
+ .blueprint-dialog[open] .bp-header{padding:8px!important;gap:6px;min-height:68px}
+ .blueprint-dialog[open] .bp-header .brand>div{display:none}
+ .blueprint-dialog[open] .bp-header .bp-studio-title{margin:0 4px;flex:1}
+ .blueprint-dialog[open] .bp-header h1{font-size:15px}
+ .blueprint-dialog[open] .bp-header .eyebrow{font-size:10px}
+ .blueprint-dialog[open] .bp-header .brand img{width:32px;height:32px}
+ .blueprint-dialog[open] .bp-header button{font-size:12px;padding:7px;min-height:42px}
+ .blueprint-dialog[open] .bp-workspace,.blueprint-dialog[open] .bp-workspace.bp-sidebar-hidden{grid-template-columns:minmax(0,1fr);position:relative}
+ .blueprint-dialog[open] .bp-drawing{grid-column:1;grid-row:1;min-width:0}
+ .blueprint-dialog[open] .bp-sidebar{position:absolute;inset:0 auto 0 0;width:min(310px,calc(100% - 48px));max-height:none;z-index:12;background:var(--paper);box-shadow:8px 0 28px #0004;box-sizing:border-box}
+ .blueprint-dialog[open] .bp-sidebar[aria-hidden=true]{visibility:hidden;pointer-events:none;transform:translateX(-100%)}
+ .blueprint-dialog[open] .bp-toolbar{padding:5px;gap:4px;min-height:52px}
+ .blueprint-dialog[open] .bp-toolbar .bp-button-row{gap:3px;flex-wrap:nowrap}
+ .blueprint-dialog[open] .bp-toolbar .bp-menus{gap:1px;margin:0}
+ .blueprint-dialog[open] .bp-toolbar button{padding:7px;min-width:36px;font-size:12px}
+ .blueprint-dialog[open] .bp-toolbar .bp-menus button{min-width:40px}
+ .blueprint-dialog[open] .bp-toolbar .bp-menus button svg{display:none}
+ .blueprint-dialog[open] .bp-instruction{font-size:12px;line-height:1.45;padding:8px;align-items:flex-start;gap:8px}
+ .blueprint-dialog[open] .bp-view-controls{top:110px;right:7px}
+ .blueprint-dialog[open] .studio-starters{width:calc(100% - 64px);top:45%;padding:16px;max-height:calc(100% - 235px);gap:9px}
+ .blueprint-dialog[open] .studio-starters>strong{font-size:23px}
+ .blueprint-dialog[open] .studio-starters button{padding:10px;min-height:59px}
+ .blueprint-dialog[open] .bp-bottom-dock{max-width:calc(100% - 16px);bottom:68px;border-radius:16px}
+ .blueprint-dialog[open] .bp-dock-buttons>button{min-width:64px}
+ .blueprint-dialog[open] .bp-footer{padding:8px;justify-content:flex-end;min-height:60px}
+ .blueprint-dialog[open] .bp-footer>span{display:none}
+ .blueprint-dialog[open] .bp-edit-selected{bottom:142px;max-width:calc(100% - 60px);font-size:12px}
+}
+.blueprint-dialog[open] .bp-view-controls{bottom:auto;height:auto}
+@media(max-width:700px){
+ .blueprint-dialog[open] .bp-header .brand{width:auto;min-width:0;flex:0 0 auto}
+ .blueprint-dialog[open] .bp-header .eyebrow{letter-spacing:.06em;line-height:1.3}
+ .blueprint-dialog[open] .studio-starters{bottom:auto}
+ .blueprint-dialog[open] .studio-starters button{min-width:0;width:100%}
+}
+.blueprint-dialog[open] .bp-view-controls{overflow:visible}

@@ -2,7 +2,7 @@
 
 A cozy 3D apartment planner where you and your browser's AI agent can design, furnish, and personalize a home together.
 
-[Open the live planner](https://nook-and-nest.fwad101.chatgpt.site/) · [WebMCP integration](docs/webmcp.md)
+[Open the live planner](https://nook-and-nest.fwad101.chatgpt.site/) · [WebMCP integration](docs/webmcp.md) | [Repository map](docs/repository-map.md)
 
 <img src="public/assets/nook-nest-icon.png" alt="Nook & Nest miniature cottage icon" width="180" />
 
@@ -13,7 +13,7 @@ Nook & Nest started because a friend was looking for a rental apartment and want
 ## What you can do
 
 - Draw measured floor regions, create multiple floors, and add walls, doors, windows, and stairs.
-- Browse 216 furniture and decor pieces with original editable Blender models, exported GLBs, and preview images.
+- Browse the expanding furniture and decor collection with original editable Blender models, exported GLBs, and preview images.
 - Preview placement before confirming, rotate pieces, adjust dimensions, and recolor individual materials.
 - Place televisions on media benches and small decorations on tables or usable shelf levels.
 - Choose wall and floor finishes, kitchen worktops and backsplashes, rugs, and optional outdoor scenery.
@@ -92,3 +92,7 @@ blender --background --python tools/blender/render_catalog.py -- sofa
 This is a visual planning tool, not architectural, structural, electrical, plumbing, or building-code advice. Footprint and height warnings are conservative layout checks, not a guarantee of circulation or installation clearance. Online snapshots are explicit saves, not real-time collaboration.
 
 The visual direction is inspired by cozy miniature-world games, but the furniture models and artwork used in the app were created for this project. Research references and development comparison images are not part of the original asset collection and remain attributable to their respective owners. Third-party dependencies retain their own licenses. No general open-source license has been selected for the project source and original assets.
+
+## Maintenance and performance
+
+Start with [repository map](docs/repository-map.md), [asset ownership](docs/asset-pipeline.md), and [repeatable performance scenes](docs/performance-scenes.md). Active requirements live in AGENTS.md and linked contracts; the original guide remains archived verbatim.

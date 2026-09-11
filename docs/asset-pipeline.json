@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "recipes": [
+    {
+      "id": "quality-models",
+      "generators": [
+        "tools/blender/build_quality_models.py"
+      ],
+      "inputs": [
+        "tools/blender/modern_manifest.json"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb"
+      ],
+      "notes": "Base family builder; inspect imported builders and selected IDs before rerunning."
+    },
+    {
+      "id": "studio-models",
+      "generators": [
+        "tools/blender/build_studio_collection.py"
+      ],
+      "inputs": [
+        "src/studioExpansion.json"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb",
+        "src/studioShelfSurfaces.json",
+        "assets-source/studio-model-audit.json"
+      ],
+      "notes": "Overrides selected base IDs as well as studio IDs; script is authoritative for selection."
+    },
+    {
+      "id": "apartment-models",
+      "generators": [
+        "tools/blender/build_apartment_collection.py"
+      ],
+      "inputs": [
+        "src/apartmentExpansion.json"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb",
+        "assets-source/apartment-model-audit.json"
+      ],
+      "notes": "Apartment collection IDs."
+    },
+    {
+      "id": "designed-home-models",
+      "generators": [
+        "tools/blender/build_designed_home_collection.py"
+      ],
+      "inputs": [
+        "src/designedHomeExpansion.json"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb",
+        "assets-source/designed-home-model-audit.json"
+      ],
+      "notes": "Designed-home collection IDs."
+    },
+    {
+      "id": "previews",
+      "generators": [
+        "tools/blender/render_catalog.py",
+        "scripts/compress-previews.py"
+      ],
+      "inputs": [
+        "assets-source/blender"
+      ],
+      "outputs": [
+        "assets-source/previews/{id}.png",
+        "public/models/previews/{id}.webp"
+      ],
+      "notes": "Render first, then lossless compression; inspect renderer output path before running."
+    },
+    {
+      "id": "material-metadata",
+      "generators": [
+        "scripts/catalog-materials.mjs"
+      ],
+      "inputs": [
+        "public/models/furniture"
+      ],
+      "outputs": [
+        "src/modelMaterials.json"
+      ],
+      "notes": "Regenerate after model export; collection material scripts may patch selected IDs."
+    },
+    {
+      "id": "release-models",
+      "generators": [
+        "scripts/optimize-model-assets.mjs"
+      ],
+      "inputs": [
+        "public/models/furniture"
+      ],
+      "outputs": [
+        "dist/client/models/furniture/{id}.glb"
+      ],
+      "notes": "Build-only optimization; never replace editable originals."
+    },
+    {
+      "id": "library-release",
+      "generators": [
+        "scripts/prepare-library-assets.mjs"
+      ],
+      "inputs": [
+        "public/models",
+        "public/textures"
+      ],
+      "outputs": [
+        "release/library-manifest.json"
+      ],
+      "notes": "Release packaging owns output directory and content hashes."
+    }
+  ]
+}

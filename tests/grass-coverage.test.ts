@@ -1,0 +1,6 @@
+import {it,expect} from 'vitest';
+import {createBlankPlan,parsePlan,serializePlan} from '../src/domain';
+import {paintGrassCoverage} from '../src/grassCoverage';
+import {usePlanner} from '../src/store';
+it('paints and erases coverage without allocating saved furniture',()=>{const p=createBlankPlan(),brush={catalogId:'grass-clump',radius:4,spacing:.3,density:9};const points=Array.from({length:500},(_,i)=>({x:i%50*4-100,z:Math.floor(i/50)*4-100}));const coverage=paintGrassCoverage(p,points,brush);expect(Object.keys(coverage).length).toBeGreaterThan(1000);p.environment={background:'plain',grass:'off',grassCoverage:coverage};expect(p.furniture).toHaveLength(0);expect(parsePlan(serializePlan(p))).toEqual(p);const erased=paintGrassCoverage(p,[{x:-100,z:-100}],{...brush,eraseCoverage:true});expect(Object.keys(erased).length).toBeLessThan(Object.keys(coverage).length);});
+it('undo restores a meadow stroke as one operation',()=>{usePlanner.getState().replacePlan(createBlankPlan());usePlanner.getState().paintCoverage([{x:-10,z:-10}]);expect(Object.keys(usePlanner.getState().plan.environment!.grassCoverage!).length).toBeGreaterThan(0);usePlanner.getState().undo();expect(usePlanner.getState().plan.environment?.grassCoverage).toBeUndefined();usePlanner.getState().redo();expect(usePlanner.getState().plan.environment?.grassCoverage).toBeDefined();});

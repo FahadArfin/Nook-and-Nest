@@ -5,7 +5,7 @@ import path from 'node:path';
 export const libraryFolders=['models','textures','data/toronto'];
 export function prepareLibrary(root='dist/client', output='.generated') {
   const assets={};
-  const types={'.glb':'model/gltf-binary','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.json':'application/json','.gz':'application/gzip','.html':'text/html; charset=utf-8'};
+  const types={'.ktx2':'image/ktx2','.glb':'model/gltf-binary','.png':'image/png','.jpg':'image/jpeg','.webp':'image/webp','.svg':'image/svg+xml','.json':'application/json','.gz':'application/gzip','.html':'text/html; charset=utf-8'};
   function walk(folder) {
     for(const entry of readdirSync(path.join(root,folder),{withFileTypes:true}).sort((a,b)=>a.name.localeCompare(b.name))) {
       const relative=folder+'/'+entry.name;

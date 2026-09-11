@@ -1,0 +1,29 @@
+/** Bounded, deterministic image evidence. Coordinates always refer to the original. */
+export const PIPELINE_VERSION='luna-geometry-v1';
+export interface WallCandidate {axis:'h'|'v';x:number;y:number;width:number;height:number}
+export interface ScanEvidence {version:string;walls:WallCandidate[];crops:{image:string;x:number;y:number;width:number;height:number}[]}
+export function extractWallCandidates(rgba:Uint8ClampedArray,width:number,height:number,sourceWidth=width,sourceHeight=height):WallCandidate[] {
+  if(width<1||height<1||width*height>2_560_000||rgba.length!==width*height*4)throw new Error('Invalid analysis pixels.');
+  const stride=width+1,integral=new Uint32Array(stride*(height+1));
+  for(let y=0;y<height;y++){let row=0;for(let x=0;x<width;x++){const i=(y*width+x)*4;row+=rgba[i+3]>128&&rgba[i]*.299+rgba[i+1]*.587+rgba[i+2]*.114<150?1:0;integral[(y+1)*stride+x+1]=integral[y*stride+x+1]+row;}}
+  const sum=(x:number,y:number,w:number,h:number)=>integral[(y+h)*stride+x+w]-integral[y*stride+x+w]-integral[(y+h)*stride+x]+integral[y*stride+x];
+  const walls:WallCandidate[]=[];const long=Math.max(18,Math.round(Math.max(width,height)*.038)),thick=Math.max(3,Math.round(Math.max(width,height)*.0045));
+  for(const axis of ['h','v'] as const){
+    const kw=axis==='h'?long:thick,kh=axis==='h'?thick:long,mask=new Uint8Array(width*height);
+    for(let y=0;y<=height-kh;y++)for(let x=0;x<=width-kw;x++)if(sum(x,y,kw,kh)===kw*kh)mask[y*width+x]=1;
+    const queue=new Int32Array(width*height);
+    for(let p=0;p<mask.length;p++)if(mask[p]){let head=0,tail=1;queue[0]=p;mask[p]=0;let left=p%width,right=left,top=Math.floor(p/width),bottom=top;
+      while(head<tail){const q=queue[head++],x=q%width,y=Math.floor(q/width);left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);
+        for(const n of [x>0?q-1:-1,x+1<width?q+1:-1,y>0?q-width:-1,y+1<height?q+width:-1])if(n>=0&&mask[n]){mask[n]=0;queue[tail++]=n;}}
+      walls.push({axis,x:left*sourceWidth/width,y:top*sourceHeight/height,width:(right-left+kw)*sourceWidth/width,height:(bottom-top+kh)*sourceHeight/height});
+    }
+  }
+  return walls.sort((a,b)=>b.width*b.height-a.width*a.height).slice(0,160).map(w=>Object.fromEntries(Object.entries(w).map(([k,v])=>[k,typeof v==='number'?Math.round(v*10)/10:v])) as unknown as WallCandidate);
+}
+export function validateEvidence(value:unknown,width:number,height:number):ScanEvidence|undefined {
+  if(value===undefined)return;
+  const e=value as ScanEvidence;
+  const box=(r:{x:number;y:number;width:number;height:number})=>r&&[r.x,r.y,r.width,r.height].every(Number.isFinite)&&r.x>=0&&r.y>=0&&r.width>0&&r.height>0&&r.x+r.width<=width+.1&&r.y+r.height<=height+.1;
+  if(!e||e.version!==PIPELINE_VERSION||!Array.isArray(e.walls)||e.walls.length>160||!e.walls.every(w=>box(w)&&['h','v'].includes(w.axis))||!Array.isArray(e.crops)||e.crops.length>4||!e.crops.every(c=>box(c)&&typeof c.image==='string'&&c.image.length<1_500_000&&/^data:image\/jpeg;base64,[A-Za-z0-9+/]+=*$/.test(c.image)))throw new Error('Invalid analysis evidence. Reimport the image.');
+  return e;
+}

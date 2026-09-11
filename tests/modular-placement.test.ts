@@ -24,7 +24,7 @@ function renderer(){
  const engine=new NullEngine(),scene=new Scene(engine),camera=new ArcRotateCamera('camera',1,.6,10,new Vector3(2,0,2),scene);
  const r:any=Object.create(SceneController.prototype);
  Object.assign(r,{paintWallIds:[],paintSelectionGuides:[],neutralPreview:false,scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600,getBoundingClientRect:()=>({left:0,top:0,width:800,height:600})},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
- r.cancelFocus=()=>{r.focusMotion=undefined};
+ r.initializeControllers();
  return {r,scene,dispose:()=>{scene.dispose();engine.dispose()}};
 }
 describe('modular placement regression',()=>{
@@ -44,7 +44,7 @@ describe('modular placement regression',()=>{
    for(const model of catalog.filter(c=>c.category==='Kitchen'&&c.mount==='wall'))expect(isKitchenWall(model.id),model.id).toBe(true);
    expect(isKitchenWall(c.catalogId)).toBe(true);expect(c.elevationMm).toBe(1500);expect(c.z).toBe(c.depthMm/2+51);expect(windowProblem(p,c)).toBeUndefined();
    const {r,dispose}=renderer();try{r.activePlan=p;r.activeFloorId=p.floors[0].id;r.wallVisibility={allowsInteraction:()=>true};r.scene.createPickingRay=()=>({origin:new Vector3(2,2,3),direction:new Vector3(0,0,-1)});
-     const hit=r.positionForItem(0,0,c);expect(hit.elevationMm).toBe(1570);expect(hit.rotation).toBe(0);expect(windowProblem(p,hit)).toBeUndefined();
+     const hit=r.placement.positionForItem(0,0,c);expect(hit.elevationMm).toBe(1570);expect(hit.rotation).toBe(0);expect(windowProblem(p,hit)).toBeUndefined();
    }finally{dispose()}
  });
  it('snaps cabinets flush to the same wall and neighbors, railings to cut-away balcony edges',()=>{
@@ -117,16 +117,17 @@ describe('modular placement regression',()=>{
    r.setRotationMode(false);expect(r.selectedNode.rotation.y).toBe(0);expect(r.rotationGuide.isEnabled()).toBe(false);expect(r.callbacks.onRotate).not.toHaveBeenCalled();expect(r.camera.detachControl).not.toHaveBeenCalled();
   }finally{dispose()}
  });
- it('gently focuses once, caps long-run distance, preserves wheel inputs, and yields to manual zoom',()=>{
+ it('preserves selection framing and only focuses after an explicit request',()=>{
   const {r,dispose}=renderer();try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;
-   r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.updateEditingGuides(425);expect(r.camera.radius).toBeCloseTo(11);r.updateEditingGuides(850);expect(r.camera.radius).toBe(4);
-   r.camera.radius=2;r.updateEditingGuides(1000);expect(r.camera.radius).toBe(2);r.focusSelected();r.updateEditingGuides(1100);r.zoom(.75);const radius=r.camera.radius;r.updateEditingGuides(2000);expect(r.camera.radius).toBe(radius);expect(r.focusMotion).toBeUndefined();
-   const pointerDetach=vi.fn(),pointerAttach=vi.fn(),wheelDetach=vi.fn();r.camera.inputs.attachedToElement=true;r.camera.inputs.attached.pointers={detachControl:pointerDetach,attachControl:pointerAttach};r.camera.inputs.attached.mousewheel={detachControl:wheelDetach};r.suspendCameraPointers();expect(pointerDetach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();r.resumeCameraControls();expect(pointerAttach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();delete r.camera.inputs.attached.pointers;delete r.camera.inputs.attached.mousewheel;
+   const target=r.camera.target.clone();r.updateEditingGuides(0);r.updateEditingGuides(425);r.updateEditingGuides(850);expect(r.camera.radius).toBe(18);expect(r.camera.target.equals(target)).toBe(true);
+   r.focusSelected();r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.updateEditingGuides(425);expect(r.camera.radius).toBeCloseTo(11);r.updateEditingGuides(850);expect(r.camera.radius).toBe(4);
+   r.camera.radius=2;r.updateEditingGuides(1000);expect(r.camera.radius).toBe(2);r.focusSelected();r.updateEditingGuides(1100);r.zoom(.75);const radius=r.camera.radius;r.updateEditingGuides(2000);expect(r.camera.radius).toBe(radius);expect(r.cameraControls.focusMotion).toBeUndefined();
+   const pointerDetach=vi.fn(),pointerAttach=vi.fn(),wheelDetach=vi.fn();r.camera.inputs.attachedToElement=true;r.camera.inputs.attached.pointers={detachControl:pointerDetach,attachControl:pointerAttach};r.camera.inputs.attached.mousewheel={detachControl:wheelDetach};r.cameraControls.suspendCameraPointers();expect(pointerDetach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();r.cameraControls.resumeCameraControls();expect(pointerAttach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();delete r.camera.inputs.attached.pointers;delete r.camera.inputs.attached.mousewheel;
   }finally{dispose()}
  });
 
  it('adapts focus for narrow viewports and respects reduced motion',()=>{
-  const {r,dispose}=renderer();vi.stubGlobal('matchMedia',()=>({matches:true}));try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;r.engine.getRenderWidth=()=>400;r.engine.getRenderHeight=()=>1000;r.updateEditingGuides(0);expect(r.camera.radius).toBe(10);expect(r.focusMotion).toBeUndefined();}finally{dispose();vi.unstubAllGlobals()}
+  const {r,dispose}=renderer();vi.stubGlobal('matchMedia',()=>({matches:true}));try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;r.engine.getRenderWidth=()=>400;r.engine.getRenderHeight=()=>1000;r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.focusSelected();r.updateEditingGuides(1);expect(r.camera.radius).toBe(10);expect(r.cameraControls.focusMotion).toBeUndefined();}finally{dispose();vi.unstubAllGlobals()}
  });
 
 it('switches neutral lighting without rebuilding walls, changing camera framing, or mutating the plan',()=>{
@@ -168,13 +169,13 @@ it('retains every floor mesh and its full area when repeatedly cutting hallway w
 it('requires explicit movement and resets it across selections while preserving camera gestures',()=>{
  const {r,scene,dispose}=renderer();try{
   const p=setup(),a=piece(p,'small-plant'),b=piece(p,'base-cabinet');p.furniture=[a,b];r.update(p,p.floors[0].id,a.id);
-  const onMove=vi.fn();r.callbacks={onSelect:vi.fn(),onMove};r.suspendCameraPointers=vi.fn();r.bindPointers();
+  const onMove=vi.fn();r.callbacks={onSelect:vi.fn(),onMove};r.cameraControls.suspendCameraPointers=vi.fn();r.bindPointers();
   vi.spyOn(scene,'pick').mockReturnValue({hit:true,pickedMesh:{name:`item:${a.id}`}} as any);
   const send=(type:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:0},pickInfo:null} as any);
   send(PointerEventTypes.POINTERDOWN);send(PointerEventTypes.POINTERMOVE);send(PointerEventTypes.POINTERUP);
-  expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(a.id);expect(r.dragging).toBeUndefined();expect(r.suspendCameraPointers).not.toHaveBeenCalled();expect(onMove).not.toHaveBeenCalled();
-  r.setMoveMode(true);send(PointerEventTypes.POINTERDOWN);expect(r.dragging).toBe(a.id);expect(r.suspendCameraPointers).toHaveBeenCalledOnce();
-  r.positionForItem=()=>({x:1200,z:900,elevationMm:0});send(PointerEventTypes.POINTERMOVE);send(PointerEventTypes.POINTERUP);expect(onMove).toHaveBeenCalledOnce();
+  expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(a.id);expect(r.dragging).toBeUndefined();expect(r.cameraControls.suspendCameraPointers).not.toHaveBeenCalled();expect(onMove).not.toHaveBeenCalled();
+  r.setMoveMode(true);send(PointerEventTypes.POINTERDOWN);expect(r.dragging).toBe(a.id);expect(r.cameraControls.suspendCameraPointers).toHaveBeenCalledOnce();
+  r.placement.positionForItem=()=>({x:1200,z:900,elevationMm:0});send(PointerEventTypes.POINTERMOVE);send(PointerEventTypes.POINTERUP);expect(onMove).toHaveBeenCalledOnce();
   r.update(p,p.floors[0].id,b.id);expect(r.moveSelection).toBeUndefined();
   r.setMoveMode(true);r.setRotationMode(true);expect(r.moveSelection).toBeUndefined();r.setMoveMode(true);expect(r.rotationMode).toBe(false);
   r.update(p,p.floors[0].id);r.update(p,p.floors[0].id,b.id);expect(r.moveSelection).toBeUndefined();
@@ -185,14 +186,14 @@ it.each([new Vector3(0,-1,0),new Vector3(-.3,-1,-.4).normalize()])('keeps an off
  const {r,scene,dispose}=renderer();try{
   const p=setup(),chair=piece(p,'hm-embody-chair',{x:2000,z:1500,elevationMm:0});p.furniture=[chair];r.update(p,p.floors[0].id,chair.id);
   const origin=new Vector3(3,6,4);vi.spyOn(scene,'createPickingRay').mockImplementation(()=>new Ray(origin.clone(),direction.clone()));
-  r.beginFurnitureDrag(chair);r.dragging=chair.id;
-  expect(r.positionForItem(0,0,chair)).toMatchObject({x:2000,z:1500,elevationMm:0});
+  r.placement.beginFurnitureDrag(chair);r.dragging=chair.id;
+  expect(r.placement.positionForItem(0,0,chair)).toMatchObject({x:2000,z:1500,elevationMm:0});
   origin.x+=.12;origin.z+=.07;
-  expect(r.positionForItem(0,0,chair)).toMatchObject({x:2120,z:1570,elevationMm:0});
+  expect(r.placement.positionForItem(0,0,chair)).toMatchObject({x:2120,z:1570,elevationMm:0});
   expect(p.furniture[0]).toEqual(chair);
   // The same anchor also applies when grabbing a pending in-scene placement.
-  r.dragging=undefined;r.activeDraft=chair;r.beginFurnitureDrag(chair);r.draggingDraft=true;
-  expect(r.positionForItem(0,0,chair)).toMatchObject({x:2000,z:1500});
+  r.dragging=undefined;r.activeDraft=chair;r.placement.beginFurnitureDrag(chair);r.draggingDraft=true;
+  expect(r.placement.positionForItem(0,0,chair)).toMatchObject({x:2000,z:1500});
  }finally{dispose()}
 });
 it('renders a half wall without lowering other walls and supplies an invisible sun ceiling',()=>{

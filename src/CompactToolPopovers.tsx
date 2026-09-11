@@ -5,11 +5,11 @@ import {usePlanner} from './store';
 import {defaultSun} from './sunlight';
 
 /** Portal into the canvas so scrolling toolbars cannot clip their popovers. */
-function ToolPopover({anchor,open,side,label,onClose,children}:{anchor:RefObject<HTMLButtonElement|null>;open:boolean;side:'above'|'left';label:string;onClose:()=>void;children:ReactNode}){
+export function ToolPopover({anchor,open,side,label,onClose,children}:{anchor:RefObject<HTMLButtonElement|null>;open:boolean;side:'above'|'left';label:string;onClose:()=>void;children:ReactNode}){
  const panel=useRef<HTMLDivElement>(null),[host,setHost]=useState<Element|null>(null);
- useEffect(()=>{if(!open||label!=='Sunlight')return;const dismiss=(e:PointerEvent)=>{if(!panel.current?.contains(e.target as Node)&&!anchor.current?.contains(e.target as Node))onClose()};document.addEventListener('pointerdown',dismiss);return()=>document.removeEventListener('pointerdown',dismiss)},[open,onClose,anchor,label]);
+ useEffect(()=>{if(!open||side!=='left')return;const dismiss=(e:PointerEvent)=>{if(!panel.current?.contains(e.target as Node)&&!anchor.current?.contains(e.target as Node))onClose()};document.addEventListener('pointerdown',dismiss);return()=>document.removeEventListener('pointerdown',dismiss)},[open,onClose,anchor,side]);
 
- useLayoutEffect(()=>{setHost(anchor.current?.closest('.canvas-stage')??null)},[anchor]);
+ useLayoutEffect(()=>{setHost(anchor.current?.closest('.canvas-stage')??null)},[anchor,open]);
  useLayoutEffect(()=>{
   if(!host||!panel.current||!anchor.current)return;
   const place=()=>{
@@ -39,9 +39,9 @@ export function SunlightControl(){
  const presets=[{name:'Morning',azimuth:90,elevation:20,icon:SunHorizon},{name:'Afternoon',azimuth:180,elevation:65,icon:Sun},{name:'Evening',azimuth:270,elevation:15,icon:SunHorizon},{name:'Nighttime',azimuth:180,elevation:45,night:true,icon:Moon}];
  const [expanded,setExpanded]=useState(false);
  const close=()=>setExpanded(false);
- return <><button ref={anchor} aria-label="Sunlight" title="Sunlight & time of day" aria-pressed={sun.enabled} aria-expanded={expanded} className={sun.enabled?'active':''} onClick={()=>{if(!sun.enabled){s.setEnvironment({sun:{...sun,enabled:true}});setExpanded(true)}else setExpanded(!expanded)}}><Sun/></button>
+ return <><button ref={anchor} aria-label="Sunlight" title="Sunlight & time of day" aria-pressed={sun.enabled} aria-expanded={expanded} className={sun.enabled?'active':''} onClick={()=>{if(!sun.enabled){s.setEnvironment({sun:{...sun,enabled:true,azimuth:180,elevation:65,night:false}});setExpanded(true)}else setExpanded(!expanded)}}><Sun/></button>
   <ToolPopover anchor={anchor} open={expanded&&sun.enabled} side="left" label="Sunlight" onClose={close}>
-   <button role="switch" aria-checked={sun.enabled} className="sun-enable" onClick={()=>{s.setEnvironment({sun:{...sun,enabled:false}});close()}}>Sunlight enabled · Turn off</button><div className="sun-time-grid">{presets.map(({name,icon:Icon,...value})=><button key={name} aria-pressed={sun.enabled&&!!sun.night===!!value.night&&(value.night||sun.azimuth===value.azimuth&&sun.elevation===value.elevation)} onClick={()=>{s.setEnvironment({sun:{enabled:true,...value}});close()}}><Icon size={23}/><span>{name}</span></button>)}</div>
+   <button role="switch" aria-checked={sun.enabled} className="sun-enable" onClick={()=>{s.setEnvironment({sun:{...sun,enabled:false}});close()}}>Turn sunlight off</button><div className="sun-time-grid">{presets.map(({name,icon:Icon,...value})=><button key={name} aria-pressed={sun.enabled&&!!sun.night===!!value.night&&(value.night||sun.azimuth===value.azimuth&&sun.elevation===value.elevation)} onClick={()=>{s.setEnvironment({sun:{enabled:true,...value}});close()}}><Icon size={23}/><span>{name}</span></button>)}</div>
    <small>Illustrative lighting Â· Plan north is up</small>
   </ToolPopover>
  </>;
