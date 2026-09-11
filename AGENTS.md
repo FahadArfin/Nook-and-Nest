@@ -67,3 +67,9 @@ Living welcome menu: use the selected Fireside Evening composition, cream serif 
 General app UX, menu, furniture and landscape work belongs on beta1. Beta 2 and its Site are reserved for floor-plan automation research. Never publish general UI changes to Beta 2. Resolve the beta1 Site identity separately before publishing. The welcome recent-project panel must be compact and vertical, with up to three stacked projects rather than a full-width strip.
 
 Welcome menu: Recents belongs below Open 3D editor, revealing up to three large rounded-square project buttons on hover, with click and keyboard access. Remove arrows from Create floor plan and Open 3D editor. Publish general UX only to Beta 1.
+
+Latest welcome direction: remove Recents entirely. Put My projects directly below Open 3D editor using the same rounded button style, without a duplicate header action. First two actions have no arrows.
+
+Welcome background name and Auto/Pinned text are hidden from the main menu; retain background preferences behind a compact icon.
+
+Approved welcome labels: Draw a floor plan, Design in 3D, My projects.
