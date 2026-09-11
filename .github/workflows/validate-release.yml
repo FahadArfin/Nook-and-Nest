@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: [master]
   push:
-    branches: [master, codex/feature-optimization, codex/natural-meadow, codex/repo-maintenance, codex/vegetation-crash, codex/vegetation-millions, codex/beta-ux, codex/beta-controls, codex/beta-editor-cleanup, codex/beta-compact-actions, codex/beta-studio-toolbar, codex/beta-floor-tabs-refinement, codex/beta-luna-pipeline, codex/beta-wall-evidence-lab, codex/beta-opening-review, codex/beta-door-boundary-repair, codex/beta-living-home]
+    branches: [master, codex/feature-optimization, codex/natural-meadow, codex/repo-maintenance, codex/vegetation-crash, codex/vegetation-millions, codex/beta-ux, codex/beta-controls, codex/beta-editor-cleanup, codex/beta-compact-actions, codex/beta-studio-toolbar, codex/beta-floor-tabs-refinement, codex/beta-luna-pipeline, codex/beta-wall-evidence-lab, codex/beta-opening-review, codex/beta-door-boundary-repair, codex/beta-living-home, codex/beta-missing-floor]
   workflow_dispatch:
 
 permissions:
@@ -43,7 +43,7 @@ jobs:
       - name: Package and verify exact build
         run: python3 scripts/package-ci-release.py
       - name: Retain validated master or isolated Beta 2 release
-        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/codex/feature-optimization' || github.ref == 'refs/heads/codex/natural-meadow' || github.ref == 'refs/heads/codex/repo-maintenance' || github.ref == 'refs/heads/codex/vegetation-crash' || github.ref == 'refs/heads/codex/vegetation-millions' || github.ref == 'refs/heads/codex/beta-ux' || github.ref == 'refs/heads/codex/beta-controls' || github.ref == 'refs/heads/codex/beta-editor-cleanup' || github.ref == 'refs/heads/codex/beta-compact-actions' || github.ref == 'refs/heads/codex/beta-studio-toolbar' || github.ref == 'refs/heads/codex/beta-floor-tabs-refinement' || github.ref == 'refs/heads/codex/beta-luna-pipeline' || github.ref == 'refs/heads/codex/beta-wall-evidence-lab' || github.ref == 'refs/heads/codex/beta-opening-review' || github.ref == 'refs/heads/codex/beta-door-boundary-repair' || github.ref == 'refs/heads/codex/beta-living-home') && github.event_name != 'pull_request'
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/codex/feature-optimization' || github.ref == 'refs/heads/codex/natural-meadow' || github.ref == 'refs/heads/codex/repo-maintenance' || github.ref == 'refs/heads/codex/vegetation-crash' || github.ref == 'refs/heads/codex/vegetation-millions' || github.ref == 'refs/heads/codex/beta-ux' || github.ref == 'refs/heads/codex/beta-controls' || github.ref == 'refs/heads/codex/beta-editor-cleanup' || github.ref == 'refs/heads/codex/beta-compact-actions' || github.ref == 'refs/heads/codex/beta-studio-toolbar' || github.ref == 'refs/heads/codex/beta-floor-tabs-refinement' || github.ref == 'refs/heads/codex/beta-luna-pipeline' || github.ref == 'refs/heads/codex/beta-wall-evidence-lab' || github.ref == 'refs/heads/codex/beta-opening-review' || github.ref == 'refs/heads/codex/beta-door-boundary-repair' || github.ref == 'refs/heads/codex/beta-living-home' || github.ref == 'refs/heads/codex/beta-missing-floor') && github.event_name != 'pull_request'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: sites-release-${{ github.sha }}
