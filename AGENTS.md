@@ -71,3 +71,5 @@ Welcome menu: Recents belongs below Open 3D editor, revealing up to three large 
 Latest welcome direction: remove Recents entirely. Put My projects directly below Open 3D editor using the same rounded button style, without a duplicate header action. First two actions have no arrows.
 
 Welcome background name and Auto/Pinned text are hidden from the main menu; retain background preferences behind a compact icon.
+
+Approved welcome labels: Draw a floor plan, Design in 3D, My projects.

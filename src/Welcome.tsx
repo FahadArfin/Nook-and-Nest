@@ -46,8 +46,8 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
     <p>Come in. Get comfortable.</p>
     {error&&<p role="alert" className="welcome-error">{error}</p>}
     <nav aria-label="Start planning">
-     <button disabled={!ready} className="living-start" onClick={()=>start(true)}>Create floor plan</button>
-     <button disabled={!ready} className="living-editor" aria-label="Open 3D editor" onClick={()=>start(false)}>Open 3D editor</button>
+     <button disabled={!ready} className="living-start" onClick={()=>start(true)}>Draw a floor plan</button>
+     <button disabled={!ready} className="living-editor" aria-label="Design in 3D" onClick={()=>start(false)}>Design in 3D</button>
      <button disabled={!ready} className="living-editor" onClick={()=>setProjects(true)}>My projects</button>
     </nav>
    </section>
