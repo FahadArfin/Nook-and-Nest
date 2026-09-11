@@ -1,0 +1,64 @@
+/* Scoped 3D editor refinements; do not alter the studio or welcome page. */
+.app-shell .library-filter-toggle{min-height:36px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);text-align:left;padding:8px 12px;margin-top:8px;cursor:pointer}
+.app-shell .library-filter-options[hidden]{display:none}
+.app-shell .library-filter-options{max-height:220px;overflow:auto;flex-shrink:0}
+.app-shell .library-panel .library-item{min-height:0;height:auto;align-self:start}
+.app-shell .library-panel .catalog-card{min-height:0;height:auto;grid-template-rows:auto auto;align-content:start;padding:7px;gap:7px}
+.app-shell .library-panel .item-illustration{height:92px;min-height:0;aspect-ratio:auto}
+.app-shell .library-panel .item-copy{min-height:76px;gap:5px;padding:0}
+.app-shell .library-panel .item-copy strong{font-size:12px;line-height:1.4}
+.app-shell .library-panel .item-copy small{font-size:11px}
+.app-shell .library-panel .item-family{display:none}
+.app-shell .library-panel .library-footer{font-size:11px;line-height:1.4;padding:8px 0}
+.app-shell .library-panel .library-grid{grid-auto-rows:auto;align-items:start}
+.app-shell .library-panel .library-groups{gap:12px}
+.app-shell .library-results-heading h3{font-size:14px}
+.app-shell .library-results-heading span{font-size:12px}
+.app-shell .library-type-heading strong{font-size:13px}
+.app-shell .library-search input{color:var(--ink)}
+.app-shell .library-search input::placeholder{color:var(--muted);opacity:1}
+.app-shell :focus-visible{outline:3px solid #bd9147;outline-offset:2px}
+.app-shell .view-toggle button[aria-pressed=true]{box-shadow:inset 0 0 0 2px #b9cba5}
+@media(max-width:700px){
+ .app-shell>.topbar{display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 8px;padding:6px 8px;min-height:0}
+ .app-shell>.topbar .brand{width:auto;min-width:0;grid-column:1;grid-row:1;margin:0}
+ .app-shell>.topbar .brand img{width:32px;height:32px}
+ .app-shell>.topbar .brand>div{display:none}
+ .app-shell>.topbar .project-title{display:block;grid-column:2;grid-row:1;min-width:0;width:auto;margin:0}
+ .app-shell>.topbar .project-title input{width:100%;max-width:100%;font-size:13px;text-align:left}
+ .app-shell>.topbar .top-actions{grid-column:1/-1;display:flex;flex-wrap:nowrap;gap:3px;min-width:0;width:100%;overflow:visible;margin:0}
+ .app-shell>.topbar .top-actions>.icon-button{min-width:32px;width:32px;height:36px}
+ .app-shell>.topbar .top-secondary{display:flex;gap:3px;overflow-x:auto;min-width:0;flex:1;scrollbar-width:thin;margin:0}
+ .app-shell>.topbar .top-secondary>button,.app-shell>.topbar .top-secondary>div{flex-shrink:0}
+ .app-shell>.topbar .top-secondary button{min-height:36px;font-size:12px;padding:6px}
+ .app-shell>.topbar .save-control{flex:0 0 auto}
+ .app-shell>.topbar .save-status{font-size:9px}
+ .app-shell .canvas-stage>.editor-navigation{top:6px;left:6px;right:6px;max-width:calc(100% - 12px);width:auto;gap:5px}
+ .app-shell .editor-navigation button{font-size:11px!important;padding:6px!important}
+ .app-shell .canvas-stage>.canvas-tools{top:62px;right:6px;max-height:calc(100% - 130px);overflow-y:auto;overflow-x:hidden}
+ .app-shell .bottom-tools .bottom-tools-body{display:flex!important;flex-direction:column;max-height:min(56dvh,calc(100dvh - 260px));overflow:auto;gap:10px;padding:10px}
+ .app-shell .bottom-tools .bottom-tools-body>.task-subtabs{order:0;flex-shrink:0;width:100%}
+ .app-shell .bottom-tools .finish-workflow{order:1;display:block!important;flex-shrink:0;padding:0!important;overflow:visible;border:0}
+ .app-shell .bottom-tools .scope-cards{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+ .app-shell .bottom-tools .scope-cards button{min-height:38px;padding:7px;font-size:12px}
+ .app-shell .bottom-tools .finish-workflow .tool-hint{display:none}
+ .app-shell .bottom-tools .finish-collection{order:2;display:block!important;overflow:visible;flex-shrink:0;padding:0!important;max-height:none}
+ .app-shell .bottom-tools .tool-search{display:flex!important;min-height:40px}
+ .app-shell .bottom-tools .material-types{display:flex;flex-wrap:nowrap;overflow:auto;margin:8px 0}
+ .app-shell .bottom-tools .tool-visual-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .app-shell .bottom-tools .tool-visual-grid>button{min-height:110px;font-size:11px;padding:5px}
+ .app-shell .bottom-tools .tool-visual-grid img{height:65px;width:100%;object-fit:cover}
+ .app-shell .bottom-tools .finish-footer{order:3;display:flex!important;flex-wrap:wrap;position:static;gap:10px;padding:8px 0!important;min-height:0;border:0}
+ .app-shell .floorbar{flex-wrap:nowrap;overflow-x:auto;min-height:52px}
+ .app-shell .mobile-navigation button{font-size:12px}
+}
+@media(max-width:700px){
+ main.app-shell>.topbar>.top-actions{flex-wrap:nowrap;width:100%;grid-column:1/-1}
+ main.app-shell>.topbar .top-secondary{flex-wrap:nowrap}
+ main.app-shell .bottom-tools .finish-collection{height:auto!important;min-height:0!important;flex:0 0 auto!important}
+ main.app-shell .bottom-tools .finish-footer{height:auto!important;min-height:0!important;flex:0 0 auto!important}
+ main.app-shell .floorbar .floor-tabs{flex-wrap:nowrap;width:max-content}
+}
+.app-shell .library-panel .model-tags{flex-wrap:nowrap;overflow-x:auto;max-height:30px;padding:0 6px 4px;scrollbar-width:none}
+.app-shell .library-panel .model-tags button{flex-shrink:0;white-space:nowrap}
+@media(max-width:700px){main.app-shell .bottom-tools .material-types button{flex-shrink:0;padding:7px 10px;white-space:nowrap}}

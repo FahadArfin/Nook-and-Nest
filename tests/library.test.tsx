@@ -45,6 +45,9 @@ describe("library organization",()=>{
 
 describe("library controls",()=>{
   const mount=()=>{const drag=vi.fn(),start=vi.fn();render(<CatalogLibrary onBeginDrag={drag} onStartPlacement={start}/>);return {drag,start}};
+  it("keeps optional filters collapsed and opens them without changing the plan",()=>{
+    const before=usePlanner.getState().plan;mount();const toggle=screen.getByRole('button',{name:/Filters/});expect(toggle.getAttribute('aria-expanded')).toBe('false');expect(screen.queryByRole('combobox',{name:'Furniture category'})).toBeNull();fireEvent.click(toggle);expect(screen.getByRole('combobox',{name:'Furniture category'})).toBeTruthy();expect(usePlanner.getState().plan).toBe(before);
+  });
   it("saves a favorite without placing it or recording plan history",()=>{
     const before=usePlanner.getState().plan,{drag,start}=mount();
     fireEvent.click(screen.getByLabelText("Save Capsule bathroom mirror"));
