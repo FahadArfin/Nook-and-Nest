@@ -17,7 +17,7 @@ export async function recognizeReference(reference:PlanReference,signal?:AbortSi
   signal?.throwIfAborted();
   options.status?.('Preparing wall geometry and detail crops…');
   const evidence=await prepareRecognition(reference,signal,options.wallView);signal?.throwIfAborted();
-  options.status?.('Luna is reading labels, measurements and room boundaries…');
+  options.status?.('Luna is extracting floor regions, walls and measurements…');
   const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,evidence,guidance:options.guidance?.trim()||undefined})});
   const body=await response.json().catch(()=>null);
   if(!response.ok||body?.error)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
@@ -31,7 +31,7 @@ export function roomsOnlyRecognition(result:Recognition):Recognition {return {..
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition,confirmedScale?:number) {
   const scale=confirmedScale??recognizedScale(result);
   if(!Number.isFinite(scale)||scale<.1||scale>200)throw new Error('Choose a scale between 0.1 and 200 mm per pixel.');
-  result=trimHallOverlaps(result,Math.max(1,11/scale));
+  if(!result.regionReview)result=trimHallOverlaps(result,Math.max(1,11/scale));
   const mm=(n:number)=>Math.round(n*scale);
   const identities=new Map<string,string>();
   const groupIdentity=(r:Recognition['rooms'][number],name:string)=>{const key=JSON.stringify([r.roomId??null,r.kind,name.toLowerCase()]);if(!identities.has(key))identities.set(key,`scan-group-${identities.size}`);return identities.get(key)!;};
@@ -43,6 +43,10 @@ export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:R
   }
   draft.rooms=openPlanAreas(draft.rooms);
   const grid=base.gridSizeMm;
+  if(result.regionReview){
+    draft.rooms=draft.rooms.map(r=>({...r,enclosed:false}));
+    draft.walls=(result.walls??[]).map((w,i)=>({id:`scan-wall-${i}`,ax:mm(w.ax)/grid,az:mm(w.ay)/grid,bx:mm(w.bx)/grid,bz:mm(w.by)/grid}));
+  }
   const plan=blueprintPlan(base,floorId,draft);
   const placementNotes:string[]=[];
   result.fixtures.forEach((f,i)=>{

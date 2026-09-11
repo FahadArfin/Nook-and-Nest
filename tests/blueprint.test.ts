@@ -125,7 +125,7 @@ it('combines adjoining rectangles without filling an L-shaped exterior void or m
  const a:BlueprintRoom={id:'a',name:'Living',kind:'Living',enclosed:true,x:0,z:0,width:4000,depth:4000},b:BlueprintRoom={...a,id:'b',name:'Entry',kind:'Hall',x:4000,z:2000,width:2000,depth:2000};
  const draft:BlueprintDraft={rooms:[a,b],walls:[{id:'shared',ax:8,az:4,bx:8,bz:8}],omittedWalls:[],fixtures:[]};
  const combined=combineBlueprintRooms(draft,'a','b',500);expect(combined.rooms.map(r=>r.groupId)).toEqual(['a','a']);expect(combined.rooms[1].width).toBe(2000);expect(combined.fixtures).toEqual(draft.fixtures);
- expect(cutBlueprintWalls(combined.walls,combined.wallCuts??[])).toHaveLength(0);
+ expect(cutBlueprintWalls(combined.walls,combined.wallCuts??[])).toEqual(draft.walls);
  expect(()=>combineBlueprintRooms({...draft,rooms:[a,{...b,x:9000}]},'a','b',500)).toThrow('touch or overlap');
 });
 
@@ -151,11 +151,11 @@ describe('magnetic studio rooms and symbols',()=>{
 });
 
 describe('overlapping room combination',()=>{
-  it('preserves the union footprint and cuts internal manual dividers across overlapping pieces',()=>{
+  it('preserves the union footprint and manual walls across overlapping pieces',()=>{
     const p=base(),a=room({id:'a'}),b=room({id:'b',x:3000,z:1000,width:2000,depth:2000});
     const before={...draft([a,b]),walls:[{id:'manual',ax:16,az:0,bx:16,bz:16}]};
     const combined=combineBlueprintRooms(before,'a','b',250);const original=blueprintPlan(p,p.floors[0].id,before),result=blueprintPlan(p,p.floors[0].id,combined);
-    expect(area(result)).toBe(area(original));expect(result.floors[0].walls.some(w=>w.ax===16&&w.bx===16&&w.az<12&&w.bz>4)).toBe(false);
+    expect(area(result)).toBe(area(original));expect(result.floors[0].walls.some(w=>w.ax===16&&w.bx===16&&w.az<12&&w.bz>4)).toBe(true);
     expect(draftFromFloor(parsePlan(serializePlan(result)),p.floors[0].id).rooms.map(r=>r.groupId)).toEqual(['a','a']);
   });
   it('combines a contained piece but rejects separated pieces without expanding floor geometry',()=>{

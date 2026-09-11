@@ -1,5 +1,5 @@
 /** Bounded, deterministic image evidence. Coordinates always refer to the original. */
-export const PIPELINE_VERSION='luna-geometry-v1';
+export const PIPELINE_VERSION='luna-regions-v2';
 export interface WallCandidate {axis:'h'|'v';x:number;y:number;width:number;height:number}
 export interface ScanEvidence {version:string;walls:WallCandidate[];crops:{image:string;x:number;y:number;width:number;height:number}[];wallView?:{version:'wall-support-v1';image:string}}
 export function extractWallCandidates(rgba:Uint8ClampedArray,width:number,height:number,sourceWidth=width,sourceHeight=height):WallCandidate[] {

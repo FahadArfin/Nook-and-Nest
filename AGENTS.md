@@ -68,3 +68,5 @@ Wall-analysis research: adapt floor-plan image-processing ideas into the existin
 Doorway ownership preference (September 10): rooms may be concave or stepped. A confirmed closed doorway determines which room owns its entry recess. Preview both affected room shapes before applying one undoable correction; preserve existing total floor area and distinguish missing floor from wrong labels. Keep computational door closures separate from physical walls.
 
 Missing-floor repair preference (September 10): detect bounded uncovered connectors from source evidence and have Luna select numbered region IDs, allowing L-shaped bedroom entries. Only an explicit reviewed repair may add missing floor; distinguish added area from transferred ownership, protect bathroom/closet geometry, and apply door plus both room shapes in one Undo.
+
+Region-first import preference (September 10): Luna extracts separate editable orthogonal floor regions, including unlabeled connectors, for the user to combine and name. Do not infer passage ownership or create physical walls from region labels. Preserve authored walls and openings when combining; keep one-step Undo and review before 3D.
