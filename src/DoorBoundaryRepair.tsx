@@ -1,5 +1,6 @@
 import {useEffect,useRef,useState} from 'react';
-import {roomGroups,type BlueprintDraft} from './blueprint';
+import {floorBoundaryWalls} from './floorGeometry';
+import {floorFromRooms,roomGroups,type BlueprintDraft} from './blueprint';
 import type {PlanDocumentV1} from './types';
 import type {PlanReference} from './blueprintImport';
 import {prepareOpeningEvidence,type OpeningEvidence} from './openingEvidence';
@@ -38,7 +39,7 @@ export function DoorBoundaryRepair({base,floorId,draft,reference,scale,span,evid
       const next=missing?applyMissingFloorRepair(base,floorId,draft,room,hall,added,transferred,span,scale):applyBoundaryRepair(base,floorId,draft,room,hall,transferred,span,scale);
       const area=(parts:PixelRect[])=>parts.reduce((n,r)=>n+r.width*r.height,0)*scale*scale/1e6;
       setMessage('');setPreview({draft:next,area:area(transferred),added:area(added),note});
-      const nextGroups=roomGroups(next.rooms),outlines=nextGroups.filter(g=>g.id===room||g.id===hall).flatMap(g=>g.parts.map(p=>({rect:rect(p),color:g.id===room?'#16898b':'#8759a8',label:`Preview: ${g.name}`})));
+      const nextGroups=roomGroups(next.rooms),outlines=nextGroups.filter(g=>g.id===room||g.id===hall).map(g=>({outline:floorBoundaryWalls(floorFromRooms(base.floors.find(f=>f.id===floorId)!,base.gridSizeMm,g.parts),base.gridSizeMm).map(w=>({ax:w.ax*base.gridSizeMm/scale,ay:w.az*base.gridSizeMm/scale,bx:w.bx*base.gridSizeMm/scale,by:w.bz*base.gridSizeMm/scale})),color:g.id===room?'#16898b':'#8759a8',label:`Preview: ${g.name}`}));
       onOverlay([...outlines,...transferred.map(rect=>({rect,color:'#16898b',label:'Entry area transferred to room',filled:true})),...added.map(rect=>({rect,color:'#efa922',label:'New floor proposed',filled:true}))]);
     }catch(e){if(!controller.signal.aborted){setMessage((e as Error).message);onOverlay([]);}}finally{if(abort.current===controller)setBusy(false);}
   };

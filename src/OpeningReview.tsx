@@ -8,7 +8,7 @@ import {spanChoices} from './openingGeometry';
 import {applyReviewedOpening,splitRoomLabel} from './openingCorrections';
 import type {OpeningAnswer,Span} from './openingReviewContract';
 
-export interface ReviewOverlay {span?:Span;rect?:import('./doorBoundaryGeometry').PixelRect;filled?:boolean;number?:number;color:string;label:string}
+export interface ReviewOverlay {span?:Span;outline?:Span[];rect?:import('./doorBoundaryGeometry').PixelRect;filled?:boolean;number?:number;color:string;label:string}
 interface Props {base:PlanDocumentV1;floorId:string;draft:BlueprintDraft;reference:PlanReference;scale:number;span?:Span;disabled:boolean;onSpan:(span:Span|undefined)=>void;onOverlay:(lines:ReviewOverlay[])=>void;onDraw:()=>void;onCommit:(draft:BlueprintDraft)=>void}
 export function OpeningReview({base,floorId,draft,reference,scale,span,disabled,onSpan,onOverlay,onDraw,onCommit}:Props){
   const [evidence,setEvidence]=useState<OpeningEvidence>(),[busy,setBusy]=useState(''),[message,setMessage]=useState(''),[answer,setAnswer]=useState<OpeningAnswer>(),[choice,setChoice]=useState(0),[kind,setKind]=useState<'door'|'window'|'open'>('door');
