@@ -61,7 +61,7 @@ export function modelTags(item:CatalogItem):string[]{
  const tags:string[]=[item.category];const mount={wall:'Wall mounted',surface:'Tabletop',ceiling:'Ceiling mounted',floor:'Floor standing'};
  if(item.mount)tags.push(mount[item.mount]);
  for(const [pattern,label] of [[/\bround\b/i,'Round'],[/\bcorner\b/i,'Corner'],[/\bmodular\b/i,'Modular'],[/\bstorage\b/i,'Storage'],[/\badjustable\b/i,'Adjustable'],[/\barch(?:ed)?\b/i,'Arched']] as const)if(pattern.test(item.name))tags.push(label);
- return tags;
+ return [...new Set(tags)];
 }
 const synonyms: Record<string, string> = {
   couch:"sofa", settee:"sofa", washroom:"bathroom", restroom:"bathroom", lavatory:"toilet",

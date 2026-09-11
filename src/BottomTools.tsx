@@ -56,7 +56,7 @@ function LandscapeMenus({onPlace,onView,onBrowseLibrary,onCompactChange}:{onPlac
  <div className="landscape-detail is-open" aria-label={choice+' options'}>{choice==='Terrain'?<TerrainSettings onChoose={collapse}/>:choice==='Plants'?<PlantingSettings onPlace={onPlace} onChoose={collapse}/>:<Surroundings onView={onView} onBrowseLibrary={onBrowseLibrary} onChoose={collapse}/>}</div></div></div>;
 }
 
-function QuickBrushControls(){const s=usePlanner(),b=s.plantingBrush;
+export function QuickBrushControls(){const s=usePlanner(),b=s.plantingBrush;
  if(s.tool==='planting')return <><label className="quick-range">Size <small>{readableLength(b.radius*1000,s.plan.units)}</small><input aria-label="Quick plant brush size" type="range" min={b.field?2:.5} max={b.field?32:4} step=".5" value={b.radius} onChange={e=>s.setPlantingBrush({...b,radius:+e.target.value})}/></label><label className="quick-range">Density <small>{b.density??1}×</small><input aria-label="Quick plant density" type="range" min="1" max="9" step="1" value={b.density??1} onChange={e=>s.setPlantingBrush({...b,density:+e.target.value})}/></label></>;
  if(s.tool.startsWith('terrain-'))return <><label className="quick-range">Size <small>{readableLength(s.terrainRadius*1000,s.plan.units)}</small><input aria-label="Quick terrain brush size" type="range" min=".5" max="8" step=".5" value={s.terrainRadius} onChange={e=>s.setTerrainBrush(+e.target.value,s.terrainStrength)}/></label><label className="quick-range">{s.tool==='terrain-river'?'Depth':'Strength'}<input aria-label="Quick terrain strength" type="range" min=".1" max="2" step=".1" value={s.terrainStrength} onChange={e=>s.setTerrainBrush(s.terrainRadius,+e.target.value)}/></label></>;
  return null;
