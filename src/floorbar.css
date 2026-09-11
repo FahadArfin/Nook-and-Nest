@@ -16,3 +16,18 @@
 .floor-confirm-actions .confirm-floor-delete{background:#a65f4e;color:white;border-color:#a65f4e}
 .floor-manager .floor-options label input{display:block;width:15px;height:15px;accent-color:#78866b}
 .floor-manager .floor-options label>span{display:none}
+
+.floor-manager .floor-tabs{display:flex;align-items:center;gap:5px;overflow:visible;flex-wrap:wrap}.floor-tab-group{display:flex;position:relative;align-items:center;gap:0;border:1px solid var(--line);border-radius:10px;background:var(--paper)}.floor-tab-group>button{border:0!important}.floor-tab-group>.floor-options-button{padding:4px;width:28px;min-width:28px}.floor-manager .floor-add-tab{width:36px;min-width:36px;padding:6px;border:1px solid var(--line);border-radius:9px;background:var(--paper)}.floor-tab-menu{position:absolute;bottom:calc(100% + 8px);left:0;min-width:175px;display:grid;padding:6px;border:1px solid var(--line);border-radius:13px;background:var(--paper);box-shadow:0 8px 28px #17251c33;z-index:50}.floor-tab-menu button{display:flex;gap:8px;justify-content:flex-start!important;padding:9px!important;white-space:nowrap;font-size:12px}.floor-tab-menu svg{width:17px;height:17px}.floor-manager{overflow:visible;height:auto;min-height:48px}.app-shell.app-shell{grid-template-rows:auto minmax(0,1fr) auto}.floor-tab-menu button:disabled{opacity:.4}
+
+.floor-manager .floor-tab-group.is-active{background:var(--sage-light,#e4ebdb);border-color:var(--sage,#78866b)}
+.floor-manager .floor-tab-group>button{background:transparent;border-radius:8px;color:inherit}
+.floor-manager .floor-tab-group.is-active>button{color:var(--ink);font-weight:700}
+.floor-manager .floor-tab-group.is-active>button>span{background:var(--sage,#78866b);color:white}
+.floor-manager .floor-tab-group>.floor-options-button{width:24px;min-width:24px;padding:3px;align-self:stretch;display:grid;place-items:center}
+.floor-manager .floor-options-button:hover,.floor-manager .floor-options-button[aria-expanded="true"]{background:color-mix(in srgb,var(--ink) 12%,transparent)}
+.floor-tab-group.is-dragging{opacity:.5}
+.floor-tab-group:has(+ .floor-add-tab) .floor-tab-menu{left:auto;right:0}
+.floor-manager .floor-rename{display:flex;gap:3px;align-items:center;padding:3px}
+.floor-rename input{width:150px;min-width:0;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:8px}
+.floor-manager .floor-rename button{padding:7px!important}
+.dark-mode .floor-manager .floor-tab-group.is-active{background:#56654b;border-color:#839475}.dark-mode .floor-manager .floor-tab-group.is-active>button{color:#fff9e7}

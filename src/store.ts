@@ -1,3 +1,10 @@
+import {paintVegetationField,fieldPlacement} from './vegetationField';
+import {isVegetation} from './vegetation';
+import {importPlan} from './planImport';
+import {boundedHistory} from './historyBudget';
+import {terrainSampler} from './terrain';
+import {paintGrassCoverage} from './grassCoverage';
+import {freeze} from "immer";
 import {correctLegacySinkHeight} from './domain';
 import {modernDefaultVariant, modernDefaultSurface} from './modernCollection';
 import {subtractWallCuts} from './wallCuts';
@@ -21,6 +28,8 @@ import {scatterPlants,type PlantingBrush} from './planting';
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
   turnSnapshot?:Snapshot;turnId?:string;beginTurn(id:string):void;turnFurniture(id:string,degrees:number):void;finishTurn():void;
+  paintCoverage(points:Array<{x:number;z:number}>):void;
+  paintField(points:Array<{x:number;z:number}>):void;
   plantingBrush:PlantingBrush;setPlantingBrush(brush:PlantingBrush):void;
   plantingDraft?:{base:PlanDocumentV1;items:FurniturePlacement[]};
   previewPlanting(points:Array<{x:number;z:number}>):void;confirmPlanting():void;cancelPlanting():void;
@@ -42,7 +51,7 @@ interface PlannerState {
   setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; setDoorFinish(finishId:string):void; select(id?: string): void;
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance" | "transparentWalls" | "darkMode"): void; setActiveFloor(id: string): void;
-  addFloor(): void; deleteFloor(floorId?: string): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
+  duplicateFloor(floorId:string):void; reorderFloor(floorId:string,index:number):void; addFloor(): void; deleteFloor(floorId?: string): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
   setWallHeight(heightMm:number):void;
   setFloorFinish(kind: "floorFinishId" | "wallFinishId", finishId: string): void;
   addWall(wall: Omit<WallSegment, "id">): void; addOpening(kind: "door" | "window", wallKey: string): void; addStair(x: number, z: number): void;
@@ -53,8 +62,8 @@ interface PlannerState {
 }
 
 const initialPlan = createBlankPlan();
-const snap = (state: PlannerState): Snapshot => ({ plan: structuredClone(state.plan), activeFloorId: state.activeFloorId });
-const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: { ...plan, updatedAt: new Date().toISOString() }, selectedId: selectedId === null ? undefined : selectedId, past: [...state.past.slice(-39), snap(state)], future: [] });
+const snap = (state: PlannerState): Snapshot => ({ plan: freeze(state.plan, true), activeFloorId: state.activeFloorId });
+const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: freeze({ ...plan, updatedAt: new Date().toISOString() },true), selectedId: selectedId === null ? undefined : selectedId, past: boundedHistory([...state.past, snap(state)]), future: [] });
 
 export const usePlanner = create<PlannerState>((set, get) => ({
   beginTurn:id=>{get().finishTurn();set(s=>({turnSnapshot:snap(s),turnId:id}));},
@@ -64,7 +73,9 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     const problem=windowProblem(s.plan,candidate);if(problem)return {placementNotice:problem};
     return {plan:{...s.plan,updatedAt:new Date().toISOString(),furniture:s.plan.furniture.map(f=>f.id===id?candidate:f)}};
   }),
-  finishTurn:()=>set(s=>({...(s.turnSnapshot&&JSON.stringify(s.turnSnapshot.plan.furniture)!==JSON.stringify(s.plan.furniture)?{past:[...s.past.slice(-39),s.turnSnapshot],future:[]}:{}),turnSnapshot:undefined,turnId:undefined})),
+  finishTurn:()=>set(s=>({...(s.turnSnapshot&&s.turnSnapshot.plan.furniture!==s.plan.furniture?{past:boundedHistory([...s.past,s.turnSnapshot]),future:[]}:{}),turnSnapshot:undefined,turnId:undefined})),
+  paintField:points=>set(s=>{const vegetationField=paintVegetationField(s.plan,points,s.plantingBrush);const plan={...s.plan,environment:{background:'plain' as const,grass:'off' as const,...s.plan.environment,vegetationField}};validatePlan(plan);return commit(s,plan);}),
+  paintCoverage:points=>set(s=>commit(s,{...s.plan,environment:{background:'plain',grass:'off',...s.plan.environment,grassCoverage:paintGrassCoverage(s.plan,points,s.plantingBrush)}})),
   plantingBrush:{catalogId:'grass-clump',radius:1.5,spacing:.5},
   setPlantingBrush:plantingBrush=>set({plantingBrush,plantingDraft:undefined}),
   previewPlanting:points=>set(s=>({plantingDraft:{base:s.plan,items:scatterPlants(s.plan,points,s.plantingBrush)}})),
@@ -79,7 +90,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   wallDrawHeight:0,setWallDrawHeight:wallDrawHeight=>set({wallDrawHeight}),
   terrainRadius:2,terrainStrength:.6,
   setTerrainBrush:(radius,strength)=>set({terrainRadius:Math.max(.5,Math.min(8,radius)),terrainStrength:Math.max(.1,Math.min(2,strength))}),
-  addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};validatePlan(plan);return commit(state,plan);}),
+  addTerrainStroke:stroke=>set(state=>{const terrain=[...(state.plan.environment?.terrain??[]),stroke];if(terrain.length>128)return {...state,placementNotice:'Terrain is at its 128-stroke limit. Undo or clear terrain to reshape it.'};const plan={...state.plan,environment:{background:'plain' as const,grass:'off' as const,...state.plan.environment,terrain}};const sample=terrainSampler(plan),previousSample=terrainSampler(state.plan);plan.furniture=plan.furniture.map(p=>{const floor=plan.floors.find(f=>f.id===p.floorId)!;const follows=p.terrainAnchored===true||(p.terrainAnchored===undefined&&isVegetation(p.catalogId)&&Math.abs((p.elevationMm??0)+floor.elevationMm+50-previousSample(p.x/1000,p.z/1000).height*1000)<2);if(!follows)return p;const elevationMm=Math.round(sample(p.x/1000,p.z/1000).height*1000)-floor.elevationMm-50;return elevationMm===p.elevationMm?p:{...p,terrainAnchored:true,elevationMm}});validatePlan(plan);return commit(state,plan);}),
   neutralPreview:true, setNeutralPreview:neutralPreview=>set({neutralPreview}),
   wallSelectionActive:false, paintWallIds:[],
   beginWallSelection:()=>set({wallSelectionActive:true,paintWallIds:[],wallBrushActive:false,selectedWallId:undefined,selectedId:undefined,tool:'wall-finish'}),
@@ -101,8 +112,8 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   finishCells:(cells,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>{if(f.id!==state.activeFloorId)return f;const occupied=new Set(f.cells.map(c=>`${c.x},${c.z}`));const cellFinishes={...f.cellFinishes};for(const c of cells){const key=`${c.x},${c.z}`;if(occupied.has(key))cellFinishes[key]=finishId;}return {...f,cellFinishes};})})),
   finishWall:(id,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?paintWallPlate(f,state.plan.gridSizeMm,id,finishId):f)})),
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
-  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set({ selectedId,selectedWallId:undefined,placementNotice:undefined }),
-  replacePlan: (plan) => set({ plan:correctLegacySinkHeight(plan), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
+  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set(s=>{const item=selectedId?fieldPlacement(s.plan,selectedId):undefined;if(!item)return {selectedId,selectedWallId:undefined,placementNotice:undefined};if(s.plan.furniture.filter(p=>isVegetation(p.catalogId)).length>=22000||Object.keys(s.plan.environment!.vegetationField!.removed).length>=22000)return {placementNotice:'Individual edit capacity reached. Landscape brushing is still available.'};const field=s.plan.environment!.vegetationField!;const plan={...s.plan,environment:{...s.plan.environment!,vegetationField:{...field,removed:{...field.removed,[item.id]:true}}},furniture:[...s.plan.furniture,item]};validatePlan(plan);return {...commit(s,plan,item.id),selectedWallId:undefined,placementNotice:undefined};}),
+  replacePlan: (plan) => set({ plan:correctLegacySinkHeight(structuredClone(plan)), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),
   setView: (mode) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, mode } })),
@@ -118,7 +129,9 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     return commit(state, { ...state.plan, camera });
   }),
   setActiveFloor: (activeFloorId) => set({ activeFloorId, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, selectedId: undefined, selectedWallId:undefined }),
-  addFloor: () => set((state) => { const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), ...(previous.cellRects?{cellRects:structuredClone(previous.cellRects)}:{}), walls: [], openings: [], stairs: [], floorFinishId: previous.floorFinishId, wallFinishId: previous.wallFinishId }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
+  addFloor: () => set((state) => { if(state.plan.floors.length>=20)return state;const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), ...(previous.cellRects?{cellRects:structuredClone(previous.cellRects)}:{}), walls: [], openings: [], stairs: [], floorFinishId: previous.floorFinishId, wallFinishId: previous.wallFinishId }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
+  duplicateFloor: floorId=>set(state=>{const source=state.plan.floors.find(f=>f.id===floorId);if(!source||state.plan.floors.length>=20)return state;const id=uid(),top=Math.max(...state.plan.floors.map(f=>f.elevationMm+f.heightMm));const floor={...structuredClone(source),id,name:`${source.name} copy`,elevationMm:top+300,stairs:source.stairs.map(stair=>({...structuredClone(stair),id:uid(),toFloorId:undefined}))};const furniture=state.plan.furniture.filter(f=>f.floorId===floorId).map(piece=>({...structuredClone(piece),id:uid(),floorId:id,toFloorId:undefined}));return {...commit(state,{...state.plan,floors:[...state.plan.floors,floor],furniture:[...state.plan.furniture,...furniture]},null),activeFloorId:id};}),
+  reorderFloor:(floorId,index)=>set(state=>{const from=state.plan.floors.findIndex(f=>f.id===floorId);if(from<0||!Number.isInteger(index)||index<0||index>=state.plan.floors.length||from===index)return state;const order=[...state.plan.floors], [floor]=order.splice(from,1);order.splice(index,0,floor);let elevation=Math.min(...order.map(f=>f.elevationMm));const floors=order.map(f=>{const next={...f,elevationMm:elevation};elevation+=f.heightMm+300;return next;});return commit(state,{...state.plan,floors},null);}),
   deleteFloor: (floorId) => set((state) => {
     const targetId = floorId ?? state.activeFloorId;
     const index = state.plan.floors.findIndex(f => f.id === targetId);
@@ -142,7 +155,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: modernDefaultVariant(catalogId), surfaceVariant: supportsCountertopFinish(catalogId) ? modernDefaultSurface(catalogId)??defaultCountertopFinish.id : undefined, elevationMm:defaultMountHeight(catalogId) }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
   confirmFurniture: (item) => set((state) => {const mounted=fitStair(state.plan,snapWindow(state.plan,item)),problem=windowProblem(state.plan,mounted);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:[...state.plan.furniture,mounted]},null),placementNotice:undefined};}),
   moveFurniture: (id,x,z) => get().updateFurniture(id,{x,z}),
-  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const edited={...existing,...patch};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
+  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const edited={...existing,...patch,...('elevationMm' in patch?{terrainAnchored:false}:{})};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
   duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWallOpening(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
   deleteSelected: () => set((state) => state.selectedId ? commit(state, { ...state.plan, furniture: state.plan.furniture.filter((f) => f.id !== state.selectedId) }, null) : state),
   undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], paintWallIds:[], selectedId: undefined, selectedWallId:undefined }; }),
@@ -151,16 +164,16 @@ export const usePlanner = create<PlannerState>((set, get) => ({
 
 let dbPromise: ReturnType<typeof openDB> | undefined;
 const getDb = () => dbPromise ??= openDB("nook-and-nest", 1, { upgrade(db) { if (!db.objectStoreNames.contains("projects")) db.createObjectStore("projects"); } });
-export async function savePlan(plan: PlanDocumentV1) { const db = await getDb(); const tx=db.transaction("projects","readwrite"); await tx.store.put(plan,"active"); await tx.store.put(plan,"project:"+plan.id); await tx.done; }
+export async function savePlan(plan: PlanDocumentV1) { const db = await getDb(); const tx=db.transaction("projects","readwrite"); await tx.store.put({activeProjectId:plan.id},"active"); await tx.store.put(plan,"project:"+plan.id); await tx.done; }
 export async function listLocalPlans(): Promise<PlanDocumentV1[]> { const db=await getDb(); const all=await db.getAll("projects"); const map=new Map<string,PlanDocumentV1>(); for(const p of all)if(p?.schemaVersion===1&&p.id)map.set(p.id,p); return [...map.values()].sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)); }
 export async function getCloudRevision(owner:string,id:string):Promise<number> { return (await (await getDb()).get("projects",`cloud:${owner}:${id}`))??0; }
 export async function saveCloudRevision(owner:string,id:string,revision:number) { await (await getDb()).put("projects",revision,`cloud:${owner}:${id}`); }
-export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const share = new URLSearchParams(location.hash.slice(1)).get('share');if(share){if(!/^[a-f0-9]{32}$/.test(share))throw new Error('Invalid share link.');const response=await fetch('/api/shares/'+share);const data=await response.json();if(!response.ok)throw new Error(data.error);return decodeShare(encodeShare(data.plan));} const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return decodeShare(hash); const db = await getDb(); return db.get("projects", "active"); }
+export async function loadPlan(): Promise<PlanDocumentV1 | undefined> { const share = new URLSearchParams(location.hash.slice(1)).get('share');if(share){if(!/^[a-f0-9]{32}$/.test(share))throw new Error('Invalid share link.');const response=await fetch('/api/shares/'+share);const data=await response.json();if(!response.ok)throw new Error(data.error);validatePlan(data.plan); const now=new Date().toISOString();return {...correctLegacySinkHeight(data.plan),id:uid(),name:data.plan.name+' copy',createdAt:now,updatedAt:now};} const hash = new URLSearchParams(location.hash.slice(1)).get("plan"); if (hash) return importPlan(hash,true); const db = await getDb(); const active=await db.get("projects", "active"); return active?.activeProjectId?db.get("projects","project:"+active.activeProjectId):active; }
 
 export async function deleteLocalPlan(id: string) {
  const db=await getDb(),tx=db.transaction("projects","readwrite");
  const active=await tx.store.get("active");
  await tx.store.delete("project:"+id);
- if(active?.id===id)await tx.store.delete("active");
+ if(active?.id===id||active?.activeProjectId===id)await tx.store.delete("active");
  await tx.done;
 }

@@ -55,7 +55,14 @@ const families: Record<string, string[]> = {
   "Windows": ["window-solarium","window-casement","window-sash","window-picture","window-arched","window-bay","window-awning"],
 };
 const typeById = new Map(Object.entries(families).flatMap(([family, ids]) => ids.map(id => [id, family] as const)));
-export const furnitureType = (item: CatalogItem) => cozyType(item.id) ?? typeById.get(item.id) ?? "Other pieces";
+const typeAliases:Record<string,string>={"Pendants":"Pendant lights","Shelves":"Shelves & books","Bookcases":"Shelves & books","Lamps":"Table & floor lamps","Table lamps":"Table & floor lamps","Floor lamps":"Table & floor lamps"};
+export const furnitureType = (item: CatalogItem) => {const name=cozyType(item.id) ?? typeById.get(item.id) ?? "Other pieces";return typeAliases[name]??name;};
+export function modelTags(item:CatalogItem):string[]{
+ const tags:string[]=[item.category];const mount={wall:'Wall mounted',surface:'Tabletop',ceiling:'Ceiling mounted',floor:'Floor standing'};
+ if(item.mount)tags.push(mount[item.mount]);
+ for(const [pattern,label] of [[/\bround\b/i,'Round'],[/\bcorner\b/i,'Corner'],[/\bmodular\b/i,'Modular'],[/\bstorage\b/i,'Storage'],[/\badjustable\b/i,'Adjustable'],[/\barch(?:ed)?\b/i,'Arched']] as const)if(pattern.test(item.name))tags.push(label);
+ return [...new Set(tags)];
+}
 const synonyms: Record<string, string> = {
   couch:"sofa", settee:"sofa", washroom:"bathroom", restroom:"bathroom", lavatory:"toilet",
   television:"tv", fridge:"refrigerator", computer:"computer", tub:"bathtub", basin:"sink",
@@ -79,6 +86,7 @@ export function filterLibrary(options: { search: string; category: string; type:
     && (shelf === "browse" || (shelf === "favorites" ? favorites : inPlan).includes(item.id)));
   const types = [...new Set(base.map(furnitureType))].sort();
   const items = base.filter(item => type === "All" || furnitureType(item) === type);
+  if(sort==='collection'){const essential=['Sofas','Beds','Chairs & stools','Tables','Desks','Coffee tables','Side tables','Rugs'];items.sort((a,b)=>(essential.includes(furnitureType(a))?essential.indexOf(furnitureType(a)):100)-(essential.includes(furnitureType(b))?essential.indexOf(furnitureType(b)):100));}
   if (sort === "name") items.sort((a,b) => a.name.localeCompare(b.name));
   if (sort === "size") items.sort((a,b) => a.widthMm*a.depthMm-b.widthMm*b.depthMm || a.name.localeCompare(b.name));
   return { items, types };

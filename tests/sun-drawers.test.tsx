@@ -22,8 +22,8 @@ it('retains exiting drawers, switches after closing, and exposes no repeated doc
  const floor=screen.getByRole('region',{name:'Paint surfaces'});expect(floor.classList.contains('is-open')).toBe(true);
  expect(within(floor).queryByRole('button',{name:'Paint'})).toBeNull();expect(within(floor).queryByRole('button',{name:'Erase'})).toBeNull();
  view.rerender(<BottomTools {...props} mode="wall"/>);expect(floor.getAttribute('aria-hidden')).toBe('true');expect(floor.hasAttribute('inert')).toBe(true);
- advance(649);expect(floor.isConnected).toBe(true);advance(1);advance(20);expect(screen.getByRole('region',{name:'Wall tools'})).toBeTruthy();
- view.rerender(<BottomTools {...props}/>);expect(screen.queryByRole('region',{name:'Wall tools'})).toBeNull();advance(650);expect(document.querySelector('.bottom-tools')).toBeNull();
+ advance(649);expect(floor.isConnected).toBe(true);advance(1);advance(20);expect(screen.getByRole('region',{name:'Build tools'})).toBeTruthy();
+ view.rerender(<BottomTools {...props}/>);expect(screen.queryByRole('region',{name:'Build tools'})).toBeNull();advance(650);expect(document.querySelector('.bottom-tools')).toBeNull();
 });
 it('previews slider changes live and commits a single undoable saved sun setting',()=>{
  const plan=createBlankPlan();usePlanner.setState({plan,past:[],future:[]});const preview=vi.fn();render(<SunControls onPreview={preview}/>);
@@ -45,5 +45,5 @@ it('changes actual directional lighting without mutating the apartment and resto
 
 it('cancels a pending switch when the original drawer is selected again',()=>{
  vi.useFakeTimers();usePlanner.getState().replacePlan(createBlankPlan());const props={onClose:vi.fn(),onPlace:vi.fn(),onViewScenery:vi.fn(),onSunPreview:vi.fn()};
- const view=render(<BottomTools {...props} mode="wall"/>);advance(0);advance(20);view.rerender(<BottomTools {...props} mode="landscape"/>);advance(300);view.rerender(<BottomTools {...props} mode="wall"/>);advance(20);advance(650);expect(screen.getByRole('region',{name:'Wall tools'})).toBeTruthy();expect(screen.queryByRole('region',{name:'Land formation'})).toBeNull();
+ const view=render(<BottomTools {...props} mode="wall"/>);advance(0);advance(20);view.rerender(<BottomTools {...props} mode="landscape"/>);advance(300);view.rerender(<BottomTools {...props} mode="wall"/>);advance(20);advance(650);expect(screen.getByRole('region',{name:'Build tools'})).toBeTruthy();expect(screen.queryByRole('region',{name:'Land formation'})).toBeNull();
 });

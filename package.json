@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "test:assets": "node --test tests/model-asset-sharing.test.mjs tests/model-geometry-compression.test.mjs",
     "test:sites": "node --test tests/sites-worker.test.mjs tests/google-tiles.test.mjs",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "assets:verify": "node scripts/verify-asset-pipeline.mjs",
+    "assets:inventory": "node scripts/verify-asset-pipeline.mjs --inventory"
   },
   "dependencies": {
     "@babylonjs/core": "^8.0.0",

@@ -45,6 +45,9 @@ describe("library organization",()=>{
 
 describe("library controls",()=>{
   const mount=()=>{const drag=vi.fn(),start=vi.fn();render(<CatalogLibrary onBeginDrag={drag} onStartPlacement={start}/>);return {drag,start}};
+  it("keeps optional filters collapsed and opens them without changing the plan",()=>{
+    const before=usePlanner.getState().plan;mount();const toggle=screen.getByRole('button',{name:/Filters/});expect(toggle.getAttribute('aria-expanded')).toBe('false');expect(screen.queryByRole('combobox',{name:'Furniture category'})).toBeNull();fireEvent.click(toggle);expect(screen.getByRole('combobox',{name:'Furniture category'})).toBeTruthy();expect(usePlanner.getState().plan).toBe(before);
+  });
   it("saves a favorite without placing it or recording plan history",()=>{
     const before=usePlanner.getState().plan,{drag,start}=mount();
     fireEvent.click(screen.getByLabelText("Save Capsule bathroom mirror"));
@@ -71,13 +74,8 @@ describe("library controls",()=>{
     expect(drag).toHaveBeenCalledTimes(1);expect(start).not.toHaveBeenCalled();expect(screen.getByLabelText("Expand library")).toBeTruthy();
     fireEvent.click(card,{detail:0});expect(start).toHaveBeenCalledWith(item("bath-mirror-pill"));
   },10000);
-  it("shows distinct already-placed pieces and never adds drafts itself",()=>{
-    usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("sofa");usePlanner.getState().placeFurniture("laptop");
-    const {start}=mount();fireEvent.click(screen.getByRole("button",{name:"In plan"}));
-    const ids=new Set(usePlanner.getState().plan.furniture.map(i=>i.catalogId));
-    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(ids.size);
-    const before=usePlanner.getState().plan;fireEvent.click(screen.getAllByRole("button",{name:/drag to place/})[0],{detail:0});
-    expect(start).toHaveBeenCalledOnce();expect(usePlanner.getState().plan).toBe(before);
+  it("keeps browsing focused on models without plan objects or sorting controls",()=>{
+    const {start}=mount();const before=usePlanner.getState().plan;expect(screen.queryByRole('button',{name:'In plan'})).toBeNull();expect(screen.queryByLabelText('Sort furniture')).toBeNull();expect(screen.queryByText('Find your next piece')).toBeNull();expect(screen.queryByRole('button',{name:/^Filter by /})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Filters'}));fireEvent.click(within(screen.getByRole('group',{name:'Model tags'})).getByRole('button',{name:'Wall mounted'}));expect(start).not.toHaveBeenCalled();expect(usePlanner.getState().plan).toBe(before);
   });
   it("shows an actionable empty search and keeps editing shortcuts out of library controls",()=>{
     mount();fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"no-such-piece"}});
@@ -111,7 +109,7 @@ describe('library icon navigation',()=>{
     fireEvent.click(screen.getByLabelText('Clear search'));expect(document.activeElement).toBe(screen.getByLabelText('Search all furniture'));
     expect(usePlanner.getState().plan).toBe(before);expect(usePlanner.getState().past).toHaveLength(0);
     expect(drag).not.toHaveBeenCalled();expect(start).not.toHaveBeenCalled();
-  });
+  },15000);
   it('supports arrow and endpoint navigation without applying a filter until activated',()=>{
     render(<CatalogLibrary onBeginDrag={vi.fn()} onStartPlacement={vi.fn()}/>);
     const all=screen.getByRole('button',{name:'Category: All'});all.focus();

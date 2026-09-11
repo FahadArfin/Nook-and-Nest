@@ -33,7 +33,8 @@ export function applyTorontoAerialRoofs(asset: AssetContainer, scene: Scene, nig
     mesh.setVerticesData(VertexBuffer.UVKind, uv);
   }
   const groundMaterials:ShaderMaterial[]=[];
-  const texture = new Texture('/textures/toronto/aerial-2022.jpg', scene, false, true, Texture.TRILINEAR_SAMPLINGMODE, () => {
+  const caps=scene.getEngine().getCaps(),compressed=!!(caps.astc||caps.bptc);
+  const texture = new Texture(compressed?'/textures/toronto/aerial-2022.ktx2':'/textures/toronto/aerial-2022.jpg', scene, false, true, Texture.TRILINEAR_SAMPLINGMODE, () => {
     if (asset.meshes.length === 0) return;
     for (const mesh of roofs) {
       const material = mesh.material as PBRMaterial;
@@ -43,7 +44,7 @@ export function applyTorontoAerialRoofs(asset: AssetContainer, scene: Scene, nig
       material.metallic = 0;
     }
     for (const material of groundMaterials) {material.setTexture('aerial',texture);material.setFloat('photoReady',1);}
-  });
+  },()=>{if(compressed&&!texture.url?.endsWith('.jpg'))texture.updateURL('/textures/toronto/aerial-2022.jpg');});
   const fallback=RawTexture.CreateRGBATexture(new Uint8Array([255,255,255,255]),1,1,scene,false,false);asset.textures.push(fallback);
   for (const mesh of ground) {
     const material=createTorontoGround(scene,fallback,(mesh.material as PBRMaterial).albedoColor,night);

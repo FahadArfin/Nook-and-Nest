@@ -52,30 +52,54 @@ describe("floor removal",()=>{
 describe("floor deletion controls",()=>{
   it("names the target, focuses Cancel, and changes nothing until confirmed",()=>{
     const cancelDraft=vi.fn();render(<FloorBar onBeforeDelete={cancelDraft}/>);const before=state().plan;
-    fireEvent.click(screen.getByRole("button",{name:"Delete floor"}));
+    fireEvent.click(screen.getByRole("button",{name:`Options for ${state().plan.floors.find(f=>f.id===state().activeFloorId)!.name}`}));fireEvent.click(screen.getByRole("button",{name:"Delete"}));
     const dialog=screen.getByRole("dialog");expect(within(dialog).getByText('Delete “Ground floor”?')).toBeTruthy();
     expect(document.activeElement).toBe(within(dialog).getByRole("button",{name:"Cancel"}));expect(state().plan).toBe(before);
     fireEvent.click(within(dialog).getByRole("button",{name:"Cancel"}));expect(state().plan).toBe(before);expect(cancelDraft).not.toHaveBeenCalled();expect(screen.queryByRole("dialog")).toBeNull();
-    expect(document.activeElement).toBe(screen.getByRole("button",{name:"Delete floor"}));
+    expect(document.activeElement).toBe(screen.getByRole("button",{name:"Delete"}));
   });
   it("deletes only after confirmation and dismisses pending placement",()=>{
     const cancelDraft=vi.fn();render(<FloorBar onBeforeDelete={cancelDraft}/>);
     fireEvent.click(screen.getByRole("button",{name:/2Upstairs/}));
-    fireEvent.click(screen.getByRole("button",{name:"Delete floor"}));
+    fireEvent.click(screen.getByRole("button",{name:`Options for ${state().plan.floors.find(f=>f.id===state().activeFloorId)!.name}`}));fireEvent.click(screen.getByRole("button",{name:"Delete"}));
     fireEvent.click(within(screen.getByRole("dialog")).getByRole("button",{name:"Delete floor"}));
     expect(cancelDraft).toHaveBeenCalledOnce();expect(state().plan.floors).toHaveLength(1);expect(state().plan.floors[0].name).toBe("Ground floor");expect(screen.queryByRole("dialog")).toBeNull();
-    expect(screen.getByRole("button",{name:"Clear floor"})).toBeTruthy();
+    expect(screen.getByRole("button",{name:"Options for Ground floor"})).toBeTruthy();
   });
   it("allows clearing the last floor and explains that its layer remains",()=>{
     state().deleteFloor(state().plan.floors[1].id);render(<FloorBar onBeforeDelete={()=>{}}/>);
-    fireEvent.click(screen.getByRole("button",{name:"Clear floor"}));const dialog=screen.getByRole("dialog");
+    fireEvent.click(screen.getByRole("button",{name:"Options for Ground floor"}));fireEvent.click(screen.getByRole("button",{name:"Delete"}));const dialog=screen.getByRole("dialog");
     expect(within(dialog).getByText(/empty layer will remain/)).toBeTruthy();
     fireEvent.click(within(dialog).getByRole("button",{name:"Clear floor"}));expect(state().plan.floors[0].cells).toEqual([]);
   });
   it("supports native Escape cancellation and prevents editor shortcuts inside the dialog",()=>{
-    render(<FloorBar onBeforeDelete={()=>{}}/>);fireEvent.click(screen.getByRole("button",{name:"Delete floor"}));const dialog=screen.getByRole("dialog"),before=state().plan;
+    render(<FloorBar onBeforeDelete={()=>{}}/>);fireEvent.click(screen.getByRole("button",{name:"Options for Ground floor"}));fireEvent.click(screen.getByRole("button",{name:"Delete"}));const dialog=screen.getByRole("dialog"),before=state().plan;
     const listener=vi.fn();window.addEventListener("keydown",listener);
     try{fireEvent.keyDown(within(dialog).getByRole("button",{name:"Cancel"}),{key:"Delete"});expect(listener).not.toHaveBeenCalled()}finally{window.removeEventListener("keydown",listener)}
     fireEvent(dialog,new Event("cancel",{bubbles:false,cancelable:true}));expect(screen.queryByRole("dialog")).toBeNull();expect(state().plan).toBe(before);
   });
+});
+
+it('duplicates independent furniture and reorders physical levels with undo and sharing',()=>{
+ const ground=state().plan.floors[0];state().placeFurniture('sofa');const before=structuredClone(state().plan);state().duplicateFloor(ground.id);const copy=state().plan.floors.at(-1)!;expect(copy.id).not.toBe(ground.id);expect(copy.cells).toEqual(ground.cells);const cloned=state().plan.furniture.filter(f=>f.floorId===copy.id);expect(cloned).toHaveLength(before.furniture.filter(f=>f.floorId===ground.id).length);expect(cloned[0].id).not.toBe(before.furniture[0].id);state().reorderFloor(copy.id,0);expect(state().plan.floors[0].id).toBe(copy.id);expect(state().plan.floors[0].elevationMm).toBe(0);expect(state().plan.floors[1].elevationMm).toBe(copy.heightMm+300);expect(parsePlan(serializePlan(state().plan)).floors).toEqual(state().plan.floors);state().undo();expect(state().plan.floors.at(-1)!.id).toBe(copy.id);state().undo();expect(state().plan).toEqual(before);
+});
+
+it('uses a compact three-action menu, renames with undo and drags physical floors',()=>{
+ render(<FloorBar onBeforeDelete={()=>{}}/>);
+ fireEvent.click(screen.getByRole('button',{name:'Options for Upstairs'}));
+ const menu=screen.getByRole('group',{name:'Upstairs actions'});
+ expect(within(menu).getAllByRole('button').map(b=>b.textContent)).toEqual(['Clone','Delete','Rename']);
+ expect(screen.getByRole('button',{name:'Options for Upstairs'}).parentElement?.classList.contains('is-active')).toBe(true);
+ fireEvent.click(within(menu).getByRole('button',{name:'Rename'}));
+ fireEvent.change(screen.getByRole('textbox',{name:'Floor name'}),{target:{value:'Loft'}});
+ fireEvent.click(screen.getByRole('button',{name:'Save floor name'}));
+ expect(state().plan.floors[1].name).toBe('Loft');
+ const before=structuredClone(state().plan);
+ const dataTransfer={setData:vi.fn(),effectAllowed:'',dropEffect:''};
+ fireEvent.dragStart(screen.getByRole('button',{name:/2Loft/}),{dataTransfer});
+ fireEvent.drop(screen.getByRole('button',{name:/1Ground floor/}).parentElement!,{dataTransfer});
+ expect(state().plan.floors[0].name).toBe('Loft');
+ expect(state().plan.floors[0].elevationMm).toBe(0);
+ state().undo();expect(state().plan).toEqual(before);
+ state().undo();expect(state().plan.floors[1].name).toBe('Upstairs');
 });

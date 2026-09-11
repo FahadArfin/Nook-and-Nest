@@ -8,7 +8,7 @@ import {recognitionApi} from './worker/recognition.js';
 function localRecognition(){return {name:'local-floor-plan-recognition',configureServer(server){
   const keyPath=process.env.NOOK_OPENAI_KEY_FILE;
   if(!keyPath)return;
-  const key=readFileSync(keyPath,'utf8').trim(),counts=new Map();
+  const file=readFileSync(keyPath,'utf8').trim(),key=(file.match(/^OPENAI_API_KEY=(.+)$/m)?.[1]??file).trim(),counts=new Map();
   const DB={prepare(sql){return {bind(owner,day){return {async first(){const id=owner+day,n=counts.get(id)||0,max=sql.includes('count<10 ')?10:100;if(n>=max)return null;counts.set(id,n+1);return {count:n+1};}};}};}};
   server.middlewares.use('/api/floor-plan/recognize',async(req,res)=>{
     if(!['127.0.0.1','::1','::ffff:127.0.0.1'].includes(req.socket.remoteAddress)){res.statusCode=403;res.end();return;}

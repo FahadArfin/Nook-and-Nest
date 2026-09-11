@@ -1,0 +1,81 @@
+/* Shared rhythm for the editor's small, contextual surfaces. */
+.app-shell{--editor-radius:14px;--editor-gap:8px;--editor-motion:180ms}
+.app-shell .placement-controls{border-radius:var(--editor-radius);gap:var(--editor-gap)}
+.app-shell .placement-controls button{min-width:40px;min-height:40px;border-radius:10px}
+.app-shell .placement-controls button[aria-pressed=true]{background:var(--accent,#62764f);color:var(--paper);box-shadow:inset 0 0 0 2px #b9cba5}
+.app-shell .selected-controls .move-state{font-size:12px;text-align:center;line-height:1.4}
+.app-shell .library-panel .item-illustration img{width:100%;height:100%;object-fit:contain;padding:5px}
+.app-shell .library-shelves{gap:3px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.app-shell .library-shelves button{padding:8px 6px;min-height:40px;justify-content:center}
+.app-shell .room-collections{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0}
+.app-shell .room-collections>span{flex-basis:100%;font-size:12px;font-weight:700}
+.app-shell .room-collections button{display:flex;align-items:center;gap:6px;border-radius:20px;min-height:32px;padding:5px 10px;border:1px solid var(--line);background:var(--paper);font-size:12px;color:var(--ink)}
+.app-shell .room-collections button[aria-pressed=true]{background:var(--accent,#62764f);color:var(--paper)}
+.app-shell .library-filter-options{max-height:min(36dvh,330px)}
+.app-shell .library-type-heading:disabled{opacity:1;cursor:default}
+.empty-canvas-hint,.placement-first-tip,.edit-toast,.model-recovery{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);box-shadow:0 5px 20px #10180f18;border-radius:var(--editor-radius,14px);font-size:12px;line-height:1.4}
+.empty-canvas-hint{position:absolute;bottom:92px;left:50%;transform:translateX(-50%);padding:5px 8px;white-space:nowrap}
+.empty-canvas-hint button,.placement-first-tip button{display:flex;align-items:center;gap:6px;color:inherit;border:0;background:none;min-height:32px;cursor:pointer}
+.empty-canvas-hint>button:first-child{font-weight:700}
+.empty-canvas-hint>span{color:var(--muted)}
+.placement-first-tip{position:absolute;left:16px;top:78px;max-width:calc(100% - 88px);padding:7px 10px}
+.placement-first-tip kbd{font:inherit;font-weight:700}
+.canvas-stage:has(.model-recovery) .placement-first-tip{display:none}
+.pinned-controls{position:absolute;left:16px;bottom:18px;display:flex;gap:5px;z-index:8}
+.pinned-controls>button{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--paper);border:1px solid var(--line);color:var(--ink)}
+.pinned-controls>button[aria-pressed=true],.pinned-controls>button[aria-expanded=true]{background:var(--accent,#62764f);color:var(--paper)}
+.quick-pin-settings{border:0;margin:14px 0 0;padding:8px 0 0;border-top:1px solid var(--line)}
+.quick-pin-settings legend{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+.quick-pin-settings label{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:36px;font-size:13px}
+.quick-pin-settings input{accent-color:var(--accent,#62764f);width:17px;height:17px}
+.pinned-brush{display:flex;gap:16px;padding:4px}
+.pinned-finishes p{max-width:220px;font-size:13px}
+.pinned-finishes .quick-finishes{display:flex;gap:6px;margin-top:10px}
+.pinned-finishes .quick-finishes button{height:40px;width:40px;border-radius:10px;background-size:cover;border:1px solid var(--line)}
+.editor-feedback{position:absolute;top:78px;left:16px;right:80px;z-index:25;display:flex;align-items:flex-start;flex-direction:column;gap:8px;pointer-events:none}
+.editor-feedback:empty{display:none}
+.edit-toast,.model-recovery{pointer-events:auto;padding:7px 9px;max-width:100%;animation:editor-surface-in var(--editor-motion,180ms) ease-out}
+.edit-toast>span{display:flex;align-items:center;gap:8px}
+.edit-toast button,.model-recovery button{display:flex;align-items:center;gap:5px;border:1px solid var(--line);border-radius:9px;padding:5px 8px;min-height:32px;background:transparent;color:inherit;white-space:nowrap}
+.edit-toast>button:last-child{border:0;padding:4px}
+.save-control{position:relative}
+.save-recovery{position:absolute;top:calc(100% + 8px);left:0;display:flex;flex-wrap:wrap;align-items:center;gap:8px;white-space:normal;width:290px;z-index:110;background:var(--paper);border:1px solid #b56c4e;color:var(--ink);border-radius:14px;padding:10px;box-shadow:0 5px 20px #10180f25;font-size:12px}
+.save-recovery button{display:flex;align-items:center;gap:4px;min-height:36px}
+.mobile-editor-actions{display:none}
+.editor-actions-sheet header{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:16px}
+.editor-actions-sheet h2{margin:5px 0;font-size:22px}
+.editor-actions-sheet header button{width:42px;height:42px;display:grid;place-items:center;border-radius:12px}
+.editor-actions-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.editor-actions-grid button{display:flex;flex-direction:column;align-items:flex-start;gap:10px;border-radius:16px;padding:16px;min-height:94px;min-width:0;white-space:normal;line-height:1.4;text-align:left;background:var(--paper);border:1px solid var(--line);color:var(--ink);font-size:14px}
+.editor-actions-grid button[aria-pressed=true]{background:var(--accent,#62764f);color:var(--paper)}
+.ux-dialog:has(.editor-actions-sheet){width:min(440px,calc(100vw - 20px));padding:20px;border-radius:24px;animation:editor-surface-in 180ms ease-out}
+@keyframes editor-surface-in{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){
+ .app-shell .mobile-editor-actions{display:block;margin-left:auto;flex:0 0 auto}
+ .app-shell .mobile-editor-actions>button{display:flex;align-items:center;gap:6px;min-height:44px;padding:8px 12px;border-radius:12px}
+ main.app-shell>.topbar .top-secondary{display:contents;overflow:visible}
+ main.app-shell>.topbar .top-secondary>button,main.app-shell>.topbar .top-secondary .agent-entry>button{display:none}
+ main.app-shell>.topbar .top-secondary>.agent-entry{position:static;width:0;min-width:0}
+ .app-shell>.topbar .top-actions>.icon-button{min-width:40px;height:44px}
+ main.app-shell .canvas-stage>.editor-navigation{display:grid;grid-template-columns:minmax(0,1fr);overflow:visible;gap:5px}
+ main.app-shell .editor-navigation>.view-toggle{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;min-width:0}
+ main.app-shell .editor-navigation>.bp-entry{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;min-width:0}
+ main.app-shell .editor-navigation button{justify-content:center;min-height:38px;min-width:0}
+ main.app-shell .canvas-stage>.canvas-tools{top:116px;max-height:calc(100% - 190px)}
+ .ux-dialog:has(.editor-actions-sheet){margin:auto auto 10px;max-height:calc(100dvh - 24px);overflow:auto}
+ .empty-canvas-hint{bottom:82px;padding:4px 7px;gap:3px;font-size:11px;max-width:calc(100% - 16px)}
+ .empty-canvas-hint button{min-height:38px}
+ .empty-canvas-hint>span{white-space:normal;max-width:86px}
+ .placement-first-tip{top:112px;left:8px;max-width:calc(100% - 65px);font-size:11px}
+ .placement-first-tip kbd{display:none}
+ .pinned-controls{left:8px;bottom:100px;flex-direction:column}
+ .pinned-controls>button{width:36px;height:36px}
+ .editor-feedback{top:112px;left:8px;right:62px}
+ .model-recovery,.edit-toast{flex-wrap:wrap;font-size:12px;padding:8px}
+ .save-recovery{left:-82px;gap:4px;font-size:11px;max-width:calc(100vw - 16px)}
+ .app-shell .library-panel .favorite-piece{min-width:36px;min-height:36px}
+ .app-shell .library-panel .library-filter-bar button{min-height:40px}
+ .app-shell .room-collections button{min-height:36px}
+ .pinned-brush{flex-direction:column}
+}
+@media(prefers-reduced-motion:reduce){.app-shell *, .ux-dialog:has(.editor-actions-sheet){animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

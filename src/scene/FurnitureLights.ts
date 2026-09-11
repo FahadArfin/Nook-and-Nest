@@ -11,7 +11,7 @@ import type { PlanDocumentV1 } from '../types';
 const lightingIds=new Set(catalog.filter(c=>c.category==='Lighting').map(c=>c.id));
 /** Four warm pools nearest the camera; cached shadows include walls, not the bulb. */
 export class FurnitureLights {
-  private lights=new Map<string,{light:SpotLight;shadow:ShadowGenerator}>();
+  private lights=new Map<string,{light:SpotLight;shadow:ShadowGenerator;signature?:string}>();
   private nextUpdate=0;
   constructor(private scene:Scene,private allowsShadow:(mesh:AbstractMesh)=>boolean){}
   update(plan:PlanDocumentV1,floorId:string,nodes:Map<string,{node:TransformNode}>,camera:Vector3,neutral:boolean){
@@ -36,7 +36,7 @@ export class FurnitureLights {
       const own=new Set(node.getChildMeshes());
       entry.light.excludedMeshes=[...own];
       const meshes=this.scene.meshes.filter(m=>m.isEnabled()&&!own.has(m)&&!m.name.startsWith('rotation-')&&m.name!=='draft-footprint'&&(m.name.startsWith('wall:')||m.name.startsWith('item:')));
-      entry.shadow.getShadowMap()!.renderList=meshes;
+      const map=entry.shadow.getShadowMap()!;const signature=meshes.map(m=>{m.computeWorldMatrix();return m.uniqueId+':'+m.getWorldMatrix().updateFlag+':'+this.allowsShadow(m)}).join('|')+entry.light.position.toString();if(entry.signature!==signature){map.renderList=meshes.filter(m=>this.allowsShadow(m));map.refreshRate=0;map.resetRefreshCounter();entry.signature=signature;}
     }
     for(const material of this.scene.materials)if('maxSimultaneousLights' in material)material.maxSimultaneousLights=6;
   }

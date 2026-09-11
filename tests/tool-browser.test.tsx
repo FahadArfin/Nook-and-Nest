@@ -24,7 +24,7 @@ it('confirms a plant stroke as one undo and routes single plants into reversible
  const count=s().plantingDraft!.items.length,before=s().plan;
  expect(screen.queryByRole('button',{name:'Confirm planting'})).toBeNull();act(()=>s().confirmPlanting());expect(s().plan.furniture.length).toBe(before.furniture.length+count);expect(s().past).toHaveLength(1);
  act(()=>s().undo());expect(s().plan.furniture).toEqual(before.furniture);
- fireEvent.click(screen.getByRole('button',{name:'Single plant'}));fireEvent.click(screen.getByRole('button',{name:'Plant: Lavender drift'}));
+ fireEvent.change(screen.getByRole('combobox',{name:'Planting mode'}),{target:{value:'single'}});fireEvent.click(screen.getByRole('button',{name:'Plant: Lavender drift'}));
  expect(place).toHaveBeenCalledWith(expect.objectContaining({id:'lavender-clump'}));expect(s().plan.furniture).toEqual(before.furniture);
 });
 it('requires explicit whole-floor apply and keeps section selection uncommitted',()=>{
