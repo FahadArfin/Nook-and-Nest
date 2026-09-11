@@ -75,7 +75,7 @@ describe("library controls",()=>{
     fireEvent.click(card,{detail:0});expect(start).toHaveBeenCalledWith(item("bath-mirror-pill"));
   },10000);
   it("keeps browsing focused on models without plan objects or sorting controls",()=>{
-    const {start}=mount();const before=usePlanner.getState().plan;expect(screen.queryByRole('button',{name:'In plan'})).toBeNull();expect(screen.queryByLabelText('Sort furniture')).toBeNull();fireEvent.click(screen.getAllByRole('button',{name:'Filter by Wall mounted'})[0]);expect(start).not.toHaveBeenCalled();expect(usePlanner.getState().plan).toBe(before);
+    const {start}=mount();const before=usePlanner.getState().plan;expect(screen.queryByRole('button',{name:'In plan'})).toBeNull();expect(screen.queryByLabelText('Sort furniture')).toBeNull();expect(screen.queryByText('Find your next piece')).toBeNull();expect(screen.queryByRole('button',{name:/^Filter by /})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Filters'}));fireEvent.click(within(screen.getByRole('group',{name:'Model tags'})).getByRole('button',{name:'Wall mounted'}));expect(start).not.toHaveBeenCalled();expect(usePlanner.getState().plan).toBe(before);
   });
   it("shows an actionable empty search and keeps editing shortcuts out of library controls",()=>{
     mount();fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"no-such-piece"}});

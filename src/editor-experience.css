@@ -9,9 +9,8 @@
 .app-shell .library-shelves button{padding:8px 6px;min-height:40px;justify-content:center}
 .app-shell .room-collections{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0}
 .app-shell .room-collections>span{flex-basis:100%;font-size:12px;font-weight:700}
-.app-shell .room-collections button,.app-shell .active-library-filters button{display:flex;align-items:center;gap:6px;border-radius:20px;min-height:32px;padding:5px 10px;border:1px solid var(--line);background:var(--paper);font-size:12px;color:var(--ink)}
+.app-shell .room-collections button{display:flex;align-items:center;gap:6px;border-radius:20px;min-height:32px;padding:5px 10px;border:1px solid var(--line);background:var(--paper);font-size:12px;color:var(--ink)}
 .app-shell .room-collections button[aria-pressed=true]{background:var(--accent,#62764f);color:var(--paper)}
-.app-shell .active-library-filters{display:flex;flex-wrap:wrap;gap:5px;padding:4px 0 8px}
 .app-shell .library-filter-options{max-height:min(36dvh,330px)}
 .app-shell .library-type-heading:disabled{opacity:1;cursor:default}
 .empty-canvas-hint,.placement-first-tip,.edit-toast,.model-recovery{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink);box-shadow:0 5px 20px #10180f18;border-radius:var(--editor-radius,14px);font-size:12px;line-height:1.4}
@@ -75,8 +74,8 @@
  .model-recovery,.edit-toast{flex-wrap:wrap;font-size:12px;padding:8px}
  .save-recovery{left:-82px;gap:4px;font-size:11px;max-width:calc(100vw - 16px)}
  .app-shell .library-panel .favorite-piece{min-width:36px;min-height:36px}
- .app-shell .library-panel .library-filter-toggle{min-height:40px}
- .app-shell .room-collections button,.app-shell .active-library-filters button{min-height:36px}
+ .app-shell .library-panel .library-filter-bar button{min-height:40px}
+ .app-shell .room-collections button{min-height:36px}
  .pinned-brush{flex-direction:column}
 }
 @media(prefers-reduced-motion:reduce){.app-shell *, .ux-dialog:has(.editor-actions-sheet){animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
