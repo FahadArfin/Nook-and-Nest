@@ -73,3 +73,5 @@ Latest welcome direction: remove Recents entirely. Put My projects directly belo
 Welcome background name and Auto/Pinned text are hidden from the main menu; retain background preferences behind a compact icon.
 
 Approved welcome labels: Draw a floor plan, Design in 3D, My projects.
+
+Welcome polish: offset the main group down/inward on wide desktops, lighter typography, feathered contrast behind the menu, gentle hover/press/focus feedback. Use bounded scene-local fireplace light, window rain and daylight/lamp variation rather than whole-image panning; pause when hidden and respect reduced motion. Beta 1 only.
