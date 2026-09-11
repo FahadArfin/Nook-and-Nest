@@ -81,3 +81,5 @@ Scene motion refinement: animate fireplace flames and candle wicks, slow glass r
 Motion masks must follow object interiors rather than rectangular bounds: keep pillows, plants, shelves and fireplace masonry still. Prefer the photographed fire texture over drawn flame tongues. Include sleeping-dog breathing and restrained coffee/candle wisps in Fireside.
 
 Beta 1 floor-plan studio UX: keep a compact readable header in both themes, a collapsible Rooms drawer with an internal close control on mobile, drawing tools in the bottom dock, and a clear local tracing versus online recognition choice in Import. Show the target floor and replacement consequences before applying a drawing to 3D.
+
+Beta 1 3D editor UX: keep optional library filters collapsible, compact readable model cards, selected-view semantics and visible focus. On phones preserve the project title, scroll secondary header actions, keep floor tabs in one row and make paint scope/search/material choices reachable in one scrolling palette. Do not restore an empty-canvas starter card.

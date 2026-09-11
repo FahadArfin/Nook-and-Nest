@@ -22,7 +22,7 @@ export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPla
   const setSearch = usePlanner(s=>s.setSearch), setCategory = usePlanner(s=>s.setCategory);
   const units = usePlanner(s=>s.plan.units), membershipKey = usePlanner(s=>membership(s.plan.furniture));
   const [shelf,setShelf] = useState<LibraryShelf>("browse"), [type,setType] = useState("All");
-  const sort:LibrarySort="collection";const [tag,setTag]=useState(""),[expanded,setExpanded]=useState(false);
+  const sort:LibrarySort="collection";const [tag,setTag]=useState(""),[expanded,setExpanded]=useState(false),[filtersOpen,setFiltersOpen]=useState(false);
   const [storageWarning,setStorageWarning] = useState(false);
   const [favorites,setFavorites] = useState<string[]>(()=>{try{return parseFavorites(localStorage.getItem(favoritesKey))}catch{return []}});
   const scrollRef = useRef<HTMLDivElement>(null), searchRef = useRef<HTMLInputElement>(null);
@@ -59,12 +59,12 @@ export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPla
       <button aria-pressed={shelf==="favorites"} onClick={()=>changeShelf("favorites")}><Heart size={16} weight={shelf==="favorites"?"fill":"regular"}/> Saved <small>{favorites.length}</small></button>
 
     </div>
-    <div className="library-filters">
+    <button className="library-filter-toggle" aria-expanded={filtersOpen} aria-controls="library-filter-options" onClick={()=>setFiltersOpen(!filtersOpen)}>Filters{category!=="All"||type!=="All"||tag?" · active":""}</button><div id="library-filter-options" className="library-filter-options" hidden={!filtersOpen}><div className="library-filters">
       <label>Category<select aria-label="Furniture category" value={category} onChange={e=>{setCategory(e.target.value);setType("All")}}><option value="All">All categories · {catalog.length}</option>{libraryCategories.map(cat=><option key={cat} value={cat}>{cat} · {counts(cat)}</option>)}</select></label>
       <label>Type<select aria-label="Furniture type" value={type} onChange={e=>setType(e.target.value)}><option value="All">All types</option>{[...new Set([...types,...(type==="All"?[]:[type])])].map(value=><option key={value}>{value}</option>)}</select></label>
     </div>
     <div className="library-tags" role="group" aria-label="Model tags">{tags.map(value=><button key={value} aria-pressed={tag===value} onClick={()=>setTag(tag===value?'':value)}>{value}</button>)}</div>
-    <div className="library-results-heading"><div><h3>{heading}</h3><span role="status" aria-live="polite">{items.length} {items.length===1?"piece":"pieces"}{shelf==="plan"?" · all floors":""}</span></div></div>
+    </div><div className="library-results-heading"><div><h3>{heading}</h3><span role="status" aria-live="polite">{items.length} {items.length===1?"piece":"pieces"}{shelf==="plan"?" · all floors":""}</span></div></div>
     {(category!=="All"||type!=="All"||search||tag)&&<button className="library-reset" onClick={reset}><X size={12}/> Clear filters</button>}
     <div ref={scrollRef} className="library-results" id="library-results">
       {items.length?<div className="library-groups">{groups.map(group=>{const TypeIcon=libraryIcon(group.name);return <section className="library-type-section" key={group.name} aria-label={group.name}><button className="library-type-heading" aria-label={`Type: ${group.name}`} aria-pressed={type===group.name} title={`Show only ${group.name}`} onClick={()=>setType(type===group.name?"All":group.name)}><TypeIcon size={21} aria-hidden="true"/><strong>{group.name}</strong><small>{group.items.length}</small></button><div className="catalog-grid library-grid">{group.items.map(item=>{const Icon=icons[item.shape]??SquaresFour, saved=favorites.includes(item.id);return <article className="library-item" key={item.id}>
@@ -75,9 +75,9 @@ export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPla
         </button>
         <div className="model-tags">{modelTags(item).map(value=><button key={value} aria-label={`Filter by ${value}`} onClick={()=>setTag(tag===value?'':value)}>{value}</button>)}</div>
         <button className={`favorite-piece ${saved?"is-saved":""}`} aria-label={`${saved?"Unsave":"Save"} ${item.name}`} aria-pressed={saved} title={saved?"Remove from saved":"Save to favorites"} onClick={()=>toggleFavorite(item.id)}><Heart size={16} weight={saved?"fill":"regular"}/></button>
-      </article>})}</div></section>})}</div>:<div className="library-empty"><MagnifyingGlass size={30}/><h3>{shelf==="favorites"&&!favorites.length?"Keep your favorites close":false?"Your collection starts here":"No matching pieces"}</h3><p>{shelf==="favorites"&&!favorites.length?"Tap the heart on any piece to save it here. Favorites stay in this browser.":false?"Confirm a piece in your apartment and find it here next time.":"Try a broader search, another category, or clear your filters."}</p><button className="primary" onClick={()=>changeShelf("browse")}>Browse all furniture</button></div>}
+      </article>})}</div></section>})}</div>:<div className="library-empty"><MagnifyingGlass size={30}/><h3>{shelf==="favorites"&&!favorites.length?"Keep your favorites close":false?"Your collection starts here":"No matching pieces"}</h3><p>{shelf==="favorites"&&!favorites.length?"Tap the heart on any piece to save it here. Favorites stay in this browser.":false?"Confirm a piece in your apartment and find it here next time.":"Try a broader search, another category, or clear your filters."}</p><button className="primary" onClick={()=>{changeShelf("browse");reset()}}>Browse all furniture</button></div>}
     </div>
-    <div className="library-footer"><HandGrabbing size={16}/><span>Drag into your room · Enter to start placing</span></div>
+    <div className="library-footer"><HandGrabbing size={16}/><span>Drag a piece into the scene · Touch or keyboard: select to preview</span></div>
     {storageWarning&&<p className="library-storage-note" role="status">Favorites can only stay for this session because browser storage is unavailable.</p>}
     </div></div>
   </aside></div>;
