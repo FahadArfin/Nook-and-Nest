@@ -11,7 +11,7 @@ let context:Record<string,unknown>;
 beforeEach(()=>{
  reduced=false;hidden=false;images=[];frames=new Map();let serial=0;
  const gradient={addColorStop:vi.fn()};
- context=new Proxy({} as Record<string,unknown>, {get:(o,k)=>o[k as string]??(o[k as string]=String(k).startsWith('create')?vi.fn(()=>gradient):vi.fn())});
+ context=new Proxy({} as Record<string,unknown>, {get:(o,k)=>o[k as string]??(o[k as string]=k==='createImageData'?vi.fn((w:number,h:number)=>({data:new Uint8ClampedArray(w*h*4)})):String(k).startsWith('create')?vi.fn(()=>gradient):vi.fn())});
  vi.spyOn(HTMLCanvasElement.prototype,'getContext').mockReturnValue(context as unknown as CanvasRenderingContext2D);
  vi.spyOn(document,'hidden','get').mockImplementation(()=>hidden);
  vi.stubGlobal('matchMedia',()=>({get matches(){return reduced;},addEventListener:(_s:string,f:()=>void)=>{mediaChanged=f;},removeEventListener:vi.fn()}));
