@@ -1,3 +1,4 @@
+import {reportModelFailure,clearModelFailure} from '../modelLoadFeedback';
 import {StaticPartInstances} from './StaticPartInstances';
 import {isVegetation} from '../vegetation';
 import modernMaterialAliases from '../modernMaterialAliases.json';
@@ -51,8 +52,8 @@ export class FurnitureModelLibrary {
     if(this.pending.size>=4){this.queue.add(catalogId);return;}
     const abort=new AbortController();this.requests.add(abort);const timeout=setTimeout(()=>abort.abort(),30000);const path=modelAssetPath(catalogId);
     const request = fetch(path,{signal:abort.signal}).then(async response=>{if(!response.ok)throw new Error('Model download failed: '+response.status);const bytes=new Uint8Array(await response.arrayBuffer());return LoadAssetContainerAsync(bytes,this.scene,{pluginExtension:'.glb',rootUrl:path.slice(0,path.lastIndexOf('/')+1),name:catalogId+'.glb'})})
-      .then((container) => { if(this.disposed)container.dispose();else {preserveCatalogCoordinates(container);this.containers.set(catalogId, container);const geometries=new Set();let bytes=0;for(const mesh of container.meshes){const geometry=(mesh as any).geometry;if(!geometry||geometries.has(geometry))continue;geometries.add(geometry);bytes+=mesh.getTotalVertices()*48+mesh.getTotalIndices()*4}for(const texture of container.textures){const size=texture.getSize();bytes+=size.width*size.height*4*4/3}this.residency.set(catalogId,bytes);} })
-      .catch((error) => { this.failed.add(catalogId);this.retryAfter.set(catalogId,Date.now()+10000);console.warn(`Could not load Blender furniture model ${catalogId}; using procedural fallback.`, error); })
+      .then((container) => { if(this.disposed)container.dispose();else {this.failed.delete(catalogId);this.retryAfter.delete(catalogId);clearModelFailure(this,catalogId);preserveCatalogCoordinates(container);this.containers.set(catalogId, container);const geometries=new Set();let bytes=0;for(const mesh of container.meshes){const geometry=(mesh as any).geometry;if(!geometry||geometries.has(geometry))continue;geometries.add(geometry);bytes+=mesh.getTotalVertices()*48+mesh.getTotalIndices()*4}for(const texture of container.textures){const size=texture.getSize();bytes+=size.width*size.height*4*4/3}this.residency.set(catalogId,bytes);} })
+      .catch((error) => { if(this.disposed)return;reportModelFailure(this,catalogId,()=>{this.retryAfter.delete(catalogId);this.ensure(catalogId);});this.failed.add(catalogId);this.retryAfter.set(catalogId,Date.now()+10000);console.warn(`Could not load Blender furniture model ${catalogId}; using procedural fallback.`, error); })
       .finally(() => {
         clearTimeout(timeout);this.requests.delete(abort);this.pending.delete(catalogId);this.prune(catalogId);this.readyIds.add(catalogId);
         // A plan may request many models at once. Wait for the current batch so
@@ -156,7 +157,7 @@ export class FurnitureModelLibrary {
     this.staticParts.dispose();
     this.living.dispose();
     this.clocks.dispose();
-    this.disposed=true;for(const request of this.requests)request.abort();this.requests.clear();clearTimeout(this.readyTimer);this.queue.clear();
+    this.disposed=true;clearModelFailure(this);for(const request of this.requests)request.abort();this.requests.clear();clearTimeout(this.readyTimer);this.queue.clear();
     for (const material of this.materialVariants.values()) material.dispose(false, false);
     for (const container of this.containers.values()) container.dispose();
     for(const texture of this.finishTextures.values())texture.dispose();this.finishTextures.clear();

@@ -55,9 +55,9 @@ export function SaveControl({plan, onProjects, enabled=true, persist=savePlan}: 
         <button onClick={()=>{menu.current?.removeAttribute('open');onProjects();}}><CloudArrowUp/> Save online / your projects</button>
         <button onClick={backup}><DownloadSimple/> Download backup</button>
         {saved&&<small>Last saved at {new Date(result!.time).toLocaleTimeString([], {hour:'numeric',minute:'2-digit',second:'2-digit'})}. Unconfirmed placement previews are not saved.</small>}
-        {failed&&<p role="alert">Device storage could not save this change. Retry or download a backup.</p>}
+
       </div>
     </details>
-    <span className="save-status" role="status" aria-live="polite">{failed?<WarningCircle/>:saved?<Check weight="bold"/>:<FloppyDisk/>}{label}</span>
+    <span className="save-status" role="status" aria-live="polite">{failed?<WarningCircle/>:saved?<Check weight="bold"/>:<FloppyDisk/>}{label}</span>{failed&&<div className="save-recovery" role="alert"><span>Device storage could not save this change.</span><button disabled={busy} onClick={()=>void save()}>Retry</button><button onClick={backup}><DownloadSimple size={16}/>Backup</button></div>}
   </div>;
 }

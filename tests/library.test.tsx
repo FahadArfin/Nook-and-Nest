@@ -83,7 +83,7 @@ describe("library controls",()=>{
     expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(catalog.length-1);
     const listener=vi.fn();window.addEventListener("keydown",listener);
     try{fireEvent.keyDown(screen.getByLabelText("Furniture category"),{key:"r"});expect(listener).not.toHaveBeenCalled()}finally{window.removeEventListener("keydown",listener)}
-    expect(within(screen.getByRole("group",{name:"Library collection"})).getAllByRole("button")).toHaveLength(2);
+    expect(within(screen.getByRole("group",{name:"Library collection"})).getAllByRole("button")).toHaveLength(3);
   },10000);
 });
 

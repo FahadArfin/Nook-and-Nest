@@ -668,8 +668,9 @@ export class SceneController {
     const key = item ? `${this.activePlan?.id}:${item.floorId}:${item.id}` : "";
     if (key !== this.editingKey) {
       this.editingKey = key;
-      this.cameraControls.focusMotion =
-        item && this.activePlan?.camera.mode !== "top" ? {} : undefined;
+      // Selection and previews must preserve the user's framing. Only an
+      // explicit camera action may start a focus transition.
+      this.cameraControls.cancelFocus();
     }
     if (!item || !node) {
       this.rotationGuide?.setEnabled(false);
@@ -1051,6 +1052,14 @@ export class SceneController {
     return mat;
   }
 
+  private emptyGuide?: ReturnType<typeof MeshBuilder.CreateLineSystem>;
+  private updateEmptyGuide(plan:PlanDocumentV1,floorId:string){
+    const floor=plan.floors.find(f=>f.id===floorId);
+    const visible=!!floor&&!floor.cells.length&&!floor.walls.length&&!plan.furniture.length&&!plan.environment?.terrain?.length&&!plan.environment?.vegetationField&&!plan.environment?.grassCoverage&&(!plan.environment?.background||plan.environment.background==='plain')&&plan.camera.showGrid;
+    if(!visible){this.emptyGuide?.setEnabled(false);return;}
+    if(!this.emptyGuide){const lines:Vector3[][]=[];for(let i=-6;i<=6;i++){lines.push([new Vector3(i,-.145,-6),new Vector3(i,-.145,6)],[new Vector3(-6,-.145,i),new Vector3(6,-.145,i)]);}this.emptyGuide=MeshBuilder.CreateLineSystem('empty-floor-guide',{lines,useVertexAlpha:true},this.scene);this.emptyGuide.isPickable=false;this.emptyGuide.alwaysSelectAsActiveMesh=false;}
+    this.emptyGuide.color=Color3.FromHexString(plan.camera.darkMode?'#8f9f82':'#526448');this.emptyGuide.alpha=plan.camera.darkMode?.16:.18;this.emptyGuide.setEnabled(true);
+  }
   private makeMeadow() {
     const ground = MeshBuilder.CreateDisc(
       "meadow",
@@ -1167,6 +1176,7 @@ export class SceneController {
     draft?: FurniturePlacement,
   ) {
     this.renderUntil = performance.now() + 1000;
+    this.updateEmptyGuide(plan,activeFloorId);
     this.shadow?.getShadowMap?.()?.resetRefreshCounter();
     this.animatedScene =
       !!plan.environment?.terrain?.some((s) => s.kind === "river") ||

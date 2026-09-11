@@ -9,7 +9,7 @@ export function ToolPopover({anchor,open,side,label,onClose,children}:{anchor:Re
  const panel=useRef<HTMLDivElement>(null),[host,setHost]=useState<Element|null>(null);
  useEffect(()=>{if(!open||side!=='left')return;const dismiss=(e:PointerEvent)=>{if(!panel.current?.contains(e.target as Node)&&!anchor.current?.contains(e.target as Node))onClose()};document.addEventListener('pointerdown',dismiss);return()=>document.removeEventListener('pointerdown',dismiss)},[open,onClose,anchor,side]);
 
- useLayoutEffect(()=>{setHost(anchor.current?.closest('.canvas-stage')??null)},[anchor]);
+ useLayoutEffect(()=>{setHost(anchor.current?.closest('.canvas-stage')??null)},[anchor,open]);
  useLayoutEffect(()=>{
   if(!host||!panel.current||!anchor.current)return;
   const place=()=>{
