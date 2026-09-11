@@ -75,3 +75,5 @@ Welcome background name and Auto/Pinned text are hidden from the main menu; reta
 Approved welcome labels: Draw a floor plan, Design in 3D, My projects.
 
 Welcome polish: offset the main group down/inward on wide desktops, lighter typography, feathered contrast behind the menu, gentle hover/press/focus feedback. Use bounded scene-local fireplace light, window rain and daylight/lamp variation rather than whole-image panning; pause when hidden and respect reduced motion. Beta 1 only.
+
+Scene motion refinement: animate fireplace flames and candle wicks, slow glass rain, sleeping-cat breathing, cup steam and gentle curtain billow inside their authored image regions. Keep the room and UI stationary; bound animation resolution and frame rate, stop while hidden or paused, and retain static art for reduced motion. General UX remains Beta 1 only.

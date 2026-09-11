@@ -7,6 +7,7 @@ import {Welcome} from '../src/Welcome';
 import {BlueprintControls} from '../src/BlueprintControls';
 import {createBlankPlan,createSamplePlan,encodeShare} from '../src/domain';
 import {usePlanner,listLocalPlans,savePlan,deleteLocalPlan,loadPlan} from '../src/store';
+vi.mock('../src/HomeSceneMotion',()=>({HomeSceneMotion:()=>null}));
 const Editor=({onHome}:{onHome?:()=>void})=><section aria-label="Editor"><button onClick={onHome}>Home</button></section>;
 beforeEach(async()=>{window.history.replaceState(null,'','/');for(const p of await listLocalPlans())await deleteLocalPlan(p.id);usePlanner.getState().replacePlan(createBlankPlan());HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};vi.stubGlobal('fetch',vi.fn(async()=>new Response(JSON.stringify({signedIn:false,available:false}),{headers:{'content-type':'application/json'}})));});
 afterEach(()=>{cleanup();vi.unstubAllGlobals();});
