@@ -44,14 +44,14 @@ describe('floor plan studio flow',()=>{
   });
   it('automatically creates rooms using printed dimensions before any home mutation',async()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-    fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
     expect(await screen.findByRole('button',{name:/Detected bedroom/})).toHaveTextContent('5 m × 4 m');
     fireEvent.click(screen.getByRole('button',{name:'View'}));fireEvent.click(screen.getByText('Measurements & analysis notes'));expect(screen.getByText('5 m = 5.000 m')).toBeVisible();expect(screen.getByRole('button',{name:'Review & create 3D →'})).toBeEnabled();expect(usePlanner.getState().plan).toBe(original);
   });
   it('offers fresh reanalysis in the header with cancellation and undo of replaced edits',async()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-    const button=screen.getByRole('button',{name:'Reanalyze'});expect(button.closest('header')).not.toBeNull();expect(button).toBeDisabled();
-    fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});const button=screen.getByRole('button',{name:'Reanalyze'});expect(button.closest('header')).not.toBeNull();expect(button).toBeDisabled();
+    fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
     await screen.findByRole('button',{name:/Detected bedroom/});expect(button).toBeEnabled();
     fireEvent.click(screen.getByRole('button',{name:/Detected bedroom/}));fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'My edited room'}});
     const before=vi.mocked(recognizeReference).mock.calls.length;vi.mocked(window.confirm).mockReturnValueOnce(false);fireEvent.click(button);expect(vi.mocked(recognizeReference).mock.calls.length).toBe(before);
@@ -61,23 +61,23 @@ describe('floor plan studio flow',()=>{
   });
   it('shows a multi-part room once and renames and moves all its parts together',async()=>{
     vi.mocked(recognizeReference).mockResolvedValueOnce({rooms:[{name:'Living room',kind:'Living',x:0,y:0,width:500,height:300,enclosed:false,note:''},{name:'Living room — extension',kind:'Living',x:0,y:300,width:200,height:200,enclosed:false,note:''},{name:'Closet',kind:'Closet',x:500,y:0,width:100,height:100,enclosed:true,note:''}],dimensions:[{text:'5 m',millimetres:5000,ax:0,ay:0,bx:500,by:0}],fixtures:[],warnings:[]});
-    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
     await screen.findByRole('heading',{name:'Rooms & regions · 2'});expect(screen.getAllByRole('button',{name:/Living room/})).toHaveLength(1);expect(screen.queryByRole('heading',{name:'Closets & circulation'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:/Living room/}));
     fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Lounge'}});const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(canvas.querySelector('[data-object="scan-room-0"] rect')!,{button:0,clientX:500,clientY:500});fireEvent.pointerMove(canvas,{clientX:1500,clientY:500});fireEvent.pointerUp(canvas);
     const parts=screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelectorAll('[data-object="scan-room-0"] rect');expect(parts).toHaveLength(2);expect(parts[0].getAttribute('x')).toBe('1000');expect(parts[1].getAttribute('x')).toBe('1000');expect(screen.getByRole('heading',{name:'Rooms & regions · 2'}).parentElement!.querySelectorAll('.bp-room-row')).toHaveLength(2);
   });
   it('keeps the existing draft on analysis failure',async()=>{
     vi.mocked(recognizeReference).mockRejectedValueOnce(new Error('Image analysis is unavailable'));
-    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
     expect(await screen.findByText('Image analysis is unavailable')).toBeVisible();expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();
   });
   it('retains the draft when file rendering fails',async()=>{
-    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['bad'],'broken.pdf')]}});
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['bad'],'broken.pdf')]}});
     expect(await screen.findByText('Invalid PDF')).toBeVisible();expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();
   });
   it('can cancel analysis without applying a late result',async()=>{
     let finish!:(value:any)=>void;vi.mocked(recognizeReference).mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve;}));
-    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
+    render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'floor.pdf')]}});
     await act(async()=>{});expect(screen.getByRole('progressbar')).toBeVisible();fireEvent.click(screen.getByRole('button',{name:'Cancel analysis'}));
     await act(async()=>finish({rooms:[],dimensions:[],fixtures:[],warnings:[]}));
     expect(screen.getByRole('button',{name:/Main bedroom/})).toBeVisible();expect(screen.getByText('Analysis canceled. Your drawing is unchanged.')).toBeVisible();
@@ -88,7 +88,7 @@ describe('floor plan studio flow',()=>{
     vi.mocked(recognizeReference).mockResolvedValueOnce(detected);
     const beforeCalls=vi.mocked(recognizeReference).mock.calls.length,original=usePlanner.getState().plan;
     render(<BlueprintStudio onClose={()=>{}}/>);
-    fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'scale.pdf')]}});
+    fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['pdf'],'scale.pdf')]}});
     await screen.findByRole('heading',{name:'Check one measurement'});
     expect(usePlanner.getState().plan).toBe(original);
     expect(screen.getByLabelText('Printed length (metres)')).toHaveValue(4);
@@ -279,7 +279,7 @@ it('starts region imports in manual Combine review and keeps Reanalyze on that s
   const detected={regionReview:true,rooms:[{roomId:'a',name:'Bedroom region',kind:'Bedroom' as const,x:0,y:0,width:400,height:300,enclosed:false,note:''},{roomId:'b',name:'Entry region',kind:'Hall' as const,x:0,y:300,width:100,height:100,enclosed:false,note:''}],walls:[],dimensions:[{text:'4 m',millimetres:4000,ax:0,ay:0,bx:400,by:0}],fixtures:[],warnings:[]};
   vi.mocked(recognizeReference).mockResolvedValueOnce(detected).mockResolvedValueOnce(detected);
   const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-  fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['test'],'regions.png')]}});
+  fireEvent.change(screen.getByLabelText('Import method'),{target:{value:'luna'}});fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['test'],'regions.png')]}});
   await screen.findByRole('region',{name:'Combine selected areas'});
   fireEvent.click(screen.getByRole('checkbox',{name:'Combine Bedroom region'}));fireEvent.click(screen.getByRole('checkbox',{name:'Combine Entry region'}));
   fireEvent.click(screen.getByRole('button',{name:'Combine selected (2)'}));expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();

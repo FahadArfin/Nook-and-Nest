@@ -13,7 +13,7 @@ export function roomGroups(rooms:BlueprintRoom[]) {
   const groups=new Map<string,BlueprintRoom[]>();for(const room of rooms){const key=room.groupId??room.id,list=groups.get(key)??[];list.push(room);groups.set(key,list);}
   return [...groups.values()].map(parts=>{const x=Math.min(...parts.map(p=>p.x)),z=Math.min(...parts.map(p=>p.z));return {...parts[0],x,z,width:Math.max(...parts.map(p=>p.x+p.width))-x,depth:Math.max(...parts.map(p=>p.z+p.depth))-z,enclosed:parts.some(p=>p.enclosed),parts};});
 }
-export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[]; wallCuts?:WallSegment[] }
+export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[]; wallCuts?:WallSegment[]; wallFirst?:boolean; regionDividers?:WallSegment[]; referenceScale?:number; referenceCalibrated?:boolean }
 export const geometryKey = (floor:FloorPlan) => {
   const text=JSON.stringify([floor.cells,floor.cellRects??{},floor.walls]);let hash=2166136261;
   for(let i=0;i<text.length;i++)hash=Math.imul(hash^text.charCodeAt(i),16777619);
