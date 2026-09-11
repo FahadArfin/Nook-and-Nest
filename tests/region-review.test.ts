@@ -1,0 +1,14 @@
+import {afterEach,expect,it,vi} from 'vitest';
+// @ts-expect-error Worker entry is JavaScript.
+import {analyzeRegions} from '../worker/region-review.js';
+// @ts-expect-error Worker entry is JavaScript.
+import {recognitionApi} from '../worker/recognition.js';
+afterEach(()=>vi.unstubAllGlobals());
+const review={version:'region-review-v1',room:'Bedroom',hall:'Hall',door:{ax:20,ay:20,bx:20,by:40},regions:[{id:'region-1',added:true,rects:[{x:20,y:10,width:20,height:20}]}],annotated:'data:image/jpeg;base64,YQ=='};
+const answer={selectedIds:['region-1'],confidence:'high',note:'Open passage on the bedroom side.'};
+const envelope=(value:unknown)=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(value)}]}]});
+it('limits Luna to candidate IDs and sends both source and annotated image without storage',async()=>{const fetcher=vi.fn(async(_url:string,_init:RequestInit)=>envelope(answer));expect(await analyzeRegions('data:image/jpeg;base64,YQ==',100,100,review,'test',fetcher)).toEqual(answer);const body=JSON.parse(fetcher.mock.calls[0][1].body as string);expect(body.model).toBe('gpt-5.6-luna');expect(body.store).toBe(false);expect(body.input[0].content.filter((c:{type:string})=>c.type==='input_image')).toHaveLength(2);expect(body.text.format.schema.properties.selectedIds.items.enum).toEqual(['region-1']);await expect(analyzeRegions('image',100,100,review,'test',async()=>envelope({...answer,selectedIds:['new-area']}))).rejects.toThrow();});
+it('validates region mode before quotas and preserves authentication and spend limits',async()=>{const fetcher=vi.fn(async()=>envelope(answer));vi.stubGlobal('fetch',fetcher);const quota=vi.fn(async()=>({count:1})),env={OPENAI_API_KEY:'test',DB:{prepare:()=>({bind:()=>({first:quota})})}};
+  const req=(patch:Record<string,unknown>={},headers:Record<string,string>={})=>new Request('https://beta.test/api/floor-plan/recognize',{method:'POST',headers:{origin:'https://beta.test','oai-authenticated-user-id':'owner','Content-Type':'application/json',...headers},body:JSON.stringify({image:'data:image/jpeg;base64,YQ==',width:100,height:100,regionReview:review,...patch})});
+  expect((await recognitionApi(req({}, {'oai-authenticated-user-id':''}),env)).status).toBe(401);expect((await recognitionApi(req({}, {origin:'https://bad.test'}),env)).status).toBe(403);expect((await recognitionApi(req({openingReview:{}}),env)).status).toBe(400);expect((await recognitionApi(req({regionReview:{...review,annotated:'https://bad.test'}}),env)).status).toBe(400);expect(quota).not.toHaveBeenCalled();expect(fetcher).not.toHaveBeenCalled();expect(await(await recognitionApi(req(),env)).json()).toEqual(answer);expect(quota).toHaveBeenCalledTimes(2);expect(fetcher).toHaveBeenCalledOnce();quota.mockResolvedValueOnce(null as never);expect((await recognitionApi(req(),env)).status).toBe(429);expect(fetcher).toHaveBeenCalledOnce();
+});

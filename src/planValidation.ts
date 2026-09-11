@@ -45,6 +45,10 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
     for(const [id,s] of Object.entries(p.studioDrafts) as [string,any][]){
       if(!floors.has(id))fail();obj(s);str(s.savedAt);num(s.imageScale,.001,100000);if(typeof s.calibrated!=='boolean')fail();obj(s.view);num(s.view.x);num(s.view.z);num(s.view.width,1,1000000);num(s.view.height,1,1000000);
       obj(s.draft);arr(s.draft.omittedWalls,4000);for(const id of s.draft.omittedWalls)str(id);
+      if(s.draft.wallFirst!==undefined&&typeof s.draft.wallFirst!=='boolean')fail();
+      if(s.draft.referenceScale!==undefined)num(s.draft.referenceScale,.1,200);
+      if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
+      if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);if(w.ax!==w.bx&&w.az!==w.bz)fail();}}
       const host=p.floors.find((f:any)=>f.id===id);
       validatePlan({...p,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }

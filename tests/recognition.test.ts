@@ -84,9 +84,9 @@ describe('server-side scan analysis',()=>{
   });
   it('does not accept partial model output',async()=>{await expect(analyzeFloorPlan('',1000,800,'fake','model',async()=>Response.json({status:'incomplete'}))).rejects.toThrow('did not finish');});
   it('streams valid JSON through the authenticated endpoint and hides provider failures',async()=>{
-    const spy=vi.spyOn(globalThis,'fetch').mockResolvedValueOnce(envelope(inventory())).mockResolvedValueOnce(envelope(result()));
+    const spy=vi.spyOn(globalThis,'fetch').mockResolvedValueOnce(envelope(inventory())).mockResolvedValueOnce(envelope({...result(),walls:[]}));
     const env={OPENAI_API_KEY:'fake',DB:{prepare:()=>({bind:()=>({first:async()=>({count:1})})})}};
-    try{const response=await recognitionApi(request({'oai-authenticated-user-id':'u'}),env);expect(response.headers.get('content-type')).toBe('application/json');expect(await response.json()).toEqual({...result(),fixtures:[]});
+    try{const response=await recognitionApi(request({'oai-authenticated-user-id':'u'}),env);expect(response.headers.get('content-type')).toBe('application/json');expect(await response.json()).toEqual({...result(),fixtures:[],walls:[],regionReview:true});
       spy.mockResolvedValue(Response.json({error:'provider details'}, {status:500}));const failed=await recognitionApi(request({'oai-authenticated-user-id':'u'}),env);expect(await failed.json()).toEqual({error:'Image analysis is temporarily unavailable. Your home has not changed.'});
     }finally{spy.mockRestore();}
   });
@@ -104,6 +104,8 @@ describe('analysis cost safeguards (no paid requests)',()=>{
       expect(fetcher).toHaveBeenCalledTimes(1);expect(status).toHaveBeenCalledWith(expect.stringContaining('no API charge'));
       expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
       expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey(ref,'gpt-6-astra'));
+      expect(await recognitionKey(ref,'gpt-5.6-luna','',false)).toBe(await recognitionKey(ref,'gpt-5.6-luna'));
+      expect(await recognitionKey(ref,'gpt-5.6-luna','',true)).not.toBe(await recognitionKey(ref,'gpt-5.6-luna'));
       expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey({...ref,width:999},'gpt-5.6-luna'));
       await recognizeReference(ref,undefined,{model:'gpt-5.6-luna'});expect(fetcher).toHaveBeenCalledTimes(1);
       clearRecognitionCache();await recognizeReference(ref);expect(fetcher).toHaveBeenCalledTimes(2);

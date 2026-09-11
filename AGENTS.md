@@ -89,3 +89,15 @@ Beta 1 editor polish (September 11, 2026): keep the empty canvas unobstructed wi
 Furniture library cleanup (September 11, 2026): use a single Furniture library heading, without Find your next piece. Do not show tag rows beneath model cards or duplicate active-filter chips. Keep the selected options highlighted inside Filters, with Clear all beside the Filters button. Preserve names, dimensions, favorites, search and reversible placement.
 
 Production promotion (September 11, 2026): the user approved merging the reviewed Beta 1 experience into master and publishing it to the original Nook & Nest Site. This promotion retains the production hosting identity and release-only master pipeline, omits temporary Beta storage bootstrapping, and removes Beta branding. The separate Beta 1 and Beta 2 Sites retain their own identities; newer Beta 2 automation research remains isolated.
+
+Wall-analysis research: adapt floor-plan image-processing ideas into the existing editable planner rather than Blender scene generation. Evaluate with Luna on Beta 2; preserve the primary site and keep unproven methods explicitly experimental.
+
+Doorway ownership preference (September 10): rooms may be concave or stepped. A confirmed closed doorway determines which room owns its entry recess. Preview both affected room shapes before applying one undoable correction; preserve existing total floor area and distinguish missing floor from wrong labels. Keep computational door closures separate from physical walls.
+
+Missing-floor repair preference (September 10): detect bounded uncovered connectors from source evidence and have Luna select numbered region IDs, allowing L-shaped bedroom entries. Only an explicit reviewed repair may add missing floor; distinguish added area from transferred ownership, protect bathroom/closet geometry, and apply door plus both room shapes in one Undo.
+
+Region-first import preference (September 10): Luna extracts separate editable orthogonal floor regions, including unlabeled connectors, for the user to combine and name. Do not infer passage ownership or create physical walls from region labels. Preserve authored walls and openings when combining; keep one-step Undo and review before 3D.
+
+Wall-first import preference (September 10): start Beta 2 imports with a local outer-footprint and identifiable-wall proposal. Let users correct the footprint and add/remove walls before generating exact connected regions. Dashed doorway/region dividers must remain non-physical. Preserve all footprint area, allow concave rooms, keep manual Combine/name review and Undo, and do not call Luna unless the user selects the experimental Luna import method.
+
+September 11 Beta 2 refresh: integrate current master UX while preserving the local wall-first default, manual dividers and region generation. Publish this combined state only to Beta 2.
