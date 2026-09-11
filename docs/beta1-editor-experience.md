@@ -3,7 +3,7 @@
 The September 2026 polish pass covers seven parts of the Design in 3D workflow.
 
 1. **Starting a space.** An empty plain-ground scene gets one bounded, non-pickable grid mesh when grid labels are enabled. A dismissible hint opens Build with Floors/Add selected. Existing architecture, terrain and planted landscapes suppress the guide.
-2. **Placing and editing.** Placement remains an unsaved preview until confirmation. One dismissible keyboard tip explains Enter/Escape/R. Move and Rotate have explicit selected states; their controls share sizing and focus treatment.
+2. **Placing and editing.** Placement remains an unsaved preview until confirmation. Selection and previews preserve the current camera framing. One dismissible keyboard tip explains Enter/Escape/R. Move and Rotate have explicit selected states; their controls share sizing and focus treatment.
 3. **Finding pieces.** Room collections cross catalog categories, including appropriate lighting. Browse, Saved and Recent remain separate views. Recent contains the last 12 confirmed pieces; filter chips can be removed individually. Tags are deduplicated and thumbnails use a consistent frame.
 4. **Phone layout.** Save and Undo stay in the header. Secondary actions use a labeled native-dialog sheet with focus restoration. All view and floor-plan buttons fit without horizontal scrolling. Existing desktop navigation remains available.
 5. **Frequently used controls.** Settings offers optional pins for brush controls, recent finishes and grid labels. Brackets change the active outdoor brush size, except while typing or using a dialog. Finish selection only starts a brush; it does not paint by itself.

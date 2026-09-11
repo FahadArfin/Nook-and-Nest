@@ -117,16 +117,17 @@ describe('modular placement regression',()=>{
    r.setRotationMode(false);expect(r.selectedNode.rotation.y).toBe(0);expect(r.rotationGuide.isEnabled()).toBe(false);expect(r.callbacks.onRotate).not.toHaveBeenCalled();expect(r.camera.detachControl).not.toHaveBeenCalled();
   }finally{dispose()}
  });
- it('gently focuses once, caps long-run distance, preserves wheel inputs, and yields to manual zoom',()=>{
+ it('preserves selection framing and only focuses after an explicit request',()=>{
   const {r,dispose}=renderer();try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;
-   r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.updateEditingGuides(425);expect(r.camera.radius).toBeCloseTo(11);r.updateEditingGuides(850);expect(r.camera.radius).toBe(4);
+   const target=r.camera.target.clone();r.updateEditingGuides(0);r.updateEditingGuides(425);r.updateEditingGuides(850);expect(r.camera.radius).toBe(18);expect(r.camera.target.equals(target)).toBe(true);
+   r.focusSelected();r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.updateEditingGuides(425);expect(r.camera.radius).toBeCloseTo(11);r.updateEditingGuides(850);expect(r.camera.radius).toBe(4);
    r.camera.radius=2;r.updateEditingGuides(1000);expect(r.camera.radius).toBe(2);r.focusSelected();r.updateEditingGuides(1100);r.zoom(.75);const radius=r.camera.radius;r.updateEditingGuides(2000);expect(r.camera.radius).toBe(radius);expect(r.cameraControls.focusMotion).toBeUndefined();
    const pointerDetach=vi.fn(),pointerAttach=vi.fn(),wheelDetach=vi.fn();r.camera.inputs.attachedToElement=true;r.camera.inputs.attached.pointers={detachControl:pointerDetach,attachControl:pointerAttach};r.camera.inputs.attached.mousewheel={detachControl:wheelDetach};r.cameraControls.suspendCameraPointers();expect(pointerDetach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();r.cameraControls.resumeCameraControls();expect(pointerAttach).toHaveBeenCalledOnce();expect(wheelDetach).not.toHaveBeenCalled();delete r.camera.inputs.attached.pointers;delete r.camera.inputs.attached.mousewheel;
   }finally{dispose()}
  });
 
  it('adapts focus for narrow viewports and respects reduced motion',()=>{
-  const {r,dispose}=renderer();vi.stubGlobal('matchMedia',()=>({matches:true}));try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;r.engine.getRenderWidth=()=>400;r.engine.getRenderHeight=()=>1000;r.updateEditingGuides(0);expect(r.camera.radius).toBe(10);expect(r.cameraControls.focusMotion).toBeUndefined();}finally{dispose();vi.unstubAllGlobals()}
+  const {r,dispose}=renderer();vi.stubGlobal('matchMedia',()=>({matches:true}));try{const p=setup(),base=piece(p,'base-cabinet',{widthMm:8000,z:1000});p.furniture=[base];r.update(p,p.floors[0].id,base.id);r.camera.radius=18;r.engine.getRenderWidth=()=>400;r.engine.getRenderHeight=()=>1000;r.updateEditingGuides(0);expect(r.camera.radius).toBe(18);r.focusSelected();r.updateEditingGuides(1);expect(r.camera.radius).toBe(10);expect(r.cameraControls.focusMotion).toBeUndefined();}finally{dispose();vi.unstubAllGlobals()}
  });
 
 it('switches neutral lighting without rebuilding walls, changing camera framing, or mutating the plan',()=>{

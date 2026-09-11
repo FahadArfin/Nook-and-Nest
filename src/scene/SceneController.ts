@@ -668,8 +668,9 @@ export class SceneController {
     const key = item ? `${this.activePlan?.id}:${item.floorId}:${item.id}` : "";
     if (key !== this.editingKey) {
       this.editingKey = key;
-      this.cameraControls.focusMotion =
-        item && this.activePlan?.camera.mode !== "top" ? {} : undefined;
+      // Selection and previews must preserve the user's framing. Only an
+      // explicit camera action may start a focus transition.
+      this.cameraControls.cancelFocus();
     }
     if (!item || !node) {
       this.rotationGuide?.setEnabled(false);
