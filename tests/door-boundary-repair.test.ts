@@ -1,0 +1,18 @@
+import {expect,it} from 'vitest';
+import {repairDoorBoundary,type BoundaryInput} from '../src/doorBoundaryGeometry';
+import {applyBoundaryRepair} from '../src/doorBoundaryCorrections';
+import {blueprintPlan,draftFromFloor,type BlueprintDraft} from '../src/blueprint';
+import {createSamplePlan,parsePlan,serializePlan} from '../src/domain';
+import {wallRuns} from '../src/windows';
+function input():BoundaryInput {
+  const width=240,height=200,walls=new Uint8Array(width*height);
+  for(let y=0;y<height;y++)for(let x=0;x<width;x++)if(x<3||x>=237||y<3||y>=197||(x>=97&&x<=102&&(y<100||y>=130)))walls[y*width+x]=1;
+  return {width,height,sourceWidth:width,sourceHeight:height,walls,lines:[],room:[{x:100,y:0,width:140,height:80}],hall:[{x:0,y:0,width:100,height:200},{x:100,y:80,width:140,height:120}],door:{ax:100,ay:100,bx:100,by:130}};
+}
+function setup(){const i=input(),base=createSamplePlan();base.furniture=[];base.floors=base.floors.slice(0,1);const draft:BlueprintDraft={rooms:[...i.room.map((r,n)=>({id:`r${n}`,groupId:'r0',name:'Bedroom',kind:'Bedroom' as const,x:r.x*10,z:r.y*10,width:r.width*10,depth:r.height*10,enclosed:true})),...i.hall.map((r,n)=>({id:`h${n}`,groupId:'h0',name:'Hall',kind:'Hall' as const,x:r.x*10,z:r.y*10,width:r.width*10,depth:r.height*10,enclosed:false}))],walls:[],omittedWalls:[],fixtures:[]};return {i,base,draft,id:base.floors[0].id};}
+it('floods across a false rectangular divider but stops at the confirmed doorway',()=>{const i=input();const result=repairDoorBoundary(i);expect(result.pixels).toBeGreaterThan(4000);expect(result.transferred.every(r=>r.x>=100)).toBe(true);expect(result.roomSeed.x).toBeGreaterThan(100);expect(result.hallSeed.x).toBeLessThan(100);});
+it('rejects an alternate leak and a door leaf that is not the closed span',()=>{const i=input();for(let y=20;y<40;y++)for(let x=97;x<=102;x++)i.walls[y*i.width+x]=0;expect(()=>repairDoorBoundary(i)).toThrow(/still connect/);expect(()=>repairDoorBoundary({...input(),door:{ax:100,ay:100,bx:130,by:100}})).toThrow(/jambs|ink|connect/);});
+it('preserves the full floor union and saves an irregular room plus its doorway',()=>{const {i,base,draft,id}=setup(),before=structuredClone(draft);const transfer=[{x:100,y:80,width:140,height:120}];const next=applyBoundaryRepair(base,id,draft,'r0','h0',transfer,i.door,10);expect(draft).toEqual(before);expect(next.rooms.reduce((a,r)=>a+r.width*r.depth,0)).toBe(draft.rooms.reduce((a,r)=>a+r.width*r.depth,0));expect(next.fixtures).toHaveLength(1);const plan=blueprintPlan(base,id,next);expect(wallRuns(plan.floors[0],base.gridSizeMm).some(w=>w.horizontal&&w.line===800&&w.start<1500&&w.end>1500)).toBe(false);const saved=parsePlan(serializePlan(plan));expect(draftFromFloor(saved,id).rooms).toEqual(next.rooms);expect(draftFromFloor(saved,id).fixtures).toEqual(next.fixtures);expect(applyBoundaryRepair(base,id,{...draft,fixtures:next.fixtures},'r0','h0',transfer,i.door,10).fixtures).toHaveLength(1);});
+it('rejects missing floor and protected authored walls',()=>{const {i,base,draft,id}=setup();expect(()=>applyBoundaryRepair(base,id,draft,'r0','h0',[{x:200,y:190,width:80,height:40}],i.door,10)).toThrow(/missing floor/);draft.walls.push({id:'edited:test',ax:2,bx:4,az:2,bz:2});expect(()=>applyBoundaryRepair(base,id,draft,'r0','h0',[{x:100,y:80,width:140,height:120}],i.door,10)).toThrow(/edited wall/);});
+
+it('tolerates slightly imprecise pointer placement without disconnected slivers',()=>{for(const offset of [-.15,.1,1.5]){const i=input(),r=repairDoorBoundary({...i,door:{...i.door,ax:i.door.ax+offset,bx:i.door.bx+offset}});expect(r.transferred.every(r=>r.x===100)).toBe(true);expect(r.transferred.reduce((a,r)=>a+r.width*r.height,0)).toBe(16800);}});

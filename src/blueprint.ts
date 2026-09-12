@@ -13,7 +13,7 @@ export function roomGroups(rooms:BlueprintRoom[]) {
   const groups=new Map<string,BlueprintRoom[]>();for(const room of rooms){const key=room.groupId??room.id,list=groups.get(key)??[];list.push(room);groups.set(key,list);}
   return [...groups.values()].map(parts=>{const x=Math.min(...parts.map(p=>p.x)),z=Math.min(...parts.map(p=>p.z));return {...parts[0],x,z,width:Math.max(...parts.map(p=>p.x+p.width))-x,depth:Math.max(...parts.map(p=>p.z+p.depth))-z,enclosed:parts.some(p=>p.enclosed),parts};});
 }
-export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[]; wallCuts?:WallSegment[] }
+export interface BlueprintDraft { rooms:BlueprintRoom[]; walls:WallSegment[]; omittedWalls:string[]; fixtures:FurniturePlacement[]; wallCuts?:WallSegment[]; wallFirst?:boolean; regionDividers?:WallSegment[]; referenceScale?:number; referenceCalibrated?:boolean }
 export const geometryKey = (floor:FloorPlan) => {
   const text=JSON.stringify([floor.cells,floor.cellRects??{},floor.walls]);let hash=2166136261;
   for(let i=0;i<text.length;i++)hash=Math.imul(hash^text.charCodeAt(i),16777619);
@@ -114,7 +114,10 @@ export function combineBlueprintRooms(draft:BlueprintDraft,first:string,second:s
   }
   if(!connected&&!cuts.length)throw new Error('Selected areas must touch or overlap. Move their edges together first.');
   const ids=new Set([...a.parts,...b.parts].map(p=>p.id)),groupId=a.groupId??a.id;
-  return {...draft,fixtures:fixturesAfterWallCuts(draft.fixtures,cuts,grid),rooms:draft.rooms.map(r=>ids.has(r.id)?{...r,groupId,name:a.name,kind:a.kind,enclosed:a.enclosed||b.enclosed}:r),wallCuts:[...draft.wallCuts??[],...cuts]};
+  // Grouping removes only generated label borders. Authored walls stay intact.
+  // Promote an existing opening's generated host before its label border vanishes.
+  const hosts=cuts.filter(c=>fixturesAfterWallCuts(draft.fixtures,[c],grid).length<draft.fixtures.length);
+  return {...draft,walls:[...draft.walls,...hosts],rooms:draft.rooms.map(r=>ids.has(r.id)?{...r,groupId,name:a.name,kind:a.kind,enclosed:a.enclosed||b.enclosed}:r)};
 }
 export function blueprintPlan(base:PlanDocumentV1,floorId:string,draft:BlueprintDraft):PlanDocumentV1 {
   const original=base.floors.find(f=>f.id===floorId);if(!original)throw new Error('This floor no longer exists.');

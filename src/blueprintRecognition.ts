@@ -8,16 +8,16 @@ import {catalog,isWallOpening} from './catalog';
 import {recognitionKey,cachedRecognition,saveRecognition,type ScanModel} from './recognitionCache';
 import {prepareRecognition} from './prepareRecognition';
 
-export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;status?:(text:string)=>void}={}):Promise<Recognition> {
+export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;wallView?:boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
   // Beta always uses Luna; old model selections never trigger premium calls.
-  const model='gpt-5.6-luna' as const,key=await recognitionKey(reference,model,options.guidance);
+  const model='gpt-5.6-luna' as const,key=await recognitionKey(reference,model,options.guidance,options.wallView);
   signal?.throwIfAborted();
   const cached=options.force?undefined:cachedRecognition(key,reference);
   if(cached){options.status?.('Reused saved analysis — no API charge.');return cached;}
   signal?.throwIfAborted();
   options.status?.('Preparing wall geometry and detail crops…');
-  const evidence=await prepareRecognition(reference,signal);signal?.throwIfAborted();
-  options.status?.('Luna is reading labels, measurements and room boundaries…');
+  const evidence=await prepareRecognition(reference,signal,options.wallView);signal?.throwIfAborted();
+  options.status?.('Luna is extracting floor regions, walls and measurements…');
   const response=await fetch('/api/floor-plan/recognize',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'same-origin',signal,body:JSON.stringify({image:reference.url,width:reference.width,height:reference.height,model,evidence,guidance:options.guidance?.trim()||undefined})});
   const body=await response.json().catch(()=>null);
   if(!response.ok||body?.error)throw new Error(body?.error??'Automatic analysis could not be reached. Please try again.');
@@ -31,7 +31,7 @@ export function roomsOnlyRecognition(result:Recognition):Recognition {return {..
 export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:Recognition,confirmedScale?:number) {
   const scale=confirmedScale??recognizedScale(result);
   if(!Number.isFinite(scale)||scale<.1||scale>200)throw new Error('Choose a scale between 0.1 and 200 mm per pixel.');
-  result=trimHallOverlaps(result,Math.max(1,11/scale));
+  if(!result.regionReview)result=trimHallOverlaps(result,Math.max(1,11/scale));
   const mm=(n:number)=>Math.round(n*scale);
   const identities=new Map<string,string>();
   const groupIdentity=(r:Recognition['rooms'][number],name:string)=>{const key=JSON.stringify([r.roomId??null,r.kind,name.toLowerCase()]);if(!identities.has(key))identities.set(key,`scan-group-${identities.size}`);return identities.get(key)!;};
@@ -39,10 +39,14 @@ export function draftFromRecognition(base:PlanDocumentV1,floorId:string,result:R
   // Only adjacent pieces with the same identity/name/type form a physical room.
   const remaining=new Set(draft.rooms.map(r=>r.id));let component=0;
   while(remaining.size){const first=draft.rooms.find(r=>remaining.has(r.id))!,identity=first.groupId,queue=[first];remaining.delete(first.id);const groupId=`scan-component-${component++}`;
-    while(queue.length){const part=queue.pop()!;part.groupId=groupId;for(const other of draft.rooms){if(!remaining.has(other.id)||other.groupId!==identity)continue;const vertical=(Math.abs(part.x+part.width-other.x)<=1||Math.abs(other.x+other.width-part.x)<=1)&&Math.min(part.z+part.depth,other.z+other.depth)>Math.max(part.z,other.z);const horizontal=(Math.abs(part.z+part.depth-other.z)<=1||Math.abs(other.z+other.depth-part.z)<=1)&&Math.min(part.x+part.width,other.x+other.width)>Math.max(part.x,other.x);if(vertical||horizontal){remaining.delete(other.id);queue.push(other);}}}
+    while(queue.length){const part=queue.pop()!;part.groupId=groupId;for(const other of draft.rooms){if(!remaining.has(other.id)||other.groupId!==identity)continue;const vertical=(Math.abs(part.x+part.width-other.x)<=1||Math.abs(other.x+other.width-part.x)<=1)&&Math.min(part.z+part.depth,other.z+other.depth)>Math.max(part.z,other.z);const horizontal=(Math.abs(part.z+part.depth-other.z)<=1||Math.abs(other.z+other.depth-part.z)<=1)&&Math.min(part.x+part.width,other.x+other.width)>Math.max(part.x,other.x);const overlap=Math.min(part.x+part.width,other.x+other.width)>Math.max(part.x,other.x)&&Math.min(part.z+part.depth,other.z+other.depth)>Math.max(part.z,other.z);if(vertical||horizontal||overlap){remaining.delete(other.id);queue.push(other);}}}
   }
   draft.rooms=openPlanAreas(draft.rooms);
   const grid=base.gridSizeMm;
+  if(result.regionReview){
+    draft.rooms=draft.rooms.map(r=>({...r,enclosed:false}));
+    draft.walls=(result.walls??[]).map((w,i)=>({id:`scan-wall-${i}`,ax:mm(w.ax)/grid,az:mm(w.ay)/grid,bx:mm(w.bx)/grid,bz:mm(w.by)/grid}));
+  }
   const plan=blueprintPlan(base,floorId,draft);
   const placementNotes:string[]=[];
   result.fixtures.forEach((f,i)=>{
