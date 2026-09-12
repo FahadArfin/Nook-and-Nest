@@ -150,7 +150,7 @@ describe('floor plan studio flow',()=>{
     expect(screen.getByRole('button',{name:/Living.*5 m/})).toBeInTheDocument();
   });
   it('moves a room in top-down view without moving the saved floor',()=>{
-    const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
+    const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),rect=canvas.querySelector('[data-object="bedroom"] rect')!;
     fireEvent.pointerDown(rect,{clientX:500,clientY:500,button:0});fireEvent.pointerMove(canvas,{clientX:1500,clientY:1500});fireEvent.pointerUp(canvas,{clientX:1500,clientY:1500});
     expect(rect.getAttribute('x')).toBe('1000');expect(rect.getAttribute('y')).toBe('1000');expect(usePlanner.getState().plan).toBe(original);
@@ -207,7 +207,7 @@ describe('floor plan studio flow',()=>{
   });
   it('snaps a dragged room to a shared wall and undo restores its gap',()=>{
     const p=usePlanner.getState().plan,id=p.floors[0].id;
-    usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[room,{...room,id:'two',name:'Room two',x:5300}],walls:[],omittedWalls:[],fixtures:[]}));render(<BlueprintStudio onClose={()=>{}}/>);
+    usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[room,{...room,id:'two',name:'Room two',x:5300}],walls:[],omittedWalls:[],fixtures:[]}));render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),part=canvas.querySelector('[data-object="two"] rect')!;
     fireEvent.pointerDown(part,{button:0,clientX:5500,clientY:1000});fireEvent.pointerMove(canvas,{clientX:5240,clientY:1000});expect(screen.getByText('Shared wall snapped')).toBeVisible();fireEvent.pointerUp(canvas);
     expect(part.getAttribute('x')).toBe('5000');fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/Room two/}));expect(canvas.querySelector('[data-object="two"] rect')!.getAttribute('x')).toBe('5300');
@@ -234,7 +234,7 @@ describe('direct quick layout',()=>{
 });
 
 it('selects, edits and deletes a boundary wall and preserves it through conversion and reopening',()=>{
- const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
+ const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
  const line=screen.getAllByLabelText('Wall segment')[0];
  fireEvent.pointerDown(line,{button:0,clientX:0,clientY:0,pointerId:1});fireEvent.pointerUp(screen.getByLabelText('Top-down floor plan drawing'),{pointerId:1});
  expect(screen.getByText('Edit wall segment')).toBeInTheDocument();

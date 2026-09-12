@@ -101,3 +101,5 @@ Region-first import preference (September 10): Luna extracts separate editable o
 Wall-first import preference (September 10): start Beta 2 imports with a local outer-footprint and identifiable-wall proposal. Let users correct the footprint and add/remove walls before generating exact connected regions. Dashed doorway/region dividers must remain non-physical. Preserve all footprint area, allow concave rooms, keep manual Combine/name review and Undo, and do not call Luna unless the user selects the experimental Luna import method.
 
 September 11 Beta 2 refresh: integrate current master UX while preserving the local wall-first default, manual dividers and region generation. Publish this combined state only to Beta 2.
+
+Floor-plan navigation safety: Studio starts in Pan/zoom, including after local footprint import and calibration. Wall-first footprint/region geometry is locked during normal selection. Only explicit Edit footprint enables geometric changes; Done or switching tools relocks it. Preserve wall editing and manual Combine.

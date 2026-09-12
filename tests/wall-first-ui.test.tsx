@@ -33,3 +33,15 @@ it('defaults to local extraction, then supports scale, doorway division, generat
 });
 it('restores scale together with its geometry on Undo',async()=>{await imported();fireEvent.click(screen.getByRole('button',{name:'1. Set scale'}));drag([0,0],[6000,0]);fireEvent.change(screen.getByLabelText('Known length (m)'),{target:{value:'3'}});fireEvent.click(screen.getByRole('button',{name:'Apply scale'}));expect(screen.getByRole('button',{name:'3. Generate regions'})).toBeEnabled();fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('button',{name:'3. Generate regions'})).toBeDisabled();expect(screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelector('image')).toHaveAttribute('width','6000');});
 it('retains the current drawing when local extraction fails',async()=>{vi.mocked(prepareWallFirst).mockRejectedValueOnce(new Error('No clear walls'));render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.change(screen.getByLabelText('Upload floor plan reference'),{target:{files:[new File(['plan'],'plan.png')]}});expect(await screen.findByRole('alert')).toHaveTextContent('No clear walls');expect(recognizeReference).not.toHaveBeenCalled();fireEvent.click(screen.getByRole('button',{name:'Toggle rooms panel'}));expect(screen.getByRole('heading',{name:'Rooms & regions · 0'})).toBeVisible();});
+
+it('pans after import and locks selected footprint geometry until explicitly edited',async()=>{
+ await imported();expect(screen.getByRole('button',{name:'Pan drawing'})).toHaveAttribute('aria-pressed','true');
+ const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),rect=canvas.querySelector('[data-object="footprint:0"] rect')??canvas.querySelector('rect[data-object="footprint:0"]')!;
+ const before=rect.getAttribute('x');const view=canvas.getAttribute('viewBox');
+ fireEvent.pointerDown(rect,{button:0,clientX:100,clientY:100});fireEvent.pointerMove(canvas,{clientX:500,clientY:500});fireEvent.pointerUp(canvas);
+ expect(rect).toHaveAttribute('x',before);expect(canvas.getAttribute('viewBox')).not.toBe(view);
+ fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));fireEvent.pointerDown(rect,{button:0,clientX:100,clientY:100});fireEvent.pointerMove(canvas,{clientX:500,clientY:500});fireEvent.pointerUp(canvas);
+ expect(rect).toHaveAttribute('x',before);expect(canvas.querySelector('[data-handle]')).toBeNull();expect(screen.getByRole('button',{name:'Move room left'})).toBeDisabled();
+ fireEvent.click(screen.getByRole('button',{name:'2. Edit footprint'}));expect(canvas.querySelector('[data-handle]')).not.toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Done editing footprint'}));expect(screen.getByRole('button',{name:'Pan drawing'})).toHaveAttribute('aria-pressed','true');expect(canvas.querySelector('[data-handle]')).toBeNull();
+});
