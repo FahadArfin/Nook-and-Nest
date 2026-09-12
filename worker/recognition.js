@@ -1,6 +1,10 @@
+import {validateRegionRequest} from '../src/regionReviewContract.ts';
+import {analyzeRegions} from './region-review.js';
 import {recognitionSchema,validateRecognition} from '../src/recognitionContract.ts';
 import {analyzeFloorPlanPipeline} from './recognition-pipeline.js';
 import {validateEvidence,PIPELINE_VERSION} from '../src/recognitionEvidence.ts';
+import {validateOpeningRequest} from '../src/openingReviewContract.ts';
+import {analyzeOpening} from './opening-review.js';
 
 export async function analyzeFloorPlan(image,width,height,key,model='gpt-5.6-luna',fetcher=fetch,signal,guidance='') {
   const response=await fetcher('https://api.openai.com/v1/responses',{method:'POST',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},signal:signal?AbortSignal.any([signal,AbortSignal.timeout(240000)]):AbortSignal.timeout(240000),body:JSON.stringify({
@@ -42,7 +46,7 @@ export async function recognitionApi(request,env) {
   // Accept previous client names, but this beta never invokes Astra.
   if(body.model!==undefined&&!['gpt-5.6-luna','gpt-6-astra'].includes(body.model))return json({error:'Unsupported analysis model.'},400);
   if(typeof image!=='string'||!/^data:image\/(png|jpeg);base64,[A-Za-z0-9+/]+=*$/.test(image)||!Number.isInteger(width)||!Number.isInteger(height)||width<20||height<20||width>2400||height>2400)return json({error:'Use a supported floor-plan image.'},400);
-  let evidence;try{evidence=validateEvidence(body.evidence,width,height);}catch{return json({error:'Invalid analysis evidence. Reimport the image.'},400);}
+  let evidence,openingReview,regionReview;try{if(body.openingReview!==undefined&&body.regionReview!==undefined)throw new Error('Conflicting modes');if(body.regionReview!==undefined)regionReview=validateRegionRequest(body.regionReview,width,height);else if(body.openingReview!==undefined)openingReview=validateOpeningRequest(body.openingReview,width,height);else evidence=validateEvidence(body.evidence,width,height);}catch{return json({error:'Invalid analysis evidence. Reimport the image.'},400);}
   // Atomic daily quotas bound spend across Worker instances; no documents are stored.
   const day=new Date().toISOString().slice(0,10);
   const limit=await env.DB.prepare(`INSERT INTO recognition_usage(owner_id,day,count) VALUES(?,?,1)
@@ -58,7 +62,7 @@ export async function recognitionApi(request,env) {
       output.enqueue(encoder.encode('\n'));
       interval=setInterval(()=>{if(!closed)output.enqueue(encoder.encode('\n'));},15000);
       let result;
-      try{result=await analyzeFloorPlanPipeline(image,width,height,env.OPENAI_API_KEY,evidence,fetch,controller.signal,guidance);}
+      try{result=regionReview?await analyzeRegions(image,width,height,regionReview,env.OPENAI_API_KEY,fetch,controller.signal):openingReview?await analyzeOpening(image,width,height,openingReview,env.OPENAI_API_KEY,fetch,controller.signal):await analyzeFloorPlanPipeline(image,width,height,env.OPENAI_API_KEY,evidence,fetch,controller.signal,guidance);}
       catch(e){result={error:e?.name==='TimeoutError'?'Image analysis took too long. Try a crop of the floor-plan drawing.':e instanceof Error&&/^(Image analysis|Analysis did|This image|The scan|The detected|A printed|Invalid analysis)/.test(e.message)?e.message:'The plan could not be analyzed. Please try again.'};}
       clearInterval(interval);if(!closed){closed=true;output.enqueue(encoder.encode(JSON.stringify(result)));output.close();}
     },

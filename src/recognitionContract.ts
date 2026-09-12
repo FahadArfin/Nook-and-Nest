@@ -4,7 +4,8 @@ export const fixtureKinds=['window-picture','door-flush','door-bifold','refriger
 export interface ScanRoom {roomId?:string;name:string;kind:typeof detectedKinds[number];x:number;y:number;width:number;height:number;enclosed:boolean;note:string}
 export interface ScanDimension {text:string;millimetres:number;ax:number;ay:number;bx:number;by:number}
 export interface ScanFixture {catalogId:typeof fixtureKinds[number];x:number;y:number;width:number;depth:number;rotation:number}
-export interface Recognition {rooms:ScanRoom[];dimensions:ScanDimension[];fixtures:ScanFixture[];warnings:string[]}
+export interface ScanWall {ax:number;ay:number;bx:number;by:number}
+export interface Recognition {rooms:ScanRoom[];dimensions:ScanDimension[];fixtures:ScanFixture[];warnings:string[];regionReview?:boolean;walls?:ScanWall[]}
 const number={type:'number'},string={type:'string',maxLength:1000};
 const obj=(properties:Record<string,unknown>)=>({type:'object',properties,required:Object.keys(properties),additionalProperties:false});
 const array=(items:unknown)=>({type:'array',items});
@@ -13,6 +14,9 @@ export const recognitionSchema=obj({
   dimensions:array(obj({text:string,millimetres:number,ax:number,ay:number,bx:number,by:number})),
   fixtures:array(obj({catalogId:{type:'string',enum:fixtureKinds},x:number,y:number,width:number,depth:number,rotation:{type:'number',enum:[0,90,180,270]}})),warnings:array(string),
 });
+// Region labels and physical wall evidence are independent. Rectangular pieces
+// sharing an ID encode a stepped polygon; ownership is left to human review.
+export const regionRecognitionSchema=obj({...recognitionSchema.properties,walls:array(obj({ax:number,ay:number,bx:number,by:number}))});
 export function validateRecognition(value:unknown,width:number,height:number):Recognition {
   const r=value as Recognition;
   const finite=(...ns:number[])=>ns.every(n=>typeof n==='number'&&Number.isFinite(n));
@@ -24,6 +28,8 @@ export function validateRecognition(value:unknown,width:number,height:number):Re
   for(const d of r.dimensions)if(!d||!text(d.text,100)||!d.text.trim()||!finite(d.millimetres)||d.millimetres<100||d.millimetres>60000||!point(d.ax,d.ay)||!point(d.bx,d.by)||Math.hypot(d.bx-d.ax,d.by-d.ay)<5)throw new Error('A printed dimension could not be read reliably. Try a clearer image.');
   for(const f of r.fixtures)if(!f||!fixtureKinds.includes(f.catalogId)||!point(f.x,f.y)||!finite(f.width,f.depth,f.rotation)||f.width<1||f.depth<1||f.width>width||f.depth>height||![0,90,180,270].includes(f.rotation))throw new Error('The detected fixtures are invalid. Try analyzing again.');
   if(r.warnings.some(w=>!text(w)))throw new Error('Invalid analysis notes.');
+  if(r.regionReview!==undefined&&typeof r.regionReview!=='boolean')throw new Error('Invalid region review mode.');
+  if(r.walls!==undefined&&(!Array.isArray(r.walls)||r.walls.length>200||r.walls.some(w=>!w||!point(w.ax,w.ay)||!point(w.bx,w.by)||Math.hypot(w.bx-w.ax,w.by-w.ay)<1||(w.ax!==w.bx&&w.ay!==w.by))))throw new Error('Invalid detected wall segments.');
   return r;
 }
 export function scaleAssessment(r:Recognition):{scale?:number;warnings:string[]} {
