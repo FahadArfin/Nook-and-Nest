@@ -1,5 +1,7 @@
 # Nook & Nest working guide
 
+Furniture color preference (September 12, 2026): avoid a blanket white default for couches and beds. Use varied muted sage, slate blue, charcoal, terracotta and rose upholstery/bedding for new placements, with matching catalog previews. Preserve saved variants and individual part colors, including deliberately chosen white finishes.
+
 Start with [repository map](docs/repository-map.md). Read the applicable contracts before edits:
 - [Workflow and release](docs/contracts/workflow.md): mandatory isolated worktree, PR, Validate and exact artifact publication.
 - [Editor and persistence](docs/contracts/editor.md): interaction, geometry, saved plans, agent tools and UI requirements.

@@ -41,7 +41,11 @@ describe("handcrafted furniture design system", () => {
     expect(FURNITURE_STYLE.defaultRoughness).toBeGreaterThan(.85);
     expect(Object.values(FURNITURE_STYLE.wood)).not.toContain("#000000");
     expect(Object.values(FURNITURE_STYLE.fabric)).not.toContain("#ffffff");
-    expect(Object.keys(variants)).toHaveLength(9);
+    // New swatches may be added, but saved placements retain the original colors.
+    expect(variants).toMatchObject({
+      white:'#f5f4ef',sage:'#97a67c',clay:'#c4775f',oat:'#d9c5a3',rose:'#c89490',
+      ink:'#5d6965',navy:'#53687d',rust:'#9f5d47',cream:'#eee4d1',
+    });
   });
 
   it("ships an editable Blender source and a non-empty GLB for every catalog item", () => {

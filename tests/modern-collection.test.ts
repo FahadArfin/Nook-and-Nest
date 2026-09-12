@@ -8,6 +8,8 @@ import '@babylonjs/loaders/glTF';
 import manifest from '../tools/blender/modern_manifest.json';
 import {catalog,isSurfaceMounted,isWallMounted} from '../src/catalog';
 import {modernIds,modernDefaultVariant} from '../src/modernCollection';
+import furnitureDefaults from '../src/furnitureDefaultVariants.json';
+import {variants} from '../src/catalog';
 import {filterLibrary} from '../src/library';
 import {tabletopChoices} from '../src/tabletop';
 import {createSamplePlan,serializePlan,parsePlan} from '../src/domain';
@@ -49,8 +51,19 @@ describe('Batch 12 modern collection',()=>{
   expect(fitsShelf(speaker,owner,s)).toBe(true);expect(fitsShelf({...speaker,heightMm:1000},owner,s)).toBe(false);expect(fitsShelf(speaker,owner,s,owner.x,owner.z)).toBe(false);
  });
  it('uses modern colors only for new placements, preserving saved variants and overrides',()=>{
-  const p=createSamplePlan();p.furniture=[{...piece('sofa'),floorId:p.floors[0].id,variant:'clay',materialColors:{'upholstery-textured':'#526789'}}];usePlanner.getState().replacePlan(p);const old=usePlanner.getState().plan.furniture[0];usePlanner.getState().placeFurniture('track-sofa');
-  expect(usePlanner.getState().plan.furniture.find(c=>c.catalogId==='track-sofa')?.variant).toBe(modernDefaultVariant('track-sofa'));expect(usePlanner.getState().plan.furniture[0]).toEqual(old);usePlanner.getState().undo();expect(usePlanner.getState().plan.furniture).toEqual([old]);
+  const p=createSamplePlan();p.furniture=[{...piece('sofa'),floorId:p.floors[0].id,variant:'white',materialColors:{'upholstery-textured':'#526789'}}];usePlanner.getState().replacePlan(p);const old=usePlanner.getState().plan.furniture[0];
+  for(const id of ['sofa','queen-bed']){
+   usePlanner.getState().placeFurniture(id);
+   expect(usePlanner.getState().plan.furniture.at(-1)?.variant).toBe(id==='sofa'?'moss':'slate');
+   const saved=parsePlan(serializePlan(usePlanner.getState().plan));
+   expect(saved.furniture[0]).toEqual(old);expect(saved.furniture.at(-1)).toEqual(usePlanner.getState().plan.furniture.at(-1));
+   usePlanner.getState().undo();expect(usePlanner.getState().plan.furniture).toEqual([old]);
+  }
+  for(const [id,variant] of Object.entries(furnitureDefaults)){
+   expect(catalog.find(c=>c.id===id),id).toBeDefined();expect(variants).toHaveProperty(variant);expect(variant,id).not.toBe('white');
+  }
+  expect(modernDefaultVariant('left-chaise-sectional')).toBe(modernDefaultVariant('right-chaise-sectional'));
+  expect(modernDefaultVariant('refrigerator')).toBe('white');
  });
  it('imports the fountain and animates bounded reusable ripples without spawning geometry',async()=>{
   const engine=new NullEngine(),scene=new Scene(engine),living=new LivingModels(scene),root=new TransformNode('fountain',scene);

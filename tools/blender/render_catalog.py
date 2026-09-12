@@ -1,5 +1,5 @@
 """Render named catalog assets from their original editable Blender sources."""
-import os,time,subprocess
+import os,time,subprocess,json
 import bpy
 import sys
 from pathlib import Path
@@ -8,8 +8,21 @@ from mathutils import Vector, Matrix
 root=Path(__file__).resolve().parents[2]
 out=root/'assets-source'/'previews'
 out.mkdir(parents=True,exist_ok=True)
+defaults=json.loads((root/'src/furnitureDefaultVariants.json').read_text())
+variants=json.loads((root/'src/furnitureVariants.json').read_text())
 for name in sys.argv[sys.argv.index('--')+1:]:
     bpy.ops.wm.open_mainfile(filepath=str(root/'assets-source'/'blender'/(name+'.blend')))
+    # Match the new-placement tint without changing editable source materials
+    # or the appearance of saved placements (FurnitureModelLibrary.materialFor).
+    if name in defaults:
+        color=variants[defaults[name]].lstrip('#')
+        tint=tuple(.1+.9*int(color[i:i+2],16)/255 for i in (0,2,4))
+        for mat in bpy.data.materials:
+            if 'upholstery-textured' in mat.name or 'variant-surface' in mat.name:
+                bs=mat.node_tree.nodes.get('Principled BSDF') if mat.use_nodes else None
+                if bs and not bs.inputs['Base Color'].is_linked:
+                    bs.inputs['Base Color'].default_value=(*tint,1)
+                    mat.diffuse_color=(*tint,1)
     scene=bpy.context.scene
     w,d,h=scene['nominal_dimensions_m']
     if name in ['sonos-architectural-ceiling','sonos-ceiling-8'] or name.startswith('recessed-') or name=='ceiling-opal-flush':
