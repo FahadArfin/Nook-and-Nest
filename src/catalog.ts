@@ -1,4 +1,5 @@
 import {designedHomeMountHeight} from './designedHomeCollection';
+import furnitureVariants from './furnitureVariants.json';
 import {studioMountHeight} from './studioCollection';
 import {luxuryMountHeight} from './luxuryCollection';
 import {modernMountHeight} from './modernCollection';
@@ -113,8 +114,4 @@ export const workspaceModelIds = new Set(rows.filter(row=>!cozyMount(row[0])&&((
 export const isSurfaceMounted = (id:string) => cozyMount(id)==="surface"||collectibleIds.has(id)||["books-upright","books-stacked","small-plant","table-lamp"].includes(id)||kitchenSurfaceIds.has(id)||["slim-tv","tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","soundbar","desktop-monitor","wide-monitor","pc-tower","mini-pc","laptop","vessel-sink"].includes(id);
 export const hasModelPreview = (id:string) => rows.some(row=>row[0]===id);
 export const catalog: CatalogItem[] = rows.map(([id,name,category,widthMm,depthMm,heightMm,shape,description]) => ({ id,name,category,widthMm,depthMm,heightMm,shape,description,icon:shape,mount:isCeilingMounted(id)?"ceiling":isWallMounted(id)?"wall":isSurfaceMounted(id)?"surface":"floor" }));
-export const variants = {
-  white: "#f5f4ef",
-  sage: "#97a67c", clay: "#c4775f", oat: "#d9c5a3", rose: "#c89490",
-  ink: "#5d6965", navy: "#53687d", rust: "#9f5d47", cream: "#eee4d1",
-};
+export const variants = furnitureVariants;
