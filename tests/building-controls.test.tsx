@@ -156,7 +156,7 @@ it('carries shared appearance through the studio and editor without changing the
  Object.defineProperty(HTMLDialogElement.prototype,'showModal',{configurable:true,value(){this.setAttribute('open','');}});
  const {container}=render(<Welcome Editor={App}/>);
  const studio=screen.getByRole('button',{name:/Draw a floor plan/});await waitFor(()=>expect(studio.hasAttribute('disabled')).toBe(false));fireEvent.click(studio);
- expect(screen.getByRole('dialog',{name:'Floor plan studio'}).getAttribute('data-theme')).toBe('dark');
+ expect((await screen.findByRole('dialog',{name:'Floor plan studio'})).getAttribute('data-theme')).toBe('dark');
  act(()=>{matches=false;listeners.forEach(fn=>fn());});expect(screen.getByRole('dialog',{name:'Floor plan studio'}).getAttribute('data-theme')).toBe('light');
  fireEvent.click(screen.getByRole('button',{name:'Close floor plan studio'}));fireEvent.click(screen.getByRole('button',{name:'Use dark theme'}));
  fireEvent.click(screen.getByRole('button',{name:/Design in 3D/}));

@@ -46,3 +46,24 @@ it('finishes a custom concave room with Enter and preserves navigation shortcuts
   expect(screen.getByRole('button',{name:'Pan drawing'})).toHaveAttribute('aria-pressed','true');
   expect(within(screen.getByRole('status')).getByText('Pan / zoom')).toBeVisible();
 });
+it('previews the exact wall snap, aligns the return corner and closes with a nearby click',()=>{
+  Object.defineProperty(SVGSVGElement.prototype,'getScreenCTM',{configurable:true,value:()=>({a:.1,b:0,inverse:()=>({})})});
+  render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});
+  fireEvent.pointerMove(svg,{clientX:4130,clientY:1000,pointerId:1});
+  const snappedX=svg.querySelector('[data-snap="wall"] circle')!.getAttribute('cx')!;
+  expect(Number(snappedX)).toBeCloseTo(4000,0);
+  drag([4130,1000],[4130,1000]);
+  expect(svg.querySelector('[data-preview="polygon"]')).toHaveAttribute('points',expect.stringContaining(`${snappedX},1000`));
+  drag([7000,1000],[7000,1000]);drag([7000,3000],[7000,3000]);
+  fireEvent.pointerMove(svg,{clientX:4120,clientY:3100,pointerId:1});
+  expect(svg.querySelector('[data-preview="polygon"]')).toHaveAttribute('points',`${snappedX},1000 7000,1000 7000,3000 ${snappedX},3000`);
+  drag([4120,3100],[4120,3100]);
+  fireEvent.pointerMove(svg,{clientX:4070,clientY:1080,pointerId:1});
+  expect(screen.getByRole('status')).toHaveTextContent('Click to close this room');
+  drag([4070,1080],[4070,1080]);
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
+  expect(screen.getByText('64.58 ft²')).toBeVisible();
+  fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
+});

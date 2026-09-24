@@ -1,12 +1,12 @@
 import {useEditorRoute,navigateEditor,leaveStudio} from './editorNavigation';
 import './ux.css';
-import {useEffect,useState,type ComponentType} from 'react';
+import {lazy,Suspense,useEffect,useState,type ComponentType} from 'react';
 import {HouseLine,LockSimple,Monitor,Sun,Moon,SkipForward,Pause,Play,ArrowsClockwise,GearSix} from '@phosphor-icons/react';
 import {AppearanceContext,useAppearance,useWelcomeTheme} from './useWelcomeTheme';
 import {createBlankPlan} from './domain';
 import {loadPlan,savePlan,usePlanner} from './store';
 import {ProjectLibrary} from './ProjectLibrary';
-import {BlueprintStudio} from './BlueprintStudio';
+const BlueprintStudio=lazy(()=>import('./BlueprintStudio').then(m=>({default:m.BlueprintStudio})).catch(()=>({default:()=> <section role="alert"><h2>The floor planner could not load</h2><p>Check your connection and try again.</p><button onClick={()=>location.reload()}>Try again</button></section>})));
 import type {PlanDocumentV1} from './types';
 import './welcome.css';
 import {LivingBackground,useHomeAmbience} from './HomeAmbience';
@@ -54,6 +54,6 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
    <footer className="living-footer"><span><LockSimple size={14}/>Saved on this device</span><button className="living-icon" aria-label={ambience.pref.paused?'Resume background motion':'Pause background motion'} aria-pressed={ambience.pref.paused} onClick={ambience.pause}>{ambience.pref.paused?<Play size={23}/>:<Pause size={23}/>}</button></footer>
   </div>
   {projects&&ready&&<ProjectLibrary browseOnly onClose={()=>setProjects(false)} onOpen={()=>setEditing(true)}/>}
-  {studio&&ready&&<BlueprintStudio onHome={()=>navigateEditor('home',true)} onClose={()=>setStudio(false)} onCreated={()=>setEditing(true)}/>}
+  {studio&&ready&&<Suspense fallback={<p role="status">Opening the floor planner…</p>}><BlueprintStudio onHome={()=>navigateEditor('home',true)} onClose={()=>setStudio(false)} onCreated={()=>setEditing(true)}/></Suspense>}
  </main>;
 }
