@@ -45,6 +45,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
     for(const [id,s] of Object.entries(p.studioDrafts) as [string,any][]){
       if(!floors.has(id))fail();obj(s);str(s.savedAt);num(s.imageScale,.001,100000);if(typeof s.calibrated!=='boolean')fail();obj(s.view);num(s.view.x);num(s.view.z);num(s.view.width,1,1000000);num(s.view.height,1,1000000);
       obj(s.draft);arr(s.draft.omittedWalls,4000);for(const id of s.draft.omittedWalls)str(id);
+      if(s.draft.annotations!==undefined){arr(s.draft.annotations,300);unique(s.draft.annotations);for(const a of s.draft.annotations){if(!['note','dimension'].includes(a.kind))fail();if(typeof a.text!=='string'||a.text.length>300)fail();for(const pt of [a.a,a.b]){obj(pt);num(pt.x,-100000,100000);num(pt.z,-100000,100000);}}}
       if(s.draft.wallFirst!==undefined&&typeof s.draft.wallFirst!=='boolean')fail();
       if(s.draft.referenceScale!==undefined)num(s.draft.referenceScale,.1,200);
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
