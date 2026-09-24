@@ -1,0 +1,55 @@
+/* Scoped drafting workspace: tools on the left, drawing center, properties right. */
+.blueprint-dialog[open] .bp-workspace{position:relative;padding-left:210px;box-sizing:border-box;grid-template-columns:minmax(0,1fr) 270px;transition:none}
+.blueprint-dialog[open] .bp-workspace.bp-sidebar-hidden{grid-template-columns:minmax(0,1fr) 0}
+.blueprint-dialog[open] .bp-drawing{grid-column:1;grid-row:1;position:static;min-width:0}
+.blueprint-dialog[open] .bp-sidebar{grid-column:2;grid-row:1;border-right:0;border-left:1px solid var(--line);background:var(--paper)}
+.blueprint-dialog[open] .bp-sidebar[aria-hidden=true]{transform:none}
+.blueprint-dialog[open] .studio-tool-rail{position:absolute;left:0;top:0;bottom:0;transform:none;width:210px;max-width:none;box-sizing:border-box;border:0;border-right:1px solid var(--line);border-radius:0;box-shadow:none;padding:12px 8px;overflow:auto;background:var(--paper)}
+.blueprint-dialog[open] .studio-tool-rail .bp-dock-buttons{display:flex;flex-direction:column;overflow:visible;gap:3px}
+.blueprint-dialog[open] .studio-tool-rail .bp-dock-buttons>button{display:flex;flex-direction:row;justify-content:flex-start;gap:10px;max-width:none;width:100%;min-width:0;min-height:38px;padding:8px 10px;font-size:12px;border-radius:8px;text-align:left}
+.blueprint-dialog[open] .studio-tool-rail button>svg{width:19px;height:19px;flex-shrink:0}
+.blueprint-dialog[open] .studio-tool-rail button[aria-pressed=true]{background:#58744f;color:#fff;box-shadow:none}
+.blueprint-dialog[open] .studio-tool-rail kbd{margin-left:auto;font:10px inherit;opacity:.65}
+.studio-tool-heading{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:17px 10px 6px}
+.studio-tool-heading:first-child{padding-top:0}
+.blueprint-dialog[open] .studio-tool-rail .bp-fixture-picker{position:fixed;left:220px;top:160px;bottom:auto;transform:none;z-index:25;width:320px;max-height:65dvh}
+.blueprint-dialog[open] .studio-tool-rail .bp-fixture-picker button{flex-direction:column}
+.studio-layers{padding:14px 0;border-bottom:1px solid var(--line)}
+.studio-layers summary{display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700}
+.studio-layers .bp-check{font-size:12px!important}
+.studio-area{font-size:20px!important;font-weight:700;color:var(--ink)}
+.studio-shortcuts{padding:12px 8px;font-size:11px;color:var(--muted)}
+.studio-shortcuts p{line-height:1.7}
+.studio-shortcuts summary{cursor:pointer}
+.studio-polygon-actions{display:grid;gap:5px;padding:8px;background:var(--wash)}
+.studio-annotation{cursor:move}
+.blueprint-dialog[open] .bp-selection textarea{width:100%;box-sizing:border-box;min-height:90px;background:var(--paper);color:var(--ink);font:inherit;border:1px solid var(--line);border-radius:8px;padding:8px}
+.blueprint-dialog[open] .bp-view-controls{right:290px;top:110px}
+.blueprint-dialog[open] .bp-sidebar-hidden .bp-view-controls{right:12px}
+.blueprint-dialog[open] .studio-tools-toggle{display:none}
+.blueprint-dialog[open] .bp-combine-bar{left:calc(50% + 105px);bottom:70px;max-width:calc(100% - 250px)}
+.blueprint-dialog[open] .studio-starters{left:50%;max-width:330px}
+.blueprint-dialog[open] .bp-edit-selected{bottom:80px}
+@media(max-width:1050px){
+ .blueprint-dialog[open] .bp-workspace{padding-left:180px;grid-template-columns:minmax(0,1fr) 240px}
+ .blueprint-dialog[open] .studio-tool-rail{width:180px}
+ .blueprint-dialog[open] .bp-view-controls{right:253px}
+}
+@media(max-width:700px){
+ .blueprint-dialog[open] .bp-workspace,.blueprint-dialog[open] .bp-workspace.bp-sidebar-hidden{padding-left:0;grid-template-columns:minmax(0,1fr)}
+ .blueprint-dialog[open] .bp-drawing{position:relative;grid-column:1}
+ .blueprint-dialog[open] .bp-sidebar{grid-column:1;position:absolute;inset:0 0 0 auto;width:min(310px,calc(100% - 48px));z-index:14}
+ .blueprint-dialog[open] .bp-sidebar[aria-hidden=true]{transform:translateX(100%)}
+ .blueprint-dialog[open] .studio-tools-toggle{display:inline-flex}
+ .blueprint-dialog[open] .studio-tool-rail{display:none;top:58px;bottom:60px;width:220px;max-width:85vw;z-index:13;box-shadow:8px 0 24px #0003}
+ .blueprint-dialog[open] .studio-tool-rail.is-open{display:block}
+ .blueprint-dialog[open] .studio-tool-rail .bp-dock-buttons>button{min-height:42px}
+ .blueprint-dialog[open] .studio-tool-rail .bp-fixture-picker{left:12px;right:12px;top:160px;width:auto;max-width:none}
+ .blueprint-dialog[open] .bp-view-controls{right:8px;top:140px}
+ .blueprint-dialog[open] .bp-combine-bar{left:50%;max-width:calc(100% - 24px);bottom:70px}
+ .blueprint-dialog[open] .studio-starters{left:50%;width:calc(100% - 70px)}
+}
+
+.blueprint-dialog[open] .bp-drawing>.studio-polygon-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 12px;background:var(--paper);border-bottom:1px solid var(--line);flex-shrink:0}
+.blueprint-dialog[open] .bp-drawing>.studio-polygon-actions button{min-height:34px;padding:6px 10px;font-size:12px}
+.bp-canvas:is(.mode-lroom,.mode-polygon,.mode-measure,.mode-dimension,.mode-note){cursor:crosshair}
