@@ -17,6 +17,32 @@ beforeEach(()=>{
 });
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 function drag(a:number[],b:number[]){const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(svg,{button:0,clientX:a[0],clientY:a[1],pointerId:1});fireEvent.pointerMove(svg,{clientX:b[0],clientY:b[1],pointerId:1});fireEvent.pointerUp(svg,{clientX:b[0],clientY:b[1],pointerId:1});}
+it('previews rooms from intersecting wall lines and applies all rooms in one undoable change',()=>{
+  const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
+  fireEvent.click(screen.getByRole('button',{name:'Draw connected rooms'}));
+  for(const [a,b] of [[[5000,0],[11000,0]],[[11000,0],[11000,6000]],[[11000,6000],[5000,6000]],[[5000,6000],[5000,0]],[[8000,-1000],[8000,7000]],[[4500,3000],[11500,3000]]])drag(a,b);
+  expect(screen.getByText('4 room previews · 6 wall lines')).toBeVisible();
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
+  expect(usePlanner.getState().plan).toBe(original);
+  fireEvent.click(screen.getByRole('button',{name:'Apply rooms'}));
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 5'})).toBeVisible();
+  fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
+  fireEvent.keyDown(screen.getByRole('dialog'),{key:'y',ctrlKey:true});
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 5'})).toBeVisible();
+  expect(usePlanner.getState().plan).toBe(original);
+});
+it('converts an unfinished crossing custom sketch and discards previews without changing saved geometry',()=>{
+  render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  for(const p of [[5000,0],[11000,0],[11000,6000],[5000,6000],[5000,-1000]])drag(p,p);
+  fireEvent.click(screen.getByRole('button',{name:'Detect rooms from these lines'}));
+  expect(screen.getByText('1 room preview · 4 wall lines')).toBeVisible();
+  fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});
+  expect(screen.getByRole('button',{name:'Apply rooms'})).toBeDisabled();
+  fireEvent.click(screen.getByRole('button',{name:'Discard preview'}));
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
+  expect(screen.getByRole('button',{name:'Pan drawing'})).toHaveAttribute('aria-pressed','true');
+});
 it('draws a concave room in one undoable step without changing the 3D home',()=>{
   const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
   fireEvent.click(screen.getByRole('button',{name:'Draw L-shaped room'}));drag([5000,0],[9000,4000]);
