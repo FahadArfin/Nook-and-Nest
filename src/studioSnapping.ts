@@ -20,7 +20,12 @@ export function snapPolygon(raw:DrawingPoint,corners:DrawingPoint[],walls:SnapSe
     if(d<=tolerance&&(!last||distance(last,p)>=100))candidates.push({point:p,kind,guide,distance:d,priority});
   };
   for(const {a,b} of walls){
-    for(const p of [a,b])if(reachable(p))add(p,'corner',0);
+    for(const p of [a,b]){
+      if(reachable(p))add(p,'corner',0);
+      // Project existing corners onto the active axis even beyond the wall end.
+      // This is an alignment guide, not a claim that a physical wall is there.
+      if(last)add(horizontal?{x:p.x,z:last.z}:{x:last.x,z:p.z},'alignment',2,p);
+    }
     if(a.x===b.x){
       const z=last&&horizontal?last.z:Math.max(Math.min(a.z,b.z),Math.min(Math.max(a.z,b.z),point.z));
       const p={x:a.x,z};
