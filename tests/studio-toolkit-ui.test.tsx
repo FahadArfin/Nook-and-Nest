@@ -140,3 +140,19 @@ it('draws a triangle directly, has no yellow square handles, and keeps it after 
  fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
  expect(usePlanner.getState().plan.floors[0].blueprint?.rooms.some(r=>r.polygon?.length===3)).toBe(true);
 });
+it('renders a dashed returning-wall guide and equal-length cues, then commits that exact endpoint',()=>{
+  render(<BlueprintStudio onClose={()=>{}}/>);
+  fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});
+  for(const p of [[6000,0],[6000,3000],[10000,3000]])drag(p,p);
+  fireEvent.pointerMove(svg,{clientX:10040,clientY:80,pointerId:1});
+  expect(svg.querySelector('[data-alignment-guide]')).toHaveAttribute('y1','0');
+  expect(svg.querySelector('[data-alignment-guide]')).toHaveAttribute('y2','0');
+  expect(svg.querySelectorAll('[data-equal-length]')).toHaveLength(2);
+  expect(svg.querySelector('[data-right-angle]')).toHaveTextContent('90°');
+  expect(svg.querySelector('[data-preview="polygon"]')).toHaveAttribute('points','6000,0 6000,3000 10000,3000 10000,0');
+  drag([10040,80],[10040,80]);drag([6000,0],[6000,0]);
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
+  expect(svg.querySelector('[data-alignment-guide]')).toBeNull();
+  expect(svg.querySelector('[data-handle]')).toBeNull();
+});
