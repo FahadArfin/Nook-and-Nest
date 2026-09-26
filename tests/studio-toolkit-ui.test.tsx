@@ -17,6 +17,33 @@ beforeEach(()=>{
 });
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 function drag(a:number[],b:number[]){const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(svg,{button:0,clientX:a[0],clientY:a[1],pointerId:1});fireEvent.pointerMove(svg,{clientX:b[0],clientY:b[1],pointerId:1});fireEvent.pointerUp(svg,{clientX:b[0],clientY:b[1],pointerId:1});}
+it('ignores an unused starting point when reviewing and creates the completed home',()=>{
+  const created=vi.fn();render(<BlueprintStudio onClose={()=>{}} onCreated={created}/>);
+  fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));drag([5000,0],[5000,0]);
+  fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
+  expect(screen.queryByText('One unfinished outline remains')).toBeNull();
+  fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
+  expect(created).toHaveBeenCalledOnce();
+});
+it('reveals hidden unfinished lines in review and can discard only the sketch before successful conversion',()=>{
+  const created=vi.fn();render(<BlueprintStudio onClose={()=>{}} onCreated={created}/>);
+  fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  drag([5000,0],[5000,0]);drag([8000,0],[8000,0]);
+  // Switching via the palette can hide the active sketch without clearing it.
+  fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
+  fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
+  expect(screen.getByText('One unfinished outline remains')).toBeVisible();
+  expect(screen.getByRole('button',{name:'Confirm & create 3D home'})).toBeDisabled();
+  expect(screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelector('[data-preview="polygon"]')).toHaveAttribute('points','5000,0 8000,0');
+  fireEvent.click(screen.getByRole('button',{name:'Continue drawing outline'}));
+  expect(screen.getByText('2 corners · right angles')).toBeVisible();
+  fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
+  fireEvent.click(screen.getByRole('button',{name:'Discard unfinished outline'}));
+  expect(screen.getByText('Your completed rooms are unchanged.',{exact:false})).toBeVisible();
+  expect(screen.getByRole('button',{name:'Confirm & create 3D home'})).toBeEnabled();
+  fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
+  expect(created).toHaveBeenCalledOnce();
+});
 it('creates named rooms immediately on closure and on a crossing partition, with toolbar undo and redo',()=>{
   const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
   expect(screen.queryByRole('button',{name:'Draw connected rooms'})).toBeNull();
