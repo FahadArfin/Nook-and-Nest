@@ -19,7 +19,7 @@ afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 function drag(a:number[],b:number[]){const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(svg,{button:0,clientX:a[0],clientY:a[1],pointerId:1});fireEvent.pointerMove(svg,{clientX:b[0],clientY:b[1],pointerId:1});fireEvent.pointerUp(svg,{clientX:b[0],clientY:b[1],pointerId:1});}
 it('ignores an unused starting point when reviewing and creates the completed home',()=>{
   const created=vi.fn();render(<BlueprintStudio onClose={()=>{}} onCreated={created}/>);
-  fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));drag([5000,0],[5000,0]);
+  if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));drag([5000,0],[5000,0]);
   fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
   expect(screen.queryByText('One unfinished outline remains')).toBeNull();
   fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
@@ -27,16 +27,16 @@ it('ignores an unused starting point when reviewing and creates the completed ho
 });
 it('reveals hidden unfinished lines in review and can discard only the sketch before successful conversion',()=>{
   const created=vi.fn();render(<BlueprintStudio onClose={()=>{}} onCreated={created}/>);
-  fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   drag([5000,0],[5000,0]);drag([8000,0],[8000,0]);
   // Switching via the palette can hide the active sketch without clearing it.
-  fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
+  fireEvent.click(screen.getByRole('button',{name:'Select and move rooms'}));
   fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
   expect(screen.getByText('One unfinished outline remains')).toBeVisible();
   expect(screen.getByRole('button',{name:'Confirm & create 3D home'})).toBeDisabled();
   expect(screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelector('[data-preview="polygon"]')).toHaveAttribute('points','5000,0 8000,0');
   fireEvent.click(screen.getByRole('button',{name:'Continue drawing outline'}));
-  expect(screen.getByText('2 corners · right angles')).toBeVisible();
+  expect(screen.getByText('2 corners · any angle')).toBeVisible();
   fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
   fireEvent.click(screen.getByRole('button',{name:'Discard unfinished outline'}));
   expect(screen.getByText('Your completed rooms are unchanged.',{exact:false})).toBeVisible();
@@ -47,7 +47,7 @@ it('reveals hidden unfinished lines in review and can discard only the sketch be
 it('creates named rooms immediately on closure and on a crossing partition, with toolbar undo and redo',()=>{
   const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
   expect(screen.queryByRole('button',{name:'Draw connected rooms'})).toBeNull();
-  fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   for(const p of [[5000,0],[11000,0],[11000,6000],[5000,6000]])drag(p,p);
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
   drag([5000,0],[5000,0]);
@@ -64,7 +64,7 @@ it('creates named rooms immediately on closure and on a crossing partition, with
   expect(usePlanner.getState().plan).toBe(original);
 });
 it('uses an existing room edge to close a new room without an extra confirmation',()=>{
-  render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  render(<BlueprintStudio onClose={()=>{}}/>);if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   for(const p of [[4000,1000],[7000,1000],[7000,3000],[4000,3000]])drag(p,p);
   expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
   expect(screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelector('rect[x="4000"][y="1000"][width="3000"][height="2000"]')).not.toBeNull();
@@ -72,18 +72,18 @@ it('uses an existing room edge to close a new room without an extra confirmation
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
 });
 it('leaves an open outline unfilled and lets toolbar undo and cancellation clear it safely',()=>{
-  render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  render(<BlueprintStudio onClose={()=>{}}/>);if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   for(const p of [[5000,0],[9000,0],[9000,4000]])drag(p,p);
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
   fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
-  expect(screen.getByText('2 corners · right angles')).toBeVisible();
+  expect(screen.getByText('2 corners · any angle')).toBeVisible();
   fireEvent.click(screen.getByRole('button',{name:'Cancel outline'}));
-  expect(screen.getByText('0 corners · right angles')).toBeVisible();
+  expect(screen.getByText('0 corners · any angle')).toBeVisible();
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
 });
 it('draws a concave room in one undoable step without changing the 3D home',()=>{
   const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-  fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw L-shaped room'}));drag([5000,0],[9000,4000]);
+  if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw L-shaped room'}));drag([5000,0],[9000,4000]);
   expect(screen.getByText('129.17 ft²')).toBeVisible();
   expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
   fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
@@ -102,7 +102,7 @@ it('keeps measurements, note edits and layer visibility separate from physical g
   expect(usePlanner.getState().plan).toBe(original);
 });
 it('finishes a custom concave room with Enter and preserves navigation shortcuts',()=>{
-  render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  render(<BlueprintStudio onClose={()=>{}}/>);if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   for(const p of [[5000,0],[9000,0],[9000,2000],[11000,2000],[11000,4000],[5000,4000]])drag(p,p);
   fireEvent.keyDown(screen.getByRole('dialog'),{key:'Enter'});
   expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
@@ -112,7 +112,7 @@ it('finishes a custom concave room with Enter and preserves navigation shortcuts
 });
 it('previews the exact wall snap and creates the room on the snapped shared-edge return',()=>{
   Object.defineProperty(SVGSVGElement.prototype,'getScreenCTM',{configurable:true,value:()=>({a:.1,b:0,inverse:()=>({})})});
-  render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  render(<BlueprintStudio onClose={()=>{}}/>);if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});
   fireEvent.pointerMove(svg,{clientX:4130,clientY:1000,pointerId:1});
   const snappedX=svg.querySelector('[data-snap="wall"] circle')!.getAttribute('cx')!;
@@ -128,4 +128,15 @@ it('previews the exact wall snap and creates the room on the snapped shared-edge
   expect(added).not.toBeNull();expect(Number(added!.getAttribute('x'))).toBeCloseTo(Number(snappedX),0);
   fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
+});
+
+it('draws a triangle directly, has no yellow square handles, and keeps it after conversion',()=>{
+ render(<BlueprintStudio onClose={()=>{}}/>);
+ expect(screen.queryByRole('button',{name:'Draw room options'})).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+ for(const p of [[5000,0],[9000,0],[5000,3000],[5000,0]])drag(p,p);
+ expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
+ const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});expect(svg.querySelector('[data-handle]')).toBeNull();expect(svg.querySelector('[data-preview="enclosure"]')).toBeNull();expect(svg.querySelector('polygon[data-object]')).not.toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
+ expect(usePlanner.getState().plan.floors[0].blueprint?.rooms.some(r=>r.polygon?.length===3)).toBe(true);
 });

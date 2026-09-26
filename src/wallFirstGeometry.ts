@@ -99,5 +99,5 @@ export function regionsFromWalls(draft:BlueprintDraft,grid:number,physicalWalls:
 
 export function scaleWallFirst(draft:BlueprintDraft,ratio:number):BlueprintDraft {
   const wall=(w:WallSegment)=>({...w,ax:w.ax*ratio,az:w.az*ratio,bx:w.bx*ratio,bz:w.bz*ratio});
-  return {...draft,annotations:draft.annotations?.map(a=>({...a,a:{x:a.a.x*ratio,z:a.a.z*ratio},b:{x:a.b.x*ratio,z:a.b.z*ratio}})),rooms:draft.rooms.map(r=>({...r,x:r.x*ratio,z:r.z*ratio,width:r.width*ratio,depth:r.depth*ratio})),walls:draft.walls.map(wall),wallCuts:draft.wallCuts?.map(wall),regionDividers:draft.regionDividers?.map(wall),fixtures:draft.fixtures.map(f=>({...f,x:f.x*ratio,z:f.z*ratio}))};
+  return {...draft,annotations:draft.annotations?.map(a=>({...a,a:{x:a.a.x*ratio,z:a.a.z*ratio},b:{x:a.b.x*ratio,z:a.b.z*ratio}})),rooms:draft.rooms.map(r=>({...r,x:r.x*ratio,z:r.z*ratio,width:r.width*ratio,depth:r.depth*ratio,...(r.polygon?{polygon:r.polygon.map(p=>({x:p.x*ratio,z:p.z*ratio}))}:{})})),walls:draft.walls.map(wall),wallCuts:draft.wallCuts?.map(wall),regionDividers:draft.regionDividers?.map(wall),fixtures:draft.fixtures.map(f=>({...f,x:f.x*ratio,z:f.z*ratio}))};
 }

@@ -11,9 +11,9 @@ describe('drafting geometry and annotations',()=>{
     expect(parts.some(r=>5000>r.x&&5000<r.x+r.width&&1000>r.z&&1000<r.z+r.depth)).toBe(false);
     expect(areaLabel(roomArea(parts),false)).toBe('20 m²');
   });
-  it('rejects crossing, diagonal, and degenerate custom outlines',()=>{
+  it('rejects crossing and degenerate, but accepts angled custom outlines',()=>{
     expect(()=>polygonRooms([{x:0,z:0},{x:3000,z:0},{x:3000,z:3000},{x:1000,z:3000},{x:1000,z:-1000},{x:0,z:-1000}])).toThrow(/cross/);
-    expect(()=>polygonRooms([{x:0,z:0},{x:3000,z:1000},{x:3000,z:3000},{x:0,z:3000}])).toThrow(/horizontal/);
+    expect(polygonRooms([{x:0,z:0},{x:3000,z:1000},{x:3000,z:3000},{x:0,z:3000}])[0].polygon).toHaveLength(4);
     expect(()=>polygonRooms([{x:0,z:0},{x:0,z:0},{x:3000,z:3000},{x:0,z:3000}])).toThrow();
   });
   it('creates exact L-shaped area in either drag direction and unions overlaps for area',()=>{

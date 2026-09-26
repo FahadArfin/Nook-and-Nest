@@ -1,19 +1,22 @@
+import {shapeArea,shapeOf,geometryParts,unionShapes,shapeEdges,differenceShape} from './polygonGeometry';
 import {subtractWallCuts} from './wallCuts';
 import { deriveBoundaryWalls } from "./domain";
 import type { FloorPlan, TileCell, WallSegment } from "./types";
 
-export interface FloorRect { x:number; z:number; width:number; depth:number }
+export interface FloorRect { x:number; z:number; width:number; depth:number; polygon?:import("./polygonGeometry").PlanPoint[] }
 export interface MeasuredRegion { cells:TileCell[]; rects:Record<string,FloorRect[]>; widthMm:number; depthMm:number; origin:TileCell }
 const key=(c:TileCell)=>`${c.x},${c.z}`;
 const round=(v:number)=>Math.round(v*10000)/10000;
-export const rectArea=(r:FloorRect)=>r.width*r.depth;
+export const rectArea=(r:FloorRect)=>r.polygon?shapeArea(r):r.width*r.depth;
 export const intersects=(a:FloorRect,b:FloorRect)=>a.x<b.x+b.width-.01&&a.x+a.width>b.x+.01&&a.z<b.z+b.depth-.01&&a.z+a.depth>b.z+.01;
 export function subtractRect(a:FloorRect,b:FloorRect):FloorRect[] {
   if(!intersects(a,b))return [a];
+  if(a.polygon||b.polygon)return differenceShape(a,b);
   const l=Math.max(a.x,b.x),r=Math.min(a.x+a.width,b.x+b.width),t=Math.max(a.z,b.z),d=Math.min(a.z+a.depth,b.z+b.depth);
   return [{x:a.x,z:a.z,width:l-a.x,depth:a.depth},{x:r,z:a.z,width:a.x+a.width-r,depth:a.depth},{x:l,z:a.z,width:r-l,depth:t-a.z},{x:l,z:d,width:r-l,depth:a.z+a.depth-d}].filter(r=>r.width>.01&&r.depth>.01);
 }
 export function unionRects(rects:FloorRect[]):FloorRect[] {
+  if(rects.some(r=>r.polygon))return geometryParts(unionShapes(rects));
   const result:FloorRect[]=[];
   for(const r of rects){let pieces=[r];for(const previous of result)pieces=pieces.flatMap(p=>subtractRect(p,previous));result.push(...pieces);}
   return result;
@@ -54,6 +57,8 @@ export function paintFloorCells(floor:FloorPlan,cells:TileCell[],present:boolean
 export function floorBoundaryWalls(floor:FloorPlan,grid:number):WallSegment[] {return subtractWallCuts(rawBoundaryWalls(floor,grid),floor.wallCuts??[]);}
 function rawBoundaryWalls(floor:FloorPlan,grid:number):WallSegment[] {
   if(!floor.cellRects)return deriveBoundaryWalls(floor.cells);
+  const parts=floorRects(floor,grid);
+  if(parts.some(r=>r.polygon))return shapeEdges(parts).map(({a,b})=>{const ax=round(a.x/grid),az=round(a.z/grid),bx=round(b.x/grid),bz=round(b.z/grid);return {id:`${ax}:${az}:${bx}:${bz}`,ax,az,bx,bz};});
   // Cancel shared collinear edges, including partially shared cut tiles. Keep
   // tile breakpoints so legacy wall IDs and segment finishes remain stable.
   const lines=new Map<string,{horizontal:boolean;line:number;events:Map<number,number>}>();

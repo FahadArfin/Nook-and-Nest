@@ -69,6 +69,13 @@ export function snapWindow(plan:PlanDocumentV1,item:FurniturePlacement, allowedR
     const rotation=[base,base+180].sort((a,b)=>angleDistance(a,item.rotation)-angleDistance(b,item.rotation))[0];
     return {x,z,rotation,distance:Math.hypot(item.x-x,item.z-z)};
   }).sort((a,b)=>a.distance-b.distance);
+  if(!allowedRuns)for(const w of diagonalWalls(floor,plan.gridSizeMm)){
+    if(w.length<item.widthMm+40)continue;
+    const t=Math.max(item.widthMm/2+20,Math.min(w.length-item.widthMm/2-20,(item.x-w.x)*w.ux+(item.z-w.z)*w.uz));
+    const x=w.x+w.ux*t,z=w.z+w.uz*t,base=-Math.atan2(w.uz,w.ux)*180/Math.PI,rotation=[base,base+180].sort((a,b)=>angleDistance(a,item.rotation)-angleDistance(b,item.rotation))[0];
+    candidates.push({x,z,rotation,distance:Math.hypot(item.x-x,item.z-z)});
+  }
+  candidates.sort((a,b)=>a.distance-b.distance);
   const nearest=candidates[0];if(!nearest)return item;
   return {...item,x:nearest.x,z:nearest.z,rotation:nearest.rotation,elevationMm:isDoor(item.catalogId)?0:Math.round(Math.max(item.catalogId==="window-solarium"?0:100,Math.min(item.elevationMm??defaultMountHeight(item.catalogId)??850,floor.heightMm-item.heightMm-(item.catalogId==="window-solarium"?25:100))))};
 }
@@ -96,7 +103,16 @@ export function windowProblem(plan:PlanDocumentV1,item:FurniturePlacement):strin
   if(item.heightMm+(isDoor(item.catalogId)||item.catalogId==="window-solarium"?25:200)>floor.heightMm)return "This opening is taller than the wall. Reduce its height.";
   const horizontal=Math.abs(Math.sin(item.rotation*Math.PI/180))<.001;
   const vertical=Math.abs(Math.cos(item.rotation*Math.PI/180))<.001;
-  if(!horizontal&&!vertical)return "Doors and windows must align with a wall.";
+  if(!horizontal&&!vertical){
+    const host=diagonalWalls(floor,plan.gridSizeMm).find(w=>{
+      const along=(item.x-w.x)*w.ux+(item.z-w.z)*w.uz,off=(item.z-w.z)*w.ux-(item.x-w.x)*w.uz;
+      return Math.abs(off)<1&&along-item.widthMm/2>=19&&along+item.widthMm/2<=w.length-19&&Math.abs(Math.sin(item.rotation*Math.PI/180+Math.atan2(w.uz,w.ux)))<.001;
+    });
+    if(!host)return 'Doors and windows must align with a wall.';
+    const angle=Math.atan2(host.uz,host.ux)*180/Math.PI,local=(f:FurniturePlacement)=>({...f,x:(f.x-host.x)*host.ux+(f.z-host.z)*host.uz,z:(f.z-host.z)*host.ux-(f.x-host.x)*host.uz,rotation:f.rotation+angle});
+    const localFloor={...floor,cells:[],cellRects:undefined,wallCuts:[],walls:[{id:'angled-host',ax:0,az:0,bx:host.length/plan.gridSizeMm,bz:0}]};
+    return windowProblem({...plan,floors:[localFloor],furniture:plan.furniture.map(local)},local(item));
+  }
   const along=horizontal?item.x:item.z,line=horizontal?item.z:item.x;
   const fits=wallRuns(floor,plan.gridSizeMm).some(r=>r.horizontal===horizontal&&Math.abs(r.line-line)<1&&along-item.widthMm/2>=r.start+19&&along+item.widthMm/2<=r.end-19);
   if(!fits)return "No wall long enough here. Add a wall or reduce the opening width.";
@@ -110,6 +126,9 @@ export interface WallPiece { start:number; end:number; bottom:number; top:number
 // Subtract apertures in millimetres. The arched crown uses narrow strips hidden
 // under its curved frame, avoiding heavyweight boolean geometry in the editor.
 export function windowWallPieces(wall:WallSegment,grid:number,height:number,items:FurniturePlacement[]):WallPiece[] {
+  if(wall.ax!==wall.bx&&wall.az!==wall.bz){const dx=(wall.bx-wall.ax)*grid,dz=(wall.bz-wall.az)*grid,length=Math.hypot(dx,dz),ux=dx/length,uz=dz/length,angle=Math.atan2(uz,ux)*180/Math.PI;
+    return windowWallPieces({...wall,ax:0,az:0,bx:length/grid,bz:0},grid,height,items.map(i=>({...i,x:(i.x-wall.ax*grid)*ux+(i.z-wall.az*grid)*uz,z:(i.z-wall.az*grid)*ux-(i.x-wall.ax*grid)*uz,rotation:i.rotation+angle})));
+  }
   const horizontal=wall.az===wall.bz,line=(horizontal?wall.az:wall.ax)*grid;
   const start=Math.min(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz)*grid;
   const end=Math.max(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz)*grid;
@@ -171,3 +190,5 @@ export function fitToWall(plan:PlanDocumentV1,item:FurniturePlacement):Furniture
  const widthMm=Math.round(Math.min(20000,run.end-run.start-(opening?40:0))*1000)/1000;if(widthMm<200)return item;
  return {...item,widthMm,x:horizontal?(run.start+run.end)/2:item.x,z:horizontal?item.z:(run.start+run.end)/2,moduleRun:true};
 }
+
+function diagonalWalls(floor:FloorPlan,grid:number){return [...floorBoundaryWalls(floor,grid),...floor.walls].filter(w=>w.ax!==w.bx&&w.az!==w.bz).map(w=>{const dx=(w.bx-w.ax)*grid,dz=(w.bz-w.az)*grid,length=Math.hypot(dx,dz);return {x:w.ax*grid,z:w.az*grid,ux:dx/length,uz:dz/length,length};});}

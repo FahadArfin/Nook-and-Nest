@@ -8,7 +8,6 @@ import {createSamplePlan} from '../src/domain';
 import {blueprintPlan} from '../src/blueprint';
 import {usePlanner} from '../src/store';
 import {loadStudioRecovery,saveStudioRecovery,studioFingerprint} from '../src/studioRecovery';
-
 beforeEach(()=>{
   HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};
   const p=createSamplePlan();p.floors=p.floors.slice(0,1);p.furniture=[];
@@ -20,7 +19,7 @@ it('asks for exact dimensions first and hides old properties while drawing',asyn
   render(<BlueprintStudio onClose={()=>{}}/>);await ready();
   fireEvent.click(screen.getByRole('button',{name:/^Study/}));
   expect(screen.getByLabelText('Room name')).toBeVisible();
-  fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));
+  if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));
   fireEvent.click(screen.getByRole('button',{name:'Add room by dimensions'}));
   expect(screen.queryByLabelText('Room name')).toBeNull();
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
@@ -29,7 +28,7 @@ it('asks for exact dimensions first and hides old properties while drawing',asyn
   fireEvent.change(screen.getByLabelText('Depth metres'),{target:{value:'2.75'}});fireEvent.blur(screen.getByLabelText('Depth metres'));
   fireEvent.click(screen.getByRole('button',{name:'Add this room'}));
   expect(screen.getByLabelText('Width metres')).toHaveValue('5.25');expect(screen.getByLabelText('Depth metres')).toHaveValue('2.75');
-  fireEvent.click(screen.getByRole('button',{name:'Draw room options'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   expect(screen.queryByLabelText('Room name')).toBeNull();expect(screen.getByLabelText('New room type')).toBeVisible();
   fireEvent.click(screen.getByRole('button',{name:'Done drawing'}));expect(screen.getByRole('button',{name:'Pan drawing'})).toHaveAttribute('aria-pressed','true');
 });
@@ -49,7 +48,7 @@ it('restores unfinished corners but rejects recovery from a different 3D layout'
   const p=usePlanner.getState().plan,id=p.floors[0].id;
   const draft={rooms:[{id:'r',name:'Recovered room',kind:'Living' as const,x:0,z:0,width:3000,depth:3000,enclosed:true}],walls:[],omittedWalls:[],fixtures:[]};
   await saveStudioRecovery(p.id,id,{fingerprint:studioFingerprint(p),savedAt:new Date().toISOString(),draft,corners:[{x:4000,z:0},{x:6000,z:0}],units:'imperial',imageScale:10,calibrated:true,view:{x:0,z:0,width:10000,height:10000},page:1,rotation:0});
-  const ui=render(<BlueprintStudio onClose={()=>{}}/>);await ready();expect(screen.getByText('2 corners · right angles')).toBeVisible();
+  const ui=render(<BlueprintStudio onClose={()=>{}}/>);await ready();expect(screen.getByText('2 corners · any angle')).toBeVisible();
   fireEvent.click(screen.getByRole('button',{name:'Done drawing'}));expect(screen.getByRole('alert')).toHaveTextContent('Close or cancel');
   ui.unmount();usePlanner.getState().replacePlan({...p,gridSizeMm:p.gridSizeMm+1});
   render(<BlueprintStudio onClose={()=>{}}/>);await ready();expect(screen.queryByRole('button',{name:/^Recovered room/})).toBeNull();

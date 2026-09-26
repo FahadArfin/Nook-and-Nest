@@ -1,3 +1,4 @@
+import {clipShape,validatePolygon,shapeCovered,shapeIntersection,shapeEdges,unionShapes,geometryParts} from './polygonGeometry';
 import {subtractWallCuts as cutBlueprintWalls} from './wallCuts';
 import { catalog, defaultMountHeight, isDoor, isWallOpening } from './catalog';
 import { uid } from './domain';
@@ -28,6 +29,7 @@ export function openPlanAreas(rooms:BlueprintRoom[]):BlueprintRoom[] {
 }
 export function fixtureName(item:FurniturePlacement) {return item.doorless?'Open entrance (no door)':catalog.find(c=>c.id===item.catalogId)?.name??item.catalogId;}
 export function mergeFloorRegions(rectangles:FloorRect[]):FloorRect[] {
+  if(rectangles.some(r=>r.polygon))return structuredClone(rectangles);
   let parts=rectangles.map(r=>({x:r.x,z:r.z,width:r.width,depth:r.depth})),changed=true;
   // Exact adjacent rectangles only: never fill the hole in an L-shaped home.
   for(let pass=0;changed&&pass<4;pass++) {
@@ -59,6 +61,7 @@ export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoo
   if(!rooms.length||rooms.length>100)throw new Error('Draw between 1 and 100 room areas.');
   const byCell=new Map<string,{x:number;z:number;rects:FloorRect[]}>();
   for(const r of rooms) {
+    if(r.polygon)validatePolygon(r.polygon);
     if(![r.x,r.z,r.width,r.depth].every(Number.isFinite)||r.width<10||r.depth<10||r.width>60000||r.depth>60000||Math.abs(r.x)>100000||Math.abs(r.z)>100000)throw new Error('Use room sizes from 0.01 to 60 metres, within 100 metres of the origin.');
     if(!roomKinds.includes(r.kind)||!r.name.trim()||r.name.length>100)throw new Error('Give every room a name and room type.');
     const left=Math.floor(r.x/grid),right=Math.ceil((r.x+r.width)/grid),top=Math.floor(r.z/grid),bottom=Math.ceil((r.z+r.depth)/grid);
@@ -66,7 +69,8 @@ export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoo
     for(let z=top;z<bottom;z++)for(let x=left;x<right;x++) {
       const k=`${x},${z}`,entry=byCell.get(k)??{x,z,rects:[]};
       const rx=Math.max(x*grid,r.x),rz=Math.max(z*grid,r.z);
-      entry.rects.push({x:rx,z:rz,width:Math.min((x+1)*grid,r.x+r.width)-rx,depth:Math.min((z+1)*grid,r.z+r.depth)-rz});byCell.set(k,entry);
+      const clip={x:rx,z:rz,width:Math.min((x+1)*grid,r.x+r.width)-rx,depth:Math.min((z+1)*grid,r.z+r.depth)-rz};
+      entry.rects.push(...(r.polygon?clipShape(r,clip):[clip]));if(entry.rects.length)byCell.set(k,entry);
       if(byCell.size>20000)throw new Error('A floor can contain up to 20,000 tiles.');
     }
   }
@@ -76,6 +80,10 @@ export function floorFromRooms(original:FloorPlan,grid:number,rooms:BlueprintRoo
 }
 export function roomDividers(floor:FloorPlan,grid:number,rooms:BlueprintRoom[]):WallSegment[] {
   const boundary=floorBoundaryWalls(floor,grid);
+  if(rooms.some(r=>r.polygon)){
+    const edges=roomGroups(rooms).filter(g=>g.enclosed).flatMap(g=>shapeEdges(g.parts)).map(({a,b},i)=>({id:`bp:angle:${i}`,ax:a.x/grid,az:a.z/grid,bx:b.x/grid,bz:b.z/grid}));
+    return cutBlueprintWalls(edges,boundary);
+  }
   const lines=new Map<string,{horizontal:boolean;line:number;intervals:[number,number][]}>();
   const add=(horizontal:boolean,line:number,start:number,end:number)=>{const key=`${horizontal}:${line}`;const g=lines.get(key)??{horizontal,line,intervals:[]};g.intervals.push([start,end]);lines.set(key,g);};
   for(const group of roomGroups(rooms).filter(r=>r.enclosed))for(const w of floorBoundaryWalls(floorFromRooms(floor,grid,group.parts),grid)){
@@ -95,14 +103,19 @@ export function roomDividers(floor:FloorPlan,grid:number,rooms:BlueprintRoom[]):
 export {subtractWallCuts as cutBlueprintWalls} from './wallCuts';
 export function fixturesAfterWallCuts(fixtures:FurniturePlacement[],cuts:WallSegment[],grid:number) {
   return fixtures.filter(f=>!isWallOpening(f.catalogId)||!cuts.some(c=>{
-    const horizontal=c.az===c.bz;if(horizontal!==(f.rotation%180===0))return false;
-    const line=(horizontal?c.az:c.ax)*grid,along=horizontal?f.x:f.z;
-    return Math.abs((horizontal?f.z:f.x)-line)<1&&along+f.widthMm/2>Math.min(horizontal?c.ax:c.az,horizontal?c.bx:c.bz)*grid&&along-f.widthMm/2<Math.max(horizontal?c.ax:c.az,horizontal?c.bx:c.bz)*grid;
+    const ax=c.ax*grid,az=c.az*grid,dx=(c.bx-c.ax)*grid,dz=(c.bz-c.az)*grid,length=Math.hypot(dx,dz);if(!length)return false;
+    const along=((f.x-ax)*dx+(f.z-az)*dz)/length,off=((f.z-az)*dx-(f.x-ax)*dz)/length;
+    return Math.abs(off)<1&&Math.abs(Math.sin(f.rotation*Math.PI/180+Math.atan2(dz,dx)))<.001&&along+f.widthMm/2>0&&along-f.widthMm/2<length;
   }));
 }
 export function combineBlueprintRooms(draft:BlueprintDraft,first:string,second:string,grid:number):BlueprintDraft {
   const groups=roomGroups(draft.rooms),a=groups.find(g=>g.parts.some(p=>p.id===first)),b=groups.find(g=>g.parts.some(p=>p.id===second));
   if(!a||!b||a===b)throw new Error('Select two different adjoining rooms.');
+  if([...a.parts,...b.parts].some(r=>r.polygon)){
+    const merged=unionShapes([...a.parts,...b.parts]);if(merged.length!==1)throw new Error('Selected areas must touch or overlap.');
+    const ids=new Set([...a.parts,...b.parts].map(p=>p.id)),groupId=a.groupId??a.id;
+    return {...draft,rooms:[...draft.rooms.filter(r=>!ids.has(r.id)),...geometryParts(merged).map((p,i)=>({...a.parts[0],...p,id:i?uid():a.id,groupId}))]};
+  }
   const cuts:WallSegment[]=[];let connected=false;
   for(const x of a.parts)for(const y of b.parts){
     const top=Math.max(x.z,y.z),bottom=Math.min(x.z+x.depth,y.z+y.depth),left=Math.max(x.x,y.x),right=Math.min(x.x+x.width,y.x+y.width);
@@ -138,11 +151,12 @@ export function footprint(item:FurniturePlacement,margin=0):FloorRect {
 }
 const overlaps=(a:FloorRect,b:FloorRect)=>a.x<b.x+b.width-.1&&a.x+a.width>b.x+.1&&a.z<b.z+b.depth-.1&&a.z+a.depth>b.z+.1;
 export function coveredByFloor(rect:FloorRect,floor:FloorPlan,grid:number) {
+  if(floorRects(floor,grid).some(r=>r.polygon))return shapeCovered(rect,floorRects(floor,grid));
   let remaining=[rect];for(const part of floorRects(floor,grid)){remaining=remaining.flatMap(r=>subtractRect(r,part));if(!remaining.length)return true;}return false;
 }
 export function roomOverlapPairs(rooms:BlueprintRoom[]) {
   const pairs:{a:BlueprintRoom;b:BlueprintRoom}[]=[];
-  for(let i=0;i<rooms.length;i++)for(let j=i+1;j<rooms.length;j++){const a=rooms[i],b=rooms[j];if((a.groupId??a.id)===(b.groupId??b.id))continue;if(Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)>1&&Math.min(a.z+a.depth,b.z+b.depth)-Math.max(a.z,b.z)>1)pairs.push({a,b});}
+  for(let i=0;i<rooms.length;i++)for(let j=i+1;j<rooms.length;j++){const a=rooms[i],b=rooms[j];if((a.groupId??a.id)===(b.groupId??b.id))continue;if(Math.min(a.x+a.width,b.x+b.width)-Math.max(a.x,b.x)>1&&Math.min(a.z+a.depth,b.z+b.depth)-Math.max(a.z,b.z)>1){if(!(a.polygon||b.polygon)||shapeIntersection([a],[b])>1)pairs.push({a,b});}}
   return pairs;
 }
 export function separateBlueprintRectangle(draft:BlueprintDraft,id:string):BlueprintDraft {

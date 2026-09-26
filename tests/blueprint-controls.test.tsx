@@ -31,7 +31,6 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
     expect(screen.getByRole('button',{name:/^Confirm & create 3D home/})).toBeEnabled();
     expect(screen.queryByText('Check the empty home')).toBeNull();expect(screen.getByText(/This drawing will replace/)).toBeVisible();expect(screen.queryByRole('toolbar',{name:'Floor plan editing'})).toBeNull();
-
     fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));
     expect(onClose).toHaveBeenCalledOnce();expect(usePlanner.getState().plan.floors[0].blueprint!.rooms[0].width).toBe(4321);expect(usePlanner.getState().past).toHaveLength(1);
     act(()=>usePlanner.getState().undo());expect(usePlanner.getState().plan).toEqual(original);
@@ -122,14 +121,13 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));
     expect(usePlanner.getState().plan.furniture.find(f=>f.catalogId==='door-flush')?.doorless).toBe(true);
   });
-  it('resizes a rectangle with a corner handle, and undo restores the drawing only',()=>{
+  it('edits room dimensions without large square resize handles and supports undo',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
     fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));
-    const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),handle=canvas.querySelector('[data-handle="se"]')!;
-    fireEvent.pointerDown(handle,{clientX:5000,clientY:5000,button:0});fireEvent.pointerMove(canvas,{clientX:4300,clientY:4700});fireEvent.pointerUp(canvas,{clientX:4300,clientY:4700});
-    expect(metricField('Width metres')).toHaveValue('4.3');expect(metricField('Depth metres')).toHaveValue('4.7');
-    expect(usePlanner.getState().plan).toBe(original);fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
-    fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));expect(metricField('Width metres')).toHaveValue('5');
+    expect(screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelector('[data-handle]')).toBeNull();
+    fireEvent.change(metricField('Width metres'),{target:{value:'4.3'}});fireEvent.blur(metricField('Width metres'));
+    expect(screen.getByRole('button',{name:/^Main bedroom/})).toHaveTextContent('4.3 m');
+    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('button',{name:/^Main bedroom/})).toHaveTextContent('5 m × 5 m');expect(usePlanner.getState().plan).toBe(original);
   });
   it('lets a user select, rename and delete an overlapped false dining area',()=>{
     const original=usePlanner.getState().plan,base=structuredClone(original),id=base.floors[0].id;
@@ -150,7 +148,7 @@ describe('floor plan studio flow',()=>{
     expect(screen.getByRole('button',{name:/^Living.*5 m/})).toBeInTheDocument();
   });
   it('moves a room in top-down view without moving the saved floor',()=>{
-    const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
+    const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and move rooms'}));
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),rect=canvas.querySelector('[data-object="bedroom"] rect')!;
     fireEvent.pointerDown(rect,{clientX:500,clientY:500,button:0});fireEvent.pointerMove(canvas,{clientX:1500,clientY:1500});fireEvent.pointerUp(canvas,{clientX:1500,clientY:1500});
     expect(rect.getAttribute('x')).toBe('1000');expect(rect.getAttribute('y')).toBe('1000');expect(usePlanner.getState().plan).toBe(original);
@@ -185,16 +183,14 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Combine selected (3)'}));expect(screen.getByLabelText('Room name')).toHaveValue('Master bedroom');expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();expect(usePlanner.getState().plan).toBe(original);
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(screen.getByRole('heading',{name:'Rooms & regions · 3'})).toBeVisible();
   });
-  it('shows four handles for a combined room and resizes every piece as one object',()=>{
+  it('keeps combined rooms free of square handles and allows exact dimension edits',()=>{
     const p=usePlanner.getState().plan,id=p.floors[0].id;
     usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[{...room,groupId:'joined',width:4000,depth:3000},{...room,id:'extension',groupId:'joined',x:-1000,z:2000,width:1000,depth:1000}],walls:[],omittedWalls:[],fixtures:[]}));
     render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});
-    expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(4);expect(screen.queryByRole('button',{name:'Rectangle 2'})).toBeNull();
-    fireEvent.pointerDown(canvas.querySelector('[data-handle="se"]')!,{button:0,clientX:4000,clientY:3000});fireEvent.pointerMove(canvas,{clientX:9000,clientY:6000});fireEvent.pointerUp(canvas);
-    expect(metricField('Width metres')).toHaveValue('10');expect(metricField('Depth metres')).toHaveValue('6');
-    const extension=canvas.querySelector('rect[data-object="extension"]')!;expect(extension.getAttribute('width')).toBe('2000');expect(extension.getAttribute('y')).toBe('4000');
-    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));expect(metricField('Width metres')).toHaveValue('5');
-    fireEvent.click(screen.getByLabelText('Edit individual rectangles'));expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(8);
+    expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(0);
+    fireEvent.change(metricField('Width metres'),{target:{value:'8'}});fireEvent.blur(metricField('Width metres'));
+    expect(screen.getByRole('button',{name:/^Main bedroom/})).toHaveTextContent('8 m');
+    fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(canvas.querySelectorAll('[data-handle]')).toHaveLength(0);
   });
   it('drags a fixture icon onto the plan, deletes it, and undoes deletion',()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
@@ -207,7 +203,7 @@ describe('floor plan studio flow',()=>{
   });
   it('snaps a dragged room to a shared wall and undo restores its gap',()=>{
     const p=usePlanner.getState().plan,id=p.floors[0].id;
-    usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[room,{...room,id:'two',name:'Room two',x:5300}],walls:[],omittedWalls:[],fixtures:[]}));render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
+    usePlanner.getState().replacePlan(blueprintPlan(p,id,{rooms:[room,{...room,id:'two',name:'Room two',x:5300}],walls:[],omittedWalls:[],fixtures:[]}));render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and move rooms'}));
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'}),part=canvas.querySelector('[data-object="two"] rect')!;
     fireEvent.pointerDown(part,{button:0,clientX:5500,clientY:1000});fireEvent.pointerMove(canvas,{clientX:5240,clientY:1000});expect(screen.getByText('Shared wall snapped')).toBeVisible();fireEvent.pointerUp(canvas);
     expect(part.getAttribute('x')).toBe('5000');fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/^Room two/}));expect(canvas.querySelector('[data-object="two"] rect')!.getAttribute('x')).toBe('5300');
@@ -232,9 +228,8 @@ describe('direct quick layout',()=>{
   expect(usePlanner.getState().plan.furniture).toEqual(placed);expect(usePlanner.getState().past).toHaveLength(1);
  });
 });
-
 it('selects, edits and deletes a boundary wall and preserves it through conversion and reopening',()=>{
- const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and resize rooms'}));
+ const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and move rooms'}));
  const line=screen.getAllByLabelText('Wall segment')[0];
  fireEvent.pointerDown(line,{button:0,clientX:0,clientY:0,pointerId:1});fireEvent.pointerUp(screen.getByLabelText('Top-down floor plan drawing'),{pointerId:1});
  expect(screen.getByText('Edit wall segment')).toBeInTheDocument();
@@ -248,7 +243,6 @@ it('selects, edits and deletes a boundary wall and preserves it through conversi
  expect(usePlanner.getState().plan.floors[0].walls.some(w=>w.id.startsWith('edited:')&&w.az*250===100)).toBe(true);
  cleanup();render(<BlueprintStudio onClose={()=>{}}/>);expect(screen.getAllByLabelText('Wall segment').some(e=>e.getAttribute('y1')==='100')).toBe(true);
 });
-
 it('defaults room dimensions to feet and inches, hides coordinates and preserves geometry through unit switches',()=>{
  usePlanner.getState().setUnits('imperial');render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));
  expect(screen.getByLabelText('Width feet')).toHaveValue('16');expect(screen.getByLabelText('Width inches')).toHaveValue('4 7/8');
@@ -262,20 +256,17 @@ it('defaults room dimensions to feet and inches, hides coordinates and preserves
  expect(rect.getAttribute('width')).toBe('2896');expect(rect.getAttribute('x')).toBe('0');
  fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));expect(screen.getByLabelText('Width inches')).toHaveValue('4 7/8');
 });
-
 it('groups every drawing action in the bottom dock and protects home navigation',()=>{
  const onHome=vi.fn(),onClose=vi.fn();render(<BlueprintStudio onHome={onHome} onClose={onClose}/>);
  const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'}));
- fireEvent.click(dock.getByRole('button',{name:'Draw room options'}));for(const name of ['Inside wall','Remove wall section','Draw room area','Add room by dimensions','Combine rooms','Doors, entrances and windows','Choose optional fixtures'])expect(dock.getByRole('button',{name})).toBeTruthy();
+ fireEvent.click(dock.getByRole('button',{name:'More tools'}));for(const name of ['Inside wall','Remove wall section','Draw room area','Add room by dimensions','Combine rooms','Doors, entrances and windows','Choose optional fixtures'])expect(dock.getByRole('button',{name})).toBeTruthy();
  fireEvent.click(dock.getByRole('button',{name:'Add room by dimensions'}));fireEvent.click(screen.getByRole('button',{name:'Add this room'}));vi.mocked(window.confirm).mockReturnValue(false);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onHome).not.toHaveBeenCalled();expect(onClose).not.toHaveBeenCalled();vi.mocked(window.confirm).mockReturnValue(true);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onClose).not.toHaveBeenCalled();expect(onHome).toHaveBeenCalledOnce();
 });
-
 it('keeps navigation in the bottom dock and document actions above the drawing',()=>{
  render(<BlueprintStudio onClose={vi.fn()}/>);const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'})),actions=within(screen.getByRole('toolbar',{name:'Studio actions'}));
- expect(dock.getByRole('button',{name:'Select and resize rooms'})).toBeTruthy();const pan=dock.getByRole('button',{name:'Pan drawing'});fireEvent.click(pan);expect(pan).toHaveAttribute('aria-pressed','true');
+ expect(dock.getByRole('button',{name:'Select and move rooms'})).toBeTruthy();const pan=dock.getByRole('button',{name:'Pan drawing'});fireEvent.click(pan);expect(pan).toHaveAttribute('aria-pressed','true');
  expect(actions.queryByRole('button',{name:'Pan drawing'})).toBeNull();expect(actions.getByRole('button',{name:'File'})).toBeTruthy();expect(actions.getByRole('button',{name:'View'})).toBeTruthy();expect(actions.getByRole('button',{name:'Import'})).toBeTruthy();fireEvent.click(actions.getByRole('button',{name:'View'}));expect(screen.getByLabelText('Measurement units')).toBeVisible();
 });
-
 it('starts region imports in manual Combine review and keeps Reanalyze on that same flow',async()=>{
   const detected={regionReview:true,rooms:[{roomId:'a',name:'Bedroom region',kind:'Bedroom' as const,x:0,y:0,width:400,height:300,enclosed:false,note:''},{roomId:'b',name:'Entry region',kind:'Hall' as const,x:0,y:300,width:100,height:100,enclosed:false,note:''}],walls:[],dimensions:[{text:'4 m',millimetres:4000,ax:0,ay:0,bx:400,by:0}],fixtures:[],warnings:[]};
   vi.mocked(recognizeReference).mockResolvedValueOnce(detected).mockResolvedValueOnce(detected);

@@ -1,3 +1,4 @@
+import {polygonPrism,ringOf} from '../polygonGeometry';
 import {VegetationFieldRenderer} from './VegetationFieldRenderer';
 import { VertexData } from "@babylonjs/core/Meshes/mesh.vertexData";
 import { FrameBudget } from "../frameBudget";
@@ -1545,7 +1546,7 @@ export class SceneController {
         this.reusableTiles.delete(surfaceKey);
         continue;
       }
-      const tile = MeshBuilder.CreateBox(
+      const tile = rect.polygon ? new Mesh(`cell:${cell.x}:${cell.z}`,this.scene) : MeshBuilder.CreateBox(
         `cell:${cell.x}:${cell.z}`,
         {
           width:
@@ -1560,6 +1561,7 @@ export class SceneController {
         },
         this.scene,
       );
+      if(rect.polygon){const geometry=polygonPrism(rect.polygon),data=new VertexData();data.positions=geometry.positions;data.indices=geometry.indices;data.uvs=geometry.uvs;const normals:number[]=[];VertexData.ComputeNormals(geometry.positions,geometry.indices,normals);data.normals=normals;data.applyToMesh(tile);}
       tile.metadata = { surfaceKey };
       tile.parent = this.root;
       tile.position = new Vector3(
@@ -1567,6 +1569,7 @@ export class SceneController {
         elevation,
         (rect.z + rect.depth / 2) / 1000,
       );
+      if(rect.polygon)tile.position=new Vector3(0,elevation,0);
       if (finish.repeatMeters) {
         const positions = tile.getVerticesData("position")!,
           uvs = tile.getVerticesData("uv")!;
@@ -1642,14 +1645,11 @@ export class SceneController {
           r.z + r.depth / 2 <= room.z + room.depth,
       );
       if (outdoor) continue;
-      const a = positions.length / 3,
-        x = r.x / 1000,
-        z = r.z / 1000,
-        b = (r.x + r.width) / 1000,
-        d = (r.z + r.depth) / 1000,
-        y = elevation + floor.heightMm / 1000;
-      positions.push(x, y, z, b, y, z, x, y, d, b, y, d);
-      indices.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
+      const geometry=polygonPrism(ringOf(r)),offset=positions.length/3,y=elevation+floor.heightMm/1000;
+      const n=ringOf(r).length;
+      for(let i=0;i<n;i++)positions.push(geometry.positions[i*3],y,geometry.positions[i*3+2]);
+      for(let i=0;i<geometry.indices.length;i+=6){const tri=geometry.indices.slice(i,i+3);if(tri.some(j=>j>=n))break;indices.push(...tri.map(j=>j+offset));}
+
     }
     data.positions = positions;
     data.indices = indices;
@@ -1699,6 +1699,7 @@ export class SceneController {
           wall.heightMm ?? floor.heightMm,
           validOpenings,
         ).map((p) => {
+          if(wall.ax!==wall.bx&&wall.az!==wall.bz)return p;
           const [start, end] = joinedWallSpan(
               wall,
               walls,
@@ -1751,7 +1752,7 @@ export class SceneController {
     finishes?: Record<string, string>,
     boundary = true,
   ) {
-    const horizontal = Math.abs(az - bz) < 0.001;
+    const horizontal = Math.abs(az - bz) < 0.001,diagonal=!horizontal&&Math.abs(ax-bx)>.001,length=Math.hypot(bx-ax,bz-az);
     const geometry: WallGeometry = { ax, az, bx, bz, boundary };
     const wall = {
       position: new Vector3((ax + bx) / 2, y + heightMm / 2000, (az + bz) / 2),
@@ -1775,9 +1776,9 @@ export class SceneController {
       mesh.metadata = { paintFloorId: ghost ? undefined : this.activeFloorId };
       mesh.parent = this.root;
       mesh.position = new Vector3(
-        horizontal ? center : ax,
+        diagonal?ax+(bx-ax)*center/length:horizontal ? center : ax,
         y + (piece.bottom + piece.top) / 2000,
-        horizontal ? az : center,
+        diagonal?az+(bz-az)*center/length:horizontal ? az : center,
       );
       mesh.rotation.y = wall.rotation.y;
       const wallFinish = findWallFinish(

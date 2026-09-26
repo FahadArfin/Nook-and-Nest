@@ -1,3 +1,5 @@
+import {angledRoomProposal} from './angledRooms';
+import {shapeEdges} from './polygonGeometry';
 import {roomGroups,type BlueprintDraft,type BlueprintRoom,type RoomKind} from './blueprint';
 import {unionRects,type FloorRect} from './floorGeometry';
 import {regionsFromWalls} from './wallFirstGeometry';
@@ -5,6 +7,7 @@ import type {SnapSegment} from './studioSnapping';
 
 /** Cancel shared rectangle edges so concave rooms never acquire artificial seams. */
 export function roomOutline(parts:FloorRect[]):SnapSegment[]{
+  if(parts.some(r=>r.polygon))return shapeEdges(parts);
   const lines=new Map<string,{h:boolean;line:number;events:Map<number,number>}>();
   const edge=(h:boolean,line:number,start:number,end:number,sign:number)=>{
     const key=`${h}:${line}`,row=lines.get(key)??{h,line,events:new Map<number,number>()};
@@ -38,6 +41,8 @@ function sharesSpan(edge:SnapSegment,w:SnapSegment){
 export function connectedRoomProposal(draft:BlueprintDraft,grid:number,strokes:SnapSegment[],kind:RoomKind='Living'){
   if(strokes.length>80)throw new Error('Apply these rooms before drawing more than 80 wall lines.');
   if(!strokes.length)return {rooms:draft.rooms,changed:[] as BlueprintRoom[],count:0};
+  if(strokes.some(({a,b})=>![a.x,a.z,b.x,b.z].every(Number.isFinite)||Math.max(Math.abs(a.x),Math.abs(a.z),Math.abs(b.x),Math.abs(b.z))>100000||Math.hypot(a.x-b.x,a.z-b.z)<100))throw new Error('Draw edges at least 10 cm long, within 100 metres.');
+  if(draft.rooms.some(r=>r.polygon)||strokes.some(({a,b})=>a.x!==b.x&&a.z!==b.z))return angledRoomProposal(draft,grid,strokes,kind);
   if(strokes.some(({a,b})=>![a.x,a.z,b.x,b.z].every(Number.isFinite)||Math.max(Math.abs(a.x),Math.abs(a.z),Math.abs(b.x),Math.abs(b.z))>100000||(a.x!==b.x&&a.z!==b.z)||Math.hypot(a.x-b.x,a.z-b.z)<100))throw new Error('Draw horizontal or vertical lines at least 10 cm long, within 100 metres.');
   const originals=roomGroups(draft.rooms);
   const lines=[...originals.flatMap(g=>roomOutline(g.parts)),...draft.walls.map(w=>({a:{x:w.ax*grid,z:w.az*grid},b:{x:w.bx*grid,z:w.bz*grid}})),...strokes];
