@@ -53,3 +53,39 @@
 .blueprint-dialog[open] .bp-drawing>.studio-polygon-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 12px;background:var(--paper);border-bottom:1px solid var(--line);flex-shrink:0}
 .blueprint-dialog[open] .bp-drawing>.studio-polygon-actions button{min-height:34px;padding:6px 10px;font-size:12px}
 .bp-canvas:is(.mode-lroom,.mode-polygon,.mode-measure,.mode-dimension,.mode-note){cursor:crosshair}
+
+/* Keep the drawing surface stable while the task-specific controls change. */
+.blueprint-dialog[open] .bp-workspace.studio-reviewing{padding-left:0}
+.blueprint-dialog[open] .bp-instruction{height:64px;box-sizing:border-box;overflow:auto;line-height:1.4}
+.blueprint-dialog[open] .bp-note,.blueprint-dialog[open] .bp-message{position:absolute;bottom:68px;left:225px;right:285px;z-index:8;max-height:110px;overflow:auto;box-shadow:0 3px 14px #0002;border-radius:10px}
+.blueprint-dialog[open] .bp-sidebar-hidden :is(.bp-note,.bp-message){right:16px}
+.blueprint-dialog[open] .studio-reviewing :is(.bp-note,.bp-message){left:16px}
+.blueprint-dialog[open] .bp-sidebar{padding-inline:12px}
+.blueprint-dialog[open] .bp-sidebar .bp-selection{margin-top:8px;padding:10px}
+.blueprint-dialog[open] .bp-sidebar .studio-area{font-size:14px!important;margin:4px 0}
+.blueprint-dialog[open] .bp-sidebar .bp-room-list{max-height:180px;overflow:auto}
+.blueprint-dialog[open] .bp-sidebar .bp-geometry-fields{padding:0}
+.blueprint-dialog[open] .studio-dimensions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.blueprint-dialog[open] .studio-dimensions .length-input{display:grid;gap:4px;margin:8px 0}
+.blueprint-dialog[open] .studio-dimensions label{font-size:12px}
+.blueprint-dialog[open] .studio-dimensions input{padding:7px;min-height:36px;box-sizing:border-box}
+.blueprint-dialog[open] .studio-advanced summary{padding:10px 0;cursor:pointer}
+.blueprint-dialog[open] .studio-room-options,.blueprint-dialog[open] .studio-more-tools{display:grid;gap:4px;padding:6px;background:var(--wash);border-radius:8px}
+.blueprint-dialog[open] :is(.studio-room-options,.studio-more-tools)[hidden]{display:none}
+.blueprint-dialog[open] :is(.studio-room-options,.studio-more-tools) button{justify-content:flex-start;text-align:left;font-size:14px;width:100%;min-height:42px}
+.blueprint-dialog[open] .studio-tool-rail .bp-dock-buttons>button{font-size:14px;min-height:42px}
+.blueprint-dialog[open] .studio-tool-heading{padding-top:10px;font-size:12px}
+.blueprint-dialog[open] .studio-polygon-actions{display:grid;grid-template-columns:1fr 1fr;padding:8px 0;background:transparent}
+.blueprint-dialog[open] .studio-polygon-actions small{grid-column:1 / -1}
+.blueprint-dialog[open] .studio-polygon-actions button{padding:6px;font-size:13px}
+.blueprint-dialog[open] .studio-readiness{padding-left:20px;line-height:1.6}
+.blueprint-dialog[open] .studio-measured{padding:12px 0}
+.blueprint-dialog[open] .studio-measured>button{margin:6px 4px 0 0}
+.blueprint-dialog[open] text[role=button]{cursor:pointer;pointer-events:auto}
+@media(max-width:1050px){.blueprint-dialog[open] :is(.bp-note,.bp-message){left:190px;right:250px}}
+@media(max-width:700px){
+ .blueprint-dialog[open] .bp-instruction{height:86px}
+ .blueprint-dialog[open] :is(.bp-note,.bp-message){left:10px;right:10px;bottom:70px;max-height:80px}
+ .blueprint-dialog[open] .studio-reviewing .bp-sidebar{width:min(310px,calc(100% - 48px))}
+ .blueprint-dialog[open] .bp-view-controls{top:165px}
+}

@@ -18,12 +18,12 @@ it('saves an unfinished room without building it and reopens its exact dimension
  const plan=blueprintPlan(p,id,{rooms:[{id:'room',name:'Solarium',kind:'Living',x:0,z:0,width:2743,depth:2591,enclosed:true}],walls:[],fixtures:[],omittedWalls:[]});
  usePlanner.getState().replacePlan(plan);const original=usePlanner.getState().plan;
  let ui=render(<BlueprintStudio onClose={()=>{}}/>);
- fireEvent.click(screen.getByRole('button',{name:/Solarium/}));fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Saved solarium'}});
- fireEvent.click(screen.getByRole('button',{name:'Save draft'}));
+ fireEvent.click(screen.getByRole('button',{name:/^Solarium/}));fireEvent.change(screen.getByLabelText('Room name'),{target:{value:'Saved solarium'}});
+ await waitFor(()=>expect(screen.queryByText(/Restoring draft/)).toBeNull());fireEvent.click(screen.getByRole('button',{name:'Save draft'}));
  await waitFor(()=>expect(usePlanner.getState().plan.studioDrafts?.[id].draft.rooms[0].name).toBe('Saved solarium'));
  expect(usePlanner.getState().plan.floors).toEqual(original.floors);expect(usePlanner.getState().past).toHaveLength(0);
  const saved=await loadPlan();expect(saved?.studioDrafts?.[id].draft.rooms[0].width).toBe(2743);expect(()=>parsePlan(JSON.stringify(saved))).not.toThrow();
- ui.unmount();ui=render(<BlueprintStudio onClose={()=>{}}/>);expect(screen.getByRole('button',{name:/Saved solarium/})).toBeTruthy();
+ ui.unmount();ui=render(<BlueprintStudio onClose={()=>{}}/>);expect(screen.getByRole('button',{name:/^Saved solarium/})).toBeTruthy();
 });
 it('rejects malformed persisted drafts',()=>{const p=createSamplePlan();(p as any).studioDrafts={[p.floors[0].id]:{draft:{rooms:[{id:'bad',width:NaN}],walls:[],fixtures:[],omittedWalls:[]},savedAt:'now',imageScale:10,calibrated:true,view:{x:0,z:0,width:100,height:100}}};expect(()=>parsePlan(JSON.stringify(p))).toThrow();});
 it('sticks near 45 and 90, releases outside the detent, and crosses zero continuously',()=>{
