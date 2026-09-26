@@ -149,15 +149,17 @@ export function separateBlueprintRectangle(draft:BlueprintDraft,id:string):Bluep
   const part=draft.rooms.find(r=>r.id===id);if(!part)return draft;
   return {...draft,rooms:draft.rooms.map(r=>r.id===id?{...r,groupId:uid(),name:'Separated area',kind:'Hall',enclosed:false}:r)};
 }
-export function blueprintProblems(plan:PlanDocumentV1,floorId:string):string[] {
-  const floor=plan.floors.find(f=>f.id===floorId)!,problems:string[]=roomOverlapPairs(plan.floors.find(f=>f.id===floorId)?.blueprint?.rooms??[]).map(({a,b})=>`${a.name} overlaps ${b.name}. Resize, move or delete the incorrect rectangle before creating 3D.`);
+export function blueprintReviewIssues(plan:PlanDocumentV1,floorId:string):{message:string;ids:string[]}[] {
+  const floor=plan.floors.find(f=>f.id===floorId)!,issues=roomOverlapPairs(floor.blueprint?.rooms??[]).map(({a,b})=>({message:`${a.name} overlaps ${b.name}. Resize, move or delete the incorrect rectangle before creating 3D.`,ids:[a.id,b.id]}));
   for(const item of plan.furniture.filter(f=>f.floorId===floorId)) {
     const problem=windowProblem(plan,item);
-    if(problem)problems.push(`${catalog.find(c=>c.id===item.catalogId)?.name}: ${problem}`);
-    else if(!isWallOpening(item.catalogId)&&!coveredByFloor(footprint(item),floor,plan.gridSizeMm))problems.push(`${catalog.find(c=>c.id===item.catalogId)?.name} is outside the floor. Move or remove it.`);
+    if(problem)issues.push({message:`${catalog.find(c=>c.id===item.catalogId)?.name}: ${problem}`,ids:[item.id]});
+    else if(!isWallOpening(item.catalogId)&&!coveredByFloor(footprint(item),floor,plan.gridSizeMm))issues.push({message:`${catalog.find(c=>c.id===item.catalogId)?.name} is outside the floor. Move or remove it.`,ids:[item.id]});
   }
-  return problems;
+  return issues;
 }
+export function blueprintProblems(plan:PlanDocumentV1,floorId:string):string[] {return blueprintReviewIssues(plan,floorId).map(i=>i.message);}
+
 export function fixtureAt(plan:PlanDocumentV1,floorId:string,catalogId:string,x:number,z:number):FurniturePlacement {
   const c=catalog.find(c=>c.id===catalogId);if(!c||!isFixedPiece(catalogId))throw new Error('Choose a kitchen, bathroom, laundry, door or window item.');
   return snapWindow(plan,{id:uid(),catalogId,floorId,x:Math.round(x),z:Math.round(z),rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage',elevationMm:defaultMountHeight(catalogId)});
