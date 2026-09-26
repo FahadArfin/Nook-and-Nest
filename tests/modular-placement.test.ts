@@ -204,3 +204,17 @@ it('renders a half wall without lowering other walls and supplies an invisible s
  const cut=removeWallSections(p,floor.id,[{ax:5,az:3,bx:6,bz:3}]);expect(cut.floors[0].walls.every(w=>w.heightMm===1200)).toBe(true);
  }finally{dispose()}
 });
+
+import {blueprintPlan} from '../src/blueprint';
+import {polygonRooms} from '../src/studioTools';
+it('renders diagonal walls at their true length and position and keeps floor triangles inside the room',()=>{
+ const {r,scene,dispose}=renderer();try{
+  const base=setup(),id=base.floors[0].id,p=blueprintPlan(base,id,{rooms:[{...polygonRooms([{x:0,z:0},{x:4000,z:0},{x:0,z:3000}])[0],id:'angle',name:'Triangle',kind:'Bedroom',enclosed:true}],walls:[],omittedWalls:[],fixtures:[]});
+  p.camera.showGrid=false;r.update(p,id);
+  const diagonal=scene.meshes.filter(m=>m.name.startsWith('wall:')&&Math.abs(Math.sin(m.rotation.y))>.1&&Math.abs(Math.cos(m.rotation.y))>.1);
+  expect(diagonal.length).toBeGreaterThan(0);let length=0;
+  for(const m of diagonal){const pos=m.getVerticesData('position')!;length+=Math.max(...pos.filter((_,i)=>i%3===0))-Math.min(...pos.filter((_,i)=>i%3===0));expect(m.position.x/4+m.position.z/3).toBeCloseTo(1,3);}
+  expect(length).toBeCloseTo(5,2);
+  for(const m of scene.meshes.filter(m=>m.name.startsWith('cell:'))){const pos=m.getVerticesData('position')!;for(let i=0;i<pos.length;i+=3)expect((pos[i]+m.position.x)/4+(pos[i+2]+m.position.z)/3).toBeLessThanOrEqual(1.0001);}
+ }finally{dispose();}
+});

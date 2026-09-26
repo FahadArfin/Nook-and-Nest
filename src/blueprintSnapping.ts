@@ -13,5 +13,5 @@ export function snapRoomMove(rooms:BlueprintRoom[],id:string,dx:number,dz:number
   for(const a of group.parts)for(const b of others){
     if(Math.min(a.x+dx+sx+a.width,b.x+b.width)>Math.max(a.x+dx+sx,b.x))for(const offset of [b.z-(a.z+dz+a.depth),b.z+b.depth-(a.z+dz)])if(Math.abs(offset)<bestZ){sz=offset;bestZ=Math.abs(offset);}
   }
-  return {rooms:rooms.map(r=>ids.has(r.id)?{...r,x:r.x+dx+sx,z:r.z+dz+sz}:r),snapped:bestX<tolerance||bestZ<tolerance};
+  return {rooms:rooms.map(r=>ids.has(r.id)?{...r,x:r.x+dx+sx,z:r.z+dz+sz,...(r.polygon?{polygon:r.polygon.map(p=>({x:p.x+dx+sx,z:p.z+dz+sz}))}:{})}:r),snapped:bestX<tolerance||bestZ<tolerance};
 }

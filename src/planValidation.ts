@@ -1,3 +1,4 @@
+import {validatePolygon,polygonBounds} from './polygonGeometry';
 import {validateVegetationField} from './vegetationField';
 import {isVegetation,vegetationLimit} from './vegetation';
 import {showerIds} from './apartmentCollection';
@@ -19,9 +20,9 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   arr(p.floors, 20); if (!p.floors.length) fail(); unique(p.floors);
   const floors = new Set(p.floors.map((f: any) => f.id));
   for (const f of p.floors) {
-    if(f.wallCuts!==undefined){arr(f.wallCuts,4000);for(const w of f.wallCuts){obj(w);str(w.id,160);for(const k of ["ax","az","bx","bz"])num(w[k],-10000,10000);if(w.ax!==w.bx&&w.az!==w.bz)fail();}}
+    if(f.wallCuts!==undefined){arr(f.wallCuts,4000);for(const w of f.wallCuts){obj(w);str(w.id,160);for(const k of ["ax","az","bx","bz"])num(w[k],-10000,10000);}}
     str(f.name); num(f.elevationMm); num(f.heightMm, 100, 20000);
-    if(f.blueprint!==undefined){obj(f.blueprint);str(f.blueprint.geometryKey,900000);if(f.blueprint.wallCuts!==undefined){arr(f.blueprint.wallCuts,4000);for(const w of f.blueprint.wallCuts){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);if(w.ax!==w.bx&&w.az!==w.bz)fail();}}for(const key of ['generatedWallIds','omittedWalls'])if(f.blueprint[key]!==undefined){arr(f.blueprint[key],4000);for(const id of f.blueprint[key])str(id,160);}arr(f.blueprint.rooms,100);unique(f.blueprint.rooms);for(const r of f.blueprint.rooms){str(r.name,100);if(r.groupId!==undefined)str(r.groupId,160);if(!['Living','Bedroom','Dining','Office','Kitchen','Bathroom','Laundry','Hall','Outdoor','Closet'].includes(r.kind)||typeof r.enclosed!=='boolean')fail();num(r.x,-100000,100000);num(r.z,-100000,100000);num(r.width,10,60000);num(r.depth,10,60000);}}
+    if(f.blueprint!==undefined){obj(f.blueprint);str(f.blueprint.geometryKey,900000);if(f.blueprint.wallCuts!==undefined){arr(f.blueprint.wallCuts,4000);for(const w of f.blueprint.wallCuts){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}for(const key of ['generatedWallIds','omittedWalls'])if(f.blueprint[key]!==undefined){arr(f.blueprint[key],4000);for(const id of f.blueprint[key])str(id,160);}arr(f.blueprint.rooms,100);unique(f.blueprint.rooms);for(const r of f.blueprint.rooms){str(r.name,100);if(r.groupId!==undefined)str(r.groupId,160);if(!['Living','Bedroom','Dining','Office','Kitchen','Bathroom','Laundry','Hall','Outdoor','Closet'].includes(r.kind)||typeof r.enclosed!=='boolean')fail();num(r.x,-100000,100000);num(r.z,-100000,100000);num(r.width,10,60000);num(r.depth,10,60000);if(r.polygon!==undefined){validatePolygon(r.polygon);const b=polygonBounds(r.polygon);if(["x","z","width","depth"].some(k=>Math.abs((b as any)[k]-r[k])>.01))fail();}}}
     for (const k of ["cellFinishes", "wallFinishes"]) if (f[k] !== undefined) { obj(f[k]); if (Object.keys(f[k]).length > 20000) fail(); for (const [key, finish] of Object.entries(f[k])) { str(key); str(finish); } }
     arr(f.cells, 20000); arr(f.walls, 4000); arr(f.openings, 2000); arr(f.stairs, 100);
     for (const c of f.cells) { obj(c); num(c.x, -10000, 10000); num(c.z, -10000, 10000); if (!Number.isInteger(c.x) || !Number.isInteger(c.z)) fail(); }
@@ -31,7 +32,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       for(const [key,rects] of Object.entries(f.cellRects)){
         if(!/^-?\d+,-?\d+$/.test(key)||!cells.has(key))fail();arr(rects,64);if(!(rects as any[]).length)fail();
         const [cx,cz]=key.split(",").map(Number),x=cx*p.gridSizeMm,z=cz*p.gridSizeMm;
-        for(const r of rects as any[]){obj(r);num(r.x);num(r.z);num(r.width,.001,p.gridSizeMm+.1);num(r.depth,.001,p.gridSizeMm+.1);if(r.x<x-.001||r.z<z-.001||r.x+r.width>x+p.gridSizeMm+.001||r.z+r.depth>z+p.gridSizeMm+.001)fail();}
+        for(const r of rects as any[]){obj(r);if(r.polygon!==undefined){validatePolygon(r.polygon);const b=polygonBounds(r.polygon);if(["x","z","width","depth"].some(k=>Math.abs((b as any)[k]-r[k])>.01))fail();}num(r.x);num(r.z);num(r.width,.001,p.gridSizeMm+.1);num(r.depth,.001,p.gridSizeMm+.1);if(r.x<x-.001||r.z<z-.001||r.x+r.width>x+p.gridSizeMm+.001||r.z+r.depth>z+p.gridSizeMm+.001)fail();}
       }
     }
     unique(f.walls); unique(f.openings); unique(f.stairs);
@@ -49,7 +50,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       if(s.draft.wallFirst!==undefined&&typeof s.draft.wallFirst!=='boolean')fail();
       if(s.draft.referenceScale!==undefined)num(s.draft.referenceScale,.1,200);
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
-      if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);if(w.ax!==w.bx&&w.az!==w.bz)fail();}}
+      if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}
       const host=p.floors.find((f:any)=>f.id===id);
       validatePlan({...p,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }

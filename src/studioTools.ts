@@ -1,12 +1,15 @@
+import {polygonBounds,validatePolygon,shapeArea} from './polygonGeometry';
 import {unionRects, type FloorRect} from './floorGeometry';
 
 export type DrawingPoint = {x:number;z:number};
 export type DrawingAnnotation = {id:string;kind:'dimension'|'note';a:DrawingPoint;b:DrawingPoint;text:string};
-export const roomArea = (parts:FloorRect[]) => unionRects(parts).reduce((sum,r)=>sum+r.width*r.depth,0);
+export const roomArea = (parts:FloorRect[]) => unionRects(parts).reduce((sum,r)=>sum+shapeArea(r),0);
 export const areaLabel = (area:number,imperial:boolean) => `${(area/(imperial?92903.04:1e6)).toLocaleString(undefined,{maximumFractionDigits:2})} ${imperial?'ft²':'m²'}`;
 
 /** Exact decomposition of a simple orthogonal polygon; never fills its concave recesses. */
 export function polygonRooms(points:DrawingPoint[]):FloorRect[] {
+  validatePolygon(points,100);
+  if(points.some((p,i)=>p.x!==points[(i+1)%points.length].x&&p.z!==points[(i+1)%points.length].z))return [polygonBounds(points)];
   if(points.length<4||points.length>40)throw new Error('Use 4 to 40 corners for a custom room.');
   const edges=points.map((a,i)=>({a,b:points[(i+1)%points.length]}));
   for(const {a,b} of edges){

@@ -30,7 +30,7 @@ it('retains concave room area without decomposition seams and splits existing ro
   expect(roomOutline(parts)).not.toContainEqual(line(3000,3000,3000,6000));
 });
 it('rejects unsafe or excessive input and preserves unrelated metadata',()=>{
-  expect(()=>connectedRoomProposal(empty,500,[line(0,0,1000,1000)])).toThrow('horizontal or vertical');
+  expect(()=>connectedRoomProposal(empty,500,[line(0,0,Infinity,1000)])).toThrow('within 100 metres');
   expect(()=>connectedRoomProposal(empty,500,Array(81).fill(box[0]))).toThrow('80 wall lines');
   const old={id:'remote',name:'Keep me',kind:'Bedroom' as const,enclosed:false,x:20000,z:0,width:3000,depth:3000};
   const result=connectedRoomProposal({...empty,rooms:[old]},500,box);

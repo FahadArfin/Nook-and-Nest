@@ -1,10 +1,26 @@
+import {projectPoint} from './polygonGeometry';
 import {polygonRooms, type DrawingPoint} from './studioTools';
 
 export type SnapSegment = {a:DrawingPoint;b:DrawingPoint};
 export type PolygonSnap = {point:DrawingPoint;kind?:'wall'|'corner'|'alignment'|'close';guide?:DrawingPoint};
 
 /** Screen-space magnetism, constrained before snapping so a snapped edge stays orthogonal. */
-export function snapPolygon(raw:DrawingPoint,corners:DrawingPoint[],walls:SnapSegment[],tolerance:number,enabled=true):PolygonSnap {
+export function snapPolygon(raw:DrawingPoint,corners:DrawingPoint[],walls:SnapSegment[],tolerance:number,enabled=true,freeAngles=false):PolygonSnap {
+  if(freeAngles){
+    if(!enabled)return {point:raw};
+    const lastPoint=corners.at(-1);
+    if(lastPoint){const dx=raw.x-lastPoint.x,dz=raw.z-lastPoint.z,angle=Math.atan2(dz,dx);if(Math.abs(dx)<Math.abs(dz)*.045)raw={x:lastPoint.x,z:raw.z};else if(Math.abs(dz)<Math.abs(dx)*.045)raw={x:raw.x,z:lastPoint.z};}
+    const distance=(p:DrawingPoint)=>Math.hypot(p.x-raw.x,p.z-raw.z);
+    if(corners.length>=3&&distance(corners[0])<tolerance*1.25){try{polygonRooms(corners);return {point:corners[0],kind:"close"};}catch{}}
+    const all=[...walls.flatMap(w=>[w.a,w.b]),...corners.slice(0,-1)].sort((a,b)=>distance(a)-distance(b));
+    if(all[0]&&distance(all[0])<=tolerance)return {point:all[0],kind:"corner"};
+    const projections=walls.map(w=>projectPoint(raw,w.a,w.b)).sort((a,b)=>distance(a)-distance(b));
+    if(projections[0]&&distance(projections[0])<=tolerance)return {point:projections[0],kind:"wall"};
+    const last=corners.at(-1);if(last){const dx=raw.x-last.x,dz=raw.z-last.z,length=Math.hypot(dx,dz),angle=Math.atan2(dz,dx),snapped=Math.round(angle/(Math.PI/4))*Math.PI/4;
+      if(Math.abs(angle-snapped)<.045){return {point:{x:Math.round((last.x+length*Math.cos(snapped))*1000)/1000,z:Math.round((last.z+length*Math.sin(snapped))*1000)/1000},kind:"alignment",guide:last};}
+    }
+    return {point:raw};
+  }
   const last=corners.at(-1),horizontal=!!last&&Math.abs(raw.x-last.x)>Math.abs(raw.z-last.z);
   const point=last?(horizontal?{x:raw.x,z:last.z}:{x:last.x,z:raw.z}):{...raw};
   if(!enabled)return {point};
