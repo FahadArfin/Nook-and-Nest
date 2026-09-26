@@ -6,8 +6,13 @@ const wall={a:{x:4000,z:0},b:{x:4000,z:4000}};
 it('snaps first corners and constrained edges to actual wall segments, not extensions',()=>{
   expect(snapPolygon({x:4130,z:2000},[],[wall],180)).toMatchObject({point:{x:4000,z:2000},kind:'wall'});
   expect(snapPolygon({x:4130,z:2140},[{x:0,z:2000}],[wall],180)).toMatchObject({point:{x:4000,z:2000},kind:'wall'});
-  expect(snapPolygon({x:4130,z:6000},[{x:0,z:6000}],[wall],180).kind).toBeUndefined();
+  expect(snapPolygon({x:4130,z:6000},[{x:0,z:6000}],[wall],180)).toMatchObject({kind:'alignment',point:{x:4000,z:6000}});
   expect(snapPolygon({x:4070,z:4090},[],[wall],180)).toMatchObject({point:wall.b,kind:'corner'});
+});
+it('shows a horizontal guide from an existing room corner while drawing a separate return edge',()=>{
+  const corners=[{x:4000,z:4000},{x:4000,z:9000},{x:7000,z:9000}];
+  expect(snapPolygon({x:7080,z:4130},corners,[wall],180)).toMatchObject({kind:'alignment',point:{x:7000,z:4000},guide:{x:4000,z:4000}});
+  expect(snapPolygon({x:7080,z:4300},corners,[wall],180).kind).toBeUndefined();
 });
 it('uses the same pixel reach at different zoom scales and respects Snap off',()=>{
   for(const pixelsPerMm of [.025,.1,.5]){

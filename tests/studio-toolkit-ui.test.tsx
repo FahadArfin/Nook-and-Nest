@@ -17,31 +17,42 @@ beforeEach(()=>{
 });
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 function drag(a:number[],b:number[]){const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(svg,{button:0,clientX:a[0],clientY:a[1],pointerId:1});fireEvent.pointerMove(svg,{clientX:b[0],clientY:b[1],pointerId:1});fireEvent.pointerUp(svg,{clientX:b[0],clientY:b[1],pointerId:1});}
-it('previews rooms from intersecting wall lines and applies all rooms in one undoable change',()=>{
+it('creates named rooms immediately on closure and on a crossing partition, with toolbar undo and redo',()=>{
   const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
-  fireEvent.click(screen.getByRole('button',{name:'Draw connected rooms'}));
-  for(const [a,b] of [[[5000,0],[11000,0]],[[11000,0],[11000,6000]],[[11000,6000],[5000,6000]],[[5000,6000],[5000,0]],[[8000,-1000],[8000,7000]],[[4500,3000],[11500,3000]]])drag(a,b);
-  expect(screen.getByText('4 room previews · 6 wall lines')).toBeVisible();
+  expect(screen.queryByRole('button',{name:'Draw connected rooms'})).toBeNull();
+  fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  for(const p of [[5000,0],[11000,0],[11000,6000],[5000,6000]])drag(p,p);
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
-  expect(usePlanner.getState().plan).toBe(original);
-  fireEvent.click(screen.getByRole('button',{name:'Apply rooms'}));
+  drag([5000,0],[5000,0]);
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
+  expect(screen.getByText('New room created.',{exact:false})).toBeVisible();
+  expect(screen.queryByRole('button',{name:'Apply rooms'})).toBeNull();
+  expect(screen.getByRole('button',{name:'Draw custom room'})).toHaveAttribute('aria-pressed','true');
+  for(const p of [[8000,-1000],[8000,7000],[4500,7000],[4500,3000],[11500,3000]])drag(p,p);
   expect(screen.getByRole('heading',{name:'Rooms & regions · 5'})).toBeVisible();
-  fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});
-  expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
-  fireEvent.keyDown(screen.getByRole('dialog'),{key:'y',ctrlKey:true});
+  fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 3'})).toBeVisible();
+  fireEvent.click(screen.getByRole('button',{name:'Redo drawing'}));
   expect(screen.getByRole('heading',{name:'Rooms & regions · 5'})).toBeVisible();
   expect(usePlanner.getState().plan).toBe(original);
 });
-it('converts an unfinished crossing custom sketch and discards previews without changing saved geometry',()=>{
+it('uses an existing room edge to close a new room without an extra confirmation',()=>{
   render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
-  for(const p of [[5000,0],[11000,0],[11000,6000],[5000,6000],[5000,-1000]])drag(p,p);
-  fireEvent.click(screen.getByRole('button',{name:'Detect rooms from these lines'}));
-  expect(screen.getByText('1 room preview · 4 wall lines')).toBeVisible();
+  for(const p of [[4000,1000],[7000,1000],[7000,3000],[4000,3000]])drag(p,p);
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
+  expect(screen.getByRole('img',{name:'Top-down floor plan drawing'}).querySelector('rect[x="4000"][y="1000"][width="3000"][height="2000"]')).not.toBeNull();
   fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});
-  expect(screen.getByRole('button',{name:'Apply rooms'})).toBeDisabled();
-  fireEvent.click(screen.getByRole('button',{name:'Discard preview'}));
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
-  expect(screen.getByRole('button',{name:'Pan drawing'})).toHaveAttribute('aria-pressed','true');
+});
+it('leaves an open outline unfilled and lets toolbar undo and cancellation clear it safely',()=>{
+  render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
+  for(const p of [[5000,0],[9000,0],[9000,4000]])drag(p,p);
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
+  fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
+  expect(screen.getByText('2 corners · right angles')).toBeVisible();
+  fireEvent.click(screen.getByRole('button',{name:'Cancel outline'}));
+  expect(screen.getByText('0 corners · right angles')).toBeVisible();
+  expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
 });
 it('draws a concave room in one undoable step without changing the 3D home',()=>{
   const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
@@ -72,7 +83,7 @@ it('finishes a custom concave room with Enter and preserves navigation shortcuts
   expect(screen.getByRole('button',{name:'Pan drawing'})).toHaveAttribute('aria-pressed','true');
   expect(within(screen.getByRole('status')).getByText('Pan / zoom')).toBeVisible();
 });
-it('previews the exact wall snap, aligns the return corner and closes with a nearby click',()=>{
+it('previews the exact wall snap and creates the room on the snapped shared-edge return',()=>{
   Object.defineProperty(SVGSVGElement.prototype,'getScreenCTM',{configurable:true,value:()=>({a:.1,b:0,inverse:()=>({})})});
   render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});
@@ -85,11 +96,9 @@ it('previews the exact wall snap, aligns the return corner and closes with a nea
   fireEvent.pointerMove(svg,{clientX:4120,clientY:3100,pointerId:1});
   expect(svg.querySelector('[data-preview="polygon"]')).toHaveAttribute('points',`${snappedX},1000 7000,1000 7000,3000 ${snappedX},3000`);
   drag([4120,3100],[4120,3100]);
-  fireEvent.pointerMove(svg,{clientX:4070,clientY:1080,pointerId:1});
-  expect(screen.getByRole('status')).toHaveTextContent('Click to close this room');
-  drag([4070,1080],[4070,1080]);
   expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
-  expect(screen.getByText('64.58 ft²')).toBeVisible();
+  const added=svg.querySelector('rect[y="1000"][height="2000"]');
+  expect(added).not.toBeNull();expect(Number(added!.getAttribute('x'))).toBeCloseTo(Number(snappedX),0);
   fireEvent.keyDown(screen.getByRole('dialog'),{key:'z',ctrlKey:true});
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
 });
