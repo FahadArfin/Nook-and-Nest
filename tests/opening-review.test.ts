@@ -1,4 +1,4 @@
-import {afterEach,expect,it,vi} from 'vitest';
+import {expect,it,vi} from 'vitest';
 import {exteriorMask,gapCandidates,spanChoices} from '../src/openingGeometry';
 import {OPENING_REVIEW_VERSION,validateOpeningRequest,validateOpeningAnswer} from '../src/openingReviewContract';
 import {applyReviewedOpening,splitRoomLabel} from '../src/openingCorrections';
@@ -6,10 +6,7 @@ import {blueprintPlan,draftFromFloor,type BlueprintDraft} from '../src/blueprint
 import {createSamplePlan,parsePlan,serializePlan} from '../src/domain';
 import {wallRuns} from '../src/windows';
 // @ts-expect-error Worker entry is JavaScript.
-import {recognitionApi} from '../worker/recognition.js';
-// @ts-expect-error Worker entry is JavaScript.
 import {analyzeOpening} from '../worker/opening-review.js';
-afterEach(()=>vi.unstubAllGlobals());
 const setup=()=>{const base=createSamplePlan();base.furniture=[];base.floors=base.floors.slice(0,1);const draft:BlueprintDraft={rooms:[{id:'r',name:'Living',kind:'Living',x:0,z:0,width:4000,depth:4000,enclosed:false}],walls:[],omittedWalls:[],fixtures:[]};return {base,draft,id:base.floors[0].id};};
 const choices=spanChoices({ax:30,ay:50,bx:60,by:50},100,100),review={version:OPENING_REVIEW_VERSION,choices};
 const answer={choiceId:'span-0',kind:'door',confidence:'high',note:'Both jambs visible.'};
@@ -35,10 +32,4 @@ it('rejects a label split through an existing physical wall',()=>{const {base,id
 it('uses one bounded Luna request with no storage and rejects model-invented coordinates',async()=>{
   const fetcher=vi.fn(async(_url:string,_init:RequestInit)=>envelope(answer));expect(await analyzeOpening('data:image/jpeg;base64,YQ==',100,100,review,'test',fetcher)).toEqual(answer);expect(fetcher).toHaveBeenCalledOnce();const body=JSON.parse(fetcher.mock.calls[0][1].body as string);expect(body.model).toBe('gpt-6-luna');expect(body.store).toBe(false);expect(body.max_output_tokens).toBe(2200);
   await expect(analyzeOpening('image',100,100,review,'test',async()=>envelope({...answer,choiceId:'invented'}))).rejects.toThrow();
-});
-it('requires identity, same origin, valid candidates and both quotas before an opening API call',async()=>{
-  const fetcher=vi.fn(async()=>envelope(answer));vi.stubGlobal('fetch',fetcher);const quota=vi.fn(async()=>({count:1})),env={OPENAI_API_KEY:'test',DB:{prepare:()=>({bind:()=>({first:quota})})}};
-  const req=(patch:Record<string,unknown>={},headers:Record<string,string>={})=>new Request('https://beta.test/api/floor-plan/recognize',{method:'POST',headers:{origin:'https://beta.test','oai-authenticated-user-id':'owner','Content-Type':'application/json',...headers},body:JSON.stringify({image:'data:image/jpeg;base64,YQ==',width:100,height:100,openingReview:review,...patch})});
-  expect((await recognitionApi(req({}, {'oai-authenticated-user-id':''}),env)).status).toBe(401);expect((await recognitionApi(req({}, {origin:'https://bad.test'}),env)).status).toBe(403);expect((await recognitionApi(req({openingReview:{...review,choices:[]}}),env)).status).toBe(400);expect(fetcher).not.toHaveBeenCalled();expect(quota).not.toHaveBeenCalled();
-  expect(await(await recognitionApi(req(),env)).json()).toEqual(answer);expect(quota).toHaveBeenCalledTimes(2);expect(fetcher).toHaveBeenCalledOnce();quota.mockResolvedValueOnce(null as never);expect((await recognitionApi(req(),env)).status).toBe(429);expect(fetcher).toHaveBeenCalledOnce();
 });

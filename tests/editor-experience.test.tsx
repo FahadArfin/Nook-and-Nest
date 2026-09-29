@@ -1,11 +1,10 @@
 // @vitest-environment jsdom
 import React from 'react';
 import {afterEach,beforeEach,describe,expect,it,vi} from 'vitest';
-import {act,cleanup,fireEvent,render,screen,waitFor,within} from '@testing-library/react';
+import {act,cleanup,fireEvent,render,screen,within} from '@testing-library/react';
 import {EditorFeedback,EmptyCanvasHint,PinnedControls,QuickPinSettings} from '../src/EditorExperience';
 import {editorPreferencesKey,parseEditorPreferences,rememberFinish,rememberModel} from '../src/editorPreferences';
 import {clearModelFailure,reportModelFailure,retryModelFailures} from '../src/modelLoadFeedback';
-import {SaveControl} from '../src/SaveControl';
 import {usePlanner} from '../src/store';
 import {createBlankPlan} from '../src/domain';
 import {catalog} from '../src/catalog';
@@ -53,7 +52,7 @@ describe('browsing continuity',()=>{
     expect(inRoomCollection(catalog.find(i=>i.id==='queen-bed')!,'kitchen')).toBe(false);
   });
   it('recent navigation and clearing highlighted filters never place a model',()=>{
-    // Start with one real result. Testing every catalog card belongs to library.test.tsx.
+    // Keep this navigation test focused on one real result.
     usePlanner.setState({search:'Button tufted sofa'});
     act(()=>rememberModel('sofa'));const start=vi.fn(),plan=usePlanner.getState().plan;
     render(<CatalogLibrary onBeginDrag={vi.fn()} onStartPlacement={start}/>);
@@ -73,10 +72,5 @@ describe('recovery feedback',()=>{
   it('retries active failures once and clears disposed renderer callbacks',()=>{
     const owner={},retry=vi.fn();render(<EditorFeedback draftCatalogId="sofa"/>);act(()=>reportModelFailure(owner,'sofa',retry));expect(screen.getByText(/unavailable/)).toBeTruthy();fireEvent.click(screen.getByRole('button',{name:'Retry models'}));expect(retry).toHaveBeenCalledTimes(1);act(()=>retryModelFailures(['sofa']));expect(retry).toHaveBeenCalledTimes(1);
     act(()=>clearModelFailure(owner));expect(screen.queryByText(/unavailable/)).toBeNull();act(()=>retryModelFailures(['sofa']));expect(retry).toHaveBeenCalledTimes(1);
-  });
-  it('exposes save failure recovery without opening a menu',async()=>{
-    const persist=vi.fn().mockRejectedValueOnce(new Error('quota')).mockResolvedValue(undefined);
-    render(<SaveControl plan={usePlanner.getState().plan} persist={persist} onProjects={vi.fn()}/>);
-    await waitFor(()=>expect(screen.getByText('Device storage could not save this change.')).toBeTruthy());fireEvent.click(screen.getByRole('button',{name:'Retry'}));await waitFor(()=>expect(screen.queryByText('Device storage could not save this change.')).toBeNull());expect(persist).toHaveBeenCalledTimes(2);
   });
 });

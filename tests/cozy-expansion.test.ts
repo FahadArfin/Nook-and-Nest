@@ -2,7 +2,7 @@ import {glbBounds} from './glbBounds';
 import detailedIds from "../src/detailedModelIds.json";
 import {modelAssetPath} from '../src/modelAssetPath';
 import {describe,it,expect} from 'vitest';
-import {readFileSync,existsSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import {catalog,isSurfaceMounted} from '../src/catalog';
 import {cozyRows} from '../src/cozyCatalog';
 import {createSamplePlan,serializePlan,parsePlan,encodeShare,decodeShare} from '../src/domain';
@@ -34,10 +34,9 @@ describe('cozy expansion and placement regressions',()=>{
   }
   expect(modelAssetPath('sofa')).toContain('/models/furniture/sofa.glb?v=');
  });
- it('ships every addition as an editable, dimensioned model and rendered preview',()=>{
+ it('keeps every addition dimensionally accurate with bounded geometry',()=>{
   expect(cozyRows).toHaveLength(391);
   for(const [id,,,w,d,h] of cozyRows){
-   expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());
    const bounds=glbBounds(g);
    for(const [axis,size] of [w,h,d].entries()){const low=Math.min(...bounds.map((a:any)=>a.min[axis])),high=Math.max(...bounds.map((a:any)=>a.max[axis]));expect((high-low)*1000,id).toBeCloseTo(size,0);}

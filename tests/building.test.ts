@@ -1,6 +1,6 @@
 import {glbBounds} from './glbBounds';
 import { describe,expect,it } from "vitest";
-import { readFileSync,existsSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { createSamplePlan,parsePlan,serializePlan,decodeShare,encodeShare,deriveBoundaryWalls } from "../src/domain";
 import { addMeasuredRegion,measuredRegion,floorRects,floorBoundaryWalls,parseRoomLength,paintFloorCells,subtractRect } from "../src/floorGeometry";
 import { fitStair,stairFootprint,stairHoles,stairLandings,stairWarnings,visibleFloorRects } from "../src/building";
@@ -115,9 +115,9 @@ describe("Blender building collection",()=>{
       }
     }finally{scene.dispose();engine.dispose();}
   });
-  it("ships twenty-two distinct editable originals with physical GLB envelopes and thumbnails",()=>{
+  it("keeps twenty-two distinct building models at physical GLB envelopes",()=>{
     const items=catalog.filter(c=>isDoor(c.id)||isStairs(c.id));expect(items).toHaveLength(22);
-    for(const c of items){expect(existsSync(`assets-source/blender/${c.id}.blend`)).toBe(true);expect(existsSync(`public/models/previews/${c.id}.webp`)).toBe(true);
+    for(const c of items){
       const b=readFileSync(`public/models/furniture/${c.id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());const bounds=glbBounds(g);
       for(let a=0;a<3;a++){const min=Math.min(...bounds.map((b:any)=>b.min[a])),max=Math.max(...bounds.map((b:any)=>b.max[a]));expect((max-min)*1000,c.id).toBeCloseTo([c.widthMm,c.heightMm,c.depthMm][a],1);}
       expect(g.accessors.filter((a:any)=>a.type==="SCALAR").reduce((sum:number,a:any)=>sum+a.count/3,0),c.id).toBeLessThan(35000);

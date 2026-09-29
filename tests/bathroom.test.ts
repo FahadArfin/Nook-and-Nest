@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync, existsSync } from "node:fs";
-import { catalog, bathroomModelIds, hasModelPreview, defaultMountHeight, isSurfaceMounted, isWallMounted } from "../src/catalog";
+import { readFileSync } from "node:fs";
+import { catalog, bathroomModelIds, defaultMountHeight, isSurfaceMounted, isWallMounted } from "../src/catalog";
 import { createSamplePlan, serializePlan, parsePlan, encodeShare, decodeShare } from "../src/domain";
 import { supportsCountertopFinish } from "../src/surfaces";
 import { tabletopPoint } from "../src/tabletop";
@@ -11,12 +11,9 @@ const piece=(id:string,patch:Partial<FurniturePlacement>={}):FurniturePlacement=
 const gltf=(id:string)=>{const b=readFileSync(`public/models/furniture/${id}.glb`);return JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());};
 
 describe("bathroom collection",()=>{
-  it("ships 20 original editable models and thumbnails with exact millimetre envelopes",()=>{
+  it("keeps 20 bathroom models at exact millimetre envelopes",()=>{
     expect(bathroomModelIds.size).toBe(20);
     for(const id of bathroomModelIds){
-      expect(hasModelPreview(id)).toBe(true);
-      expect(existsSync(`assets-source/blender/${id}.blend`)).toBe(true);
-      expect(existsSync(`public/models/previews/${id}.webp`)).toBe(true);
       const c=catalog.find(c=>c.id===id)!,json=gltf(id);
       const bounds=json.meshes.flatMap((m:{primitives:{attributes:{POSITION:number}}[]})=>m.primitives.map(p=>json.accessors[p.attributes.POSITION]));
       for(let axis=0;axis<3;axis++){

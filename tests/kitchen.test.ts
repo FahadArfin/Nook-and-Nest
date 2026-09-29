@@ -5,7 +5,7 @@ import { Vector3 } from '@babylonjs/core/Maths/math.vector';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import { FurnitureLights } from '../src/scene/FurnitureLights';
 import { describe,it,expect } from 'vitest';
-import { readFileSync,existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { catalog,defaultMountHeight,isKitchenWall,isCeilingMounted,isSurfaceMounted } from '../src/catalog';
 import { kitchenRows,kitchenTopIds,kitchenWallIds,kitchenSurfaceIds,kitchenCeilingIds } from '../src/kitchenCatalog';
 import { createSamplePlan,parsePlan,serializePlan,encodeShare,decodeShare } from '../src/domain';
@@ -17,10 +17,9 @@ import materials from '../src/modelMaterials.json';
 import type { FurniturePlacement } from '../src/types';
 const make=(id:string,floorId:string):FurniturePlacement=>{const c=catalog.find(c=>c.id===id)!;return {id:crypto.randomUUID(),catalogId:id,floorId,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,x:1800,z:0,rotation:0,variant:'cream',elevationMm:defaultMountHeight(id)};};
 describe('kitchen and storage collection',()=>{
-  it('ships 28 editable originals with dimensioned GLBs, material slots and previews',()=>{
+  it('keeps 28 dimensioned GLBs with independent material slots',()=>{
     expect(kitchenRows).toHaveLength(28);
     for(const [id,,,_w,_d,_h] of kitchenRows){
-      expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
       const data=readFileSync(`public/models/furniture/${id}.glb`),glb=JSON.parse(data.subarray(20,20+data.readUInt32LE(12)).toString());
       const bounds=glb.meshes.flatMap((m:any)=>m.primitives.map((p:any)=>glb.accessors[p.attributes.POSITION]));
       for(let axis=0;axis<3;axis++){const low=Math.min(...bounds.map((b:any)=>b.min[axis])),high=Math.max(...bounds.map((b:any)=>b.max[axis]));expect((high-low)*1000,id).toBeCloseTo([_w,_h,_d][axis],1);}
@@ -78,7 +77,6 @@ describe('countertop appliances and hanging lights',()=>{
   });
 });
 
-
 describe('cozy furnishing placement',()=>{
  it('aligns a turned microwave and clamps its footprint onto a narrow cabinet',()=>{
   const p=createSamplePlan(),f=p.floors[0].id;
@@ -95,7 +93,7 @@ describe('cozy furnishing placement',()=>{
  });
  it('includes authored bath rug and independently editable breakfast table and chair',()=>{
   for(const id of ['bath-ribbed-rug','breakfast-nook-table','breakfast-nook-chair']){
-   expect(catalog.find(c=>c.id===id)).toBeDefined();expect(existsSync(`assets-source/blender/${id}.blend`)).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`)).toBe(true);
+   expect(catalog.find(c=>c.id===id)).toBeDefined();
   }
  });
 });

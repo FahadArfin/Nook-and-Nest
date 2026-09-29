@@ -89,14 +89,17 @@ it('only confirms autosave after storage succeeds and offers explicit save desti
  fireEvent.click(screen.getByRole('button',{name:/Save online/}));expect(projects).toHaveBeenCalledOnce();
  fireEvent.keyDown(window,{key:'s',ctrlKey:true});expect(persist).toHaveBeenCalledTimes(2);finish();
 });
-it('shows a storage failure and lets the user retry without claiming success',async()=>{
+it.each(['status','menu'] as const)('recovers a storage failure through the %s retry without claiming success early',async(entry)=>{
  const persist=vi.fn().mockRejectedValueOnce(new Error('quota')).mockResolvedValue(undefined);
  render(<SaveControl plan={createSamplePlan('Retry')} onProjects={()=>{}} persist={persist}/>);
  await waitFor(()=>expect(screen.getByRole('status').textContent).toContain('Save failed'));
- fireEvent.click(screen.getByText('Save',{exact:true}));
  expect(screen.getByRole('alert').textContent).toContain('could not save');
- fireEvent.click(screen.getByRole('button',{name:/Retry saving/}));
+ expect(screen.getByRole('status').textContent).not.toContain('Autosaved');
+ if(entry==='menu')fireEvent.click(screen.getByText('Save',{exact:true}));
+ fireEvent.click(screen.getByRole('button',{name:entry==='menu'?/Retry saving/:'Retry'}));
  await waitFor(()=>expect(screen.getByRole('status').textContent).toContain('Autosaved'));
+ expect(screen.queryByText('Device storage could not save this change.')).toBeNull();
+ expect(persist).toHaveBeenCalledTimes(2);
 });
 it('does not mark a newer edit saved when an older write finishes',async()=>{
  let finish!:()=>void;const persist=vi.fn(()=>new Promise<void>(resolve=>{finish=resolve;}));const plan=createSamplePlan('Before');
