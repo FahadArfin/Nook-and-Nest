@@ -1,8 +1,9 @@
 import { existsSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { describe, expect, it } from "vitest";
-import { catalog, variants } from "../src/catalog";
+import { catalog, hasModelPreview, variants } from "../src/catalog";
 import { createSamplePlan, parsePlan, serializePlan } from "../src/domain";
+import { furnitureType } from "../src/library";
 import { FURNITURE_STYLE, furnitureVariation } from "../src/scene/FurnitureFactory";
 
 describe("handcrafted furniture design system", () => {
@@ -48,14 +49,19 @@ describe("handcrafted furniture design system", () => {
     });
   });
 
-  it("ships an editable Blender source and a non-empty GLB for every catalog item", () => {
+  it("gives every catalog piece a useful library type and complete editable model assets", () => {
     for (const item of catalog) {
       const blend = resolve("assets-source", "blender", `${item.id}.blend`);
       const glb = resolve("public", "models", "furniture", `${item.id}.glb`);
+      const preview = resolve("public", "models", "previews", `${item.id}.webp`);
+      expect(furnitureType(item), item.id).not.toBe("Other pieces");
+      expect(hasModelPreview(item.id), `unregistered preview for ${item.id}`).toBe(true);
       expect(existsSync(blend), `missing Blender source for ${item.id}`).toBe(true);
       expect(existsSync(glb), `missing GLB for ${item.id}`).toBe(true);
+      expect(existsSync(preview), `missing preview for ${item.id}`).toBe(true);
       expect(statSync(blend).size).toBeGreaterThan(10_000);
       expect(statSync(glb).size).toBeGreaterThan(item.id==="grass-clump"?2_000:10_000);
+      expect(statSync(preview).size, `empty preview for ${item.id}`).toBeGreaterThan(0);
     }
   });
 });

@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync, existsSync } from "node:fs";
-import { catalog, hasModelPreview, isSurfaceMounted, workspaceModelIds } from "../src/catalog";
+import { readFileSync } from "node:fs";
+import { catalog, isSurfaceMounted, workspaceModelIds } from "../src/catalog";
 import { createSamplePlan, furnitureOverlaps, serializePlan, parsePlan, encodeShare, decodeShare } from "../src/domain";
 import { tabletopPoint, supportsDesktop } from "../src/tabletop";
 import { usePlanner } from "../src/store";
@@ -10,10 +10,9 @@ const piece=(id:string,patch:Partial<FurniturePlacement>={}):FurniturePlacement=
 const plan=()=>{const p=createSamplePlan();p.floors=[{...p.floors[0],id:"floor"}];p.furniture=[piece("gaming-desk")];return p;};
 
 describe("computer and coffee collection",()=>{
-  it("adds 16 distinct originals with previews, editable sources and correct scaled GLB dimensions",()=>{
+  it("keeps 16 distinct workspace models at correct scaled GLB dimensions",()=>{
     expect(workspaceModelIds.size).toBe(16);
     for(const id of workspaceModelIds){
-      expect(hasModelPreview(id)).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`)).toBe(true);expect(existsSync(`assets-source/blender/${id}.blend`)).toBe(true);
       const c=catalog.find(c=>c.id===id)!;
       const data=readFileSync(`public/models/furniture/${id}.glb`);const json=JSON.parse(data.subarray(20,20+data.readUInt32LE(12)).toString());
       const bounds=json.meshes.flatMap((mesh:{primitives:{attributes:{POSITION:number}}[]})=>mesh.primitives.map(p=>json.accessors[p.attributes.POSITION]));

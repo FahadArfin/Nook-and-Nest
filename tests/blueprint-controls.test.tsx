@@ -256,16 +256,14 @@ it('defaults room dimensions to feet and inches, hides coordinates and preserves
  expect(rect.getAttribute('width')).toBe('2896');expect(rect.getAttribute('x')).toBe('0');
  fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));expect(screen.getByLabelText('Width inches')).toHaveValue('4 7/8');
 });
-it('groups every drawing action in the bottom dock and protects home navigation',()=>{
+it('keeps usable drawing controls in the dock, document actions above, and protects home navigation',()=>{
  const onHome=vi.fn(),onClose=vi.fn();render(<BlueprintStudio onHome={onHome} onClose={onClose}/>);
- const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'}));
+ const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'})),actions=within(screen.getByRole('toolbar',{name:'Studio actions'}));
+ expect(dock.getByRole('button',{name:'Select and move rooms'})).toBeTruthy();const pan=dock.getByRole('button',{name:'Pan drawing'});fireEvent.click(pan);expect(pan).toHaveAttribute('aria-pressed','true');
+ expect(actions.queryByRole('button',{name:'Pan drawing'})).toBeNull();expect(actions.getByRole('button',{name:'File'})).toBeTruthy();expect(actions.getByRole('button',{name:'Import'})).toBeTruthy();
+ const view=actions.getByRole('button',{name:'View'});fireEvent.click(view);expect(screen.getByLabelText('Measurement units')).toBeVisible();fireEvent.click(view);
  fireEvent.click(dock.getByRole('button',{name:'More tools'}));for(const name of ['Inside wall','Remove wall section','Draw room area','Add room by dimensions','Combine rooms','Doors, entrances and windows','Choose optional fixtures'])expect(dock.getByRole('button',{name})).toBeTruthy();
  fireEvent.click(dock.getByRole('button',{name:'Add room by dimensions'}));fireEvent.click(screen.getByRole('button',{name:'Add this room'}));vi.mocked(window.confirm).mockReturnValue(false);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onHome).not.toHaveBeenCalled();expect(onClose).not.toHaveBeenCalled();vi.mocked(window.confirm).mockReturnValue(true);fireEvent.click(screen.getByRole('button',{name:'Back to home'}));expect(onClose).not.toHaveBeenCalled();expect(onHome).toHaveBeenCalledOnce();
-});
-it('keeps navigation in the bottom dock and document actions above the drawing',()=>{
- render(<BlueprintStudio onClose={vi.fn()}/>);const dock=within(screen.getByRole('toolbar',{name:'Floor plan editing'})),actions=within(screen.getByRole('toolbar',{name:'Studio actions'}));
- expect(dock.getByRole('button',{name:'Select and move rooms'})).toBeTruthy();const pan=dock.getByRole('button',{name:'Pan drawing'});fireEvent.click(pan);expect(pan).toHaveAttribute('aria-pressed','true');
- expect(actions.queryByRole('button',{name:'Pan drawing'})).toBeNull();expect(actions.getByRole('button',{name:'File'})).toBeTruthy();expect(actions.getByRole('button',{name:'View'})).toBeTruthy();expect(actions.getByRole('button',{name:'Import'})).toBeTruthy();fireEvent.click(actions.getByRole('button',{name:'View'}));expect(screen.getByLabelText('Measurement units')).toBeVisible();
 });
 it('starts region imports in manual Combine review and keeps Reanalyze on that same flow',async()=>{
   const detected={regionReview:true,rooms:[{roomId:'a',name:'Bedroom region',kind:'Bedroom' as const,x:0,y:0,width:400,height:300,enclosed:false,note:''},{roomId:'b',name:'Entry region',kind:'Hall' as const,x:0,y:300,width:100,height:100,enclosed:false,note:''}],walls:[],dimensions:[{text:'4 m',millimetres:4000,ax:0,ay:0,bx:400,by:0}],fixtures:[],warnings:[]};

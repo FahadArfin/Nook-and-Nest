@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "check": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "node scripts/test-brief.mjs",
+    "test:related": "node scripts/test-brief.mjs --related",
     "build": "vite build && node scripts/prepare-sites-build.mjs && node scripts/optimize-model-assets.mjs && node scripts/build-project-server.mjs",
     "preview": "vite preview",
     "test:assets": "node --test tests/model-asset-sharing.test.mjs tests/model-geometry-compression.test.mjs",

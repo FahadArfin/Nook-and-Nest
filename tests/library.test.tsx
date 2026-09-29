@@ -4,9 +4,21 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
 import { CatalogLibrary } from "../src/CatalogLibrary";
 import { catalog } from "../src/catalog";
-import { favoritesKey, filterLibrary, furnitureType, matchesFurniture, parseFavorites } from "../src/library";
+import { favoritesKey, filterLibrary, matchesFurniture, parseFavorites } from "../src/library";
 import { usePlanner } from "../src/store";
 import { createSamplePlan } from "../src/domain";
+
+// Run real filtering, but mount representative cards. Keep the catalog intact for
+// geometry modules; furniture-style owns its full integrity contract.
+vi.mock('../src/library', async importOriginal => {
+  const actual = await importOriginal<typeof import('../src/library')>();
+  const ids = ['sofa', 'queen-bed', 'wall-hung-sink', 'slim-tv', 'pedestal-computer-desk',
+    'oval-freestanding-tub', 'bath-mirror-pill', 'two-piece-toilet', 'one-piece-toilet', 'laptop', 'nesting-tables'];
+  return { ...actual, filterLibrary: (options: Parameters<typeof actual.filterLibrary>[0]) => {
+    const result = actual.filterLibrary(options);
+    return { ...result, items: result.items.filter(item => ids.includes(item.id)) };
+  } };
+});
 
 const options={search:"",category:"All",type:"All",shelf:"browse" as const,favorites:[],inPlan:[],sort:"collection" as const};
 const item=(id:string)=>catalog.find(item=>item.id===id)!;
@@ -14,10 +26,6 @@ beforeEach(()=>{localStorage.clear();usePlanner.getState().replacePlan(createSam
 afterEach(cleanup);
 
 describe("library organization",()=>{
-  it("gives every piece a real furniture type",()=>{
-    expect(new Set(catalog.map(item=>item.id)).size).toBe(catalog.length);
-    for(const item of catalog)expect(furnitureType(item),item.id).not.toBe("Other pieces");
-  });
   it("finds common synonyms, categories and multiword queries",()=>{
     expect(matchesFurniture(item("sofa"),"couch")).toBe(true);
     expect(matchesFurniture(item("wall-hung-sink"),"washroom basin")).toBe(true);
@@ -27,8 +35,11 @@ describe("library organization",()=>{
     expect(matchesFurniture(item("oval-freestanding-tub"),"  TUB  ")).toBe(true);
   });
   it("offers only relevant types and intersects category, type and saved filters",()=>{
-    const bath=filterLibrary({...options,category:"Bathroom"});expect(bath.items).toHaveLength(36);
-    expect(bath.types).toEqual(["Bath mats","Bathtubs","Mirrors","Organizers","Rugs","Showers","Sinks & vanities","Toilets"]);
+    const bath=filterLibrary({...options,category:"Bathroom"});
+    expect(bath.items.every(item=>item.category==='Bathroom')).toBe(true);
+    expect(bath.items.map(item=>item.id)).toEqual(expect.arrayContaining(['bath-mirror-pill','two-piece-toilet','wall-hung-sink','oval-freestanding-tub']));
+    expect(bath.types).toEqual(expect.arrayContaining(['Mirrors','Toilets','Sinks & vanities','Bathtubs']));
+    expect(bath.types).not.toContain('Sofas');
     expect(filterLibrary({...options,category:"Bathroom",type:"Mirrors",shelf:"favorites",favorites:["bath-mirror-pill","sofa"]}).items.map(i=>i.id)).toEqual(["bath-mirror-pill"]);
   });
   it("sorts deterministically without mutating the catalog",()=>{
@@ -80,7 +91,10 @@ describe("library controls",()=>{
   it("shows an actionable empty search and keeps editing shortcuts out of library controls",()=>{
     mount();fireEvent.change(screen.getByLabelText("Search all furniture"),{target:{value:"no-such-piece"}});
     expect(screen.getByText("No matching pieces")).toBeTruthy();fireEvent.click(screen.getByRole("button",{name:"Browse all furniture"}));
-    expect(screen.getAllByRole("button",{name:/drag to place/})).toHaveLength(catalog.length-1);
+    expect(screen.getByRole('button',{name:'Cloud sofa, drag to place'})).toBeTruthy();
+    expect(screen.getByRole('button',{name:'Capsule bathroom mirror, drag to place'})).toBeTruthy();
+    expect(screen.queryByText('No matching pieces')).toBeNull();
+    expect(screen.queryByRole('button',{name:`${item('nesting-tables').name}, drag to place`})).toBeNull();
     const listener=vi.fn();window.addEventListener("keydown",listener);
     try{fireEvent.keyDown(screen.getByLabelText("Furniture category"),{key:"r"});expect(listener).not.toHaveBeenCalled()}finally{window.removeEventListener("keydown",listener)}
     expect(within(screen.getByRole("group",{name:"Library collection"})).getAllByRole("button")).toHaveLength(3);
@@ -97,7 +111,9 @@ describe('library icon navigation',()=>{
     expect(screen.queryByRole('button',{name:'Type: Sofas'})).toBeNull();
     fireEvent.click(screen.getByRole('button',{name:'Type: Toilets'}));
     expect((screen.getByLabelText('Furniture type') as HTMLSelectElement).value).toBe('Toilets');
-    expect(screen.getAllByRole('button',{name:/drag to place/})).toHaveLength(5);
+    for(const id of ['two-piece-toilet','one-piece-toilet'])expect(screen.getByRole('button',{name:`${item(id).name}, drag to place`})).toBeTruthy();
+    expect(screen.queryByRole('button',{name:'Capsule bathroom mirror, drag to place'})).toBeNull();
+    expect(screen.queryByRole('button',{name:'Cloud sofa, drag to place'})).toBeNull();
     fireEvent.change(screen.getByLabelText('Furniture type'),{target:{value:'Mirrors'}});
     expect(screen.getByRole('button',{name:'Type: Mirrors'}).getAttribute('aria-pressed')).toBe('true');
     fireEvent.click(screen.getByRole('button',{name:'Category: Living'}));

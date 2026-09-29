@@ -1,6 +1,6 @@
 import detailedIds from "../src/detailedModelIds.json";
 import { describe,it,expect } from 'vitest';
-import { readFileSync,existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { NullEngine,Scene } from '@babylonjs/core';
 import { LoadAssetContainerAsync } from '@babylonjs/core/Loading/sceneLoader';
 import '@babylonjs/loaders/glTF';
@@ -15,9 +15,9 @@ import { OutdoorScene } from '../src/scene/OutdoorScene';
 import type { FurniturePlacement } from '../src/types';
 const make=(id:string,floorId:string):FurniturePlacement=>{const c=catalog.find(c=>c.id===id)!;return {id:crypto.randomUUID(),catalogId:id,floorId,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,x:-4000,z:-4000,rotation:0,variant:'sage'};};
 describe('outdoor collection',()=>{
- it('ships 27 original editable pieces with bounded dimensioned GLBs and previews',()=>{
+ it('keeps 27 outdoor pieces bounded and dimensionally accurate',()=>{
   expect(outdoorRows).toHaveLength(27);
-  for(const [id,,,w,d,h] of outdoorRows){expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
+  for(const [id,,,w,d,h] of outdoorRows){
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString()),bounds=g.meshes.flatMap((m:any)=>m.primitives.map((p:any)=>g.accessors[p.attributes.POSITION]));
    for(let axis=0;axis<3;axis++)expect((Math.max(...bounds.map((b:any)=>b.max[axis]))-Math.min(...bounds.map((b:any)=>b.min[axis])))*1000,id).toBeCloseTo([w,h,d][axis],1);
    expect(g.accessors.filter((a:any)=>a.type==='SCALAR').reduce((sum:number,a:any)=>sum+a.count/3,0),id).toBeLessThan(detailedIds.includes(id)?120000:60000);expect(b.length,id).toBeLessThan(detailedIds.includes(id)?8_000_000:5_000_000);

@@ -11,6 +11,17 @@ const pixel = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAw
 const originalPixel = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==';
 function openPresentation(html:string,schedule:typeof window.setTimeout=window.setTimeout.bind(window)) {
   const parsed=new DOMParser().parseFromString(html,'text/html');
+  // Permit only slide data and one inline player. External scripts never execute in this
+  // harness, so validate their absence before executing any generated content.
+  const scripts=[...parsed.querySelectorAll('script')];
+  const data=scripts.filter(script=>script.id==='slides');
+  expect(data).toHaveLength(1);
+  expect(data[0].getAttributeNames().sort()).toEqual(['id','type']);
+  expect(data[0].type).toBe('application/json');
+  const players=scripts.filter(script=>script.id!=='slides');
+  expect(players).toHaveLength(1);
+  expect(players[0].getAttributeNames()).toEqual([]);
+  expect(parsed.querySelector('script[src]')).toBeNull();
   const sandbox: {pwned?:number}={};
   // Execute only the generated inline scripts against an isolated parsed document.
   for(const script of parsed.querySelectorAll('script:not([type="application/json"])'))new Function('document','window','setTimeout','clearTimeout',script.textContent!)(parsed,sandbox,schedule,window.clearTimeout.bind(window));
@@ -54,14 +65,13 @@ describe('listing pack', () => {
 
   it('escapes malicious text in HTML, SVG and embedded JSON without changing its displayed value', () => {
     const { doc, plan } = fixture();
-    const attack = '</script><script>window.pwned=1</script><img src=x onerror=alert(1)>';
+    const attack = '</script><script>window.pwned=1</script><script src="https://attacker.example/pwn.js"></script><img src=x onerror=alert(1)>';
     doc.details.title = attack; doc.details.description = attack; doc.media[0].title = attack; doc.media[0].caption = attack;
     plan.floors[0].name = attack;
     const files = buildListingPackFiles(doc, plan), html = strFromU8(files['index.html']);
     const dom = openPresentation(html);
     expect(dom.sandbox.pwned).toBeUndefined();
     expect(dom.document.querySelector('h1')?.textContent).toBe(attack);
-    expect(dom.document.querySelectorAll('script')).toHaveLength(2);
     expect(dom.document.querySelector('[onerror]')).toBeNull();
     const data = JSON.parse(dom.document.querySelector('#slides')!.textContent!);
     expect(data[0].caption).toBe(attack);

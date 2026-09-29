@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { DatabaseSync } from "node:sqlite";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { cameraUpdatePolicy, comfortableCamera } from "../src/cameraPolicy";
 import { createSamplePlan, parsePlan, serializePlan } from "../src/domain";
-import { catalog, hasModelPreview } from "../src/catalog";
+import { catalog } from "../src/catalog";
 import { usePlanner } from "../src/store";
 import { tabletopPoint } from "../src/tabletop";
 import { runInNewContext } from "node:vm";
@@ -35,9 +35,6 @@ describe("editor regressions", () => {
     s.toggleCameraSetting("transparentWalls"); s.toggleCameraSetting("darkMode");
     const p = usePlanner.getState().plan; expect(parsePlan(serializePlan(p))).toEqual(p);
     s.undo(); expect(usePlanner.getState().plan.camera.darkMode).toBeUndefined();
-  });
-  it("has a real rendered thumbnail for every catalog item", () => {
-    for (const item of catalog) { expect(hasModelPreview(item.id), item.id).toBe(true); expect(existsSync(`public/models/previews/${item.id}.webp`), item.id).toBe(true); }
   });
   it("exports the new media models at their catalog dimensions with bounded geometry", () => {
     const ids=["tv-55","tv-65","tv-75","compact-speaker","bookshelf-speaker","tower-speaker","soundbar","subwoofer","slatted-tv-stand","open-media-bench","cane-tv-stand"];

@@ -1,7 +1,9 @@
 import {trimHallOverlaps} from '../src/recognitionGeometry';
 import {webcrypto} from 'node:crypto';
+import {DatabaseSync} from 'node:sqlite';
+import {readFileSync} from 'node:fs';
 import {recognitionKey,clearRecognitionCache,saveRecognition} from '../src/recognitionCache';
-import {describe,it,expect,vi} from 'vitest';
+import {afterEach,describe,it,expect,vi} from 'vitest';
 import {validateRecognition,recognizedScale,scaleAssessment,type Recognition} from '../src/recognitionContract';
 import {roomsOnlyRecognition,recognizeReference,draftFromRecognition} from '../src/blueprintRecognition';
 import {blueprintPlan,roomGroups,draftFromFloor} from '../src/blueprint';
@@ -68,14 +70,73 @@ describe('automatic floor-plan contract',()=>{
 });
 describe('server-side scan analysis',()=>{
   const request=(headers:Record<string,string>={},body=JSON.stringify({image:'data:image/png;base64,AA==',width:1000,height:800}))=>new Request('https://home.test/api/floor-plan/recognize',{method:'POST',headers:{origin:'https://home.test','content-type':'application/json',...headers},body});
-  it('rejects unsigned, cross-origin and unconfigured requests before spending',async()=>{
-    expect((await recognitionApi(request(),{})).status).toBe(401);
-    expect((await recognitionApi(request({'oai-authenticated-user-id':'u',origin:'https://other.test'}),{})).status).toBe(403);
-    expect((await recognitionApi(request({'oai-authenticated-user-id':'u'}),{})).status).toBe(503);
+  const databases:DatabaseSync[]=[];
+  const database=()=>{
+    const sql=new DatabaseSync(':memory:');databases.push(sql);
+    sql.exec(readFileSync(new URL('../drizzle/0001_recognition_usage.sql',import.meta.url),'utf8'));
+    return {sql,prepare(query:string){return {bind(...args:(string|number)[]){return {async first(){
+      // Yield at the database boundary so concurrent endpoint calls interleave.
+      // The migrated SQLite statement, including its conditional upsert, runs unchanged.
+      await Promise.resolve();return sql.prepare(query).get(...args)??null;
+    }};}};}};
+  };
+  afterEach(()=>{for(const db of databases.splice(0))db.close();vi.unstubAllGlobals();vi.useRealTimers();});
+  const openingReview={version:'opening-review-v1',choices:[{id:'span-0',ax:30,ay:50,bx:60,by:50}]};
+  const regionReview={version:'region-review-v1',room:'Bedroom',hall:'Hall',door:{ax:20,ay:20,bx:20,by:40},regions:[{id:'region-1',added:true,rects:[{x:20,y:10,width:20,height:20}]}],annotated:'data:image/jpeg;base64,YQ=='};
+  const modes:{name:string;extra:Record<string,unknown>;invalid:Record<string,unknown>[];answer:unknown;calls:number}[]=[
+    {name:'floor plan',extra:{},invalid:[{evidence:{version:'old',walls:[],crops:[]}}],answer:{...result(),fixtures:[],walls:[],regionReview:true},calls:2},
+    {name:'opening review',extra:{openingReview},invalid:[{openingReview:{...openingReview,choices:[]}}],answer:{choiceId:'span-0',kind:'door',confidence:'high',note:'Both jambs visible.'},calls:1},
+    {name:'region review',extra:{regionReview},invalid:[{openingReview:{}},{regionReview:{...regionReview,annotated:'https://bad.test'}}],answer:{selectedIds:['region-1'],confidence:'high',note:'Open passage on the bedroom side.'},calls:1},
+  ];
+  const modeRequest=(mode:typeof modes[number],patch:Record<string,unknown>={},headers:Record<string,string>={})=>request({'oai-authenticated-user-id':'owner',...headers},JSON.stringify({image:'data:image/png;base64,AA==',width:1000,height:800,...mode.extra,...patch}));
+  const mockProvider=(mode:typeof modes[number])=>{
+    const fetcher=vi.fn(async(_url:unknown,options?:RequestInit)=>{
+      const body=JSON.parse(options!.body as string);
+      return envelope(body.text.format.name==='room_inventory'?inventory():mode.answer);
+    });
+    vi.stubGlobal('fetch',fetcher);return fetcher;
+  };
+  it.each(modes)('rejects unauthorized, unconfigured and invalid $name requests before spending',async mode=>{
+    const env={OPENAI_API_KEY:'test',DB:database()},fetcher=mockProvider(mode);
+    for(const [headers,status] of [
+      [{'oai-authenticated-user-id':''},401],
+      [{origin:'https://other.test'},403],
+      [{'sec-fetch-site':'cross-site'},403],
+      [{'content-type':'text/plain'},415],
+    ] as [Record<string,string>,number][]){
+      expect((await recognitionApi(modeRequest(mode,{},headers),env)).status).toBe(status);
+    }
+    expect((await recognitionApi(modeRequest(mode),{...env,OPENAI_API_KEY:''})).status).toBe(503);
+    expect((await recognitionApi(modeRequest(mode),{OPENAI_API_KEY:'test'})).status).toBe(503);
+    for(const patch of mode.invalid)expect((await recognitionApi(modeRequest(mode,patch),env)).status).toBe(400);
+    expect(env.DB.sql.prepare('SELECT * FROM recognition_usage').all()).toEqual([]);
+    expect(fetcher).not.toHaveBeenCalled();
   });
-  it('atomically limits daily requests',async()=>{
-    const first=vi.fn(async()=>null),bind=vi.fn(()=>({first})),prepare=vi.fn(()=>({bind}));
-    const r=await recognitionApi(request({'oai-authenticated-user-id':'u'}),{OPENAI_API_KEY:'fake',DB:{prepare}});expect(r.status).toBe(429);expect(prepare).toHaveBeenCalledWith(expect.stringContaining('WHERE count<10'));
+  it.each(modes)('enforces both SQLite daily quota boundaries during concurrent $name requests',async mode=>{
+    vi.useFakeTimers({toFake:['Date']});vi.setSystemTime(new Date('2026-09-28T12:00:00Z'));
+    const day='2026-09-28',fetcher=mockProvider(mode);
+    for(const scope of ['owner','site'] as const){
+      const env={OPENAI_API_KEY:'test',DB:database()},sql=env.DB.sql;
+      const seed=(owner:string,count:number,date=day)=>sql.prepare('INSERT INTO recognition_usage(owner_id,day,count) VALUES(?,?,?)').run(owner,date,count);
+      const count=(owner:string)=>sql.prepare('SELECT count FROM recognition_usage WHERE owner_id=? AND day=?').get(owner,day)?.count;
+      if(scope==='owner')seed('owner',9);
+      else seed('__site_total__',99);
+      seed('owner',10,'2026-09-27');seed('__site_total__',100,'2026-09-27');
+      fetcher.mockClear();
+      const owners=scope==='owner'?['owner','owner','owner']:['owner','other-owner','third-owner'];
+      const responses:Response[]=await Promise.all(owners.map(owner=>recognitionApi(modeRequest(mode,{}, {'oai-authenticated-user-id':owner}),env)));
+      const bodies=await Promise.all(responses.map(response=>response.json()));
+      expect(responses.map(response=>response.status).sort()).toEqual([200,429,429]);
+      expect(bodies[responses.findIndex(response=>response.status===200)]).toEqual(mode.answer);
+      expect(fetcher).toHaveBeenCalledTimes(mode.calls);
+      expect(count(scope==='owner'?'owner':'__site_total__')).toBe(scope==='owner'?10:100);
+      if(scope==='owner')expect(count('__site_total__')).toBe(1);
+      // Rejected retries neither exceed the capped counter nor start provider work.
+      expect((await recognitionApi(modeRequest(mode),env)).status).toBe(429);
+      expect(fetcher).toHaveBeenCalledTimes(mode.calls);
+      expect(count(scope==='owner'?'owner':'__site_total__')).toBe(scope==='owner'?10:100);
+      expect(sql.prepare('SELECT count FROM recognition_usage WHERE owner_id=? AND day=?').get('owner','2026-09-27')?.count).toBe(10);
+    }
   });
   it('keeps credentials server-side and treats document writing as untrusted data',async()=>{
     const fetcher=vi.fn(async()=>Response.json({status:'completed',output:[{content:[{type:'output_text',text:JSON.stringify(result())}]}]}));
@@ -147,7 +208,6 @@ describe('analysis cost safeguards (no paid requests)',()=>{
     try{
       expect((await recognitionApi(request({model:'unsupported'}),env)).status).toBe(400);expect(prepare).not.toHaveBeenCalled();
       expect((await recognitionApi(request({guidance:'x'.repeat(1501)}),env)).status).toBe(400);expect(prepare).not.toHaveBeenCalled();
-      expect((await recognitionApi(request({model:'unknown'}),env)).status).toBe(400);
       await (await recognitionApi(request(),env)).json();expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-6-luna');
       await (await recognitionApi(request({model:'gpt-6-luna'}),env)).json();expect(JSON.parse(fetcher.mock.calls[1]?.[1]?.body as string).model).toBe('gpt-6-luna');
       await (await recognitionApi(request({model:'gpt-6-astra'}),env)).json();expect(JSON.parse(fetcher.mock.calls[2]?.[1]?.body as string).model).toBe('gpt-6-luna');

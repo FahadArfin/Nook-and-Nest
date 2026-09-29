@@ -1,5 +1,5 @@
 import {describe,it,expect} from 'vitest';
-import {readFileSync,existsSync} from 'node:fs';
+import {readFileSync} from 'node:fs';
 import previous from './appliance-material-baseline.json';
 import textures from './appliance-texture-baseline.json';
 import {createHash} from 'node:crypto';
@@ -42,8 +42,7 @@ describe('detailed appliance collection',()=>{
    expect(Math.min(...bounds.map(a=>a.min[1])),id).toBeCloseTo(0,5);
    const tris=g.meshes.flatMap((m:any)=>m.primitives).reduce((n:number,p:any)=>n+g.accessors[p.indices].count/3,0);
    expect(tris,id).toBeLessThan(60000);expect(b.length,id).toBeLessThan(8_000_000);
-   expect(existsSync(`assets-source/blender/${id}.blend`),id).toBe(true);
-   expect(existsSync(`public/models/previews/${id}.webp`),id).toBe(true);
+
    expect(modelAssetPath(id)).toContain('appliance-detail-2');expect(modelAssetPath(id,true)).toContain('appliance-detail-2');
   }
  });

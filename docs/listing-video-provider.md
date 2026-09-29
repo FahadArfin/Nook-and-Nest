@@ -1,5 +1,7 @@
 # Listing video and floor-plan recognition providers
 
+Video opens on the disconnected **My model server** option. See [Local model server](local-model-server.md) for the SGLang request adapters and future connection contract. No local model or cluster is installed. Seedance below remains a separate optional cloud path; neither fal nor hosted MiniMax inference is configured.
+
 Verified against official documentation on September 28, 2026. Automated tests exercise request contracts and failure handling without spending provider credits. Real video quality and real-scan recognition accuracy still require an owner-approved evaluation with configured provider accounts.
 
 ## Seedance 2.0
