@@ -133,6 +133,63 @@
         "assets-source/kitchen-essentials-audit.json"
       ],
       "notes": "Only these twelve new IDs. Author via official interactive Blender MCP build(id), render configured scene then compress-previews.py. Other scenes remain untouched."
+    },
+    {
+      "id": "household-collection",
+      "generators": [
+        "tools/blender/build_household_collection.py",
+        "scripts/household-assets.mjs"
+      ],
+      "inputs": [
+        "tools/blender/household_architecture.py",
+        "tools/blender/household_bath_laundry.py",
+        "tools/blender/household_entry.py",
+        "tools/blender/household_entry_variety.py",
+        "tools/blender/household_fixture_variety.py",
+        "tools/blender/household_geometry.py",
+        "tools/blender/household_materials.py",
+        "tools/blender/test_household_materials.py",
+        "tools/blender/household_lighting_office.py",
+        "tools/blender/household_lighting_variety.py",
+        "tools/blender/household_specialty.py",
+        "tools/blender/household_specialty_variety.py",
+        "tools/blender/household_utilities.py",
+        "src/householdArchitectureExpansion.json",
+        "src/householdBathLaundryExpansion.json",
+        "src/householdEntryExpansion.json",
+        "src/householdEntryVarietyExpansion.json",
+        "src/householdFixtureVarietyExpansion.json",
+        "src/householdLightingOfficeExpansion.json",
+        "src/householdLightingVarietyExpansion.json",
+        "src/householdSpecialtyExpansion.json",
+        "src/householdSpecialtyVarietyExpansion.json",
+        "src/householdUtilitiesExpansion.json",
+        "assets-source/household-bath-laundry-references.json",
+        "assets-source/household-entry-references.json",
+        "assets-source/household-entry-variety-references.json",
+        "assets-source/household-fixture-variety-references.json",
+        "assets-source/household-lighting-office-references.json",
+        "assets-source/household-lighting-variety-references.json",
+        "assets-source/household-specialty-references.json",
+        "assets-source/household-specialty-variety-references.json",
+        "assets-source/household-utilities-references.json",
+        "assets-source/household-progress.json",
+        "scripts/household-asset-state.mjs",
+        "scripts/compress-previews.py"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb",
+        "assets-source/previews/{id}.png",
+        "public/models/previews/{id}.webp",
+        "src/modelMaterials.json",
+        "src/householdSupportFootprints.json",
+        "src/householdShelfSurfaces.json",
+        "assets-source/household-collection-audit.json",
+        "assets-source/household-material-keys.json",
+        "assets-source/household-progress.json"
+      ],
+      "notes": "Original editable household geometry. Root serializes official Blender MCP build(id), inspects front/rear/underside renders, then runs household-assets.mjs for targeted material keys and optional pixel-identical previews. No unrelated metadata/preview writes; file observation is never visual/browser/release acceptance. See docs/household-collection.md."
     }
   ]
 }

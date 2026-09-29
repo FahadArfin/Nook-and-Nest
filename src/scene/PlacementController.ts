@@ -23,6 +23,9 @@ import {
   WallVisibilityController,
 } from "../wallVisibility";
 import { snapWindow, wallRuns } from "../windows";
+import {isRoofSkylight,roofPlacementPoint,isStormDoor,snapStormDoor,isStormDoorHostId,isGarageDoor,placementFromWallAnchor} from '../householdArchitecture';
+import {projectPoint} from '../polygonGeometry';
+import type {WallGeometry} from '../wallVisibility';
 /** Live dependencies supplied by the scene coordinator; no duplicate saved state. */
 export interface PlacementControllerHost {
   activePlan: PlanDocumentV1 | undefined;
@@ -71,6 +74,8 @@ export class PlacementController {
       isRailing(item.catalogId) ||
       isWallOpening(item.catalogId) ||
       isKitchenWall(item.catalogId) ||
+      isRoofSkylight(item.catalogId) ||
+      isStormDoor(item.catalogId) ||
       isStairs(item.catalogId)
     )
       return;
@@ -113,6 +118,24 @@ export class PlacementController {
       ray.origin = ray.origin.add(
         new Vector3(this.dragGrabOffset.x, 0, this.dragGrabOffset.z),
       );
+    }
+    if(item&&this.host.activePlan&&isRoofSkylight(item.catalogId))return roofPlacementPoint(this.host.activePlan,item,ray.origin,ray.direction);
+    if(item&&this.host.activePlan&&isStormDoor(item.catalogId)){
+      const point=this.pointOnActiveFloor(screenX,screenY);
+      const plan=this.host.activePlan,floor=plan.floors.find(f=>f.id===item.floorId);if(!point||!floor)return;
+      const visibleWalls:WallGeometry[]=[];
+      wallRuns(floor,plan.gridSizeMm,(wall,boundary)=>{
+        const scale=plan.gridSizeMm/1000,geometry={ax:wall.ax*scale,az:wall.az*scale,bx:wall.bx*scale,bz:wall.bz*scale,boundary};
+        if(!isWallHidden(getWallVisibility(plan.camera),geometry,this.host.camera.position,this.host.camera.target)&&this.host.wallVisibility.allowsInteraction(geometry))visibleWalls.push(geometry);
+        return true;
+      });
+      const hosts=plan.furniture.filter(p=>p.floorId===item.floorId&&isStormDoorHostId(p.catalogId)&&Math.hypot(p.x-point.x,p.z-point.z)<1800&&visibleWalls.some(w=>{
+        const q=projectPoint({x:p.x/1000,z:p.z/1000},{x:w.ax,z:w.az},{x:w.bx,z:w.bz});
+        return Math.hypot(q.x-p.x/1000,q.z-p.z/1000)<.01&&Math.abs(Math.sin(p.rotation*Math.PI/180+Math.atan2(w.bz-w.az,w.bx-w.ax)))<.001;
+      }));
+      const snapped=snapStormDoor(plan,{...item,...point,hostDoorId:undefined},new Set(hosts.map(p=>p.id)));
+      // Invalid hover retains the last supported placement, like ordinary wall snapping.
+      return snapped.hostDoorId?snapped:undefined;
     }
     const movable =
       item &&
@@ -202,6 +225,11 @@ export class PlacementController {
       })
       .sort((a, b) => a.distance - b.distance);
     const point = hits[0];
+    if(point&&isGarageDoor(item.catalogId)){
+      const base=point.run.horizontal?0:90;
+      const rotation=[base,base+180].sort((a,b)=>Math.abs(((a-item.rotation+540)%360)-180)-Math.abs(((b-item.rotation+540)%360)-180))[0];
+      return snapWindow(this.host.activePlan,placementFromWallAnchor({...item,x:point.x,z:point.z,rotation}),[point.run]);
+    }
     return point
       ? snapWindow(
           this.host.activePlan,
@@ -250,9 +278,9 @@ export class PlacementController {
       );
       this.host.previewNode.position.y =
         (floor?.elevationMm ?? 0) / 1000 +
-        (this.host.activeDraft && isWallOpening(this.host.activeDraft.catalogId)
+        (this.host.activeDraft && (isWallOpening(this.host.activeDraft.catalogId)||isStormDoor(this.host.activeDraft.catalogId))
           ? 0
-          : 0.05) +
+          : this.host.activeDraft&&isStairs(this.host.activeDraft.catalogId)?0.04:0.05) +
         position.elevationMm / 1000;
     }
     this.host.draftPosition = position;

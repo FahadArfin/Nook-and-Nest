@@ -88,7 +88,7 @@ export class FurnitureModelLibrary {
     }
     const isFrame=item.catalogId==="window-solarium"&&!source.name.includes("glazing");
     const isTintable = source.name.includes("upholstery-textured") || source.name.includes("variant-surface") || source.name.includes("door-surface") || source.name==="ceramic-tiles";
-    const isCountertop = source.name.includes("countertop-surface");
+    const isCountertop = source.name.includes("countertop-surface") || (item.catalogId==='kitchen-microwave-drawer-cabinet'&&source.name==='surface-stone');
     const isDoorSurface=source.name.includes("door-surface");
     if (!isTintable && !isCountertop && !isDoorSurface && !ghost && !custom && !isFrame) return source;
     const key = `${source.uniqueId}:${custom??""}:${isTintable ? item.variant : "base"}:${isCountertop||isDoorSurface ? item.surfaceVariant??"warm-granite" : "none"}:${ghost ? "ghost" : "solid"}`;

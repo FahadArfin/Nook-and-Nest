@@ -1,5 +1,6 @@
 import {isEdgeFurniture,isRailing} from './modularFurniture';
 import {windowTreatmentIds,doorAperture} from './homeCollection';
+import {isRoofSkylight,fitRoofSkylight,roofSkylightProblem,isStormDoor,snapStormDoor,stormDoorProblem,isGarageDoor,garageDoorProblem,architectureWallAnchor,placementFromWallAnchor} from './householdArchitecture';
 import { isWindow, isDoor, isWallOpening, isStairs, isKitchenWall, isCeilingMounted, defaultMountHeight } from "./catalog";
 import { floorBoundaryWalls, floorRects } from "./floorGeometry";
 import type { FloorPlan, FurniturePlacement, PlanDocumentV1, WallSegment } from "./types";
@@ -43,6 +44,11 @@ export function wallRuns(floor: FloorPlan, grid: number, include?: (wall:WallSeg
 }
 
 export function snapWindow(plan:PlanDocumentV1,item:FurniturePlacement, allowedRuns?:WallRun[]):FurniturePlacement {
+  if(isRoofSkylight(item.catalogId))return fitRoofSkylight(plan,item);
+  if(isStormDoor(item.catalogId))return snapStormDoor(plan,item);
+  return placementFromWallAnchor(snapAtWall(plan,architectureWallAnchor(item),allowedRuns));
+}
+function snapAtWall(plan:PlanDocumentV1,item:FurniturePlacement, allowedRuns?:WallRun[]):FurniturePlacement {
   if(isCeilingMounted(item.catalogId)){
     const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor)return item;
     return {...item,elevationMm:Math.max(0,Math.min(item.elevationMm??floor.heightMm-item.heightMm-50,floor.heightMm-item.heightMm-50))};
@@ -82,9 +88,16 @@ export function snapWindow(plan:PlanDocumentV1,item:FurniturePlacement, allowedR
 const angleDistance=(a:number,b:number)=>Math.abs(((a-b+540)%360)-180);
 // An opening on a perpendicular wall is not part of this wall's occupied span.
 const alignedOpening=(item:FurniturePlacement,horizontal:boolean)=>Math.abs(Math.sin((item.rotation-(horizontal?0:90))*Math.PI/180))<.001;
-export const windowRotation=(item:FurniturePlacement,step:number)=>((item.rotation+(isWallOpening(item.catalogId)||isKitchenWall(item.catalogId)?Math.sign(step)*180:isStairs(item.catalogId)?Math.sign(step)*90:step))+360)%360;
+export const windowRotation=(item:FurniturePlacement,step:number)=>((item.rotation+(isWallOpening(item.catalogId)||isKitchenWall(item.catalogId)||isStormDoor(item.catalogId)?Math.sign(step)*180:isStairs(item.catalogId)||isRoofSkylight(item.catalogId)?Math.sign(step)*90:step))+360)%360;
 
 export function windowProblem(plan:PlanDocumentV1,item:FurniturePlacement):string|undefined {
+  if(isRoofSkylight(item.catalogId))return roofSkylightProblem(plan,item);
+  if(isStormDoor(item.catalogId))return stormDoorProblem(plan,item);
+  const garageProblem=garageDoorProblem(plan,item);if(garageProblem)return garageProblem;
+  const hasGarage=isGarageDoor(item.catalogId)||plan.furniture.some(p=>isGarageDoor(p.catalogId));
+  return wallPlacementProblem(hasGarage?{...plan,furniture:plan.furniture.map(architectureWallAnchor)}:plan,architectureWallAnchor(item));
+}
+function wallPlacementProblem(plan:PlanDocumentV1,item:FurniturePlacement):string|undefined {
   if(isKitchenWall(item.catalogId)||isCeilingMounted(item.catalogId)){
     const floor=plan.floors.find(f=>f.id===item.floorId);if(!floor)return "Choose a floor first.";
     if(![item.x,item.z,item.widthMm,item.depthMm,item.heightMm,item.elevationMm??0,item.rotation].every(Number.isFinite)||Math.min(item.widthMm,item.depthMm,item.heightMm)<=0)return "Enter valid model dimensions.";
@@ -111,7 +124,7 @@ export function windowProblem(plan:PlanDocumentV1,item:FurniturePlacement):strin
     if(!host)return 'Doors and windows must align with a wall.';
     const angle=Math.atan2(host.uz,host.ux)*180/Math.PI,local=(f:FurniturePlacement)=>({...f,x:(f.x-host.x)*host.ux+(f.z-host.z)*host.uz,z:(f.z-host.z)*host.ux-(f.x-host.x)*host.uz,rotation:f.rotation+angle});
     const localFloor={...floor,cells:[],cellRects:undefined,wallCuts:[],walls:[{id:'angled-host',ax:0,az:0,bx:host.length/plan.gridSizeMm,bz:0}]};
-    return windowProblem({...plan,floors:[localFloor],furniture:plan.furniture.map(local)},local(item));
+    return wallPlacementProblem({...plan,floors:[localFloor],furniture:plan.furniture.map(local)},local(item));
   }
   const along=horizontal?item.x:item.z,line=horizontal?item.z:item.x;
   const fits=wallRuns(floor,plan.gridSizeMm).some(r=>r.horizontal===horizontal&&Math.abs(r.line-line)<1&&along-item.widthMm/2>=r.start+19&&along+item.widthMm/2<=r.end-19);
@@ -126,8 +139,11 @@ export interface WallPiece { start:number; end:number; bottom:number; top:number
 // Subtract apertures in millimetres. The arched crown uses narrow strips hidden
 // under its curved frame, avoiding heavyweight boolean geometry in the editor.
 export function windowWallPieces(wall:WallSegment,grid:number,height:number,items:FurniturePlacement[]):WallPiece[] {
+  return wallPiecesAtAnchor(wall,grid,height,items.map(architectureWallAnchor));
+}
+function wallPiecesAtAnchor(wall:WallSegment,grid:number,height:number,items:FurniturePlacement[]):WallPiece[] {
   if(wall.ax!==wall.bx&&wall.az!==wall.bz){const dx=(wall.bx-wall.ax)*grid,dz=(wall.bz-wall.az)*grid,length=Math.hypot(dx,dz),ux=dx/length,uz=dz/length,angle=Math.atan2(uz,ux)*180/Math.PI;
-    return windowWallPieces({...wall,ax:0,az:0,bx:length/grid,bz:0},grid,height,items.map(i=>({...i,x:(i.x-wall.ax*grid)*ux+(i.z-wall.az*grid)*uz,z:(i.z-wall.az*grid)*ux-(i.x-wall.ax*grid)*uz,rotation:i.rotation+angle})));
+    return wallPiecesAtAnchor({...wall,ax:0,az:0,bx:length/grid,bz:0},grid,height,items.map(i=>({...i,x:(i.x-wall.ax*grid)*ux+(i.z-wall.az*grid)*uz,z:(i.z-wall.az*grid)*ux-(i.x-wall.ax*grid)*uz,rotation:i.rotation+angle})));
   }
   const horizontal=wall.az===wall.bz,line=(horizontal?wall.az:wall.ax)*grid;
   const start=Math.min(horizontal?wall.ax:wall.az,horizontal?wall.bx:wall.bz)*grid;
