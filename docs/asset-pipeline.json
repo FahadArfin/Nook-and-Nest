@@ -115,6 +115,24 @@
         "release/library-manifest.json"
       ],
       "notes": "Release packaging owns output directory and content hashes."
+    },
+    {
+      "id": "kitchen-essentials",
+      "generators": [
+        "tools/blender/build_kitchen_essentials.py"
+      ],
+      "inputs": [
+        "src/kitchenEssentialsExpansion.json",
+        "assets-source/kitchen-essentials-references.json"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb",
+        "assets-source/previews/{id}.png",
+        "public/models/previews/{id}.webp",
+        "assets-source/kitchen-essentials-audit.json"
+      ],
+      "notes": "Only these twelve new IDs. Author via official interactive Blender MCP build(id), render configured scene then compress-previews.py. Other scenes remain untouched."
     }
   ]
 }
