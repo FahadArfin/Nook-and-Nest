@@ -19,6 +19,7 @@ export class PersonalSurfaceTextures {
   if(typeof window!=='undefined')window.addEventListener('nook-private-media-change',this.changed);
   if(typeof BroadcastChannel!=='undefined'){this.channel=new BroadcastChannel('nook-private-media');this.channel.onmessage=this.changed;}
  }
+ get loading(){return this.running>0||[...this.entries.values()].some(e=>!e.started);}
  key(item:FurniturePlacement){const s=item.personalSurface;return !s||s.hidden?'':JSON.stringify([this.scope,personalSurfaceImageKey(s),s.repeatWidthMm,s.repeatHeightMm,item.widthMm,item.heightMm]);}
  configure(projectId:string,items:FurniturePlacement[]){
   if(this.disposed)return;

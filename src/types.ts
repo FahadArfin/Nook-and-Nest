@@ -15,6 +15,10 @@ export interface FurniturePlacement {
   personalItem?: import("./personalItems").PersonalItemMetadata;hostDoorId?:string; terrainAnchored?:boolean; showerMirrored?:boolean; moduleRun?:boolean; id: string; catalogId: string; floorId: string; x: number; z: number; rotation: number; widthMm: number; depthMm: number; heightMm: number; variant: string; toFloorId?: string; stairRiseMm?: number; surfaceVariant?: string; materialColors?: Record<string,string>; openFraction?:number; doorless?:boolean; elevationMm?: number }
 export interface FloorPlan { referenceId?:string; wallCuts?:WallSegment[]; id: string; name: string; elevationMm: number; heightMm: number; cells: TileCell[]; walls: WallSegment[]; openings: Opening[]; stairs: StairPlacement[]; floorFinishId?: string; wallFinishId?: string; cellRects?:Record<string,FloorRect[]>; cellFinishes?: Record<string,string>; wallFinishes?: Record<string,string>; blueprint?: { rooms:import('./blueprint').BlueprintRoom[]; geometryKey:string; generatedWallIds?:string[]; wallCuts?:WallSegment[]; omittedWalls?:string[] } }
 export interface PlanDocumentV1 {
+  designHistory?:import('./designHistory').DesignHistoryV1;
+  siteSurvey?:import('./siteSurvey').SiteSurvey;
+  presentation?:import('./presentationTypes').PresentationSettings;
+  installChecklist?:import('./installChecklist').InstallChecklist;
   moodboards?: import("./moodboards").Moodboards;
   surfaceTakeoffSettings?: import("./surfaceTakeoff").SurfaceTakeoffSettings;
   selectionBudgets?: import("./selectionBudgets").SelectionBudgets;
