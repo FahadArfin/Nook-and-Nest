@@ -1,3 +1,4 @@
+import {parseRemixAttribution} from './remixAttribution';
 import {validateDesignHistory,historySnapshotAsPlan} from './designHistory';
 import {parseSiteSurvey} from './siteSurveySchema';
 import {parsePresentationSettings} from './presentationTypes';
@@ -31,6 +32,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   const p = value as any; obj(p);
   if (p.schemaVersion !== 1 || !["imperial", "metric"].includes(p.units)) fail();
   str(p.id); str(p.name); str(p.createdAt); str(p.updatedAt); num(p.gridSizeMm, 10, 10000);
+  if(p.remixAttribution!==undefined)parseRemixAttribution(p.remixAttribution);
   if(p.designHistory!==undefined)validateDesignHistory(p.designHistory,snapshot=>validatePlan(historySnapshotAsPlan(p,snapshot)));
   if(p.siteSurvey!==undefined)parseSiteSurvey(p.siteSurvey);
   if(p.presentation!==undefined)parsePresentationSettings(p.presentation);

@@ -7,6 +7,12 @@ import libraryManifest from './library-manifest.js';
 const libraryAssets=createLibraryHandler(libraryManifest);
 import { recognitionApi } from './recognition.js';
 import { listingVideoApi } from './listing-video.js';
+import {clientReviewApi} from './client-reviews.js';
+import {remixGalleryApi} from './remix-gallery.js';
+import {onlineMediaApi} from './online-media.js';
+import {stagingInventoryApi} from './staging-inventory.js';
+import {collaborationApi} from './collaboration.js';
+import {catalog} from '../src/catalog.ts';
 import { validatePlan, MAX_PLAN_BYTES } from "../src/planValidation.ts";
 
 const json = (body, status = 200) => Response.json(body, { status, headers: {
@@ -97,6 +103,14 @@ export default { async fetch(request, env) {
     const image=new Response(response.body,response);image.headers.set('Content-Type','image/webp');image.headers.set('Cache-Control','public, max-age=3600');return image;
   }
   if (!url.pathname.startsWith('/api/'))return staticWorker.fetch(request,env);
+  // Feature handlers own their authentication/capability checks. Dispatch public
+  // read-only reviews before the generic private-project sign-in requirement.
+  try {
+    for(const handler of [clientReviewApi,remixGalleryApi,onlineMediaApi,collaborationApi]){
+      const response=await handler(request,env);if(response)return response;
+    }
+    const inventory=await stagingInventoryApi(request,env,catalog);if(inventory)return inventory;
+  } catch {return fail('This online tool is temporarily unavailable. No automatic retry was made.',503);}
   if(url.pathname==='/api/listing-video'||url.pathname.startsWith('/api/listing-video/')){
     try{return await listingVideoApi(request,env)??fail('Video job not found.',404);}catch{return fail('Video generation is temporarily unavailable. No automatic retry will be made.',503);}
   }

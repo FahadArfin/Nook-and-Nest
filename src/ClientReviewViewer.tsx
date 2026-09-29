@@ -1,0 +1,43 @@
+import {useCallback,useEffect,useRef,useState} from 'react';
+import {getClientReview,getReviewMedia,reviewLink,submitReviewFeedback} from './clientReviewApi';
+import {ReviewTour} from './ReviewTour';
+import type {ReviewFeedbackInput,ReviewView} from './clientReview';
+import './clientReview.css';
+
+export function ClientReviewViewer({id,token,revision:initialRevision}:{id:string;token:string;revision?:number}){
+ const [revision,setRevision]=useState(initialRevision),[view,setView]=useState<ReviewView|null>(null),[images,setImages]=useState<Record<string,string>>({}),[stopId,setStopId]=useState(''),[error,setError]=useState(''),[notice,setNotice]=useState(''),[loading,setLoading]=useState(true),[busy,setBusy]=useState(false),[refresh,setRefresh]=useState(0);
+ const [author,setAuthor]=useState(''),[text,setText]=useState(''),[kind,setKind]=useState<ReviewFeedbackInput['kind']>('comment'),[anchor,setAnchor]=useState('snapshot'),[confirm,setConfirm]=useState(false),pending=useRef<ReviewFeedbackInput|null>(null),alive=useRef(true),loaded=useRef<{id:string;token:string;revision?:number}|null>(null);
+ const embedded=window.self!==window.top;
+ useEffect(()=>{alive.current=true;return()=>{alive.current=false;};},[]);
+ useEffect(()=>{const controller=new AbortController(),changed=!loaded.current||loaded.current.id!==id||loaded.current.token!==token||loaded.current.revision!==revision;setLoading(changed);setError('');if(changed){setView(null);setImages({});setConfirm(false);}
+  void getClientReview(id,token,revision,controller.signal).then(value=>{if(controller.signal.aborted)return;loaded.current={id,token,revision};setView(old=>old&&old.revision===value.revision?{...value,snapshot:old.snapshot}:value);if(changed)setStopId(value.snapshot.stops[0].id);if(pending.current&&value.feedback.some(f=>f.requestId===pending.current?.requestId)){pending.current=null;setText('');setNotice('Your response is saved.');}}).catch(e=>{if(!controller.signal.aborted){setView(null);setImages({});setError(e.message);}}).finally(()=>{if(!controller.signal.aborted)setLoading(false);});return()=>controller.abort();
+ },[id,token,revision,refresh]);
+ useEffect(()=>{if(!view)return;const delay=Math.max(0,Math.min(2147483647,view.expiresAt-Date.now()));const timer=setTimeout(()=>{setView(null);setImages({});setError('This review link has expired. Ask its owner for a new link.');},delay);return()=>clearTimeout(timer);},[view]);
+ // Access is rechecked on return and periodically; already downloaded images cannot be recalled.
+ useEffect(()=>{const recheck=()=>{if(document.visibilityState==='visible'&&!busy)setRefresh(n=>n+1);};const timer=setInterval(recheck,60000);document.addEventListener('visibilitychange',recheck);return()=>{clearInterval(timer);document.removeEventListener('visibilitychange',recheck);};},[busy]);
+ const currentMedia=view?.snapshot.stops.find(s=>s.id===stopId)?.mediaId;
+ useEffect(()=>{if(!view||!currentMedia||images[currentMedia])return;const controller=new AbortController();void getReviewMedia(id,token,view.revision,currentMedia,controller.signal).then(dataUrl=>{if(!controller.signal.aborted)setImages(old=>({...old,[currentMedia]:dataUrl}));}).catch(e=>{if(!controller.signal.aborted)setNotice(e.message);});return()=>controller.abort();},[id,token,view,currentMedia,images]);
+ const changeStop=useCallback((value:string)=>setStopId(value),[]);
+ async function send(){if(!view||busy)return;setBusy(true);setError('');try{const [anchorKind,...rest]=anchor.split(':');const input=pending.current??{requestId:crypto.randomUUID(),revision:view.revision,kind,authorName:author.trim(),text:text.trim(),anchor:kind==='comment'?{kind:anchorKind as ReviewFeedbackInput['anchor']['kind'],...(anchorKind==='room'?{floorId:rest[0],id:rest.slice(1).join(':')}:rest.length?{id:rest.join(':')}:{})}:{kind:'snapshot' as const}};pending.current=input;await submitReviewFeedback(id,token,input);if(alive.current){pending.current=null;setText('');setConfirm(false);setNotice('Your response is saved against revision '+input.revision+'.');setRefresh(n=>n+1);}}catch(e){if(alive.current)setError(e instanceof Error?e.message:'Your response could not be confirmed. Retry sends the same response ID.');}finally{if(alive.current)setBusy(false);}}
+ const stale=!!view&&view.revision!==view.currentRevision;
+ return <main className="client-review review-viewer"><header><p className="review-eyebrow">Nook & Nest · Private design review</p><h1>{view?.snapshot.title??'Your design review'}</h1><p>A fixed design snapshot. This view cannot change the original home.</p></header>
+  {loading&&<p role="status">Opening the review…</p>}{error&&<p className="review-error" role="alert">{error}</p>}{notice&&<p role="status">{notice}</p>}
+  {!loading&&!view&&<button onClick={()=>setRefresh(n=>n+1)}>Try opening again</button>}
+  {view&&<><div className="review-version"><strong>Revision {view.revision}</strong><span>Link expires {new Date(view.expiresAt).toLocaleString()}</span><button disabled={busy} onClick={()=>setRefresh(n=>n+1)}>Refresh review</button></div>
+   {stale&&<div className="review-warning" role="status">You are viewing an older revision. Responses below apply only to revision {view.revision}. <button disabled={busy} onClick={()=>{pending.current=null;setRevision(view.currentRevision);setAnchor('snapshot');}}>Review revision {view.currentRevision}</button></div>}
+   <ReviewTour snapshot={view.snapshot} media={view.media} images={images} onStopChange={changeStop}/>
+   {embedded?<p><a target="_blank" rel="noopener noreferrer" href={reviewLink(window.location.origin,id,token,view.revision)}>Open the full review to leave a response</a></p>:<section aria-label="Review responses"><h2>Responses to revision {view.revision}</h2><p>Names are self-reported by visitors with this link. An approval records a design decision, not a verified identity or a contract signature.</p>
+    <ul className="review-feedback">{view.feedback.map(f=><li key={f.id}><strong>{f.authorName}</strong> <small>Self-reported visitor · revision {f.revision} · {f.kind==='approval'?'Approved design':f.kind==='changes-requested'?'Changes requested':f.anchor.kind==='snapshot'?'Whole design':`${f.anchor.kind}: ${f.anchor.id}`}{f.resolved?' · Resolved by owner':''}</small><p>{f.text||'Approved this design revision.'}</p></li>)}</ul>
+    {view.feedback.length===0&&<p>No responses yet.</p>}
+    <form onSubmit={e=>{e.preventDefault();void send();}}><fieldset disabled={busy||stale||!!pending.current}><legend>Respond to revision {view.revision}</legend>
+     <label>Your name (self-reported)<input value={author} required maxLength={80} onChange={e=>setAuthor(e.target.value)} autoComplete="name"/></label>
+     <label>Response<select value={kind} onChange={e=>{setKind(e.target.value as typeof kind);setConfirm(false);}}><option value="comment">Comment</option><option value="changes-requested">Request changes</option><option value="approval">Approve this revision</option></select></label>
+     {kind==='comment'&&<label>Attach comment to<select value={anchor} onChange={e=>setAnchor(e.target.value)}><option value="snapshot">Whole design</option>{view.snapshot.stops.map(s=><option value={'stop:'+s.id} key={s.id}>View: {s.title}</option>)}{view.snapshot.plan.floors.map(f=><option value={'floor:'+f.id} key={f.id}>Floor: {f.name}</option>)}{view.snapshot.plan.floors.flatMap(f=>(f.blueprint?.rooms??[]).map(r=><option value={'room:'+f.id+':'+r.id} key={f.id+':'+r.id}>Room: {f.name} · {r.name}</option>))}{view.snapshot.plan.furniture.map(f=><option key={f.id} value={'item:'+f.id}>Item: {f.catalogId} · {view.snapshot.plan.floors.find(x=>x.id===f.floorId)?.name}</option>)}</select></label>}
+     <label>{kind==='approval'?'Optional note':'Your response'}<textarea value={text} required={kind!=='approval'} maxLength={2000} onChange={e=>setText(e.target.value)}/></label>
+     {kind==='approval'&&<label className="review-check"><input type="checkbox" checked={confirm} onChange={e=>setConfirm(e.target.checked)}/>I approve the design shown in revision {view.revision}.</label>}
+     <p>Your name and response will be visible to the owner and anyone with this review link.</p><button disabled={!author.trim()||kind==='approval'&&!confirm}>{kind==='approval'?`Approve revision ${view.revision}`:'Save response'}</button>
+    </fieldset>{pending.current&&!busy&&<div className="review-warning"><p>The last response has not been confirmed. Retry uses its original revision and response ID.</p><button type="button" onClick={()=>void send()}>Retry same response</button><button type="button" onClick={()=>setRefresh(n=>n+1)}>Check saved responses</button></div>}</form>
+   </section>}
+  </>}
+ </main>;
+}

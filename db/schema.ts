@@ -17,6 +17,9 @@ export const recognitionUsage = sqliteTable('recognition_usage', {
   count: integer('count').notNull().default(0),
 }, t => [primaryKey({columns:[t.ownerId,t.day]})]);
 
+// Existing 0002 table must remain represented in future generated migrations.
+export const googleTilesUsage=sqliteTable('google_tiles_usage',{day:text('day').primaryKey(),count:integer('count').notNull().default(0)});
+
 export const sharedPlans=sqliteTable("shared_plans",{id:text("id").primaryKey(),ownerId:text("owner_id").notNull(),createdAt:text("created_at").notNull(),document:text("document").notNull()},t=>[index("shared_plans_owner_idx").on(t.ownerId)]);
 
 // No source photos or prompts: only owner-bound provider job metadata and a retry fingerprint.
@@ -39,3 +42,9 @@ export const listingVideoUsage = sqliteTable('listing_video_usage', {
   day: text('day').notNull(),
   count: integer('count').notNull().default(0),
 }, t => [primaryKey({columns:[t.scope,t.day]})]);
+
+export * from './clientReviewSchema';
+export * from './remixGallerySchema';
+export * from './stagingInventorySchema';
+export * from './collaborationSchema';
+export * from './onlineMediaSchema';

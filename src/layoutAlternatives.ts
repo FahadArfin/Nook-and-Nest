@@ -1,3 +1,4 @@
+import {withRemixAttribution} from './remixAttribution';
 import {publicMoodboardPlan} from './moodboards';
 import {publicAtmospherePlan} from './sceneAtmosphere';
 import {stripSurfaceTakeoffSettings} from './surfaceSettings';
@@ -11,6 +12,7 @@ export const MAX_LAYOUT_ALTERNATIVES_BYTES = 2_000_000;
 const MAX_PROJECT_BYTES = 8_000_000;
 
 export interface LayoutSnapshot {
+  remixAttribution?:PlanDocumentV1['remixAttribution'];
   siteSurvey?:PlanDocumentV1['siteSurvey'];
   presentation?:PlanDocumentV1['presentation'];
   installChecklist?:PlanDocumentV1['installChecklist'];
@@ -66,7 +68,7 @@ export function validateLayoutAlternatives(value: unknown, validateSnapshot: (sn
     if (typeof option.createdAt !== 'string' || option.createdAt.length > 40 || !Number.isFinite(Date.parse(option.createdAt))) fail();
     if (typeof option.activeFloorId !== 'string' || option.activeFloorId.length > 160) fail();
     const snapshot = option.snapshot;
-    if (!record(snapshot) || !onlyKeys(snapshot, ['gridSizeMm', 'floors', 'furniture', 'environment','furnitureGroups','selectionBudgets','moodboards','surfaceTakeoffSettings','siteSurvey','presentation','installChecklist'])) fail();
+    if (!record(snapshot) || !onlyKeys(snapshot, ['remixAttribution','gridSizeMm', 'floors', 'furniture', 'environment','furnitureGroups','selectionBudgets','moodboards','surfaceTakeoffSettings','siteSurvey','presentation','installChecklist'])) fail();
     if (bytes(snapshot) > MAX_LAYOUT_SNAPSHOT_BYTES) throw new Error('A layout idea exceeds the 750 KB limit. Export this layout as a separate project.');
     validateSnapshot(snapshot as unknown as LayoutSnapshot);
     if (!Array.isArray(snapshot.floors) || !snapshot.floors.some(floor => record(floor) && floor.id === option.activeFloorId)) fail();
@@ -77,6 +79,7 @@ export function validateLayoutAlternatives(value: unknown, validateSnapshot: (sn
 export function captureLayout(plan: PlanDocumentV1): LayoutSnapshot {
   return structuredClone({
     gridSizeMm: plan.gridSizeMm,
+    ...(plan.remixAttribution?{remixAttribution:plan.remixAttribution}:{}),
     ...(plan.siteSurvey?{siteSurvey:plan.siteSurvey}:{}),
     ...(plan.presentation?{presentation:plan.presentation}:{}),
     ...(plan.installChecklist?{installChecklist:plan.installChecklist}:{}),
@@ -92,7 +95,7 @@ export function captureLayout(plan: PlanDocumentV1): LayoutSnapshot {
 
 export function snapshotAsPlan(base: PlanDocumentV1, snapshot: LayoutSnapshot): PlanDocumentV1 {
   const { layoutAlternatives: _ideas, designHistory: _history, studioDrafts: _drafts, ...rest } = base as AlternativePlan;
-  return { ...rest, ...snapshot, siteSurvey:snapshot.siteSurvey,presentation:snapshot.presentation,installChecklist:snapshot.installChecklist, moodboards:snapshot.moodboards,surfaceTakeoffSettings:snapshot.surfaceTakeoffSettings,furnitureGroups:snapshot.furnitureGroups,selectionBudgets:snapshot.selectionBudgets, environment: snapshot.environment };
+  return { ...rest, ...snapshot, remixAttribution:snapshot.remixAttribution, siteSurvey:snapshot.siteSurvey,presentation:snapshot.presentation,installChecklist:snapshot.installChecklist, moodboards:snapshot.moodboards,surfaceTakeoffSettings:snapshot.surfaceTakeoffSettings,furnitureGroups:snapshot.furnitureGroups,selectionBudgets:snapshot.selectionBudgets, environment: snapshot.environment };
 }
 
 function checked(plan: AlternativePlan, validate: PlanValidator): AlternativePlan {
@@ -176,5 +179,5 @@ export function layoutDifference(current: LayoutSnapshot, saved: LayoutSnapshot)
 
 export function publicLayoutPlan(plan: AlternativePlan): PlanDocumentV1 {
   const { layoutAlternatives: _ideas, designHistory: _history, siteSurvey:_survey, presentation:_presentation, installChecklist:_checklist, studioDrafts: _drafts, ...published } = plan;
-  return publicAtmospherePlan(stripSurfaceTakeoffSettings(publicMoodboardPlan(stripSelectionSpecifications(publicPersonalPlan({...published,floors:published.floors.map(({referenceId:_privateReference,...floor})=>floor)})))));
+  return withRemixAttribution(publicAtmospherePlan(stripSurfaceTakeoffSettings(publicMoodboardPlan(stripSelectionSpecifications(publicPersonalPlan({...published,floors:published.floors.map(({referenceId:_privateReference,...floor})=>floor)}))))),plan);
 }

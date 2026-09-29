@@ -26,9 +26,12 @@ import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
 import { paintWallPlate, wallPlateIds, paintWallGroup } from "./wallEditing";
 import {windowRotation} from './windows';
 import {scatterPlants,type PlantingBrush} from './planting';
+import {CollaborationStoreBridge} from './collaborationStoreBridge';
+import type {CollaborationSession} from './collaborationSession';
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
+  collaborationPending?:boolean;
   selectedIds:string[];setFurnitureSelection(ids:string[]):void;groupCommand(command:GroupCommand):void;
   turnSnapshot?:Snapshot;turnId?:string;beginTurn(id:string):void;turnFurniture(id:string,degrees:number):void;finishTurn():void;
   paintCoverage(points:Array<{x:number;z:number}>):void;
@@ -65,6 +68,7 @@ interface PlannerState {
 }
 
 const initialPlan = createBlankPlan();
+let plannerCollaboration:CollaborationStoreBridge|undefined;
 const snap = (state: PlannerState): Snapshot => ({ plan: freeze(state.plan, true), activeFloorId: state.activeFloorId });
 const selectionFor=(state:PlannerState,id:string)=>expandedFurnitureSelection(state.plan,state.selectedId&&state.selectedIds?.includes(id)?state.selectedIds:[id]);
 const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId,options:{allowUnlock?:boolean;restoreLayout?:boolean}={}) => {
@@ -72,10 +76,16 @@ const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|nu
   try{if(!options.restoreLayout)assertLockedFurnitureUnchanged(state.plan,next,options);}catch(error){return {plan:state.plan,selectedId:state.selectedId,selectedIds:state.selectedIds,past:state.past,future:state.future,placementNotice:(error as Error).message};}
   const id=selectedId&&next.furniture.some(p=>p.id===selectedId)?selectedId:undefined;
   const ids=id?expandedFurnitureSelection(next,state.selectedIds?.includes(id)?state.selectedIds.filter(key=>next.furniture.some(p=>p.id===key)):[id]):[];
-  return {plan:freeze({...next,updatedAt:new Date().toISOString()},true),selectedId:id,selectedIds:ids,past:boundedHistory([...state.past,snap(state)]),future:[]};
+  return {plan:freeze({...next,updatedAt:new Date().toISOString()},true),selectedId:id,selectedIds:ids,past:boundedHistory([...state.past,snap(state)]),future:[],...(plannerCollaboration?{collaborationAllowUnlock:!!options.allowUnlock}:{})};
 };
 
-export const usePlanner = create<PlannerState>((set, get) => ({
+export const usePlanner = create<PlannerState>((rawSet, get) => {
+ const set:typeof rawSet=((value:Parameters<typeof rawSet>[0],replace?:false)=>{
+  const patch=typeof value==='function'?value(get()):value;
+  if(plannerCollaboration?.intercept(patch as Partial<PlannerState>&Record<string,unknown>))return;
+  rawSet(patch,replace);
+ }) as typeof rawSet;
+ return ({
   beginTurn:id=>{get().finishTurn();if(isFurnitureLocked(get().plan,id)){set({placementNotice:'Unlock this furniture before editing.'});return;}set(s=>({turnSnapshot:snap(s),turnId:id}));},
   turnFurniture:(id,degrees)=>set(s=>{
     const item=s.plan.furniture.find(f=>f.id===id);if(!item||!Number.isFinite(degrees)||s.turnId!==id)return {};
@@ -116,6 +126,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   finishWallGroup:(group,finishId)=>set(s=>commit(s,{...s.plan,floors:s.plan.floors.map(f=>f.id===s.activeFloorId?paintWallGroup(f,s.plan.gridSizeMm,group,finishId):f)})),
   commitDesign:(base,plan,activeFloorId,options={})=>set(state=>{
     if(state.plan!==base||plan.id!==base.id)throw new Error('The apartment changed. Read it again and prepare a new design.');
+    plannerCollaboration?.assertProposal(base,plan,options);
     if(state.turnId)throw new Error('Finish turning the piece before changing the layout.');
     if(!options.restoreLayout)assertLockedFurnitureUnchanged(base,syncArchitecturalHosts(plan),options);
     validatePlan(plan);
@@ -202,13 +213,37 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     const edited={...existing,...patch,...('elevationMm' in patch?{terrainAnchored:false}:{})};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)&&!isStormDoor(existing.catalogId)&&!isRoofSkylight(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
   duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; if(isFurnitureLocked(state.plan,item.id))return {placementNotice:'Unlock this furniture before duplicating.'};const ids=selectionFor(state,item.id);if(ids.length>1){try{const result=applyFurnitureGroupCommand(state.plan,state.plan,state.activeFloorId,{type:'duplicate',ids,dx:250,dz:250},validatePlan);return {...commit(state,result.plan,null),selectedIds:result.selectedIds,selectedId:result.selectedIds[0]};}catch(e){return {placementNotice:(e as Error).message};}} const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWallOpening(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
   deleteSelected: () => set((state) => {if(!state.selectedId)return state;try{const ids=selectionFor(state,state.selectedId);return commit(state,{...state.plan,furniture:state.plan.furniture.filter(f=>!ids.includes(f.id))},null);}catch(e){return {placementNotice:(e as Error).message};}}),
-  undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], paintWallIds:[], selectedId: undefined, selectedIds:[], selectedWallId:undefined }; }),
-  redo: () => set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), paintWallIds:[], selectedId: undefined, selectedIds:[], selectedWallId:undefined }; }),
-}));
+  undo: () => {if(plannerCollaboration){plannerCollaboration.undo();return;}set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], paintWallIds:[], selectedId: undefined, selectedIds:[], selectedWallId:undefined }; });},
+  redo: () => {if(plannerCollaboration){plannerCollaboration.undo(true);return;}set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), paintWallIds:[], selectedId: undefined, selectedIds:[], selectedWallId:undefined }; });},
+});});
+
+const applyPlannerDirect=usePlanner.setState;
+// A few existing tools use the public setter for draft geometry. They must obey the same room boundary.
+usePlanner.setState=((value:Parameters<typeof applyPlannerDirect>[0],replace?:false)=>{
+ const patch=typeof value==='function'?value(usePlanner.getState()):value;
+ if(plannerCollaboration?.intercept(patch as Partial<PlannerState>&Record<string,unknown>))return;
+ applyPlannerDirect(patch,replace);
+}) as typeof applyPlannerDirect;
+
+/** Parent saves the original private project before entry and detaches before any project switch. */
+export function connectPlannerCollaboration(session:CollaborationSession):()=>void {
+ if(plannerCollaboration)throw new Error('Leave the current collaboration before opening another room.');
+ usePlanner.getState().finishTurn();
+ const bridge=new CollaborationStoreBridge(session,{read:()=>usePlanner.getState(),apply:patch=>applyPlannerDirect({...patch,...(patch.plan?{plan:freeze(patch.plan,true)}:{})} as Partial<PlannerState>)});
+ plannerCollaboration=bridge;
+ return ()=>{if(plannerCollaboration===bridge){plannerCollaboration=undefined;bridge.close();}};
+}
+export function plannerCollaborationActive():boolean{return !!plannerCollaboration;}
+export function setPlannerCollaborationInteractionBlocked(value:boolean){plannerCollaboration?.setInteractionBlocked(value);}
 
 let dbPromise: ReturnType<typeof openDB> | undefined;
 const getDb = () => dbPromise ??= openDB("nook-and-nest", 1, { upgrade(db) { if (!db.objectStoreNames.contains("projects")) db.createObjectStore("projects"); } });
-export async function savePlan(plan: PlanDocumentV1) { const db = await getDb(); const tx=db.transaction("projects","readwrite"); await tx.store.put({activeProjectId:plan.id},"active"); await tx.store.put(plan,"project:"+plan.id); await tx.done; }
+export async function savePlan(plan: PlanDocumentV1,options:{activate?:boolean}={}) {
+ const shared=()=>plannerCollaboration?.session.roomId===plan.id;
+ if(shared())throw new Error('Shared edits use the collaboration recovery queue. Leave or create a private copy before a normal local save.');
+ const db = await getDb();if(shared())throw new Error('This project entered collaboration while saving. Its recovery queue keeps shared work safe.');
+ const tx=db.transaction("projects","readwrite"); if(options.activate!==false)await tx.store.put({activeProjectId:plan.id},"active"); await tx.store.put(plan,"project:"+plan.id); await tx.done;
+}
 export async function listLocalPlans(): Promise<PlanDocumentV1[]> { const db=await getDb(); const all=await db.getAll("projects"); const map=new Map<string,PlanDocumentV1>(); for(const p of all)if(p?.schemaVersion===1&&p.id)map.set(p.id,p); return [...map.values()].sort((a,b)=>b.updatedAt.localeCompare(a.updatedAt)); }
 export async function getCloudRevision(owner:string,id:string):Promise<number> { return (await (await getDb()).get("projects",`cloud:${owner}:${id}`))??0; }
 export async function saveCloudRevision(owner:string,id:string,revision:number) { await (await getDb()).put("projects",revision,`cloud:${owner}:${id}`); }
