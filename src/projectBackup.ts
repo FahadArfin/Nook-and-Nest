@@ -1,8 +1,11 @@
+import {personalPhotoIds} from './personalItems';
+import {parsePersonalPhotoAsset,personalAssetBytes,MAX_PERSONAL_MEDIA_BYTES,MAX_PERSONAL_PHOTOS} from './personalMedia';
+import {exportPersonalAssets,importPersonalAssets,validatePersonalAssetBundle,type PersonalAssetBundle} from './personalStorage';
 import {openDB} from 'idb';
 import {parsePlan} from './domain';
 import {imageDimensions} from './imageDimensions';
 import {isListingImage,parseListing,type ListingDocument} from './listingTypes';
-import {loadStudioReference} from './studioReference';
+import {loadFloorReference,loadReferenceVersion} from './studioReference';
 import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1} from './types';
 
@@ -10,10 +13,10 @@ export const MAX_PROJECT_BACKUP_BYTES=160*1024*1024;
 const MAX_REFERENCE_TOTAL=48*1024*1024;
 const MAX_FILE_BYTES=25*1024*1024;
 type ReferenceFile={name:string;type:string;lastModified:number;data:string};
-export type BackupReference={floorId:string;status:'included';page:number;rotation:number;preview?:PlanReference;file?:ReferenceFile}|{floorId:string;status:'missing'|'omitted';reason:string};
+export type BackupReference=({floorId:string;status:'included';page:number;rotation:number;preview?:PlanReference;file?:ReferenceFile}|{floorId:string;status:'missing'|'omitted';reason:string})&{referenceId?:string};
 export interface ProjectBackup {
   format:'nook-and-nest-project-backup';version:1;exportedAt:string;
-  plan:PlanDocumentV1;listing?:ListingDocument;references:BackupReference[];
+  plan:PlanDocumentV1;listing?:ListingDocument;personalAssets?:PersonalAssetBundle;references:BackupReference[];referenceVersions?:BackupReference[];
 }
 const size=(value:unknown)=>new TextEncoder().encode(JSON.stringify(value)).byteLength;
 const object=(value:unknown):Record<string,unknown>=>{if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Invalid project backup data.');return value as Record<string,unknown>;};
@@ -33,10 +36,11 @@ function checkImage(data:unknown,maxLength=16*1024*1024){
 }
 function parseReference(input:unknown,floors:Set<string>):BackupReference {
   const v=object(input),floorId=text(v.floorId,160);if(!floors.has(floorId))throw new Error('A reference belongs to a missing floor.');
-  if(v.status==='missing'||v.status==='omitted')return {floorId,status:v.status,reason:text(v.reason,200)};
+  const referenceId=v.referenceId===undefined?undefined:text(v.referenceId,64);if(referenceId&&!/^[a-f0-9]{64}$/.test(referenceId))throw new Error('Invalid reference version.');
+  if(v.status==='missing'||v.status==='omitted')return {floorId,...(referenceId?{referenceId}:{}),status:v.status,reason:text(v.reason,200)};
   if(v.status!=='included')throw new Error('Unknown floor reference status.');
   const page=integer(v.page,1,200),rotation=integer(v.rotation,0,270);if(rotation%90)throw new Error('Invalid reference rotation.');
-  const result:BackupReference={floorId,status:'included',page,rotation};
+  const result:BackupReference={floorId,...(referenceId?{referenceId}:{}),status:'included',page,rotation};
   if(v.preview!==undefined){const p=object(v.preview),url=text(p.url,16*1024*1024),dimensions=checkImage(url);
     const width=integer(p.width,1,2400),height=integer(p.height,1,2400),pages=integer(p.pages,1,200);
     if(width!==dimensions.width||height!==dimensions.height||page>pages)throw new Error('Reference image measurements or page do not match.');
@@ -53,6 +57,17 @@ function parseReference(input:unknown,floors:Set<string>):BackupReference {
   if(!result.preview&&!result.file)throw new Error('An included reference has no file or preview.');
   return result;
 }
+function parsePersonalBackup(value:unknown,plan:PlanDocumentV1):PersonalAssetBundle|undefined {
+  const expected=new Set(personalPhotoIds(plan));
+  if(value===undefined)return expected.size?{version:1,assets:[],missing:[...expected]}:undefined;
+  const v=object(value);
+  if(v.version!==1||!Array.isArray(v.assets)||v.assets.length>MAX_PERSONAL_PHOTOS||!Array.isArray(v.missing)||v.missing.length>1000)throw new Error('Invalid personal photo manifest.');
+  const assets=v.assets.map(parsePersonalPhotoAsset),missing=v.missing.map(id=>text(id,80)),seen=new Set<string>();
+  for(const id of [...assets.map(a=>a.id),...missing]){if(!expected.has(id)||seen.has(id))throw new Error('This photo manifest contains an unrelated or duplicate record.');seen.add(id);}
+  if(seen.size!==expected.size)throw new Error('The photo manifest must include or mark missing every referenced original.');
+  if(assets.reduce((sum,a)=>sum+personalAssetBytes(a),0)>MAX_PERSONAL_MEDIA_BYTES)throw new Error('Personal backup photos exceed 64 MB.');
+  return {version:1,assets,missing};
+}
 /** No network, storage writes or model execution. Reuse the established plan/listing validators. */
 export function validateProjectBackup(input:unknown):ProjectBackup {
   const v=object(input);
@@ -68,10 +83,19 @@ export function validateProjectBackup(input:unknown):ProjectBackup {
   if(!Array.isArray(v.references)||v.references.length>20)throw new Error('Invalid reference list.');
   const references=v.references.map(r=>parseReference(r,floors)),ids=new Set(references.map(r=>r.floorId));
   if(ids.size!==references.length)throw new Error('A floor reference is duplicated.');
-  if(size(references)>MAX_REFERENCE_TOTAL)throw new Error('Floor-plan references exceed the 48 MB combined limit. Export without references or use smaller source files.');
+  const sharedVersions=new Map<string,string>();
+  for(const r of references)if(r.referenceId&&r.status==='included'){const value=JSON.stringify({...r,floorId:undefined});if(sharedVersions.has(r.referenceId)&&sharedVersions.get(r.referenceId)!==value)throw new Error('The same reference version has conflicting content.');sharedVersions.set(r.referenceId,value);}
+  const allFloors=[...plan.floors,...(plan.layoutAlternatives?.options.flatMap(o=>o.snapshot.floors)??[])];
+  if(v.referenceVersions!==undefined&&(!Array.isArray(v.referenceVersions)||v.referenceVersions.length>120))throw new Error('Invalid saved reference versions.');
+  const referenceVersions=(v.referenceVersions as unknown[]??[]).map(r=>parseReference(r,new Set(allFloors.map(f=>f.id))));
+  const versionIds=new Set(references.flatMap(r=>r.referenceId?[r.referenceId]:[]));
+  for(const r of referenceVersions){if(!r.referenceId||versionIds.has(r.referenceId))throw new Error('A reference version is missing or duplicated.');versionIds.add(r.referenceId);}
+  for(const floor of allFloors)if(floor.referenceId&&!versionIds.has(floor.referenceId)){referenceVersions.push({floorId:floor.id,referenceId:floor.referenceId,status:'missing',reason:'This saved layout reference is not included in the backup.'});versionIds.add(floor.referenceId);}
+  if(size([references,referenceVersions])>MAX_REFERENCE_TOTAL)throw new Error('Floor-plan references exceed the 48 MB combined limit. Export without references or use smaller source files.');
   // Every floor receives an explicit absence record, including hand-edited manifests.
   for(const floor of plan.floors)if(!ids.has(floor.id))references.push({floorId:floor.id,status:'missing',reason:'No saved reference was included for this floor.'});
-  const result:ProjectBackup={format:'nook-and-nest-project-backup',version:1,exportedAt,plan,...(listing?{listing}:{}),references};
+  const personalAssets=parsePersonalBackup(v.personalAssets,plan);
+  const result:ProjectBackup={format:'nook-and-nest-project-backup',version:1,exportedAt,plan,...(listing?{listing}:{}),...(personalAssets?{personalAssets}:{}),references,...(referenceVersions.length?{referenceVersions}:{})};
   if(size(result)>MAX_PROJECT_BACKUP_BYTES)throw new Error('This complete backup exceeds 160 MB.');
   return result;
 }
@@ -93,26 +117,42 @@ export async function buildProjectBackup(plan:PlanDocumentV1,options:{listing?:L
   const snapshot=parsePlan(JSON.stringify(plan)),listing=options.listing?parseListing(options.listing):await savedListing(snapshot.id),references:BackupReference[]=[];
   for(const floor of snapshot.floors){
     if(options.includeReferences===false){references.push({floorId:floor.id,status:'omitted',reason:'Reference files were left out when this backup was made.'});continue;}
-    try {const value=await loadStudioReference(snapshot.id,floor.id);
+    try {const value=await loadFloorReference(snapshot.id,floor);
       if(!value?.reference&&!value?.file){references.push({floorId:floor.id,status:'missing',reason:'No saved reference is available on this device.'});continue;}
-      const entry={floorId:floor.id,status:'included',page:value.page,rotation:value.rotation,...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})};
+      const entry={floorId:floor.id,...(floor.referenceId?{referenceId:floor.referenceId}:{}),status:'included',page:value.page,rotation:value.rotation,...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})};
       references.push(parseReference(entry,new Set([floor.id])));
     }catch{references.push({floorId:floor.id,status:'omitted',reason:'This saved reference could not be read or validated. Reimport the source file after restoring.'});}
   }
-  return validateProjectBackup({format:'nook-and-nest-project-backup',version:1,exportedAt:new Date().toISOString(),plan:snapshot,...(listing?{listing}:{}),references});
+  const referenceVersions:BackupReference[]=[],seen=new Set(references.flatMap(r=>r.referenceId?[r.referenceId]:[]));
+  for(const floor of [...snapshot.floors,...(snapshot.layoutAlternatives?.options.flatMap(o=>o.snapshot.floors)??[])]){
+    if(!floor.referenceId||seen.has(floor.referenceId))continue;seen.add(floor.referenceId);
+    const absent=(reason:string):BackupReference=>({floorId:floor.id,referenceId:floor.referenceId,status:'omitted',reason});
+    if(options.includeReferences===false){referenceVersions.push(absent('Reference versions were left out when this backup was made.'));continue;}
+    try{const value=await loadReferenceVersion(snapshot.id,floor.referenceId);if(!value){referenceVersions.push(absent('This saved layout reference is not available on this device.'));continue;}
+      referenceVersions.push(parseReference({floorId:floor.id,referenceId:floor.referenceId,status:'included',page:value.page,rotation:value.rotation,...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})},new Set([floor.id])));
+    }catch{referenceVersions.push(absent('The saved layout reference could not be read or validated.'));}
+  }
+  const personalAssets=await exportPersonalAssets(snapshot);
+  return validateProjectBackup({personalAssets,format:'nook-and-nest-project-backup',version:1,exportedAt:new Date().toISOString(),plan:snapshot,...(listing?{listing}:{}),references,referenceVersions});
 }
-export function backupNotices(backup:ProjectBackup):string[]{return backup.references.flatMap(r=>{const floor=backup.plan.floors.find(f=>f.id===r.floorId)?.name??'Floor';if(r.status!=='included')return [`${floor}: ${r.reason}`];if(!r.file)return [`${floor}: Only the saved preview is available; the original reference document is not included.`];if(!r.preview)return [`${floor}: The source document is preserved, but no preview is available. Reimport it in Floor plan studio if needed.`];return [];});}
+export function backupNotices(backup:ProjectBackup):string[]{
+  const notices=[...backup.references,...(backup.referenceVersions??[])].flatMap(r=>{const floor=backup.plan.floors.find(f=>f.id===r.floorId)?.name??'Saved layout floor';if(r.status!=='included')return [`${floor}: ${r.reason}`];if(!r.file)return [`${floor}: Only the saved preview is available; the original reference document is not included.`];if(!r.preview)return [`${floor}: The source document is preserved, but no preview is available. Reimport it in Floor plan studio if needed.`];return [];});
+  if(backup.personalAssets?.missing.length)notices.push(`${backup.personalAssets.missing.length} private furniture photo(s) are missing. Measurements and notes are preserved.`);
+  return notices;
+}
 
 /** Publish the new plan last. Independent databases cannot share an atomic transaction. */
 export async function restoreProjectBackup(input:ProjectBackup):Promise<PlanDocumentV1>{
   const backup=validateProjectBackup(input),now=new Date().toISOString(),id=crypto.randomUUID();
+  if(backup.personalAssets)await validatePersonalAssetBundle(backup.personalAssets);
   const plan={...backup.plan,id,name:`${backup.plan.name.slice(0,145)} · restored`,createdAt:now,updatedAt:now};
   // Floor/object IDs remain project-scoped, preserving stairs, blueprint keys and alternatives.
   const listing=backup.listing?parseListing({...backup.listing,planId:id,updatedAt:now,media:backup.listing.media.map(m=>({...m,id:crypto.randomUUID()}))}):undefined;
-  const restoredReferences=backup.references.flatMap(r=>r.status==='included'?[{key:JSON.stringify([id,r.floorId]),value:{page:r.page,rotation:r.rotation,...(r.preview?{reference:r.preview}:{}),...(r.file?{file:new File([bytesFromData(r.file.data,MAX_FILE_BYTES) as BlobPart],r.file.name,{type:r.file.type,lastModified:r.file.lastModified})}:{})}}]:[]);
-  const p=await projectsDb();let listingWritten=false,referencesWritten=false;
+  const restoredReferences=[...new Map([...backup.references,...(backup.referenceVersions??[])].flatMap(r=>r.status==='included'?[{key:JSON.stringify(r.referenceId?[id,'version',r.referenceId]:[id,r.floorId]),value:{page:r.page,rotation:r.rotation,...(r.preview?{reference:r.preview}:{}),...(r.file?{file:new File([bytesFromData(r.file.data,MAX_FILE_BYTES) as BlobPart],r.file.name,{type:r.file.type,lastModified:r.file.lastModified})}:{})}}]:[]).map(r=>[r.key,r])).values()];
+  const p=await projectsDb();let listingWritten=false,referencesWritten=false,photosImported=false;
   try {
     if(await p.get('projects','project:'+id))throw new Error('Could not allocate a new project identity. Please try again.');
+    if(backup.personalAssets?.assets.length){await importPersonalAssets(backup.personalAssets);photosImported=true;}
     if(listing){const db=await listingDb();try{await db.add('listings',{revision:1,document:listing},id);listingWritten=true;}finally{db.close();}}
     if(restoredReferences.length){const db=await referencesDb();try{const tx=db.transaction('references','readwrite');try{for(const r of restoredReferences)await tx.store.add(r.value,r.key);await tx.done;referencesWritten=true;}catch(e){try{tx.abort()}catch{}await tx.done.catch(()=>{});throw e;}}finally{db.close();}}
     await p.add('projects',plan,'project:'+id);
@@ -123,6 +163,7 @@ export async function restoreProjectBackup(input:ProjectBackup):Promise<PlanDocu
     if(referencesWritten)try{const db=await referencesDb();try{const tx=db.transaction('references','readwrite');for(const r of restoredReferences)await tx.store.delete(r.key);await tx.done;}finally{db.close();}}catch(e){failures.push(e);}
     if(listingWritten)try{const db=await listingDb();try{await db.delete('listings',id);}finally{db.close();}}catch(e){failures.push(e);}
     if(failures.length)throw new Error('The new project was not created. Some temporary media could not be removed; existing projects are unchanged. Free browser storage and retry.');
+    if(photosImported)throw new Error(`The new project was not created. Imported photos remain in your private cache and can be managed under My furniture. ${error instanceof Error?error.message:''}`);
     throw error;
   } finally {p.close();}
 }

@@ -22,7 +22,7 @@ async function fixture(){
   db=await database(databases[2]);await db.put('references',reference,JSON.stringify([plan.id,ground.id]));db.close();
   // Node clones File as Blob; supply browser File metadata at this read boundary.
   // All restoration and rollback operations still run against real fake-indexeddb transactions.
-  vi.spyOn(studioReference,'loadStudioReference').mockResolvedValueOnce(reference);
+  vi.spyOn(studioReference,'loadFloorReference').mockResolvedValueOnce(reference);
   return {plan,listing,file,backup:await buildProjectBackup(plan)};
 }
 afterEach(async()=>{vi.restoreAllMocks();for(const db of databases)await deleteDB(db)});

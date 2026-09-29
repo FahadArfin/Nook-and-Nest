@@ -12,7 +12,7 @@ interface CaptureMesh extends VisibilityNode {
 export function withCleanListingCapture<T>(meshes: CaptureMesh[], editorRoots: Array<VisibilityNode | undefined>, capture: () => T): T {
   const hidden = new Map<VisibilityNode, boolean>();
   for (const node of editorRoots) if (node) hidden.set(node, node.isEnabled(false));
-  for (const mesh of meshes) if (/^(edit-grid$|rotation-|wall-draft|wall-snap|inside-wall-preview$|empty-floor-guide$|tile-draft|measured-|paint-selection$|clearance$|draft-footprint$)/.test(mesh.name)) hidden.set(mesh, mesh.isEnabled(false));
+  for (const mesh of meshes) if (/^(edit-grid$|fit-review-guide$|rotation-|wall-draft|wall-snap|inside-wall-preview$|empty-floor-guide$|tile-draft|measured-|paint-selection$|clearance$|draft-footprint$)/.test(mesh.name)) hidden.set(mesh, mesh.isEnabled(false));
   const outlined = meshes.filter(m => m.renderOutline), boxed = meshes.filter(m => m.showBoundingBox);
   hidden.forEach((_, node) => node.setEnabled(false));
   outlined.forEach(m => m.renderOutline = false);

@@ -1,11 +1,12 @@
 import {X,ArrowLeft,ArrowRight,ArrowUp,ArrowDown} from '@phosphor-icons/react';
 import {useEffect, useMemo, useRef, useState} from 'react';
 import {catalog} from './catalog';
+import {modelAssetPath} from './modelAssetPath';
 import {formatLength} from './domain';
 import {readableLength} from './measurement';
 import {LengthInput} from './LengthInput';
 import {usePlanner} from './store';
-import {buildKitPlacement, cozyStarterKits, createFurnitureKit, initialKitPosition, kitBounds, kitPieceProblem, MAX_KIT_PIECES, unavailableKitPieces, type FurnitureKit, type KitPosition} from './furnitureKits';
+import {buildKitPlacement, cozyStarterKits, createFurnitureKit, initialKitPosition, kitBounds, kitFloorFit, kitPieceProblem, MAX_KIT_PIECES, recipeSelectionNotes, replaceKitPiece, roomRecipeDetails, selectKitPieces, unavailableKitPieces, type FurnitureKit, type KitPosition} from './furnitureKits';
 import {deleteFurnitureKit, listFurnitureKits, renameFurnitureKit, saveFurnitureKit} from './kitStorage';
 import type {PlanDocumentV1} from './types';
 import './furniture-kits.css';
@@ -28,12 +29,20 @@ export function FurnitureKitsPanel({preview, onClose}: {preview: KitPreviewBridg
   const [kits, setKits] = useState<FurnitureKit[]>([]), [loaded, setLoaded] = useState(false), [busy, setBusy] = useState(false);
   const [storageError, setStorageError] = useState(''), [error, setError] = useState(''), [notice, setNotice] = useState('');
   const [tab, setTab] = useState<'browse'|'save'>('browse'), [choice, setChoice] = useState<string>(), [position, setPosition] = useState<KitPosition>();
+  const [kept, setKept] = useState<number[]>([]);
+  const [revisedKit,setRevisedKit]=useState<FurnitureKit>(),[replacing,setReplacing]=useState<number>(),[replacementSearch,setReplacementSearch]=useState('');
   const [staged, setStaged] = useState<StagedKit>(), [selected, setSelected] = useState<string[]>([]), [name, setName] = useState(''), [search, setSearch] = useState('');
   const [renaming, setRenaming] = useState<string>(), [newName, setNewName] = useState(''), [deleting, setDeleting] = useState<string>();
   const bridge = useRef(preview), stageId = useRef<string | undefined>(undefined), alive = useRef(true), refreshEpoch = useRef(0), running = useRef(false);
   bridge.current = preview;
-  const kit = [...cozyStarterKits, ...kits].find(k => k.id === choice);
-  const configuration = JSON.stringify([choice, position]);
+  const sourceKit = [...cozyStarterKits, ...kits].find(k => k.id === choice);
+  const kit=revisedKit?.id===choice?revisedKit:sourceKit;
+  const replacements=useMemo(()=>catalog.filter(item=>!kitPieceProblem({catalogId:item.id})&&item.name.toLowerCase().includes(replacementSearch.toLowerCase())).slice(0,8),[replacementSearch]);
+  const chosenKit = useMemo(() => {const indices=kit ? kept.filter(i=>i<kit.pieces.length) : []; return kit&&indices.length ? selectKitPieces(kit,indices) : undefined;}, [kit,kept]);
+  const missing = chosenKit ? unavailableKitPieces(chosenKit) : [];
+  const fit = useMemo(() => chosenKit && position ? kitFloorFit(plan,floorId,chosenKit,position) : undefined, [plan,floorId,chosenKit,position]);
+  const selectionNotes = kit ? recipeSelectionNotes(kit,kept) : [];
+  const configuration = JSON.stringify([choice, position, kept, kit?.pieces]);
   const nudge = plan.units === 'imperial' ? 254 : 250, nudgeLabel = plan.units === 'imperial' ? '10 in' : '25 cm';
   const fresh = !!staged && preview.activeId === staged.id && staged.configuration === configuration;
   const clearPreview = () => {const id = stageId.current; if (id) bridge.current.discard(id); stageId.current = undefined; setStaged(undefined);};
@@ -69,18 +78,18 @@ export function FurnitureKitsPanel({preview, onClose}: {preview: KitPreviewBridg
       if (current.activeFloorId !== floorId || current.plan !== plan) throw new Error('The room changed. Choose this kit again.');
       const result = buildKitPlacement(plan, floorId, next, nextPosition);
       const id = preview.stage({...result, base: plan, floorId, label: next.name});
-      stageId.current = id; setStaged({id, configuration: JSON.stringify([next.id, nextPosition]), warnings: result.warnings}); setNotice('Preview only. Check the room, then Apply or Discard.');
+      stageId.current = id; setStaged({id, configuration, warnings: result.warnings}); setNotice('Preview only. Check the room, then Apply or Discard.');
   };
   const choose = (next: FurnitureKit) => {
     if (preview.blocked) return;
-    clearPreview(); setError(''); setNotice(''); setChoice(next.id); setPosition(undefined); setRenaming(undefined); setDeleting(undefined);
-    try {const nextPosition = initialKitPosition(plan, floorId, next); setPosition(nextPosition); previewKit(next,nextPosition);}
+    clearPreview(); setError(''); setNotice(''); setChoice(next.id); setRevisedKit(undefined); setReplacing(undefined); setReplacementSearch(''); setKept(next.pieces.map((_,i)=>i)); setPosition(undefined); setRenaming(undefined); setDeleting(undefined);
+    try {setPosition(initialKitPosition(plan, floorId, next));}
     catch (e) {setError((e as Error).message);}
   };
   const stage = () => {
-    if (!kit || !position || preview.blocked) return;
+    if (!chosenKit || !position || preview.blocked || missing.length) return;
     setError('');
-    try {previewKit(kit,position);} catch (e) {setError((e as Error).message);}
+    try {previewKit(chosenKit,position);} catch (e) {setError((e as Error).message);}
   };
   const apply = () => {
     if (!staged || !fresh || preview.blocked) return;
@@ -91,30 +100,66 @@ export function FurnitureKitsPanel({preview, onClose}: {preview: KitPreviewBridg
   const changeTab = (next: 'browse'|'save') => {clearPreview(); setChoice(undefined); setPosition(undefined); setTab(next); setError(''); setNotice('');};
   const close = () => {clearPreview(); onClose();};
   const card = (entry: FurnitureKit, personal: boolean) => {
-    const bounds = kitBounds(entry), unavailable = unavailableKitPieces(entry);
+    const bounds = kitBounds(entry), unavailable = unavailableKitPieces(entry), recipe = roomRecipeDetails[entry.id];
     return <article className="kit-card" key={entry.id} data-selected={entry.id === choice}>
-      <div><h4>{entry.name}</h4><p>{entry.pieces.length} pieces · {formatLength(bounds.width, plan.units)} × {formatLength(bounds.depth, plan.units)}</p><small>{entry.pieces.map(p => names.get(p.catalogId) ?? p.catalogId).join(' · ')}</small></div>
-      {!!unavailable.length && <p className="kit-warning">{unavailable.join(' ')} Your saved kit is kept; remove and resave it with available pieces.</p>}
-      <div className="kit-actions"><button disabled={busy || preview.blocked || !!unavailable.length} onClick={() => choose(entry)}>Arrange {entry.name}</button>{personal && <><button disabled={busy} onClick={() => {setRenaming(entry.id); setNewName(entry.name); setDeleting(undefined);}}>Rename</button><button disabled={busy} onClick={() => {setDeleting(entry.id); setRenaming(undefined);}}>Remove</button></>}</div>
+      {!personal && <div className="kit-recipe-pictures" aria-hidden="true">{entry.pieces.slice(0,3).map((p,i)=><img key={i} src={modelAssetPath(p.catalogId,true)} loading="lazy" alt=""/>)}</div>}
+      <div><h4>{entry.name}</h4>{recipe && <p>{recipe.description}</p>}<p className="kit-footprint">{entry.pieces.length} pieces · Footprint {readableLength(bounds.width, plan.units)} × {readableLength(bounds.depth, plan.units)}</p><small>{entry.pieces.map(p => names.get(p.catalogId) ?? p.catalogId).join(' · ')}</small></div>
+      {!!unavailable.length && <p className="kit-warning">Some pieces are unavailable. Open this kit to replace or skip those pieces. Your saved kit stays unchanged.</p>}
+      <div className="kit-actions"><button disabled={busy || preview.blocked} onClick={() => choose(entry)}>Arrange {entry.name}</button>{personal && <><button disabled={busy} onClick={() => {setRenaming(entry.id); setNewName(entry.name); setDeleting(undefined);}}>Rename</button><button disabled={busy} onClick={() => {setDeleting(entry.id); setRenaming(undefined);}}>Remove</button></>}</div>
       {renaming === entry.id && <div className="kit-inline-edit"><label>New kit name<input maxLength={80} value={newName} onChange={e => setNewName(e.target.value)}/></label><button disabled={busy || !newName.trim()} onClick={() => void run(async () => {await renameFurnitureKit(entry.id, newName); setRenaming(undefined);}, 'Kit renamed.')}>Save name</button><button onClick={() => setRenaming(undefined)}>Cancel</button></div>}
       {deleting === entry.id && <div className="kit-inline-edit" role="alert"><p>Remove “{entry.name}” from this device? Placed furniture stays in your home.</p><button disabled={busy} onClick={() => void run(async () => {await deleteFurnitureKit(entry.id); if (choice === entry.id) {clearPreview(); setChoice(undefined);} setDeleting(undefined);}, 'Private kit removed.')}>Remove kit</button><button onClick={() => setDeleting(undefined)}>Keep kit</button></div>}
     </article>;
   };
   return <section className="furniture-kits" data-placing={!!kit&&!!position&&tab==='browse'} aria-label="Furniture arrangements">
     <header className="kit-heading"><div><span className="eyebrow">Make a corner your own</span><h2>Arrangements</h2></div><button onClick={close} aria-label="Close arrangements" title="Close arrangements"><X size={20}/></button></header>
-    <p className="kit-intro">Start with a cozy set or save pieces you have arranged. Kits stay private on this device. Placed pieces stay independent.</p>
+    <p className="kit-intro">Choose a room recipe, keep the pieces you like, then preview. Your own kits stay private on this device. Every piece stays editable.</p>
     <div className="kit-tabs" role="group" aria-label="Arrangement collection"><button aria-pressed={tab === 'browse'} onClick={() => changeTab('browse')}>Choose a kit</button><button aria-pressed={tab === 'save'} onClick={() => changeTab('save')}>Save my arrangement</button></div>
     {preview.blocked && <p className="kit-warning" role="status">Finish or discard the other placement or design preview before arranging this kit.</p>}
     {storageError && <p className="kit-warning" role="alert">{storageError} <button disabled={busy} onClick={() => void refresh()}>Retry private kits</button></p>}
     {error && <p className="kit-warning" role="alert">{error}</p>}
     {notice && <p className="kit-notice" role="status">{notice}</p>}
     {tab === 'browse' ? <>
-      {kit && position && <section className="kit-position" aria-label="Place arrangement"><h3>{kit.name}</h3><p>Move or turn the set, then update its preview.</p><div className="kit-coordinate-fields"><LengthInput label="Kit X" value={position.x} units={plan.units} min={-10000000} onChange={x => setPosition({...position, x})}/><LengthInput label="Kit Z" value={position.z} units={plan.units} min={-10000000} onChange={z => setPosition({...position, z})}/></div><label>Rotation (degrees)<input type="number" min={-360} max={360} step={15} value={position.rotation} onChange={e => {if(e.target.value !== '' && Number.isFinite(e.target.valueAsNumber)) setPosition({...position, rotation: e.target.valueAsNumber});}}/></label><div className="kit-actions"><button disabled={preview.blocked} onClick={() => setPosition(p => p && ({...p, x:p.x-nudge}))} aria-label={`Left ${nudgeLabel}`} title={`Left ${nudgeLabel}`}><ArrowLeft size={20}/></button><button disabled={preview.blocked} onClick={() => setPosition(p => p && ({...p, x:p.x+nudge}))} aria-label={`Right ${nudgeLabel}`} title={`Right ${nudgeLabel}`}><ArrowRight size={20}/></button><button disabled={preview.blocked} onClick={() => setPosition(p => p && ({...p, z:p.z-nudge}))} aria-label={`Back ${nudgeLabel}`} title={`Back ${nudgeLabel}`}><ArrowUp size={20}/></button><button disabled={preview.blocked} onClick={() => setPosition(p => p && ({...p, z:p.z+nudge}))} aria-label={`Forward ${nudgeLabel}`} title={`Forward ${nudgeLabel}`}><ArrowDown size={20}/></button></div>
-        {staged && !fresh && <p className="kit-warning">Position changed. Update the preview before applying.</p>}
-        {!!staged?.warnings.length && <details className="kit-warning"><summary>{staged.warnings.length} layout notes — check the fit</summary><ul>{staged.warnings.map((w,i) => <li key={i}>{w.message}</li>)}</ul></details>}
-        <div className="kit-actions"><button disabled={busy || preview.blocked} onClick={stage}>{staged ? 'Update preview' : 'Preview in room'}</button><button className="primary" disabled={busy || preview.blocked || !fresh} onClick={apply}>Apply arrangement</button><button disabled={!staged} onClick={() => {clearPreview(); setError(''); setNotice('Preview discarded. Your home is unchanged.');}}>Discard preview</button><button onClick={() => {clearPreview(); setChoice(undefined); setPosition(undefined);}}>Back to kits</button></div>
+      {kit && <section className="kit-position" aria-label="Place arrangement">
+        <h3>{kit.name}</h3>
+        <fieldset className="kit-piece-picker"><legend>Keep the pieces you want · {kept.length} / {kit.pieces.length}</legend>
+          <div className="kit-piece-list">{kit.pieces.map((piece,i) => {const problem=kitPieceProblem(piece); return <div className="kit-piece-row" key={i} data-unavailable={!!problem}><label>
+            <input type="checkbox" checked={kept.includes(i)} aria-label={`Keep ${names.get(piece.catalogId) ?? piece.catalogId} ${i+1}`} onChange={e=>setKept(current=>e.target.checked?[...current,i].sort((a,b)=>a-b):current.filter(index=>index!==i))}/>
+            <span>{names.get(piece.catalogId) ?? piece.catalogId}<small>{readableLength(piece.widthMm,plan.units)} × {readableLength(piece.depthMm,plan.units)}{problem && <> · Unavailable: {problem}</>}</small></span>
+          </label><button type="button" disabled={busy||preview.blocked} onClick={()=>{setReplacing(i);setReplacementSearch('');}} aria-label={`Replace ${names.get(piece.catalogId)??piece.catalogId} ${i+1}`}>Replace</button></div>;})}</div>
+        </fieldset>
+        {replacing!==undefined&&<section className="kit-replacement" aria-label="Choose a replacement"><h4>Replace {names.get(kit.pieces[replacing].catalogId)??kit.pieces[replacing].catalogId}</h4><p>The new piece keeps this position and height, with its own size and finish. Check its fit and support in the preview.</p><label>Find replacement<input type="search" value={replacementSearch} onChange={e=>setReplacementSearch(e.target.value)} placeholder="Chair, table, lamp…"/></label><div className="kit-replacement-options">{replacements.map(item=><button key={item.id} onClick={()=>{try{clearPreview();setRevisedKit(replaceKitPiece(kit,replacing,item.id));setKept(current=>current.includes(replacing)?current:[...current,replacing].sort((a,b)=>a-b));setReplacing(undefined);setError('');}catch(e){setError((e as Error).message);}}}><img src={modelAssetPath(item.id,true)} loading="lazy" alt=""/><span>{item.name}<small>{readableLength(item.widthMm,plan.units)} × {readableLength(item.depthMm,plan.units)}</small></span></button>)}</div>{!replacements.length&&<p>No matching kit models. Try a different name.</p>}<button onClick={()=>setReplacing(undefined)}>Cancel replacement</button></section>}
+        {revisedKit&&<div className="kit-actions"><span>Edited arrangement · original unchanged</span><button disabled={busy||!loaded||!!storageError} onClick={()=>void run(async()=>{await saveFurnitureKit({...revisedKit,id:crypto.randomUUID(),name:`${revisedKit.name.slice(0,67)} · revised`,createdAt:new Date().toISOString(),updatedAt:new Date().toISOString()});},'A revised copy was saved in My kits.')}>Save revised kit</button><button disabled={busy} onClick={()=>{clearPreview();setRevisedKit(undefined);setReplacing(undefined);}}>Reset replacements</button></div>}
+        {!kept.length && <p className="kit-warning" role="status">Keep at least one piece before previewing.</p>}
+        {!!missing.length && <p className="kit-warning" role="status">Replace or uncheck unavailable pieces to continue. Your saved kit stays unchanged.</p>}
+        {!!selectionNotes.length && <p className="kit-warning" role="status">{selectionNotes.join(' ')}</p>}
+        {roomRecipeDetails[kit.id] && <p className="kit-muted">{roomRecipeDetails[kit.id].note}</p>}
+        {fit && <div className="kit-fit" data-fits={fit.fits} role="status">
+          <strong>Selected footprint {readableLength(fit.bounds.width,plan.units)} × {readableLength(fit.bounds.depth,plan.units)}</strong>
+          <span>{fit.fits ? 'These footprints are inside this floor at the current position.' : `${fit.outside.length} ${fit.outside.length===1?'piece extends':'pieces extend'} beyond the floor shape or across an opening. Move, turn or uncheck pieces to improve the fit.`}</span>
+          <small>Allow extra space for walking, chairs and doors. Check the room in the preview.</small>
+        </div>}
+        {position && <>
+          <p>Move or turn the set, then update its preview.</p>
+          <div className="kit-coordinate-fields"><LengthInput label="Kit X" value={position.x} units={plan.units} min={-10000000} onChange={x=>setPosition({...position,x})}/><LengthInput label="Kit Z" value={position.z} units={plan.units} min={-10000000} onChange={z=>setPosition({...position,z})}/></div>
+          <label>Rotation (degrees)<input type="number" min={-360} max={360} step={15} value={position.rotation} onChange={e=>{if(e.target.value!=='' && Number.isFinite(e.target.valueAsNumber))setPosition({...position,rotation:e.target.valueAsNumber});}}/></label>
+          <div className="kit-actions">
+            <button disabled={preview.blocked} onClick={()=>setPosition(p=>p&&({...p,x:p.x-nudge}))} aria-label={`Left ${nudgeLabel}`} title={`Left ${nudgeLabel}`}><ArrowLeft size={20}/></button>
+            <button disabled={preview.blocked} onClick={()=>setPosition(p=>p&&({...p,x:p.x+nudge}))} aria-label={`Right ${nudgeLabel}`} title={`Right ${nudgeLabel}`}><ArrowRight size={20}/></button>
+            <button disabled={preview.blocked} onClick={()=>setPosition(p=>p&&({...p,z:p.z-nudge}))} aria-label={`Back ${nudgeLabel}`} title={`Back ${nudgeLabel}`}><ArrowUp size={20}/></button>
+            <button disabled={preview.blocked} onClick={()=>setPosition(p=>p&&({...p,z:p.z+nudge}))} aria-label={`Forward ${nudgeLabel}`} title={`Forward ${nudgeLabel}`}><ArrowDown size={20}/></button>
+            <button disabled={!chosenKit||preview.blocked} onClick={()=>{try{setPosition(initialKitPosition(plan,floorId,chosenKit!));}catch(e){setError((e as Error).message);}}}>Center set</button>
+          </div>
+        </>}
+        {staged && !fresh && <p className="kit-warning">Selection or position changed. Update the preview before applying.</p>}
+        {!!staged?.warnings.length && <details className="kit-warning"><summary>{staged.warnings.length} layout notes — check the fit</summary><ul>{staged.warnings.map((w,i)=><li key={i}>{w.message}</li>)}</ul></details>}
+        <div className="kit-actions kit-review-actions">
+          <button disabled={busy||preview.blocked||!position||!chosenKit||!!missing.length} onClick={stage}>{staged?'Update preview':'Preview selected pieces'}</button>
+          <button className="primary" disabled={busy||preview.blocked||!fresh} onClick={apply}>Apply arrangement</button>
+          <button disabled={!staged} onClick={()=>{clearPreview();setError('');setNotice('Preview discarded. Your home is unchanged.');}}>Discard preview</button>
+          <button onClick={()=>{clearPreview();setChoice(undefined);setPosition(undefined);}}>Back to kits</button>
+        </div>
       </section>}
-      {(!kit||!position)&&<><h3>Cozy starters</h3><div className="kit-cards">{cozyStarterKits.map(k => card(k, false))}</div>
+      {!kit&&<><h3>Room recipes</h3><div className="kit-cards">{cozyStarterKits.map(k => card(k, false))}</div>
       <div className="kit-section-heading"><h3>My kits · {kits.length}</h3><button disabled={busy} onClick={() => void refresh()}>Refresh</button></div>
       {!loaded && !storageError ? <p role="status">Opening private kits…</p> : !kits.length && <p>Arrange a few pieces, then save your first kit.</p>}
       <div className="kit-cards">{kits.map(k => card(k, true))}</div></>}

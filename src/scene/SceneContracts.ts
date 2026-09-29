@@ -3,7 +3,7 @@ export interface Callbacks {
   onCell(x: number, z: number): void;
   onWallSegment(wall: Omit<WallSegment, "id">): void;
   onTileDraft(cells: TileCell[], present: boolean): void;
-  onSelect(id?: string): void;
+  onSelect(id?: string, additive?:boolean): void;
   onMove(
     id: string,
     xMm: number,

@@ -1,7 +1,10 @@
-import {catalog, isStairs, isWallOpening} from './catalog';
+import {parsePersonalItemMetadata} from './personalItems';
+import {catalog, isDoor, isStairs, isWallOpening} from './catalog';
+import clipping from 'polygon-clipping';
 import {designWarnings, footprint, overlap} from './agentDesign';
 import {floorRects} from './floorGeometry';
 import {visibleFloorRects} from './building';
+import {geometryArea, polygonBounds, shapeOf, unionShapes} from './polygonGeometry';
 import {restsOnShelf} from './shelfSurfaces';
 import {validatePlan, MAX_PLAN_BYTES} from './planValidation';
 import type {FurniturePlacement, PlanDocumentV1} from './types';
@@ -9,13 +12,13 @@ import type {FurniturePlacement, PlanDocumentV1} from './types';
 export const MAX_KIT_PIECES = 40;
 export const MAX_SAVED_KITS = 40;
 export const MAX_KIT_BYTES = 256 * 1024;
-export type KitPiece = Omit<FurniturePlacement, 'id' | 'floorId' | 'toFloorId' | 'stairRiseMm' | 'doorless'>;
+export type KitPiece = Omit<FurniturePlacement, 'id' | 'floorId' | 'toFloorId' | 'stairRiseMm' | 'doorless' | 'hostDoorId'>;
 export interface FurnitureKit {
   version: 1; id: string; name: string; createdAt: string; updatedAt: string; pieces: KitPiece[];
 }
 export interface KitPosition {x: number; z: number; rotation: number}
 const byId = new Map(catalog.map(item => [item.id, item]));
-const pieceKeys = new Set(['catalogId','x','z','rotation','widthMm','depthMm','heightMm','variant','surfaceVariant','materialColors','elevationMm','moduleRun','showerMirrored','openFraction','terrainAnchored']);
+const pieceKeys = new Set(['personalItem','catalogId','x','z','rotation','widthMm','depthMm','heightMm','variant','surfaceVariant','materialColors','elevationMm','moduleRun','showerMirrored','openFraction','terrainAnchored']);
 const record = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
 const finite = (v: unknown, min = -10_000_000, max = 10_000_000): v is number => typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max;
 const shortText = (v: unknown, max: number): v is string => typeof v === 'string' && !!v.trim() && v.length <= max && !/[\u0000-\u001f\u007f]/.test(v);
@@ -29,7 +32,7 @@ export function kitName(name: unknown): string {
 export function kitPieceProblem(piece: Pick<FurniturePlacement, 'catalogId' | 'toFloorId' | 'terrainAnchored'>): string | undefined {
   const item = byId.get(piece.catalogId);
   if (!item) return `The catalog no longer includes ${piece.catalogId}.`;
-  if (isStairs(item.id) || isWallOpening(item.id) || piece.toFloorId) return 'Doors, windows and stairs stay outside reusable furniture kits.';
+  if (isDoor(item.id) || isStairs(item.id) || isWallOpening(item.id) || piece.toFloorId) return 'Doors, windows and stairs stay outside reusable furniture kits.';
   if (item.mount === 'wall' || item.mount === 'ceiling') return 'Wall and ceiling attachments are not included in this first kit collection.';
   if (piece.terrainAnchored) return 'Terrain-anchored pieces need individual placement in the new landscape.';
   return undefined;
@@ -42,6 +45,7 @@ export function parseFurnitureKit(value: unknown): FurnitureKit {
   for (const key of ['createdAt','updatedAt'] as const) if (!shortText(value[key], 40) || !Number.isFinite(Date.parse(value[key]))) throw new Error('This kit has an invalid saved date.');
   for (const p of value.pieces) {
     if (!record(p) || Object.keys(p).some(k => !pieceKeys.has(k)) || !shortText(p.catalogId, 160) || !shortText(p.variant, 100)) throw new Error('A kit piece is invalid.');
+    if(p.personalItem!==undefined)parsePersonalItemMetadata(p.personalItem);
     for (const key of ['x','z','rotation']) if (!finite(p[key])) throw new Error('A kit contains an invalid position.');
     for (const key of ['widthMm','depthMm','heightMm']) if (!finite(p[key], 1, 50000)) throw new Error('A kit contains invalid dimensions.');
     if (p.elevationMm !== undefined && !finite(p.elevationMm)) throw new Error('A kit contains an invalid height.');
@@ -79,6 +83,25 @@ export function unavailableKitPieces(kit: FurnitureKit): string[] {
   return [...new Set(kit.pieces.map(p => kitPieceProblem(p)).filter((p): p is string => !!p))];
 }
 
+/** Selection is explicit and never rewrites the private source or shifts its anchor. */
+export function selectKitPieces(input: FurnitureKit, indices: readonly number[]): FurnitureKit {
+  const kit = parseFurnitureKit(input), selected = new Set(indices);
+  if (!selected.size) throw new Error('Keep at least one piece before previewing.');
+  if (selected.size !== indices.length || indices.some(i => !Number.isInteger(i) || i < 0 || i >= kit.pieces.length)) throw new Error('Choose valid pieces from this arrangement.');
+  return {...kit, pieces: kit.pieces.filter((_, i) => selected.has(i))};
+}
+
+/** An explicit substitute gets its own authored dimensions and finishes, never a retired model's overrides. */
+export function replaceKitPiece(input: FurnitureKit, index: number, catalogId: string): FurnitureKit {
+  const kit=parseFurnitureKit(input), item=byId.get(catalogId);
+  if(!Number.isInteger(index)||index<0||index>=kit.pieces.length)throw new Error('Choose a piece in this arrangement.');
+  if(!item)throw new Error('Choose an available model.');
+  const problem=kitPieceProblem({catalogId});if(problem)throw new Error(problem);
+  const previous=kit.pieces[index];
+  kit.pieces[index]={catalogId,x:previous.x,z:previous.z,rotation:previous.rotation,widthMm:item.widthMm,depthMm:item.depthMm,heightMm:item.heightMm,variant:'oat',...(previous.elevationMm===undefined?{}:{elevationMm:previous.elevationMm})};
+  return parseFurnitureKit(kit);
+}
+
 function transformed(piece: KitPiece, position: KitPosition): KitPiece {
   const a = position.rotation * Math.PI / 180, c = Math.cos(a), s = Math.sin(a);
   return {...structuredClone(piece), x: position.x + piece.x * c + piece.z * s, z: position.z - piece.x * s + piece.z * c, rotation: piece.rotation + position.rotation};
@@ -89,6 +112,22 @@ export function kitBounds(kit: FurnitureKit, rotation = 0) {
   const left = Math.min(...points.map(p => p.x)), right = Math.max(...points.map(p => p.x));
   const top = Math.min(...points.map(p => p.z)), bottom = Math.max(...points.map(p => p.z));
   return {left, right, top, bottom, width: right - left, depth: bottom - top};
+}
+
+// footprint() supplies corners for SAT, not perimeter order. Polygon clipping needs a simple ring.
+function pieceShape(piece: KitPiece, position: KitPosition) {
+  const corners = footprint({...transformed(piece, position), id: 'fit', floorId: 'fit'});
+  return polygonBounds([corners[0], corners[1], corners[3], corners[2]]);
+}
+
+/** Full-area coverage catches concave gaps and floor holes even when all four corners are supported. */
+export function kitFloorFit(plan: PlanDocumentV1, floorId: string, kit: FurnitureKit, position: KitPosition) {
+  const floor = unionShapes(visibleFloorRects(plan, floorId));
+  const outside = kit.pieces.flatMap((piece, index) => {
+    const area = geometryArea(clipping.difference(shapeOf(pieceShape(piece, position)), floor));
+    return area > 1 ? [index] : []; // one square millimetre absorbs clipping roundoff only
+  });
+  return {fits: outside.length === 0, outside, bounds: kitBounds(kit, position.rotation)};
 }
 
 export function initialKitPosition(plan: PlanDocumentV1, floorId: string, kit: FurnitureKit): KitPosition {
@@ -114,8 +153,8 @@ export function buildKitPlacement(base: PlanDocumentV1, floorId: string, input: 
   // Only compare newly proposed pieces against existing pieces: bounded O(kit * scene), not a fresh scene-wide pair scan.
   const warnings = designWarnings({...base, furniture: added}).filter(w => w.kind !== 'floor_edge');
   // Existing stair placements define holes; keep their geometry even though only new pieces are reviewed.
-  const rects = visibleFloorRects(base, floorId);
-  for (const item of added) if (warnings.length < 100 && !footprint(item).every(p => rects.some(r => p.x >= r.x-1 && p.x <= r.x+r.width+1 && p.z >= r.z-1 && p.z <= r.z+r.depth+1))) warnings.push({kind: 'floor_edge', ids: [item.id], message: 'A kit footprint extends beyond this floor or into a stair opening. Check the visible fit.'});
+  const fit = kitFloorFit(base, floorId, kit, position);
+  for (const index of fit.outside) if (warnings.length < 100) warnings.push({kind: 'floor_edge', ids: [added[index].id], message: `${byId.get(added[index].catalogId)?.name ?? 'A piece'} extends outside the floor shape or across a floor opening. Move, turn or skip this piece before applying.`});
   for (const item of added) for (const other of base.furniture) {
     if (warnings.length >= 100) break;
     if (byId.get(item.catalogId)?.shape === 'rug' || byId.get(other.catalogId)?.shape === 'rug' || restsOnShelf(item, other) || restsOnShelf(other, item)) continue;
@@ -136,5 +175,22 @@ function starter(id: string, name: string, entries: Array<[string, number, numbe
 export const cozyStarterKits: readonly FurnitureKit[] = [
   starter('starter-reading', 'Quiet reading nook', [['armchair',0,0,0,'sage'],['side-table',720,100,0,'oat'],['floor-lamp',-680,-300,0,'cream']]),
   starter('starter-dining', 'Breakfast for two', [['breakfast-nook-table',0,0,0,'oat'],['breakfast-nook-chair',0,760,180,'clay'],['breakfast-nook-chair',0,-760,0,'clay']]),
-  starter('starter-office', 'Small creative corner', [['compact-computer-desk',0,0,0,'oat'],['office-chair',0,820,180,'slate'],['desktop-monitor',0,-100,0,'charcoal',760]]),
+  starter('starter-office', 'Cozy office', [['compact-computer-desk',0,0,0,'oat'],['office-chair',0,820,180,'slate'],['desktop-monitor',0,-100,0,'charcoal',760],['floor-lamp',-900,0,0,'cream']]),
+  starter('starter-first-apartment', 'First apartment', [['loveseat',0,0,0,'sage'],['coffee-table',0,1200,0,'oat'],['floor-lamp',-1150,0,0,'cream'],['breakfast-nook-table',2450,0,0,'oat'],['breakfast-nook-chair',2450,760,180,'clay'],['breakfast-nook-chair',2450,-760,0,'clay']]),
+  starter('starter-hobby', 'Hobby corner', [['trestle-desk',0,0,0,'oat'],['dining-chair',0,900,180,'clay'],['desktop-sewing-machine',-200,-70,0,'cream',760],['desk-organizer',470,-170,0,'sage',760],['office-filing-cabinet',1250,0,0,'sage']]),
+  starter('starter-guest', 'Guest room', [['single-bed',0,0,0,'slate'],['nightstand',850,-600,0,'oat'],['table-lamp',850,-600,0,'cream',560],['wardrobe',-1800,0,0,'oat']]),
 ];
+
+/** Editorial guidance stays outside private-kit data; saved snapshots keep their existing schema. */
+export const roomRecipeDetails: Readonly<Record<string, {description: string; note: string; supports?: ReadonlyArray<readonly [number, number]>}>> = {
+  'starter-reading': {description: 'A comfortable seat, a place for tea and warm reading light.', note: 'Leave space in front of the chair to stretch out.'},
+  'starter-dining': {description: 'An everyday table for two with separate, movable chairs.', note: 'Allow more room behind the chairs to pull them out.'},
+  'starter-office': {description: 'A compact desk, task chair, screen and a warm corner light.', note: 'Keep the screen with its desk, or adjust its height after placement.', supports: [[2,0]]},
+  'starter-first-apartment': {description: 'Living and dining essentials for a small first home.', note: 'Includes seating and dining; add bedroom and kitchen pieces separately.'},
+  'starter-hobby': {description: 'A sewing and making desk with a chair, supplies and nearby storage.', note: 'Desktop pieces are independent. Keep their table or provide another support.', supports: [[2,0],[3,0]]},
+  'starter-guest': {description: 'A single bed, bedside light and useful wardrobe storage.', note: 'The layout leaves a gap beside the bed; check door and drawer access.', supports: [[2,1]]},
+};
+
+export function recipeSelectionNotes(kit: FurnitureKit, indices: readonly number[]): string[] {
+  return (roomRecipeDetails[kit.id]?.supports ?? []).filter(([child, owner]) => indices.includes(child) && !indices.includes(owner)).map(([child]) => `${byId.get(kit.pieces[child].catalogId)?.name ?? 'This piece'} keeps its saved height. Include its support or adjust its height after applying.`);
+}

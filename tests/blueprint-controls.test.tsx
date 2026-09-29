@@ -23,7 +23,7 @@ beforeEach(()=>{
 });
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 describe('floor plan studio flow',()=>{
-  it('keeps the 3D home untouched until the explicit review confirmation and supports undo',()=>{
+  it('keeps the 3D home untouched until the explicit review confirmation and supports undo',async()=>{
     const original=usePlanner.getState().plan,onClose=vi.fn();render(<BlueprintStudio onClose={onClose}/>);
     fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));
     fireEvent.change(metricField('Width metres'),{target:{value:'4.321'}});fireEvent.blur(metricField('Width metres'));
@@ -31,7 +31,7 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
     expect(screen.getByRole('button',{name:/^Confirm & create 3D home/})).toBeEnabled();
     expect(screen.queryByText('Check the empty home')).toBeNull();expect(screen.getByText(/This drawing will replace/)).toBeVisible();expect(screen.queryByRole('toolbar',{name:'Floor plan editing'})).toBeNull();
-    fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));
+    await act(async()=>{fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));});
     expect(onClose).toHaveBeenCalledOnce();expect(usePlanner.getState().plan.floors[0].blueprint!.rooms[0].width).toBe(4321);expect(usePlanner.getState().past).toHaveLength(1);
     act(()=>usePlanner.getState().undo());expect(usePlanner.getState().plan).toEqual(original);
   });
@@ -104,7 +104,7 @@ describe('floor plan studio flow',()=>{
     expect(vi.mocked(recognizeReference).mock.calls.length-beforeCalls).toBe(1);
     expect(usePlanner.getState().plan).toBe(original);
   });
-  it('adds a doorless entrance and moves fixtures independently with undo',()=>{
+  it('adds a doorless entrance and moves fixtures independently with undo',async()=>{
     const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);
     fireEvent.click(screen.getByRole('button',{name:'Doors, entrances and windows'}));fireEvent.click(screen.getByRole('button',{name:'Place Entrance'}));
     const canvas=screen.getByRole('img',{name:'Top-down floor plan drawing'});
@@ -118,7 +118,7 @@ describe('floor plan studio flow',()=>{
     fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));fireEvent.click(screen.getByText('Fixtures & openings · 2'));fireEvent.click(screen.getByRole('button',{name:'Cottage range'}));expect(screen.getByLabelText('Left (m)')).toHaveValue(1);
     expect(usePlanner.getState().plan).toBe(original);
     fireEvent.click(screen.getByRole('button',{name:/^Review & create 3D/}));
-    fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));
+    await act(async()=>{fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));});
     expect(usePlanner.getState().plan.furniture.find(f=>f.catalogId==='door-flush')?.doorless).toBe(true);
   });
   it('edits room dimensions without large square resize handles and supports undo',()=>{
@@ -228,7 +228,7 @@ describe('direct quick layout',()=>{
   expect(usePlanner.getState().plan.furniture).toEqual(placed);expect(usePlanner.getState().past).toHaveLength(1);
  });
 });
-it('selects, edits and deletes a boundary wall and preserves it through conversion and reopening',()=>{
+it('selects, edits and deletes a boundary wall and preserves it through conversion and reopening',async()=>{
  const original=usePlanner.getState().plan;render(<BlueprintStudio onClose={()=>{}}/>);fireEvent.click(screen.getByRole('button',{name:'Select and move rooms'}));
  const line=screen.getAllByLabelText('Wall segment')[0];
  fireEvent.pointerDown(line,{button:0,clientX:0,clientY:0,pointerId:1});fireEvent.pointerUp(screen.getByLabelText('Top-down floor plan drawing'),{pointerId:1});
@@ -239,7 +239,7 @@ it('selects, edits and deletes a boundary wall and preserves it through conversi
  fireEvent.click(screen.getByRole('button',{name:'Delete wall segment'}));
  fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));
  expect(screen.getAllByLabelText('Wall segment').some(e=>e.getAttribute('y1')==='100')).toBe(true);
- fireEvent.click(screen.getByRole('button',{name:/^Review & create 3D/}));fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));
+ fireEvent.click(screen.getByRole('button',{name:/^Review & create 3D/}));await act(async()=>{fireEvent.click(screen.getByRole('button',{name:/^Confirm & create 3D home/}));});
  expect(usePlanner.getState().plan.floors[0].walls.some(w=>w.id.startsWith('edited:')&&w.az*250===100)).toBe(true);
  cleanup();render(<BlueprintStudio onClose={()=>{}}/>);expect(screen.getAllByLabelText('Wall segment').some(e=>e.getAttribute('y1')==='100')).toBe(true);
 });
