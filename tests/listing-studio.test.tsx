@@ -17,7 +17,7 @@ describe('Listing Studio integration',()=>{
  let doc:ListingDocument;
  const plan=createBlankPlan('Realtor test','metric'),floorId=plan.floors[0].id;
  const pose={version:1,kind:'orbit',floorId,target:{x:2,y:1,z:3},alpha:1,beta:1,radius:6,mode:0,fov:.8};
- const camera=()=>({beginListingPresentation:vi.fn(),endListingPresentation:vi.fn(),beginWalkthrough:vi.fn(()=>true),endWalkthrough:vi.fn(),moveWalkthrough:vi.fn(),captureListingImage:vi.fn(()=>image),captureCameraShot:vi.fn(()=>pose),restoreCameraShot:vi.fn(()=>true),showHomeShot:vi.fn()});
+ const camera=()=>({beginListingPresentation:vi.fn(),endListingPresentation:vi.fn(),beginWalkthrough:vi.fn(()=>true),endWalkthrough:vi.fn(),moveWalkthrough:vi.fn(),captureListingImage:vi.fn(()=>image),captureCameraShot:vi.fn(()=>pose),restoreCameraShot:vi.fn(()=>true),showHomeShot:vi.fn(),captureAtmosphereSnapshot:vi.fn(()=>undefined),setAtmospherePreview:vi.fn()});
  beforeEach(()=>{doc=createListing(plan.id,plan.name);storage.load.mockReset().mockImplementation(async()=>structuredClone(doc));storage.save.mockReset().mockResolvedValue(undefined);storage.defaults.mockReset().mockResolvedValue(undefined);vi.stubGlobal('requestAnimationFrame',(fn:FrameRequestCallback)=>setTimeout(()=>fn(0),0));vi.stubGlobal('cancelAnimationFrame',clearTimeout)});
  afterEach(()=>{cleanup();vi.unstubAllGlobals();vi.restoreAllMocks()});
  it('captures a clean frame before its pose and keeps it distinct from a property photograph',async()=>{

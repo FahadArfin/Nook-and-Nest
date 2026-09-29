@@ -1,3 +1,4 @@
+import {validateSurfaceForPiece} from './personalSurfaceValidation';
 import {parsePersonalItemMetadata} from './personalItems';
 import {catalog, isDoor, isStairs, isWallOpening} from './catalog';
 import clipping from 'polygon-clipping';
@@ -18,7 +19,7 @@ export interface FurnitureKit {
 }
 export interface KitPosition {x: number; z: number; rotation: number}
 const byId = new Map(catalog.map(item => [item.id, item]));
-const pieceKeys = new Set(['personalItem','catalogId','x','z','rotation','widthMm','depthMm','heightMm','variant','surfaceVariant','materialColors','elevationMm','moduleRun','showerMirrored','openFraction','terrainAnchored']);
+const pieceKeys = new Set(['personalSurface','personalItem','catalogId','x','z','rotation','widthMm','depthMm','heightMm','variant','surfaceVariant','materialColors','elevationMm','moduleRun','showerMirrored','openFraction','terrainAnchored']);
 const record = (v: unknown): v is Record<string, unknown> => !!v && typeof v === 'object' && !Array.isArray(v);
 const finite = (v: unknown, min = -10_000_000, max = 10_000_000): v is number => typeof v === 'number' && Number.isFinite(v) && v >= min && v <= max;
 const shortText = (v: unknown, max: number): v is string => typeof v === 'string' && !!v.trim() && v.length <= max && !/[\u0000-\u001f\u007f]/.test(v);
@@ -45,6 +46,7 @@ export function parseFurnitureKit(value: unknown): FurnitureKit {
   for (const key of ['createdAt','updatedAt'] as const) if (!shortText(value[key], 40) || !Number.isFinite(Date.parse(value[key]))) throw new Error('This kit has an invalid saved date.');
   for (const p of value.pieces) {
     if (!record(p) || Object.keys(p).some(k => !pieceKeys.has(k)) || !shortText(p.catalogId, 160) || !shortText(p.variant, 100)) throw new Error('A kit piece is invalid.');
+    if(p.personalSurface!==undefined)validateSurfaceForPiece(p.personalSurface,{catalogId:String(p.catalogId)});
     if(p.personalItem!==undefined)parsePersonalItemMetadata(p.personalItem);
     for (const key of ['x','z','rotation']) if (!finite(p[key])) throw new Error('A kit contains an invalid position.');
     for (const key of ['widthMm','depthMm','heightMm']) if (!finite(p[key], 1, 50000)) throw new Error('A kit contains invalid dimensions.');

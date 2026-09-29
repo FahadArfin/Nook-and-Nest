@@ -1,3 +1,7 @@
+import {parseMoodboards} from './moodboards';
+import {validateSurfaceForPiece} from './personalSurfaceValidation';
+import {parseSceneAtmosphere} from './sceneAtmosphere';
+import {parseSurfaceTakeoffSettings} from './surfaceTakeoff';
 import {parsePlacementSpecification} from "./selectionSchedule";
 import {parseSelectionBudgets} from "./selectionBudgets";
 import {parsePersonalItemMetadata} from "./personalItems";
@@ -60,7 +64,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
       if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}
       const host=p.floors.find((f:any)=>f.id===id);
-      validatePlan({...p,layoutAlternatives:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
+      validatePlan({...p,layoutAlternatives:undefined,moodboards:undefined,surfaceTakeoffSettings:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}
@@ -73,8 +77,12 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   if(p.environment?.backdropRotation!==undefined)num(p.environment.backdropRotation,0,360);
   if(p.environment?.terrain!==undefined){arr(p.environment.terrain,128);for(const s of p.environment.terrain){obj(s);if(!['raise','lower','river'].includes(s.kind))fail();if(s.carve!==undefined&&typeof s.carve!=='boolean')fail();num(s.radius,.5,8);num(s.strength,.1,2);arr(s.points,64);if(!s.points.length)fail();for(const pt of s.points){obj(pt);num(pt.x,-10000,10000);num(pt.z,-10000,10000);}}}
   arr(p.furniture, 24000); unique(p.furniture); if(p.furniture.filter((f:any)=>isVegetation(f.catalogId)).length>vegetationLimit||p.furniture.filter((f:any)=>!isVegetation(f.catalogId)).length>2000)fail();
+  if(p.moodboards!==undefined)parseMoodboards(p.moodboards);
+  if(p.surfaceTakeoffSettings!==undefined)parseSurfaceTakeoffSettings(p.surfaceTakeoffSettings);
+  if(p.environment?.atmosphere!==undefined&&!parseSceneAtmosphere(p.environment.atmosphere))throw new Error('Invalid scene atmosphere.');
   if(p.selectionBudgets!==undefined)parseSelectionBudgets(p.selectionBudgets);
   for (const f of p.furniture) {
+    if(f.personalSurface!==undefined)validateSurfaceForPiece(f.personalSurface,f);
     if(f.specification!==undefined)parsePlacementSpecification(f.specification);
     if(f.personalItem!==undefined)parsePersonalItemMetadata(f.personalItem);
     if(f.hostDoorId!==undefined){

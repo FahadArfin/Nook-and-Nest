@@ -25,7 +25,7 @@
     {
       "id": "NN-01",
       "title": "Try A / B / C layouts",
-      "status": "implemented-awaiting-release",
+      "status": "released",
       "depends": [],
       "scope": "Named alternatives inside a project; duplicate current design, compare the same camera/room, show what changed, and choose one explicitly.",
       "acceptance": [
@@ -36,12 +36,18 @@
       "evidence": [
         "Independent alternatives preserve groups, budgets and immutable floor-reference IDs; paired SVG views use one physical scale and view box.",
         "Layout comparison and two-item change highlighting checked in the browser; snapshot restore/undo and reference-only backup restore covered by regression tests."
-      ]
+      ],
+      "release": {
+        "pr": 118,
+        "master": "9160f992c98adcecf7dd3a4c65245169b1175d24",
+        "sitesVersion": 117,
+        "verified": "2026-09-29T08:52:32.103Z"
+      }
     },
     {
       "id": "NN-02",
       "title": "Move a set; save a room kit",
-      "status": "implemented-awaiting-release",
+      "status": "released",
       "depends": [],
       "scope": "Multi-select, explicit group/ungroup, lock, move/rotate/duplicate as one action, and save a named reusable arrangement.",
       "acceptance": [
@@ -53,12 +59,18 @@
         "Explicit multi-selection, group/ungroup, locks, rigid move/turn/duplicate/delete, per-floor clone compatibility and one-step history.",
         "Recipes and private kits preview before commit; missing models can be explicitly replaced or skipped; replacement resets incompatible source overrides.",
         "Browser drag moved chair/table with exact 720 mm / 100 mm relative offset and one undo; locked actions and stale native-agent edits tested."
-      ]
+      ],
+      "release": {
+        "pr": 118,
+        "master": "9160f992c98adcecf7dd3a4c65245169b1175d24",
+        "sitesVersion": 117,
+        "verified": "2026-09-29T08:52:32.103Z"
+      }
     },
     {
       "id": "NN-03",
       "title": "My furniture and belongings",
-      "status": "implemented-awaiting-release",
+      "status": "released",
       "depends": [
         "NN-29"
       ],
@@ -72,12 +84,18 @@
         "Private measured furniture collection, approximate catalog proxies, keep/replace state, photo originals, explicit preview/confirm and local quota handling.",
         "Private metadata and referenced photos survive portable backups; proxy identity is shown in CSV/print schedules; public/agent views omit private photo IDs and notes.",
         "Browser creation, reload, placement, discard and undo checked."
-      ]
+      ],
+      "release": {
+        "pr": 118,
+        "master": "9160f992c98adcecf7dd3a4c65245169b1175d24",
+        "sitesVersion": 117,
+        "verified": "2026-09-29T08:52:32.103Z"
+      }
     },
     {
       "id": "NN-04",
       "title": "Will it actually fit?",
-      "status": "implemented-awaiting-release",
+      "status": "released",
       "depends": [],
       "scope": "An optional practical review overlay: inspect furniture gaps, door and drawer opening envelopes, user-set passage widths, and seat pull-out areas; link each warning to the objects involved.",
       "acceptance": [
@@ -89,12 +107,18 @@
         "Optional cached footprint/height review covers irregular floors, gaps, supported chair pull-out and explicit approximate door/drawer envelopes.",
         "One bounded non-pickable line mesh persists after closing settings; capture excludes guides; off does not edit saved geometry.",
         "Focused geometry/cache/lifecycle tests and browser gap measurement/selection checked."
-      ]
+      ],
+      "release": {
+        "pr": 118,
+        "master": "9160f992c98adcecf7dd3a4c65245169b1175d24",
+        "sitesVersion": 117,
+        "verified": "2026-09-29T08:52:32.103Z"
+      }
     },
     {
       "id": "NN-05",
       "title": "Moodboard linked to the room",
-      "status": "integration-pending",
+      "status": "implemented-verifying",
       "depends": [
         "NN-29",
         "NN-02"
@@ -105,12 +129,15 @@
         "Boards reopen with their source links, accessible labels and selected catalog references."
       ],
       "boundary": "Keep reference images private by default. Apply to explicit material roles, preserve items the user locks, and retain image attribution. No automatic retailer scraper.",
-      "evidence": []
+      "evidence": [
+        "Private moodboards link named palettes to room/group material roles; linked changes preview and commit once.",
+        "Private image/photo references retained in snapshots and portable backups; public plans remove boards and private sources."
+      ]
     },
     {
       "id": "NN-06",
       "title": "Room recipes and quick starts",
-      "status": "implemented-awaiting-release",
+      "status": "released",
       "depends": [
         "NN-02"
       ],
@@ -123,12 +150,18 @@
       "evidence": [
         "Six editable recipes include footprint reporting, piece choices, support warnings, polygon floor-fit review and explicit confirmation.",
         "Browser preview/apply checked; independent placements, floor holes, diagonal boundaries and undo covered by tests."
-      ]
+      ],
+      "release": {
+        "pr": 118,
+        "master": "9160f992c98adcecf7dd3a4c65245169b1175d24",
+        "sitesVersion": 117,
+        "verified": "2026-09-29T08:52:32.103Z"
+      }
     },
     {
       "id": "NN-21",
       "title": "Your art, fabric and memories",
-      "status": "integration-pending",
+      "status": "implemented-verifying",
       "depends": [
         "NN-29"
       ],
@@ -138,12 +171,16 @@
         "Missing/private images have readable placeholders and never block opening the rest of a shared project."
       ],
       "boundary": "Do not automatically publish uploads or bake huge images into every placed item. Reuse assets and cap texture size; sharing requires explicit inclusion.",
-      "evidence": []
+      "evidence": [
+        "Private art and fabric uploads with crop, rotation, frame color and repeat dimensions; cloned materials retain originals.",
+        "Bounded 16 unique GPU images / two preview decodes, current-floor and selection priority; original photo backup retained. Picture-frame planar mapping verified after save/reload.",
+        "Browser upload, wall placement, reload and upright full-image UVs verified; private clones leave original catalog geometry/UVs unchanged. Sixteen 512-pixel textures and two concurrent decodes bound memory."
+      ]
     },
     {
       "id": "NN-07",
       "title": "Set the mood of your home",
-      "status": "integration-pending",
+      "status": "implemented-verifying",
       "depends": [],
       "scope": "Saved scene presets such as morning light, rainy afternoon and evening reading; adjustable lamp warmth, modest exterior weather and opt-in sound.",
       "acceptance": [
@@ -151,7 +188,10 @@
         "On the agreed mobile and integrated-GPU scenes, the feature meets measured frame-time and memory budgets; reduced motion removes continuous effects."
       ],
       "boundary": "Reuse existing lighting/audio/animation. Bound active lights and effects; include static/reduced-motion and silent settings, and stop effects in hidden tabs. This is atmosphere, not weather physics.",
-      "evidence": []
+      "evidence": [
+        "Morning/rain/evening presets, per-lamp overrides, private saved moods and opt-in session sound; preview/apply/discard and one-step undo verified.",
+        "Existing four-light pool, 96 bounded rain drops, hidden-tab suspension and reduced motion; geographic studies are a separate opt-in mode. Desktop browser checked; representative mobile/GPU pilot remains unverified."
+      ]
     },
     {
       "id": "NN-08",
@@ -172,7 +212,7 @@
     {
       "id": "NN-09",
       "title": "Selections, shopping and room budgets",
-      "status": "implemented-awaiting-release",
+      "status": "released",
       "depends": [
         "NN-03",
         "NN-01"
@@ -187,12 +227,18 @@
         "Manual product specifications, owned/buy statuses, quantities/discounts, independent currency totals, explicit unknown prices and floor/room budgets.",
         "CSV and print-to-PDF schedules identify proxy versus product, revision, source and price date.",
         "Browser USD 125.50 selection and USD 1,000 target retained two missing prices; ownership/privacy/escaping/math tests pass."
-      ]
+      ],
+      "release": {
+        "pr": 118,
+        "master": "9160f992c98adcecf7dd3a4c65245169b1175d24",
+        "sitesVersion": 117,
+        "verified": "2026-09-29T08:52:32.103Z"
+      }
     },
     {
       "id": "NN-10",
       "title": "Paint, flooring and finish quantities",
-      "status": "in-progress",
+      "status": "implemented-verifying",
       "depends": [
         "NN-30"
       ],
@@ -202,7 +248,11 @@
         "Changing a finish, coverage or waste rate updates quantities without resizing geometry; unknown heights remain flagged."
       ],
       "boundary": "Expose the calculation and units. Define which surfaces count; separate geometric area from purchasable packs. Exclude structural, electrical and plumbing costing.",
-      "evidence": []
+      "evidence": [
+        "Floor/wall/optional projected ceiling quantities use polygon unions and explicit coverage/waste/coats. Unknown inputs remain unavailable.",
+        "Measured 6 x 5 metre browser fixture produced 30 square metres floor and 53.636 square metres walls.",
+        "Browser-generated CSV matches a 6 m x 5 m room: 30 m2 floor, 53.6359 m2 wall faces. Unknown coverage and ceiling assumptions remain explicit."
+      ]
     },
     {
       "id": "NN-11",
@@ -340,7 +390,7 @@
     {
       "id": "NN-19",
       "title": "Follow the sunlight",
-      "status": "integration-pending",
+      "status": "implemented-verifying",
       "depends": [],
       "scope": "Set north, approximate location/time zone and date/time; scrub a geometric sun/shadow preview; save comparison views.",
       "acceptance": [
@@ -348,12 +398,15 @@
         "Keep the scene responsive while scrubbing and provide a static low-power mode."
       ],
       "boundary": "Make missing location/orientation visible. This is a visual approximation, not measured lux, energy analysis, plant suitability or certified daylight compliance.",
-      "evidence": []
+      "evidence": [
+        "Date/time, explicit UTC offset, private approximate location and north orientation drive the existing sun/shadow lighting; reference direction and DST-offset cases tested.",
+        "Public sharing removes location/date/study names while preserving resolved light direction. Manual sunrise/night states and saved-view atmosphere compatibility retained."
+      ]
     },
     {
       "id": "NN-20",
       "title": "Wall elevations and clean handoff",
-      "status": "in-progress",
+      "status": "implemented-verifying",
       "depends": [
         "NN-10",
         "NN-30"
@@ -364,7 +417,10 @@
         "Exports state units, revision and dimension source and flag approximations or missing measurements."
       ],
       "boundary": "Start with readable planning drawings. Investigate DXF/IFC only with a concrete receiving workflow and round-trip tests; do not promise BIM or construction documents.",
-      "evidence": []
+      "evidence": [
+        "Orthographic wall elevations and dimensions derived from current model with explicit floor/wall choices and print/export controls.",
+        "Browser exports verified as SVG and printable HTML: 6000 mm wall, 2438 mm height, wall artwork base 1200 mm. 1:50 drawing declares 20 mm per metre; physical printer acceptance is not claimed."
+      ]
     },
     {
       "id": "NN-23",

@@ -1,3 +1,6 @@
+import {PersonalSurfaceTextures,personalTextureCandidates} from './PersonalSurfaceTextures';
+import {projectPersonalArtUV} from './PersonalArtUV';
+import type {PlanDocumentV1} from '../types';
 import {reportModelFailure,clearModelFailure} from '../modelLoadFeedback';
 import {StaticPartInstances} from './StaticPartInstances';
 import {isVegetation} from '../vegetation';
@@ -31,6 +34,9 @@ MeshoptCompression.Configuration={decoder:{url:'/vendor/meshopt-decoder-1.2.0.js
 const MODEL_IDS = new Set(catalog.map((item) => item.id));
 
 export class FurnitureModelLibrary {
+  private privateTextures:PersonalSurfaceTextures;
+  private textureScope="";
+  configurePersonalSurfaces(plan:PlanDocumentV1,floorId:string,selectedId?:string,draft?:FurniturePlacement){this.textureScope=plan.id;this.privateTextures.configure(plan.id,personalTextureCandidates(plan,floorId,selectedId,draft));}
   private staticParts=new StaticPartInstances();
   private living:LivingModels;
   private clocks:LiveClocks;
@@ -43,7 +49,7 @@ export class FurnitureModelLibrary {
   private finishTextures=new Map<string,Texture>();
   private materialVariants = new Map<string, Material>();
 
-  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void) {this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
+  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void,onInvalidate?:()=>void) {this.privateTextures=new PersonalSurfaceTextures(scene,onInvalidate??(()=>onReady([])));this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
 
   hasModel(catalogId: string) { return MODEL_IDS.has(catalogId); }
 
@@ -73,11 +79,13 @@ export class FurnitureModelLibrary {
     for(const [id,container] of [...this.containers].sort((a,b)=>(this.lastUsed.get(a[0])??0)-(this.lastUsed.get(b[0])??0))){if(this.containers.size<=32&&resident<=budget*.8)break;if(id===protectedId)continue;if(container.materials.some(m=>used.has(m))||container.meshes.some(m=>this.scene.meshes.some(active=>active!==m&&(active as any).geometry&&(active as any).geometry===(m as any).geometry)))continue;container.dispose();resident-=this.residency.get(id)??0;this.residency.delete(id);this.containers.delete(id);this.lastUsed.delete(id)}
   }
   private materialFor(source: Material, item: FurniturePlacement, ghost: boolean) {
+    const surfaceKey=item.personalSurface?JSON.stringify([this.textureScope,item.personalSurface,item.widthMm,item.heightMm]):"";
+    const isPersonalSurface=item.personalSurface?.slotId===source.name;
     const colorsKey=JSON.stringify(item.materialColors??{});
     const aliases=(modernMaterialAliases as Record<string,Record<string,string[]>>)[item.catalogId]?.[source.name]??[];
     const custom=item.materialColors?.[source.name]??aliases.map(key=>item.materialColors?.[key]).find(Boolean);
     if (source instanceof MultiMaterial) {
-      const key = `${source.uniqueId}:${colorsKey}:${item.variant}:${item.surfaceVariant??"default"}:${ghost ? "ghost" : "solid"}`;
+      const key = `${source.uniqueId}:${surfaceKey}:${colorsKey}:${item.variant}:${item.surfaceVariant??"default"}:${ghost ? "ghost" : "solid"}`;
       const cached = this.materialVariants.get(key);
       if (cached) return cached;
       const clone = source.clone(`model-${key}`);
@@ -90,8 +98,8 @@ export class FurnitureModelLibrary {
     const isTintable = source.name.includes("upholstery-textured") || source.name.includes("variant-surface") || source.name.includes("door-surface") || source.name==="ceramic-tiles";
     const isCountertop = source.name.includes("countertop-surface") || (item.catalogId==='kitchen-microwave-drawer-cabinet'&&source.name==='surface-stone');
     const isDoorSurface=source.name.includes("door-surface");
-    if (!isTintable && !isCountertop && !isDoorSurface && !ghost && !custom && !isFrame) return source;
-    const key = `${source.uniqueId}:${custom??""}:${isTintable ? item.variant : "base"}:${isCountertop||isDoorSurface ? item.surfaceVariant??"warm-granite" : "none"}:${ghost ? "ghost" : "solid"}`;
+    if (!isTintable && !isCountertop && !isDoorSurface && !ghost && !custom && !isFrame && !isPersonalSurface) return source;
+    const key = `${source.uniqueId}:${surfaceKey}:${custom??""}:${isTintable ? item.variant : "base"}:${isCountertop||isDoorSurface ? item.surfaceVariant??"warm-granite" : "none"}:${ghost ? "ghost" : "solid"}`;
     const cached = this.materialVariants.get(key);
     if (cached) return cached;
     const clone = source.clone(`model-${key}`);
@@ -110,6 +118,7 @@ export class FurnitureModelLibrary {
         clone.albedoTexture = texture; if(!isDoorSurface)clone.albedoColor = Color3.White(); clone.roughness = .9;
       }
       if(custom && /^#[0-9a-f]{6}$/i.test(custom)) clone.albedoColor=Color3.FromHexString(custom).toLinearSpace();
+      if(isPersonalSurface){clone.roughness=Math.max(.8,clone.roughness??.8);clone.metallic=0;this.privateTextures.bind(clone,item);}
       if (ghost) {
         clone.alpha = .2;
         clone.transparencyMode = PBRMaterial.PBRMATERIAL_ALPHABLEND;
@@ -140,6 +149,7 @@ export class FurnitureModelLibrary {
     for (const mesh of wrapper.getChildMeshes(false)) {
       const typedMesh = mesh as AbstractMesh;
       typedMesh.metadata={...typedMesh.metadata,livingMaterial:typedMesh.material?.name};
+      if(item.personalSurface?.kind==='art')projectPersonalArtUV(typedMesh,item.personalSurface.slotId);
       if (typedMesh.material) typedMesh.material = this.materialFor(typedMesh.material, item, ghost);
       const shadowless=typedMesh.metadata.livingMaterial?.startsWith('holiday-light-')||['aquarium-clear-glass','aquarium-water-surface','aquarium-air-bubble','golden-flame','warm-light'].includes(typedMesh.metadata.livingMaterial);
       typedMesh.receiveShadows = !shadowless;
@@ -154,6 +164,7 @@ export class FurnitureModelLibrary {
   }
 
   dispose() {
+    this.privateTextures.dispose();
     this.staticParts.dispose();
     this.living.dispose();
     this.clocks.dispose();

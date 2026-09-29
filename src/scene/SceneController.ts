@@ -1,3 +1,6 @@
+import {AtmosphereEffects,type AtmosphereBounds} from './AtmosphereEffects';
+import {applyAtmosphereLighting,applyAtmosphereFixtureLights} from './AtmosphereLighting';
+import {resolveAtmosphere,type AtmosphereFrame,type SceneAtmosphereV1} from '../sceneAtmosphere';
 import type {FitOverlay} from '../fitReview';
 import {isFurnitureLocked} from '../furnitureGroups';
 import {polygonPrism,ringOf} from '../polygonGeometry';
@@ -222,6 +225,14 @@ export class SceneController {
   private solidMaterials = new Map<string, StandardMaterial>();
   private outdoors: OutdoorScene;
   private fixtureLights?: FurnitureLights;
+  private atmosphereEffects?:AtmosphereEffects;
+  private atmospherePreview?:SceneAtmosphereV1;
+  private atmosphereFrame:AtmosphereFrame|null=null;
+  private atmosphereBounds?:AtmosphereBounds;
+  private atmosphereFloors?:PlanDocumentV1['floors'];
+  private atmosphereGrid=0;
+  setAtmospherePreview(value?:SceneAtmosphereV1){this.atmospherePreview=value;if(this.activePlan)this.updateLighting(this.activePlan);this.renderUntil=performance.now()+1000;this.shadow?.getShadowMap?.()?.resetRefreshCounter();}
+  captureAtmosphereSnapshot(){const value=this.atmospherePreview??this.activePlan?.environment?.atmosphere;return value?structuredClone(value):undefined;}
   private neutralPreview = false;
   private sunPreview?: SunSettings;
   setSunPreview(value?: SunSettings) {
@@ -302,7 +313,8 @@ export class SceneController {
   private updateLighting(plan: PlanDocumentV1) {
     const settings = this.sunPreview ?? plan.environment?.sun,
       simulating = !!settings?.enabled;
-    const neutral = this.neutralPreview,
+    const requestedAtmosphere=resolveAtmosphere(this.atmospherePreview??plan.environment?.atmosphere);
+    const neutral = this.neutralPreview&&(!requestedAtmosphere||['floor-finish','wall-finish'].includes(this.tool)),
       night = !simulating && !!plan.camera.darkMode;
     this.scene.imageProcessingConfiguration.exposure = simulating
       ? 1
@@ -359,11 +371,21 @@ export class SceneController {
     }
     for (const mesh of this.scene.meshes)
       if (mesh.name.startsWith("sun-ceiling:")) mesh.setEnabled(simulating);
-    this.canvas.dataset.colorPreview = simulating
+    const priorFrame=JSON.stringify(this.atmosphereFrame);
+    this.atmosphereFrame=neutral?null:requestedAtmosphere;
+    if(this.atmosphereFloors!==plan.floors||this.atmosphereGrid!==plan.gridSizeMm){
+      let minX=Infinity,maxX=-Infinity,minZ=Infinity,maxZ=-Infinity,groundY=Infinity,roofY=-Infinity;
+      for(const floor of plan.floors){for(const r of floorRects(floor,plan.gridSizeMm)){minX=Math.min(minX,r.x/1000);maxX=Math.max(maxX,(r.x+r.width)/1000);minZ=Math.min(minZ,r.z/1000);maxZ=Math.max(maxZ,(r.z+r.depth)/1000)}groundY=Math.min(groundY,floor.elevationMm/1000);roofY=Math.max(roofY,(floor.elevationMm+floor.heightMm)/1000)}
+      this.atmosphereBounds=Number.isFinite(minX)?{minX,maxX,minZ,maxZ,groundY,roofY}:undefined;this.atmosphereFloors=plan.floors;this.atmosphereGrid=plan.gridSizeMm;
+    }
+    if(this.atmosphereFrame){const b=this.atmosphereBounds;applyAtmosphereLighting(this.scene,this.atmosphereFrame,b?new Vector3((b.minX+b.maxX)/2,b.groundY,(b.minZ+b.maxZ)/2):Vector3.Zero())}
+    this.atmosphereEffects?.configure(this.atmosphereFrame,this.atmosphereBounds);
+    if(priorFrame!==JSON.stringify(this.atmosphereFrame))this.shadow?.getShadowMap?.()?.resetRefreshCounter();
+    this.canvas.dataset.colorPreview = this.atmosphereFrame?.mode??(simulating
       ? "sunlight"
       : neutral
         ? "neutral"
-        : "cozy";
+        : "cozy");
   }
   private selectedWallId?: string;
   private selectedWallIds = new Set<string>();
@@ -416,6 +438,7 @@ export class SceneController {
         1 / Math.min(window.devicePixelRatio || 1, 1.5),
       );
     this.scene = new Scene(this.engine);
+    this.atmosphereEffects=new AtmosphereEffects(this.scene,()=>{this.renderUntil=performance.now()+1000});
     configurePlanCoordinates(this.scene);
     this.scene.clearColor = new Color4(0.72, 0.78, 0.62, 1);
     this.scene.ambientColor = new Color3(0.12, 0.11, 0.09);
@@ -485,6 +508,7 @@ export class SceneController {
             this.activeDraft,
           );
       },
+      ()=>{this.renderUntil=performance.now()+1000},
     );
     this.makeMeadow();
     this.outdoors = new OutdoorScene(this.scene);
@@ -569,6 +593,7 @@ export class SceneController {
       }
       if (
         !this.animatedScene &&
+        !this.atmosphereEffects?.needsAnimation &&
         !this.cameraControls.pointerHeld &&
         !this.cameraControls.homePreview &&
         !this.cameraControls.walkthrough.active &&
@@ -638,6 +663,7 @@ export class SceneController {
           this.camera.position,
           this.neutralPreview,
         );
+        const legacySun=this.activePlan.environment?.sun;applyAtmosphereFixtureLights(this.scene,this.atmosphereFrame,(legacySun?.enabled?legacySun.night:this.activePlan.camera.darkMode)?2.1:this.neutralPreview?.65:1.1);
       }
       updatePlanProjection(
         this.camera,
@@ -922,6 +948,7 @@ export class SceneController {
     this.metrics.dispose();
     this.touchCleanup?.();
     this.fixtureLights?.dispose();
+    this.atmosphereEffects?.dispose();
     this.canvas.removeEventListener("wheel", this.cameraControls.cancelFocus);
     window.removeEventListener(
       "pointerdown",
@@ -1299,6 +1326,7 @@ export class SceneController {
     if (this.cameraControls?.walkthrough.active && (this.activePlan !== plan || this.activeFloorId !== activeFloorId)) this.endWalkthrough();
     this.renderUntil = performance.now() + 1000;
     this.updateEmptyGuide(plan,activeFloorId);
+    this.furnitureModels.configurePersonalSurfaces(plan,activeFloorId,selectedId,draft);
     this.shadow?.getShadowMap?.()?.resetRefreshCounter();
     this.animatedScene =
       !!plan.environment?.terrain?.some((s) => s.kind === "river") ||
@@ -1786,7 +1814,7 @@ export class SceneController {
     ceiling.parent = this.root;
     ceiling.isPickable = false;
     ceiling.setEnabled(
-      !this.neutralPreview && !!plan.environment?.sun?.enabled,
+      !!this.atmosphereFrame || (!this.neutralPreview && !!plan.environment?.sun?.enabled),
     );
     this.shadow.addShadowCaster(ceiling);
     const flatRoof=createFlatRoof(this.scene,plan,floor);
