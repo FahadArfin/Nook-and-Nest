@@ -28,7 +28,9 @@ import { DirectionalLight } from "@babylonjs/core/Lights/directionalLight";
 import { HemisphericLight } from "@babylonjs/core/Lights/hemisphericLight";
 import { ShadowGenerator } from "@babylonjs/core/Lights/Shadows/shadowGenerator";
 import { StandardMaterial } from "@babylonjs/core/Materials/standardMaterial";
-import { Texture } from "@babylonjs/core/Materials/Textures/texture";
+import type { PBRMaterial } from "@babylonjs/core/Materials/PBR/pbrMaterial";
+import type { Material } from "@babylonjs/core/Materials/material";
+import {createSurfaceMaterial} from './surfaceMaterials';
 import { Color3, Color4 } from "@babylonjs/core/Maths/math.color";
 import { Matrix, Vector3 } from "@babylonjs/core/Maths/math.vector";
 import { Mesh } from "@babylonjs/core/Meshes/mesh";
@@ -410,7 +412,7 @@ export class SceneController {
   private cutPointerY?: number;
   private wallDraft?: Omit<WallSegment, "id">;
   private wallDraftMesh?: Mesh;
-  private surfaceMaterials = new Map<string, StandardMaterial>();
+  private surfaceMaterials = new Map<string, PBRMaterial>();
   private activePlan?: PlanDocumentV1;
   private activeFloorId = "";
   private selectedId?: string;
@@ -1169,28 +1171,7 @@ export class SceneController {
     const key = `${finish.id}:${alpha}`,
       cached = this.surfaceMaterials.get(key);
     if (cached) return cached;
-    const mat = this.material(
-      `${name}:${finish.id}`,
-      finish.color ?? "#ffffff",
-      alpha,
-    );
-    if (finish.texture) {
-      const texture = new Texture(
-        finish.texture,
-        this.scene,
-        false,
-        false,
-        Texture.TRILINEAR_SAMPLINGMODE,
-      );
-      texture.wrapU = Texture.WRAP_ADDRESSMODE;
-      texture.wrapV = Texture.WRAP_ADDRESSMODE;
-      texture.uScale = finish.scale;
-      texture.vScale = finish.scale;
-      texture.anisotropicFilteringLevel = 4;
-      mat.diffuseTexture = texture;
-    }
-    mat.specularColor = new Color3(0.035, 0.03, 0.022);
-    mat.roughness = 0.96;
+    const mat = createSurfaceMaterial(this.scene,`${name}:${finish.id}`,finish,alpha);
     this.surfaceMaterials.set(key, mat);
     return mat;
   }
@@ -2052,7 +2033,7 @@ export class SceneController {
     name: string,
     size: [number, number, number],
     pos: [number, number, number],
-    mat: StandardMaterial,
+    mat: Material,
   ) {
     const box = MeshBuilder.CreateBox(
       name,

@@ -1,5 +1,7 @@
 # Nook & Nest working guide
 
+September 29 overnight collection: complete the researched garage/shed and outdoor/backyard build queues, review every sofa, and replace sterile materials with richer, true-to-life fabric, wood, flooring and wall finishes. Use original editable model construction and properly licensed photographic PBR maps at measured scale; retain catalog IDs, real dimensions, saved material colors and placement behavior. The user wants the whole approved queue completed and published, not a report-only handoff or stopping after a small batch. Maintain practical browser costs and coordinate release checks with other chats.
+
 Furniture color preference (September 12, 2026): avoid a blanket white default for couches and beds. Use varied muted sage, slate blue, charcoal, terracotta and rose upholstery/bedding for new placements, with matching catalog previews. Preserve saved variants and individual part colors, including deliberately chosen white finishes.
 
 Start with [repository map](docs/repository-map.md). Read the applicable contracts before edits:

@@ -191,6 +191,63 @@
         "assets-source/household-progress.json"
       ],
       "notes": "Original editable household geometry. Root serializes official Blender MCP build(id), inspects front/rear/underside renders, then runs household-assets.mjs for targeted material keys and optional pixel-identical previews. No unrelated metadata/preview writes; file observation is never visual/browser/release acceptance. See docs/household-collection.md."
+    },
+    {
+      "id": "realism-textures",
+      "generators": [
+        "tools/prepare_realism_textures.py"
+      ],
+      "inputs": [
+        "assets-source/realism-texture-provenance.json",
+        "assets-source/realism-stone-provenance.json"
+      ],
+      "outputs": [
+        "public/textures/realism",
+        "assets-source/realism-materials.json",
+        "assets-source/realism-scans.json"
+      ],
+      "notes": "Download the exact CC0 source files in receipts first; the preparer verifies hashes and preserves full 1K scans. No Blender scene modification."
+    },
+    {
+      "id": "sofa-realism",
+      "generators": [
+        "tools/blender/sofa_realism_baseline.py",
+        "tools/blender/enrich_sofas.py"
+      ],
+      "inputs": [
+        "src/sofaRealismIds.json",
+        "assets-source/sofa-realism-references.json",
+        "assets-source/realism-materials.json"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb",
+        "assets-source/sofa-realism-audit.json"
+      ],
+      "notes": "35 existing sofas only. First run python tools/blender/sofa_realism_baseline.py to extract hash-verified originals from pinned commit 8745059e6a80184f52b1d830f5af97be6b03fa58 into ignored backups; no working source is a baseline. The commit must be available locally. The Blender author rejects absent or modified originals. Then use exclusive official Blender MCP and inspect front/rear/underside/close-up renders. Baseline preparation never changes tracked sources."
+    },
+    {
+      "id": "garage-outdoor-collection",
+      "generators": [
+        "tools/blender/build_garage_outdoor.py",
+        "tools/blender/garage_models.py",
+        "tools/blender/outdoor_living_models.py",
+        "tools/blender/realism_materials.py"
+      ],
+      "inputs": [
+        "src/garageExpansion.json",
+        "src/outdoorLivingExpansion.json",
+        "assets-source/realism-materials.json",
+        "assets-source/realism-scans.json"
+      ],
+      "outputs": [
+        "assets-source/blender/{id}.blend",
+        "public/models/furniture/{id}.glb",
+        "src/garageOutdoorShelfSurfaces.json",
+        "src/garageOutdoorSupportFootprints.json",
+        "assets-source/garage-outdoor-collection-audit.json"
+      ],
+      "notes": "103 selected IDs; original editable construction and measured supports. Run only through official Blender MCP with exclusive scene ownership. Export, inspect rendered multi-view previews, then run garage_outdoor_verify.py and scoped metadata script. Rendered previews use existing lossless compression recipe."
     }
   ]
 }

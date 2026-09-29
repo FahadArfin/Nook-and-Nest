@@ -9,11 +9,12 @@ import specialtyVariety from './householdSpecialtyVarietyExpansion.json';
 import fixtureVariety from './householdFixtureVarietyExpansion.json';
 import architecture from './householdArchitectureExpansion.json';
 import surfaces from './householdShelfSurfaces.json';
+import garageOutdoorSurfaces from './garageOutdoorShelfSurfaces.json';
 
 export const householdRows=[...bathLaundry,...entry,...utilities,...lightingOffice,...specialty,...entryVariety,...lightingVariety,...specialtyVariety,...fixtureVariety,...architecture];
 export const householdWallIds=new Set(householdRows.filter(r=>r[8]==='wall'&&r[2]!=='Doors').map(r=>String(r[0])));
 export const householdWindowTreatmentIds=new Set(['vertical-patio-door-blinds','interior-louvered-shutters']);
-export const householdSurfaceHostIds=new Set(Object.keys(surfaces));
+export const householdSurfaceHostIds=new Set([...Object.keys(surfaces),...Object.keys(garageOutdoorSurfaces)]);
 const wallHeights:Record<string,number>={
  'bath-grab-bar':800,'bath-grab-bar-vertical':750,'bath-towel-bar':1100,
  'bath-tissue-holder':600,'bath-towel-ring':1050,'bath-robe-hook':1600,
