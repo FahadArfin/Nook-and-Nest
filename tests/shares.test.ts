@@ -1,12 +1,15 @@
+import {saveLayoutAlternative} from '../src/layoutAlternatives';
+import {validatePlan} from '../src/planValidation';
 import {it,expect} from 'vitest';
 // @ts-expect-error Worker is bundled as JavaScript for deployment.
 import {shares} from '../worker/shares.js';
 import {createSamplePlan} from '../src/domain';
 it('creates an immutable short snapshot, omits private drafts, and allows anonymous reading',async()=>{
  const rows=new Map<string,any>();const DB={prepare:(sql:string)=>({bind:(...args:any[])=>({run:async()=>{rows.set(args[0],{document:args[3]});return {meta:{changes:1}};},first:async()=>rows.get(args[0])})})};
- const plan=createSamplePlan();plan.studioDrafts={[plan.floors[0].id]:{draft:{rooms:[],walls:[],fixtures:[],omittedWalls:[]},savedAt:'now',imageScale:10,calibrated:false,view:{x:0,z:0,width:1000,height:1000}}};const request=new Request('https://example.test/api/shares',{method:'POST',headers:{origin:'https://example.test','content-type':'application/json','oai-authenticated-user-id':'owner'},body:JSON.stringify({plan})});
+ const initial=createSamplePlan();const plan=saveLayoutAlternative(initial,"Private idea",initial.floors[0].id,validatePlan);plan.studioDrafts={[plan.floors[0].id]:{draft:{rooms:[],walls:[],fixtures:[],omittedWalls:[]},savedAt:'now',imageScale:10,calibrated:false,view:{x:0,z:0,width:1000,height:1000}}};const request=new Request('https://example.test/api/shares',{method:'POST',headers:{origin:'https://example.test','content-type':'application/json','oai-authenticated-user-id':'owner'},body:JSON.stringify({plan})});
  const response=await shares(request,{DB});expect(response.status).toBe(201);const {id}=await response.json();expect(id).toMatch(/^[a-f0-9]{32}$/);
- plan.name='Changed later';const opened=await shares(new Request('https://example.test/api/shares/'+id),{DB});const snapshot=(await opened.json()).plan;expect(snapshot.name).not.toBe(plan.name);expect(snapshot.studioDrafts).toBeUndefined();
+ plan.name='Changed later';const opened=await shares(new Request('https://example.test/api/shares/'+id),{DB});const snapshot=(await opened.json()).plan;expect(snapshot.name).not.toBe(plan.name);expect(snapshot.studioDrafts).toBeUndefined();expect(snapshot.layoutAlternatives).toBeUndefined();
+ rows.set(id,{document:JSON.stringify(plan)});const legacy=await shares(new Request("https://example.test/api/shares/"+id),{DB});expect((await legacy.json()).plan.layoutAlternatives).toBeUndefined();
  const missing=await shares(new Request('https://example.test/api/shares/'+'0'.repeat(32)),{DB});expect(missing.status).toBe(404);
 });
 it('rejects anonymous creation, cross-origin writes, invalid and oversized plans before writing',async()=>{
