@@ -1,5 +1,6 @@
 import {scaleAssessment,type Recognition} from './recognitionContract';
 import {captureItems,completeCaptureReview,validateCaptureReview,type CaptureReviewSnapshot} from './captureReview';
+import {captureAttemptDuration,validateCaptureAttempt,type CaptureAttempt} from './captureAttempt';
 
 export type CaptureExpected =
   | {itemId:string;kind:'bounds';widthMm:number;heightMm:number;xMm?:number;yMm?:number}
@@ -12,6 +13,7 @@ export interface CaptureBenchmarkCase {
   expectedCounts?:{rooms?:number;walls?:number;openings?:number};
   /** Durations use reference-ready -> capture proposal -> verified review. No estimate is substituted. */
   captureDurationMs?:number;manualDurationMs?:number;timingProtocol?:'same-reference-ready-start';
+  attempt?:CaptureAttempt;
 }
 export interface CaptureBenchmarkMetric {itemId:string;kind:CaptureExpected['kind'];status:'within-tolerance'|'outside-tolerance'|'missing'|'scale-unverified';maxErrorMm?:number;meanErrorMm?:number;errorsMm?:number[]}
 export interface CaptureBenchmarkPhase {status:'within-tolerance'|'outside-tolerance'|'incomplete';metrics:CaptureBenchmarkMetric[];countDifferences:{kind:string;expected:number;actual:number}[];geometryMeanErrorMm?:number;dimensionMeanErrorMm?:number;missing:number;scaleUnverified:number}
@@ -46,7 +48,9 @@ export function validateCaptureBenchmarkCase(input:unknown):CaptureBenchmarkCase
   if(c.expectedCounts){expectedCounts={};for(const kind of ['rooms','walls','openings'] as const){const n=c.expectedCounts[kind];if(n===undefined)continue;if(!Number.isInteger(n)||!finite(n,0,300))throw new Error('Invalid measured reference counts.');expectedCounts[kind]=n;}}
   for(const n of [c.captureDurationMs,c.manualDurationMs])if(n!==undefined&&!finite(n,0,7*86400000))throw new Error('Use recorded durations, between zero and seven days.');
   if(c.timingProtocol!==undefined&&c.timingProtocol!=='same-reference-ready-start')throw new Error('Invalid benchmark timing protocol.');
-  return {version:1,id:c.id,label:c.label,consent:'local-only',sourceKind:c.sourceKind,readability:c.readability,complexity:c.complexity,review,expected,toleranceMm:c.toleranceMm,...(expectedCounts?{expectedCounts}:{}),...(c.captureDurationMs===undefined?{}:{captureDurationMs:c.captureDurationMs}),...(c.manualDurationMs===undefined?{}:{manualDurationMs:c.manualDurationMs}),...(c.timingProtocol?{timingProtocol:c.timingProtocol}:{})};
+  const attempt=c.attempt===undefined?undefined:validateCaptureAttempt(c.attempt);
+  if(attempt&&(captureAttemptDuration(attempt,review)===undefined||captureAttemptDuration(attempt,review)!==c.captureDurationMs))throw Error('Timing must belong to this exact source and review attempt.');
+  return {version:1,id:c.id,label:c.label,consent:'local-only',sourceKind:c.sourceKind,readability:c.readability,complexity:c.complexity,review,expected,toleranceMm:c.toleranceMm,...(expectedCounts?{expectedCounts}:{}),...(c.captureDurationMs===undefined?{}:{captureDurationMs:c.captureDurationMs}),...(c.manualDurationMs===undefined?{}:{manualDurationMs:c.manualDurationMs}),...(c.timingProtocol?{timingProtocol:c.timingProtocol}:{}),...(attempt?{attempt}:{})};
 }
 function compare(c:CaptureBenchmarkCase,phase:'original'|'corrected'):CaptureBenchmarkPhase {
   const original=phase==='original',review=c.review,recognition:Recognition=original?review.original:review.current;
@@ -80,13 +84,14 @@ export function runCaptureBenchmark(input:CaptureBenchmarkCase) {
   const c=validateCaptureBenchmarkCase(input),reviewElapsedMs=c.review.completedAtMs!-c.review.startedAtMs;
   const timeToVerifiedMs=c.captureDurationMs===undefined?undefined:c.captureDurationMs+reviewElapsedMs;
   const paired=c.timingProtocol==='same-reference-ready-start'&&c.manualDurationMs!==undefined&&timeToVerifiedMs!==undefined;
-  return {id:c.id,label:c.label,method:c.review.source.method,sourceKind:c.sourceKind,readability:c.readability,complexity:c.complexity,toleranceMm:c.toleranceMm,measuredTargets:c.expected.length,original:compare(c,'original'),corrected:compare(c,'corrected'),reviewElapsedMs,timeToVerifiedMs,manualDurationMs:c.manualDurationMs,pairedTimeSavedMs:paired?c.manualDurationMs!-timeToVerifiedMs!:undefined};
+  return {id:c.id,label:c.label,attemptId:c.attempt?.id,method:c.review.source.method,sourceKind:c.sourceKind,readability:c.readability,complexity:c.complexity,toleranceMm:c.toleranceMm,measuredTargets:c.expected.length,original:compare(c,'original'),corrected:compare(c,'corrected'),reviewElapsedMs,timeToVerifiedMs,manualDurationMs:c.manualDurationMs,pairedTimeSavedMs:paired?c.manualDurationMs!-timeToVerifiedMs!:undefined};
 }
 export function captureBenchmarkReport(inputs:CaptureBenchmarkCase[]) {
   if(!Array.isArray(inputs)||inputs.length>MAX_CASES)throw new Error('Use at most 30 local benchmark cases.');
   const cases=inputs.map(runCaptureBenchmark);if(new Set(cases.map(c=>c.id)).size!==cases.length)throw new Error('Benchmark case IDs must be unique.');
+  const timed=cases.flatMap(c=>c.attemptId?[c.attemptId]:[]);if(new Set(timed).size!==timed.length)throw Error('Save one measured benchmark case per timed attempt; include all measured targets in that case.');
   const complete=cases.filter(c=>c.corrected.status!=='incomplete'),originalComplete=cases.filter(c=>c.original.status!=='incomplete');
-  return {version:1,sampleCount:cases.length,evaluableCases:complete.length,originalEvaluableCases:originalComplete.length,originalFailureRate:originalComplete.length?originalComplete.filter(c=>c.original.status==='outside-tolerance').length/originalComplete.length:undefined,correctedFailureRate:complete.length?complete.filter(c=>c.corrected.status==='outside-tolerance').length/complete.length:undefined,medianReviewElapsedMs:median(cases.map(c=>c.reviewElapsedMs)),medianTimeToVerifiedMs:median(cases.flatMap(c=>c.timeToVerifiedMs===undefined?[]:[c.timeToVerifiedMs])),pairedTimingCases:cases.filter(c=>c.pairedTimeSavedMs!==undefined).length,medianPairedTimeSavedMs:median(cases.flatMap(c=>c.pairedTimeSavedMs===undefined?[]:[c.pairedTimeSavedMs])),cases,limitations:['Local opt-in examples are not a representative accuracy study; coverage is shown for each case.','Measured bounds, endpoints and counts do not prove complete topology, construction accuracy or code compliance.','Missing or unverified values remain missing; no model confidence score is inferred.','Review elapsed time includes idle time. Capture and manual times are reported only when recorded under the stated protocol.']};
+  return {version:1,sampleCount:cases.length,evaluableCases:complete.length,originalEvaluableCases:originalComplete.length,originalFailureRate:originalComplete.length?originalComplete.filter(c=>c.original.status==='outside-tolerance').length/originalComplete.length:undefined,correctedFailureRate:complete.length?complete.filter(c=>c.corrected.status==='outside-tolerance').length/complete.length:undefined,medianReviewElapsedMs:median(cases.map(c=>c.reviewElapsedMs)),medianTimeToVerifiedMs:median(cases.flatMap(c=>c.timeToVerifiedMs===undefined?[]:[c.timeToVerifiedMs])),pairedTimingCases:cases.filter(c=>c.pairedTimeSavedMs!==undefined).length,medianPairedTimeSavedMs:median(cases.flatMap(c=>c.pairedTimeSavedMs===undefined?[]:[c.pairedTimeSavedMs])),cases,limitations:['Local opt-in examples are not a representative accuracy study; coverage is shown for each case.','Measured bounds, endpoints and counts do not prove complete topology, construction accuracy or code compliance.','Missing or unverified values remain missing; no model confidence score is inferred.','Review elapsed time includes idle time. Capture and manual times are reported only when recorded under the stated protocol.','Geometry failure rates concern evaluable reviewed cases only. Recognition workflow failures, cancellations and unfinished attempts have a separate local attempt report.']};
 }
 export interface BenchmarkStorage {getItem(key:string):string|null;setItem(key:string,value:string):void;removeItem(key:string):void}
 export function loadCaptureBenchmarks(storage:BenchmarkStorage):CaptureBenchmarkCase[] {
@@ -97,6 +102,7 @@ export function loadCaptureBenchmarks(storage:BenchmarkStorage):CaptureBenchmark
 export function saveCaptureBenchmark(storage:BenchmarkStorage,input:CaptureBenchmarkCase,optedIn:boolean):CaptureBenchmarkCase[] {
   if(optedIn!==true)throw new Error('Choose local benchmark storage explicitly before saving a case.');
   const c=validateCaptureBenchmarkCase(input),existing=loadCaptureBenchmarks(storage),next=[...existing.filter(v=>v.id!==c.id),c];if(next.length>MAX_CASES)throw new Error('Remove a case before adding more than 30.');
+  captureBenchmarkReport(next);
   const json=JSON.stringify(next);if(new TextEncoder().encode(json).length>MAX_BYTES)throw new Error('Local benchmark storage is limited to 2 MB.');storage.setItem(CAPTURE_BENCHMARK_KEY,json);return next;
 }
 export function deleteCaptureBenchmark(storage:BenchmarkStorage,id:string):CaptureBenchmarkCase[] {const next=loadCaptureBenchmarks(storage).filter(c=>c.id!==id);if(next.length)storage.setItem(CAPTURE_BENCHMARK_KEY,JSON.stringify(next));else storage.removeItem(CAPTURE_BENCHMARK_KEY);return next;}
