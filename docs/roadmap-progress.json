@@ -8,7 +8,7 @@
     {
       "id": "NN-29",
       "title": "One portable project, including its media",
-      "status": "partial",
+      "status": "implemented-pilot",
       "depends": [],
       "scope": "Milestone A: one combined portable package containing the plan, its listing media, chosen floor-plan references and an asset manifest. Milestone B: optional online media snapshots with visible quotas, progress, retry and recovery. Local personalization requires A only.",
       "acceptance": [
@@ -17,9 +17,14 @@
       ],
       "boundary": "Online media is an explicit opt-in and depends on configured storage. R2 remains deferred; choose storage only after quota/cost evaluation. Private media is excluded from public sharing unless chosen.",
       "evidence": [
-        "Milestone A extends portable project packages with versioned references and all referenced personal-photo originals, including saved alternatives.",
-        "Hash verification precedes import; missing assets are explicit; private metadata excluded from ordinary public sharing.",
-        "Milestone B online-media snapshots remains pending; no new private-media hosting or local GPU configuration activated."
+        "Milestone A combines the plan, listing details/photos/originals/viewpoints, selected floor references and referenced private assets, including saved alternatives and checkpoints, in one portable backup.",
+        "Restore validates references and asset hashes before writes, opens a new local project identity and reports missing or omitted media explicitly; existing projects are not overwritten.",
+        "Milestone B implements explicit private online snapshots with inclusion preview, account/project quotas, resumable 128 KiB content-hash chunks, progress, retry, recovery and owner deletion.",
+        "Real SQLite tests cover partial failure, quota reservation, competing finalization, deletion and ownership. Atomic finalization preserves the previous complete snapshot; restored downloads use the same new-project backup path.",
+        "ONLINE_MEDIA_STORAGE must explicitly equal d1-bounded-v1 for uploads. It remains unconfigured; R2 is deferred and no user photographs were uploaded during validation."
+      ],
+      "acceptanceLimitations": [
+        "Optional online uploads require operator approval of the bounded D1 quota/cost approach and explicit storage enablement. Existing owner recovery/deletion remains available when the database exists, even while new uploads are paused."
       ]
     },
     {
@@ -209,12 +214,15 @@
         "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
         "sitesVersion": 118,
         "verified": "2026-09-29T09:44:30.835Z"
-      }
+      },
+      "acceptanceLimitations": [
+        "Released desktop behavior and bounded effects are verified. The original acceptance requirement for representative mobile and integrated-GPU frame-time/memory measurements remains unverified."
+      ]
     },
     {
       "id": "NN-08",
       "title": "Private client review and approval",
-      "status": "in-progress",
+      "status": "implemented",
       "depends": [
         "NN-01",
         "NN-29"
@@ -225,7 +233,11 @@
         "Comments and approval stay attached to the reviewed revision and are visibly stale after a new revision is published."
       ],
       "boundary": "Start with asynchronous review. Guest identity, access expiry/revocation and owner controls are required; approval is a design decision record, not a contract signature.",
-      "evidence": []
+      "evidence": [
+        "Listing Studio publishes an explicitly reviewed immutable snapshot with optional selected photo previews; private metadata is stripped through a public visual allowlist.",
+        "Expiring fragment capabilities, owner revocation, revision-anchored comments and approvals, owner resolution and bounded feedback are implemented. Visitor names are explicitly self-reported, not authenticated signatures.",
+        "Real SQLite and actual dispatcher tests cover ownership, expiry, revocation and stale revisions. Route-isolation tests prevent pending feedback or a requested revision from carrying into another review link."
+      ]
     },
     {
       "id": "NN-09",
@@ -281,7 +293,7 @@
     {
       "id": "NN-11",
       "title": "A tour that tells a story",
-      "status": "in-progress",
+      "status": "implemented",
       "depends": [
         "NN-29"
       ],
@@ -291,7 +303,11 @@
         "Published tour snapshots are deliberate, revocable and do not silently change as the private project is edited."
       ],
       "boundary": "Extend Listing Studio and its media provenance. Clearly label an authored/staged design versus a captured property; provide still-image fallback and keyboard navigation.",
-      "evidence": []
+      "evidence": [
+        "Named tour stops retain floor, camera, facing marker, captions and written narration, with keyboard-accessible navigation and an optional lazy read-only 3D scene.",
+        "Only explicitly selected listing image previews are published. Published tours share immutable review revisions and expiring, revocable access; opening them does not mount the editor or its furnishing tools.",
+        "Embedded viewing is read-only; visitors open the full review to respond. No automatic narration recording or property scan is implied."
+      ]
     },
     {
       "id": "NN-12",
@@ -416,7 +432,7 @@
     {
       "id": "NN-16",
       "title": "Little moments of life",
-      "status": "implemented",
+      "status": "released",
       "depends": [],
       "scope": "Turn a lamp on, open a supported door, unfold a sofa bed, run an authored fireplace animation, or place a calm animated pet that rests in selected spots.",
       "acceptance": [
@@ -428,12 +444,18 @@
         "Authored play/still/off and sliding previews use existing scene clocks and leave saved placement/history untouched.",
         "Live browser fireplace off and globe controls verified; unsupported models expose no fabricated behavior."
       ],
-      "documentation": "docs/living-design.md"
+      "documentation": "docs/living-design.md",
+      "release": {
+        "pr": 122,
+        "master": "5222bfd1cc0cad2f41e2a35b1932fe994aba09e7",
+        "sitesVersion": 122,
+        "verified": "2026-09-29T11:01:21.912Z"
+      }
     },
     {
       "id": "NN-17",
       "title": "Small, optional design challenges",
-      "status": "implemented",
+      "status": "released",
       "depends": [
         "NN-06"
       ],
@@ -447,12 +469,18 @@
         "Four original deterministic briefs save current work before opening a separate measured project.",
         "Private hints/constraints, stale save and storage-error protection tested; actual browser new-project launch verified."
       ],
-      "documentation": "docs/living-design.md"
+      "documentation": "docs/living-design.md",
+      "release": {
+        "pr": 122,
+        "master": "5222bfd1cc0cad2f41e2a35b1932fe994aba09e7",
+        "sitesVersion": 122,
+        "verified": "2026-09-29T11:01:21.912Z"
+      }
     },
     {
       "id": "NN-18",
       "title": "Share a room someone can remix",
-      "status": "planned",
+      "status": "implemented",
       "depends": [
         "NN-02"
       ],
@@ -462,7 +490,11 @@
         "The owner can disable future access; already-downloaded copies are clearly outside revocation."
       ],
       "boundary": "Extend current sharing; strip listing addresses, private photos and account data by default. Content rights and creator permission travel with the shared kit.",
-      "evidence": []
+      "evidence": [
+        "Explicit room/kit snapshots carry allow-copy permission and bounded creator attribution, with read-only previews, portable packages and independent private copies with new identities.",
+        "Public snapshots exclude addresses, private uploaded media and account data. Ownership, stable revision, permission and revocation are checked on the server before future access.",
+        "Copy/import tests preserve attribution and current local work. Revocation is explained as stopping future access, not recalling previously downloaded copies."
+      ]
     },
     {
       "id": "NN-19",
@@ -509,12 +541,15 @@
         "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
         "sitesVersion": 118,
         "verified": "2026-09-29T09:44:30.835Z"
-      }
+      },
+      "acceptanceLimitations": [
+        "SVG/HTML scale declarations, dimensions and browser exports are checked. Physical printed scale remains unverified and depends on correct printer scaling settings."
+      ]
     },
     {
       "id": "NN-23",
       "title": "A predictable final-render workflow",
-      "status": "planned",
+      "status": "implemented-pilot",
       "depends": [
         "NN-01"
       ],
@@ -524,12 +559,20 @@
         "Failure/cancel/retry states are predictable; a small evaluation set checks geometry, furnishings, runtime and output quality."
       ],
       "boundary": "The existing local connector is for video, so define and validate a separate still-render job capability before reusing its connection patterns. Prefer fixed-geometry output; generative styling stays labeled and reviewable. Do not install a GPU cluster or introduce a paid provider automatically.",
-      "evidence": []
+      "evidence": [
+        "Listing Studio offers bounded persistent still jobs from saved cameras, preview/final sizes, portable request/result packages and explicit connection to a separately compatible local still-render server.",
+        "Exact request hashes and durable pre-submit reservations support explicit status, best-effort cancel and separate retries; uncertain submissions never trigger an automatic second POST. Tokens remain in memory.",
+        "Reviewed results append idempotently as labeled render/concept slides and cannot replace property photographs. Removed-floor viewpoints are rejected before listing persistence.",
+        "Synthetic evaluation requests and review criteria are provided. No renderer installation, paid call, GPU compatibility or actual output-quality/runtime result is claimed."
+      ],
+      "acceptanceLimitations": [
+        "A compatible still-render service must be supplied separately. Run the evaluation set through that renderer and record geometry, furnishings, visual quality and runtime before claiming render-quality acceptance."
+      ]
     },
     {
       "id": "NN-26",
       "title": "A design assistant with clear constraints",
-      "status": "planned",
+      "status": "implemented",
       "depends": [
         "NN-01",
         "NN-03",
@@ -543,7 +586,12 @@
         "Each applied proposal is one undo step; costs/provider use and unavailable functionality are clear."
       ],
       "boundary": "Reuse native proposal/apply/discard controls. An in-app model service is a separate explicit dependency; unsupported browsers retain manual recipes. No unsolicited paid generation.",
-      "evidence": []
+      "evidence": [
+        "A local deterministic assistant proposes distinct catalog recipes from measured floor/room geometry, household purpose, style, size limits, clearance and optional budget.",
+        "Bounded additions pass the existing operation validator; architecture, existing dimensions and locked items remain unchanged. Proposals explain conflicts and allow editing, preview, discard and one-step apply/undo.",
+        "Manual known subtotals and missing-price counts remain separate; unpriced items never produce a complete-budget success claim. No model service, external provider or generation cost is implied.",
+        "Combined browser check rejected an overfull 5.5 m2 room; another 3.5 x 3.25 m room accepted three pieces and one Undo restored zero pieces with the measured floor unchanged."
+      ]
     },
     {
       "id": "NN-31",
@@ -573,7 +621,7 @@
     {
       "id": "NN-22",
       "title": "A garden through the seasons",
-      "status": "implemented",
+      "status": "released",
       "depends": [],
       "scope": "Seasonal material/visibility presets and planting palettes for a selected garden region; summer/winter views using the existing vegetation system.",
       "acceptance": [
@@ -585,7 +633,13 @@
         "Regional cosmetic palettes preserve transforms, IDs and original materials; dense fields and unsupported species remain neutral.",
         "Live preview/apply/one-step Undo verified with unchanged furniture; moved selected plants and mixed vertex layouts covered."
       ],
-      "documentation": "docs/living-design.md"
+      "documentation": "docs/living-design.md",
+      "release": {
+        "pr": 122,
+        "master": "5222bfd1cc0cad2f41e2a35b1932fe994aba09e7",
+        "sitesVersion": 122,
+        "verified": "2026-09-29T11:01:21.912Z"
+      }
     },
     {
       "id": "NN-24",
@@ -604,7 +658,16 @@
         "Twenty GLBs audited by actual transformed vertex bounds; single-piece links/QR omit all private project data.",
         "Actual standalone desktop viewer loaded sofa and verified 2100 x 900 x 850 mm; native iOS/Android AR remains an explicit hardware acceptance gate."
       ],
-      "documentation": "docs/living-design.md"
+      "documentation": "docs/living-design.md",
+      "acceptanceLimitations": [
+        "The standalone desktop viewer and catalog model bounds are checked. Fixed real-world scale and handoff behavior on physical supported iOS and Android devices remain unverified."
+      ],
+      "release": {
+        "pr": 122,
+        "master": "5222bfd1cc0cad2f41e2a35b1932fe994aba09e7",
+        "sitesVersion": 122,
+        "verified": "2026-09-29T11:01:21.912Z"
+      }
     },
     {
       "id": "NN-25",
@@ -622,12 +685,21 @@
         "SHA-256 reference evidence survives complete local backups; changed image/page/rotation/scale/geometry invalidates stale reviews.",
         "Local opt-in benchmark records measured truth and timing; representative consented dataset remains a research acceptance gate."
       ],
-      "documentation": "docs/living-design.md"
+      "documentation": "docs/living-design.md",
+      "acceptanceLimitations": [
+        "The correction workflow and local benchmark tools are implemented. A representative consented dataset with independently measured geometry/dimension error and time-to-correct has not been evaluated; no native LiDAR capture or new-model accuracy claim is made."
+      ],
+      "release": {
+        "pr": 122,
+        "master": "5222bfd1cc0cad2f41e2a35b1932fe994aba09e7",
+        "sitesVersion": 122,
+        "verified": "2026-09-29T11:01:21.912Z"
+      }
     },
     {
       "id": "NN-27",
       "title": "Design together in real time",
-      "status": "planned",
+      "status": "implemented-pilot",
       "depends": [
         "NN-08"
       ],
@@ -637,12 +709,19 @@
         "Viewer/editor access boundaries and recovery history are verified under concurrent changes."
       ],
       "boundary": "Prototype with two editors first. Do not bolt simultaneous writes onto snapshot saves; define offline conflicts, ownership and deletion/revocation behavior.",
-      "evidence": []
+      "evidence": [
+        "Private named-member rooms support owner/editor/viewer roles, invitations, presence, revisioned bounded operations, offline recovery, explicit conflict review, archive and owner deletion.",
+        "The editor routes allowed shared actions through the session bridge and disables unrelated private workflows while joined. Account-bound requests prevent replaying a previous account's queue after sign-in changes.",
+        "SQLite and session/store tests cover concurrent operations, stale edits, reconnect recovery and access boundaries. COLLABORATION_PRODUCTION_ENABLED remains false; this is not an enabled public collaboration service."
+      ],
+      "acceptanceLimitations": [
+        "Production use requires an explicitly approved collaboration pilot and deliberate enablement. Local concurrency/recovery checks do not establish production operating capacity."
+      ]
     },
     {
       "id": "NN-28",
       "title": "A curated inspiration gallery",
-      "status": "planned",
+      "status": "implemented-pilot",
       "depends": [
         "NN-17",
         "NN-18"
@@ -653,12 +732,19 @@
         "A gallery room loads within the agreed performance budget and can be copied without losing its source attribution."
       ],
       "boundary": "Start curated rather than an algorithmic social feed. Exclude private addresses/media and unlicensed assets; moderation, abuse controls and asset storage are real operating costs.",
-      "evidence": []
+      "evidence": [
+        "Three shipped original arrangements support immediate local browsing, preview and credited independent copies. The community interface adds bounded search, tags, pagination and thumbnails.",
+        "Explicit snapshot submissions, owner withdrawal, curator inspection/decisions and rate-limited reporting are implemented with stable revision checks and source attribution.",
+        "Community publishing and discovery fail closed without configured IDEAS_CURATOR_IDS. No curator is silently granted access and no public submission happens automatically."
+      ],
+      "acceptanceLimitations": [
+        "Community operation requires an authorized curator configuration and operating workflow. Measure a representative gallery room against the agreed load/performance budget before claiming that acceptance criterion."
+      ]
     },
     {
       "id": "NN-32",
       "title": "A staging inventory that knows what is free",
-      "status": "planned",
+      "status": "implemented-pilot",
       "depends": [
         "NN-03",
         "NN-09",
@@ -670,20 +756,93 @@
         "Replacing a visual proxy does not change ownership, stock quantity or reservation history."
       ],
       "boundary": "This is a separate professional product surface. Start without barcode hardware or bookkeeping; require server-side concurrency and roles before real reservations.",
-      "evidence": []
+      "evidence": [
+        "A separate private inventory surface records physical stock units, dimensions, condition, visual proxies, dated reservations and pack/return events without putting business records in shared plans.",
+        "Server roles, an immutable ledger and SQLite overlap triggers protect reservations. Tests with independent connections cover competing bookings; changing the visual proxy does not change stock ownership or ledger history.",
+        "Production use requires STAGING_PILOT_ENABLED=true and explicit STAGING_PILOT_OWNER_IDS enrollment. The sample inventory is labeled read-only and no real business is silently enrolled."
+      ],
+      "acceptanceLimitations": [
+        "An authorized staging-business pilot, owner enrollment and real operating acceptance remain prerequisites for using physical inventory reservations in production."
+      ]
     }
   ],
   "release": {
-    "branch": "codex/dream-home-roadmap",
+    "branch": "codex/shared-design-tools",
     "state": "local-validation",
+    "batch": 5,
     "featureIds": [
-      "NN-01",
-      "NN-02",
-      "NN-03",
-      "NN-04",
-      "NN-06",
-      "NN-09",
-      "NN-29"
-    ]
-  }
+      "NN-08",
+      "NN-11",
+      "NN-18",
+      "NN-23",
+      "NN-26",
+      "NN-27",
+      "NN-28",
+      "NN-29",
+      "NN-32"
+    ],
+    "validation": {
+      "applicationTests": 1137,
+      "applicationFiles": 172,
+      "assetTests": 5,
+      "hostingAndServerTests": 26,
+      "browserEvidence": "Independent starter copy, stock draft/cancel, render queue/export state, local 3D tour, assistant rejection/apply/undo; both themes visually verified."
+    }
+  },
+  "externalAcceptance": [
+    {
+      "featureId": "NN-07",
+      "kind": "hardware-validation",
+      "status": "pending",
+      "requirement": "Measure frame time and memory on representative agreed mobile and integrated-GPU scenes."
+    },
+    {
+      "featureId": "NN-20",
+      "kind": "physical-validation",
+      "status": "pending",
+      "requirement": "Print the exported scale check at its declared scale and verify its physical measurement."
+    },
+    {
+      "featureId": "NN-23",
+      "kind": "renderer-validation",
+      "status": "pending",
+      "requirement": "Provide a compatible still renderer and run the evaluation set for geometry, furnishings, quality and runtime; no renderer is automatically installed or contacted."
+    },
+    {
+      "featureId": "NN-24",
+      "kind": "hardware-validation",
+      "status": "pending",
+      "requirement": "Verify fixed scale and native handoff on supported physical iOS and Android devices."
+    },
+    {
+      "featureId": "NN-25",
+      "kind": "dataset-validation",
+      "status": "pending",
+      "requirement": "Evaluate representative consented plans against independent measured truth and report error plus correction time."
+    },
+    {
+      "featureId": "NN-27",
+      "kind": "operational-pilot",
+      "status": "not-enabled",
+      "requirement": "Approve the collaboration pilot before deliberately enabling its production gate; establish production operating limits."
+    },
+    {
+      "featureId": "NN-28",
+      "kind": "operations-and-performance",
+      "status": "pending",
+      "requirement": "Configure authorized curators before community operation and measure representative gallery load performance against an agreed budget. Shipped original ideas already work locally."
+    },
+    {
+      "featureId": "NN-29",
+      "kind": "storage-configuration",
+      "status": "not-enabled",
+      "requirement": "Approve the bounded D1 quota/cost approach and explicitly enable online media storage. Portable local backup/restore remains available; R2 remains deferred."
+    },
+    {
+      "featureId": "NN-32",
+      "kind": "operational-pilot",
+      "status": "not-enabled",
+      "requirement": "Authorize a staging-business pilot and explicitly enroll owners before enabling physical stock operations."
+    }
+  ]
 }

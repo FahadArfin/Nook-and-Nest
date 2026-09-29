@@ -1,3 +1,4 @@
+import {parseRemixAttribution,mergeRemixAttributions,type RemixAttribution} from './remixAttribution';
 import {validateSurfaceForPiece} from './personalSurfaceValidation';
 import {parsePersonalItemMetadata} from './personalItems';
 import {catalog, isDoor, isStairs, isWallOpening} from './catalog';
@@ -15,6 +16,7 @@ export const MAX_SAVED_KITS = 40;
 export const MAX_KIT_BYTES = 256 * 1024;
 export type KitPiece = Omit<FurniturePlacement, 'id' | 'floorId' | 'toFloorId' | 'stairRiseMm' | 'doorless' | 'hostDoorId'>;
 export interface FurnitureKit {
+  remixAttribution?:RemixAttribution;
   version: 1; id: string; name: string; createdAt: string; updatedAt: string; pieces: KitPiece[];
 }
 export interface KitPosition {x: number; z: number; rotation: number}
@@ -41,7 +43,7 @@ export function kitPieceProblem(piece: Pick<FurniturePlacement, 'catalogId' | 't
 
 /** Local data is untrusted. Validate without dropping unknown-catalog pieces: keep the kit recoverable. */
 export function parseFurnitureKit(value: unknown): FurnitureKit {
-  if (!record(value) || Object.keys(value).some(k => !['version','id','name','createdAt','updatedAt','pieces'].includes(k)) || value.version !== 1 || !shortText(value.id, 100) || !Array.isArray(value.pieces) || !value.pieces.length || value.pieces.length > MAX_KIT_PIECES) throw new Error('This saved kit is invalid or too large.');
+  if (!record(value) || Object.keys(value).some(k => !['version','id','name','createdAt','updatedAt','pieces','remixAttribution'].includes(k)) || value.version !== 1 || !shortText(value.id, 100) || !Array.isArray(value.pieces) || !value.pieces.length || value.pieces.length > MAX_KIT_PIECES) throw new Error('This saved kit is invalid or too large.');
   const name = kitName(value.name);
   for (const key of ['createdAt','updatedAt'] as const) if (!shortText(value[key], 40) || !Number.isFinite(Date.parse(value[key]))) throw new Error('This kit has an invalid saved date.');
   for (const p of value.pieces) {
@@ -60,7 +62,7 @@ export function parseFurnitureKit(value: unknown): FurnitureKit {
     }
   }
   if (new TextEncoder().encode(JSON.stringify(value)).length > MAX_KIT_BYTES) throw new Error('This kit is too large to save.');
-  return structuredClone({...value, name}) as unknown as FurnitureKit;
+  return structuredClone({...value, name,...(value.remixAttribution===undefined?{}:{remixAttribution:parseRemixAttribution(value.remixAttribution)})}) as unknown as FurnitureKit;
 }
 
 export function createFurnitureKit(plan: PlanDocumentV1, floorId: string, selectedIds: readonly string[], name: string): FurnitureKit {
@@ -78,7 +80,7 @@ export function createFurnitureKit(plan: PlanDocumentV1, floorId: string, select
     copy.x = piece.x - anchor.x; copy.z = piece.z - anchor.z;
     return copy as unknown as KitPiece;
   });
-  return parseFurnitureKit({version: 1, id: crypto.randomUUID(), name, createdAt: now, updatedAt: now, pieces});
+  return parseFurnitureKit({version: 1, id: crypto.randomUUID(), name, createdAt: now, updatedAt: now, pieces,...(plan.remixAttribution?{remixAttribution:plan.remixAttribution}:{})});
 }
 
 export function unavailableKitPieces(kit: FurnitureKit): string[] {
@@ -149,7 +151,8 @@ export function buildKitPlacement(base: PlanDocumentV1, floorId: string, input: 
   if (!base.floors.some(f => f.id === floorId && f.cells.length)) throw new Error('Draw a floor before previewing a kit.');
   const missing = unavailableKitPieces(kit); if (missing.length) throw new Error(missing.join(' '));
   const added = kit.pieces.map(piece => ({...transformed(piece, position), id: crypto.randomUUID(), floorId}));
-  const plan = {...base, furniture: [...base.furniture, ...added]};
+  const attribution=mergeRemixAttributions(base.remixAttribution,kit.remixAttribution);
+  const plan = {...base, ...(attribution?{remixAttribution:attribution}:{}), furniture: [...base.furniture, ...added]};
   validatePlan(plan);
   if (new TextEncoder().encode(JSON.stringify(plan)).length > MAX_PLAN_BYTES) throw new Error('This arrangement would exceed the project size limit.');
   // Only compare newly proposed pieces against existing pieces: bounded O(kit * scene), not a fresh scene-wide pair scan.
