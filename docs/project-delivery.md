@@ -13,3 +13,5 @@ Private checklists, site records, presentation settings and history are excluded
 ## Validation
 
 Browser checks on a synthetic 6×5m plan confirmed a two-module uncommitted preview, one-step apply/undo, independent IDs, an empty-room history preview without losing the working furniture, two labelled 1280×720 JPEG exports, a 50mm measurement discrepancy and checklist task editing. No physical printer or business field survey is claimed. Private identity, public sanitization, historical reference backup and readonly-listing stale-writer behavior have integrated regression coverage. Related schema/UI tests and TypeScript run before release; the release workflow also validates the full application, Sites worker, asset integrity and unchanged size guards.
+
+The welcome menu now defers the planning runtime and saved-project read until an editing route needs them. This reduced the merged 902-model initial entry from 722,320 bytes (over budget) to 244,293 bytes / 76,500 gzip, without raising the 700 KB / 220 KB guards. Shared/deep links, browser navigation, new blank projects, explicit project opening and appearance transfer have regression coverage.
