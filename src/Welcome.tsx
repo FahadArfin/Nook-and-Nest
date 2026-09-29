@@ -1,6 +1,6 @@
 import {useEditorRoute,navigateEditor,leaveStudio} from './editorNavigation';
 import './ux.css';
-import {lazy,Suspense,useEffect,useState,type ComponentType} from 'react';
+import {lazy,Suspense,useEffect,useRef,useState,type ComponentType} from 'react';
 import {HouseLine,LockSimple,Monitor,Sun,Moon,SkipForward,Pause,Play,ArrowsClockwise,GearSix} from '@phosphor-icons/react';
 import {AppearanceContext,useAppearance,useWelcomeTheme} from './useWelcomeTheme';
 import {createBlankPlan} from './domain';
@@ -22,14 +22,15 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
  const [projects,setProjects]=useState(new URLSearchParams(location.search).has('projects'));
  const ambience=useHomeAmbience(!editing&&!studio&&!projects);
  const [error,setError]=useState('');
+ const showcasePlanId=useRef<string|undefined>(undefined);
  useEffect(()=>{let active=true;
-  (async()=>{try{const plan=showcase?showcase():await loadPlan();if(!active)return;if(plan)usePlanner.getState().replacePlan(plan);
+  (async()=>{try{const plan=showcase?showcase():await loadPlan();if(!active)return;if(plan){if(showcase)showcasePlanId.current=plan.id;usePlanner.getState().replacePlan(plan);}
    if(showcase||(new URLSearchParams(location.hash.slice(1)).has('plan')||new URLSearchParams(location.hash.slice(1)).has('share')))navigateEditor('editor',true);
   }catch{if(active)setError('We could not open the saved or shared project. Your existing saves have not been removed.');}
   finally{if(active)setReady(true);}})();return()=>{active=false};
  },[]);
  const start=(floorPlan:boolean)=>{usePlanner.getState().replacePlan(createBlankPlan());window.history.replaceState(window.history.state,'',location.pathname);navigateEditor(floorPlan?'studio-home':'editor');};
- const home=async()=>{try{await savePlan(usePlanner.getState().plan);usePlanner.getState().setTool('select');usePlanner.getState().select(undefined);setEditing(false);window.history.replaceState(window.history.state,'',location.pathname);}catch{window.alert('Your project could not be saved locally. Export a backup before leaving the editor.');}};
+ const home=async()=>{try{const plan=usePlanner.getState().plan;if(plan.id!==showcasePlanId.current)await savePlan(plan);usePlanner.getState().setTool('select');usePlanner.getState().select(undefined);setEditing(false);window.history.replaceState(window.history.state,'',location.pathname);}catch{window.alert('Your project could not be saved locally. Export a backup before leaving the editor.');}};
  if(editing&&ready)return <Editor onHome={home}/>;
  return <main className="welcome-page" data-theme={dark?'dark':'light'}>
   <LivingBackground scene={ambience.index} dark={dark} moving={ambience.moving}/>

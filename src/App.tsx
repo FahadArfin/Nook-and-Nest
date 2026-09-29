@@ -1,3 +1,5 @@
+import {createRealismReview} from './realismReview';
+import {createGarageOutdoorReview} from './garageOutdoorReview';
 import {shapeArea} from './polygonGeometry';
 import {createHouseholdReview} from './householdReview';
 import {createHouseholdArchitectureReview} from './householdArchitectureReview';
@@ -118,8 +120,10 @@ function AppDialog({ kind, onClose }: { kind: "help"|"project"|"share"; onClose(
 
 const showcaseMode = import.meta.env.DEV ? new URLSearchParams(location.search).get("showcase") : null;
 const showcaseItem = import.meta.env.DEV ? new URLSearchParams(location.search).get("item") : null;
-const furnitureShowcase = showcaseMode === "furniture" || showcaseMode === "stress" || showcaseMode === "detail" || showcaseMode === 'household' || showcaseMode === 'household-architecture';
+const furnitureShowcase = showcaseMode === "furniture" || showcaseMode === "stress" || showcaseMode === "detail" || showcaseMode === 'household' || showcaseMode === 'household-architecture' || showcaseMode === 'realism' || showcaseMode === 'garage' || showcaseMode === 'outdoor';
 function createFurnitureShowcase(stress=false,detailId?:string|null) {
+  if(showcaseMode==='garage'||showcaseMode==='outdoor')return createGarageOutdoorReview(showcaseMode);
+  if(showcaseMode==='realism')return createRealismReview(new URLSearchParams(location.search).get('finish')??'honey-oak',new URLSearchParams(location.search).get('wall')??'cream-plaster',detailId);
   if(showcaseMode==='household')return createHouseholdReview();
   if(showcaseMode==='household-architecture')return createHouseholdArchitectureReview();
   const detail=catalog.find((definition)=>definition.id===detailId);
