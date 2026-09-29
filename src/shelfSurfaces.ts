@@ -1,6 +1,7 @@
 import { catalog } from './catalog';
 import studioShelves from './studioShelfSurfaces.json';
 import householdShelves from './householdShelfSurfaces.json';
+import garageOutdoorShelves from './garageOutdoorShelfSurfaces.json';
 import {supportFootprint,supportCenter,modelCenterForSupport} from './supportFootprint';
 import type { FurniturePlacement,PlanDocumentV1 } from './types';
 /** Runtime local X/Z, millimetres, measured from the model's lowest point.
@@ -11,6 +12,7 @@ const shelf=(id:string,label:string,height:number,width:number,depth:number,clea
 const authored:Record<string,ShelfSurface[]>={
   ...studioShelves,
   ...householdShelves,
+  ...garageOutdoorShelves,
   'open-pantry':[77.5,502.5,927.5,1352.5,1777.5].map((height,i)=>shelf(`level-${i+1}`,`Pantry shelf ${i+1}`,height,810,320,i===4?600:385)),
   'display-bookcase':[150,740,1330].map((height,i)=>shelf(`level-${i+1}`,`Shelf ${i+1} (bottom to top)`,height,1100,340,i===2?530:550,0,20)),
   'ladder-display-shelf':[200,660,1120,1580].map((height,i)=>shelf(`level-${i+1}`,`Shelf ${i+1} (bottom to top)`,height,640,[370,300,230,160][i],i===3?700:420,0,[0,-35,-70,-105][i])),

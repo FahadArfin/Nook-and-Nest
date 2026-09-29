@@ -1,3 +1,4 @@
+import {finishSwatchStyle} from './FinishSwatch';
 import {useEffect,useMemo,useRef,useState} from 'react';
 import {ArrowCounterClockwise,Check,GridFour,Info,PaintBrush,PushPin,SlidersHorizontal,SquaresFour,X} from '@phosphor-icons/react';
 import {AccessibleDialog} from './AccessibleDialog';
@@ -46,7 +47,7 @@ export function PinnedControls({onOpen}:{onOpen?:()=>void}={}){
     {prefs.pins.includes('grid')&&<button title="Grid labels" aria-label="Pinned grid labels" aria-pressed={s.plan.camera.showGrid} onClick={()=>s.toggleCameraSetting('showGrid')}><GridFour size={19}/></button>}
     {prefs.pins.includes('brush')&&brushing&&<button title="Brush controls" aria-label="Pinned brush controls" aria-expanded={open==='brush'} onClick={e=>toggle('brush',e.currentTarget)}><SlidersHorizontal size={19}/></button>}
     {prefs.pins.includes('finishes')&&<button title="Recent finishes" aria-label="Pinned recent finishes" aria-expanded={open==='finishes'} onClick={e=>toggle('finishes',e.currentTarget)}><PaintBrush size={19}/></button>}
-    <ToolPopover anchor={anchor} open={!!open} side="above" label="Pinned options" onClose={()=>setOpen(undefined)}>{open==='brush'?<div className="pinned-brush"><QuickBrushControls/></div>:<div className="pinned-finishes"><strong>Recent finishes</strong>{finishes.length?<div className="quick-finishes">{finishes.map(f=><button key={f.id} aria-label={`Paint with ${f.name}`} title={f.name} style={{backgroundColor:f.color??'#e4d7bd',backgroundImage:f.texture?`url(${f.texture})`:undefined}} onClick={()=>{s.setSurfaceBrush(floorFinishes.some(v=>v.id===f.id)?'floor-finish':'wall-finish',f.id);rememberFinish(f.id);setOpen(undefined);}}/>)}</div>:<p>Choose a finish in Paint to keep it here.</p>}</div>}</ToolPopover>
+    <ToolPopover anchor={anchor} open={!!open} side="above" label="Pinned options" onClose={()=>setOpen(undefined)}>{open==='brush'?<div className="pinned-brush"><QuickBrushControls/></div>:<div className="pinned-finishes"><strong>Recent finishes</strong>{finishes.length?<div className="quick-finishes">{finishes.map(f=><button key={f.id} aria-label={`Paint with ${f.name}`} title={f.name} style={finishSwatchStyle(f)} onClick={()=>{s.setSurfaceBrush(floorFinishes.some(v=>v.id===f.id)?'floor-finish':'wall-finish',f.id);rememberFinish(f.id);setOpen(undefined);}}/>)}</div>:<p>Choose a finish in Paint to keep it here.</p>}</div>}</ToolPopover>
   </div>;
 }
 

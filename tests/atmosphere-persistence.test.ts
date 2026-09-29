@@ -5,7 +5,7 @@ import {applyLayoutAlternative,publicLayoutPlan,saveLayoutAlternative} from '../
 import {personalPhotoIds} from '../src/personalItems';
 import {defaultSceneAtmosphere,publicSceneAtmosphere,resolveAtmosphere} from '../src/sceneAtmosphere';
 import {defaultTakeoffSettings} from '../src/surfaceTakeoff';
-import slots from '../src/personalSurfaceSlots.json';
+import {personalSurfaceSlots as slots} from '../src/personalSurfaceSlots';
 import materials from '../src/modelMaterials.json';
 it('keeps lightweight startup validation aligned with the authored material slots',()=>{
  const expected=Object.fromEntries(Object.entries(materials).map(([id,parts])=>[id,parts.filter(p=>/upholstery|fabric|linen|cloth|cotton|wool|carpet|leather|velvet/i.test(p.id)&&!p.id.includes('artwork')).map(p=>p.id)]).filter(([,ids])=>ids.length));expect(slots).toEqual(expected);

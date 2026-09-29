@@ -17,7 +17,7 @@ afterEach(cleanup);
 it('ships material files and keeps original IDs alongside modern slab sizes',()=>{
  expect(floorFinishes.length).toBeGreaterThanOrEqual(46);expect(wallFinishes.length).toBeGreaterThanOrEqual(24);
  for(const list of [floorFinishes,wallFinishes]){expect(new Set(list.map(f=>f.id)).size).toBe(list.length);for(const f of list)expect(existsSync('public'+f.texture)).toBe(true)}
- expect(floorFinishes.find(f=>f.id==='gold-vein-marble-large')?.repeatMeters).toEqual([.6,1.2]);expect(floorFinishes.find(f=>f.id==='gold-vein-marble-square')?.repeatMeters).toEqual([.9,.9]);expect(floorFinishes.find(f=>f.id==='honey-oak')?.repeatMeters).toBeUndefined();
+ expect(floorFinishes.find(f=>f.id==='gold-vein-marble-large')?.repeatMeters).toEqual([.6,1.2]);expect(floorFinishes.find(f=>f.id==='gold-vein-marble-square')?.repeatMeters).toEqual([.9,.9]);expect(floorFinishes.find(f=>f.id==='honey-oak')?.repeatMeters).toEqual([2.08,2.08]);
 });
 it('custom paint previews a choice without emitting edits for every wheel movement',()=>{
  const ids:string[]=[];render(<PaintPicker onChoose={id=>ids.push(id)}/>);

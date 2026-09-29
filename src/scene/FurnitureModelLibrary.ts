@@ -1,3 +1,5 @@
+import sofaRealismIds from '../sofaRealismIds.json';
+import {personalSurfaceSlots} from '../personalSurfaceSlots';
 import {PersonalSurfaceTextures,personalTextureCandidates} from './PersonalSurfaceTextures';
 import {projectPersonalArtUV} from './PersonalArtUV';
 import type {PlanDocumentV1} from '../types';
@@ -32,6 +34,8 @@ import { findCountertopFinish, findDoorFinish } from "../surfaces";
 MeshoptCompression.Configuration={decoder:{url:'/vendor/meshopt-decoder-1.2.0.js'}};
 
 const MODEL_IDS = new Set(catalog.map((item) => item.id));
+const SOFA_VARIANT_IDS = new Set(sofaRealismIds.filter(id =>
+  (personalSurfaceSlots as Record<string,string[]>)[id]?.some(material => material.includes('upholstery-textured'))));
 
 export class FurnitureModelLibrary {
   private privateTextures:PersonalSurfaceTextures;
@@ -97,7 +101,9 @@ export class FurnitureModelLibrary {
       return clone;
     }
     const isFrame=item.catalogId==="window-solarium"&&!source.name.includes("glazing");
-    const isTintable = source.name.includes("upholstery-textured") || source.name.includes("variant-surface") || source.name.includes("door-surface") || source.name==="ceramic-tiles";
+    const isTuftButton=item.catalogId==='chester-sofa'&&source.name==='warm-brass';
+    const isSofaSeam=SOFA_VARIANT_IDS.has(item.catalogId)&&(/stitch|seam|welt|piping|thread/i.test(source.name)||isTuftButton);
+    const isTintable = isSofaSeam || source.name.includes("upholstery-textured") || source.name.includes("variant-surface") || source.name.includes("door-surface") || source.name==="ceramic-tiles";
     const isCountertop = source.name.includes("countertop-surface") || (item.catalogId==='kitchen-microwave-drawer-cabinet'&&source.name==='surface-stone');
     const isDoorSurface=source.name.includes("door-surface");
     if (!isTintable && !isCountertop && !isDoorSurface && !ghost && !custom && !isFrame && !isPersonalSurface) return source;
@@ -110,7 +116,8 @@ export class FurnitureModelLibrary {
     if (clone instanceof PBRMaterial) {
       if (isTintable) {
         const tint = variants[item.variant as keyof typeof variants] ?? variants.sage;
-        clone.albedoColor = Color3.Lerp(Color3.White(), Color3.FromHexString(tint), .9);
+        clone.albedoColor = sofaRealismIds.includes(item.catalogId) ? Color3.FromHexString(tint).toLinearSpace() : Color3.Lerp(Color3.White(), Color3.FromHexString(tint), .9);
+        if(isSofaSeam)clone.albedoColor.scaleInPlace(isTuftButton ? .70 : .72);
       }
       if (isCountertop||isDoorSurface) {
         const finish = isDoorSurface?findDoorFinish(item.surfaceVariant):findCountertopFinish(item.surfaceVariant);

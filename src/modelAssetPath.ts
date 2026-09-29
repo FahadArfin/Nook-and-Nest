@@ -1,3 +1,4 @@
+import sofaRealismIds from './sofaRealismIds.json';
 import {designedHomeIds} from './designedHomeCollection';
 import {apartmentIds} from './apartmentCollection';
 import applianceIds from './applianceDetailIds.json';
@@ -6,6 +7,8 @@ import modernDefaults from './modernDefaults.json';
 import furnitureDefaults from './furnitureDefaultVariants.json';
 /** Saved placement IDs stay stable; replaced assets receive a fresh cache key. */
 export function modelAssetPath(id:string,preview=false){
+  if(sofaRealismIds.includes(id))return preview?`${import.meta.env.DEV?'/models/previews':'/api/previews'}/${id}.webp?v=sofa-realism-1`:`/models/furniture/${id}.glb?v=sofa-realism-1`;
+
   if(preview&&Object.prototype.hasOwnProperty.call(furnitureDefaults,id))return `${import.meta.env.DEV?'/models/previews':'/api/previews'}/${id}.webp?v=warm-upholstery-1`;
   if(designedHomeIds.has(id))return preview?`${import.meta.env.DEV?'/models/previews':'/api/previews'}/${id}.webp?v=designed-home-1`:`/models/furniture/${id}.glb?v=designed-home-1`;
   if(apartmentIds.has(id))return preview?`${import.meta.env.DEV?'/models/previews':'/api/previews'}/${id}.webp?v=apartment-1`:`/models/furniture/${id}.glb?v=apartment-1`;

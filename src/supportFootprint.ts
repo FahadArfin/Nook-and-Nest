@@ -1,7 +1,8 @@
 import data from './householdSupportFootprints.json';
+import garageOutdoorData from './garageOutdoorSupportFootprints.json';
 import type {FurniturePlacement} from './types';
 interface AuthoredContact {dimensionsMm:number[];x:number;z:number;offset:number;width:number;depth:number;shape:string;hangingClearRadius?:number}
-const authored=data as Record<string,AuthoredContact>;
+const authored={...data,...garageOutdoorData} as Record<string,AuthoredContact>;
 /** Contact planes are distinct from the model's saved lowest-point elevation. */
 export function supportFootprint(item:FurniturePlacement){
  const a=authored[item.catalogId];

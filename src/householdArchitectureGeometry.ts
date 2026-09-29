@@ -3,7 +3,7 @@ import type {FurniturePlacement} from './types';
 // Catalog-safe geometry constants: no runtime catalog/domain imports.
 export const isRoofSkylight=(id:string)=>id==='roof-skylight';
 export const isStormDoor=(id:string)=>id==='secondary-storm-screen-door';
-export const isGarageDoor=(id:string)=>id==='sectional-garage-door';
+export const isGarageDoor=(id:string)=>['sectional-garage-door','garage-door-full-view','garage-door-carriage','garage-door-slatted'].includes(id);
 export const isSpiralStair=(id:string)=>id==='spiral-staircase';
 export const isStormDoorHostId=(id:string)=>['door-flush','door-shaker','door-six-panel','door-slim'].includes(id);
 

@@ -22,6 +22,19 @@ it('keeps previous saves in My projects, opens them explicitly, and returns home
  const library=await screen.findByRole('dialog',{name:'Your projects'});const title=await within(library).findByText('Saved home');fireEvent.click(within(title.closest('article')!).getByRole('button',{name:'Open'}));await screen.findByRole('region',{name:'Editor'});expect(usePlanner.getState().plan).toEqual(p);
  fireEvent.click(screen.getByText('Home'));await screen.findByRole('navigation',{name:'Start planning'});expect((await listLocalPlans()).map(p=>p.name)).toEqual(['Saved home']);
 });
+it('leaves a showcase unsaved and preserves the active project while still saving a later real plan',async()=>{
+ const saved=createSamplePlan('My saved home');await savePlan(saved);
+ const preview=createSamplePlan('Unsaved material review');window.history.replaceState(null,'','/?showcase=realism');
+ render(<Welcome Editor={Editor} showcase={()=>preview}/>);await screen.findByRole('region',{name:'Editor'});
+ expect(usePlanner.getState().plan.id).toBe(preview.id);
+ fireEvent.click(screen.getByText('Home'));await screen.findByRole('navigation',{name:'Start planning'});
+ expect(await listLocalPlans()).toEqual([saved]);expect(await loadPlan()).toEqual(saved);
+ fireEvent.click(screen.getByRole('button',{name:/Design in 3D/}));await screen.findByRole('region',{name:'Editor'});
+ const realPlan=usePlanner.getState().plan;expect(realPlan.id).not.toBe(preview.id);
+ fireEvent.click(screen.getByText('Home'));await screen.findByRole('navigation',{name:'Start planning'});
+ expect(await loadPlan()).toEqual(realPlan);
+ expect((await listLocalPlans()).map(p=>p.id).sort()).toEqual([saved.id,realPlan.id].sort());
+});
 it('confirms local deletion and does not recreate the deleted active project while browsing',async()=>{
  const p=createSamplePlan('Remove me');await savePlan(p);render(<Welcome Editor={Editor}/>);const button=screen.getByRole('button',{name:/My projects/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));fireEvent.click(button);await within(await screen.findByRole('dialog',{name:'Your projects'})).findByText('Remove me');
  const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);fireEvent.click(await screen.findByLabelText('Actions for Remove me'));fireEvent.click(screen.getByRole('button',{name:'Delete local copy'}));expect(await loadPlan()).toEqual(p);
