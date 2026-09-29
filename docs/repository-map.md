@@ -41,3 +41,7 @@ Production uses `master`. Beta 2 has a separate Site identity, database and asse
 - [Current contracts](contracts/editor.md) and the root guide resolve active requirements; [original history](history/AGENTS-before-maintenance.md) preserves the complete prior guide.
 
 Next candidates are extracting cohesive App/BlueprintStudio panels and adding hardware benchmark evidence. These are not claimed complete by this maintenance pass.
+
+## Listing Studio
+
+`ListingStudio.tsx` owns the realtor workspace and local media editing; `listingTypes.ts`, `listingMedia.ts` and `listingStorage.ts` validate and retain project-specific media without changing the home schema. `listingExport.ts` produces offline marketing packs. `walkthrough.ts` owns pure movement bounds and `scene/WalkthroughController.ts` applies eye-level camera input; `CameraControls` restores presentation/editor views. `ListingVideoPanel.tsx`, `listingVideo.ts` and `worker/listing-video.js` handle the optional paid Seedance workflow with owner-bound jobs and explicit consent. See `docs/realtor-research.md` for the feature report and `docs/listing-video-provider.md` for provider setup.

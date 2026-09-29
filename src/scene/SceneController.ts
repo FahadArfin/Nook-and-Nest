@@ -7,6 +7,8 @@ import { sunDirection, type SunSettings } from "../sunlight";
 import { bindTouchNavigation } from "../touchNavigation";
 import { isVegetation } from "../vegetation";
 import { CameraControls } from "./CameraControls";
+import type { CameraShotPose, WalkDirection } from "../walkthrough";
+import { withCleanListingCapture } from "./listingCapture";
 import { FloorPaintController } from "./FloorPaintController";
 import { GrassCoverageRenderer } from "./GrassCoverageRenderer";
 import { GrassRenderer } from "./GrassRenderer";
@@ -124,6 +126,50 @@ export class SceneController {
   }
   endHomePreview(...args: Parameters<CameraControls["endHomePreview"]>) {
     return this.cameraControls.endHomePreview(...args);
+  }
+
+  beginWalkthrough(floorId = this.activeFloorId): boolean {
+    this.cameraControls.endHomePreview();
+    this.cancelTouchEdit();
+    this.cameraControls.cancelFocus();
+    const started = this.cameraControls.walkthrough.begin(floorId);
+    if (started) this.rotationGuide?.setEnabled(false);
+    this.renderUntil = performance.now() + 1000;
+    return started;
+  }
+  endWalkthrough() {
+    this.cameraControls.walkthrough.end();
+    this.renderUntil = performance.now() + 1000;
+  }
+  moveWalkthrough(direction: WalkDirection, pressed: boolean) {
+    this.cameraControls.walkthrough.move(direction, pressed);
+  }
+  captureCameraShot(): CameraShotPose { return this.cameraControls.walkthrough.capture(); }
+  restoreCameraShot(pose: CameraShotPose): boolean {
+    this.cameraControls.cancelFocus();
+    const restored = this.cameraControls.walkthrough.restore(pose);
+    this.renderUntil = performance.now() + 1000;
+    return restored;
+  }
+  private cleanListingCapture = false;
+  beginListingPresentation() {
+    this.cancelTouchEdit();
+    this.cameraControls.beginListingPresentation();
+    this.renderUntil = performance.now() + 1000;
+  }
+  endListingPresentation() {
+    this.cameraControls.endListingPresentation();
+    this.renderUntil = performance.now() + 1000;
+  }
+  captureListingImage(format: 'landscape' | 'portrait' | 'square' = 'landscape'): string {
+    this.cleanListingCapture = true;
+    try {
+      return withCleanListingCapture(this.scene.meshes, [this.previewNode, this.rotationGuide], () => this.screenshot(format));
+    }
+    finally {
+      this.cleanListingCapture = false;
+      this.renderUntil = performance.now() + 1000;
+    }
   }
 
   private terrain!: TerrainScene;
@@ -436,6 +482,7 @@ export class SceneController {
     this.bindPointers();
     this.touchCleanup = bindTouchNavigation(canvas, {
       begin: () => {
+        if (this.cameraControls.walkthrough.active) return;
         this.cancelTouchEdit();
         this.camera.detachControl();
         this.camera.inertialAlphaOffset = 0;
@@ -445,7 +492,7 @@ export class SceneController {
         this.camera.inertialPanningY = 0;
       },
       move: (dx, dy, scale) => {
-        if (this.cameraControls.homePreview) return;
+        if (this.cameraControls.homePreview || this.cameraControls.walkthrough.active) return;
         const distance =
           (this.camera.radius * 2 * Math.tan(this.camera.fov / 2)) /
           Math.max(1, canvas.clientHeight);
@@ -461,7 +508,7 @@ export class SceneController {
         this.cameraControls.zoom(scale);
       },
       end: () => {
-        if (!this.cameraControls.homePreview)
+        if (!this.cameraControls.homePreview && !this.cameraControls.walkthrough.active)
           this.cameraControls.resumeCameraControls();
       },
       cancel: () => this.cancelTouchEdit(),
@@ -489,6 +536,7 @@ export class SceneController {
     });
     this.engine.runRenderLoop(() => {
       const now = performance.now();
+      this.cameraControls.walkthrough.tick(this.engine.getDeltaTime());
       const cameraFrame = [
         this.camera.alpha,
         this.camera.beta,
@@ -511,6 +559,7 @@ export class SceneController {
         !this.animatedScene &&
         !this.cameraControls.pointerHeld &&
         !this.cameraControls.homePreview &&
+        !this.cameraControls.walkthrough.active &&
         !this.cameraControls.focusMotion &&
         now > this.renderUntil &&
         now - this.lastRender < 1000
@@ -559,7 +608,7 @@ export class SceneController {
         !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
       )
         this.camera.alpha += Math.min(50, this.engine.getDeltaTime()) * 0.00012;
-      if (!this.cameraControls.homePreview) this.updateEditingGuides();
+      if (!this.cameraControls.homePreview && !this.cameraControls.walkthrough.active && !this.cameraControls.listingPresentation && !this.cleanListingCapture) this.updateEditingGuides();
       if (this.activePlan) {
         this.fixtureLights ??= new FurnitureLights(this.scene, (m) =>
           this.wallVisibility.allowsShadow(m),
@@ -617,7 +666,7 @@ export class SceneController {
       }
       if (this.activePlan)
         this.wallVisibility.update(
-          this.cameraControls.homePreview
+          this.cameraControls.walkthrough.active ? "all-visible" : this.cameraControls.homePreview
             ? "near-hidden"
             : getWallVisibility(this.activePlan.camera),
           this.camera.position,
@@ -807,6 +856,7 @@ export class SceneController {
   }
   private resize = () => this.engine.resize();
   dispose() {
+    this.cameraControls.walkthrough.dispose();
     this.metrics.dispose();
     this.touchCleanup?.();
     this.fixtureLights?.dispose();
@@ -871,6 +921,7 @@ export class SceneController {
   movePreviewFromClient(
     ...args: Parameters<PlacementController["movePreviewFromClient"]>
   ) {
+    if (this.cameraControls.walkthrough.active || this.cameraControls.listingPresentation) return;
     return this.placement.movePreviewFromClient(...args);
   }
   projectPreview(...args: Parameters<PlacementController["projectPreview"]>) {
@@ -1176,6 +1227,7 @@ export class SceneController {
     selectedId?: string,
     draft?: FurniturePlacement,
   ) {
+    if (this.cameraControls?.walkthrough.active && (this.activePlan !== plan || this.activeFloorId !== activeFloorId)) this.endWalkthrough();
     this.renderUntil = performance.now() + 1000;
     this.updateEmptyGuide(plan,activeFloorId);
     this.shadow?.getShadowMap?.()?.resetRefreshCounter();
@@ -2139,6 +2191,7 @@ export class SceneController {
       set activePlan(value) {
         owner.activePlan = value;
       },
+      get activeFloorId() { return owner.activeFloorId; },
       get activeDraft() {
         return owner.activeDraft;
       },
@@ -2368,7 +2421,7 @@ export class SceneController {
   private bindPointers() {
     let moved = false;
     this.scene.onPointerObservable.add((info) => {
-      if (this.cameraControls.homePreview) return;
+      if (this.cameraControls.homePreview || this.cameraControls.walkthrough.active || this.cameraControls.listingPresentation) return;
       if (this.landscape.handlePointer(info)) return;
       if (
         info.type === PointerEventTypes.POINTERDOWN &&

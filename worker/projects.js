@@ -6,6 +6,7 @@ import {createLibraryHandler} from './library-assets.js';
 import libraryManifest from './library-manifest.js';
 const libraryAssets=createLibraryHandler(libraryManifest);
 import { recognitionApi } from './recognition.js';
+import { listingVideoApi } from './listing-video.js';
 import { validatePlan, MAX_PLAN_BYTES } from "../src/planValidation.ts";
 
 const json = (body, status = 200) => Response.json(body, { status, headers: {
@@ -96,6 +97,9 @@ export default { async fetch(request, env) {
     const image=new Response(response.body,response);image.headers.set('Content-Type','image/webp');image.headers.set('Cache-Control','public, max-age=3600');return image;
   }
   if (!url.pathname.startsWith('/api/'))return staticWorker.fetch(request,env);
+  if(url.pathname==='/api/listing-video'||url.pathname.startsWith('/api/listing-video/')){
+    try{return await listingVideoApi(request,env)??fail('Video job not found.',404);}catch{return fail('Video generation is temporarily unavailable. No automatic retry will be made.',503);}
+  }
   if(url.pathname==='/api/floor-plan/recognize') {
     try{return await recognitionApi(request,env);}catch{return fail('Image analysis is temporarily unavailable. Your home has not changed.',503);}
   }

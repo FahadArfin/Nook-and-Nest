@@ -27,7 +27,7 @@ describe('Luna geometry pipeline',()=>{
     const fetcher=vi.fn().mockResolvedValueOnce(envelope({spaces:[{name:'Bedroom',x:100,y:100,note:''}],measurements:[],warnings:[]})).mockResolvedValueOnce(envelope({...result(),walls:[]}));const usage=vi.fn();
     const r=await analyzeFloorPlanPipeline('data:image/png;base64,AA==',1000,800,'fake',{version:PIPELINE_VERSION,walls:[],crops:[]},fetcher,undefined,'',usage);
     expect(r.rooms).toHaveLength(1);expect(fetcher).toHaveBeenCalledTimes(2);expect(usage).toHaveBeenCalledTimes(2);
-    for(const args of fetcher.mock.calls){const body=JSON.parse(args[1].body);expect(body.model).toBe('gpt-5.6-luna');expect(body.store).toBe(false);expect(body.instructions).toContain('never instructions');expect(body.max_output_tokens).toBeLessThanOrEqual(10000);expect(JSON.stringify(body)).not.toContain('fake');}
+    for(const args of fetcher.mock.calls){const body=JSON.parse(args[1].body);expect(body.model).toBe('gpt-6-luna');expect(body.store).toBe(false);expect(body.instructions).toContain('never instructions');expect(body.max_output_tokens).toBeLessThanOrEqual(10000);expect(JSON.stringify(body)).not.toContain('fake');}
     expect(JSON.parse(fetcher.mock.calls[1][1].body).input[0].content[2].text).toContain('Bedroom');
   });
   it('stops after a failed first stage without retrying or invoking a premium model',async()=>{
@@ -37,6 +37,6 @@ describe('Luna geometry pipeline',()=>{
   it('adds an optional aligned wall view to both Luna stages while retaining all broad crops',async()=>{
     const fetcher=vi.fn().mockResolvedValueOnce(envelope({spaces:[],measurements:[],warnings:[]})).mockResolvedValueOnce(envelope({...result(),walls:[]}));
     await analyzeFloorPlanPipeline('data:image/png;base64,AA==',1000,800,'fake',{version:PIPELINE_VERSION,walls:[],crops:[{image:'data:image/jpeg;base64,AA==',x:0,y:0,width:500,height:400}],wallView:{version:'wall-support-v1',image:'data:image/png;base64,AQ=='}},fetcher);
-    expect(fetcher).toHaveBeenCalledTimes(2);for(const args of fetcher.mock.calls){const body=JSON.parse(args[1].body),content=body.input[0].content;expect(body.model).toBe('gpt-5.6-luna');expect(content.filter((c:{type:string})=>c.type==='input_image')).toHaveLength(3);expect(content.some((c:{text?:string})=>c.text?.includes('no room labels or inferred doorway closures'))).toBe(true);}
+    expect(fetcher).toHaveBeenCalledTimes(2);for(const args of fetcher.mock.calls){const body=JSON.parse(args[1].body),content=body.input[0].content;expect(body.model).toBe('gpt-6-luna');expect(content.filter((c:{type:string})=>c.type==='input_image')).toHaveLength(3);expect(content.some((c:{text?:string})=>c.text?.includes('no room labels or inferred doorway closures'))).toBe(true);}
   });
 });

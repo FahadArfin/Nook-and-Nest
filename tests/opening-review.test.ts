@@ -33,7 +33,7 @@ it('keeps a virtual label split wall-free through save and reimport, preserving 
 });
 it('rejects a label split through an existing physical wall',()=>{const {base,id,draft}=setup();draft.walls.push({id:'edited:wall',ax:2000/base.gridSizeMm,bx:2000/base.gridSizeMm,az:0,bz:4000/base.gridSizeMm});expect(()=>splitRoomLabel(base,id,draft,'r','v',.5)).toThrow(/physical wall/);});
 it('uses one bounded Luna request with no storage and rejects model-invented coordinates',async()=>{
-  const fetcher=vi.fn(async(_url:string,_init:RequestInit)=>envelope(answer));expect(await analyzeOpening('data:image/jpeg;base64,YQ==',100,100,review,'test',fetcher)).toEqual(answer);expect(fetcher).toHaveBeenCalledOnce();const body=JSON.parse(fetcher.mock.calls[0][1].body as string);expect(body.model).toBe('gpt-5.6-luna');expect(body.store).toBe(false);expect(body.max_output_tokens).toBe(2200);
+  const fetcher=vi.fn(async(_url:string,_init:RequestInit)=>envelope(answer));expect(await analyzeOpening('data:image/jpeg;base64,YQ==',100,100,review,'test',fetcher)).toEqual(answer);expect(fetcher).toHaveBeenCalledOnce();const body=JSON.parse(fetcher.mock.calls[0][1].body as string);expect(body.model).toBe('gpt-6-luna');expect(body.store).toBe(false);expect(body.max_output_tokens).toBe(2200);
   await expect(analyzeOpening('image',100,100,review,'test',async()=>envelope({...answer,choiceId:'invented'}))).rejects.toThrow();
 });
 it('requires identity, same origin, valid candidates and both quotas before an opening API call',async()=>{

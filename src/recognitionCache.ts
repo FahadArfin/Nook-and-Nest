@@ -2,7 +2,7 @@ import {validateRecognition,type Recognition} from './recognitionContract';
 import type {PlanReference} from './blueprintImport';
 import {PIPELINE_VERSION} from './recognitionEvidence';
 
-export type ScanModel='gpt-5.6-luna'|'gpt-6-astra';
+export type ScanModel='gpt-6-luna'|'gpt-5.6-luna'|'gpt-6-astra';
 const storageKey='nook-recognition-cache-v1';
 type Entry={key:string;created:number;result:Recognition};
 function entries():Entry[] {

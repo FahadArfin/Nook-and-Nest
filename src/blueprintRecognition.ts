@@ -9,8 +9,8 @@ import {recognitionKey,cachedRecognition,saveRecognition,type ScanModel} from '.
 import {prepareRecognition} from './prepareRecognition';
 
 export async function recognizeReference(reference:PlanReference,signal?:AbortSignal,options:{model?:ScanModel;force?:boolean;guidance?:string;wallView?:boolean;status?:(text:string)=>void}={}):Promise<Recognition> {
-  // Beta always uses Luna; old model selections never trigger premium calls.
-  const model='gpt-5.6-luna' as const,key=await recognitionKey(reference,model,options.guidance,options.wallView);
+  // Online recognition is explicitly selected in Studio. Legacy choices never trigger premium calls.
+  const model='gpt-6-luna' as const,key=await recognitionKey(reference,model,options.guidance,options.wallView);
   signal?.throwIfAborted();
   const cached=options.force?undefined:cachedRecognition(key,reference);
   if(cached){options.status?.('Reused saved analysis — no API charge.');return cached;}

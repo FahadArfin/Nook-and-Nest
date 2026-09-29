@@ -12,6 +12,8 @@ import { cameraFacingRotation } from "../placementFacing";
 import type { HomeShot } from "../previewShots";
 import type { FurniturePlacement, PlanDocumentV1 } from "../types";
 import { applyPlanView } from "./planCoordinates";
+import { WalkthroughController } from "./WalkthroughController";
+import type { CameraShotPose } from "../walkthrough";
 /** Live dependencies supplied by the scene coordinator; no duplicate saved state. */
 export interface CameraControlsHost {
   engine: Engine;
@@ -19,11 +21,41 @@ export interface CameraControlsHost {
   rotationGuide: TransformNode | undefined;
   canvas: HTMLCanvasElement;
   activePlan: PlanDocumentV1 | undefined;
+  activeFloorId: string;
   activeDraft: FurniturePlacement | undefined;
   selectedId: string | undefined;
 }
 export class CameraControls {
-  constructor(private host: CameraControlsHost) {}
+  readonly walkthrough: WalkthroughController;
+  listingPresentation?: CameraShotPose;
+  constructor(private host: CameraControlsHost) {
+    this.walkthrough = new WalkthroughController(host);
+  }
+  beginListingPresentation() {
+    if (this.listingPresentation) return;
+    this.endHomePreview();
+    this.walkthrough.end();
+    this.cancelFocus();
+    this.listingPresentation = this.walkthrough.capture();
+    this.host.camera.mode = 0;
+    if (this.host.camera.beta < .08) this.host.camera.beta = .65;
+    this.host.camera.inertialAlphaOffset = this.host.camera.inertialBetaOffset = this.host.camera.inertialRadiusOffset = 0;
+    this.host.camera.inertialPanningX = this.host.camera.inertialPanningY = 0;
+    this.host.rotationGuide?.setEnabled(false);
+    this.host.camera.attachControl(this.host.canvas, true);
+  }
+  endListingPresentation() {
+    const saved = this.listingPresentation;
+    if (!saved) return;
+    this.walkthrough.end();
+    this.endHomePreview();
+    this.listingPresentation = undefined;
+    this.host.camera.setTarget(new Vector3(saved.target.x, saved.target.y, saved.target.z));
+    Object.assign(this.host.camera, { alpha: saved.alpha, beta: saved.beta, radius: saved.radius, mode: saved.mode, fov: saved.fov });
+    this.host.camera.inertialAlphaOffset = this.host.camera.inertialBetaOffset = this.host.camera.inertialRadiusOffset = 0;
+    this.host.camera.inertialPanningX = this.host.camera.inertialPanningY = 0;
+    this.host.camera.attachControl(this.host.canvas, true);
+  }
   homePreview?: {
     target: Vector3;
     alpha: number;
@@ -42,6 +74,7 @@ export class CameraControls {
   pointerHeld = false;
   cameraPointersSuspended = false;
   beginHomePreview() {
+    this.walkthrough.end();
     if (this.homePreview) return;
     this.host.engine.resize();
     this.cancelFocus();
@@ -93,6 +126,7 @@ export class CameraControls {
     requestAnimationFrame(() => this.host.engine.resize());
   }
   viewSurroundings() {
+    if (this.walkthrough.active) return;
     if (!this.host.activePlan) return;
     const b = landscapeBounds(this.host.activePlan);
     this.host.camera.setTarget(new Vector3(b.x, 0, b.z));
@@ -111,6 +145,7 @@ export class CameraControls {
     this.host.camera.inertialRadiusOffset = 0;
   }
   zoom(factor: number) {
+    if (this.walkthrough.active) return;
     this.cancelFocus();
     this.host.camera.radius = Math.max(
       closeZoomLimit,
@@ -122,6 +157,7 @@ export class CameraControls {
     this.host.camera.inertialRadiusOffset = 0;
   }
   focusFloor(plan: PlanDocumentV1, floorId: string) {
+    if (this.walkthrough.active) return;
     this.cancelFocus();
     applyPlanView(this.host.camera, plan.camera.mode);
     this.host.camera.inertialAlphaOffset = 0;
@@ -183,6 +219,7 @@ export class CameraControls {
     this.cameraPointersSuspended = true;
   }
   resumeCameraControls() {
+    if (this.walkthrough.active || this.homePreview) return;
     // attachElement returns early while wheel input is still attached, so restore
     // only the pointer input explicitly after a furniture gesture.
     if (
@@ -194,6 +231,7 @@ export class CameraControls {
     this.host.camera.attachControl(this.host.canvas, true);
   }
   focusSelected() {
+    if (this.walkthrough.active) return;
     if (this.host.activeDraft || this.host.selectedId) this.focusMotion = {};
   }
 
