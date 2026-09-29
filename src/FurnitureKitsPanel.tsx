@@ -11,7 +11,7 @@ import {deleteFurnitureKit, listFurnitureKits, renameFurnitureKit, saveFurniture
 import type {PlanDocumentV1} from './types';
 import './furniture-kits.css';
 
-export interface KitPreviewRequest extends ReturnType<typeof buildKitPlacement> {base: PlanDocumentV1; label: string; floorId: string}
+export interface KitPreviewRequest extends ReturnType<typeof buildKitPlacement> {base: PlanDocumentV1; label: string; floorId: string;changedIds?:string[];skippedLockedIds?:string[];unmatchedIds?:string[]}
 /** Parent owns a reactive preview ID and rejects stale bases. stage/apply/discard are synchronous. */
 export interface KitPreviewBridge {
   activeId?: string;

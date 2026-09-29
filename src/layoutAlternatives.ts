@@ -1,3 +1,6 @@
+import {publicMoodboardPlan} from './moodboards';
+import {publicAtmospherePlan} from './sceneAtmosphere';
+import {stripSurfaceTakeoffSettings} from './surfaceTakeoff';
 import {stripSelectionSpecifications} from './selectionSchedule';
 import {publicPersonalPlan} from './personalItems';
 import type { FloorPlan, FurniturePlacement, PlanDocumentV1 } from './types';
@@ -8,6 +11,8 @@ export const MAX_LAYOUT_ALTERNATIVES_BYTES = 2_000_000;
 const MAX_PROJECT_BYTES = 8_000_000;
 
 export interface LayoutSnapshot {
+  moodboards?:PlanDocumentV1["moodboards"];
+  surfaceTakeoffSettings?:PlanDocumentV1["surfaceTakeoffSettings"];
   selectionBudgets?: PlanDocumentV1["selectionBudgets"];
   furnitureGroups?: PlanDocumentV1['furnitureGroups'];
   gridSizeMm: number;
@@ -58,7 +63,7 @@ export function validateLayoutAlternatives(value: unknown, validateSnapshot: (sn
     if (typeof option.createdAt !== 'string' || option.createdAt.length > 40 || !Number.isFinite(Date.parse(option.createdAt))) fail();
     if (typeof option.activeFloorId !== 'string' || option.activeFloorId.length > 160) fail();
     const snapshot = option.snapshot;
-    if (!record(snapshot) || !onlyKeys(snapshot, ['gridSizeMm', 'floors', 'furniture', 'environment','furnitureGroups','selectionBudgets'])) fail();
+    if (!record(snapshot) || !onlyKeys(snapshot, ['gridSizeMm', 'floors', 'furniture', 'environment','furnitureGroups','selectionBudgets','moodboards','surfaceTakeoffSettings'])) fail();
     if (bytes(snapshot) > MAX_LAYOUT_SNAPSHOT_BYTES) throw new Error('A layout idea exceeds the 750 KB limit. Export this layout as a separate project.');
     validateSnapshot(snapshot as unknown as LayoutSnapshot);
     if (!Array.isArray(snapshot.floors) || !snapshot.floors.some(floor => record(floor) && floor.id === option.activeFloorId)) fail();
@@ -71,6 +76,8 @@ export function captureLayout(plan: PlanDocumentV1): LayoutSnapshot {
     gridSizeMm: plan.gridSizeMm,
     floors: plan.floors,
     furniture: plan.furniture,
+    ...(plan.moodboards?{moodboards:plan.moodboards}:{}),
+    ...(plan.surfaceTakeoffSettings?{surfaceTakeoffSettings:plan.surfaceTakeoffSettings}:{}),
     ...(plan.selectionBudgets?{selectionBudgets:plan.selectionBudgets}:{}),
     ...(plan.furnitureGroups?{furnitureGroups:plan.furnitureGroups}:{}),
     ...(plan.environment === undefined ? {} : { environment: plan.environment }),
@@ -79,7 +86,7 @@ export function captureLayout(plan: PlanDocumentV1): LayoutSnapshot {
 
 export function snapshotAsPlan(base: PlanDocumentV1, snapshot: LayoutSnapshot): PlanDocumentV1 {
   const { layoutAlternatives: _ideas, studioDrafts: _drafts, ...rest } = base as AlternativePlan;
-  return { ...rest, ...snapshot, furnitureGroups:snapshot.furnitureGroups,selectionBudgets:snapshot.selectionBudgets, environment: snapshot.environment };
+  return { ...rest, ...snapshot, moodboards:snapshot.moodboards,surfaceTakeoffSettings:snapshot.surfaceTakeoffSettings,furnitureGroups:snapshot.furnitureGroups,selectionBudgets:snapshot.selectionBudgets, environment: snapshot.environment };
 }
 
 function checked(plan: AlternativePlan, validate: PlanValidator): AlternativePlan {
@@ -154,6 +161,8 @@ export function layoutDifference(current: LayoutSnapshot, saved: LayoutSnapshot)
     removed: current.furniture.filter(item => !then.has(item.id)).length,
     changed: saved.furniture.filter(item => now.has(item.id) && canonical(now.get(item.id)) !== canonical(item)).length,
     floorsChanged: [...new Set([...currentFloors.keys(), ...savedFloors.keys()])].filter(id => canonical(currentFloors.get(id)) !== canonical(savedFloors.get(id))).length,
+    moodboardsChanged:canonical(current.moodboards)!==canonical(saved.moodboards),
+    surfaceAssumptionsChanged:canonical(current.surfaceTakeoffSettings)!==canonical(saved.surfaceTakeoffSettings),
     environmentChanged: canonical(current.environment) !== canonical(saved.environment),
     gridChanged: current.gridSizeMm !== saved.gridSizeMm,
   };
@@ -161,5 +170,5 @@ export function layoutDifference(current: LayoutSnapshot, saved: LayoutSnapshot)
 
 export function publicLayoutPlan(plan: AlternativePlan): PlanDocumentV1 {
   const { layoutAlternatives: _ideas, studioDrafts: _drafts, ...published } = plan;
-  return stripSelectionSpecifications(publicPersonalPlan({...published,floors:published.floors.map(({referenceId:_privateReference,...floor})=>floor)}));
+  return publicAtmospherePlan(stripSurfaceTakeoffSettings(publicMoodboardPlan(stripSelectionSpecifications(publicPersonalPlan({...published,floors:published.floors.map(({referenceId:_privateReference,...floor})=>floor)})))));
 }

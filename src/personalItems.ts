@@ -42,5 +42,7 @@ export function publicPersonalPlan<T extends PlanDocumentV1>(plan:T):T {
 /** Saved alternatives can retain a photo after it is removed from the working layout. */
 export function personalPhotoIds(plan:PlanDocumentV1):string[]{
   const pieces=[...plan.furniture,...(plan.layoutAlternatives?.options.flatMap(o=>o.snapshot.furniture)??[])];
-  return [...new Set(pieces.flatMap(p=>{const id=(p as PersonalPlacement).personalItem?.photoAssetId;return id&&PERSONAL_PHOTO_ID.test(id)?[id]:[]}))];
+  const designs=[plan,...(plan.layoutAlternatives?.options.map(o=>o.snapshot)??[])];
+  const ids=[...pieces.flatMap(p=>[p.personalItem?.photoAssetId,p.personalSurface?.hidden?undefined:p.personalSurface?.assetId]),...designs.flatMap(d=>d.moodboards?.boards.flatMap(b=>b.pins.flatMap(pin=>pin.kind==='image'?[pin.assetId]:[]))??[])];
+  return [...new Set(ids.filter((id):id is string=>!!id&&PERSONAL_PHOTO_ID.test(id)))];
 }

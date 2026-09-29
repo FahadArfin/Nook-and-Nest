@@ -124,7 +124,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     if(!plan.floors.some(f=>f.id===floorId))throw new Error('Choose a floor in this layout.');
     return {...commit(state,structuredClone(plan),null,options),activeFloorId:floorId,tool:'select',selectedWallId:undefined,wallSelectionActive:false,paintWallIds:[],wallBrushActive:false,plantingDraft:undefined,placementNotice:undefined};
   }),
-  setEnvironment:patch=>set(state=>commit(state,{...state.plan,environment:{background:"plain",grass:"off",...state.plan.environment,...patch}})),
+  setEnvironment:patch=>set(state=>commit(state,{...state.plan,environment:{background:"plain",grass:"off",...state.plan.environment,...patch,...(patch.sun&&state.plan.environment?.atmosphere?{atmosphere:{...state.plan.environment.atmosphere,mode:"off" as const}}:{})}})),
   roomSize:undefined,
   setRoomSize:roomSize=>set({roomSize,tool:"measured-room",selectedId:undefined}),
   addMeasuredRoom:region=>set(state=>{try{const checked=measuredRegion(state.plan.gridSizeMm,region.origin,region.widthMm,region.depthMm);return commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?addMeasuredRegion(f,state.plan.gridSizeMm,checked):f)});}catch(e){return {placementNotice:(e as Error).message};}}),
