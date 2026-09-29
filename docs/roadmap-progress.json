@@ -296,7 +296,7 @@
     {
       "id": "NN-12",
       "title": "Reusable presentation packs",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-01",
         "NN-05",
@@ -311,12 +311,18 @@
       "evidence": [
         "Presentation pack combines explicitly selected floors, alternatives, listing images, boards, evidence and schedules.",
         "Preview and exported ZIP share one reviewed immutable payload; print/PDF depends on browser print settings."
-      ]
+      ],
+      "release": {
+        "pr": 121,
+        "master": "66ba08ee12ff36cd6d8bf3ca92c56650e518a4bd",
+        "sitesVersion": 121,
+        "verified": "2026-09-29T10:26:26.742Z"
+      }
     },
     {
       "id": "NN-30",
       "title": "Site notes and verified measurements",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-29"
       ],
@@ -329,12 +335,18 @@
       "evidence": [
         "Private dated measurement evidence supports room, wall and object targets; discrepancies and changes remain explicit.",
         "Browser entered 850mm evidence against a 900mm cabinet and reported discrepancy without resizing the model."
-      ]
+      ],
+      "release": {
+        "pr": 121,
+        "master": "66ba08ee12ff36cd6d8bf3ca92c56650e518a4bd",
+        "sitesVersion": 121,
+        "verified": "2026-09-29T10:26:26.742Z"
+      }
     },
     {
       "id": "NN-13",
       "title": "Existing, remove, proposed",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-01"
       ],
@@ -347,12 +359,18 @@
       "evidence": [
         "Immutable Existing/Proposed checkpoints preserve model and geometry IDs; changed entities are classified explicitly.",
         "Preview reuses one scene and restores working plan, floor and camera; restoring checkpoints is explicit and undoable."
-      ]
+      ],
+      "release": {
+        "pr": 121,
+        "master": "66ba08ee12ff36cd6d8bf3ca92c56650e518a4bd",
+        "sitesVersion": 121,
+        "verified": "2026-09-29T10:26:26.742Z"
+      }
     },
     {
       "id": "NN-14",
       "title": "Build your own sectional or shelving",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-02"
       ],
@@ -365,12 +383,18 @@
       "evidence": [
         "Reviewed straight closet and kitchen-base side joins use authored dimensions; components remain independent and optionally grouped/locked.",
         "Browser verified two-module preview changes no saved pieces; apply and undo create/remove both pieces together."
-      ]
+      ],
+      "release": {
+        "pr": 121,
+        "master": "66ba08ee12ff36cd6d8bf3ca92c56650e518a4bd",
+        "sitesVersion": 121,
+        "verified": "2026-09-29T10:26:26.742Z"
+      }
     },
     {
       "id": "NN-15",
       "title": "Watch your design come together",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [],
       "scope": "Opt-in build replay from design milestones, with pause/scrub, a chosen camera, and a short exported timelapse or image sequence.",
       "acceptance": [
@@ -381,12 +405,18 @@
       "evidence": [
         "Opt-in manual milestones, one saved viewpoint and bounded labelled image-sequence ZIP; hidden-tab and reduced-motion replay behavior.",
         "Browser exported two 1280x720 JPEG frames showing empty and furnished rooms; working two-piece plan remains intact after previews/export."
-      ]
+      ],
+      "release": {
+        "pr": 121,
+        "master": "66ba08ee12ff36cd6d8bf3ca92c56650e518a4bd",
+        "sitesVersion": 121,
+        "verified": "2026-09-29T10:26:26.742Z"
+      }
     },
     {
       "id": "NN-16",
       "title": "Little moments of life",
-      "status": "planned",
+      "status": "implemented",
       "depends": [],
       "scope": "Turn a lamp on, open a supported door, unfold a sofa bed, run an authored fireplace animation, or place a calm animated pet that rests in selected spots.",
       "acceptance": [
@@ -394,12 +424,16 @@
         "Reduced motion provides still poses; idle off-screen items stop updating."
       ],
       "boundary": "Start with a handful of approved authored states; no full life simulation, rigid-body clutter or wandering across unverified paths. Separate transient play state from saved design.",
-      "evidence": []
+      "evidence": [
+        "Authored play/still/off and sliding previews use existing scene clocks and leave saved placement/history untouched.",
+        "Live browser fireplace off and globe controls verified; unsupported models expose no fabricated behavior."
+      ],
+      "documentation": "docs/living-design.md"
     },
     {
       "id": "NN-17",
       "title": "Small, optional design challenges",
-      "status": "planned",
+      "status": "implemented",
       "depends": [
         "NN-06"
       ],
@@ -409,7 +443,11 @@
         "Optional hints can be dismissed and progress remains local unless explicitly shared."
       ],
       "boundary": "No timers, pay-to-win items, forced daily streaks or public voting in the first version. Offer constraint completion without judging artistic taste.",
-      "evidence": []
+      "evidence": [
+        "Four original deterministic briefs save current work before opening a separate measured project.",
+        "Private hints/constraints, stale save and storage-error protection tested; actual browser new-project launch verified."
+      ],
+      "documentation": "docs/living-design.md"
     },
     {
       "id": "NN-18",
@@ -510,7 +548,7 @@
     {
       "id": "NN-31",
       "title": "From design to photo day",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-09",
         "NN-30"
@@ -524,12 +562,18 @@
       "evidence": [
         "Private install/photo-day tasks capture source revision; packing and delivery start unknown and require explicit choices.",
         "Browser captured two cabinets, edited one task and exported CSV; complete backups retain checkpoint-only evidence and ownership."
-      ]
+      ],
+      "release": {
+        "pr": 121,
+        "master": "66ba08ee12ff36cd6d8bf3ca92c56650e518a4bd",
+        "sitesVersion": 121,
+        "verified": "2026-09-29T10:26:26.742Z"
+      }
     },
     {
       "id": "NN-22",
       "title": "A garden through the seasons",
-      "status": "planned",
+      "status": "implemented",
       "depends": [],
       "scope": "Seasonal material/visibility presets and planting palettes for a selected garden region; summer/winter views using the existing vegetation system.",
       "acceptance": [
@@ -537,12 +581,16 @@
         "Dense-scene budgets remain intact; unsupported species have a neutral fallback rather than a wrong botanical state."
       ],
       "boundary": "Use cosmetic season states and authored variants; avoid real growth/climate promises or regenerating millions of individual saved objects. Coordinate with the separate model queue.",
-      "evidence": []
+      "evidence": [
+        "Regional cosmetic palettes preserve transforms, IDs and original materials; dense fields and unsupported species remain neutral.",
+        "Live preview/apply/one-step Undo verified with unchanged furniture; moved selected plants and mixed vertex layouts covered."
+      ],
+      "documentation": "docs/living-design.md"
     },
     {
       "id": "NN-24",
       "title": "See one piece in your real room",
-      "status": "planned",
+      "status": "implemented-pilot",
       "depends": [
         "NN-03"
       ],
@@ -552,12 +600,16 @@
         "Only the explicitly shared model is exposed and the handoff does not reveal private project data."
       ],
       "boundary": "Start with one item or small kit, not the whole home. Validate separate iOS/Android paths; native AR viewers do not preserve every in-browser interaction.",
-      "evidence": []
+      "evidence": [
+        "Twenty GLBs audited by actual transformed vertex bounds; single-piece links/QR omit all private project data.",
+        "Actual standalone desktop viewer loaded sofa and verified 2100 x 900 x 850 mm; native iOS/Android AR remains an explicit hardware acceptance gate."
+      ],
+      "documentation": "docs/living-design.md"
     },
     {
       "id": "NN-25",
       "title": "Measured capture with a review queue",
-      "status": "planned",
+      "status": "implemented-pilot",
       "depends": [],
       "scope": "Enhance existing image/PDF recognition with source-linked dimensions, uncertainty highlights and a correction checklist; later pilot native room-scan import.",
       "acceptance": [
@@ -565,7 +617,12 @@
         "A representative consented dataset reports geometry/dimension error and time-to-correct, not just successful API responses."
       ],
       "boundary": "Recognition already exists. Benchmark it before selecting a new model. Apple RoomPlan is a native LiDAR workflow, not a browser-only feature, and manual correction remains available.",
-      "evidence": []
+      "evidence": [
+        "Measured source-bound correction queue, local geometry overlays, preview-only edits and final Studio confirmation/Undo integrated.",
+        "SHA-256 reference evidence survives complete local backups; changed image/page/rotation/scale/geometry invalidates stale reviews.",
+        "Local opt-in benchmark records measured truth and timing; representative consented dataset remains a research acceptance gate."
+      ],
+      "documentation": "docs/living-design.md"
     },
     {
       "id": "NN-27",

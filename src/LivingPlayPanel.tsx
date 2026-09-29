@@ -1,0 +1,16 @@
+import { useEffect, useState, useSyncExternalStore } from 'react';
+import { ChoiceButtons } from './ChoiceButtons';
+import type { LivingPlayBridge, LivingCommand, LivingMotion } from './livingPlay';
+import type { PlanDocumentV1 } from './types';
+import './living-play.css';
+export function LivingPlayPanel({ plan, activeFloorId, bridge, onFocus, onClose }: { plan: PlanDocumentV1; activeFloorId: string; bridge: LivingPlayBridge; onFocus?(id: string): void; onClose(): void }) {
+  const entries = useSyncExternalStore(bridge.subscribe, bridge.getSnapshot, bridge.getSnapshot), [error, setError] = useState('');
+  useEffect(() => { bridge.resetAll(); return () => bridge.resetAll(); }, [bridge, plan, activeFloorId]);
+  const act = (id: string, command: LivingCommand) => { try { bridge.command(id, command); setError(''); } catch (e) { setError(e instanceof Error ? e.message : 'This interaction is not available.'); } };
+  const visible = entries.filter(e => e.floorId === activeFloorId);
+  return <section className="living-play-panel" aria-labelledby="living-play-heading"><header><div><span className="eyebrow">Try a little moment</span><h2 id="living-play-heading">Bring the room to life</h2></div><button type="button" onClick={onClose}>Close</button></header><p>These are temporary previews. Closing this panel restores saved door positions and normal animation. No placement, collision footprint or undo history changes.</p><div className="lp-actions"><button type="button" onClick={() => bridge.pauseAll()}>Pause motion</button><button type="button" onClick={() => bridge.resetAll()}>Reset all previews</button></div>
+    <details className="lp-muted"><summary>About these previews</summary><p>Motion pauses off screen and respects reduced motion. Save a door's opening in its normal editor to keep it.</p></details>
+    {!visible.length && <div className="lp-card"><strong>No supported loaded pieces on this floor yet</strong><p>Try a fireplace, aquarium, holiday tree, rotating globe, pet fountain or supported sliding door. Controls appear only after their authored parts load. Fans, curtains, sofa-bed unfolding and pets need separate authored states and are not simulated.</p></div>}
+    <div className="lp-grid">{visible.map(entry => <article className="lp-card" key={entry.id}><strong>{entry.name}</strong>{entry.canAnimate && <ChoiceButtons<LivingMotion> label={`Motion for ${entry.name}`} value={entry.motion} options={[{ value: 'playing', label: 'Play' }, { value: 'paused', label: 'Still' }, ...(entry.canExtinguish ? [{ value: 'off' as const, label: 'Fire off' }] : [])]} onChange={mode => act(entry.id, { type: 'motion', mode })}/>}{entry.canSlide && <label>Door preview · {Math.round(entry.fraction * 100)}% open<input type="range" min={0} max={100} step={1} value={Math.round(entry.fraction * 100)} onChange={e => act(entry.id, { type: 'slide', fraction: Number(e.target.value) / 100 })}/><small>Saved opening: {Math.round(entry.savedFraction * 100)}%</small></label>}<div className="lp-actions"><button type="button" onClick={() => act(entry.id, { type: 'reset' })}>Reset {entry.name}</button>{onFocus && <button type="button" onClick={() => onFocus(entry.id)}>Look at {entry.name}</button>}</div></article>)}</div>{error && <p role="alert" className="lp-notice">{error}</p>}
+  </section>;
+}

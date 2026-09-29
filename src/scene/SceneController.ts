@@ -1,3 +1,6 @@
+import {LivingPlayController} from './LivingPlayController';
+import {SeasonalMaterials} from './SeasonalMaterials';
+import {renderableSeasonalLook} from '../seasonalLook';
 import {snapshotAsPlan} from '../layoutAlternatives';
 import type {DesignHistoryPreview} from '../designHistory';
 import type {DesignReplayBridge,ReplayFrameRequest} from '../designReplay';
@@ -466,6 +469,8 @@ export class SceneController {
   private draftPosition?: PlacementPoint;
   private shadow: ShadowGenerator;
   private furnitureFactory: FurnitureFactory;
+  readonly livingPlay=new LivingPlayController(()=>{this.renderUntil=performance.now()+1000;this.shadow?.getShadowMap?.()?.resetRefreshCounter();});
+  private seasonalMaterials=new SeasonalMaterials(()=>{this.renderUntil=performance.now()+1000;});
   private furnitureModels: FurnitureModelLibrary;
   constructor(
     private canvas: HTMLCanvasElement,
@@ -554,7 +559,7 @@ export class SceneController {
             this.activeDraft,
           );
       },
-      ()=>{this.renderUntil=performance.now()+1000},
+      ()=>{this.renderUntil=performance.now()+1000},this.livingPlay,this.seasonalMaterials,
     );
     this.makeMeadow();
     this.outdoors = new OutdoorScene(this.scene);
@@ -1019,6 +1024,7 @@ export class SceneController {
     this.fieldRenderer?.dispose();
     this.outdoors.dispose();
     this.terrain.dispose();
+    this.livingPlay.dispose();this.seasonalMaterials.dispose();
     this.furnitureModels.dispose();
     this.scene.dispose();
     this.engine.dispose();
@@ -1352,12 +1358,15 @@ export class SceneController {
     if (this.cameraControls?.walkthrough.active && (this.activePlan !== plan || this.activeFloorId !== activeFloorId)) this.endWalkthrough();
     this.renderUntil = performance.now() + 1000;
     this.updateEmptyGuide(plan,activeFloorId);
+    if(this.activePlan&&this.activePlan.id!==plan.id)this.livingPlay.resetAll();
+    this.seasonalMaterials.setLook(renderableSeasonalLook(plan));
+    if(this.activePlan?.furniture!==plan.furniture)this.seasonalMaterials.updatePlacements(plan.furniture);
     this.furnitureModels.configurePersonalSurfaces(plan,activeFloorId,selectedId,draft);
     this.shadow?.getShadowMap?.()?.resetRefreshCounter();
     this.animatedScene =
       !!plan.environment?.terrain?.some((s) => s.kind === "river") ||
       plan.furniture.some((p) =>
-        /aquarium|fireplace|christmas|clock/.test(p.catalogId),
+        /aquarium|fireplace|stove|christmas|clock|pet-water-fountain|library-rotating-globe/.test(p.catalogId),
       );
     const previous = this.activePlan;
     if (

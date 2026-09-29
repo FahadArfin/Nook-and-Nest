@@ -15,6 +15,7 @@ export interface FurniturePlacement {
   personalItem?: import("./personalItems").PersonalItemMetadata;hostDoorId?:string; terrainAnchored?:boolean; showerMirrored?:boolean; moduleRun?:boolean; id: string; catalogId: string; floorId: string; x: number; z: number; rotation: number; widthMm: number; depthMm: number; heightMm: number; variant: string; toFloorId?: string; stairRiseMm?: number; surfaceVariant?: string; materialColors?: Record<string,string>; openFraction?:number; doorless?:boolean; elevationMm?: number }
 export interface FloorPlan { referenceId?:string; wallCuts?:WallSegment[]; id: string; name: string; elevationMm: number; heightMm: number; cells: TileCell[]; walls: WallSegment[]; openings: Opening[]; stairs: StairPlacement[]; floorFinishId?: string; wallFinishId?: string; cellRects?:Record<string,FloorRect[]>; cellFinishes?: Record<string,string>; wallFinishes?: Record<string,string>; blueprint?: { rooms:import('./blueprint').BlueprintRoom[]; geometryKey:string; generatedWallIds?:string[]; wallCuts?:WallSegment[]; omittedWalls?:string[] } }
 export interface PlanDocumentV1 {
+  creativeChallenge?:import('./creativeChallenges').CreativeChallenge;
   designHistory?:import('./designHistory').DesignHistoryV1;
   siteSurvey?:import('./siteSurvey').SiteSurvey;
   presentation?:import('./presentationTypes').PresentationSettings;
@@ -27,7 +28,7 @@ export interface PlanDocumentV1 {
   schemaVersion: 1; id: string; name: string; createdAt: string; updatedAt: string; units: Units; gridSizeMm: number;
   studioDrafts?: Record<string, {draft:import('./blueprint').BlueprintDraft;savedAt:string;imageScale:number;calibrated:boolean;view:{x:number;z:number;width:number;height:number}}>;
   floors: FloorPlan[]; furniture: FurniturePlacement[];
-  environment?: { atmosphere?:import('./sceneAtmosphere').SceneAtmosphereV1; flatRoof?:boolean; vegetationField?:import('./vegetationField').VegetationField; grassCoverage?:import('./grassCoverage').GrassCoverage; background: "plain"|"city"|"suburban"|"rural"|"farm"|"medieval"; grass:"off"|"sparse"|"lush"; sun?:import('./sunlight').SunSettings; backdropRotation?:number; citySource?:'standard'|'google'; cityHeight?:number; terrain?:import('./terrain').TerrainStroke[] };
+  environment?: { seasonalLook?:import('./seasonalLook').SeasonalLook; atmosphere?:import('./sceneAtmosphere').SceneAtmosphereV1; flatRoof?:boolean; vegetationField?:import('./vegetationField').VegetationField; grassCoverage?:import('./grassCoverage').GrassCoverage; background: "plain"|"city"|"suburban"|"rural"|"farm"|"medieval"; grass:"off"|"sparse"|"lush"; sun?:import('./sunlight').SunSettings; backdropRotation?:number; citySource?:'standard'|'google'; cityHeight?:number; terrain?:import('./terrain').TerrainStroke[] };
   camera: { mode: ViewMode; ghostBelow: boolean; showGrid: boolean; showClearance: boolean; wallVisibility?: WallVisibility; transparentWalls?: boolean; darkMode?: boolean };
 }
 export interface CatalogItem { id: string; name: string; category: Category; widthMm: number; depthMm: number; heightMm: number; icon: string; description: string; shape: "seat" | "table" | "bed" | "storage" | "lamp" | "plant" | "rug" | "decor" | "window" | "device" | "fan" | "bathroom" | "door" | "stairs" | "appliance" | "backsplash"; mount?: "floor" | "wall" | "surface" | "ceiling" }

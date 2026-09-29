@@ -62,3 +62,11 @@ it('preserves thin-instance picking and shared geometry after another patch is r
  view.update({...p,furniture:p.furniture.slice(1)},p.floors[0].id);hit=pick()!;expect(hit.hit).toBe(true);expect(hit.pickedMesh!.metadata.grassIds[hit.thinInstanceIndex]).toBe('pick-1');
  }finally{view.dispose();scene.dispose();engine.dispose()}
 });
+
+it('keeps mixed textured and untextured plant parts in compatible lossless batches',()=>{
+ const engine=new NullEngine(),scene=new Scene(engine),material=new StandardMaterial('shared foliage',scene);
+ const library={build:(parent:any)=>{for(let i=0;i<3;i++){const m=MeshBuilder.CreateBox('leaf'+i,{},scene);m.parent=parent;m.material=material;if(i===2)m.removeVerticesData('uv');}return true;}} as unknown as FurnitureModelLibrary;
+ const view=new GrassRenderer(scene,library),p=createSamplePlan(),c=catalog.find(c=>c.id==='fern-clump')!;
+ p.furniture=[{id:'mixed-plant',catalogId:c.id,floorId:p.floors[0].id,x:0,z:0,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'}];
+ try{expect(()=>view.update(p,p.floors[0].id)).not.toThrow();const patches=scene.meshes.filter(m=>m.name==='grass-patch'&&m.isEnabled());expect(patches).toHaveLength(2);expect(patches.reduce((n,m)=>n+m.getTotalIndices(),0)).toBe(108);expect(patches.every(m=>m.metadata.grassIds[0]==='mixed-plant')).toBe(true);expect(patches.filter(m=>m.isVerticesDataPresent('uv'))).toHaveLength(1);}finally{view.dispose();scene.dispose();engine.dispose();}
+});
