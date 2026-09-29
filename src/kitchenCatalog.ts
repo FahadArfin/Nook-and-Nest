@@ -31,8 +31,8 @@ export const kitchenRows:Row[]=[
   ['backsplash-slab','Stone slab backsplash','Kitchen',1200,24,600,'backsplash','Continuous slab with selectable marble, granite, laminate or concrete'],
 ];
 export const kitchenModelIds=new Set(kitchenRows.map(r=>r[0]));
-export const kitchenWallIds=new Set(['wall-cabinet','glass-wall-cabinet','open-wall-cabinet','chimney-hood','under-cabinet-hood','microwave-hood','backsplash-subway','backsplash-stacked','backsplash-slab']);
-export const kitchenSurfaceIds=new Set(['two-slot-toaster','espresso-machine','filter-coffee-maker','knife-block','countertop-microwave','stand-mixer','glass-air-fryer']);
+export const kitchenWallIds=new Set(['wall-cabinet','glass-wall-cabinet','open-wall-cabinet','chimney-hood','under-cabinet-hood','microwave-hood','backsplash-subway','backsplash-stacked','backsplash-slab','kitchen-utensil-rail']);
+export const kitchenSurfaceIds=new Set(['two-slot-toaster','espresso-machine','filter-coffee-maker','knife-block','countertop-microwave','stand-mixer','glass-air-fryer','kitchen-counter-dishwasher']);
 export const kitchenTopIds=new Set(['push-base-cabinet','shaker-drawer-cabinet','arched-base-cabinet']);
 export const kitchenCeilingIds=new Set(['dome-pendant','linear-pendant']);
 export const isBacksplash=(id:string)=>['backsplash-subway','backsplash-stacked','backsplash-slab','backsplash-zellige','backsplash-fluted','backsplash-herringbone','backsplash-kitkat'].includes(id);
