@@ -25,6 +25,16 @@ assert(compressed.length < 220_000, 'Welcome entry gzip exceeded the 220 kB budg
 const manifest = JSON.parse(readFileSync('dist/.openai/hosting.json', 'utf8'));
 assert.equal(manifest.d1, 'DB');
 assert(existsSync('dist/.openai/drizzle/0000_lush_inhumans.sql'));
+// D1's import splitter can mistake an unparenthesized CASE END for the
+// enclosing trigger's END, although SQLite accepts the same script locally.
+// https://github.com/cloudflare/workers-sdk/issues/4727
+for (const file of readdirSync('dist/.openai/drizzle').filter(name => name.endsWith('.sql'))) {
+  const sql = readFileSync(`dist/.openai/drizzle/${file}`, 'utf8');
+  if (/CREATE\s+TRIGGER/i.test(sql)) {
+    assert(!sql.includes('\r'), `${file}: D1 trigger migrations require LF endings`);
+    assert(!/\bSELECT\s+CASE\b/i.test(sql), `${file}: parenthesize CASE expressions inside D1 triggers`);
+  }
+}
 const { default: worker } = await import('../dist/server/index.js');
 assert.equal(typeof worker.fetch, 'function');
 const previewResponse=await worker.fetch(new Request('https://example.test/api/previews/sofa.webp'),{ASSETS:{fetch:async()=>new Response('image-bytes',{headers:{'content-type':'application/octet-stream',etag:'preview-hash'}})}});

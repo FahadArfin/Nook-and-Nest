@@ -57,47 +57,49 @@ CREATE TABLE staging_events (
 --> statement-breakpoint
 CREATE INDEX staging_event_scope ON staging_events(workspace_id,reservation_id,id);
 --> statement-breakpoint
+-- Parenthesized CASE keeps D1 import from confusing CASE END with trigger END.
+-- https://github.com/cloudflare/workers-sdk/issues/4727
 CREATE TRIGGER staging_unit_insert_limit BEFORE INSERT ON staging_units BEGIN
- SELECT CASE WHEN (SELECT COUNT(*) FROM staging_units WHERE workspace_id=NEW.workspace_id)>=500 THEN RAISE(ABORT,'staging_unit_limit') END;
+ SELECT (CASE WHEN (SELECT COUNT(*) FROM staging_units WHERE workspace_id=NEW.workspace_id)>=500 THEN RAISE(ABORT,'staging_unit_limit') END);
 END;
 --> statement-breakpoint
 CREATE TRIGGER staging_unit_immutable BEFORE UPDATE ON staging_units BEGIN
- SELECT CASE WHEN NEW.workspace_id!=OLD.workspace_id OR NEW.id!=OLD.id OR NEW.stock_code!=OLD.stock_code OR NEW.label!=OLD.label OR NEW.catalog_id!=OLD.catalog_id OR NEW.width_mm!=OLD.width_mm OR NEW.depth_mm!=OLD.depth_mm OR NEW.height_mm!=OLD.height_mm OR NEW.request_id!=OLD.request_id OR NEW.request_json!=OLD.request_json THEN RAISE(ABORT,'staging_immutable_stock') END;
- SELECT CASE WHEN NEW.revision!=OLD.revision+1 THEN RAISE(ABORT,'staging_stale') END;
+ SELECT (CASE WHEN NEW.workspace_id!=OLD.workspace_id OR NEW.id!=OLD.id OR NEW.stock_code!=OLD.stock_code OR NEW.label!=OLD.label OR NEW.catalog_id!=OLD.catalog_id OR NEW.width_mm!=OLD.width_mm OR NEW.depth_mm!=OLD.depth_mm OR NEW.height_mm!=OLD.height_mm OR NEW.request_id!=OLD.request_id OR NEW.request_json!=OLD.request_json THEN RAISE(ABORT,'staging_immutable_stock') END);
+ SELECT (CASE WHEN NEW.revision!=OLD.revision+1 THEN RAISE(ABORT,'staging_stale') END);
 END;
 --> statement-breakpoint
 CREATE TRIGGER staging_unit_no_delete BEFORE DELETE ON staging_units BEGIN SELECT RAISE(ABORT,'staging_keep_stock_history'); END;
 --> statement-breakpoint
 CREATE TRIGGER staging_reservation_limit BEFORE INSERT ON staging_reservations BEGIN
- SELECT CASE WHEN (SELECT COUNT(*) FROM staging_reservations WHERE workspace_id=NEW.workspace_id)>=2000 THEN RAISE(ABORT,'staging_booking_limit') END;
+ SELECT (CASE WHEN (SELECT COUNT(*) FROM staging_reservations WHERE workspace_id=NEW.workspace_id)>=2000 THEN RAISE(ABORT,'staging_booking_limit') END);
 END;
 --> statement-breakpoint
 CREATE TRIGGER staging_reservation_guard BEFORE UPDATE ON staging_reservations BEGIN
- SELECT CASE WHEN NEW.workspace_id!=OLD.workspace_id OR NEW.id!=OLD.id OR NEW.request_id!=OLD.request_id OR NEW.request_json!=OLD.request_json OR NEW.property_label!=OLD.property_label OR NEW.start_day!=OLD.start_day OR NEW.end_day!=OLD.end_day OR NEW.unit_count!=OLD.unit_count OR NEW.created_at!=OLD.created_at THEN RAISE(ABORT,'staging_immutable_booking') END;
- SELECT CASE WHEN OLD.state='building' AND NEW.state='reserved' AND (SELECT COUNT(*) FROM staging_reservation_units WHERE workspace_id=NEW.workspace_id AND reservation_id=NEW.id)!=NEW.unit_count THEN RAISE(ABORT,'staging_missing_unit') END;
- SELECT CASE WHEN OLD.state IN ('cancelled','completed') THEN RAISE(ABORT,'staging_finished') END;
+ SELECT (CASE WHEN NEW.workspace_id!=OLD.workspace_id OR NEW.id!=OLD.id OR NEW.request_id!=OLD.request_id OR NEW.request_json!=OLD.request_json OR NEW.property_label!=OLD.property_label OR NEW.start_day!=OLD.start_day OR NEW.end_day!=OLD.end_day OR NEW.unit_count!=OLD.unit_count OR NEW.created_at!=OLD.created_at THEN RAISE(ABORT,'staging_immutable_booking') END);
+ SELECT (CASE WHEN OLD.state='building' AND NEW.state='reserved' AND (SELECT COUNT(*) FROM staging_reservation_units WHERE workspace_id=NEW.workspace_id AND reservation_id=NEW.id)!=NEW.unit_count THEN RAISE(ABORT,'staging_missing_unit') END);
+ SELECT (CASE WHEN OLD.state IN ('cancelled','completed') THEN RAISE(ABORT,'staging_finished') END);
 END;
 --> statement-breakpoint
 CREATE TRIGGER staging_reservation_no_delete BEFORE DELETE ON staging_reservations BEGIN SELECT RAISE(ABORT,'staging_keep_booking_history'); END;
 --> statement-breakpoint
 -- The overlap predicate runs inside the INSERT, under SQLite's writer lock. No check-then-insert gap.
 CREATE TRIGGER staging_booking_overlap BEFORE INSERT ON staging_reservation_units BEGIN
- SELECT CASE WHEN NEW.status!='reserved' OR NOT EXISTS(SELECT 1 FROM staging_reservations WHERE workspace_id=NEW.workspace_id AND id=NEW.reservation_id AND state='building') THEN RAISE(ABORT,'staging_bad_state') END;
- SELECT CASE WHEN NOT EXISTS(SELECT 1 FROM staging_units WHERE workspace_id=NEW.workspace_id AND id=NEW.unit_id AND retired=0 AND condition IN ('good','fair')) THEN RAISE(ABORT,'staging_unavailable') END;
- SELECT CASE WHEN EXISTS(
+ SELECT (CASE WHEN NEW.status!='reserved' OR NOT EXISTS(SELECT 1 FROM staging_reservations WHERE workspace_id=NEW.workspace_id AND id=NEW.reservation_id AND state='building') THEN RAISE(ABORT,'staging_bad_state') END);
+ SELECT (CASE WHEN NOT EXISTS(SELECT 1 FROM staging_units WHERE workspace_id=NEW.workspace_id AND id=NEW.unit_id AND retired=0 AND condition IN ('good','fair')) THEN RAISE(ABORT,'staging_unavailable') END);
+ SELECT (CASE WHEN EXISTS(
    SELECT 1 FROM staging_reservation_units b
    JOIN staging_reservations prior ON prior.workspace_id=b.workspace_id AND prior.id=b.reservation_id
    JOIN staging_reservations incoming ON incoming.workspace_id=NEW.workspace_id AND incoming.id=NEW.reservation_id
    WHERE b.workspace_id=NEW.workspace_id AND b.unit_id=NEW.unit_id AND
    (b.status='packed' OR (b.status='reserved' AND prior.start_day<incoming.end_day AND incoming.start_day<prior.end_day))
- ) THEN RAISE(ABORT,'staging_overlap') END;
+ ) THEN RAISE(ABORT,'staging_overlap') END);
 END;
 --> statement-breakpoint
 CREATE TRIGGER staging_booking_transition BEFORE UPDATE ON staging_reservation_units BEGIN
- SELECT CASE WHEN NEW.workspace_id!=OLD.workspace_id OR NEW.reservation_id!=OLD.reservation_id OR NEW.unit_id!=OLD.unit_id OR NEW.stock_code!=OLD.stock_code OR NEW.label!=OLD.label OR NEW.catalog_id!=OLD.catalog_id OR NEW.width_mm!=OLD.width_mm OR NEW.depth_mm!=OLD.depth_mm OR NEW.height_mm!=OLD.height_mm THEN RAISE(ABORT,'staging_immutable_pack_list') END;
- SELECT CASE WHEN NOT ((OLD.status='reserved' AND NEW.status IN ('packed','cancelled')) OR (OLD.status='packed' AND NEW.status='returned')) THEN RAISE(ABORT,'staging_bad_transition') END;
- SELECT CASE WHEN NEW.status='packed' AND (NOT EXISTS(SELECT 1 FROM staging_units WHERE workspace_id=NEW.workspace_id AND id=NEW.unit_id AND retired=0 AND condition IN ('good','fair')) OR EXISTS(SELECT 1 FROM staging_reservation_units WHERE workspace_id=NEW.workspace_id AND unit_id=NEW.unit_id AND status='packed' AND reservation_id!=NEW.reservation_id)) THEN RAISE(ABORT,'staging_unavailable') END;
- SELECT CASE WHEN NEW.status='returned' AND (NEW.condition_in IS NULL OR NEW.condition_in NOT IN ('good','fair','damaged','missing') OR NEW.returned_at IS NULL) THEN RAISE(ABORT,'staging_bad_return') END;
+ SELECT (CASE WHEN NEW.workspace_id!=OLD.workspace_id OR NEW.reservation_id!=OLD.reservation_id OR NEW.unit_id!=OLD.unit_id OR NEW.stock_code!=OLD.stock_code OR NEW.label!=OLD.label OR NEW.catalog_id!=OLD.catalog_id OR NEW.width_mm!=OLD.width_mm OR NEW.depth_mm!=OLD.depth_mm OR NEW.height_mm!=OLD.height_mm THEN RAISE(ABORT,'staging_immutable_pack_list') END);
+ SELECT (CASE WHEN NOT ((OLD.status='reserved' AND NEW.status IN ('packed','cancelled')) OR (OLD.status='packed' AND NEW.status='returned')) THEN RAISE(ABORT,'staging_bad_transition') END);
+ SELECT (CASE WHEN NEW.status='packed' AND (NOT EXISTS(SELECT 1 FROM staging_units WHERE workspace_id=NEW.workspace_id AND id=NEW.unit_id AND retired=0 AND condition IN ('good','fair')) OR EXISTS(SELECT 1 FROM staging_reservation_units WHERE workspace_id=NEW.workspace_id AND unit_id=NEW.unit_id AND status='packed' AND reservation_id!=NEW.reservation_id)) THEN RAISE(ABORT,'staging_unavailable') END);
+ SELECT (CASE WHEN NEW.status='returned' AND (NEW.condition_in IS NULL OR NEW.condition_in NOT IN ('good','fair','damaged','missing') OR NEW.returned_at IS NULL) THEN RAISE(ABORT,'staging_bad_return') END);
 END;
 --> statement-breakpoint
 CREATE TRIGGER staging_booking_no_delete BEFORE DELETE ON staging_reservation_units BEGIN SELECT RAISE(ABORT,'staging_keep_pack_history'); END;
