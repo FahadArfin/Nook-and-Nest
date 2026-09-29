@@ -5,7 +5,8 @@ import {HouseLine,LockSimple,Monitor,Sun,Moon,SkipForward,Pause,Play,ArrowsClock
 import {AppearanceContext,useAppearance,useWelcomeTheme} from './useWelcomeTheme';
 import {createBlankPlan} from './domain';
 import {loadPlan,savePlan,usePlanner} from './store';
-import {ProjectLibrary} from './ProjectLibrary';
+type ProjectLibraryProps=Parameters<typeof import('./ProjectLibrary')['ProjectLibrary']>[0];
+const ProjectLibrary=lazy(()=>import('./ProjectLibrary').then(m=>({default:m.ProjectLibrary})).catch(()=>({default:({onClose}:ProjectLibraryProps)=><section className="welcome-error" role="alert"><h2>Your projects could not load</h2><p>Check your connection and reload to try again.</p><button onClick={()=>location.reload()}>Reload</button><button onClick={onClose}>Close</button></section>})));
 const BlueprintStudio=lazy(()=>import('./BlueprintStudio').then(m=>({default:m.BlueprintStudio})).catch(()=>({default:()=> <section role="alert"><h2>The floor planner could not load</h2><p>Check your connection and try again.</p><button onClick={()=>location.reload()}>Try again</button></section>})));
 import type {PlanDocumentV1} from './types';
 import './welcome.css';
@@ -53,7 +54,7 @@ function WelcomeContent({Editor,showcase}:{Editor:ComponentType<{onHome?:()=>voi
    </section>
    <footer className="living-footer"><span><LockSimple size={14}/>Saved on this device</span><button className="living-icon" aria-label={ambience.pref.paused?'Resume background motion':'Pause background motion'} aria-pressed={ambience.pref.paused} onClick={ambience.pause}>{ambience.pref.paused?<Play size={23}/>:<Pause size={23}/>}</button></footer>
   </div>
-  {projects&&ready&&<ProjectLibrary browseOnly onClose={()=>setProjects(false)} onOpen={()=>setEditing(true)}/>}
+  {projects&&ready&&<Suspense fallback={<p role="status">Opening your projects…</p>}><ProjectLibrary browseOnly onClose={()=>setProjects(false)} onOpen={()=>setEditing(true)}/></Suspense>}
   {studio&&ready&&<Suspense fallback={<p role="status">Opening the floor planner…</p>}><BlueprintStudio onHome={()=>navigateEditor('home',true)} onClose={()=>setStudio(false)} onCreated={()=>setEditing(true)}/></Suspense>}
  </main>;
 }

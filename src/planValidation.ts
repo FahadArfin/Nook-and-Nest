@@ -1,3 +1,7 @@
+import {parsePlacementSpecification} from "./selectionSchedule";
+import {parseSelectionBudgets} from "./selectionBudgets";
+import {parsePersonalItemMetadata} from "./personalItems";
+import {validateFurnitureGroups} from './furnitureGroups';
 import {validatePolygon,polygonBounds} from './polygonGeometry';
 import {validateVegetationField} from './vegetationField';
 import {isVegetation,vegetationLimit} from './vegetation';
@@ -23,6 +27,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   arr(p.floors, 20); if (!p.floors.length) fail(); unique(p.floors);
   const floors = new Set(p.floors.map((f: any) => f.id));
   for (const f of p.floors) {
+    if(f.referenceId!==undefined&&(typeof f.referenceId!=="string"||!/^[a-f0-9]{64}$/.test(f.referenceId)))fail();
     if(f.wallCuts!==undefined){arr(f.wallCuts,4000);for(const w of f.wallCuts){obj(w);str(w.id,160);for(const k of ["ax","az","bx","bz"])num(w[k],-10000,10000);}}
     str(f.name); num(f.elevationMm); num(f.heightMm, 100, 20000);
     if(f.blueprint!==undefined){obj(f.blueprint);str(f.blueprint.geometryKey,900000);if(f.blueprint.wallCuts!==undefined){arr(f.blueprint.wallCuts,4000);for(const w of f.blueprint.wallCuts){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}for(const key of ['generatedWallIds','omittedWalls'])if(f.blueprint[key]!==undefined){arr(f.blueprint[key],4000);for(const id of f.blueprint[key])str(id,160);}arr(f.blueprint.rooms,100);unique(f.blueprint.rooms);for(const r of f.blueprint.rooms){str(r.name,100);if(r.groupId!==undefined)str(r.groupId,160);if(!['Living','Bedroom','Dining','Office','Kitchen','Bathroom','Laundry','Hall','Outdoor','Closet'].includes(r.kind)||typeof r.enclosed!=='boolean')fail();num(r.x,-100000,100000);num(r.z,-100000,100000);num(r.width,10,60000);num(r.depth,10,60000);if(r.polygon!==undefined){validatePolygon(r.polygon);const b=polygonBounds(r.polygon);if(["x","z","width","depth"].some(k=>Math.abs((b as any)[k]-r[k])>.01))fail();}}}
@@ -55,7 +60,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
       if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}
       const host=p.floors.find((f:any)=>f.id===id);
-      validatePlan({...p,layoutAlternatives:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
+      validatePlan({...p,layoutAlternatives:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}
@@ -68,7 +73,10 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   if(p.environment?.backdropRotation!==undefined)num(p.environment.backdropRotation,0,360);
   if(p.environment?.terrain!==undefined){arr(p.environment.terrain,128);for(const s of p.environment.terrain){obj(s);if(!['raise','lower','river'].includes(s.kind))fail();if(s.carve!==undefined&&typeof s.carve!=='boolean')fail();num(s.radius,.5,8);num(s.strength,.1,2);arr(s.points,64);if(!s.points.length)fail();for(const pt of s.points){obj(pt);num(pt.x,-10000,10000);num(pt.z,-10000,10000);}}}
   arr(p.furniture, 24000); unique(p.furniture); if(p.furniture.filter((f:any)=>isVegetation(f.catalogId)).length>vegetationLimit||p.furniture.filter((f:any)=>!isVegetation(f.catalogId)).length>2000)fail();
+  if(p.selectionBudgets!==undefined)parseSelectionBudgets(p.selectionBudgets);
   for (const f of p.furniture) {
+    if(f.specification!==undefined)parsePlacementSpecification(f.specification);
+    if(f.personalItem!==undefined)parsePersonalItemMetadata(f.personalItem);
     if(f.hostDoorId!==undefined){
       str(f.hostDoorId);
       const host=p.furniture.find((other:any)=>other.id===f.hostDoorId);
@@ -82,6 +90,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
     if (f.terrainAnchored !== undefined && typeof f.terrainAnchored !== "boolean") throw new Error("Invalid terrain anchor");
     if (f.materialColors !== undefined) { obj(f.materialColors); if (Object.keys(f.materialColors).length > 100) fail(); for (const [key, color] of Object.entries(f.materialColors)) { str(key); if (typeof color !== "string" || !/^#[0-9a-f]{6}$/i.test(color)) fail(); } }
   }
+  validateFurnitureGroups(p.furnitureGroups,p);
   obj(p.camera); if (!["top", "isometric", "dollhouse"].includes(p.camera.mode)) fail();
   for (const k of ["ghostBelow", "showGrid", "showClearance"]) if (typeof p.camera[k] !== "boolean") fail();
   for (const k of ["transparentWalls", "darkMode"]) if (p.camera[k] !== undefined && typeof p.camera[k] !== "boolean") fail();

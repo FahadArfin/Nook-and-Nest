@@ -10,6 +10,7 @@ import type { PlanDocumentV1 } from "./types";
 import "./projects.css";
 import './creativePlanning.css';
 import {LayoutAlternativesPanel} from './LayoutAlternativesPanel';
+import {SelectionSchedulePanel} from './SelectionSchedulePanel';
 import {ProjectBackupPanel} from './ProjectBackupPanel';
 
 const date = (value: string) => new Date(value).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
@@ -17,7 +18,7 @@ export function ProjectLibrary({ onClose, onOpen, onLayoutApplied, layoutBlocked
   const plan = usePlanner(s => s.plan), replace = usePlanner(s => s.replacePlan);
   const [previewPlans,setPreviewPlans]=useState<Record<string,PlanDocumentV1>>({});
   const [sort,setSort]=useState("recent");
-  const [view,setView]=useState<'projects'|'ideas'|'backup'>('projects');
+  const [view,setView]=useState<'projects'|'ideas'|'backup'|'selections'>('projects');
   const [session, setSession] = useState<CloudSession>();
   const [locals, setLocals] = useState<PlanDocumentV1[]>([]), [online, setOnline] = useState<ProjectSummary[]>([]);
   const [tab, setTab] = useState<"local" | "online">("local"), [busy, setBusy] = useState(false);
@@ -68,9 +69,10 @@ export function ProjectLibrary({ onClose, onOpen, onLayoutApplied, layoutBlocked
   }}><Trash/> Delete {where==="local"?"local copy":"online project"}</button></details>;
   return <dialog className="project-library" ref={dialog} aria-labelledby="project-heading" onCancel={e => { e.preventDefault(); if (!busy) onClose(); }} onKeyDown={e => e.stopPropagation()}>
     <header><div><span className="eyebrow">A home for every idea</span><h2 id="project-heading">Your projects</h2></div><button className="icon-button" disabled={busy} aria-label="Close project library" onClick={onClose}><X /></button></header>
-    <nav className="project-views" aria-label="Project tools"><button disabled={busy} aria-pressed={view==='projects'} onClick={()=>setView('projects')}>Projects</button>{!browseOnly&&<button disabled={busy} aria-pressed={view==='ideas'} onClick={()=>setView('ideas')}>Layout ideas</button>}<button disabled={busy} aria-pressed={view==='backup'} onClick={()=>setView('backup')}>Backups</button></nav>
+    <nav className="project-views" aria-label="Project tools"><button disabled={busy} aria-pressed={view==='projects'} onClick={()=>setView('projects')}>Projects</button>{!browseOnly&&<button disabled={busy} aria-pressed={view==='ideas'} onClick={()=>setView('ideas')}>Layout ideas</button>}{!browseOnly&&<button disabled={busy} aria-pressed={view==='selections'} onClick={()=>setView('selections')}>Selections &amp; budget</button>}<button disabled={busy} aria-pressed={view==='backup'} onClick={()=>setView('backup')}>Backups</button></nav>
     {view==='ideas'&&layoutBlocked&&<p role="status">Finish or discard the current placement or preview to work with layout ideas. Your unfinished work is still here.</p>}
-    {view==='ideas'&&!browseOnly&&!layoutBlocked&&<LayoutAlternativesPanel plan={plan} activeFloorId={usePlanner.getState().activeFloorId} onChange={(base,next)=>usePlanner.getState().commitDesign(base,next)} onApply={(base,next,floorId)=>{usePlanner.getState().commitDesign(base,next,floorId);onLayoutApplied?.();}}/>}
+    {view==='ideas'&&!browseOnly&&!layoutBlocked&&<LayoutAlternativesPanel onBusyChange={setBusy} plan={plan} activeFloorId={usePlanner.getState().activeFloorId} onChange={(base,next)=>usePlanner.getState().commitDesign(base,next)} onApply={(base,next,floorId)=>{usePlanner.getState().commitDesign(base,next,floorId,{restoreLayout:true});onLayoutApplied?.();}}/>}
+    {view==='selections'&&!browseOnly&&<SelectionSchedulePanel plan={plan} activeFloorId={usePlanner.getState().activeFloorId} disabled={layoutBlocked} onCommit={(base,next)=>usePlanner.getState().commitDesign(base,next)}/>}
     {view==='backup'&&<ProjectBackupPanel plan={browseOnly?undefined:plan} onBusyChange={setBusy} beforeRestore={async()=>{if(!browseOnly)await savePlan(plan)}} onRestored={switchPlan}/>}
     {view==='projects'&&<>
     {!browseOnly&&<section className="project-current"><FloppyDisk size={28}/><div><strong>{plan.name}</strong><p>Edits autosave on this device. Online saves are private to your ChatGPT account.</p></div></section>}

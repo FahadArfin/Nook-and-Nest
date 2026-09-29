@@ -16,7 +16,7 @@ const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:v
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{setRenderQuality(){} highlightPart(){}
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setMoveMode(_active:boolean){}
-  setSunPreview(){}
+  setSunPreview(){} setFurnitureSelection(){} setFitReview(){}
   setRotationMode(active:boolean){scene.rotation(active)}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()} focusFloor(){scene.focus()}
   placementRotation(){return 0;} setTool(){} setWallSelection(){} setPaintPreview(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
@@ -225,7 +225,7 @@ it('opens floor finishes from the compact dock and centers without editing the p
 it('uses an icon-only opt-in Move toggle, swaps the end actions and keeps colors out of the toolbar',()=>{
  state().placeFurniture('small-plant');const id=state().plan.furniture.at(-1)!.id;render(<App/>);act(()=>state().select(id));
  const toolbar=within(screen.getByRole('toolbar',{name:/Edit/}));
- expect(toolbar.getAllByRole('button').map(b=>b.getAttribute('aria-label'))).toEqual(['Done editing','Rotate furniture','Move furniture','Remove furniture']);
+ expect(toolbar.getAllByRole('button').map(b=>b.getAttribute('aria-label'))).toEqual(['Done editing','Rotate furniture','Move furniture','Furniture groups and locks','Remove furniture']);
  expect(toolbar.queryByRole('group',{name:'Furniture color'})).toBeNull();
  const move=toolbar.getByRole('button',{name:'Move furniture'}),rotate=toolbar.getByRole('button',{name:'Rotate furniture'});
  expect(move.getAttribute('aria-pressed')).toBe('false');expect(move.textContent).toBe('');

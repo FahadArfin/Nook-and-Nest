@@ -23,7 +23,7 @@ const piece=(p:ReturnType<typeof setup>,id:string,patch:Partial<FurniturePlaceme
 function renderer(){
  const engine=new NullEngine(),scene=new Scene(engine),camera=new ArcRotateCamera('camera',1,.6,10,new Vector3(2,0,2),scene);
  const r:any=Object.create(SceneController.prototype);
- Object.assign(r,{paintWallIds:[],paintSelectionGuides:[],neutralPreview:false,scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600,getBoundingClientRect:()=>({left:0,top:0,width:800,height:600})},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
+ Object.assign(r,{selectionPlacements:[],paintWallIds:[],paintSelectionGuides:[],neutralPreview:false,scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600,getBoundingClientRect:()=>({left:0,top:0,width:800,height:600})},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
  r.initializeControllers();
  return {r,scene,dispose:()=>{scene.dispose();engine.dispose()}};
 }
@@ -100,7 +100,7 @@ describe('modular placement regression',()=>{
      r.callbacks={onSelect:vi.fn()};r.setMoveMode(true);r.bindPointers();
      vi.spyOn(scene,'pick').mockImplementation((_x,_y,predicate)=>predicate?{hit:false} as any:{hit:true,pickedMesh:{name:`item:${stand.id}`}} as any);
      const send=(type:number)=>scene.onPointerObservable.notifyObservers({type,event:{button:0},pickInfo:null} as any);
-     send(PointerEventTypes.POINTERDOWN);expect(r.dragging).toBe(tv.id);expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(tv.id);
+     send(PointerEventTypes.POINTERDOWN);expect(r.dragging).toBe(tv.id);expect(r.callbacks.onSelect).not.toHaveBeenCalled();
      send(PointerEventTypes.POINTERUP);
      vi.mocked(scene.pick).mockReturnValue({hit:true,pickedMesh:{name:'cell:1:1'}} as any);
      send(PointerEventTypes.POINTERDOWN);expect(r.callbacks.onSelect).toHaveBeenLastCalledWith(undefined);
