@@ -1,5 +1,5 @@
 import sofaRealismIds from '../sofaRealismIds.json';
-import personalSurfaceSlots from '../personalSurfaceSlots.json';
+import {personalSurfaceSlots} from '../personalSurfaceSlots';
 import {PersonalSurfaceTextures,personalTextureCandidates} from './PersonalSurfaceTextures';
 import {projectPersonalArtUV} from './PersonalArtUV';
 import type {PlanDocumentV1} from '../types';

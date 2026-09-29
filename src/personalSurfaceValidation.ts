@@ -1,4 +1,4 @@
-import slots from './personalSurfaceSlots.json';
+import {personalSurfaceSlots as slots} from './personalSurfaceSlots';
 import type {FurniturePlacement} from './types';
 import {parsePersonalSurface,type PersonalSurface} from './moodboards';
 const allowedSlots=slots as Record<string,string[]>;
