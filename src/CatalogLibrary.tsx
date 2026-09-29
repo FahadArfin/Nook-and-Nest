@@ -14,7 +14,9 @@ import { LibraryIconRail, libraryIcon } from "./LibraryIconRail";
 const membershipCache=new WeakMap<object,string>();
 const membership=(items:import('./types').FurniturePlacement[])=>{let key=membershipCache.get(items);if(key===undefined){key=[...new Set(items.map(p=>p.catalogId))].sort().join('|');membershipCache.set(items,key)}return key};
 const icons: Record<string, typeof Armchair> = { seat:Armchair, table:Table, bed:Bed, storage:Books, lamp:Lamp, plant:Plant, rug:GridFour, decor:SquaresFour, window:FrameCorners };
-export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPlacement,onLocate}: {
+export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPlacement,onLocate,onArrangements,arrangementsDisabled}: {
+  onArrangements?():void;
+  arrangementsDisabled?:boolean;
   onLocate?():void;
   onBeginDrag(item:CatalogItem,event:PointerEvent<HTMLButtonElement>):void;
   onStartPlacement(item:CatalogItem):void;
@@ -54,6 +56,7 @@ export const CatalogLibrary=memo(function CatalogLibrary({onBeginDrag,onStartPla
   const heading=recentOnly?"Recently used":room?roomCollections.find(r=>r.id===room)!.name:search.trim()?`Results for “${search.trim()}”`:type!=="All"?type:category!=="All"?category:shelf==="favorites"?"Your favorites":"All furniture";
   return <div className="catalog-slot"><aside aria-label="Furniture library" className={`catalog-panel library-panel ${expanded?"library-expanded":""}`} onKeyDown={event=>{event.stopPropagation();if(event.key==="Escape"&&expanded){event.preventDefault();setExpanded(false)}}}>
     <div className="panel-heading"><h2>Furniture library</h2><button className="icon-button library-expand" aria-label={expanded?"Compact library":"Expand library"} aria-pressed={expanded} title={expanded?"Compact library":"More room to browse"} onClick={()=>setExpanded(!expanded)}>{expanded?<ArrowsInSimple/>:<ArrowsOutSimple/>}</button></div>
+    {onArrangements&&<button className="library-arrangements" disabled={arrangementsDisabled} onClick={()=>{setExpanded(false);onArrangements()}}><Armchair size={18}/> Arrangements <span>Room starters &amp; your sets</span></button>}
     <div className="library-browser-body">
     <LibraryIconRail label="Category" values={["All",...libraryCategories]} value={category} onChange={value=>{setRoom('');setRecentOnly(false);setCategory(value);setType("All")}}/>
     <div className="library-browser-content">

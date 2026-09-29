@@ -4,6 +4,7 @@ import {isVegetation,vegetationLimit} from './vegetation';
 import {showerIds} from './apartmentCollection';
 import {isDoor} from './catalog';
 import type { PlanDocumentV1 } from "./types";
+import {validateLayoutAlternatives,snapshotAsPlan} from './layoutAlternatives';
 
 export const MAX_PLAN_BYTES = 8_000_000;
 /** Shared import/API guard: malformed plans must never replace a working build. */
@@ -17,6 +18,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   const p = value as any; obj(p);
   if (p.schemaVersion !== 1 || !["imperial", "metric"].includes(p.units)) fail();
   str(p.id); str(p.name); str(p.createdAt); str(p.updatedAt); num(p.gridSizeMm, 10, 10000);
+  if(p.layoutAlternatives!==undefined)validateLayoutAlternatives(p.layoutAlternatives,snapshot=>validatePlan(snapshotAsPlan(p,snapshot)));
   arr(p.floors, 20); if (!p.floors.length) fail(); unique(p.floors);
   const floors = new Set(p.floors.map((f: any) => f.id));
   for (const f of p.floors) {
@@ -52,7 +54,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
       if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}
       const host=p.floors.find((f:any)=>f.id===id);
-      validatePlan({...p,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
+      validatePlan({...p,layoutAlternatives:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}
