@@ -100,14 +100,16 @@ describe('analysis cost safeguards (no paid requests)',()=>{
     const fetcher=vi.fn(async(_url:unknown,_options?:RequestInit)=>Response.json(result()));vi.stubGlobal('fetch',fetcher);
     try {
       const old=result();old.rooms[0].name='Old Astra result';saveRecognition(await recognitionKey(ref,'gpt-6-astra'),old);
+      const oldLunaKey=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(JSON.stringify(['luna-regions-v3','gpt-5.6-luna',ref.width,ref.height,ref.url])))),b=>b.toString(16).padStart(2,'0')).join('');
+      saveRecognition(oldLunaKey,{...old,rooms:old.rooms.map(r=>({...r,name:'Old Luna result'}))});
       expect((await recognizeReference(ref)).rooms[0].name).toBe('Bedroom');const status=vi.fn();await recognizeReference({...ref,name:'renamed.png'},undefined,{status});
       expect(fetcher).toHaveBeenCalledTimes(1);expect(status).toHaveBeenCalledWith(expect.stringContaining('no API charge'));
-      expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
-      expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey(ref,'gpt-6-astra'));
-      expect(await recognitionKey(ref,'gpt-5.6-luna','',false)).toBe(await recognitionKey(ref,'gpt-5.6-luna'));
-      expect(await recognitionKey(ref,'gpt-5.6-luna','',true)).not.toBe(await recognitionKey(ref,'gpt-5.6-luna'));
-      expect(await recognitionKey(ref,'gpt-5.6-luna')).not.toBe(await recognitionKey({...ref,width:999},'gpt-5.6-luna'));
-      await recognizeReference(ref,undefined,{model:'gpt-5.6-luna'});expect(fetcher).toHaveBeenCalledTimes(1);
+      expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-6-luna');
+      expect(await recognitionKey(ref,'gpt-6-luna')).not.toBe(await recognitionKey(ref,'gpt-6-astra'));
+      expect(await recognitionKey(ref,'gpt-6-luna','',false)).toBe(await recognitionKey(ref,'gpt-6-luna'));
+      expect(await recognitionKey(ref,'gpt-6-luna','',true)).not.toBe(await recognitionKey(ref,'gpt-6-luna'));
+      expect(await recognitionKey(ref,'gpt-6-luna')).not.toBe(await recognitionKey({...ref,width:999},'gpt-6-luna'));
+      await recognizeReference(ref,undefined,{model:'gpt-6-luna'});expect(fetcher).toHaveBeenCalledTimes(1);
       clearRecognitionCache();await recognizeReference(ref);expect(fetcher).toHaveBeenCalledTimes(2);
     }finally{vi.unstubAllGlobals();}
   });
@@ -146,9 +148,10 @@ describe('analysis cost safeguards (no paid requests)',()=>{
       expect((await recognitionApi(request({model:'unsupported'}),env)).status).toBe(400);expect(prepare).not.toHaveBeenCalled();
       expect((await recognitionApi(request({guidance:'x'.repeat(1501)}),env)).status).toBe(400);expect(prepare).not.toHaveBeenCalled();
       expect((await recognitionApi(request({model:'unknown'}),env)).status).toBe(400);
-      await (await recognitionApi(request(),env)).json();expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
-      await (await recognitionApi(request({model:'gpt-5.6-luna'}),env)).json();expect(JSON.parse(fetcher.mock.calls[1]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
-      await (await recognitionApi(request({model:'gpt-6-astra'}),env)).json();expect(JSON.parse(fetcher.mock.calls[2]?.[1]?.body as string).model).toBe('gpt-5.6-luna');
+      await (await recognitionApi(request(),env)).json();expect(JSON.parse(fetcher.mock.calls[0]?.[1]?.body as string).model).toBe('gpt-6-luna');
+      await (await recognitionApi(request({model:'gpt-6-luna'}),env)).json();expect(JSON.parse(fetcher.mock.calls[1]?.[1]?.body as string).model).toBe('gpt-6-luna');
+      await (await recognitionApi(request({model:'gpt-6-astra'}),env)).json();expect(JSON.parse(fetcher.mock.calls[2]?.[1]?.body as string).model).toBe('gpt-6-luna');
+      await (await recognitionApi(request({model:'gpt-5.6-luna'}),env)).json();expect(JSON.parse(fetcher.mock.calls[3]?.[1]?.body as string).model).toBe('gpt-6-luna');
     }finally{vi.unstubAllGlobals();}
   });
 });
