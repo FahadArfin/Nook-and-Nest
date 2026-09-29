@@ -49,7 +49,9 @@ export function buildDesign(base:PlanDocumentV1,operations:DesignOperation[]) {
       const catalogId=op.action==='place'?op.catalogId:old!.catalogId,def=catalog.find(c=>c.id===catalogId);
       if(!def)throw new Error(`Unknown catalog ID ${catalogId}. Search the catalog first.`);
       let item: FurniturePlacement=old?{...old}:{id:uid(),catalogId,floorId:(op as Extract<DesignOperation,{action:'place'}>).floorId,x:0,z:0,rotation:0,widthMm:def.widthMm,depthMm:def.depthMm,heightMm:def.heightMm,variant:'sage',elevationMm:defaultMountHeight(catalogId),surfaceVariant:isDoor(catalogId)?defaultDoorFinish.id:supportsCountertopFinish(catalogId)?defaultCountertopFinish.id:undefined};
-      if(!plan.floors.some(f=>f.id===item.floorId))throw new Error('Unknown floor ID.');
+      const hostFloor=plan.floors.find(f=>f.id===item.floorId);
+      if(!hostFloor)throw new Error('Unknown floor ID.');
+      if(!old)item.elevationMm=defaultMountHeight(catalogId,hostFloor.heightMm);
       for(const k of Object.keys(transform) as (keyof Transform)[])if(k in op)(item as unknown as Record<string,unknown>)[k]=(op as unknown as Record<string,unknown>)[k];
       item.x=Math.round(item.x);item.z=Math.round(item.z);item.rotation=((item.rotation%360)+360)%360;
       if(item.materialColors){const slots=new Set(materialSlots(catalogId).map(s=>s.id));for(const key of Object.keys(item.materialColors))if(!slots.has(key))throw new Error(`Unknown material part ${key} for ${catalogId}.`);}

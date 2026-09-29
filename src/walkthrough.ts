@@ -1,8 +1,9 @@
-import { floorBoundaryWalls, floorRects, type FloorRect } from './floorGeometry';
+import { floorBoundaryWalls, floorRects, subtractRect, type FloorRect } from './floorGeometry';
 import { catalog, isWallOpening } from './catalog';
 import { projectPoint } from './polygonGeometry';
 import type { PlanDocumentV1 } from './types';
 import { windowProblem, windowWallPieces } from './windows';
+import { isSpiralStair, spiralStairHole } from './householdArchitecture';
 
 export type WalkDirection = 'forward' | 'backward' | 'left' | 'right' | 'turn-left' | 'turn-right';
 export interface CameraShotPose {
@@ -62,7 +63,12 @@ function inRegion(x: number, z: number, r: FloorRect): boolean {
 export function createWalkBounds(plan: PlanDocumentV1, floorId: string): WalkBounds | undefined {
   const floor = plan.floors.find(f => f.id === floorId);
   if (!floor?.cells.length) return undefined;
-  const regions = floorRects(floor, plan.gridSizeMm);
+  let regions = floorRects(floor, plan.gridSizeMm);
+  // The existing flat tour cannot ascend a spiral or cross its upper shaft.
+  // Preserve original staircase tour behavior and explicitly bound the new type.
+  for(const stair of plan.furniture.filter(p=>isSpiralStair(p.catalogId)&&p.toFloorId===floorId&&p.floorId!==floorId)){
+    regions=regions.flatMap(r=>subtractRect(r,spiralStairHole(stair)).map(part=>({...part,cell:r.cell})));
+  }
   const regionsByCell = new Map<string, FloorRect[]>();
   for (const r of regions) {
     const key = `${r.cell.x},${r.cell.z}`;
@@ -76,7 +82,7 @@ export function createWalkBounds(plan: PlanDocumentV1, floorId: string): WalkBou
     const item = catalogById.get(p.catalogId);
     // A conservative footprint for large floor-standing solids. Mounted decor,
     // openings, rugs and small accessories must not close otherwise clear paths.
-    if (p.floorId !== floorId || !item || item.mount !== 'floor' || !solidShapes.has(item.shape) ||
+    if (p.floorId !== floorId || !item || item.mount !== 'floor' || (!solidShapes.has(item.shape)&&!isSpiralStair(item.id)) ||
       p.heightMm < 350 || Math.min(p.widthMm, p.depthMm) < 350 || (p.elevationMm ?? 0) > 250) continue;
     const angle = p.rotation * Math.PI / 180;
     const obstacle = { x: p.x / 1000, z: p.z / 1000, halfWidth: p.widthMm / 2000, halfDepth: p.depthMm / 2000, cos: Math.cos(angle), sin: Math.sin(angle) };

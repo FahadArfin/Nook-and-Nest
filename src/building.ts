@@ -1,6 +1,8 @@
 import { catalog, isStairs } from "./catalog";
 import { floorRects, intersects, subtractRect, type FloorRect } from "./floorGeometry";
 import type { FurniturePlacement, PlanDocumentV1 } from "./types";
+import { isSpiralStair, spiralStairHole, spiralLandings, spiralStairWarnings } from './householdArchitecture';
+import { shapeArea } from './polygonGeometry';
 
 export function fitStair(plan:PlanDocumentV1,item:FurniturePlacement):FurniturePlacement {
   if(!isStairs(item.catalogId))return item;
@@ -16,6 +18,7 @@ export function stairFootprint(item:FurniturePlacement):FloorRect {
 }
 export function stairHoles(plan:PlanDocumentV1,floorId:string):FloorRect[] {
   return plan.furniture.filter(i=>isStairs(i.catalogId)&&i.toFloorId===floorId&&i.floorId!==floorId).flatMap(item=>{
+    if(isSpiralStair(item.catalogId))return [spiralStairHole(item)];
     if(item.catalogId!=="stairs-l-turn")return [stairFootprint(item)];
     const w=item.widthMm,d=item.depthMm,fw=w/3.2,fd=d/3.2;
     return [worldRect(item,-(w-fw)/2,0,fw,d),worldRect(item,fw/2,(d-fd)/2,w-fw,fd)];
@@ -28,6 +31,7 @@ function worldRect(item:FurniturePlacement,x:number,z:number,width:number,depth:
   return {x:cx-w/2,z:cz-d/2,width:w,depth:d};
 }
 export function stairLandings(item:FurniturePlacement):[FloorRect,FloorRect] {
+  if(isSpiralStair(item.catalogId))return spiralLandings(item);
   const w=item.widthMm,d=item.depthMm,l=item.catalogId==="stairs-l-turn",u=item.catalogId==="stairs-switchback";
   const fw=l?w/3.2:u?w*.45:w;
   const lower=worldRect(item,l||u?-(w-fw)/2:0,-d/2-350,700,700);
@@ -42,15 +46,15 @@ export function visibleFloorRects(plan:PlanDocumentV1,floorId:string) {
 }
 export function stairWarnings(plan:PlanDocumentV1,item:FurniturePlacement):string[] {
   if(!isStairs(item.catalogId))return [];
-  const warnings:string[]=[],floor=plan.floors.find(f=>f.id===item.floorId),target=plan.floors.find(f=>f.id===item.toFloorId);
+  const spiral=isSpiralStair(item.catalogId),warnings:string[]=spiral?spiralStairWarnings(plan,item):[],floor=plan.floors.find(f=>f.id===item.floorId),target=plan.floors.find(f=>f.id===item.toFloorId);
   if(!target)warnings.push("Not connected to an upper floor. Add a floor or choose a destination.");
   else if(!floor||plan.floors.indexOf(target)!==plan.floors.indexOf(floor)+1)warnings.push("Connect stairs to the next floor above.");
   const rise=item.stairRiseMm??2800,turning=item.catalogId==="stairs-switchback"||item.catalogId==="stairs-l-turn";
   const flightWidth=item.catalogId==="stairs-l-turn"?Math.min(item.widthMm,item.depthMm)/3.2:turning?item.widthMm*.45:item.widthMm;
-  if(flightWidth<800)warnings.push("The walking width is under 80 cm.");
+  if(!spiral&&flightWidth<800)warnings.push("The walking width is under 80 cm.");
   const run=item.catalogId==="stairs-l-turn"?(item.widthMm+item.depthMm)*(1-1/3.2):turning?item.depthMm*(1-.99/3.2)*2:item.depthMm;
-  if(run<rise*1.2)warnings.push("The run is short for this rise; the stairs may be too steep.");
-  if(rise/16>200)warnings.push("These 16 risers are over 20 cm high. Consider a longer/custom staircase.");
+  if(!spiral&&run<rise*1.2)warnings.push("The run is short for this rise; the stairs may be too steep.");
+  if(!spiral&&rise/16>200)warnings.push("These 16 risers are over 20 cm high. Consider a longer/custom staircase.");
   if(floor&&floor.heightMm<2100)warnings.push("The lower ceiling may leave insufficient headroom.");
   if(item.catalogId.includes("cantilever")||item.catalogId.includes("led"))warnings.push("Cantilever treads need an engineered support wall; this is a layout model only.");
   const footprint=stairFootprint(item);
@@ -58,7 +62,7 @@ export function stairWarnings(plan:PlanDocumentV1,item:FurniturePlacement):strin
     const landing=stairLandings(item)[f===floor?0:1];
     let uncovered=[landing];
     for(const rect of visibleFloorRects(plan,f!.id))uncovered=uncovered.flatMap(part=>subtractRect(part,rect));
-    if(uncovered.reduce((sum,r)=>sum+r.width*r.depth,0)>1)warnings.push(`${f===floor?"Lower":"Upper"} landing is not fully supported by floor.`);
+    if(uncovered.reduce((sum,r)=>sum+shapeArea(r),0)>1)warnings.push(`${f===floor?"Lower":"Upper"} landing is not fully supported by floor.`);
     if(plan.furniture.some(other=>other.id!==item.id&&other.floorId===f!.id&&!isStairs(other.catalogId)&&intersects(stairFootprint(other),landing)))warnings.push(`${f===floor?"Lower":"Upper"} landing overlaps furniture.`);
   }
   if(target&&!floorRects(target,plan.gridSizeMm).some(r=>intersects(r,footprint)))warnings.push("Stairs do not reach the upper floor footprint.");

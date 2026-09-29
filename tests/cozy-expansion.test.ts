@@ -35,7 +35,7 @@ describe('cozy expansion and placement regressions',()=>{
   expect(modelAssetPath('sofa')).toContain('/models/furniture/sofa.glb?v=');
  });
  it('keeps every addition dimensionally accurate with bounded geometry',()=>{
-  expect(cozyRows).toHaveLength(403);
+  expect(cozyRows).toHaveLength(560);
   for(const [id,,,w,d,h] of cozyRows){
    const b=readFileSync(`public/models/furniture/${id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());
    const bounds=glbBounds(g);

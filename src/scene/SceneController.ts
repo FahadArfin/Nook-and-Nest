@@ -105,8 +105,17 @@ import {
   wallPlateIds,
 } from "../wallEditing";
 import { TerrainScene } from "./TerrainScene";
+import { createFlatRoof, setFlatRoofPresentation } from './HouseholdRoof';
+import { architectureWallAnchor, flatRoofEnabled, flatRoofRects, isRoofSkylight, isStormDoor, roofHostFloor, stormDoorHost } from '../householdArchitecture';
 
 export class SceneController {
+  private flatRoofs:Mesh[]=[];
+  private updateRoofPresentation(){
+    if(!this.flatRoofs.length)return;
+    const reviewing=isRoofSkylight(this.activeDraft?.catalogId??'')||isRoofSkylight(this.activePlan?.furniture.find(p=>p.id===this.selectedId)?.catalogId??'');
+    const mode=this.cameraControls.walkthrough.active?'walkthrough':reviewing?'review':'cutaway';
+    for(const roof of this.flatRoofs)setFlatRoofPresentation(roof,mode);
+  }
   private cameraControls!: CameraControls;
   private placement!: PlacementController;
   private floorPaint!: FloorPaintController;
@@ -537,6 +546,7 @@ export class SceneController {
     this.engine.runRenderLoop(() => {
       const now = performance.now();
       this.cameraControls.walkthrough.tick(this.engine.getDeltaTime());
+      this.updateRoofPresentation();
       const cameraFrame = [
         this.camera.alpha,
         this.camera.beta,
@@ -836,7 +846,7 @@ export class SceneController {
         item.x / 1000,
         ((floor?.elevationMm ?? 0) +
           (item.elevationMm ?? 0) +
-          (isWallOpening(item.catalogId)
+          (isWallOpening(item.catalogId)||isStormDoor(item.catalogId)
             ? 0
             : isStairs(item.catalogId)
               ? 40
@@ -1149,7 +1159,7 @@ export class SceneController {
         draft.x / 1000,
         ((floor?.elevationMm ?? 0) +
           (draft.elevationMm ?? 0) +
-          (isWallOpening(draft.catalogId) ? 0 : 50)) /
+          (isWallOpening(draft.catalogId)||isStormDoor(draft.catalogId) ? 0 : isStairs(draft.catalogId)?40:50)) /
           1000,
         draft.z / 1000,
       );
@@ -1356,7 +1366,7 @@ export class SceneController {
             item.x / 1000,
             (floor.elevationMm +
               (item.elevationMm ?? 0) +
-              (isWallOpening(item.catalogId)
+              (isWallOpening(item.catalogId)||isStormDoor(item.catalogId)
                 ? 0
                 : isStairs(item.catalogId)
                   ? 40
@@ -1479,6 +1489,7 @@ export class SceneController {
     this.floorPaint.tileDraftCells = [];
     this.floorPaint.tileDraftAnchor = undefined;
     for (const node of [...this.root.getChildren()]) node.dispose(false, false);
+    this.flatRoofs=[];
     if (!retainFurniture) this.furnitureFactory.resetMaterials();
     const activeIndex = plan.floors.findIndex((f) => f.id === activeFloorId);
     const floors =
@@ -1692,7 +1703,8 @@ export class SceneController {
       data = new VertexData(),
       positions: number[] = [],
       indices: number[] = [];
-    for (const r of floorRects(floor, plan.gridSizeMm)) {
+    const roofHost=flatRoofEnabled(plan)&&roofHostFloor(plan)?.id===floor.id;
+    for (const r of roofHost?flatRoofRects(plan,floor.id):floorRects(floor, plan.gridSizeMm)) {
       const outdoor = floor.blueprint?.rooms.some(
         (room) =>
           room.kind === "Outdoor" &&
@@ -1723,6 +1735,8 @@ export class SceneController {
       !this.neutralPreview && !!plan.environment?.sun?.enabled,
     );
     this.shadow.addShadowCaster(ceiling);
+    const flatRoof=createFlatRoof(this.scene,plan,floor);
+    if(flatRoof){flatRoof.parent=this.root;this.flatRoofs.push(flatRoof);this.shadow.addShadowCaster(flatRoof);}
     this.selectedWallIds = new Set(
       !ghost && this.selectedWallId
         ? wallPlateIds(floor, plan.gridSizeMm, this.selectedWallId)
@@ -2000,7 +2014,7 @@ export class SceneController {
       node.position.set(
         item.x / 1000,
         elevation +
-          (isWallOpening(item.catalogId)
+          (isWallOpening(item.catalogId)||isStormDoor(item.catalogId)
             ? 0
             : isStairs(item.catalogId)
               ? 0.04
@@ -2009,10 +2023,11 @@ export class SceneController {
         item.z / 1000,
       );
       node.rotation.y = (item.rotation * Math.PI) / 180;
-      if (isWallOpening(item.catalogId)) {
+      if (isWallOpening(item.catalogId)||isStormDoor(item.catalogId)) {
+        const anchor=isStormDoor(item.catalogId)&&this.activePlan?stormDoorHost(this.activePlan,item)??item:architectureWallAnchor(item);
         const wall = openingHostWall(
           this.floorWallGeometry.get(item.floorId) ?? [],
-          { x: item.x / 1000, z: item.z / 1000 },
+          { x: anchor.x / 1000, z: anchor.z / 1000 },
           item.rotation,
         );
         if (wall) this.wallVisibility.add(node, wall);
@@ -2031,7 +2046,7 @@ export class SceneController {
     node.position = new Vector3(
       item.x / 1000,
       elevation +
-        (isWallOpening(item.catalogId)
+        (isWallOpening(item.catalogId)||isStormDoor(item.catalogId)
           ? 0
           : isStairs(item.catalogId)
             ? 0.04
@@ -2083,10 +2098,11 @@ export class SceneController {
             ghost,
           );
       }
-    if (!preview && isWallOpening(item.catalogId)) {
+    if (!preview && (isWallOpening(item.catalogId)||isStormDoor(item.catalogId))) {
+      const anchor=isStormDoor(item.catalogId)&&this.activePlan?stormDoorHost(this.activePlan,item)??item:architectureWallAnchor(item);
       const wall = openingHostWall(
         this.floorWallGeometry.get(item.floorId) ?? [],
-        { x: item.x / 1000, z: item.z / 1000 },
+        { x: anchor.x / 1000, z: anchor.z / 1000 },
         item.rotation,
       );
       if (wall) this.wallVisibility.add(node, wall);
@@ -2506,12 +2522,13 @@ export class SceneController {
           let angle = drag.item.rotation - drag.total;
           if (
             isWallOpening(drag.item.catalogId) ||
-            isKitchenWall(drag.item.catalogId)
+            isKitchenWall(drag.item.catalogId) ||
+            isStormDoor(drag.item.catalogId)
           )
             angle =
               drag.item.rotation +
               Math.round((angle - drag.item.rotation) / 180) * 180;
-          else if (isStairs(drag.item.catalogId))
+          else if (isStairs(drag.item.catalogId)||isRoofSkylight(drag.item.catalogId))
             angle =
               drag.item.rotation +
               Math.round((angle - drag.item.rotation) / 90) * 90;
@@ -2768,7 +2785,7 @@ export class SceneController {
               (f) => f.id === item.floorId,
             );
             this.selectedNode.position.y =
-              ((floor?.elevationMm ?? 0) + (mounted.elevationMm ?? 0) + 50) /
+              ((floor?.elevationMm ?? 0) + (mounted.elevationMm ?? 0) + (isWallOpening(item.catalogId)||isStormDoor(item.catalogId)?0:isStairs(item.catalogId)?40:50)) /
               1000;
           }
           this.selectedNode.rotation.y = (mounted.rotation * Math.PI) / 180;
@@ -2808,6 +2825,7 @@ export class SceneController {
             this.draftPosition.z,
             this.draftPosition.elevationMm,
             this.draftPosition.rotation,
+            this.draftPosition.hostDoorId,
           );
       } else if (info.type === PointerEventTypes.POINTERUP && this.dragging) {
         if (moved && this.draggedPosition)
@@ -2817,6 +2835,7 @@ export class SceneController {
             this.draggedPosition.z,
             this.draggedPosition.elevationMm,
             this.draggedPosition.rotation,
+            this.draggedPosition.hostDoorId,
           );
         this.placement.dragGrabOffset = undefined;
         this.draggedPosition = undefined;

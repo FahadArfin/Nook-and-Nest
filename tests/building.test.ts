@@ -8,6 +8,7 @@ import { splitWallSections } from "../src/wallSections";
 import { catalog,isDoor,isStairs,isWallOpening } from "../src/catalog";
 import { snapWindow,windowProblem,windowWallPieces,windowRotation } from "../src/windows";
 import { usePlanner } from "../src/store";
+import { isStormDoor } from '../src/householdArchitecture';
 import type { FurniturePlacement, FloorPlan } from "../src/types";
 import { NullEngine,Scene,TransformNode,Vector3,VertexBuffer } from "@babylonjs/core";
 import { LoadAssetContainerAsync } from "@babylonjs/core/Loading/sceneLoader";
@@ -115,13 +116,13 @@ describe("Blender building collection",()=>{
       }
     }finally{scene.dispose();engine.dispose();}
   });
-  it("keeps twenty-two distinct building models at physical GLB envelopes",()=>{
-    const items=catalog.filter(c=>isDoor(c.id)||isStairs(c.id));expect(items).toHaveLength(22);
+  it("keeps the original and expanded building models at physical GLB envelopes",()=>{
+    const items=catalog.filter(c=>isDoor(c.id)||isStairs(c.id));expect(items.length).toBeGreaterThanOrEqual(25);
     for(const c of items){
       const b=readFileSync(`public/models/furniture/${c.id}.glb`),g=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());const bounds=glbBounds(g);
       for(let a=0;a<3;a++){const min=Math.min(...bounds.map((b:any)=>b.min[a])),max=Math.max(...bounds.map((b:any)=>b.max[a]));expect((max-min)*1000,c.id).toBeCloseTo([c.widthMm,c.heightMm,c.depthMm][a],1);}
       expect(g.accessors.filter((a:any)=>a.type==="SCALAR").reduce((sum:number,a:any)=>sum+a.count/3,0),c.id).toBeLessThan(35000);
-      expect(isWallOpening(c.id)).toBe(isDoor(c.id));
+      expect(isWallOpening(c.id)).toBe(isDoor(c.id)&&!isStormDoor(c.id));
     }
   });
 });

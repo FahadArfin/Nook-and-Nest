@@ -3,6 +3,7 @@ import {validateVegetationField} from './vegetationField';
 import {isVegetation,vegetationLimit} from './vegetation';
 import {showerIds} from './apartmentCollection';
 import {isDoor} from './catalog';
+import {isStormDoorHostId} from './householdArchitectureGeometry';
 import type { PlanDocumentV1 } from "./types";
 import {validateLayoutAlternatives,snapshotAsPlan} from './layoutAlternatives';
 
@@ -63,10 +64,16 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   if(p.environment?.sun!==undefined){const s=p.environment.sun;obj(s);if(typeof s.enabled!=='boolean'||(s.night!==undefined&&typeof s.night!=='boolean'))fail();num(s.azimuth,0,360);num(s.elevation,5,85);}
   if(p.environment?.citySource!==undefined&&!['standard','google'].includes(p.environment.citySource))fail();
   if(p.environment?.cityHeight!==undefined)num(p.environment.cityHeight,100,400);
+  if(p.environment?.flatRoof!==undefined&&typeof p.environment.flatRoof!=='boolean')fail();
   if(p.environment?.backdropRotation!==undefined)num(p.environment.backdropRotation,0,360);
   if(p.environment?.terrain!==undefined){arr(p.environment.terrain,128);for(const s of p.environment.terrain){obj(s);if(!['raise','lower','river'].includes(s.kind))fail();if(s.carve!==undefined&&typeof s.carve!=='boolean')fail();num(s.radius,.5,8);num(s.strength,.1,2);arr(s.points,64);if(!s.points.length)fail();for(const pt of s.points){obj(pt);num(pt.x,-10000,10000);num(pt.z,-10000,10000);}}}
   arr(p.furniture, 24000); unique(p.furniture); if(p.furniture.filter((f:any)=>isVegetation(f.catalogId)).length>vegetationLimit||p.furniture.filter((f:any)=>!isVegetation(f.catalogId)).length>2000)fail();
   for (const f of p.furniture) {
+    if(f.hostDoorId!==undefined){
+      str(f.hostDoorId);
+      const host=p.furniture.find((other:any)=>other.id===f.hostDoorId);
+      if(f.catalogId!=='secondary-storm-screen-door'||!host||host.id===f.id||host.floorId!==f.floorId||!isStormDoorHostId(host.catalogId))fail();
+    }
     str(f.catalogId); str(f.variant); if(f.showerMirrored!==undefined&&(typeof f.showerMirrored!=="boolean"||!showerIds.has(f.catalogId)))fail(); if(f.moduleRun!==undefined&&typeof f.moduleRun!=="boolean")fail(); if(f.doorless!==undefined&&(typeof f.doorless!=='boolean'||!isDoor(f.catalogId)))fail(); if(f.openFraction!==undefined)num(f.openFraction,0,1); if (!floors.has(f.floorId)) fail();
     for (const k of ["x", "z", "rotation"]) num(f[k]);
     for (const k of ["widthMm", "heightMm", "depthMm"]) num(f[k], 1, 50000);

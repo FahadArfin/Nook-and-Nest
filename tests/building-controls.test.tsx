@@ -30,6 +30,17 @@ const state=()=>usePlanner.getState();
 beforeEach(()=>{state().replacePlan(createSamplePlan());state().setTool("select");state().setCategory("All");state().setSearch("__editor_control_test__");scene.callbacks=undefined;scene.preview.mockClear();scene.update.mockClear();scene.rotation.mockClear();vi.stubGlobal("requestAnimationFrame",()=>1);vi.stubGlobal("cancelAnimationFrame",()=>{});});
 afterEach(()=>{cleanup();vi.unstubAllGlobals()});
 describe("measured room controls",()=>{
+  it('offers the new microwave cabinet bay in the precise shelf selector and undoes placement',()=>{
+    const p=createSamplePlan(),floorId=p.floors[0].id;
+    const make=(catalogId:string)=>{const c=catalog.find(c=>c.id===catalogId)!;return {id:catalogId,catalogId,floorId,x:1500,z:1500,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage',elevationMm:0};};
+    const host=make('kitchen-microwave-drawer-cabinet'),microwave=make('kitchen-microwave-drawer');p.furniture=[host,microwave];state().replacePlan(p);
+    render(<ShelfPlacement item={microwave}/>);
+    expect(screen.getByRole('option',{name:'Empty microwave appliance bay'})).toBeTruthy();
+    fireEvent.change(screen.getByLabelText('Rest on a shelf'),{target:{value:`${host.id}/appliance-bay`}});
+    expect(state().plan.furniture.find(f=>f.id===microwave.id)?.elevationMm).toBe(443);
+    expect(state().plan.furniture[0]).toEqual(host);
+    act(()=>state().undo());expect(state().plan.furniture[1].elevationMm).toBe(0);
+  });
   it("selects a wall before changing its whole plate finish in the bottom drawer",async()=>{
     const p=createSamplePlan();p.floors[0].walls=[{id:"inside-test",ax:2,az:2,bx:5,bz:2}];state().replacePlan(p);
     render(<App/>);await waitFor(()=>expect(scene.callbacks).toBeTruthy());

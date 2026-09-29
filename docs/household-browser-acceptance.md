@@ -1,0 +1,13 @@
+# Household browser acceptance
+
+Reviewed the integrated branch with master `032ede453bef0543b5c296487e6eb53b9452a8b0` on 2026-09-29 using the in-app Chromium browser at `127.0.0.1:5272`. Development review projects are unsaved fixtures and do not replace a user's apartment.
+
+- The library displays 798 browsable pieces. The 38-piece household fixture loads the corrected Blender assets, including the potted plants, tailored furniture, cabinet, office equipment and utility pieces.
+- The independently placed microwave moves between its cabinet's measured 443 mm appliance bay and 900 mm worktop through Rest on a shelf. Undo and redo restore the two elevations without moving the cabinet.
+- A loose cushion starts a reversible keyboard draft. Cancel leaves the 38-piece plan unchanged; confirm creates piece 39 and one history step; undo restores 38.
+- A canonical `entry-slate-upholstery` color override on the recliner is staged through the page's furnishing tool and applied through Apply design. The committed override is `#566b53`, other material keys are unchanged, and undo removes it in one step. Camera radius stays 16.200 m. Browser automation's native color-input fill changed only the input's displayed value, so it was not used as evidence of a committed edit.
+- The two-level architecture fixture shows the garage leaf against its wall with overhead tracks inside, a circular upper-floor spiral opening, and the skylight at roof level with the editor roof cut away. Selecting the upper level retains the opening; a 90-degree skylight turn updates its inspector and undo restores it. Geometry and host regressions provide the stricter clearance/persistence checks. Spiral stair ascent is not implemented in the flat walkthrough.
+- With 38 pieces, the scene reports 573 meshes and 249,970 triangles. During roughly one minute each of Auto and Battery interaction/idle observation, sampled render P95 settled near 3.0–3.3 ms on this desktop. Battery uses resolution scale 1.70; Auto uses 1.00. Zoom remains responsive. These are local samples, not a cross-device benchmark. Initial loading, proposal application and inspector work contributed to the cumulative long-task counter; it remained at 8 during the Battery observation.
+- No new console errors occurred after the stable post-merge reload. Earlier Vite errors belonged to the temporary merge-conflict state and were resolved before acceptance.
+
+Canvas screenshots are retained locally in `.generated/household-review/browser-collection.png` and `browser-architecture.png`. Individual front, rear and underside render review is recorded separately; this dense fixture intentionally exercises many independent assets and is not a proposed room layout.

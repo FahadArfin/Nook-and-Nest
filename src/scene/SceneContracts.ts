@@ -10,12 +10,14 @@ export interface Callbacks {
     zMm: number,
     elevationMm?: number,
     rotation?: number,
+    hostDoorId?: string,
   ): void;
   onDraftMove(
     xMm: number,
     zMm: number,
     elevationMm?: number,
     rotation?: number,
+    hostDoorId?: string,
   ): void;
   onRotate(id: string | undefined, rotation: number): void;
   onWall(id: string): void;
