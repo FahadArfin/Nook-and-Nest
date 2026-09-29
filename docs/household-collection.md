@@ -1,20 +1,20 @@
 # Household collection
 
-The research queue covers 138 household families. HOME-001–008 were released through PR 115 and Sites version 113. HOME-072 is already covered by the existing `high-chair`; its catalog entry, editable source and rendered preview were inspected, so no duplicate is added. The remaining families are authored as original editable Blender constructions in this collection. `assets-source/household-progress.json` maps every family to its actual independent catalog IDs, including separate accessories and fixed-pose alternatives.
+The research queue covers 138 household families. HOME-001â€“008 were released through PR 115 and Sites version 113. HOME-072 is already covered by the existing `high-chair`; its catalog entry, editable source and rendered preview were inspected, so no duplicate is added. The remaining families are authored as original editable Blender constructions in this collection. `assets-source/household-progress.json` maps every family to its actual independent catalog IDs, including separate accessories and fixed-pose alternatives.
 
 | Research range | Scope |
 | --- | --- |
-| HOME-001–008 | Released kitchen and table essentials |
-| HOME-009–021 | Bathroom hardware, accessories and laundry |
-| HOME-022–043 | Entry, living, bedroom and flexible dining furniture |
-| HOME-044–057 | Household utility, HVAC and safety details |
-| HOME-058–071 | Lighting, window dressing, indoor plants, office and music |
-| HOME-072–084 | Family, pets, fitness, workshop and garden equipment |
-| HOME-085–097 | Additional kitchen, laundry and bathroom fixtures |
-| HOME-098–106 | Additional indoor furniture and storage |
-| HOME-107–114 | Lighting and botanical variety |
-| HOME-115–134 | Music, office accessories, family/pet equipment and outdoor utilities |
-| HOME-135–138 | Skylight, secondary entry door, sectional garage door and spiral stair; architecture behavior requires separate acceptance |
+| HOME-001â€“008 | Released kitchen and table essentials |
+| HOME-009â€“021 | Bathroom hardware, accessories and laundry |
+| HOME-022â€“043 | Entry, living, bedroom and flexible dining furniture |
+| HOME-044â€“057 | Household utility, HVAC and safety details |
+| HOME-058â€“071 | Lighting, window dressing, indoor plants, office and music |
+| HOME-072â€“084 | Family, pets, fitness, workshop and garden equipment |
+| HOME-085â€“097 | Additional kitchen, laundry and bathroom fixtures |
+| HOME-098â€“106 | Additional indoor furniture and storage |
+| HOME-107â€“114 | Lighting and botanical variety |
+| HOME-115â€“134 | Music, office accessories, family/pet equipment and outdoor utilities |
+| HOME-135â€“138 | Skylight, secondary entry door, sectional garage door and spiral stair; architecture behavior requires separate acceptance |
 
 All sources are linked in the collection's `assets-source/household-*-references.json` files. Manufacturer pages, galleries and technical drawings guide proportions and construction. Chosen original millimetre envelopes are distinguished from quoted manufacturer dimensions and installation clearances. Models contain original geometry and original static graphics; manufacturer photographs, logos and downloaded meshes are not embedded.
 
@@ -50,4 +50,8 @@ The four architecture families require genuine host/opening/clearance/persistenc
 
 `tests/household-assets.test.ts` checks real binary vertex bounds against catalog dimensions, base/centre alignment, a single isolated scene without startup Cube/camera, self-contained GLB resources, original source/preview presence, material-key agreement, mount metadata and full 138-family coverage. A 50,000-triangle/3 MB per-model ceiling bounds regressions; any exception requires a measured, recorded justification rather than silently increasing all limits.
 
-At documentation authoring, **rendered corrections, browser acceptance, automated integration checks and release are pending**. Exported files are not automatically accepted. Parent records actual review results and runs focused tests, production build, hosting checks and final required checks after authoring completes. Publication follows the isolated branch, updated PR, green Validate, successful master artifact and exact-artifact Sites release workflow in `docs/release-workflow.md`; no older release may replace a newer deployment. Update this section with concrete receipts only after those gates finish.
+All 138 research families are accounted for: 157 new models, 12 previously released kitchen pieces and the existing high chair. All new models have original editable Blender sources, GLBs, source PNGs, pixel-identical WebP previews, stable material mappings and accepted front/rear/underside renders. Preview output totals 28,644,782 bytes versus 68,211,614 bytes for the preserved PNG sources.
+
+The integrated branch includes master `032ede453bef0543b5c296487e6eb53b9452a8b0`. Browser placement, color, undo, architecture and performance observations are recorded in `docs/household-browser-acceptance.md`. Required local validation passed: 803 application tests across 102 files, type checking, asset-pipeline verification, model integrity tests, production build, hosting tests, library tests and release integrity/size checks. The production build includes 1,735 external library assets.
+
+Publication is pending the updated PR's Validate check, merge, successful master artifact and exact-artifact Sites deployment. Follow `docs/release-workflow.md`; do not mark exported or locally validated files as already live. The final release receipt will identify the merged GitHub SHA, exact artifact, Sites version and public byte-verification results.
