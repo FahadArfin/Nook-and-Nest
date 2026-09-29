@@ -3,11 +3,12 @@ import {captureItems,captureReviewStatus,completeCaptureReview,confirmCaptureMea
 import {CaptureBenchmarkPanel} from './CaptureBenchmarkPanel';
 import {CaptureReferencePreview} from './CaptureReferencePreview';
 import './capture-review.css';
+import type {CaptureAttempt} from './captureAttempt';
 
 const fieldLabels:Record<string,string>={x:'Left / center X (px)',y:'Top / center Y (px)',width:'Width (px)',height:'Depth (px)',depth:'Depth (px)',ax:'Start X (px)',ay:'Start Y (px)',bx:'End X (px)',by:'End Y (px)',millimetres:'Printed length (mm)',rotation:'Facing (degrees)'};
 const fields=(item:CaptureItem)=>item.kind==='room'?['x','y','width','height']:item.kind==='fixture'?['x','y','width','depth','rotation']:item.kind==='wall'?['ax','ay','bx','by']:['ax','ay','bx','by','millimetres'];
 const methodLabels={ 'online-recognition':'Online recognition', 'local-wall-extraction':'Local wall extraction', 'manual-tracing':'Manual tracing'};
-export function CaptureReviewPanel({review,source,draftKey,reference,captureDurationMs,onChange,onHighlight,onAccept,onRestart}:{review:CaptureReviewSnapshot;source:CaptureSource;draftKey:string;reference?:{url:string;width:number;height:number};captureDurationMs?:number;onChange:(next:CaptureReviewSnapshot)=>void;onHighlight?:(item?:CaptureItem)=>void;onAccept:(proposal:ReturnType<typeof completeCaptureReview>)=>void;onRestart?:()=>void}) {
+export function CaptureReviewPanel({review,source,draftKey,reference,attempt,onChange,onHighlight,onAccept,onRestart}:{review:CaptureReviewSnapshot;source:CaptureSource;draftKey:string;reference?:{url:string;width:number;height:number};attempt?:CaptureAttempt;onChange:(next:CaptureReviewSnapshot)=>void;onHighlight?:(item?:CaptureItem)=>void;onAccept:(proposal:ReturnType<typeof completeCaptureReview>)=>void;onRestart?:()=>void}) {
   const items=captureItems(review),[selected,setSelected]=useState(items[0]?.id??''),[error,setError]=useState(''),[values,setValues]=useState<Record<string,string>>({});
   const [span,setSpan]=useState({ax:'',ay:'',bx:'',by:'',millimetres:''});
   const item=items.find(i=>i.id===selected),status=captureReviewStatus(review,source,draftKey);
@@ -38,6 +39,6 @@ export function CaptureReviewPanel({review,source,draftKey,reference,captureDura
     {error&&<p role="alert">{error}</p>}
     <button className="primary" disabled={!status.ready} onClick={()=>act(()=>onAccept(completeCaptureReview(review,source,draftKey,Date.now())))}>Preview reviewed layout</button>
     <p>Reviewing this capture does not replace your floor. Confirm the Studio layout preview to apply it.</p>
-    {review.completedAtMs!==undefined&&<CaptureBenchmarkPanel review={review} captureDurationMs={captureDurationMs}/>}
+    {review.completedAtMs!==undefined&&!status.stale&&<CaptureBenchmarkPanel key={`${review.source.id}:${review.startedAtMs}`} review={review} attempt={attempt}/>}
   </section>;
 }

@@ -18,7 +18,7 @@ const lists={room:'rooms',wall:'walls',fixture:'fixtures',dimension:'dimensions'
 const finite=(n:unknown,min:number,max:number)=>typeof n==='number'&&Number.isFinite(n)&&n>=min&&n<=max;
 const token=(n:unknown,max=100)=>typeof n==='string'&&n.length>0&&n.length<=max&&/^[a-zA-Z0-9_.:-]+$/.test(n);
 const clone=<T,>(v:T):T=>JSON.parse(JSON.stringify(v));
-function sourceValue(v:CaptureSource):CaptureSource {
+export function validateCaptureSource(v:CaptureSource):CaptureSource {
   if(!v||!token(v.id)||!Number.isInteger(v.page)||!finite(v.page,1,200)||![0,90,180,270].includes(v.rotation)||!finite(v.widthPx,1,2400)||!finite(v.heightPx,1,2400)||!['online-recognition','local-wall-extraction','manual-tracing'].includes(v.method)||!token(v.pipelineVersion,80))throw new Error('The capture source is invalid. Reopen its local reference.');
   return {id:v.id,page:v.page,rotation:v.rotation,widthPx:v.widthPx,heightPx:v.heightPx,method:v.method,pipelineVersion:v.pipelineVersion};
 }
@@ -48,7 +48,7 @@ export function captureItems(review:CaptureReviewSnapshot):CaptureItem[] {
 export function validateCaptureReview(input:unknown):CaptureReviewSnapshot {
   const r=input as CaptureReviewSnapshot;
   if(!r||r.version!==1||!token(r.draftKey,64)||!finite(r.startedAtMs,0,8.64e15)||r.completedAtMs!==undefined&&(!finite(r.completedAtMs,r.startedAtMs,8.64e15)||r.completedAtMs-r.startedAtMs>7*86400000))throw new Error('Invalid capture review.');
-  const source=sourceValue(r.source),original=cleanRecognition(r.original,source),current=cleanRecognition(r.current,source);
+  const source=validateCaptureSource(r.source),original=cleanRecognition(r.original,source),current=cleanRecognition(r.current,source);
   for(const key of Object.values(lists))if((original[key]?.length??0)!==(current[key]?.length??0))throw new Error('Capture review must retain original item identities.');
   if(!r.decisions||typeof r.decisions!=='object'||Array.isArray(r.decisions)||Object.keys(r.decisions).length>480)throw new Error('Invalid capture decisions.');
   const decisions:Record<string,CaptureDecision>={};
@@ -65,7 +65,7 @@ export function validateCaptureReview(input:unknown):CaptureReviewSnapshot {
   return {version:1,source,draftKey:r.draftKey,original,current,decisions,checklist:{boundaries:r.checklist.boundaries,openings:r.checklist.openings,labels:r.checklist.labels},startedAtMs:r.startedAtMs,...(measurement?{measurement}:{}),...(r.completedAtMs===undefined?{}:{completedAtMs:r.completedAtMs})};
 }
 export function createCaptureReview(detection:Recognition,source:CaptureSource,draftKey:string,startedAtMs:number):CaptureReviewSnapshot {
-  const r:CaptureReviewSnapshot={version:1,source:sourceValue(source),draftKey,original:cleanRecognition(detection,source),current:cleanRecognition(detection,source),decisions:{},checklist:{boundaries:false,openings:false,labels:false},startedAtMs};
+  const r:CaptureReviewSnapshot={version:1,source:validateCaptureSource(source),draftKey,original:cleanRecognition(detection,source),current:cleanRecognition(detection,source),decisions:{},checklist:{boundaries:false,openings:false,labels:false},startedAtMs};
   for(const kind of Object.keys(lists) as CaptureItemKind[])for(let i=0;i<(r.original[lists[kind]]?.length??0);i++)r.decisions[`${kind}:${i}`]='pending';
   return validateCaptureReview(r);
 }
@@ -84,7 +84,7 @@ export function confirmCaptureMeasurement(review:CaptureReviewSnapshot,measureme
   const next=validateCaptureReview({...review,measurement,completedAtMs:undefined});return next;
 }
 export function captureReviewStatus(review:CaptureReviewSnapshot,source:CaptureSource,draftKey:string) {
-  const valid=validateCaptureReview(review),stale=JSON.stringify(valid.source)!==JSON.stringify(sourceValue(source))||valid.draftKey!==draftKey;
+  const valid=validateCaptureReview(review),stale=JSON.stringify(valid.source)!==JSON.stringify(validateCaptureSource(source))||valid.draftKey!==draftKey;
   const pending=Object.values(valid.decisions).filter(d=>d==='pending').length,missingChecks=CAPTURE_CHECKS.filter(k=>!valid.checklist[k]);
   return {stale,pending,missingChecks,measured:!!valid.measurement,ready:!stale&&!pending&&!missingChecks.length&&!!valid.measurement};
 }

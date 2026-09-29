@@ -19,3 +19,20 @@ Automated checks cover saved-schema compatibility, exact source identity and bac
 Native camera/AR placement on physical iOS and Android devices is not verified by a desktop browser. The feature is labeled experimental; tracking accuracy must not substitute for physical measurements. Recognition benchmark tools require independently measured, consented examples. Synthetic tests prove behavior, not model accuracy or time savings. No representative accuracy dataset, native LiDAR scan, paid model call or local GPU setup is claimed.
 
 Public client review and renderer handoffs use separate allowlists. Adding future visual fields must deliberately preserve privacy rather than spreading entire project records.
+
+## NN-25 timing and outcome acceptance
+
+Studio → Import → Online recognition → Local benchmark timing offers a session-only opt-in. It records a bounded device-local attempt before recognition starts, after the reference is rendered and its source identity established. File opening is excluded. Recognition can use the existing cache; this measures the recognition workflow, not provider latency or API reliability. Analysis, required scale correction and review are included in a completed run. Review elapsed time includes idle time.
+
+After the exact attempt produces an editable proposal, the existing completed-review benchmark panel offers a separately recorded manual-tracing duration. Both runs must start with the same reference ready and end at a verified editable layout. A saved case includes its attempt identity; one timed attempt contributes at most one measured case. Source/page/rotation/pipeline changes, changed drawing evidence and explicit review restarts invalidate the live timing association. Reopening saved or recovered Studio drafts does not recover timing or the opt-in. Independently saved benchmark cases retain their already-recorded timing evidence outside plans, backups, cloud saves and public shares.
+
+The optional attempt report counts proposal, failed, cancelled and unfinished/unknown outcomes separately. Its failure denominator is **proposal + failed**, never cancelled or unfinished/unknown. A proposal is not proof of correct geometry or completed review. File-opening failures precede the timed protocol and are excluded. Closing an active Studio run cancels that run; abrupt page/process loss leaves its pending outcome unknown. Failed outcome persistence also leaves unknown evidence, without a synthetic duration or successful completion. Attempt storage errors before analysis prevent that timed call. The log stops at 100 attempts instead of silently evicting its denominator; export and explicit deletion start a new collection. Use one Studio tab for a measured collection; cross-tab concurrent local-log writes are not an aggregate study guarantee.
+
+Pilot acceptance remains outstanding:
+
+- Recruit permissioned, representative image/PDF references with independently measured dimensions and geometry. Do not use detected measurements as reference truth.
+- Compare matched recognition and manual-tracing runs under the stated start/finish protocol. Record median time to a verified editable plan and paired time saved, with case counts and missing timings exposed.
+- Report geometry/dimension errors alongside workflow failure, cancellation and unfinished counts. Do not substitute the error rate among completed reviews for the recognition-attempt failure rate.
+- Document source readability, layout complexity, cache behavior, interruptions and sample-selection limits. A small synthetic or voluntary collection cannot establish representative accuracy or time savings.
+
+Mocked integration checks cover opt-out, timed comparison, failures, explicit cancellation with late responses, required scale correction, restored drafts, stale reviews and unchanged floor/history before final confirmation. No paid recognition or representative dataset evaluation is claimed.
