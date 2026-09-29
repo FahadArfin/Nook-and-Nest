@@ -1,4 +1,5 @@
 import {designedHomeCounterIds} from './designedHomeCollection';
+import {realisticFinish,realismFloorFinishes,realismWallFinishes} from './realismFinishes';
 import studio from './materialStudio.json';
 import paints from './paintCollection.json';
 import {luxurySinkIds} from './luxuryCollection';
@@ -14,6 +15,10 @@ export interface SurfaceFinish {
   color?:string;
   description?:string;
   repeatMeters?:[number,number];
+  normalTexture?:string;
+  ormTexture?:string;
+  normalStrength?:number;
+  roughness?:number;
 }
 
 export const wallFinishes: SurfaceFinish[] = [
@@ -41,6 +46,8 @@ export const floorFinishes: SurfaceFinish[] = [
 
 floorFinishes.push(...studio.floors as SurfaceFinish[],...expansion.floors as SurfaceFinish[]);
 wallFinishes.push(...studio.walls as SurfaceFinish[],...expansion.walls as SurfaceFinish[]);
+floorFinishes.splice(0,floorFinishes.length,...floorFinishes.map(realisticFinish),...realismFloorFinishes);
+wallFinishes.splice(0,wallFinishes.length,...wallFinishes.map(realisticFinish),...realismWallFinishes);
 
 export const countertopFinishes: SurfaceFinish[] = [
   { id: "warm-granite", name: "Warm granite", family: "Stone", texture: "/textures/countertops/warm-granite.jpg", scale: 1.8 },
@@ -66,7 +73,7 @@ export const defaultCountertopFinish = countertopFinishes[0];
 export const defaultDoorFinish = doorFinishes[0];
 
 export function findWallFinish(id?: string) {
-  if(id?.match(/^paint-([0-9a-f]{6})$/i))return {id,name:paints.find(p=>p.color.toLowerCase()==='#'+id.slice(6).toLowerCase())?.name??'Custom paint',family:'Paint',texture:'',scale:1.5,color:'#'+id.slice(6)};
+  if(id?.match(/^paint-([0-9a-f]{6})$/i))return realisticFinish({id,name:paints.find(p=>p.color.toLowerCase()==='#'+id.slice(6).toLowerCase())?.name??'Custom paint',family:'Paint',texture:'',scale:1.5,color:'#'+id.slice(6)});
   return wallFinishes.find((finish) => finish.id === id) ?? defaultWallFinish;
 }
 
