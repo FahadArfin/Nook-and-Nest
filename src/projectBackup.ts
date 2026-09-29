@@ -7,6 +7,7 @@ import {parsePlan} from './domain';
 import {imageDimensions} from './imageDimensions';
 import {isListingImage,parseListing,type ListingDocument} from './listingTypes';
 import {loadFloorReference,loadReferenceVersion} from './studioReference';
+import {parseStudioCaptureSource,restoreStudioCaptureSource,type StudioCaptureSource} from './studioCaptureSource';
 import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1} from './types';
 
@@ -14,7 +15,7 @@ export const MAX_PROJECT_BACKUP_BYTES=160*1024*1024;
 const MAX_REFERENCE_TOTAL=48*1024*1024;
 const MAX_FILE_BYTES=25*1024*1024;
 type ReferenceFile={name:string;type:string;lastModified:number;data:string};
-export type BackupReference=({floorId:string;status:'included';page:number;rotation:number;preview?:PlanReference;file?:ReferenceFile}|{floorId:string;status:'missing'|'omitted';reason:string})&{referenceId?:string};
+export type BackupReference=({floorId:string;status:'included';page:number;rotation:number;preview?:PlanReference;file?:ReferenceFile;captureSource?:StudioCaptureSource}|{floorId:string;status:'missing'|'omitted';reason:string})&{referenceId?:string};
 export interface ProjectBackup {
   format:'nook-and-nest-project-backup';version:1;exportedAt:string;
   plan:PlanDocumentV1;listing?:ListingDocument;personalAssets?:PersonalAssetBundle;references:BackupReference[];referenceVersions?:BackupReference[];
@@ -56,6 +57,7 @@ function parseReference(input:unknown,floors:Set<string>):BackupReference {
     result.file={name,type,data,lastModified:integer(f.lastModified,0,8_640_000_000_000_000)};
   }
   if(!result.preview&&!result.file)throw new Error('An included reference has no file or preview.');
+  if(v.captureSource!==undefined)result.captureSource=parseStudioCaptureSource(v.captureSource,result.preview,page,rotation);
   return result;
 }
 function parsePersonalBackup(value:unknown,plan:PlanDocumentV1):PersonalAssetBundle|undefined {
@@ -120,7 +122,7 @@ export async function buildProjectBackup(plan:PlanDocumentV1,options:{listing?:L
     if(options.includeReferences===false){references.push({floorId:floor.id,status:'omitted',reason:'Reference files were left out when this backup was made.'});continue;}
     try {const value=await loadFloorReference(snapshot.id,floor);
       if(!value?.reference&&!value?.file){references.push({floorId:floor.id,status:'missing',reason:'No saved reference is available on this device.'});continue;}
-      const entry={floorId:floor.id,...(floor.referenceId?{referenceId:floor.referenceId}:{}),status:'included',page:value.page,rotation:value.rotation,...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})};
+      const entry={floorId:floor.id,...(floor.referenceId?{referenceId:floor.referenceId}:{}),status:'included',page:value.page,rotation:value.rotation,...(value.captureSource?{captureSource:value.captureSource}:{}),...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})};
       references.push(parseReference(entry,new Set([floor.id])));
     }catch{references.push({floorId:floor.id,status:'omitted',reason:'This saved reference could not be read or validated. Reimport the source file after restoring.'});}
   }
@@ -130,7 +132,7 @@ export async function buildProjectBackup(plan:PlanDocumentV1,options:{listing?:L
     const absent=(reason:string):BackupReference=>({floorId:floor.id,referenceId:floor.referenceId,status:'omitted',reason});
     if(options.includeReferences===false){referenceVersions.push(absent('Reference versions were left out when this backup was made.'));continue;}
     try{const value=await loadReferenceVersion(snapshot.id,floor.referenceId);if(!value){referenceVersions.push(absent('This saved layout reference is not available on this device.'));continue;}
-      referenceVersions.push(parseReference({floorId:floor.id,referenceId:floor.referenceId,status:'included',page:value.page,rotation:value.rotation,...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})},new Set([floor.id])));
+      referenceVersions.push(parseReference({floorId:floor.id,referenceId:floor.referenceId,status:'included',page:value.page,rotation:value.rotation,...(value.captureSource?{captureSource:value.captureSource}:{}),...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})},new Set([floor.id])));
     }catch{referenceVersions.push(absent('The saved layout reference could not be read or validated.'));}
   }
   const personalAssets=await exportPersonalAssets(snapshot);
@@ -145,11 +147,12 @@ export function backupNotices(backup:ProjectBackup):string[]{
 /** Publish the new plan last. Independent databases cannot share an atomic transaction. */
 export async function restoreProjectBackup(input:ProjectBackup):Promise<PlanDocumentV1>{
   const backup=validateProjectBackup(input),now=new Date().toISOString(),id=crypto.randomUUID();
+  for(const r of [...backup.references,...backup.referenceVersions??[]])if(r.status==='included'&&r.captureSource&&!await restoreStudioCaptureSource(r.captureSource,r.preview,r.page,r.rotation,false))throw new Error('Capture evidence does not match the backup reference bytes. The project was not restored.');
   if(backup.personalAssets)await validatePersonalAssetBundle(backup.personalAssets);
   const plan=reidentifyPrivatePlan(backup.plan,id,`${backup.plan.name.slice(0,145)} · restored`,now);
   // Floor/object IDs remain project-scoped, preserving stairs, blueprint keys and alternatives.
   const listing=backup.listing?parseListing({...backup.listing,planId:id,updatedAt:now,media:backup.listing.media.map(m=>({...m,id:crypto.randomUUID()}))}):undefined;
-  const restoredReferences=[...new Map([...backup.references,...(backup.referenceVersions??[])].flatMap(r=>r.status==='included'?[{key:JSON.stringify(r.referenceId?[id,'version',r.referenceId]:[id,r.floorId]),value:{page:r.page,rotation:r.rotation,...(r.preview?{reference:r.preview}:{}),...(r.file?{file:new File([bytesFromData(r.file.data,MAX_FILE_BYTES) as BlobPart],r.file.name,{type:r.file.type,lastModified:r.file.lastModified})}:{})}}]:[]).map(r=>[r.key,r])).values()];
+  const restoredReferences=[...new Map([...backup.references,...(backup.referenceVersions??[])].flatMap(r=>r.status==='included'?[{key:JSON.stringify(r.referenceId?[id,'version',r.referenceId]:[id,r.floorId]),value:{page:r.page,rotation:r.rotation,...(r.captureSource?{captureSource:r.captureSource}:{}),...(r.preview?{reference:r.preview}:{}),...(r.file?{file:new File([bytesFromData(r.file.data,MAX_FILE_BYTES) as BlobPart],r.file.name,{type:r.file.type,lastModified:r.file.lastModified})}:{})}}]:[]).map(r=>[r.key,r])).values()];
   const p=await projectsDb();let listingWritten=false,referencesWritten=false,photosImported=false;
   try {
     if(await p.get('projects','project:'+id))throw new Error('Could not allocate a new project identity. Please try again.');

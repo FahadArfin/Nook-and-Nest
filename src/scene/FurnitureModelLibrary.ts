@@ -1,3 +1,5 @@
+import type {LivingPlayController} from './LivingPlayController';
+import type {SeasonalMaterials} from './SeasonalMaterials';
 import sofaRealismIds from '../sofaRealismIds.json';
 import {personalSurfaceSlots} from '../personalSurfaceSlots';
 import {PersonalSurfaceTextures,personalTextureCandidates} from './PersonalSurfaceTextures';
@@ -53,7 +55,7 @@ export class FurnitureModelLibrary {
   private finishTextures=new Map<string,Texture>();
   private materialVariants = new Map<string, Material>();
 
-  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void,onInvalidate?:()=>void) {this.privateTextures=new PersonalSurfaceTextures(scene,onInvalidate??(()=>onReady([])));this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
+  constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void,onInvalidate?:()=>void,private livingPlay?:LivingPlayController,private seasonalMaterials?:SeasonalMaterials) {this.privateTextures=new PersonalSurfaceTextures(scene,onInvalidate??(()=>onReady([])));this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
 
   get capturePending(){return this.pending.size>0||this.queue.size>0||this.readyTimer!==undefined||this.privateTextures.loading;}
   captureFailures(ids:readonly string[]){return ids.filter(id=>this.failed.has(id));}
@@ -168,7 +170,7 @@ export class FurnitureModelLibrary {
       this.staticParts.convert(wrapper);for(const mesh of wrapper.getChildMeshes())this.shadow.addShadowCaster(mesh);
     }
     positionSlidingLeaves(wrapper,item.openFraction);
-    if(!ghost){this.living.attach(wrapper,item.catalogId,nominalWidth,nominalDepth,nominalHeight);this.clocks.attach(wrapper,item.catalogId);}
+    if(!ghost){this.living.attach(wrapper,item.catalogId,nominalWidth,nominalDepth,nominalHeight);this.clocks.attach(wrapper,item.catalogId);this.livingPlay?.register(wrapper,item);this.seasonalMaterials?.register(wrapper,item);}
     return true;
   }
 

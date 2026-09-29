@@ -6,6 +6,7 @@ import {Vector3} from '@babylonjs/core/Maths/math.vector';
 import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
 import type {Scene} from '@babylonjs/core/scene';
 import type {Observer} from '@babylonjs/core/Misc/observable';
+import {livingAnimationTime,resetLivingMotion} from '../livingPlay';
 
 export const motionData=(node:{metadata?:any}|null)=>node?.metadata?.gltf?.extras??node?.metadata??{};
 export const fireplaceIds=new Set(['cottage-fireplace','wood-stove','linear-fireplace','stone-arch-fireplace','cast-iron-fireplace','tiled-corner-stove']);
@@ -29,15 +30,17 @@ gl_FragColor=vec4(mix(hot,edge,shade)*(1.05+.09*sin(time*4.7+local.x*22.)),1.);}
 
 /** One scene clock. Authored geometry is shared; only transforms/uniforms change. */
 export class LivingModels{
+ private visibleParts=new WeakMap<TransformNode,ReturnType<TransformNode['getChildMeshes']>>();
  private entries=new Map<TransformNode,(time:number)=>void>();private observer:Observer<Scene>;private elapsed=0;
  constructor(private scene:Scene){this.observer=scene.onBeforeRenderObservable.add(()=>{
   if(typeof document!=='undefined'&&document.hidden)return;
   const reduced=typeof window!=='undefined'&&(window.matchMedia?.('(prefers-reduced-motion: reduce)').matches??false);
   if(!reduced)this.elapsed+=Math.min(scene.getEngine().getDeltaTime(),50)/1000;
-  this.tick(reduced?0:this.elapsed);
+  this.tick(reduced?0:this.elapsed,reduced);
  });}
- tick(time:number){for(const [root,animate] of this.entries){if(root.isDisposed()){this.entries.delete(root);continue;}if(!root.isEnabled())continue;const camera=this.scene.activeCamera;if(camera&&Vector3.DistanceSquared(root.getAbsolutePosition(),camera.position)>1600)continue;animate(time);}}
+ tick(time:number,reduced=false){const camera=this.scene.activeCamera;camera?.getViewMatrix();camera?.getProjectionMatrix();for(const [root,animate] of this.entries){if(root.isDisposed()){this.entries.delete(root);resetLivingMotion(root);continue;}if(!root.isEnabled())continue;if(camera&&Vector3.DistanceSquared(root.getAbsolutePosition(),camera.position)>1600)continue;const meshes=this.visibleParts.get(root)??[];if(camera&&!meshes.some(mesh=>mesh.isEnabled()&&camera.isInFrustum(mesh)))continue;const localTime=livingAnimationTime(root,time,reduced);if(localTime!==undefined)animate(localTime);}}
  attach(root:TransformNode,id:string,w:number,d:number,h:number){
+  this.visibleParts.set(root,root.getChildMeshes());
   const materials:ShaderMaterial[]=[];
   if(fireplaceIds.has(id)){
    for(const mesh of root.getChildMeshes()){

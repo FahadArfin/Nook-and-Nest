@@ -17,6 +17,8 @@ import {Scene} from '@babylonjs/core/scene';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
 import {SceneController} from '../src/scene/SceneController';
+import {SeasonalMaterials} from '../src/scene/SeasonalMaterials';
+import {LivingPlayController} from '../src/scene/LivingPlayController';
 const piece=(id:string,floorId:string):FurniturePlacement=>{const c=catalog.find(c=>c.id===id)!;return {id,catalogId:id,floorId,x:2000,z:2000,rotation:90,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'sage'};};
 describe('cozy expansion and placement regressions',()=>{
  it('keeps all detailed replacements dimensionally compatible and cache-versioned',()=>{
@@ -55,14 +57,15 @@ describe('cozy expansion and placement regressions',()=>{
  });
  it('retains real Babylon floor and furniture meshes over repeated movement and selection',()=>{
    const engine=new NullEngine(),scene=new Scene(engine);
+   const seasonalMaterials=new SeasonalMaterials(),livingPlay=new LivingPlayController();
    try{
      const p=createSamplePlan(),id=p.floors[0].id,item=piece('tv-55',id);p.furniture=[item];
      const floor=MeshBuilder.CreateBox('existing-floor',{},scene),node=new TransformNode('item:tv-55',scene),model=MeshBuilder.CreateBox('tv-model',{},scene);model.parent=node;
      const renderer=Object.create(SceneController.prototype) as any;
-     Object.assign(renderer,{furnitureModels:{configurePersonalSurfaces:()=>{}},canvas:{dataset:{}},scene,camera:{maxZ:10000},tool:'select',architectureStamp:architectureKey(p,id,'select'),terrain:{update:()=>{}},outdoors:{update:()=>{}},furnitureNodes:new Map([[item.id,{node,signature:JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0})}]])});
+     Object.assign(renderer,{seasonalMaterials,livingPlay,furnitureModels:{configurePersonalSurfaces:()=>{}},canvas:{dataset:{}},scene,camera:{maxZ:10000},tool:'select',architectureStamp:architectureKey(p,id,'select'),terrain:{update:()=>{}},outdoors:{update:()=>{}},furnitureNodes:new Map([[item.id,{node,signature:JSON.stringify({...item,x:0,z:0,rotation:0,elevationMm:0})}]])});
      for(let i=0;i<100;i++){const next={...p,furniture:[{...item,x:2000+i*10}]};renderer.update(next,id,i%2?item.id:undefined);}
      expect(scene.meshes).toHaveLength(2);expect(floor.isDisposed()).toBe(false);expect(model.isDisposed()).toBe(false);expect(node.position.x).toBeCloseTo(2.99);expect(model.isPickable).toBe(true);
-   }finally{scene.dispose();engine.dispose();}
+   }finally{seasonalMaterials.dispose();livingPlay.dispose();scene.dispose();engine.dispose();}
  });
  it('sculpts terrain, protects foundations, and places on actual terrain height',()=>{
    const p=createSamplePlan();p.environment={background:'plain',grass:'off',terrain:[{kind:'raise',radius:3,strength:1,points:[{x:-6,z:-6}]}]};

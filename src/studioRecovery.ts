@@ -2,11 +2,12 @@ import {openDB} from 'idb';
 import type {BlueprintDraft} from './blueprint';
 import type {PlanReference} from './blueprintImport';
 import type {PlanDocumentV1,Units} from './types';
+import {restoreStudioCaptureSource,type StudioCaptureSource} from './studioCaptureSource';
 
 export type StudioRecovery={
   fingerprint:string;savedAt:string;draft:BlueprintDraft;corners:{x:number;z:number}[];
   imageScale:number;calibrated:boolean;view:{x:number;z:number;width:number;height:number};units:Units;
-  reference?:PlanReference;file?:File;page:number;rotation:number;
+  reference?:PlanReference;file?:File;page:number;rotation:number;captureSource?:StudioCaptureSource;
 };
 // Recovery is device-local and never changes the 3D project or its undo history.
 export const studioFingerprint=(plan:PlanDocumentV1)=>JSON.stringify([plan.gridSizeMm,plan.floors,plan.furniture]);
@@ -17,5 +18,5 @@ export function saveStudioRecovery(project:string,floor:string,value:StudioRecov
   writes=next;return next;
 }
 export async function loadStudioRecovery(project:string,floor:string):Promise<StudioRecovery|undefined>{
-  await writes.catch(()=>{});const db=await database();try{return await db.get('drafts',JSON.stringify([project,floor]));}finally{db.close();}
+  await writes.catch(()=>{});const db=await database();try{const value=await db.get('drafts',JSON.stringify([project,floor])) as StudioRecovery|undefined;return value?{...value,captureSource:await restoreStudioCaptureSource(value.captureSource,value.reference,value.page,value.rotation)}:undefined;}finally{db.close();}
 }

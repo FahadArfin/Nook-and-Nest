@@ -1,4 +1,7 @@
 import {parseRemixAttribution} from './remixAttribution';
+import {parseCreativeChallenge} from './creativeChallenges';
+import {validateCaptureReview} from './captureReview';
+import {parseSeasonalLook} from './seasonalLook';
 import {validateDesignHistory,historySnapshotAsPlan} from './designHistory';
 import {parseSiteSurvey} from './siteSurveySchema';
 import {parsePresentationSettings} from './presentationTypes';
@@ -33,6 +36,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   if (p.schemaVersion !== 1 || !["imperial", "metric"].includes(p.units)) fail();
   str(p.id); str(p.name); str(p.createdAt); str(p.updatedAt); num(p.gridSizeMm, 10, 10000);
   if(p.remixAttribution!==undefined)parseRemixAttribution(p.remixAttribution);
+  if(p.creativeChallenge!==undefined)parseCreativeChallenge(p.creativeChallenge);
   if(p.designHistory!==undefined)validateDesignHistory(p.designHistory,snapshot=>validatePlan(historySnapshotAsPlan(p,snapshot)));
   if(p.siteSurvey!==undefined)parseSiteSurvey(p.siteSurvey);
   if(p.presentation!==undefined)parsePresentationSettings(p.presentation);
@@ -40,6 +44,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   if(p.layoutAlternatives!==undefined)validateLayoutAlternatives(p.layoutAlternatives,snapshot=>validatePlan(snapshotAsPlan(p,snapshot)));
   arr(p.floors, 20); if (!p.floors.length) fail(); unique(p.floors);
   const floors = new Set(p.floors.map((f: any) => f.id));
+  if(p.environment?.seasonalLook!==undefined)parseSeasonalLook(p.environment.seasonalLook,[...floors] as string[]);
   for (const f of p.floors) {
     if(f.referenceId!==undefined&&(typeof f.referenceId!=="string"||!/^[a-f0-9]{64}$/.test(f.referenceId)))fail();
     if(f.wallCuts!==undefined){arr(f.wallCuts,4000);for(const w of f.wallCuts){obj(w);str(w.id,160);for(const k of ["ax","az","bx","bz"])num(w[k],-10000,10000);}}
@@ -68,13 +73,14 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
     for(const [id,s] of Object.entries(p.studioDrafts) as [string,any][]){
       if(!floors.has(id))fail();obj(s);str(s.savedAt);num(s.imageScale,.001,100000);if(typeof s.calibrated!=='boolean')fail();obj(s.view);num(s.view.x);num(s.view.z);num(s.view.width,1,1000000);num(s.view.height,1,1000000);
       obj(s.draft);arr(s.draft.omittedWalls,4000);for(const id of s.draft.omittedWalls)str(id);
+      if(s.draft.captureReview!==undefined)s.draft.captureReview=validateCaptureReview(s.draft.captureReview);
       if(s.draft.annotations!==undefined){arr(s.draft.annotations,300);unique(s.draft.annotations);for(const a of s.draft.annotations){if(!['note','dimension'].includes(a.kind))fail();if(typeof a.text!=='string'||a.text.length>300)fail();for(const pt of [a.a,a.b]){obj(pt);num(pt.x,-100000,100000);num(pt.z,-100000,100000);}}}
       if(s.draft.wallFirst!==undefined&&typeof s.draft.wallFirst!=='boolean')fail();
       if(s.draft.referenceScale!==undefined)num(s.draft.referenceScale,.1,200);
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
       if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}
       const host=p.floors.find((f:any)=>f.id===id);
-      validatePlan({...p,designHistory:undefined,siteSurvey:undefined,presentation:undefined,installChecklist:undefined,layoutAlternatives:undefined,moodboards:undefined,surfaceTakeoffSettings:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
+      validatePlan({...p,creativeChallenge:undefined,designHistory:undefined,siteSurvey:undefined,presentation:undefined,installChecklist:undefined,layoutAlternatives:undefined,moodboards:undefined,surfaceTakeoffSettings:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}
