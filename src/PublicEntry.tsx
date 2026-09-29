@@ -1,8 +1,6 @@
 import {lazy,Suspense,useEffect,useMemo,useState,type ReactNode} from 'react';
-import {reviewLocation} from './clientReviewApi';
-import {remixLocation} from './remixApi';
+import {reviewLocation,remixLocation,collaborationInvitation} from './publicLinkRoutes';
 import {navigateEditor} from './editorNavigation';
-import {collaborationInvitation} from './collaborationApi';
 import {clearCollaborationInvitation,pendingCollaborationInvitation,rememberCollaborationInvitation,preserveProjectBeforeInvitation} from './invitationRoute';
 const ClientReviewViewer=lazy(()=>import('./ClientReviewViewer').then(m=>({default:m.ClientReviewViewer})));
 const RemixViewer=lazy(()=>import('./RemixViewer').then(m=>({default:m.RemixViewer})));

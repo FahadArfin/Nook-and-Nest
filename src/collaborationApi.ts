@@ -15,5 +15,5 @@ export const collaborationApiForAccount=(accountId?:string):CollaborationTranspo
  presence:(id,b,signal)=>collaborationRequest('/'+encodeURIComponent(id)+'/presence',b,signal,undefined,accountId),
 });
 export const collaborationApi=collaborationApiForAccount();
-export function collaborationInvitation(hash:string):string|null {const params=new URLSearchParams(hash.replace(/^#/,''));if(!params.has('collaboration-invite'))return null;const value=params.get('collaboration-invite');if(!value||!/^[A-Za-z0-9_-]{43}$/.test(value))throw new Error('This invitation is incomplete.');return value;}
+export {collaborationInvitation} from './publicLinkRoutes';
 export function collaborationInviteLink(token:string,origin=location.origin){if(!/^[A-Za-z0-9_-]{43}$/.test(token))throw new Error('Invalid invitation.');return origin+'/#collaboration-invite='+token;}
