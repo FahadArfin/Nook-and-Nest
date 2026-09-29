@@ -3,6 +3,7 @@ import {MAX_PERSONAL_ITEMS,PERSONAL_PHOTO_ID,parsePersonalCollectionItem,persona
 import {MAX_PERSONAL_MEDIA_BYTES,MAX_PERSONAL_PHOTOS,parsePersonalPhotoAsset,personalAssetBytes,verifyPersonalPhotoAsset,type PersonalPhotoAsset} from './personalMedia';
 import type {PlanDocumentV1} from './types';
 
+function notifyPersonalMedia(){if(typeof window==='undefined')return;window.dispatchEvent(new Event('nook-private-media-change'));if(typeof BroadcastChannel!=='undefined'){const channel=new BroadcastChannel('nook-private-media');channel.postMessage({changed:true});channel.close();}}
 export const PERSONAL_DATABASE='nook-personal-furniture';
 const database=()=>openDB(PERSONAL_DATABASE,1,{upgrade(db){db.createObjectStore('items',{keyPath:'id'});db.createObjectStore('photos',{keyPath:'id'});db.createObjectStore('meta');}});
 export interface StoredPersonalPhoto {id:string;preview:string;bytes:number}
@@ -23,7 +24,7 @@ export async function savePersonalItem(input:PersonalCollectionItem,photo?:Perso
     if(item.photoAssetId&&!existingPhoto&&!asset)throw new Error('This photo is missing on this device. Choose it again or remove the photo reference.');
     if(asset&&!existingPhoto){const total=(await meta.get('photoBytes')??0)+personalAssetBytes(asset);if(total>MAX_PERSONAL_MEDIA_BYTES||await photos.count()>=MAX_PERSONAL_PHOTOS)throw new Error('Private photos have reached the 64 MB or 100-photo limit. Back up your work, then remove stored photos to make room.');await photos.add(asset);await meta.put(total,'photoBytes');}
     const saved={...item,revision:item.revision+1,createdAt:previous?.createdAt??item.createdAt,updatedAt:new Date().toISOString()};
-    await items.put(saved);await tx.done;return saved;
+    await items.put(saved);await tx.done;if(asset)notifyPersonalMedia();return saved;
   }catch(error){try{tx.abort()}catch{}await tx.done.catch(()=>{});throw error;}finally{db.close();}
 }
 /** Placed copies keep their immutable metadata and photo refs; removal is collection-only. */
@@ -42,11 +43,11 @@ export async function validatePersonalAssetBundle(value:unknown):Promise<Persona
 /** Prevalidate alongside the rest of NN-29 before staging any project writes. Content-addressed IDs survive restore. */
 export async function importPersonalAssets(input:PersonalAssetBundle):Promise<void>{
   const bundle=await validatePersonalAssetBundle(input),db=await database(),tx=db.transaction(['photos','meta'],'readwrite');
-  try {const photos=tx.objectStore('photos'),meta=tx.objectStore('meta');let total=await meta.get('photoBytes')??0,count=await photos.count();for(const asset of bundle.assets){if(await photos.get(asset.id))continue;total+=personalAssetBytes(asset);count++;if(total>MAX_PERSONAL_MEDIA_BYTES||count>MAX_PERSONAL_PHOTOS)throw new Error('Restoring these private photos would exceed device storage limits.');await photos.add(asset);}await meta.put(total,'photoBytes');await tx.done;}
+  try {const photos=tx.objectStore('photos'),meta=tx.objectStore('meta');let total=await meta.get('photoBytes')??0,count=await photos.count();for(const asset of bundle.assets){if(await photos.get(asset.id))continue;total+=personalAssetBytes(asset);count++;if(total>MAX_PERSONAL_MEDIA_BYTES||count>MAX_PERSONAL_PHOTOS)throw new Error('Restoring these private photos would exceed device storage limits.');await photos.add(asset);}await meta.put(total,'photoBytes');await tx.done;notifyPersonalMedia();}
   catch(e){try{tx.abort()}catch{}await tx.done.catch(()=>{});throw e;}finally{db.close();}
 }
 /** Explicit destructive photo removal: placed copies then show a missing-photo placeholder. */
 export async function removeStoredPersonalPhoto(id:string):Promise<void>{
   if(!PERSONAL_PHOTO_ID.test(id))throw new Error('Invalid photo identity.');const db=await database(),tx=db.transaction(['photos','meta'],'readwrite');
-  try{const photos=tx.objectStore('photos'),meta=tx.objectStore('meta'),asset=await photos.get(id);if(asset){await photos.delete(id);await meta.put(Math.max(0,(await meta.get('photoBytes')??0)-personalAssetBytes(parsePersonalPhotoAsset(asset))),'photoBytes');}await tx.done;}catch(e){try{tx.abort()}catch{}await tx.done.catch(()=>{});throw e;}finally{db.close();}
+  try{const photos=tx.objectStore('photos'),meta=tx.objectStore('meta'),asset=await photos.get(id);if(asset){await photos.delete(id);await meta.put(Math.max(0,(await meta.get('photoBytes')??0)-personalAssetBytes(parsePersonalPhotoAsset(asset))),'photoBytes');}await tx.done;notifyPersonalMedia();}catch(e){try{tx.abort()}catch{}await tx.done.catch(()=>{});throw e;}finally{db.close();}
 }

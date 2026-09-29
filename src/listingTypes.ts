@@ -1,3 +1,4 @@
+import {parseSceneAtmosphere,type SceneAtmosphereV1} from './sceneAtmosphere';
 import {validCameraShot, type CameraShotPose} from './walkthrough';
 
 export type ListingFormat = 'landscape' | 'portrait' | 'square';
@@ -12,7 +13,7 @@ export interface ListingMedia {
   sourceImage?:string;
   /** A separately paired, unaltered property photo. */
   originalImage?:string;
-  camera?:CameraShotPose; floorId?:string; seconds:number;
+  atmosphere?:SceneAtmosphereV1; camera?:CameraShotPose; floorId?:string; seconds:number;
 }
 export interface ListingDocument {
   version:1; planId:string; details:ListingDetails; media:ListingMedia[];
@@ -50,6 +51,7 @@ export function parseListing(value:unknown,planId?:string):ListingDocument {
     ids.add(m.id);imageBytes+=m.image.length;
     if(m.originalImage!==undefined){if(!isListingImage(m.originalImage))throw new Error('A source photo is invalid.');imageBytes+=m.originalImage.length;}
     if(m.sourceImage!==undefined){if(!isListingImage(m.sourceImage))throw new Error('An uploaded source photo is invalid.');imageBytes+=m.sourceImage.length;}
+    const atmosphere=m.atmosphere===undefined?undefined:parseSceneAtmosphere(m.atmosphere);if(m.atmosphere!==undefined&&!atmosphere)throw new Error('A saved lighting mood is invalid.');
     if(m.camera!==undefined&&!validCameraShot(m.camera))throw new Error('A saved viewpoint is invalid.');
     if(m.camera&&m.kind==='photo')throw new Error('A captured 3D view must remain labeled as a render or design concept.');
     if(m.floorId!==undefined&&(typeof m.floorId!=='string'||!m.floorId||m.floorId.length>100)||m.camera&&(m.camera.floorId.length>100||m.floorId!==undefined&&m.floorId!==m.camera.floorId))throw new Error('A saved floor is invalid or conflicts with its viewpoint.');
@@ -58,7 +60,7 @@ export function parseListing(value:unknown,planId?:string):ListingDocument {
     // Earlier local drafts put the raw upload in originalImage. Keep its bytes without claiming it is unstaged.
     const legacySource=!camera&&m.sourceImage===undefined&&m.originalImage!==undefined;
     const sourceImage=legacySource?m.originalImage:m.sourceImage,originalImage=legacySource?undefined:m.originalImage;
-    return {id:m.id,title:m.title,caption:m.caption,kind:m.kind,image:m.image,seconds:m.seconds,...(originalImage?{originalImage}:{}),...(sourceImage?{sourceImage}:{}),...(camera?{camera}:{}),...(floorId?{floorId}:{})};
+    return {id:m.id,title:m.title,caption:m.caption,kind:m.kind,image:m.image,seconds:m.seconds,...(originalImage?{originalImage}:{}),...(sourceImage?{sourceImage}:{}),...(camera?{camera}:{}),...(atmosphere?{atmosphere}:{}),...(floorId?{floorId}:{})};
   });
   const parsed:ListingDocument={version:1,planId:planId??d.planId,details,media,format:d.format,branded:d.branded,updatedAt:d.updatedAt};
   // Data URLs are ASCII; count the remaining JSON in UTF-8 without copying all photos again.

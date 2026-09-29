@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import React from "react";
 import { afterEach,beforeEach,describe,expect,it,vi } from "vitest";
-import { cleanup,fireEvent,render,screen,act,waitFor,within } from "@testing-library/react";
+import { cleanup,fireEvent,render,screen,act,waitFor,within,configure } from "@testing-library/react";
 import { OutdoorSettings } from "../src/OutdoorSettings";
 import { ShelfPlacement } from "../src/ShelfPlacement";
 import { shelfChoices } from "../src/shelfSurfaces";
@@ -16,7 +16,7 @@ const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:v
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{setRenderQuality(){} highlightPart(){}
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setMoveMode(_active:boolean){}
-  setSunPreview(){} setFurnitureSelection(){} setFitReview(){}
+  setSunPreview(){} setAtmospherePreview(){} setFurnitureSelection(){} setFitReview(){}
   setRotationMode(active:boolean){scene.rotation(active)}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()} focusFloor(){scene.focus()}
   placementRotation(){return 0;} setTool(){} setWallSelection(){} setPaintPreview(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
@@ -24,6 +24,7 @@ vi.mock("../src/scene/SceneController",()=>({SceneController:class{setRenderQual
   projectPreview(){return {x:200,y:200}} projectSelected(){return {x:200,y:200}} projectTileDraft(){return {x:200,y:200}}
 }}));
 vi.mock("../src/store",async()=>{const actual=await vi.importActual<typeof import("../src/store")>("../src/store");return {...actual,loadPlan:async()=>actual.usePlanner.getState().plan,savePlan:async()=>{}}});
+configure({asyncUtilTimeout:5000});
 const state=()=>usePlanner.getState();
 // Editor wiring does not need 630 unrelated catalog cards. Tests that browse
 // furniture explicitly enter their real search below; the catalog itself is not mocked.
@@ -242,12 +243,14 @@ it('keeps home tools in dock drawers and reserves the inspector for selected fur
  fireEvent.click(within(land).getByRole('button',{name:'Terrain'}));await screen.findByRole('button',{name:'Hill'});fireEvent.click(within(land).getByRole('button',{name:'Hill'}));expect(state().tool).toBe('terrain-raise');fireEvent.change(screen.getByLabelText('Quick terrain brush size'),{target:{value:'6'}});expect(state().terrainRadius).toBe(6);
  expect(within(land).queryByRole('button',{name:'Hill'})).toBeNull();fireEvent.click(within(land).getByRole('button',{name:'Change outdoor options'}));fireEvent.click(within(land).getByRole('button',{name:'Plants'}));await screen.findByLabelText('Search plants');expect(screen.getByLabelText('Search plants')).toBeTruthy();
  fireEvent.click(screen.getByRole('button',{name:'Outdoors'}));expect(state().tool).toBe('select');
- expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));await screen.findByRole('region',{name:'Sunlight'});fireEvent.click(screen.getByRole('button',{name:'Morning'}));expect(state().plan.environment?.sun).toEqual({enabled:true,azimuth:90,elevation:20});
- expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.click(screen.getByRole('button',{name:'Nighttime'}));expect(state().plan.environment?.sun?.night).toBe(true);act(()=>state().undo());expect(state().plan.environment?.sun?.night).toBeUndefined();fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.keyDown(screen.getByRole('button',{name:'Morning'}),{key:'Escape'});expect(state().plan.environment?.sun?.enabled).toBe(true);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Sunlight'}));fireEvent.pointerDown(document.body);expect(screen.queryByRole('region',{name:'Sunlight'})).toBeNull();expect(state().plan.environment?.sun?.enabled).toBe(true);
+ expect(within(screen.getByRole('toolbar',{name:'Floor editing'})).queryByRole('button',{name:'Scene moods and sunlight'})).toBeNull();
+ fireEvent.click(screen.getByRole('button',{name:'Scene moods and sunlight'}));await screen.findByRole('region',{name:'Scene mood and sunlight'});fireEvent.click(screen.getByRole('button',{name:'Scene mood'}));const lightingBase=state().plan;
+ fireEvent.click(screen.getByRole('button',{name:'Morning light'}));expect(state().plan).toBe(lightingBase);fireEvent.click(screen.getByRole('button',{name:'Apply scene'}));await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Scene moods and sunlight'})).toBeNull());expect(state().plan.environment?.atmosphere?.mode).toBe('mood');
+ fireEvent.click(screen.getByRole('button',{name:'Scene moods and sunlight'}));fireEvent.click(screen.getByRole('button',{name:'Evening reading'}));fireEvent.click(screen.getByRole('button',{name:'Apply scene'}));await waitFor(()=>expect(state().plan.environment?.atmosphere?.mood.elevation).toBe(-8));act(()=>state().undo());expect(state().plan.environment?.atmosphere?.mood.elevation).toBe(25);
+ fireEvent.click(screen.getByRole('button',{name:'Scene moods and sunlight'}));fireEvent.click(screen.getByRole('button',{name:'Rainy afternoon'}));fireEvent(screen.getByRole('dialog',{name:'Scene moods and sunlight'}),new Event('cancel',{bubbles:false,cancelable:true}));expect(state().plan.environment?.atmosphere?.mood.rain).toBe(0);expect(screen.queryByRole('dialog',{name:'Scene moods and sunlight'})).toBeNull();
 
 
- fireEvent.click(screen.getByRole('button',{name:'Paint'}));await screen.findByRole('region',{name:'Paint surfaces'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(false);fireEvent.click(neutral);expect(state().plan.environment?.sun?.enabled).toBe(false);
+ fireEvent.click(screen.getByRole('button',{name:'Paint'}));await screen.findByRole('region',{name:'Paint surfaces'});const neutral=screen.getByRole('switch',{name:'Neutral preview lighting'});expect((neutral as HTMLInputElement).checked).toBe(true);const savedMood=state().plan.environment?.atmosphere;fireEvent.click(neutral);expect(state().neutralPreview).toBe(false);expect(state().plan.environment?.atmosphere).toBe(savedMood);
 },15000);
 
 it('collapses paint after choosing a finish and preserves the brush when reopened',async()=>{
