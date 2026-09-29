@@ -16,7 +16,7 @@ import {ZoomControl} from './ZoomControl';
 import {readableLength} from './measurement';
 import {LengthInput} from './LengthInput';
 import {bindTouchNavigation} from "./touchNavigation";
-import {saveStudioReference,loadStudioReference} from './studioReference';
+import {saveStudioReference,loadFloorReference,saveReferenceVersion} from './studioReference';
 import {savePlan,getCloudRevision,saveCloudRevision} from './store';
 import {cloudSession,saveCloudProject} from './cloudProjects';
 import {RoomDimensions} from './RoomDimensions';
@@ -134,7 +134,7 @@ export function BlueprintStudio({onClose,onCreated,onHome}:{onClose:()=>void;onC
   };
   useEffect(()=>{if(!base.studioDrafts?.[floorId])fit();},[]);
   const [savingDraft,setSavingDraft]=useState(false),[savedDraft,setSavedDraft]=useState<BlueprintDraft|undefined>(base.studioDrafts?.[floorId]?.draft);
-  const [referenceLoading,setReferenceLoading]=useState(!!base.studioDrafts?.[floorId]);
+  const [referenceLoading,setReferenceLoading]=useState(!!base.studioDrafts?.[floorId]||!!base.floors.find(f=>f.id===floorId)?.referenceId);
   const [draftSaveStatus,setDraftSaveStatus]=useState(base.studioDrafts?.[floorId]?'Saved on this device':'');
   const [recovering,setRecovering]=useState(true),[recoveryError,setRecoveryError]=useState('');
   const recoveryBaseline=useRef(false),recoveryGeneration=useRef(0);
@@ -163,16 +163,21 @@ export function BlueprintStudio({onClose,onCreated,onHome}:{onClose:()=>void;onC
     }).catch(()=>{if(generation===recoveryGeneration.current)setRecoveryError('Could not save recovery. Use Save draft or export your drawing.');});},750);
     return()=>{clearTimeout(timer);recoveryGeneration.current++;};
   },[currentRecoveryKey,recoveryKey,recovering,referenceLoading,loading,savingDraft,stale,gesture,pendingScale]);
-  useEffect(()=>{if(recovering)return;let active=true;if(base.studioDrafts?.[floorId]&&draftSaveStatus!=='Recovered on this device')loadStudioReference(base.id,floorId).then(r=>{if(active&&r){setReference(r.reference);setFile(r.file);setPage(r.page);setRotation(r.rotation);}}).catch(()=>{if(active)setNotice('Draft restored. Reimport the reference image if needed.');}).finally(()=>{if(active)setReferenceLoading(false)});if(draftSaveStatus==='Recovered on this device')setReferenceLoading(false);return()=>{active=false};},[recovering]);
+  useEffect(()=>{if(recovering)return;let active=true;if((base.studioDrafts?.[floorId]||base.floors.find(f=>f.id===floorId)?.referenceId)&&draftSaveStatus!=='Recovered on this device')loadFloorReference(base.id,base.floors.find(f=>f.id===floorId)!).then(r=>{if(active&&r){setReference(r.reference);setFile(r.file);setPage(r.page);setRotation(r.rotation);}else if(active){setNotice('The layout is available, but its saved reference image is missing on this device. Restore a complete backup or reimport the source.');}}).catch(()=>{if(active)setNotice('Draft restored. Reimport the reference image if needed.');}).finally(()=>{if(active)setReferenceLoading(false)});if(draftSaveStatus==='Recovered on this device')setReferenceLoading(false);return()=>{active=false};},[recovering]);
   const saveDraft=async(online=false)=>{
     if(corners.length>1){setMode('polygon');setReview(false);setError('Finish or cancel the unfinished room outline before saving.');return;}
     setCorners([]);
     if(savingDraft||stale||referenceLoading||recovering)return;setSavingDraft(true);setError('');
-    const snapshot=draft;
-    const next={...base,updatedAt:new Date().toISOString(),studioDrafts:{...base.studioDrafts,[floorId]:{draft:snapshot,savedAt:new Date().toISOString(),imageScale,calibrated,view}}};
+    const snapshot=draft,source=baseSource.current;
+    let next={...base,updatedAt:new Date().toISOString(),studioDrafts:{...base.studioDrafts,[floorId]:{draft:snapshot,savedAt:new Date().toISOString(),imageScale,calibrated,view}}};
     try{
-      await saveStudioReference(base.id,floorId,{reference,file,page,rotation});await savePlan(next);
-      if(usePlanner.getState().plan!==baseSource.current)throw new Error('The home changed while saving. Reopen Studio before continuing.');
+      const referenceId=await saveReferenceVersion(base.id,{reference,file,page,rotation});
+      next={...next,floors:next.floors.map(f=>f.id===floorId?{...f,referenceId}:f)};
+      if(usePlanner.getState().plan!==source)throw new Error('The home changed while saving. Reopen Studio before continuing.');
+      await saveStudioReference(base.id,floorId,{reference,file,page,rotation});
+      if(usePlanner.getState().plan!==source)throw new Error('The home changed while saving. Reopen Studio before continuing.');
+      await savePlan(next);
+      if(usePlanner.getState().plan!==source)throw new Error('The home changed while saving. Reopen Studio before continuing.');
       usePlanner.setState({plan:next});setBase(next);baseSource.current=next;setSavedDraft(snapshot);setDraftSaveStatus('Saved on this device · just now');setRecoveryError('');await saveStudioRecovery(base.id,floorId,undefined);
       if(online){const session=await cloudSession();if(!session.userId)throw new Error('Draft saved on this device. Sign in through Project to save online.');const expected=await getCloudRevision(session.userId,next.id);const result=await saveCloudProject(next,expected);await saveCloudRevision(session.userId,next.id,result.revision);setDraftSaveStatus('Draft saved online - reference stays on this device');}
     }catch(e){setError((e as Error).message);}finally{setSavingDraft(false);}
@@ -354,7 +359,7 @@ export function BlueprintStudio({onClose,onCreated,onHome}:{onClose:()=>void;onC
     const next:Partial<Record<string,Mode>>={v:'select',h:'pan',r:'room',l:'lroom',g:'polygon',w:'wall',m:'measure',i:'dimension',t:'note'};
     if(next[key]){e.preventDefault();if(['room','lroom','polygon'].includes(next[key]!)&&((!!reference&&!calibrated)||geometryLocked))return;if(next[key]==='wall'&&!draft.rooms.length)return;chooseTool(next[key]!);}
   }
-  const apply=()=>{if(corners.length>1){setError('Finish or cancel the unfinished room outline first.');return;}if(!plan||stale||problems.length)return;try{usePlanner.getState().commitDesign(baseSource.current,{...plan,studioDrafts:{...base.studioDrafts,[floorId]:{draft,savedAt:new Date().toISOString(),imageScale,calibrated,view}}});void saveStudioRecovery(base.id,floorId,undefined).catch(()=>{});void saveStudioReference(base.id,floorId,{reference,file,page,rotation}).catch(()=>{});onCreated?.();onClose();}catch(e){setError((e as Error).message);}};
+  const apply=async()=>{if(corners.length>1){setError('Finish or cancel the unfinished room outline first.');return;}if(!plan||stale||problems.length||savingDraft||referenceLoading)return;setSavingDraft(true);const source=baseSource.current;try{const referenceId=await saveReferenceVersion(base.id,{reference,file,page,rotation});usePlanner.getState().commitDesign(source,{...plan,floors:plan.floors.map(f=>f.id===floorId?{...f,referenceId}:f),studioDrafts:{...base.studioDrafts,[floorId]:{draft,savedAt:new Date().toISOString(),imageScale,calibrated,view}}});void saveStudioRecovery(base.id,floorId,undefined).catch(()=>{});onCreated?.();onClose();}catch(e){setError((e as Error).message);}finally{setSavingDraft(false);}};
   const removedFurniture=base.furniture.filter(f=>(f.floorId===floorId||f.toFloorId===floorId)&&!draft.fixtures.some(d=>d.id===f.id)).length;
   const removedStairs=base.floors.reduce((n,f)=>n+f.stairs.filter(s=>f.id===floorId||s.toFloorId===floorId).length,0);
   const enterReview=()=>{if(corners.length<2)setCorners([]);setMeasured(undefined);setCursor(undefined);setError('');setReview(true);setSelected(undefined);setChecked(false);fit();};

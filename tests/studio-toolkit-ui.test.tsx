@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {afterEach,beforeEach,it,expect,vi} from 'vitest';
-import {cleanup,fireEvent,render,screen,within} from '@testing-library/react';
+import {act,cleanup,fireEvent,render,screen,within} from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import {BlueprintStudio} from '../src/BlueprintStudio';
 import {blueprintPlan} from '../src/blueprint';
@@ -17,15 +17,15 @@ beforeEach(()=>{
 });
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 function drag(a:number[],b:number[]){const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});fireEvent.pointerDown(svg,{button:0,clientX:a[0],clientY:a[1],pointerId:1});fireEvent.pointerMove(svg,{clientX:b[0],clientY:b[1],pointerId:1});fireEvent.pointerUp(svg,{clientX:b[0],clientY:b[1],pointerId:1});}
-it('ignores an unused starting point when reviewing and creates the completed home',()=>{
+it('ignores an unused starting point when reviewing and creates the completed home',async()=>{
   const created=vi.fn();render(<BlueprintStudio onClose={()=>{}} onCreated={created}/>);
   if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));drag([5000,0],[5000,0]);
   fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));
   expect(screen.queryByText('One unfinished outline remains')).toBeNull();
-  fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
+  await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));});
   expect(created).toHaveBeenCalledOnce();
 });
-it('reveals hidden unfinished lines in review and can discard only the sketch before successful conversion',()=>{
+it('reveals hidden unfinished lines in review and can discard only the sketch before successful conversion',async()=>{
   const created=vi.fn();render(<BlueprintStudio onClose={()=>{}} onCreated={created}/>);
   if(screen.getByRole('button',{name:'More tools'}).getAttribute('aria-expanded')!=='true')fireEvent.click(screen.getByRole('button',{name:'More tools'}));fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
   drag([5000,0],[5000,0]);drag([8000,0],[8000,0]);
@@ -41,7 +41,7 @@ it('reveals hidden unfinished lines in review and can discard only the sketch be
   fireEvent.click(screen.getByRole('button',{name:'Discard unfinished outline'}));
   expect(screen.getByText('Your completed rooms are unchanged.',{exact:false})).toBeVisible();
   expect(screen.getByRole('button',{name:'Confirm & create 3D home'})).toBeEnabled();
-  fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
+  await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));});
   expect(created).toHaveBeenCalledOnce();
 });
 it('creates named rooms immediately on closure and on a crossing partition, with toolbar undo and redo',()=>{
@@ -130,14 +130,14 @@ it('previews the exact wall snap and creates the room on the snapped shared-edge
   expect(screen.getByRole('heading',{name:'Rooms & regions · 1'})).toBeVisible();
 });
 
-it('draws a triangle directly, has no yellow square handles, and keeps it after conversion',()=>{
+it('draws a triangle directly, has no yellow square handles, and keeps it after conversion',async()=>{
  render(<BlueprintStudio onClose={()=>{}}/>);
  expect(screen.queryByRole('button',{name:'Draw room options'})).toBeNull();
  fireEvent.click(screen.getByRole('button',{name:'Draw custom room'}));
  for(const p of [[5000,0],[9000,0],[5000,3000],[5000,0]])drag(p,p);
  expect(screen.getByRole('heading',{name:'Rooms & regions · 2'})).toBeVisible();
  const svg=screen.getByRole('img',{name:'Top-down floor plan drawing'});expect(svg.querySelector('[data-handle]')).toBeNull();expect(svg.querySelector('[data-preview="enclosure"]')).toBeNull();expect(svg.querySelector('polygon[data-object]')).not.toBeNull();
- fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));
+ fireEvent.click(screen.getByRole('button',{name:'Review & create 3D →'}));await act(async()=>{fireEvent.click(screen.getByRole('button',{name:'Confirm & create 3D home'}));});
  expect(usePlanner.getState().plan.floors[0].blueprint?.rooms.some(r=>r.polygon?.length===3)).toBe(true);
 });
 it('renders a dashed returning-wall guide and equal-length cues, then commits that exact endpoint',()=>{

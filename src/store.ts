@@ -1,3 +1,4 @@
+import {assertLockedFurnitureUnchanged,reconcileFurnitureGroups,expandedFurnitureSelection,isFurnitureLocked,transformSelectedPlacements,applyFurnitureGroupCommand,type GroupCommand} from './furnitureGroups';
 import {paintVegetationField,fieldPlacement} from './vegetationField';
 import {syncArchitecturalHosts,isStormDoor,isRoofSkylight} from './householdArchitecture';
 import {isVegetation} from './vegetation';
@@ -28,6 +29,7 @@ import {scatterPlants,type PlantingBrush} from './planting';
 
 interface Snapshot { plan: PlanDocumentV1; activeFloorId: string }
 interface PlannerState {
+  selectedIds:string[];setFurnitureSelection(ids:string[]):void;groupCommand(command:GroupCommand):void;
   turnSnapshot?:Snapshot;turnId?:string;beginTurn(id:string):void;turnFurniture(id:string,degrees:number):void;finishTurn():void;
   paintCoverage(points:Array<{x:number;z:number}>):void;
   paintField(points:Array<{x:number;z:number}>):void;
@@ -44,12 +46,12 @@ interface PlannerState {
   wallBrushActive:boolean; finishWallGroup(group:"interior"|"exterior",finishId:string):void;
   selectedWallId?:string; selectWall(id?:string):void;
   cycleWallVisibility(): void;
-  commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1,activeFloorId?:string):void;
+  commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1,activeFloorId?:string,options?:{allowUnlock?:boolean;restoreLayout?:boolean}):void;
   setEnvironment(patch:Partial<NonNullable<PlanDocumentV1["environment"]>>):void;
   roomSize?: {widthMm:number;depthMm:number};setRoomSize(size:{widthMm:number;depthMm:number}):void; addMeasuredRoom(region:MeasuredRegion):void;
   activeSurfaceFinish: string; setSurfaceBrush(kind:"floor-finish"|"wall-finish",finishId:string):void; finishCells(cells:TileCell[],finishId:string):void; finishWall(id:string,finishId:string):void;
   placementNotice?: string; plan: PlanDocumentV1; activeFloorId: string; selectedId?: string; tool: Tool; search: string; category: string; activeDoorFinish: string; past: Snapshot[]; future: Snapshot[];
-  setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; setDoorFinish(finishId:string):void; select(id?: string): void;
+  setSearch(search: string): void; setCategory(category: string): void; setTool(tool: Tool): void; setDoorFinish(finishId:string):void; select(id?: string,additive?:boolean): void;
   replacePlan(plan: PlanDocumentV1): void; rename(name: string): void; setUnits(units: Units): void; setView(mode: ViewMode): void;
   toggleCameraSetting(key: "ghostBelow" | "showGrid" | "showClearance" | "transparentWalls" | "darkMode"): void; setActiveFloor(id: string): void;
   duplicateFloor(floorId:string):void; reorderFloor(floorId:string,index:number):void; addFloor(): void; deleteFloor(floorId?: string): void; renameFloor(name: string): void; paintCell(x: number, z: number, present: boolean): void; paintCells(cells: TileCell[], present: boolean): void;
@@ -64,12 +66,21 @@ interface PlannerState {
 
 const initialPlan = createBlankPlan();
 const snap = (state: PlannerState): Snapshot => ({ plan: freeze(state.plan, true), activeFloorId: state.activeFloorId });
-const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId) => ({ plan: freeze({ ...syncArchitecturalHosts(plan), updatedAt: new Date().toISOString() },true), selectedId: selectedId === null ? undefined : selectedId, past: boundedHistory([...state.past, snap(state)]), future: [] });
+const selectionFor=(state:PlannerState,id:string)=>expandedFurnitureSelection(state.plan,state.selectedId&&state.selectedIds?.includes(id)?state.selectedIds:[id]);
+const commit = (state: PlannerState, plan: PlanDocumentV1, selectedId: string|null|undefined = state.selectedId,options:{allowUnlock?:boolean;restoreLayout?:boolean}={}) => {
+  const next=syncArchitecturalHosts(reconcileFurnitureGroups(plan));
+  try{if(!options.restoreLayout)assertLockedFurnitureUnchanged(state.plan,next,options);}catch(error){return {plan:state.plan,selectedId:state.selectedId,selectedIds:state.selectedIds,past:state.past,future:state.future,placementNotice:(error as Error).message};}
+  const id=selectedId&&next.furniture.some(p=>p.id===selectedId)?selectedId:undefined;
+  const ids=id?expandedFurnitureSelection(next,state.selectedIds?.includes(id)?state.selectedIds.filter(key=>next.furniture.some(p=>p.id===key)):[id]):[];
+  return {plan:freeze({...next,updatedAt:new Date().toISOString()},true),selectedId:id,selectedIds:ids,past:boundedHistory([...state.past,snap(state)]),future:[]};
+};
 
 export const usePlanner = create<PlannerState>((set, get) => ({
-  beginTurn:id=>{get().finishTurn();set(s=>({turnSnapshot:snap(s),turnId:id}));},
+  beginTurn:id=>{get().finishTurn();if(isFurnitureLocked(get().plan,id)){set({placementNotice:'Unlock this furniture before editing.'});return;}set(s=>({turnSnapshot:snap(s),turnId:id}));},
   turnFurniture:(id,degrees)=>set(s=>{
     const item=s.plan.furniture.find(f=>f.id===id);if(!item||!Number.isFinite(degrees)||s.turnId!==id)return {};
+    if(isFurnitureLocked(s.plan,id))return {placementNotice:'Unlock this furniture before editing.'};
+    const selectedIds=selectionFor(s,id);if(selectedIds.length>1){try{return {plan:transformSelectedPlacements(s.plan,item.floorId,selectedIds,{deltaX:0,deltaZ:0,degrees,pivot:{x:item.x,z:item.z}}).plan}}catch(e){return {placementNotice:(e as Error).message}}}
     const rotated={...item,rotation:windowRotation(item,degrees)};const candidate=fitStair(s.plan,isWallOpening(item.catalogId)||isKitchenWall(item.catalogId)||isStormDoor(item.catalogId)||isRoofSkylight(item.catalogId)?snapWindow(s.plan,rotated):rotated);
     const problem=windowProblem(s.plan,candidate);if(problem)return {placementNotice:problem};
     return {plan:syncArchitecturalHosts({...s.plan,updatedAt:new Date().toISOString(),furniture:s.plan.furniture.map(f=>f.id===id?candidate:f)})};
@@ -103,14 +114,15 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   wallBrushActive:false,
   selectWall:selectedWallId=>{const s=get();if(selectedWallId&&s.wallSelectionActive){const floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;const ids=wallPlateIds(floor,s.plan.gridSizeMm,selectedWallId).sort();if(!ids.length)return;const id=ids[0];set({paintWallIds:s.paintWallIds.includes(id)?s.paintWallIds.filter(w=>w!==id):[...s.paintWallIds,id]});return;}if(selectedWallId&&s.wallBrushActive&&s.tool==='wall-finish'){s.finishWall(selectedWallId,s.activeSurfaceFinish);return;}set({selectedWallId,selectedId:undefined,tool:"wall-finish",wallBrushActive:false});},
   finishWallGroup:(group,finishId)=>set(s=>commit(s,{...s.plan,floors:s.plan.floors.map(f=>f.id===s.activeFloorId?paintWallGroup(f,s.plan.gridSizeMm,group,finishId):f)})),
-  commitDesign:(base,plan,activeFloorId)=>set(state=>{
+  commitDesign:(base,plan,activeFloorId,options={})=>set(state=>{
     if(state.plan!==base||plan.id!==base.id)throw new Error('The apartment changed. Read it again and prepare a new design.');
     if(state.turnId)throw new Error('Finish turning the piece before changing the layout.');
+    if(!options.restoreLayout)assertLockedFurnitureUnchanged(base,syncArchitecturalHosts(plan),options);
     validatePlan(plan);
     if(new TextEncoder().encode(JSON.stringify(plan)).length>MAX_PLAN_BYTES)throw new Error('This project exceeds the 8 MB save limit.');
     const floorId=activeFloorId??(plan.floors.some(f=>f.id===state.activeFloorId)?state.activeFloorId:plan.floors[0].id);
     if(!plan.floors.some(f=>f.id===floorId))throw new Error('Choose a floor in this layout.');
-    return {...commit(state,structuredClone(plan),null),activeFloorId:floorId,tool:'select',selectedWallId:undefined,wallSelectionActive:false,paintWallIds:[],wallBrushActive:false,plantingDraft:undefined,placementNotice:undefined};
+    return {...commit(state,structuredClone(plan),null,options),activeFloorId:floorId,tool:'select',selectedWallId:undefined,wallSelectionActive:false,paintWallIds:[],wallBrushActive:false,plantingDraft:undefined,placementNotice:undefined};
   }),
   setEnvironment:patch=>set(state=>commit(state,{...state.plan,environment:{background:"plain",grass:"off",...state.plan.environment,...patch}})),
   roomSize:undefined,
@@ -121,8 +133,16 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   finishCells:(cells,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>{if(f.id!==state.activeFloorId)return f;const occupied=new Set(f.cells.map(c=>`${c.x},${c.z}`));const cellFinishes={...f.cellFinishes};for(const c of cells){const key=`${c.x},${c.z}`;if(occupied.has(key))cellFinishes[key]=finishId;}return {...f,cellFinishes};})})),
   finishWall:(id,finishId)=>set(state=>commit(state,{...state.plan,floors:state.plan.floors.map(f=>f.id===state.activeFloorId?paintWallPlate(f,state.plan.gridSizeMm,id,finishId):f)})),
   plan: initialPlan, activeFloorId: initialPlan.floors[0].id, tool: "select", search: "", category: "All", activeDoorFinish: defaultDoorFinish.id, past: [], future: [],
-  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId) => set(s=>{const item=selectedId?fieldPlacement(s.plan,selectedId):undefined;if(!item)return {selectedId,selectedWallId:undefined,placementNotice:undefined};if(s.plan.furniture.filter(p=>isVegetation(p.catalogId)).length>=22000||Object.keys(s.plan.environment!.vegetationField!.removed).length>=22000)return {placementNotice:'Individual edit capacity reached. Landscape brushing is still available.'};const field=s.plan.environment!.vegetationField!;const plan={...s.plan,environment:{...s.plan.environment!,vegetationField:{...field,removed:{...field.removed,[item.id]:true}}},furniture:[...s.plan.furniture,item]};validatePlan(plan);return {...commit(s,plan,item.id),selectedWallId:undefined,placementNotice:undefined};}),
-  replacePlan: (plan) => set({ plan:correctLegacySinkHeight(structuredClone(plan)), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedWallId:undefined, past: [], future: [] }),
+  setSearch: (search) => set({ search }), setCategory: (category) => set({ category }), setTool: (tool) => set({ tool, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, plantingDraft:undefined, selectedWallId:undefined, placementNotice:undefined }), setDoorFinish:(activeDoorFinish)=>set({activeDoorFinish}), select: (selectedId,additive=false) => {
+    if(!selectedId){set({selectedId:undefined,selectedIds:[],selectedWallId:undefined,placementNotice:undefined});return;}
+    let state=get();const item=fieldPlacement(state.plan,selectedId);
+    if(item){if(state.plan.furniture.filter(p=>isVegetation(p.catalogId)).length>=22000||Object.keys(state.plan.environment!.vegetationField!.removed).length>=22000){set({placementNotice:'Individual edit capacity reached. Landscape brushing is still available.'});return;}
+      const field=state.plan.environment!.vegetationField!,plan={...state.plan,environment:{...state.plan.environment!,vegetationField:{...field,removed:{...field.removed,[item.id]:true}}},furniture:[...state.plan.furniture,item]};validatePlan(plan);set(commit(state,plan,item.id));state=get();}
+    try{const picked=expandedFurnitureSelection(state.plan,[selectedId]),previous=state.selectedId?state.selectedIds:[],all=picked.every(id=>previous.includes(id));const ids=additive?(all?previous.filter(id=>!picked.includes(id)):[...new Set([...previous,...picked])]):picked;const checked=ids.length?expandedFurnitureSelection(state.plan,ids):[];set({selectedIds:checked,selectedId:checked.includes(selectedId)?selectedId:checked[0],selectedWallId:undefined,placementNotice:undefined});}catch(e){set({placementNotice:(e as Error).message});}
+  },
+  selectedIds:[],setFurnitureSelection:ids=>{try{const plan=get().plan,checked=ids.length?expandedFurnitureSelection(plan,ids):[];if(checked.some(id=>plan.furniture.find(p=>p.id===id)?.floorId!==get().activeFloorId))throw new Error('Select pieces on the active floor.');set({selectedIds:checked,selectedId:checked[0],selectedWallId:undefined});}catch(e){set({placementNotice:(e as Error).message});}},
+  groupCommand:command=>set(state=>{try{const result=applyFurnitureGroupCommand(state.plan,state.plan,state.activeFloorId,command,validatePlan);if(result.plan===state.plan)return {};return {...commit(state,result.plan,null,{allowUnlock:command.type==='lock-items'||command.type==='lock-group'}),selectedIds:result.selectedIds,selectedId:result.selectedIds[0],placementNotice:undefined};}catch(e){return {placementNotice:(e as Error).message};}}),
+  replacePlan: (plan) => set({ plan:correctLegacySinkHeight(structuredClone(plan)), wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, activeFloorId: plan.floors[0].id, selectedId: undefined, selectedIds:[], selectedWallId:undefined, past: [], future: [] }),
   rename: (name) => set((state) => commit(state, { ...state.plan, name })),
   setUnits: (units) => set((state) => commit(state, { ...state.plan, units })),
   setView: (mode) => set((state) => commit(state, { ...state.plan, camera: { ...state.plan.camera, mode } })),
@@ -137,7 +157,7 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     if (key === "transparentWalls") {camera.transparentWalls=getWallVisibility(state.plan.camera)==="all-visible";camera.wallVisibility = camera.transparentWalls ? "near-hidden" : "all-visible";}
     return commit(state, { ...state.plan, camera });
   }),
-  setActiveFloor: (activeFloorId) => set({ activeFloorId, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, selectedId: undefined, selectedWallId:undefined }),
+  setActiveFloor: (activeFloorId) => set({ activeFloorId, wallSelectionActive:false,paintWallIds:[],wallBrushActive:false, selectedId: undefined, selectedIds:[], selectedWallId:undefined }),
   addFloor: () => set((state) => { if(state.plan.floors.length>=20)return state;const previous = state.plan.floors[state.plan.floors.length - 1]; const id = uid(); const floor = { id, name: `Floor ${state.plan.floors.length + 1}`, elevationMm: previous.elevationMm + previous.heightMm + 300, heightMm: previous.heightMm, cells: structuredClone(previous.cells), ...(previous.cellRects?{cellRects:structuredClone(previous.cellRects)}:{}), walls: [], openings: [], stairs: [], floorFinishId: previous.floorFinishId, wallFinishId: previous.wallFinishId }; return { ...commit(state, { ...state.plan, floors: [...state.plan.floors, floor] }, null), activeFloorId: id }; }),
   duplicateFloor: floorId=>set(state=>{
     const source=state.plan.floors.find(f=>f.id===floorId);if(!source||state.plan.floors.length>=20)return state;
@@ -145,13 +165,16 @@ export const usePlanner = create<PlannerState>((set, get) => ({
     const floor={...structuredClone(source),id,name:`${source.name} copy`,elevationMm:top+300,stairs:source.stairs.map(stair=>({...structuredClone(stair),id:uid(),toFloorId:undefined}))};
     const originals=state.plan.furniture.filter(f=>f.floorId===floorId),copyIds=new Map(originals.map(p=>[p.id,uid()]));
     const furniture=originals.map(piece=>({...structuredClone(piece),id:copyIds.get(piece.id)!,floorId:id,toFloorId:undefined,...(piece.hostDoorId?{hostDoorId:copyIds.get(piece.hostDoorId)}:{})}));
-    return {...commit(state,{...state.plan,floors:[...state.plan.floors,floor],furniture:[...state.plan.furniture,...furniture]},null),activeFloorId:id};
+    const data=state.plan.furnitureGroups;
+    const furnitureGroups=data?{...data,groups:[...data.groups,...data.groups.filter(g=>g.floorId===floorId).map(g=>({...g,id:uid(),floorId:id,memberIds:g.memberIds.map(member=>copyIds.get(member)!)}))],lockedItemIds:[...data.lockedItemIds,...data.lockedItemIds.filter(key=>copyIds.has(key)).map(key=>copyIds.get(key)!)]}:undefined;
+    const next={...state.plan,floors:[...state.plan.floors,floor],furniture:[...state.plan.furniture,...furniture],...(furnitureGroups?{furnitureGroups}:{})};try{validatePlan(next);return {...commit(state,next,null),activeFloorId:id};}catch(e){return {placementNotice:(e as Error).message};}
   }),
   reorderFloor:(floorId,index)=>set(state=>{const from=state.plan.floors.findIndex(f=>f.id===floorId);if(from<0||!Number.isInteger(index)||index<0||index>=state.plan.floors.length||from===index)return state;const order=[...state.plan.floors], [floor]=order.splice(from,1);order.splice(index,0,floor);let elevation=Math.min(...order.map(f=>f.elevationMm));const floors=order.map(f=>{const next={...f,elevationMm:elevation};elevation+=f.heightMm+300;return next;});return commit(state,{...state.plan,floors},null);}),
   deleteFloor: (floorId) => set((state) => {
     const targetId = floorId ?? state.activeFloorId;
     const index = state.plan.floors.findIndex(f => f.id === targetId);
     if (index < 0) return state;
+    if(state.plan.furniture.some(p=>(p.floorId===targetId||p.toFloorId===targetId)&&isFurnitureLocked(state.plan,p.id)))return {placementNotice:'Unlock furniture on or connected to this floor before removing it.'};
     // Keep one editable layer; clearing the last floor removes its contents.
     const floors = state.plan.floors.length === 1
       ? [{ ...state.plan.floors[0], cells: [], walls: [], openings: [], stairs: [], ...(state.plan.floors[0].cellRects?{cellRects:{}}:{}), ...(state.plan.floors[0].cellFinishes?{cellFinishes:{}}:{}), ...(state.plan.floors[0].wallFinishes?{wallFinishes:{}}:{}) }]
@@ -171,11 +194,16 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   placeFurniture: (catalogId, x = 1700, z = 1700) => set((state) => { const item = catalog.find((c) => c.id === catalogId); if (!item) return state; const id = uid(); const placed: FurniturePlacement = { id, catalogId, floorId: state.activeFloorId, x, z, rotation: 0, widthMm: item.widthMm, depthMm: item.depthMm, heightMm: item.heightMm, variant: modernDefaultVariant(catalogId), surfaceVariant: supportsCountertopFinish(catalogId) ? modernDefaultSurface(catalogId)??defaultCountertopFinish.id : undefined, elevationMm:defaultMountHeight(catalogId,state.plan.floors.find(f=>f.id===state.activeFloorId)?.heightMm) }; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, placed] }, id); }),
   confirmFurniture: (item) => set((state) => {const mounted=fitStair(state.plan,snapWindow(state.plan,item)),problem=windowProblem(state.plan,mounted);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:[...state.plan.furniture,mounted]},null),placementNotice:undefined};}),
   moveFurniture: (id,x,z) => get().updateFurniture(id,{x,z}),
-  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;const edited={...existing,...patch,...('elevationMm' in patch?{terrainAnchored:false}:{})};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)&&!isStormDoor(existing.catalogId)&&!isRoofSkylight(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
-  duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWallOpening(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
-  deleteSelected: () => set((state) => state.selectedId ? commit(state, { ...state.plan, furniture: state.plan.furniture.filter((f) => f.id !== state.selectedId) }, null) : state),
-  undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], paintWallIds:[], selectedId: undefined, selectedWallId:undefined }; }),
-  redo: () => set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), paintWallIds:[], selectedId: undefined, selectedWallId:undefined }; }),
+  updateFurniture: (id,patch) => set((state) => {const existing=state.plan.furniture.find(f=>f.id===id);if(!existing)return state;if(isFurnitureLocked(state.plan,id))return {placementNotice:'Unlock this furniture before editing.'};const selectedIds=selectionFor(state,id);
+    if(selectedIds.length>1&&['x','z','rotation','elevationMm','widthMm','depthMm','heightMm'].some(key=>key in patch)){try{
+      if(['widthMm','depthMm','heightMm','elevationMm'].some(key=>key in patch&&patch[key as keyof FurniturePlacement]!==existing[key as keyof FurniturePlacement]))throw new Error('Ungroup or select one independent piece to change its size or height.');
+      const next=transformSelectedPlacements(state.plan,existing.floorId,selectedIds,{deltaX:(patch.x??existing.x)-existing.x,deltaZ:(patch.z??existing.z)-existing.z,degrees:(patch.rotation??existing.rotation)-existing.rotation,pivot:{x:existing.x,z:existing.z}}).plan;validatePlan(next);return {...commit(state,next,id),placementNotice:undefined};
+    }catch(e){return {placementNotice:(e as Error).message};}}
+    const edited={...existing,...patch,...('elevationMm' in patch?{terrainAnchored:false}:{})};const geometryEdit=["x","z","widthMm","depthMm","heightMm","elevationMm"].some(key=>key in patch);const candidate=fitStair(state.plan,!geometryEdit&&(!("rotation" in patch)||(!isWallOpening(existing.catalogId)&&!isKitchenWall(existing.catalogId)&&!isStormDoor(existing.catalogId)&&!isRoofSkylight(existing.catalogId)))?edited:snapWindow(state.plan,edited));const problem=windowProblem(state.plan,candidate);if(problem)return {placementNotice:problem};return {...commit(state,{...state.plan,furniture:state.plan.furniture.map(f=>f.id===id?candidate:f)},id),placementNotice:undefined};}),
+  duplicateSelected: () => set((state) => { const item = state.plan.furniture.find((f) => f.id === state.selectedId); if (!item) return state; if(isFurnitureLocked(state.plan,item.id))return {placementNotice:'Unlock this furniture before duplicating.'};const ids=selectionFor(state,item.id);if(ids.length>1){try{const result=applyFurnitureGroupCommand(state.plan,state.plan,state.activeFloorId,{type:'duplicate',ids,dx:250,dz:250},validatePlan);return {...commit(state,result.plan,null),selectedIds:result.selectedIds,selectedId:result.selectedIds[0]};}catch(e){return {placementNotice:(e as Error).message};}} const copy = snapWindow(state.plan,{ ...item, id: uid(), x: item.x + (isWallOpening(item.catalogId)&&item.rotation%180===0?item.widthMm+80:250), z: item.z + (isWindow(item.catalogId)&&item.rotation%180!==0?item.widthMm+80:250) }); const problem=windowProblem(state.plan,copy);if(problem)return {placementNotice:problem}; return commit(state, { ...state.plan, furniture: [...state.plan.furniture, copy] }, copy.id); }),
+  deleteSelected: () => set((state) => {if(!state.selectedId)return state;try{const ids=selectionFor(state,state.selectedId);return commit(state,{...state.plan,furniture:state.plan.furniture.filter(f=>!ids.includes(f.id))},null);}catch(e){return {placementNotice:(e as Error).message};}}),
+  undo: () => set((state) => { const previous = state.past.at(-1); if (!previous) return state; return { plan: previous.plan, activeFloorId: previous.activeFloorId, past: state.past.slice(0, -1), future: [snap(state), ...state.future], paintWallIds:[], selectedId: undefined, selectedIds:[], selectedWallId:undefined }; }),
+  redo: () => set((state) => { const next = state.future[0]; if (!next) return state; return { plan: next.plan, activeFloorId: next.activeFloorId, past: [...state.past, snap(state)], future: state.future.slice(1), paintWallIds:[], selectedId: undefined, selectedIds:[], selectedWallId:undefined }; }),
 }));
 
 let dbPromise: ReturnType<typeof openDB> | undefined;

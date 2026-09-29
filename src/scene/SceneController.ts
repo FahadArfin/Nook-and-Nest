@@ -1,3 +1,5 @@
+import type {FitOverlay} from '../fitReview';
+import {isFurnitureLocked} from '../furnitureGroups';
 import {polygonPrism,ringOf} from '../polygonGeometry';
 import {VegetationFieldRenderer} from './VegetationFieldRenderer';
 import { VertexData } from "@babylonjs/core/Meshes/mesh.vertexData";
@@ -611,6 +613,12 @@ export class SceneController {
       }
     });
     window.addEventListener("resize", this.resize);
+    // Side panels resize the canvas without a window resize. Keep picking rays
+    // aligned with the rendered image without resetting the camera.
+    if (typeof ResizeObserver !== 'undefined') {
+      this.canvasResizeObserver = new ResizeObserver(this.resize);
+      this.canvasResizeObserver.observe(this.canvas);
+    }
     // Hover does not select furniture; dragging already uses explicit picking.
     this.scene.skipPointerMovePicking = true;
     this.scene.onBeforeRenderObservable.add(() => {
@@ -705,15 +713,56 @@ export class SceneController {
   focusSelected(...args: Parameters<CameraControls["focusSelected"]>) {
     return this.cameraControls.focusSelected(...args);
   }
+  private fitGuide?: ReturnType<typeof MeshBuilder.CreateLineSystem>;
+  private fitGuideSegments=0;
+  setFitReview(overlays:readonly FitOverlay[]) {
+    const lines:Vector3[][]=[];
+    for(const overlay of overlays){
+      const floor=this.activePlan?.floors.find(f=>f.id===overlay.floorId);
+      if(!floor)continue;
+      const y=floor.elevationMm/1000+.085;
+      const point=(p:{x:number;z:number})=>new Vector3(p.x/1000,y,p.z/1000);
+      if(overlay.kind==='line')lines.push([point(overlay.a),point(overlay.b)]);
+      else for(let i=0;i<overlay.points.length;i++)lines.push([point(overlay.points[i]),point(overlay.points[(i+1)%overlay.points.length])]);
+      if(lines.length>=2400)break;
+    }
+    if(!lines.length){this.fitGuide?.dispose();this.fitGuide=undefined;this.fitGuideSegments=0;return;}
+    if(this.fitGuide&&this.fitGuideSegments!==lines.length){this.fitGuide.dispose();this.fitGuide=undefined;}
+    this.fitGuide=MeshBuilder.CreateLineSystem('fit-review-guide',{lines,updatable:true,instance:this.fitGuide},this.scene);
+    this.fitGuideSegments=lines.length;this.fitGuide.color=Color3.FromHexString('#dc913f');
+    this.fitGuide.isPickable=false;this.fitGuide.alwaysSelectAsActiveMesh=false;
+  }
+  private selectionPlacements: FurniturePlacement[] = [];
+  setFurnitureSelection(ids: readonly string[]) {
+    const previous=new Set(this.selectionPlacements.map(p=>p.id)),selected=new Set(ids.slice(0,80));
+    this.selectionPlacements=this.activePlan?.furniture.filter(p=>selected.has(p.id))??[];
+    for(const id of new Set([...previous,...selected])){
+      const node=this.furnitureNodes.get(id)?.node,p=this.selectionPlacements.find(p=>p.id===id);
+      for(const mesh of node?.getChildMeshes()??[]){mesh.renderOutline=selected.has(id)&&mesh.metadata?.livingMaterial!=="live-clock-display";mesh.outlineColor=new Color3(.42,.57,.31);if(p)mesh.outlineWidth=Math.min(.025,Math.min(p.widthMm,p.depthMm,p.heightMm)*.00002);}
+    }
+  }
+  private previewSelectedTransform(pivot:FurniturePlacement,x:number,z:number,rotation:number) {
+    if(this.selectionPlacements.length<2)return;
+    const a=(rotation-pivot.rotation)*Math.PI/180,c=Math.cos(a),s=Math.sin(a);
+    for(const item of this.selectionPlacements){const node=this.furnitureNodes.get(item.id)?.node;if(!node)continue;
+      node.position.x=(x+(item.x-pivot.x)*c+(item.z-pivot.z)*s)/1000;
+      node.position.z=(z-(item.x-pivot.x)*s+(item.z-pivot.z)*c)/1000;
+      node.rotation.y=(item.rotation+rotation-pivot.rotation)*Math.PI/180;
+    }
+  }
+  private restoreSelectedTransforms(){for(const p of this.selectionPlacements){const node=this.furnitureNodes.get(p.id)?.node;if(node){node.position.x=p.x/1000;node.position.z=p.z/1000;node.rotation.y=p.rotation*Math.PI/180;}}}
   setMoveMode(enabled: boolean) {
+    if(enabled&&this.activePlan&&this.selectionPlacements.some(p=>isFurnitureLocked(this.activePlan!,p.id)))return;
     if (!enabled && this.dragging) this.cancelTouchEdit();
     this.moveSelection = enabled ? this.selectedId : undefined;
     if (enabled) this.setRotationMode(false);
   }
   setRotationMode(enabled: boolean) {
+    if(enabled&&!this.activeDraft&&this.activePlan&&this.selectionPlacements.some(p=>isFurnitureLocked(this.activePlan!,p.id)))return;
     if (enabled) this.setMoveMode(false);
     if (this.rotationMode === enabled) return;
     if (this.rotationDrag) {
+      this.restoreSelectedTransforms();
       this.rotationDrag.node.rotation.y =
         (this.rotationDrag.item.rotation * Math.PI) / 180;
       this.rotationDrag = undefined;
@@ -809,6 +858,7 @@ export class SceneController {
     this.cameraControls.pointerHeld = false;
     this.cameraControls.cancelFocus();
     if (this.rotationDrag) {
+      this.restoreSelectedTransforms();
       this.rotationDrag.node.rotation.y =
         (this.rotationDrag.item.rotation * Math.PI) / 180;
       this.rotationDrag = undefined;
@@ -837,6 +887,7 @@ export class SceneController {
   };
   private touchCleanup?: () => void;
   private cancelTouchEdit() {
+    this.restoreSelectedTransforms();
     this.cancelOutdoorStroke();
     const item =
         this.activeDraft ??
@@ -866,6 +917,7 @@ export class SceneController {
     if (this.floorPaint.tileDragStart) this.floorPaint.cancelTileDraft();
     this.cancelWallDraft();
   }
+  private canvasResizeObserver?: ResizeObserver;
   private resize = () => this.engine.resize();
   dispose() {
     this.cameraControls.walkthrough.dispose();
@@ -884,11 +936,13 @@ export class SceneController {
       true,
     );
     this.rotationGuide?.dispose();
+    this.fitGuide?.dispose();
     this.canvas.removeEventListener("contextmenu", this.contextMenu);
     this.canvas.removeEventListener("pointercancel", this.cancelOutdoorStroke);
     window.removeEventListener("blur", this.cancelOutdoorStroke);
     this.landscape.clearPlantingPreview();
     window.removeEventListener("resize", this.resize);
+    this.canvasResizeObserver?.disconnect();
     this.coverageRenderer?.dispose();
     this.fieldRenderer?.dispose();
     this.outdoors.dispose();
@@ -2522,6 +2576,7 @@ export class SceneController {
             );
           drag.rotation = ((angle % 360) + 360) % 360;
           drag.node.rotation.y = (drag.rotation * Math.PI) / 180;
+          if(!drag.draft)this.previewSelectedTransform(drag.item,drag.item.x,drag.item.z,drag.rotation);
         } else if (info.type === PointerEventTypes.POINTERUP) {
           this.rotationDrag = undefined;
           this.cameraControls.resumeCameraControls();
@@ -2553,7 +2608,7 @@ export class SceneController {
             name = "draft-preview";
           }
         }
-        if (this.tool === "select" && this.selectedId && !this.activeDraft) {
+        if (this.tool === "select" && this.selectedId && !this.activeDraft && !info.event.shiftKey && !info.event.ctrlKey && !info.event.metaKey) {
           const selected = this.scene.pick(
             this.scene.pointerX,
             this.scene.pointerY,
@@ -2663,8 +2718,10 @@ export class SceneController {
           this.cameraControls.suspendCameraPointers();
         } else if (name.startsWith("item:") && this.tool === "select") {
           const id = name.slice(5);
-          this.callbacks.onSelect(id);
-          if (this.moveSelection === id && this.selectedId === id) {
+          const additive=info.event.shiftKey||info.event.ctrlKey||info.event.metaKey;
+          if(additive)this.callbacks.onSelect(id,true);
+          else if(this.moveSelection!==id||this.selectedId!==id)this.callbacks.onSelect(id);
+          if (!additive && this.moveSelection === id && this.selectedId === id && !this.selectionPlacements.some(p=>isFurnitureLocked(this.activePlan!,p.id))) {
             this.placement.beginFurnitureDrag(
               this.activePlan?.furniture.find((f) => f.id === id),
             );
@@ -2756,9 +2813,9 @@ export class SceneController {
           item,
         );
         if (position && item && this.selectedNode) {
-          const mounted = this.activePlan
-            ? snapWindow(this.activePlan, { ...item, ...position })
-            : item;
+          const mounted = this.selectionPlacements.length>1
+            ? {...item,x:position.x,z:position.z}
+            : this.activePlan ? snapWindow(this.activePlan, { ...item, ...position }) : item;
           this.selectedNode.position.x = mounted.x / 1000;
           this.selectedNode.position.z = mounted.z / 1000;
           if (mounted.elevationMm !== undefined) {
@@ -2770,6 +2827,7 @@ export class SceneController {
               1000;
           }
           this.selectedNode.rotation.y = (mounted.rotation * Math.PI) / 180;
+          this.previewSelectedTransform(item,mounted.x,mounted.z,mounted.rotation);
           this.draggedPosition = mounted;
           moved = true;
         }

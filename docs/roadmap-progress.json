@@ -1,0 +1,522 @@
+{
+  "version": 1,
+  "source": "September 29, 2026 feature roadmap",
+  "updated": "2026-09-29",
+  "baseCommit": "8745059e6a80184f52b1d830f5af97be6b03fa58",
+  "goal": "Implement all 32 roadmap features with verified acceptance and original-site releases",
+  "features": [
+    {
+      "id": "NN-29",
+      "title": "One portable project, including its media",
+      "status": "partial",
+      "depends": [],
+      "scope": "Milestone A: one combined portable package containing the plan, its listing media, chosen floor-plan references and an asset manifest. Milestone B: optional online media snapshots with visible quotas, progress, retry and recovery. Local personalization requires A only.",
+      "acceptance": [
+        "Restore a project on another browser profile with every selected media/reference asset, or a precise missing-asset list; never silently present a complete backup.",
+        "Failed/partial uploads do not overwrite a complete snapshot; asset ownership and deletion work. Published-link revocation belongs to the separate publication-permissions workflow."
+      ],
+      "boundary": "Online media is an explicit opt-in and depends on configured storage. R2 remains deferred; choose storage only after quota/cost evaluation. Private media is excluded from public sharing unless chosen.",
+      "evidence": [
+        "Milestone A extends portable project packages with versioned references and all referenced personal-photo originals, including saved alternatives.",
+        "Hash verification precedes import; missing assets are explicit; private metadata excluded from ordinary public sharing.",
+        "Milestone B online-media snapshots remains pending; no new private-media hosting or local GPU configuration activated."
+      ]
+    },
+    {
+      "id": "NN-01",
+      "title": "Try A / B / C layouts",
+      "status": "implemented-awaiting-release",
+      "depends": [],
+      "scope": "Named alternatives inside a project; duplicate current design, compare the same camera/room, show what changed, and choose one explicitly.",
+      "acceptance": [
+        "Changing B never changes A; switching preserves each option's dimensions, finishes, floor references and furniture.",
+        "Compare uses the same view; restore and choose actions are undoable, and older saves still open."
+      ],
+      "boundary": "Start with independent snapshots and compact previews. Do not keep several complete 3D scenes rendering or silently synchronize edits across alternatives.",
+      "evidence": [
+        "Independent alternatives preserve groups, budgets and immutable floor-reference IDs; paired SVG views use one physical scale and view box.",
+        "Layout comparison and two-item change highlighting checked in the browser; snapshot restore/undo and reference-only backup restore covered by regression tests."
+      ]
+    },
+    {
+      "id": "NN-02",
+      "title": "Move a set; save a room kit",
+      "status": "implemented-awaiting-release",
+      "depends": [],
+      "scope": "Multi-select, explicit group/ungroup, lock, move/rotate/duplicate as one action, and save a named reusable arrangement.",
+      "acceptance": [
+        "A grouped shelf arrangement keeps supported items at valid relative positions, and ungrouping restores independent selection.",
+        "Place a saved kit as a reversible draft; confirmation is one undo step; unavailable items have a clear replacement path."
+      ],
+      "boundary": "Group only explicit selections. Include linked support objects only when chosen; retain independently editable contents and authored dimensions.",
+      "evidence": [
+        "Explicit multi-selection, group/ungroup, locks, rigid move/turn/duplicate/delete, per-floor clone compatibility and one-step history.",
+        "Recipes and private kits preview before commit; missing models can be explicitly replaced or skipped; replacement resets incompatible source overrides.",
+        "Browser drag moved chair/table with exact 720 mm / 100 mm relative offset and one undo; locked actions and stale native-agent edits tested."
+      ]
+    },
+    {
+      "id": "NN-03",
+      "title": "My furniture and belongings",
+      "status": "implemented-awaiting-release",
+      "depends": [
+        "NN-29"
+      ],
+      "scope": "Create a private item from a named furniture type, exact width/depth/height, photo, notes and keep/replace status. Save it to a personal collection.",
+      "acceptance": [
+        "Custom dimensions survive placement, duplication, export/import and online saves; the original catalog piece is unchanged.",
+        "An approximate item is visibly distinguished from an exact manufacturer model, including in exported schedules."
+      ],
+      "boundary": "Start with clearly marked approximate geometry using existing models. Validated GLB import is a later increment, with file/texture/mesh budgets and rights metadata; no automatic model scraping.",
+      "evidence": [
+        "Private measured furniture collection, approximate catalog proxies, keep/replace state, photo originals, explicit preview/confirm and local quota handling.",
+        "Private metadata and referenced photos survive portable backups; proxy identity is shown in CSV/print schedules; public/agent views omit private photo IDs and notes.",
+        "Browser creation, reload, placement, discard and undo checked."
+      ]
+    },
+    {
+      "id": "NN-04",
+      "title": "Will it actually fit?",
+      "status": "implemented-awaiting-release",
+      "depends": [],
+      "scope": "An optional practical review overlay: inspect furniture gaps, door and drawer opening envelopes, user-set passage widths, and seat pull-out areas; link each warning to the objects involved.",
+      "acceptance": [
+        "Warnings explain which measured space triggered them and respect user-adjusted thresholds and irregular room boundaries.",
+        "Turning the overlay off changes no geometry; warnings update only for affected objects and do not make dragging sluggish."
+      ],
+      "boundary": "Extend existing measurement/placement safeguards. Begin with simple reliable envelopes. Accessible-space profiles are planning preferences, not certification; fitting through a moving route needs a separate later solver.",
+      "evidence": [
+        "Optional cached footprint/height review covers irregular floors, gaps, supported chair pull-out and explicit approximate door/drawer envelopes.",
+        "One bounded non-pickable line mesh persists after closing settings; capture excludes guides; off does not edit saved geometry.",
+        "Focused geometry/cache/lifecycle tests and browser gap measurement/selection checked."
+      ]
+    },
+    {
+      "id": "NN-05",
+      "title": "Moodboard linked to the room",
+      "status": "integration-pending",
+      "depends": [
+        "NN-29",
+        "NN-02"
+      ],
+      "scope": "Pin personal reference images, catalog pieces, finishes and notes; build a palette; preview applying selected colors to a room or group before confirmation.",
+      "acceptance": [
+        "A palette preview can be discarded without changes; applying records one undo step and never recolors locked pieces.",
+        "Boards reopen with their source links, accessible labels and selected catalog references."
+      ],
+      "boundary": "Keep reference images private by default. Apply to explicit material roles, preserve items the user locks, and retain image attribution. No automatic retailer scraper.",
+      "evidence": []
+    },
+    {
+      "id": "NN-06",
+      "title": "Room recipes and quick starts",
+      "status": "implemented-awaiting-release",
+      "depends": [
+        "NN-02"
+      ],
+      "scope": "Offer small editable starting arrangements: reading nook, first apartment, cozy office, hobby corner and guest room. Preview a kit against the user's room and allow choosing what to keep.",
+      "acceptance": [
+        "A recipe works as editable independent furniture after placement and never replaces the user's room without an explicit action.",
+        "Templates list required footprint and gracefully show when they cannot fit."
+      ],
+      "boundary": "Use original assets and existing placement tools; offer recipes from the library or empty-state affordance rather than another permanent toolbar. Preserve the current one-click Quick layout preference.",
+      "evidence": [
+        "Six editable recipes include footprint reporting, piece choices, support warnings, polygon floor-fit review and explicit confirmation.",
+        "Browser preview/apply checked; independent placements, floor holes, diagonal boundaries and undo covered by tests."
+      ]
+    },
+    {
+      "id": "NN-21",
+      "title": "Your art, fabric and memories",
+      "status": "integration-pending",
+      "depends": [
+        "NN-29"
+      ],
+      "scope": "Upload personal images into frames/canvases and a limited material swatch tool; choose crop, repeat scale and frame color; retain the original file privately.",
+      "acceptance": [
+        "Image crop and physical repeat size survive save/load/export; duplicated items reuse the same asset.",
+        "Missing/private images have readable placeholders and never block opening the rest of a shared project."
+      ],
+      "boundary": "Do not automatically publish uploads or bake huge images into every placed item. Reuse assets and cap texture size; sharing requires explicit inclusion.",
+      "evidence": []
+    },
+    {
+      "id": "NN-07",
+      "title": "Set the mood of your home",
+      "status": "integration-pending",
+      "depends": [],
+      "scope": "Saved scene presets such as morning light, rainy afternoon and evening reading; adjustable lamp warmth, modest exterior weather and opt-in sound.",
+      "acceptance": [
+        "Presets retain furniture colors and geometry and restore consistently with saved views.",
+        "On the agreed mobile and integrated-GPU scenes, the feature meets measured frame-time and memory budgets; reduced motion removes continuous effects."
+      ],
+      "boundary": "Reuse existing lighting/audio/animation. Bound active lights and effects; include static/reduced-motion and silent settings, and stop effects in hidden tabs. This is atmosphere, not weather physics.",
+      "evidence": []
+    },
+    {
+      "id": "NN-08",
+      "title": "Private client review and approval",
+      "status": "in-progress",
+      "depends": [
+        "NN-01",
+        "NN-29"
+      ],
+      "scope": "Publish an explicit review snapshot, pin comments to rooms/items/views, request changes or approval, resolve threads, and show which version was reviewed.",
+      "acceptance": [
+        "A reviewer cannot edit the owner's plan or access other projects; revoked review access stops working.",
+        "Comments and approval stay attached to the reviewed revision and are visibly stale after a new revision is published."
+      ],
+      "boundary": "Start with asynchronous review. Guest identity, access expiry/revocation and owner controls are required; approval is a design decision record, not a contract signature.",
+      "evidence": []
+    },
+    {
+      "id": "NN-09",
+      "title": "Selections, shopping and room budgets",
+      "status": "implemented-awaiting-release",
+      "depends": [
+        "NN-03",
+        "NN-01"
+      ],
+      "scope": "Attach a product URL, vendor, exact/approximate match, manual price/currency and checked date to an item; quantities and room totals; owned/wishlist/selected/ordered status; export a schedule.",
+      "acceptance": [
+        "Totals handle quantities and discounts predictably, never treat unknown prices as zero, and do not combine currencies without explicit conversion.",
+        "A schedule identifies exact model vs visual substitute, source URL and price date; alternatives remain separate."
+      ],
+      "boundary": "Use user-entered prices first, with explicit unknown values. No invented live prices, stock, shipping or tax; purchasing stays on the vendor site.",
+      "evidence": [
+        "Manual product specifications, owned/buy statuses, quantities/discounts, independent currency totals, explicit unknown prices and floor/room budgets.",
+        "CSV and print-to-PDF schedules identify proxy versus product, revision, source and price date.",
+        "Browser USD 125.50 selection and USD 1,000 target retained two missing prices; ownership/privacy/escaping/math tests pass."
+      ]
+    },
+    {
+      "id": "NN-10",
+      "title": "Paint, flooring and finish quantities",
+      "status": "in-progress",
+      "depends": [
+        "NN-30"
+      ],
+      "scope": "Room-by-room wall/floor/ceiling surface areas, opening deductions, user-set waste and coverage, finish schedule and CSV/PDF export.",
+      "acceptance": [
+        "Sample irregular rooms, openings and multi-floor plans match independently calculated areas within defined numeric tolerance.",
+        "Changing a finish, coverage or waste rate updates quantities without resizing geometry; unknown heights remain flagged."
+      ],
+      "boundary": "Expose the calculation and units. Define which surfaces count; separate geometric area from purchasable packs. Exclude structural, electrical and plumbing costing.",
+      "evidence": []
+    },
+    {
+      "id": "NN-11",
+      "title": "A tour that tells a story",
+      "status": "in-progress",
+      "depends": [
+        "NN-29"
+      ],
+      "scope": "Add photo markers and facing arrows to each floor; link a room/marker to existing media. Then use saved views for named tour stops, captions/narration and a read-only embedded viewer.",
+      "acceptance": [
+        "Every stop restores the intended floor/view; hotspots remain readable on small screens and never expose editor controls.",
+        "Published tour snapshots are deliberate, revocable and do not silently change as the private project is edited."
+      ],
+      "boundary": "Extend Listing Studio and its media provenance. Clearly label an authored/staged design versus a captured property; provide still-image fallback and keyboard navigation.",
+      "evidence": []
+    },
+    {
+      "id": "NN-12",
+      "title": "Reusable presentation packs",
+      "status": "planned",
+      "depends": [
+        "NN-01",
+        "NN-05",
+        "NN-09"
+      ],
+      "scope": "Saved brand templates, selected views, option comparison pages, moodboards, selections and revision summaries assembled into a concise client presentation.",
+      "acceptance": [
+        "An unbranded export omits dedicated personal branding fields and warns to review free text and image content.",
+        "Every page identifies the included design revision, and selected totals/options match the source snapshot."
+      ],
+      "boundary": "Build on existing branded/unbranded exports. Keep styling separate from facts; generate a fresh snapshot of selected content with a preview before export.",
+      "evidence": []
+    },
+    {
+      "id": "NN-30",
+      "title": "Site notes and verified measurements",
+      "status": "planned",
+      "depends": [
+        "NN-29"
+      ],
+      "scope": "Attach notes/photos to rooms, walls and objects; record measurement source, check date/reviewer and unresolved questions. Show area breakdown with included/excluded/outdoor categories and explicit calculation basis.",
+      "acceptance": [
+        "Room areas reconcile with the chosen boundary basis; balconies/garages never silently become interior living area.",
+        "A corrected wall marks dependent quantities and exports as changed, while its earlier verified value remains traceable."
+      ],
+      "boundary": "Keep private survey notes separate from public listing media. User-defined classifications are not a certification of legal living area or measurement standards.",
+      "evidence": []
+    },
+    {
+      "id": "NN-13",
+      "title": "Existing, remove, proposed",
+      "status": "in-progress",
+      "depends": [
+        "NN-01"
+      ],
+      "scope": "Separate existing/proposed states with keep/remove/new markings for architecture and furniture, a change summary and clear before/after comparison.",
+      "acceptance": [
+        "Switching phases does not delete the baseline; exports consistently show phase and revision.",
+        "Removing a proposed wall preserves its original counterpart and related doors/windows in the existing state."
+      ],
+      "boundary": "Begin as planning layers and versioned alternatives. No load-bearing detection, demolition authorization or permit-ready claims.",
+      "evidence": []
+    },
+    {
+      "id": "NN-14",
+      "title": "Build your own sectional or shelving",
+      "status": "planned",
+      "depends": [
+        "NN-02"
+      ],
+      "scope": "An original modular builder for one family first: snap compatible modules, choose orientation/materials, show total dimensions, and place the assembly as editable pieces.",
+      "acceptance": [
+        "Only compatible module joints snap; gaps, mirrored ends and material seams are visually reviewed.",
+        "Save/reload, ungroup and undo preserve module identities and total dimensions."
+      ],
+      "boundary": "Use Blender-authored modules with attachment metadata; do not imply arbitrary dimensions are manufacturable or copy brand systems. Expand only after one family works.",
+      "evidence": []
+    },
+    {
+      "id": "NN-15",
+      "title": "Watch your design come together",
+      "status": "in-progress",
+      "depends": [],
+      "scope": "Opt-in build replay from design milestones, with pause/scrub, a chosen camera, and a short exported timelapse or image sequence.",
+      "acceptance": [
+        "A replay reconstructs the selected design milestones accurately after reload without mutating the current project.",
+        "Recording can be disabled/cleared, exports are cancellable, and unsupported encoders offer an image-sequence fallback."
+      ],
+      "boundary": "Record compact authored events/checkpoints, not the user's screen or input. Do not assume the current undo stack is durable recording; exclude private dialogs and deleted material.",
+      "evidence": []
+    },
+    {
+      "id": "NN-16",
+      "title": "Little moments of life",
+      "status": "planned",
+      "depends": [],
+      "scope": "Turn a lamp on, open a supported door, unfold a sofa bed, run an authored fireplace animation, or place a calm animated pet that rests in selected spots.",
+      "acceptance": [
+        "Interaction never changes the item's saved placement or collision footprint unexpectedly; each state has an accessible control.",
+        "Reduced motion provides still poses; idle off-screen items stop updating."
+      ],
+      "boundary": "Start with a handful of approved authored states; no full life simulation, rigid-body clutter or wandering across unverified paths. Separate transient play state from saved design.",
+      "evidence": []
+    },
+    {
+      "id": "NN-17",
+      "title": "Small, optional design challenges",
+      "status": "planned",
+      "depends": [
+        "NN-06"
+      ],
+      "scope": "Curated challenges such as a reading nook under a size limit, a home for two hobbies, a monochrome studio or a pet-friendly corner; save results privately.",
+      "acceptance": [
+        "A challenge opens a new editable project, never overwrites current work, and all required assets are available.",
+        "Optional hints can be dismissed and progress remains local unless explicitly shared."
+      ],
+      "boundary": "No timers, pay-to-win items, forced daily streaks or public voting in the first version. Offer constraint completion without judging artistic taste.",
+      "evidence": []
+    },
+    {
+      "id": "NN-18",
+      "title": "Share a room someone can remix",
+      "status": "planned",
+      "depends": [
+        "NN-02"
+      ],
+      "scope": "Share an explicit room/kit snapshot with allow-copy permission, attribution, a read-only preview, and 'Make my own' that creates a separate private copy.",
+      "acceptance": [
+        "Remixing never edits the source; copied assets resolve correctly and unauthorized private assets are excluded.",
+        "The owner can disable future access; already-downloaded copies are clearly outside revocation."
+      ],
+      "boundary": "Extend current sharing; strip listing addresses, private photos and account data by default. Content rights and creator permission travel with the shared kit.",
+      "evidence": []
+    },
+    {
+      "id": "NN-19",
+      "title": "Follow the sunlight",
+      "status": "integration-pending",
+      "depends": [],
+      "scope": "Set north, approximate location/time zone and date/time; scrub a geometric sun/shadow preview; save comparison views.",
+      "acceptance": [
+        "Known north/time examples produce independently checked sun directions, with DST/time-zone handling tested.",
+        "Keep the scene responsive while scrubbing and provide a static low-power mode."
+      ],
+      "boundary": "Make missing location/orientation visible. This is a visual approximation, not measured lux, energy analysis, plant suitability or certified daylight compliance.",
+      "evidence": []
+    },
+    {
+      "id": "NN-20",
+      "title": "Wall elevations and clean handoff",
+      "status": "in-progress",
+      "depends": [
+        "NN-10",
+        "NN-30"
+      ],
+      "scope": "Generate selected wall elevations with dimensions, opening heights, furniture outlines and notes; export scaled PDF/SVG with a scale check and revision label.",
+      "acceptance": [
+        "Printed scale checks are correct; interior/outer walls, windows and mounted furniture align with the source model.",
+        "Exports state units, revision and dimension source and flag approximations or missing measurements."
+      ],
+      "boundary": "Start with readable planning drawings. Investigate DXF/IFC only with a concrete receiving workflow and round-trip tests; do not promise BIM or construction documents.",
+      "evidence": []
+    },
+    {
+      "id": "NN-23",
+      "title": "A predictable final-render workflow",
+      "status": "planned",
+      "depends": [
+        "NN-01"
+      ],
+      "scope": "Preset still-render jobs from saved cameras, preview versus final quality, queue/progress/cancel, original-versus-output comparison, and a portable job package for the already-planned local rendering connection.",
+      "acceptance": [
+        "Output is associated with the exact plan/camera revision and cannot silently replace property evidence.",
+        "Failure/cancel/retry states are predictable; a small evaluation set checks geometry, furnishings, runtime and output quality."
+      ],
+      "boundary": "The existing local connector is for video, so define and validate a separate still-render job capability before reusing its connection patterns. Prefer fixed-geometry output; generative styling stays labeled and reviewable. Do not install a GPU cluster or introduce a paid provider automatically.",
+      "evidence": []
+    },
+    {
+      "id": "NN-26",
+      "title": "A design assistant with clear constraints",
+      "status": "planned",
+      "depends": [
+        "NN-01",
+        "NN-03",
+        "NN-04",
+        "NN-09",
+        "NN-02"
+      ],
+      "scope": "A brief with household needs, favorite styles, locked items, exact dimensions and optional budget; generate a few editable proposals with a plain explanation of tradeoffs.",
+      "acceptance": [
+        "Proposals preserve protected geometry/items, show unmet constraints and require an explicit apply.",
+        "Each applied proposal is one undo step; costs/provider use and unavailable functionality are clear."
+      ],
+      "boundary": "Reuse native proposal/apply/discard controls. An in-app model service is a separate explicit dependency; unsupported browsers retain manual recipes. No unsolicited paid generation.",
+      "evidence": []
+    },
+    {
+      "id": "NN-31",
+      "title": "From design to photo day",
+      "status": "planned",
+      "depends": [
+        "NN-09",
+        "NN-30"
+      ],
+      "scope": "A room/item-based checklist with optional responsible-person label, due date, packing list, delivery status and photos. Start with ready-for-install and ready-for-photos templates.",
+      "acceptance": [
+        "Packing counts reflect the selected design revision and selected versus owned items.",
+        "Completing a checklist task does not approve a design or mutate the room; stale lists show changed items."
+      ],
+      "boundary": "Export/print the checklist; no auto-email, purchasing, accounting or full project scheduling service. Unknown status stays unknown.",
+      "evidence": []
+    },
+    {
+      "id": "NN-22",
+      "title": "A garden through the seasons",
+      "status": "planned",
+      "depends": [],
+      "scope": "Seasonal material/visibility presets and planting palettes for a selected garden region; summer/winter views using the existing vegetation system.",
+      "acceptance": [
+        "Season changes preserve planting positions/species/IDs and switch back exactly.",
+        "Dense-scene budgets remain intact; unsupported species have a neutral fallback rather than a wrong botanical state."
+      ],
+      "boundary": "Use cosmetic season states and authored variants; avoid real growth/climate promises or regenerating millions of individual saved objects. Coordinate with the separate model queue.",
+      "evidence": []
+    },
+    {
+      "id": "NN-24",
+      "title": "See one piece in your real room",
+      "status": "planned",
+      "depends": [
+        "NN-03"
+      ],
+      "scope": "QR handoff from a selected piece to a capability-detected phone AR viewer with fixed scale and a standard 3D fallback.",
+      "acceptance": [
+        "Reference-size models display at checked real scale on supported devices; unsupported devices get a useful fallback.",
+        "Only the explicitly shared model is exposed and the handoff does not reveal private project data."
+      ],
+      "boundary": "Start with one item or small kit, not the whole home. Validate separate iOS/Android paths; native AR viewers do not preserve every in-browser interaction.",
+      "evidence": []
+    },
+    {
+      "id": "NN-25",
+      "title": "Measured capture with a review queue",
+      "status": "planned",
+      "depends": [],
+      "scope": "Enhance existing image/PDF recognition with source-linked dimensions, uncertainty highlights and a correction checklist; later pilot native room-scan import.",
+      "acceptance": [
+        "Users can verify a known dimension, correct questionable walls/openings and review all changes before applying.",
+        "A representative consented dataset reports geometry/dimension error and time-to-correct, not just successful API responses."
+      ],
+      "boundary": "Recognition already exists. Benchmark it before selecting a new model. Apple RoomPlan is a native LiDAR workflow, not a browser-only feature, and manual correction remains available.",
+      "evidence": []
+    },
+    {
+      "id": "NN-27",
+      "title": "Design together in real time",
+      "status": "planned",
+      "depends": [
+        "NN-08"
+      ],
+      "scope": "Only after review demand is proven: named collaborators, presence, explicit editing rights, conflict-safe operations and recoverable history.",
+      "acceptance": [
+        "Two concurrent edits and an offline reconnect never silently lose geometry or another person's work.",
+        "Viewer/editor access boundaries and recovery history are verified under concurrent changes."
+      ],
+      "boundary": "Prototype with two editors first. Do not bolt simultaneous writes onto snapshot saves; define offline conflicts, ownership and deletion/revocation behavior.",
+      "evidence": []
+    },
+    {
+      "id": "NN-28",
+      "title": "A curated inspiration gallery",
+      "status": "planned",
+      "depends": [
+        "NN-17",
+        "NN-18"
+      ],
+      "scope": "A small opt-in, moderated gallery of complete rooms and kits with clear creator credit, tags, copy permission and reporting.",
+      "acceptance": [
+        "Only explicitly submitted snapshots become public; removal/reporting and asset-rights handling work.",
+        "A gallery room loads within the agreed performance budget and can be copied without losing its source attribution."
+      ],
+      "boundary": "Start curated rather than an algorithmic social feed. Exclude private addresses/media and unlicensed assets; moderation, abuse controls and asset storage are real operating costs.",
+      "evidence": []
+    },
+    {
+      "id": "NN-32",
+      "title": "A staging inventory that knows what is free",
+      "status": "planned",
+      "depends": [
+        "NN-03",
+        "NN-09",
+        "NN-31"
+      ],
+      "scope": "Only after a staging-business pilot: real stock records, quantity or individual unit IDs, condition, property/date reservations and pack/return lists linked to visual proxies.",
+      "acceptance": [
+        "Concurrent overlapping reservations cannot consume the same physical unit twice.",
+        "Replacing a visual proxy does not change ownership, stock quantity or reservation history."
+      ],
+      "boundary": "This is a separate professional product surface. Start without barcode hardware or bookkeeping; require server-side concurrency and roles before real reservations.",
+      "evidence": []
+    }
+  ],
+  "release": {
+    "branch": "codex/dream-home-roadmap",
+    "state": "local-validation",
+    "featureIds": [
+      "NN-01",
+      "NN-02",
+      "NN-03",
+      "NN-04",
+      "NN-06",
+      "NN-09",
+      "NN-29"
+    ]
+  }
+}

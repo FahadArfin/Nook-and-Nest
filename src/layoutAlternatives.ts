@@ -1,3 +1,5 @@
+import {stripSelectionSpecifications} from './selectionSchedule';
+import {publicPersonalPlan} from './personalItems';
 import type { FloorPlan, FurniturePlacement, PlanDocumentV1 } from './types';
 
 export const MAX_LAYOUT_ALTERNATIVES = 6;
@@ -6,6 +8,8 @@ export const MAX_LAYOUT_ALTERNATIVES_BYTES = 2_000_000;
 const MAX_PROJECT_BYTES = 8_000_000;
 
 export interface LayoutSnapshot {
+  selectionBudgets?: PlanDocumentV1["selectionBudgets"];
+  furnitureGroups?: PlanDocumentV1['furnitureGroups'];
   gridSizeMm: number;
   floors: FloorPlan[];
   furniture: FurniturePlacement[];
@@ -54,7 +58,7 @@ export function validateLayoutAlternatives(value: unknown, validateSnapshot: (sn
     if (typeof option.createdAt !== 'string' || option.createdAt.length > 40 || !Number.isFinite(Date.parse(option.createdAt))) fail();
     if (typeof option.activeFloorId !== 'string' || option.activeFloorId.length > 160) fail();
     const snapshot = option.snapshot;
-    if (!record(snapshot) || !onlyKeys(snapshot, ['gridSizeMm', 'floors', 'furniture', 'environment'])) fail();
+    if (!record(snapshot) || !onlyKeys(snapshot, ['gridSizeMm', 'floors', 'furniture', 'environment','furnitureGroups','selectionBudgets'])) fail();
     if (bytes(snapshot) > MAX_LAYOUT_SNAPSHOT_BYTES) throw new Error('A layout idea exceeds the 750 KB limit. Export this layout as a separate project.');
     validateSnapshot(snapshot as unknown as LayoutSnapshot);
     if (!Array.isArray(snapshot.floors) || !snapshot.floors.some(floor => record(floor) && floor.id === option.activeFloorId)) fail();
@@ -67,13 +71,15 @@ export function captureLayout(plan: PlanDocumentV1): LayoutSnapshot {
     gridSizeMm: plan.gridSizeMm,
     floors: plan.floors,
     furniture: plan.furniture,
+    ...(plan.selectionBudgets?{selectionBudgets:plan.selectionBudgets}:{}),
+    ...(plan.furnitureGroups?{furnitureGroups:plan.furnitureGroups}:{}),
     ...(plan.environment === undefined ? {} : { environment: plan.environment }),
   });
 }
 
 export function snapshotAsPlan(base: PlanDocumentV1, snapshot: LayoutSnapshot): PlanDocumentV1 {
   const { layoutAlternatives: _ideas, studioDrafts: _drafts, ...rest } = base as AlternativePlan;
-  return { ...rest, ...snapshot, environment: snapshot.environment };
+  return { ...rest, ...snapshot, furnitureGroups:snapshot.furnitureGroups,selectionBudgets:snapshot.selectionBudgets, environment: snapshot.environment };
 }
 
 function checked(plan: AlternativePlan, validate: PlanValidator): AlternativePlan {
@@ -155,5 +161,5 @@ export function layoutDifference(current: LayoutSnapshot, saved: LayoutSnapshot)
 
 export function publicLayoutPlan(plan: AlternativePlan): PlanDocumentV1 {
   const { layoutAlternatives: _ideas, studioDrafts: _drafts, ...published } = plan;
-  return published;
+  return stripSelectionSpecifications(publicPersonalPlan({...published,floors:published.floors.map(({referenceId:_privateReference,...floor})=>floor)}));
 }

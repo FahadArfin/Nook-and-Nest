@@ -1,24 +1,26 @@
-# Creative planning — first roadmap release
+# Creative planning roadmap: first expansion
 
-This release implements a focused subset of the September 29 feature roadmap.
+The authoritative 32-feature inventory and acceptance criteria live in `roadmap-progress.json`. Status distinguishes implemented code, integrated validation and released behavior. This batch advances NN-01/02/03/04/06/09 and the portable portion of NN-29; it does not complete the whole roadmap.
 
-| Roadmap item | Delivered | Follow-up scope |
-| --- | --- | --- |
-| NN-01 Layout alternatives | Project → Layout ideas: named immutable snapshots, change summaries, rename/delete, explicit apply and one-step undo; retain orbit/zoom on apply | Visual side-by-side comparison and per-idea reference-file versions |
-| NN-02 Reusable arrangements | Furniture library → Arrangements: explicit piece selection, private local kits, position/rotation preview, Apply/Discard, one undo for placement | Persistent groups, group dragging, locks and group/ungroup tools |
-| NN-06 Room starters | Reading nook, breakfast for two, creative desk corner; existing original models remain independent after placement | More room recipes and selective recipe membership |
-| NN-29 Portable project | Milestone A: one local package with plan, listing media/originals/details/viewpoints and available saved floor references; new-copy restore | Milestone B: optional private online media snapshots |
+## Where to find it
 
-## Use and storage
+- **Furniture library → Arrangements**: six recipes, private reusable kits, My furniture, Groups & locks, and Check fit.
+- **Project → Layout ideas**: independent named alternatives and a matched-scale comparison.
+- **Project → Selections & budget**: manual product specifications, prices, targets and CSV/print exports.
+- **Project → Backups**: portable plan/media/reference packages, now including personal photos and references used only by saved layouts.
 
-Layout ideas store confirmed architecture, furniture, finishes and outdoors. Camera settings, project identity and units stay with the working project. Ideas never update silently. Applying clears saved floor-plan drafts because they may reference different geometry. Undo restores the complete prior plan and active floor. Unfinished placement/paint/garden previews must be finished or discarded before opening the ideas controls. Private JSON and cloud saves retain ideas; both public short links and URL shares omit ideas and unfinished studio drafts. Reference files remain associated with project/floor IDs and are not independently versioned per idea.
+## Behavior and limits
 
-There are up to six ideas, 750 KB per snapshot and 2 MB combined, within the existing 8 MB plan limit. The panel compares one rendered working scene rather than keeping multiple Babylon scenes alive.
+Groups include only explicit selections; moving a shelf does not implicitly include decor. Groups keep rigid relative transforms and a common floor. There are at most 80 selected/grouped pieces, 100 groups, 2,000 individually locked pieces, 40 pieces per kit and 40 private kits. Structural/wall/ceiling/terrain attachments use their individual tools. Locks block ordinary edits, native-agent proposals and floor deletion; a deliberately confirmed layout restore remains a whole-design action. Shift/Ctrl/Meta-click adds or removes furniture; selected-group dragging and turning are a single undo step. Canvas dimensions are observed so opening the inspector does not misalign pointer picking.
 
-Kits contain only explicitly checked pieces from one floor. Relative transforms, dimensions, colors, finishes and elevations are retained. Shelf/table decorations must be checked separately. This first slice excludes doors/windows/stairs, wall/ceiling mounts and terrain-anchored objects. There are up to 40 private device-local kits with 40 pieces each. Kits are a device library, not part of a project backup; placed copies are ordinary project furniture. Fit warnings are approximate footprint checks, not physical/code validation. Existing Quick layout behavior is unchanged.
+Personal furniture uses measured dimensions with an explicitly approximate catalog visual. Original catalog definitions are never modified. Photos and notes are private, device-local assets with bounded storage (100 items/photos, 64 MB, 5 MB per original). Saving plan metadata online does not upload these image bytes. A portable backup carries referenced originals; missing files are reported. Public shares and furnishing tools omit notes, private image IDs and purchase details.
 
-Complete backups use a versioned `.nook-backup.json` envelope. Original plan-only and listing-only files still use their existing imports. Restore validates before writing, allocates a new project and media IDs, and publishes the new plan last. Handled storage failures clean up staged records; independent IndexedDB databases cannot guarantee crash-atomic cleanup, so a browser crash can leave unreachable temporary media. Existing records and the active pointer are not overwritten by the restore operation. Missing, omitted or preview-only references are reported. Temporary recovery journals, video jobs, service credentials and global preferences are excluded. No new online storage or model provider is configured.
+Fit review checks modeled footprints rather than complete mesh collision. It checks up to 600 solid items per floor, 120 neighboring obstacles per owner and 200 issues; vegetation does not consume that item budget. Truncation is shown. Door/drawer operating regions are optional, explicitly approximate and only offered for supported authored models. This is not code/accessibility certification or a moving-route assessment. Review preferences are editor-only and do not mutate geometry/history. Closing its settings retains the overlay; disabling it removes it. Listing captures omit the guides.
 
-## Verification
+Named layouts retain immutable reference IDs, groups and budgets. Existing reference files receive versions when an idea is saved. Unavailable historical source files cannot be recreated; opening/restoring reports missing files. The comparison renders two compact SVGs, never two live 3D scenes. Preview paths are batched to bound DOM cost.
 
-Focused tests cover malformed/oversized snapshots, privacy filtering on client and server, immutable alternatives, confirmation cancellation, atomic floor/history changes, stale previews, exact kit transforms/materials, kit storage, backup round trips, ownership checks, quota cleanup and identity collisions. Browser review uses a disposable local project, including a real captured listing render, a downloaded package restored through the UI, arrangement undo/redo and layout comparisons. Local browser testing does not establish performance on every mobile GPU.
+Specifications are manual, never scraped. Unknown prices are not zero; currencies are not converted; owned items are separate. A product URL and price date do not establish stock, rights, purchase readiness or exact-model geometry. Named room totals use current blueprint geometry and flag ambiguous/stale room membership. Personal proxies stay labeled in schedules. Printing uses the browser's Print / Save PDF flow; no certified drawing claim is made.
+
+## Validation
+
+Focused regression suites cover group/lock/history behavior, native-agent lock rejection, personal storage/hash/privacy, reference-version backups, recipes and missing-item replacement, fit geometry/cache/lifecycle, selection math/budgets/escaping and UI previews. Browser checks cover personal-item reload/placement/undo, recipe placement, group drag/undo, fit review, matched-scale comparison and manual budget entry. Full application, model, hosting, type and production build gates are required before release. GitHub Validate and the successful master artifact remain the publication gates; see `release-workflow.md`.
