@@ -20,7 +20,7 @@ import { fitStair } from "./building";
 import { snapWindow, windowProblem } from "./windows";
 import { createBlankPlan, encodeShare, decodeShare, toggleCell, toggleCells, uid } from "./domain";
 import type { FurniturePlacement, PlanDocumentV1, TileCell, Tool, Units, ViewMode, WallSegment } from "./types";
-import { validatePlan } from "./planValidation";
+import { validatePlan, MAX_PLAN_BYTES } from "./planValidation";
 import { getWallVisibility, nextWallVisibility } from "./wallVisibility";
 import { paintWallPlate, wallPlateIds, paintWallGroup } from "./wallEditing";
 import {windowRotation} from './windows';
@@ -44,7 +44,7 @@ interface PlannerState {
   wallBrushActive:boolean; finishWallGroup(group:"interior"|"exterior",finishId:string):void;
   selectedWallId?:string; selectWall(id?:string):void;
   cycleWallVisibility(): void;
-  commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1):void;
+  commitDesign(base:PlanDocumentV1,plan:PlanDocumentV1,activeFloorId?:string):void;
   setEnvironment(patch:Partial<NonNullable<PlanDocumentV1["environment"]>>):void;
   roomSize?: {widthMm:number;depthMm:number};setRoomSize(size:{widthMm:number;depthMm:number}):void; addMeasuredRoom(region:MeasuredRegion):void;
   activeSurfaceFinish: string; setSurfaceBrush(kind:"floor-finish"|"wall-finish",finishId:string):void; finishCells(cells:TileCell[],finishId:string):void; finishWall(id:string,finishId:string):void;
@@ -103,7 +103,15 @@ export const usePlanner = create<PlannerState>((set, get) => ({
   wallBrushActive:false,
   selectWall:selectedWallId=>{const s=get();if(selectedWallId&&s.wallSelectionActive){const floor=s.plan.floors.find(f=>f.id===s.activeFloorId)!;const ids=wallPlateIds(floor,s.plan.gridSizeMm,selectedWallId).sort();if(!ids.length)return;const id=ids[0];set({paintWallIds:s.paintWallIds.includes(id)?s.paintWallIds.filter(w=>w!==id):[...s.paintWallIds,id]});return;}if(selectedWallId&&s.wallBrushActive&&s.tool==='wall-finish'){s.finishWall(selectedWallId,s.activeSurfaceFinish);return;}set({selectedWallId,selectedId:undefined,tool:"wall-finish",wallBrushActive:false});},
   finishWallGroup:(group,finishId)=>set(s=>commit(s,{...s.plan,floors:s.plan.floors.map(f=>f.id===s.activeFloorId?paintWallGroup(f,s.plan.gridSizeMm,group,finishId):f)})),
-  commitDesign:(base,plan)=>set(state=>{if(state.plan!==base||plan.id!==base.id)throw new Error('The apartment changed. Read it again and prepare a new design.');validatePlan(plan);return {...commit(state,structuredClone(plan),null),tool:'select',placementNotice:undefined};}),
+  commitDesign:(base,plan,activeFloorId)=>set(state=>{
+    if(state.plan!==base||plan.id!==base.id)throw new Error('The apartment changed. Read it again and prepare a new design.');
+    if(state.turnId)throw new Error('Finish turning the piece before changing the layout.');
+    validatePlan(plan);
+    if(new TextEncoder().encode(JSON.stringify(plan)).length>MAX_PLAN_BYTES)throw new Error('This project exceeds the 8 MB save limit.');
+    const floorId=activeFloorId??(plan.floors.some(f=>f.id===state.activeFloorId)?state.activeFloorId:plan.floors[0].id);
+    if(!plan.floors.some(f=>f.id===floorId))throw new Error('Choose a floor in this layout.');
+    return {...commit(state,structuredClone(plan),null),activeFloorId:floorId,tool:'select',selectedWallId:undefined,wallSelectionActive:false,paintWallIds:[],wallBrushActive:false,plantingDraft:undefined,placementNotice:undefined};
+  }),
   setEnvironment:patch=>set(state=>commit(state,{...state.plan,environment:{background:"plain",grass:"off",...state.plan.environment,...patch}})),
   roomSize:undefined,
   setRoomSize:roomSize=>set({roomSize,tool:"measured-room",selectedId:undefined}),

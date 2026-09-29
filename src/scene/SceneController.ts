@@ -1231,12 +1231,17 @@ export class SceneController {
       y: (point.y * this.canvas.clientHeight) / this.engine.getRenderHeight(),
     };
   }
+  private preserveNextView = false;
+  /** A chosen layout may change floors; retain the user's orbit and zoom while retargeting it. */
+  preserveViewOnNextUpdate() { this.preserveNextView = true; }
   update(
     plan: PlanDocumentV1,
     activeFloorId: string,
     selectedId?: string,
     draft?: FurniturePlacement,
   ) {
+    const preserveView = this.preserveNextView;
+    this.preserveNextView = false;
     if (this.cameraControls?.walkthrough.active && (this.activePlan !== plan || this.activeFloorId !== activeFloorId)) this.endWalkthrough();
     this.renderUntil = performance.now() + 1000;
     this.updateEmptyGuide(plan,activeFloorId);
@@ -1525,7 +1530,7 @@ export class SceneController {
           ((Math.min(...zs) + Math.max(...zs) + 1) * scale) / 2,
         ),
       );
-      this.camera.radius = Math.max(6, Math.max(width, depth) * 1.8);
+      if (!preserveView) this.camera.radius = Math.max(6, Math.max(width, depth) * 1.8);
     }
     if (
       activeFloor &&
@@ -1550,7 +1555,7 @@ export class SceneController {
       editGrid.material = this.material("edit-grid-mat", "#f7f1e3", 0.001);
       editGrid.isPickable = true;
     }
-    if (cameraPolicy.orient) {
+    if (cameraPolicy.orient && !preserveView) {
       applyPlanView(this.camera, plan.camera.mode);
       if (plan.camera.mode === "top")
         this.camera.radius = Math.max(7, this.camera.radius * 0.95);

@@ -1,0 +1,128 @@
+import {openDB} from 'idb';
+import {parsePlan} from './domain';
+import {imageDimensions} from './imageDimensions';
+import {isListingImage,parseListing,type ListingDocument} from './listingTypes';
+import {loadStudioReference} from './studioReference';
+import type {PlanReference} from './blueprintImport';
+import type {PlanDocumentV1} from './types';
+
+export const MAX_PROJECT_BACKUP_BYTES=160*1024*1024;
+const MAX_REFERENCE_TOTAL=48*1024*1024;
+const MAX_FILE_BYTES=25*1024*1024;
+type ReferenceFile={name:string;type:string;lastModified:number;data:string};
+export type BackupReference={floorId:string;status:'included';page:number;rotation:number;preview?:PlanReference;file?:ReferenceFile}|{floorId:string;status:'missing'|'omitted';reason:string};
+export interface ProjectBackup {
+  format:'nook-and-nest-project-backup';version:1;exportedAt:string;
+  plan:PlanDocumentV1;listing?:ListingDocument;references:BackupReference[];
+}
+const size=(value:unknown)=>new TextEncoder().encode(JSON.stringify(value)).byteLength;
+const object=(value:unknown):Record<string,unknown>=>{if(!value||typeof value!=='object'||Array.isArray(value))throw new Error('Invalid project backup data.');return value as Record<string,unknown>;};
+const text=(value:unknown,max:number)=>{if(typeof value!=='string'||!value.length||value.length>max)throw new Error('Invalid backup text.');return value;};
+const integer=(value:unknown,min:number,max:number)=>{if(!Number.isSafeInteger(value)||(value as number)<min||(value as number)>max)throw new Error('Invalid reference dimensions or page.');return value as number;};
+function bytesFromData(data:string,maxBytes:number):Uint8Array {
+  const encoded=data.slice(data.indexOf(',')+1);
+  if(!/^[A-Za-z0-9+/]+={0,2}$/.test(encoded)||encoded.length%4||encoded.length>Math.ceil(maxBytes/3)*4)throw new Error('A reference file is invalid or too large.');
+  const binary=atob(encoded);if(binary.length>maxBytes)throw new Error('A reference file exceeds 25 MB.');
+  return Uint8Array.from(binary,c=>c.charCodeAt(0));
+}
+function checkImage(data:unknown,maxLength=16*1024*1024){
+  if(!isListingImage(data,maxLength))throw new Error('Backup images must contain local PNG, JPEG or WebP data.');
+  const dimensions=imageDimensions(bytesFromData(data,25*1024*1024));
+  if(!dimensions.width||!dimensions.height||dimensions.width*dimensions.height>40_000_000)throw new Error('A backup image exceeds 40 megapixels.');
+  return dimensions;
+}
+function parseReference(input:unknown,floors:Set<string>):BackupReference {
+  const v=object(input),floorId=text(v.floorId,160);if(!floors.has(floorId))throw new Error('A reference belongs to a missing floor.');
+  if(v.status==='missing'||v.status==='omitted')return {floorId,status:v.status,reason:text(v.reason,200)};
+  if(v.status!=='included')throw new Error('Unknown floor reference status.');
+  const page=integer(v.page,1,200),rotation=integer(v.rotation,0,270);if(rotation%90)throw new Error('Invalid reference rotation.');
+  const result:BackupReference={floorId,status:'included',page,rotation};
+  if(v.preview!==undefined){const p=object(v.preview),url=text(p.url,16*1024*1024),dimensions=checkImage(url);
+    const width=integer(p.width,1,2400),height=integer(p.height,1,2400),pages=integer(p.pages,1,200);
+    if(width!==dimensions.width||height!==dimensions.height||page>pages)throw new Error('Reference image measurements or page do not match.');
+    result.preview={url,width,height,pages,name:text(p.name,240)};
+  }
+  if(v.file!==undefined){const f=object(v.file),name=text(f.name,240),type=text(f.type,80),data=text(f.data,Math.ceil(MAX_FILE_BYTES/3)*4+80);
+    const extension=name.split('.').at(-1)?.toLowerCase(),expected=extension==='pdf'?'application/pdf':extension==='png'?'image/png':extension==='webp'?'image/webp':['jpg','jpeg'].includes(extension??'')?'image/jpeg':undefined;
+    if(!expected||type!==expected||!data.startsWith(`data:${type};base64,`))throw new Error('Unsupported reference file type.');
+    const bytes=bytesFromData(data,MAX_FILE_BYTES);
+    if(type==='application/pdf'){if(String.fromCharCode(...bytes.subarray(0,5))!=='%PDF-')throw new Error('The PDF reference header is invalid.');}
+    else {checkImage(data,Math.ceil(MAX_FILE_BYTES/3)*4+80);if(page!==1)throw new Error('An image reference has only one page.');}
+    result.file={name,type,data,lastModified:integer(f.lastModified,0,8_640_000_000_000_000)};
+  }
+  if(!result.preview&&!result.file)throw new Error('An included reference has no file or preview.');
+  return result;
+}
+/** No network, storage writes or model execution. Reuse the established plan/listing validators. */
+export function validateProjectBackup(input:unknown):ProjectBackup {
+  const v=object(input);
+  if(v.format!=='nook-and-nest-project-backup'||v.version!==1)throw new Error('Choose a complete project backup. Older plan-only and listing backups use their existing Import controls.');
+  const exportedAt=text(v.exportedAt,40);if(!Number.isFinite(Date.parse(exportedAt)))throw new Error('Invalid backup date.');
+  const plan=parsePlan(JSON.stringify(v.plan)),floors=new Set(plan.floors.map(f=>f.id));
+  let listing:ListingDocument|undefined;
+  if(v.listing!==undefined){listing=parseListing(v.listing);if(listing.planId!==plan.id)throw new Error('The listing belongs to another project.');
+    for(const media of listing.media){for(const image of [media.image,media.sourceImage,media.originalImage])if(image)checkImage(image);
+      if(media.floorId&&!floors.has(media.floorId))throw new Error('A listing viewpoint refers to a floor missing from this project.');
+    }
+  }
+  if(!Array.isArray(v.references)||v.references.length>20)throw new Error('Invalid reference list.');
+  const references=v.references.map(r=>parseReference(r,floors)),ids=new Set(references.map(r=>r.floorId));
+  if(ids.size!==references.length)throw new Error('A floor reference is duplicated.');
+  if(size(references)>MAX_REFERENCE_TOTAL)throw new Error('Floor-plan references exceed the 48 MB combined limit. Export without references or use smaller source files.');
+  // Every floor receives an explicit absence record, including hand-edited manifests.
+  for(const floor of plan.floors)if(!ids.has(floor.id))references.push({floorId:floor.id,status:'missing',reason:'No saved reference was included for this floor.'});
+  const result:ProjectBackup={format:'nook-and-nest-project-backup',version:1,exportedAt,plan,...(listing?{listing}:{}),references};
+  if(size(result)>MAX_PROJECT_BACKUP_BYTES)throw new Error('This complete backup exceeds 160 MB.');
+  return result;
+}
+export function parseProjectBackup(json:string):ProjectBackup {
+  if(json.length>MAX_PROJECT_BACKUP_BYTES||new TextEncoder().encode(json).byteLength>MAX_PROJECT_BACKUP_BYTES)throw new Error('This complete backup exceeds 160 MB.');
+  return validateProjectBackup(JSON.parse(json));
+}
+const projectsDb=()=>openDB('nook-and-nest',1,{upgrade(db){if(!db.objectStoreNames.contains('projects'))db.createObjectStore('projects');}});
+const listingDb=()=>openDB('nook-listing-studio',1,{upgrade(db){if(!db.objectStoreNames.contains('listings'))db.createObjectStore('listings');if(!db.objectStoreNames.contains('preferences'))db.createObjectStore('preferences');}});
+const referencesDb=()=>openDB('nook-studio-references',1,{upgrade(db){if(!db.objectStoreNames.contains('references'))db.createObjectStore('references');}});
+async function savedListing(planId:string):Promise<ListingDocument|undefined>{const db=await listingDb();try{const stored=await db.get('listings',planId);if(stored===undefined)return;const result=parseListing(stored.document??stored);if(result.planId!==planId)throw new Error('The saved listing belongs to another project.');return result;}finally{db.close();}}
+async function fileData(file:File):Promise<ReferenceFile>{
+  if(!file.size||file.size>MAX_FILE_BYTES)throw new Error('Reference file is empty or too large.');
+  const extension=file.name.split('.').at(-1)?.toLowerCase(),type=extension==='pdf'?'application/pdf':extension==='png'?'image/png':extension==='webp'?'image/webp':['jpg','jpeg'].includes(extension??'')?'image/jpeg':'';
+  const bytes=new Uint8Array(await file.arrayBuffer());let binary='';for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));
+  return {name:file.name,type,lastModified:file.lastModified,data:`data:${type};base64,${btoa(binary)}`};
+}
+export async function buildProjectBackup(plan:PlanDocumentV1,options:{listing?:ListingDocument;includeReferences?:boolean}={}):Promise<ProjectBackup>{
+  const snapshot=parsePlan(JSON.stringify(plan)),listing=options.listing?parseListing(options.listing):await savedListing(snapshot.id),references:BackupReference[]=[];
+  for(const floor of snapshot.floors){
+    if(options.includeReferences===false){references.push({floorId:floor.id,status:'omitted',reason:'Reference files were left out when this backup was made.'});continue;}
+    try {const value=await loadStudioReference(snapshot.id,floor.id);
+      if(!value?.reference&&!value?.file){references.push({floorId:floor.id,status:'missing',reason:'No saved reference is available on this device.'});continue;}
+      const entry={floorId:floor.id,status:'included',page:value.page,rotation:value.rotation,...(value.reference?{preview:value.reference}:{}),...(value.file?{file:await fileData(value.file)}:{})};
+      references.push(parseReference(entry,new Set([floor.id])));
+    }catch{references.push({floorId:floor.id,status:'omitted',reason:'This saved reference could not be read or validated. Reimport the source file after restoring.'});}
+  }
+  return validateProjectBackup({format:'nook-and-nest-project-backup',version:1,exportedAt:new Date().toISOString(),plan:snapshot,...(listing?{listing}:{}),references});
+}
+export function backupNotices(backup:ProjectBackup):string[]{return backup.references.flatMap(r=>{const floor=backup.plan.floors.find(f=>f.id===r.floorId)?.name??'Floor';if(r.status!=='included')return [`${floor}: ${r.reason}`];if(!r.file)return [`${floor}: Only the saved preview is available; the original reference document is not included.`];if(!r.preview)return [`${floor}: The source document is preserved, but no preview is available. Reimport it in Floor plan studio if needed.`];return [];});}
+
+/** Publish the new plan last. Independent databases cannot share an atomic transaction. */
+export async function restoreProjectBackup(input:ProjectBackup):Promise<PlanDocumentV1>{
+  const backup=validateProjectBackup(input),now=new Date().toISOString(),id=crypto.randomUUID();
+  const plan={...backup.plan,id,name:`${backup.plan.name.slice(0,145)} · restored`,createdAt:now,updatedAt:now};
+  // Floor/object IDs remain project-scoped, preserving stairs, blueprint keys and alternatives.
+  const listing=backup.listing?parseListing({...backup.listing,planId:id,updatedAt:now,media:backup.listing.media.map(m=>({...m,id:crypto.randomUUID()}))}):undefined;
+  const restoredReferences=backup.references.flatMap(r=>r.status==='included'?[{key:JSON.stringify([id,r.floorId]),value:{page:r.page,rotation:r.rotation,...(r.preview?{reference:r.preview}:{}),...(r.file?{file:new File([bytesFromData(r.file.data,MAX_FILE_BYTES) as BlobPart],r.file.name,{type:r.file.type,lastModified:r.file.lastModified})}:{})}}]:[]);
+  const p=await projectsDb();let listingWritten=false,referencesWritten=false;
+  try {
+    if(await p.get('projects','project:'+id))throw new Error('Could not allocate a new project identity. Please try again.');
+    if(listing){const db=await listingDb();try{await db.add('listings',{revision:1,document:listing},id);listingWritten=true;}finally{db.close();}}
+    if(restoredReferences.length){const db=await referencesDb();try{const tx=db.transaction('references','readwrite');try{for(const r of restoredReferences)await tx.store.add(r.value,r.key);await tx.done;referencesWritten=true;}catch(e){try{tx.abort()}catch{}await tx.done.catch(()=>{});throw e;}}finally{db.close();}}
+    await p.add('projects',plan,'project:'+id);
+    // Leave the current active pointer untouched; the caller opens the durable new copy.
+    return plan;
+  } catch(error){
+    const failures:unknown[]=[];
+    if(referencesWritten)try{const db=await referencesDb();try{const tx=db.transaction('references','readwrite');for(const r of restoredReferences)await tx.store.delete(r.key);await tx.done;}finally{db.close();}}catch(e){failures.push(e);}
+    if(listingWritten)try{const db=await listingDb();try{await db.delete('listings',id);}finally{db.close();}}catch(e){failures.push(e);}
+    if(failures.length)throw new Error('The new project was not created. Some temporary media could not be removed; existing projects are unchanged. Free browser storage and retry.');
+    throw error;
+  } finally {p.close();}
+}

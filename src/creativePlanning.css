@@ -1,0 +1,19 @@
+.project-views{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.project-views button{border-radius:999px}
+.project-views button[aria-pressed=true]{background:#58714b;color:#fffbed}
+.library-arrangements{display:flex;align-items:center;gap:8px;margin:0 12px 12px;padding:9px 12px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);font:inherit;text-align:left}
+.library-arrangements span{margin-left:auto;font-size:11px;color:var(--muted)}
+dialog.ux-dialog.arrangements-dialog{position:fixed;inset:76px auto 20px 16px;margin:0;width:min(420px,calc(100vw - 32px));max-width:calc(100vw - 32px);max-height:calc(100dvh - 96px);padding:20px;overflow:auto;border-radius:22px;box-shadow:0 16px 60px #17201545}
+dialog.arrangements-dialog::backdrop{background:#17201512;backdrop-filter:none}
+.arrangements-dialog>header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.arrangements-dialog>header h2{margin:0;font-size:22px}
+.arrangements-dialog .arrangement-state{font-size:12px;color:var(--muted);margin:0 0 14px}
+.furniture-kits button{display:inline-flex;gap:6px;justify-content:center;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--ink);font:inherit;font-size:13px;cursor:pointer}
+.furniture-kits button:disabled{opacity:.5;cursor:default}.furniture-kits button.primary{background:#58714b;color:#fffbed}
+.furniture-kits .kit-tabs button{border-radius:999px}.furniture-kits[data-placing=true] .kit-intro{display:none}.furniture-kits .kit-tabs{margin:12px 0}
+.furniture-kits .kit-heading h2{font-size:23px}.furniture-kits .kit-position{margin-bottom:0;padding:12px}.kit-position h3{margin:0 0 6px;font-size:17px}
+.furniture-kits .kit-coordinate-fields{gap:8px}.furniture-kits .kit-coordinate-fields label{margin:0;font-size:12px}.furniture-kits .kit-coordinate-fields input{padding:7px}
+.furniture-kits .kit-position>label{margin:8px 0}.furniture-kits .kit-position>p{margin:6px 0 10px}.furniture-kits .kit-notice{margin:8px 0}
+.furniture-kits .kit-position>.kit-actions:last-child{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.layout-ideas input{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit}
+@media(max-width:680px){dialog.ux-dialog.arrangements-dialog{inset:auto 12px 12px;width:calc(100vw - 24px);max-width:none;max-height:55dvh;padding:16px}.library-arrangements span{display:none}}

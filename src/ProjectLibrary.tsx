@@ -8,12 +8,16 @@ import { deleteLocalPlan, getCloudRevision, listLocalPlans, saveCloudRevision, s
 import { MAX_PLAN_BYTES } from "./planValidation";
 import type { PlanDocumentV1 } from "./types";
 import "./projects.css";
+import './creativePlanning.css';
+import {LayoutAlternativesPanel} from './LayoutAlternativesPanel';
+import {ProjectBackupPanel} from './ProjectBackupPanel';
 
 const date = (value: string) => new Date(value).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
-export function ProjectLibrary({ onClose, onOpen, browseOnly=false }: { onClose(): void; onOpen?():void; browseOnly?:boolean }) {
+export function ProjectLibrary({ onClose, onOpen, onLayoutApplied, layoutBlocked=false, browseOnly=false }: { onClose(): void; onOpen?():void; onLayoutApplied?():void; layoutBlocked?:boolean; browseOnly?:boolean }) {
   const plan = usePlanner(s => s.plan), replace = usePlanner(s => s.replacePlan);
   const [previewPlans,setPreviewPlans]=useState<Record<string,PlanDocumentV1>>({});
   const [sort,setSort]=useState("recent");
+  const [view,setView]=useState<'projects'|'ideas'|'backup'>('projects');
   const [session, setSession] = useState<CloudSession>();
   const [locals, setLocals] = useState<PlanDocumentV1[]>([]), [online, setOnline] = useState<ProjectSummary[]>([]);
   const [tab, setTab] = useState<"local" | "online">("local"), [busy, setBusy] = useState(false);
@@ -64,6 +68,11 @@ export function ProjectLibrary({ onClose, onOpen, browseOnly=false }: { onClose(
   }}><Trash/> Delete {where==="local"?"local copy":"online project"}</button></details>;
   return <dialog className="project-library" ref={dialog} aria-labelledby="project-heading" onCancel={e => { e.preventDefault(); if (!busy) onClose(); }} onKeyDown={e => e.stopPropagation()}>
     <header><div><span className="eyebrow">A home for every idea</span><h2 id="project-heading">Your projects</h2></div><button className="icon-button" disabled={busy} aria-label="Close project library" onClick={onClose}><X /></button></header>
+    <nav className="project-views" aria-label="Project tools"><button disabled={busy} aria-pressed={view==='projects'} onClick={()=>setView('projects')}>Projects</button>{!browseOnly&&<button disabled={busy} aria-pressed={view==='ideas'} onClick={()=>setView('ideas')}>Layout ideas</button>}<button disabled={busy} aria-pressed={view==='backup'} onClick={()=>setView('backup')}>Backups</button></nav>
+    {view==='ideas'&&layoutBlocked&&<p role="status">Finish or discard the current placement or preview to work with layout ideas. Your unfinished work is still here.</p>}
+    {view==='ideas'&&!browseOnly&&!layoutBlocked&&<LayoutAlternativesPanel plan={plan} activeFloorId={usePlanner.getState().activeFloorId} onChange={(base,next)=>usePlanner.getState().commitDesign(base,next)} onApply={(base,next,floorId)=>{usePlanner.getState().commitDesign(base,next,floorId);onLayoutApplied?.();}}/>}
+    {view==='backup'&&<ProjectBackupPanel plan={browseOnly?undefined:plan} onBusyChange={setBusy} beforeRestore={async()=>{if(!browseOnly)await savePlan(plan)}} onRestored={switchPlan}/>}
+    {view==='projects'&&<>
     {!browseOnly&&<section className="project-current"><FloppyDisk size={28}/><div><strong>{plan.name}</strong><p>Edits autosave on this device. Online saves are private to your ChatGPT account.</p></div></section>}
     <div className="project-save-actions">
       {session?.signedIn && session.available && !browseOnly ? <><button className="primary" disabled={busy} onClick={() => saveOnline()}><CloudArrowUp/> Save online</button><button disabled={busy} onClick={() => saveOnline(true)}>Save online as a copy</button><small>{session.email} · <a href="/signout-with-chatgpt?return_to=%2F" target="_top">Sign out</a></small></> : session?.signedIn ? <p>Your online projects are private to your account.</p> : session?.available ? <><a className="project-signin" aria-disabled={!localReady} href={localReady ? "/signin-with-chatgpt?return_to=%2F%3Fprojects%3D1" : undefined} target="_top">Sign in with ChatGPT to save online</a><small>No account needed for local planning.</small></> : <p>Online saving is unavailable right now. Your device library still works; export a backup to keep a portable copy.</p>}
@@ -75,5 +84,6 @@ export function ProjectLibrary({ onClose, onOpen, browseOnly=false }: { onClose(
     </div>
     <form className="new-project" onSubmit={e => { e.preventDefault(); run(async () => { const next = createBlankPlan(name.trim() || "Untitled nest", plan.units); next.floors = [{ ...next.floors[0], cells: [] }]; await switchPlan(next); }); }}><label>New project name<input maxLength={120} value={name} onChange={e => setName(e.target.value)}/></label><button disabled={busy}><Plus/> New empty project</button></form>
     <footer>{!browseOnly&&<button disabled={busy} onClick={backup}><DownloadSimple/> Export backup</button>}<button disabled={busy} onClick={() => file.current?.click()}><FileArrowUp/> Import copy</button>{!browseOnly&&<button disabled={busy} onClick={() => run(async () => { const now = new Date().toISOString(); await switchPlan({ ...structuredClone(plan), id: uid(), name: `${plan.name} copy`, createdAt: now, updatedAt: now }); })}>Duplicate locally</button>}<input ref={file} hidden type="file" accept=".json,application/json" onChange={e => { const selected = e.target.files?.[0]; e.target.value = ""; if (selected) run(async () => { if (selected.size > MAX_PLAN_BYTES*4) throw new Error("This backup is too large to open safely."); const p = await importPlan(await selected.text()); const now = new Date().toISOString(); await switchPlan({ ...p, id: uid(), name: `${p.name} copy`, createdAt: now, updatedAt: now }); }); }}/></footer>
+    </>}
   </dialog>;
 }

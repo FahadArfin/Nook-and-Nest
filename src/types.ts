@@ -12,6 +12,7 @@ export interface StairPlacement { id: string; kind: "straight" | "l-shaped"; x: 
 export interface FurniturePlacement {hostDoorId?:string; terrainAnchored?:boolean; showerMirrored?:boolean; moduleRun?:boolean; id: string; catalogId: string; floorId: string; x: number; z: number; rotation: number; widthMm: number; depthMm: number; heightMm: number; variant: string; toFloorId?: string; stairRiseMm?: number; surfaceVariant?: string; materialColors?: Record<string,string>; openFraction?:number; doorless?:boolean; elevationMm?: number }
 export interface FloorPlan { wallCuts?:WallSegment[]; id: string; name: string; elevationMm: number; heightMm: number; cells: TileCell[]; walls: WallSegment[]; openings: Opening[]; stairs: StairPlacement[]; floorFinishId?: string; wallFinishId?: string; cellRects?:Record<string,FloorRect[]>; cellFinishes?: Record<string,string>; wallFinishes?: Record<string,string>; blueprint?: { rooms:import('./blueprint').BlueprintRoom[]; geometryKey:string; generatedWallIds?:string[]; wallCuts?:WallSegment[]; omittedWalls?:string[] } }
 export interface PlanDocumentV1 {
+  layoutAlternatives?: import('./layoutAlternatives').LayoutAlternatives;
   schemaVersion: 1; id: string; name: string; createdAt: string; updatedAt: string; units: Units; gridSizeMm: number;
   studioDrafts?: Record<string, {draft:import('./blueprint').BlueprintDraft;savedAt:string;imageScale:number;calibrated:boolean;view:{x:number;z:number;width:number;height:number}}>;
   floors: FloorPlan[]; furniture: FurniturePlacement[];
