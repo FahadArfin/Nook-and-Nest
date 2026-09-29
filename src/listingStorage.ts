@@ -27,6 +27,9 @@ function equalValue(left:unknown,right:unknown):boolean {
 function sameListingContent(left:ListingDocument,right:ListingDocument):boolean {
   return left.version===right.version&&left.planId===right.planId&&left.format===right.format&&left.branded===right.branded&&equalValue(left.details,right.details)&&equalValue(left.media,right.media);
 }
+export async function readListing(planId:string):Promise<ListingDocument|undefined>{
+  await queue.catch(()=>{});const db=await database();try{return stored(await db.get('listings',planId),planId)?.document;}finally{db.close();}
+}
 export async function loadListing(planId:string,title:string):Promise<ListingDocument>{
   await queue.catch(()=>{});
   const db=await database();

@@ -7,6 +7,7 @@ import {Welcome} from '../src/Welcome';
 import {BlueprintControls} from '../src/BlueprintControls';
 import {createBlankPlan,createSamplePlan,encodeShare} from '../src/domain';
 import {usePlanner,listLocalPlans,savePlan,deleteLocalPlan,loadPlan} from '../src/store';
+import * as plannerStorage from '../src/store';
 vi.mock('../src/HomeSceneMotion',()=>({HomeSceneMotion:()=>null}));
 const Editor=({onHome}:{onHome?:()=>void})=><section aria-label="Editor"><button onClick={onHome}>Home</button></section>;
 beforeEach(async()=>{window.history.replaceState(null,'','/');for(const p of await listLocalPlans())await deleteLocalPlan(p.id);usePlanner.getState().replacePlan(createBlankPlan());HTMLDialogElement.prototype.showModal=function(){this.setAttribute('open','');};vi.stubGlobal('fetch',vi.fn(async()=>new Response(JSON.stringify({signedIn:false,available:false}),{headers:{'content-type':'application/json'}})));});
@@ -14,7 +15,7 @@ afterEach(()=>{cleanup();vi.unstubAllGlobals();});
 it('opens on the menu without saving a starter project, and creates a completely blank 3D plan',async()=>{
  render(<Welcome Editor={Editor}/>);const button=screen.getByRole('button',{name:/Design in 3D/});await waitFor(()=>expect(button.hasAttribute('disabled')).toBe(false));
  expect(screen.queryByRole('region',{name:'Editor'})).toBeNull();expect(await listLocalPlans()).toEqual([]);
- fireEvent.click(button);expect(screen.getByRole('region',{name:'Editor'})).toBeTruthy();const p=usePlanner.getState().plan;expect(p.furniture).toEqual([]);expect(p.floors).toHaveLength(1);expect(p.floors[0].cells).toEqual([]);expect(p.floors[0].walls).toEqual([]);
+ fireEvent.click(button);expect(await screen.findByRole('region',{name:'Editor'})).toBeTruthy();const p=usePlanner.getState().plan;expect(p.furniture).toEqual([]);expect(p.floors).toHaveLength(1);expect(p.floors[0].cells).toEqual([]);expect(p.floors[0].walls).toEqual([]);
 });
 it('keeps previous saves in My projects, opens them explicitly, and returns home safely',async()=>{
  const p=createSamplePlan('Saved home');await savePlan(p);render(<Welcome Editor={Editor}/>);
@@ -75,5 +76,11 @@ it('sorts projects through rounded toggle buttons without opening or changing a 
 });
 it('navigates from 3D to Studio and back/forward with native browser history',async()=>{
  const Navigable=({onHome}:{onHome?:()=>void})=><section aria-label="Editor"><BlueprintControls busy={false} onPreview={()=>{}} onBusy={()=>{}} onHome={onHome}/></section>;
- render(<Welcome Editor={Navigable}/>);const start=screen.getByRole('button',{name:/Design in 3D/});await waitFor(()=>expect(start.hasAttribute('disabled')).toBe(false));fireEvent.click(start);fireEvent.click(screen.getByRole('button',{name:'Floor plan'}));await screen.findByRole('dialog',{name:'Floor plan studio'});const plan=usePlanner.getState().plan;window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());expect(screen.getByRole('region',{name:'Editor'})).toBeTruthy();expect(usePlanner.getState().plan).toBe(plan);window.history.forward();const studio=await screen.findByRole('dialog',{name:'Floor plan studio'});fireEvent.click(within(studio).getByRole('button',{name:'More tools'}));fireEvent.click(within(within(studio).getByRole('toolbar',{name:'Floor plan editing'})).getByRole('button',{name:'Add room by dimensions'}));fireEvent.click(within(studio).getByRole('button',{name:'Add this room'}));const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);window.history.back();await waitFor(()=>expect(confirm).toHaveBeenCalled());await waitFor(()=>expect(window.history.state.nookNavigation.screen).toBe('studio-editor'));expect(screen.getByRole('dialog',{name:'Floor plan studio'})).toBeTruthy();confirm.mockReturnValue(true);window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());confirm.mockRestore();
+ render(<Welcome Editor={Navigable}/>);const start=screen.getByRole('button',{name:/Design in 3D/});await waitFor(()=>expect(start.hasAttribute('disabled')).toBe(false));fireEvent.click(start);fireEvent.click(await screen.findByRole('button',{name:'Floor plan'}));await screen.findByRole('dialog',{name:'Floor plan studio'});const plan=usePlanner.getState().plan;window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());expect(screen.getByRole('region',{name:'Editor'})).toBeTruthy();expect(usePlanner.getState().plan).toBe(plan);window.history.forward();const studio=await screen.findByRole('dialog',{name:'Floor plan studio'});fireEvent.click(within(studio).getByRole('button',{name:'More tools'}));fireEvent.click(within(within(studio).getByRole('toolbar',{name:'Floor plan editing'})).getByRole('button',{name:'Add room by dimensions'}));fireEvent.click(within(studio).getByRole('button',{name:'Add this room'}));const confirm=vi.spyOn(window,'confirm').mockReturnValue(false);window.history.back();await waitFor(()=>expect(confirm).toHaveBeenCalled());await waitFor(()=>expect(window.history.state.nookNavigation.screen).toBe('studio-editor'));expect(screen.getByRole('dialog',{name:'Floor plan studio'})).toBeTruthy();confirm.mockReturnValue(true);window.history.back();await waitFor(()=>expect(screen.queryByRole('dialog',{name:'Floor plan studio'})).toBeNull());confirm.mockRestore();
+});
+
+it('leaves saved project data unloaded on the welcome menu until an editing route needs it',async()=>{
+ const load=vi.spyOn(plannerStorage,'loadPlan');render(<Welcome Editor={Editor}/>);
+ expect(screen.getByRole('button',{name:'Design in 3D'}).hasAttribute('disabled')).toBe(false);
+ expect(load).not.toHaveBeenCalled();load.mockRestore();
 });

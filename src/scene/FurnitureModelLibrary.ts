@@ -55,6 +55,8 @@ export class FurnitureModelLibrary {
 
   constructor(private scene: Scene, private shadow: ShadowGenerator, private onReady: (ids:string[]) => void,onInvalidate?:()=>void) {this.privateTextures=new PersonalSurfaceTextures(scene,onInvalidate??(()=>onReady([])));this.living=new LivingModels(scene);this.clocks=new LiveClocks(scene);}
 
+  get capturePending(){return this.pending.size>0||this.queue.size>0||this.readyTimer!==undefined||this.privateTextures.loading;}
+  captureFailures(ids:readonly string[]){return ids.filter(id=>this.failed.has(id));}
   hasModel(catalogId: string) { return MODEL_IDS.has(catalogId); }
 
   private ensure(catalogId: string) {

@@ -1,3 +1,4 @@
+import {reidentifyPrivatePlan} from './projectIdentity';
 import {personalPhotoIds} from './personalItems';
 import {parsePersonalPhotoAsset,personalAssetBytes,MAX_PERSONAL_MEDIA_BYTES,MAX_PERSONAL_PHOTOS} from './personalMedia';
 import {exportPersonalAssets,importPersonalAssets,validatePersonalAssetBundle,type PersonalAssetBundle} from './personalStorage';
@@ -85,8 +86,8 @@ export function validateProjectBackup(input:unknown):ProjectBackup {
   if(ids.size!==references.length)throw new Error('A floor reference is duplicated.');
   const sharedVersions=new Map<string,string>();
   for(const r of references)if(r.referenceId&&r.status==='included'){const value=JSON.stringify({...r,floorId:undefined});if(sharedVersions.has(r.referenceId)&&sharedVersions.get(r.referenceId)!==value)throw new Error('The same reference version has conflicting content.');sharedVersions.set(r.referenceId,value);}
-  const allFloors=[...plan.floors,...(plan.layoutAlternatives?.options.flatMap(o=>o.snapshot.floors)??[])];
-  if(v.referenceVersions!==undefined&&(!Array.isArray(v.referenceVersions)||v.referenceVersions.length>120))throw new Error('Invalid saved reference versions.');
+  const allFloors=[...plan.floors,...(plan.layoutAlternatives?.options.flatMap(o=>o.snapshot.floors)??[]),...(plan.designHistory?.checkpoints.flatMap(c=>c.snapshot.floors)??[])];
+  if(v.referenceVersions!==undefined&&(!Array.isArray(v.referenceVersions)||v.referenceVersions.length>360))throw new Error('Invalid saved reference versions.');
   const referenceVersions=(v.referenceVersions as unknown[]??[]).map(r=>parseReference(r,new Set(allFloors.map(f=>f.id))));
   const versionIds=new Set(references.flatMap(r=>r.referenceId?[r.referenceId]:[]));
   for(const r of referenceVersions){if(!r.referenceId||versionIds.has(r.referenceId))throw new Error('A reference version is missing or duplicated.');versionIds.add(r.referenceId);}
@@ -124,7 +125,7 @@ export async function buildProjectBackup(plan:PlanDocumentV1,options:{listing?:L
     }catch{references.push({floorId:floor.id,status:'omitted',reason:'This saved reference could not be read or validated. Reimport the source file after restoring.'});}
   }
   const referenceVersions:BackupReference[]=[],seen=new Set(references.flatMap(r=>r.referenceId?[r.referenceId]:[]));
-  for(const floor of [...snapshot.floors,...(snapshot.layoutAlternatives?.options.flatMap(o=>o.snapshot.floors)??[])]){
+  for(const floor of [...snapshot.floors,...(snapshot.layoutAlternatives?.options.flatMap(o=>o.snapshot.floors)??[]),...(snapshot.designHistory?.checkpoints.flatMap(c=>c.snapshot.floors)??[])]){
     if(!floor.referenceId||seen.has(floor.referenceId))continue;seen.add(floor.referenceId);
     const absent=(reason:string):BackupReference=>({floorId:floor.id,referenceId:floor.referenceId,status:'omitted',reason});
     if(options.includeReferences===false){referenceVersions.push(absent('Reference versions were left out when this backup was made.'));continue;}
@@ -145,7 +146,7 @@ export function backupNotices(backup:ProjectBackup):string[]{
 export async function restoreProjectBackup(input:ProjectBackup):Promise<PlanDocumentV1>{
   const backup=validateProjectBackup(input),now=new Date().toISOString(),id=crypto.randomUUID();
   if(backup.personalAssets)await validatePersonalAssetBundle(backup.personalAssets);
-  const plan={...backup.plan,id,name:`${backup.plan.name.slice(0,145)} · restored`,createdAt:now,updatedAt:now};
+  const plan=reidentifyPrivatePlan(backup.plan,id,`${backup.plan.name.slice(0,145)} · restored`,now);
   // Floor/object IDs remain project-scoped, preserving stairs, blueprint keys and alternatives.
   const listing=backup.listing?parseListing({...backup.listing,planId:id,updatedAt:now,media:backup.listing.media.map(m=>({...m,id:crypto.randomUUID()}))}):undefined;
   const restoredReferences=[...new Map([...backup.references,...(backup.referenceVersions??[])].flatMap(r=>r.status==='included'?[{key:JSON.stringify(r.referenceId?[id,'version',r.referenceId]:[id,r.floorId]),value:{page:r.page,rotation:r.rotation,...(r.preview?{reference:r.preview}:{}),...(r.file?{file:new File([bytesFromData(r.file.data,MAX_FILE_BYTES) as BlobPart],r.file.name,{type:r.file.type,lastModified:r.file.lastModified})}:{})}}]:[]).map(r=>[r.key,r])).values()];

@@ -9,3 +9,11 @@
 .project-save-actions{padding:14px 0}.project-save-actions small{width:100%}.project-tabs{border-bottom:1px solid var(--line,#ddd);padding:10px 0}.project-tabs button[aria-pressed=true]{background:#6f885c;color:white}
 .project-list{max-height:32vh;min-height:100px;overflow:auto}.project-list article{display:flex;align-items:center;gap:8px;padding:13px 0;border-bottom:1px solid var(--line,#ddd)}.project-list article>div{flex:1;min-width:0;overflow-wrap:anywhere}.project-list strong{font-size:14px}
 .new-project{padding:17px 0}.new-project label{flex:1;font-size:12px}.new-project input{display:block;width:100%;padding:9px;border-radius:9px;border:1px solid var(--line,#ddd);background:var(--paper,#fff);color:inherit;margin-top:5px}.project-library footer{border-top:1px solid var(--line,#ddd);padding-top:16px}.project-error{background:#b3381815;color:#ad422c;padding:10px;border-radius:9px}.project-success{background:#76985922;padding:10px;border-radius:9px}.project-library :focus-visible{outline:3px solid #8baf59;outline-offset:2px}
+
+.project-subviews{border-top:0;padding-top:0;gap:6px}.project-subviews button{font-size:.78rem;padding:7px 10px;min-height:34px}
+
+/* A saved-phase preview keeps the room visible beside its controls. */
+.project-library:has(.design-history[data-live-preview=true]){width:min(400px,36vw);margin:76px 18px 18px;max-height:calc(100dvh - 98px);padding:18px}
+.project-library:has(.design-history[data-live-preview=true])::backdrop{background:transparent;backdrop-filter:none}
+.project-library:has(.design-history[data-live-preview=true]) .history-preview-label{position:sticky;top:-18px;z-index:2;background:var(--paper);padding:12px;border-bottom:1px solid var(--line)}
+@media(max-width:760px){.project-library:has(.design-history[data-live-preview=true]){width:calc(100vw - 24px);max-height:42dvh;margin:auto 12px 12px}}

@@ -16,7 +16,7 @@ const scene=vi.hoisted(()=>({callbacks:undefined as any,preview:vi.fn(),update:v
 vi.mock("../src/scene/SceneController",()=>({SceneController:class{setRenderQuality(){} highlightPart(){}
   constructor(_canvas:unknown,callbacks:unknown){scene.callbacks=callbacks}
   setMoveMode(_active:boolean){}
-  setSunPreview(){} setAtmospherePreview(){} setFurnitureSelection(){} setFitReview(){}
+  restoreHistoryPreview(){} setSunPreview(){} setAtmospherePreview(){} setFurnitureSelection(){} setFitReview(){}
   setRotationMode(active:boolean){scene.rotation(active)}
   zoom(factor:number){scene.zoom(factor)} focusSelected(){scene.focus()} focusFloor(){scene.focus()}
   placementRotation(){return 0;} setTool(){} setWallSelection(){} setPaintPreview(){} update(...args:unknown[]){scene.update(...args)} cancelTileDraft(){} dispose(){}
@@ -172,13 +172,13 @@ it('carries shared appearance through the studio and editor without changing the
  act(()=>{matches=false;listeners.forEach(fn=>fn());});expect(screen.getByRole('dialog',{name:'Floor plan studio'}).getAttribute('data-theme')).toBe('light');
  fireEvent.click(screen.getByRole('button',{name:'Close floor plan studio'}));fireEvent.click(screen.getByRole('button',{name:'Use dark theme'}));
  fireEvent.click(screen.getByRole('button',{name:/Design in 3D/}));
- expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);
+ await waitFor(()=>expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy());expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);
  const plan=state().plan;const past=state().past;
  fireEvent.click(screen.getByRole('button',{name:'Night mode'}));expect(container.querySelector('.app-shell.dark-mode')).toBeNull();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(false);
  expect(state().plan).toBe(plan);expect(state().past).toBe(past);expect(localStorage.getItem('nook-welcome-theme')).toBe('light');
  fireEvent.click(screen.getByRole('button',{name:'Back to home'}));await screen.findByRole('button',{name:'Use dark theme'});expect(container.querySelector('main')?.getAttribute('data-theme')).toBe('light');
- fireEvent.click(screen.getByLabelText('Background preferences'));fireEvent.click(screen.getByRole('button',{name:'Use system theme'}));fireEvent.click(screen.getByRole('button',{name:/Design in 3D/}));const next=state().plan;
- act(()=>{matches=true;listeners.forEach(fn=>fn());});expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy();expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);expect(state().plan).toBe(next);localStorage.removeItem('nook-welcome-theme');
+ fireEvent.click(screen.getByLabelText('Background preferences'));fireEvent.click(screen.getByRole('button',{name:'Use system theme'}));fireEvent.click(screen.getByRole('button',{name:/Design in 3D/}));await screen.findByRole('button',{name:'Night mode'});const next=state().plan;
+ act(()=>{matches=true;listeners.forEach(fn=>fn());});await waitFor(()=>expect(container.querySelector('.app-shell.dark-mode')).toBeTruthy());expect(scene.update.mock.calls.at(-1)?.[0].camera.darkMode).toBe(true);expect(state().plan).toBe(next);localStorage.removeItem('nook-welcome-theme');
 },10000);
 
 

@@ -118,7 +118,7 @@
     {
       "id": "NN-05",
       "title": "Moodboard linked to the room",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-29",
         "NN-02"
@@ -132,7 +132,13 @@
       "evidence": [
         "Private moodboards link named palettes to room/group material roles; linked changes preview and commit once.",
         "Private image/photo references retained in snapshots and portable backups; public plans remove boards and private sources."
-      ]
+      ],
+      "release": {
+        "pr": 119,
+        "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
+        "sitesVersion": 118,
+        "verified": "2026-09-29T09:44:30.835Z"
+      }
     },
     {
       "id": "NN-06",
@@ -161,7 +167,7 @@
     {
       "id": "NN-21",
       "title": "Your art, fabric and memories",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-29"
       ],
@@ -175,12 +181,18 @@
         "Private art and fabric uploads with crop, rotation, frame color and repeat dimensions; cloned materials retain originals.",
         "Bounded 16 unique GPU images / two preview decodes, current-floor and selection priority; original photo backup retained. Picture-frame planar mapping verified after save/reload.",
         "Browser upload, wall placement, reload and upright full-image UVs verified; private clones leave original catalog geometry/UVs unchanged. Sixteen 512-pixel textures and two concurrent decodes bound memory."
-      ]
+      ],
+      "release": {
+        "pr": 119,
+        "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
+        "sitesVersion": 118,
+        "verified": "2026-09-29T09:44:30.835Z"
+      }
     },
     {
       "id": "NN-07",
       "title": "Set the mood of your home",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [],
       "scope": "Saved scene presets such as morning light, rainy afternoon and evening reading; adjustable lamp warmth, modest exterior weather and opt-in sound.",
       "acceptance": [
@@ -191,7 +203,13 @@
       "evidence": [
         "Morning/rain/evening presets, per-lamp overrides, private saved moods and opt-in session sound; preview/apply/discard and one-step undo verified.",
         "Existing four-light pool, 96 bounded rain drops, hidden-tab suspension and reduced motion; geographic studies are a separate opt-in mode. Desktop browser checked; representative mobile/GPU pilot remains unverified."
-      ]
+      ],
+      "release": {
+        "pr": 119,
+        "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
+        "sitesVersion": 118,
+        "verified": "2026-09-29T09:44:30.835Z"
+      }
     },
     {
       "id": "NN-08",
@@ -238,7 +256,7 @@
     {
       "id": "NN-10",
       "title": "Paint, flooring and finish quantities",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-30"
       ],
@@ -252,7 +270,13 @@
         "Floor/wall/optional projected ceiling quantities use polygon unions and explicit coverage/waste/coats. Unknown inputs remain unavailable.",
         "Measured 6 x 5 metre browser fixture produced 30 square metres floor and 53.636 square metres walls.",
         "Browser-generated CSV matches a 6 m x 5 m room: 30 m2 floor, 53.6359 m2 wall faces. Unknown coverage and ceiling assumptions remain explicit."
-      ]
+      ],
+      "release": {
+        "pr": 119,
+        "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
+        "sitesVersion": 118,
+        "verified": "2026-09-29T09:44:30.835Z"
+      }
     },
     {
       "id": "NN-11",
@@ -272,7 +296,7 @@
     {
       "id": "NN-12",
       "title": "Reusable presentation packs",
-      "status": "planned",
+      "status": "implemented-verifying",
       "depends": [
         "NN-01",
         "NN-05",
@@ -284,12 +308,15 @@
         "Every page identifies the included design revision, and selected totals/options match the source snapshot."
       ],
       "boundary": "Build on existing branded/unbranded exports. Keep styling separate from facts; generate a fresh snapshot of selected content with a preview before export.",
-      "evidence": []
+      "evidence": [
+        "Presentation pack combines explicitly selected floors, alternatives, listing images, boards, evidence and schedules.",
+        "Preview and exported ZIP share one reviewed immutable payload; print/PDF depends on browser print settings."
+      ]
     },
     {
       "id": "NN-30",
       "title": "Site notes and verified measurements",
-      "status": "planned",
+      "status": "implemented-verifying",
       "depends": [
         "NN-29"
       ],
@@ -299,12 +326,15 @@
         "A corrected wall marks dependent quantities and exports as changed, while its earlier verified value remains traceable."
       ],
       "boundary": "Keep private survey notes separate from public listing media. User-defined classifications are not a certification of legal living area or measurement standards.",
-      "evidence": []
+      "evidence": [
+        "Private dated measurement evidence supports room, wall and object targets; discrepancies and changes remain explicit.",
+        "Browser entered 850mm evidence against a 900mm cabinet and reported discrepancy without resizing the model."
+      ]
     },
     {
       "id": "NN-13",
       "title": "Existing, remove, proposed",
-      "status": "in-progress",
+      "status": "implemented-verifying",
       "depends": [
         "NN-01"
       ],
@@ -314,12 +344,15 @@
         "Removing a proposed wall preserves its original counterpart and related doors/windows in the existing state."
       ],
       "boundary": "Begin as planning layers and versioned alternatives. No load-bearing detection, demolition authorization or permit-ready claims.",
-      "evidence": []
+      "evidence": [
+        "Immutable Existing/Proposed checkpoints preserve model and geometry IDs; changed entities are classified explicitly.",
+        "Preview reuses one scene and restores working plan, floor and camera; restoring checkpoints is explicit and undoable."
+      ]
     },
     {
       "id": "NN-14",
       "title": "Build your own sectional or shelving",
-      "status": "planned",
+      "status": "implemented-verifying",
       "depends": [
         "NN-02"
       ],
@@ -329,12 +362,15 @@
         "Save/reload, ungroup and undo preserve module identities and total dimensions."
       ],
       "boundary": "Use Blender-authored modules with attachment metadata; do not imply arbitrary dimensions are manufacturable or copy brand systems. Expand only after one family works.",
-      "evidence": []
+      "evidence": [
+        "Reviewed straight closet and kitchen-base side joins use authored dimensions; components remain independent and optionally grouped/locked.",
+        "Browser verified two-module preview changes no saved pieces; apply and undo create/remove both pieces together."
+      ]
     },
     {
       "id": "NN-15",
       "title": "Watch your design come together",
-      "status": "in-progress",
+      "status": "implemented-verifying",
       "depends": [],
       "scope": "Opt-in build replay from design milestones, with pause/scrub, a chosen camera, and a short exported timelapse or image sequence.",
       "acceptance": [
@@ -342,7 +378,10 @@
         "Recording can be disabled/cleared, exports are cancellable, and unsupported encoders offer an image-sequence fallback."
       ],
       "boundary": "Record compact authored events/checkpoints, not the user's screen or input. Do not assume the current undo stack is durable recording; exclude private dialogs and deleted material.",
-      "evidence": []
+      "evidence": [
+        "Opt-in manual milestones, one saved viewpoint and bounded labelled image-sequence ZIP; hidden-tab and reduced-motion replay behavior.",
+        "Browser exported two 1280x720 JPEG frames showing empty and furnished rooms; working two-piece plan remains intact after previews/export."
+      ]
     },
     {
       "id": "NN-16",
@@ -390,7 +429,7 @@
     {
       "id": "NN-19",
       "title": "Follow the sunlight",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [],
       "scope": "Set north, approximate location/time zone and date/time; scrub a geometric sun/shadow preview; save comparison views.",
       "acceptance": [
@@ -401,12 +440,18 @@
       "evidence": [
         "Date/time, explicit UTC offset, private approximate location and north orientation drive the existing sun/shadow lighting; reference direction and DST-offset cases tested.",
         "Public sharing removes location/date/study names while preserving resolved light direction. Manual sunrise/night states and saved-view atmosphere compatibility retained."
-      ]
+      ],
+      "release": {
+        "pr": 119,
+        "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
+        "sitesVersion": 118,
+        "verified": "2026-09-29T09:44:30.835Z"
+      }
     },
     {
       "id": "NN-20",
       "title": "Wall elevations and clean handoff",
-      "status": "implemented-verifying",
+      "status": "released",
       "depends": [
         "NN-10",
         "NN-30"
@@ -420,7 +465,13 @@
       "evidence": [
         "Orthographic wall elevations and dimensions derived from current model with explicit floor/wall choices and print/export controls.",
         "Browser exports verified as SVG and printable HTML: 6000 mm wall, 2438 mm height, wall artwork base 1200 mm. 1:50 drawing declares 20 mm per metre; physical printer acceptance is not claimed."
-      ]
+      ],
+      "release": {
+        "pr": 119,
+        "master": "7122fc3c1081816d0b6b216b32b03f3cffc0faba",
+        "sitesVersion": 118,
+        "verified": "2026-09-29T09:44:30.835Z"
+      }
     },
     {
       "id": "NN-23",
@@ -459,7 +510,7 @@
     {
       "id": "NN-31",
       "title": "From design to photo day",
-      "status": "planned",
+      "status": "implemented-verifying",
       "depends": [
         "NN-09",
         "NN-30"
@@ -470,7 +521,10 @@
         "Completing a checklist task does not approve a design or mutate the room; stale lists show changed items."
       ],
       "boundary": "Export/print the checklist; no auto-email, purchasing, accounting or full project scheduling service. Unknown status stays unknown.",
-      "evidence": []
+      "evidence": [
+        "Private install/photo-day tasks capture source revision; packing and delivery start unknown and require explicit choices.",
+        "Browser captured two cabinets, edited one task and exported CSV; complete backups retain checkpoint-only evidence and ownership."
+      ]
     },
     {
       "id": "NN-22",

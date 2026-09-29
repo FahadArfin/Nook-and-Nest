@@ -1,7 +1,11 @@
+import {validateDesignHistory,historySnapshotAsPlan} from './designHistory';
+import {parseSiteSurvey} from './siteSurveySchema';
+import {parsePresentationSettings} from './presentationTypes';
+import {parseInstallChecklist} from './installChecklist';
 import {parseMoodboards} from './moodboards';
 import {validateSurfaceForPiece} from './personalSurfaceValidation';
 import {parseSceneAtmosphere} from './sceneAtmosphere';
-import {parseSurfaceTakeoffSettings} from './surfaceTakeoff';
+import {parseSurfaceTakeoffSettings} from './surfaceSettings';
 import {parsePlacementSpecification} from "./selectionSchedule";
 import {parseSelectionBudgets} from "./selectionBudgets";
 import {parsePersonalItemMetadata} from "./personalItems";
@@ -27,6 +31,10 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   const p = value as any; obj(p);
   if (p.schemaVersion !== 1 || !["imperial", "metric"].includes(p.units)) fail();
   str(p.id); str(p.name); str(p.createdAt); str(p.updatedAt); num(p.gridSizeMm, 10, 10000);
+  if(p.designHistory!==undefined)validateDesignHistory(p.designHistory,snapshot=>validatePlan(historySnapshotAsPlan(p,snapshot)));
+  if(p.siteSurvey!==undefined)parseSiteSurvey(p.siteSurvey);
+  if(p.presentation!==undefined)parsePresentationSettings(p.presentation);
+  if(p.installChecklist!==undefined){parseInstallChecklist(p.installChecklist);if(p.installChecklist.projectId!==p.id)fail();}
   if(p.layoutAlternatives!==undefined)validateLayoutAlternatives(p.layoutAlternatives,snapshot=>validatePlan(snapshotAsPlan(p,snapshot)));
   arr(p.floors, 20); if (!p.floors.length) fail(); unique(p.floors);
   const floors = new Set(p.floors.map((f: any) => f.id));
@@ -64,7 +72,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
       if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}
       const host=p.floors.find((f:any)=>f.id===id);
-      validatePlan({...p,layoutAlternatives:undefined,moodboards:undefined,surfaceTakeoffSettings:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
+      validatePlan({...p,designHistory:undefined,siteSurvey:undefined,presentation:undefined,installChecklist:undefined,layoutAlternatives:undefined,moodboards:undefined,surfaceTakeoffSettings:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}

@@ -1,3 +1,6 @@
+import {snapshotAsPlan} from '../layoutAlternatives';
+import type {DesignHistoryPreview} from '../designHistory';
+import type {DesignReplayBridge,ReplayFrameRequest} from '../designReplay';
 import {AtmosphereEffects,type AtmosphereBounds} from './AtmosphereEffects';
 import {applyAtmosphereLighting,applyAtmosphereFixtureLights} from './AtmosphereLighting';
 import {resolveAtmosphere,type AtmosphereFrame,type SceneAtmosphereV1} from '../sceneAtmosphere';
@@ -166,6 +169,47 @@ export class SceneController {
     const restored = this.cameraControls.walkthrough.restore(pose);
     this.renderUntil = performance.now() + 1000;
     return restored;
+  }
+  private replayEpoch=0;
+  private replayOriginal?:{plan:PlanDocumentV1;floorId:string;selectedId?:string;camera:CameraShotPose;tool:Tool;atmosphere?:SceneAtmosphereV1;neutral:boolean;sun?:SunSettings;paint:string[]};
+  private replayCapture=false;
+  get historyPreviewActive(){return !!this.replayOriginal;}
+  createReplayBridge():DesignReplayBridge{return {show:(preview,signal)=>this.showHistoryPreview(preview,signal),capture:(request,signal)=>this.captureHistoryFrame(request,signal),restore:()=>this.restoreHistoryPreview()};}
+  restoreHistoryPreview(){
+    this.replayEpoch++;const original=this.replayOriginal;this.replayOriginal=undefined;
+    if(!original||this.scene.isDisposed)return;
+    this.endListingPresentation();this.atmospherePreview=original.atmosphere;this.neutralPreview=original.neutral;this.sunPreview=original.sun;this.paintWallIds=original.paint;
+    this.setTool(original.tool);this.update(original.plan,original.floorId,original.selectedId);this.restoreCameraShot(original.camera);
+  }
+  private async settleReplay(epoch:number,signal:AbortSignal){
+    const valid=()=>{if(signal.aborted||epoch!==this.replayEpoch||!this.replayOriginal||this.scene.isDisposed)throw new DOMException('Preview cancelled.','AbortError');};
+    const until=performance.now()+25000;valid();
+    while(this.furnitureModels.capturePending||!this.scene.isReady()){if(performance.now()>until)throw new Error('Models are still loading. Try the preview again.');await new Promise(resolve=>setTimeout(resolve,40));valid();}
+    const failures=this.furnitureModels.captureFailures(this.activePlan?.furniture.map(p=>p.catalogId)??[]);
+    if(failures.length)throw new Error('Some furniture models could not load. Retry their download before exporting.');
+    valid();this.scene.render();await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));valid();this.scene.render();
+  }
+  private async showHistoryPreview(preview:DesignHistoryPreview,signal:AbortSignal){
+    if(signal.aborted||!this.activePlan)throw new DOMException('Preview cancelled.','AbortError');
+    if(!this.replayOriginal){this.replayOriginal={plan:this.activePlan,floorId:this.activeFloorId,selectedId:this.selectedId,camera:this.captureCameraShot(),tool:this.tool,atmosphere:this.atmospherePreview,neutral:this.neutralPreview,sun:this.sunPreview,paint:this.paintWallIds};this.beginListingPresentation();}
+    const epoch=++this.replayEpoch,plan=snapshotAsPlan(this.replayOriginal.plan,preview.checkpoint.snapshot);
+    this.atmospherePreview=undefined;this.sunPreview=undefined;this.neutralPreview=false;this.paintWallIds=[];this.setTool('select');
+    this.update(plan,preview.camera?.floorId??preview.checkpoint.activeFloorId);
+    const pose=preview.camera??{...this.replayOriginal.camera,floorId:preview.checkpoint.activeFloorId};
+    if(!this.restoreCameraShot(pose))throw new Error('The saved viewpoint is unavailable. Save a new replay camera.');
+    await this.settleReplay(epoch,signal);
+  }
+  private async captureHistoryFrame(request:ReplayFrameRequest,signal:AbortSignal){
+    const epoch=this.replayEpoch;await this.settleReplay(epoch,signal);
+    if(this.activePlan?.environment?.background==='city'&&this.activePlan.environment.citySource==='google')throw new Error('Switch away from Google city scenery before exporting images.');
+    const {width,height,label}=request;if(![[1280,720],[1920,1080]].some(([w,h])=>w===width&&h===height))throw new Error('Choose HD or Full HD.');
+    const oldWidth=this.engine.getRenderWidth(),oldHeight=this.engine.getRenderHeight();this.replayCapture=true;this.cleanListingCapture=true;
+    try{
+      this.engine.setSize(width,height);
+      const result=withCleanListingCapture(this.scene.meshes,[this.previewNode,this.rotationGuide],()=>{this.scene.render();const output=document.createElement('canvas');output.width=width;output.height=height;const context=output.getContext('2d');if(!context)throw new Error('Image export is unavailable.');context.drawImage(this.canvas,0,0,width,height);context.fillStyle='rgba(20,30,22,.8)';context.fillRect(0,height-52,width,52);context.fillStyle='#fffaf0';context.font='20px sans-serif';context.fillText(label.slice(0,150),20,height-20,width-40);return output;});
+      const blob=await new Promise<Blob>((resolve,reject)=>result.toBlob(value=>value?resolve(value):reject(new Error('Image export failed.')),'image/jpeg',.92));
+      if(signal.aborted||epoch!==this.replayEpoch)throw new DOMException('Preview cancelled.','AbortError');return {blob,width,height};
+    }finally{this.cleanListingCapture=false;this.replayCapture=false;if(!this.scene.isDisposed)this.engine.setSize(oldWidth,oldHeight);this.renderUntil=performance.now()+1000;}
   }
   private cleanListingCapture = false;
   beginListingPresentation() {
@@ -944,8 +988,9 @@ export class SceneController {
     this.cancelWallDraft();
   }
   private canvasResizeObserver?: ResizeObserver;
-  private resize = () => this.engine.resize();
+  private resize = () => {if(!this.replayCapture)this.engine.resize();};
   dispose() {
+    this.replayEpoch++;this.replayOriginal=undefined;
     this.cameraControls.walkthrough.dispose();
     this.metrics.dispose();
     this.touchCleanup?.();
