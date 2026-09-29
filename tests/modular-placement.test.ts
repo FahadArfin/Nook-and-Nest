@@ -10,6 +10,8 @@ import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
 import {MeshBuilder} from '@babylonjs/core/Meshes/meshBuilder';
 import {StandardMaterial} from '@babylonjs/core/Materials/standardMaterial';
 import {SceneController} from '../src/scene/SceneController';
+import {SeasonalMaterials} from '../src/scene/SeasonalMaterials';
+import {LivingPlayController} from '../src/scene/LivingPlayController';
 import {WallVisibilityController} from '../src/wallVisibility';
 import {createBlankPlan,rectangleCells,serializePlan,parsePlan} from '../src/domain';
 import {catalog,defaultMountHeight,isKitchenWall} from '../src/catalog';
@@ -22,10 +24,12 @@ const setup=()=>{const p=createBlankPlan();p.gridSizeMm=250;p.floors[0].cells=re
 const piece=(p:ReturnType<typeof setup>,id:string,patch:Partial<FurniturePlacement>={}):FurniturePlacement=>{const c=catalog.find(c=>c.id===id)!;return {id:'item-'+id,catalogId:id,floorId:p.floors[0].id,x:2000,z:0,rotation:0,widthMm:c.widthMm,depthMm:c.depthMm,heightMm:c.heightMm,variant:'cream',elevationMm:defaultMountHeight(id),...patch};};
 function renderer(){
  const engine=new NullEngine(),scene=new Scene(engine),camera=new ArcRotateCamera('camera',1,.6,10,new Vector3(2,0,2),scene);
+ const seasonalMaterials=new SeasonalMaterials(),livingPlay=new LivingPlayController();
  const r:any=Object.create(SceneController.prototype);
+ Object.assign(r,{seasonalMaterials,livingPlay});
  Object.assign(r,{selectionPlacements:[],paintWallIds:[],paintSelectionGuides:[],neutralPreview:false,scene,camera,engine,canvas:{dataset:{},clientWidth:800,clientHeight:600,getBoundingClientRect:()=>({left:0,top:0,width:800,height:600})},root:new TransformNode('root',scene),tool:'select',architectureStamp:'',refreshModels:new Set(),furnitureNodes:new Map(),solidMaterials:new Map(),surfaceMaterials:new Map(),floorWallGeometry:new Map(),selectedWallIds:new Set(),wallVisibility:new WallVisibilityController(),terrain:{update:vi.fn()},outdoors:{update:vi.fn()},shadow:{addShadowCaster:vi.fn()},surfaceMaterial:()=>new StandardMaterial('surface',scene),furnitureFactory:{resetMaterials:vi.fn()},furnitureModels:{configurePersonalSurfaces:vi.fn(),build:vi.fn((node:TransformNode,_def:unknown,_item:unknown,w:number,d:number,h:number)=>{const m=MeshBuilder.CreateBox('model',{width:w,depth:d,height:h},scene);m.parent=node;return true})}});
  r.initializeControllers();
- return {r,scene,dispose:()=>{scene.dispose();engine.dispose()}};
+ return {r,scene,dispose:()=>{seasonalMaterials.dispose();livingPlay.dispose();scene.dispose();engine.dispose()}};
 }
 describe('modular placement regression',()=>{
  it('door intent returns every door including sliding patio, never outdoor pieces or fridges',()=>{

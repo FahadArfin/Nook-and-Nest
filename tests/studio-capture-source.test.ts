@@ -1,0 +1,42 @@
+import 'fake-indexeddb/auto';
+import {afterEach,expect,it} from 'vitest';
+import {deleteDB} from 'idb';
+import {createStudioCaptureSource,restoreStudioCaptureSource,liveStudioCaptureSource,studioCaptureDraftKey} from '../src/studioCaptureSource';
+import {saveReferenceVersion,loadReferenceVersion,saveStudioReference,loadStudioReference} from '../src/studioReference';
+import {saveStudioRecovery,loadStudioRecovery,studioFingerprint} from '../src/studioRecovery';
+import {createSamplePlan,parsePlan} from '../src/domain';
+import {draftFromRecognition,roomsOnlyRecognition} from '../src/blueprintRecognition';
+import {createCaptureReview,captureReviewStatus} from '../src/captureReview';
+import {PIPELINE_VERSION} from '../src/recognitionEvidence';
+import {detection} from './capture-fixtures';
+const reference={url:'data:image/png;base64,AAAA',width:1000,height:800,pages:2,name:'Private source name.pdf'};
+afterEach(async()=>{await deleteDB('nook-studio-references');await deleteDB('nook-studio-recovery');});
+it('mints opaque source identity per import, reuses only exact local evidence, and never includes the private filename',async()=>{
+ const first=await createStudioCaptureSource(reference,1,0,'online-recognition'),second=await createStudioCaptureSource(reference,1,0,'online-recognition');
+ expect(first.source.id).not.toBe(second.source.id);expect(first.source.pipelineVersion).toBe(PIPELINE_VERSION);expect(JSON.stringify(first)).not.toContain(reference.name);
+ expect(await restoreStudioCaptureSource(first,reference,1,0)).toEqual(first);
+ for(const [ref,page,rotation] of [[{...reference,url:'data:image/png;base64,BBBB'},1,0],[reference,2,0],[reference,1,90],[{...reference,width:999},1,0]] as const)expect(await restoreStudioCaptureSource(first,ref,page,rotation)).toBeUndefined();
+ expect(await restoreStudioCaptureSource({...first,source:{...first.source,pipelineVersion:'old-pipeline'}},reference,1,0)).toBeUndefined();
+ expect(await restoreStudioCaptureSource(undefined,reference,1,0)).toBeUndefined();
+ expect(liveStudioCaptureSource(first,reference,2,0)).toBeUndefined();
+});
+it('local reference versions keep their own identity and reject mismatching restored pixels',async()=>{
+ const a=await createStudioCaptureSource(reference,1,0,'online-recognition'),b=await createStudioCaptureSource(reference,1,0,'online-recognition');
+ const first={reference,page:1,rotation:0,captureSource:a},second={...first,captureSource:b};
+ const idA=await saveReferenceVersion('project',first),idB=await saveReferenceVersion('project',second);expect(idA).not.toBe(idB);expect(await saveReferenceVersion('project',first)).toBe(idA);
+ expect((await loadReferenceVersion('project',idA!))?.captureSource).toEqual(a);expect((await loadReferenceVersion('project',idB!))?.captureSource).toEqual(b);
+ await saveStudioReference('project','floor',{...first,reference:{...reference,url:'data:image/png;base64,CCCC'}});
+ expect((await loadStudioReference('project','floor'))?.captureSource).toBeUndefined();
+});
+it('typed draft and local recovery preserve a bounded review, with scale/wall/source stale guards',async()=>{
+ const p=createSamplePlan(),floor=p.floors[0].id,source=await createStudioCaptureSource(reference,1,0,'online-recognition'),recognized=draftFromRecognition(p,floor,roomsOnlyRecognition(detection),10),draft=recognized.draft;
+ draft.captureReview=createCaptureReview(roomsOnlyRecognition(detection),source.source,studioCaptureDraftKey(draft,p.gridSizeMm,10),Date.now());
+ const recovery={fingerprint:studioFingerprint(p),savedAt:new Date().toISOString(),draft,corners:[],imageScale:10,calibrated:true,view:{x:0,z:0,width:10000,height:10000},units:p.units,reference,page:1,rotation:0,captureSource:source};
+ await saveStudioRecovery(p.id,floor,recovery);expect((await loadStudioRecovery(p.id,floor))?.captureSource).toEqual(source);
+ const parsed=parsePlan(JSON.stringify({...p,studioDrafts:{[floor]:{draft,savedAt:recovery.savedAt,imageScale:10,calibrated:true,view:recovery.view}}}));
+ expect(parsed.studioDrafts![floor].draft.captureReview).toEqual(draft.captureReview);
+ expect(JSON.stringify(parsed.studioDrafts![floor])).not.toContain('referenceDigest');expect(JSON.stringify(parsed.studioDrafts![floor])).not.toContain(reference.name);
+ expect(captureReviewStatus(draft.captureReview,source.source,studioCaptureDraftKey(draft,p.gridSizeMm,12)).stale).toBe(true);
+ expect(captureReviewStatus(draft.captureReview,source.source,studioCaptureDraftKey({...draft,walls:[...draft.walls,{id:'manual',ax:0,az:0,bx:2,bz:0}]},p.gridSizeMm,10)).stale).toBe(true);
+ await saveStudioRecovery(p.id,floor,{...recovery,rotation:90});expect((await loadStudioRecovery(p.id,floor))?.captureSource).toBeUndefined();
+});

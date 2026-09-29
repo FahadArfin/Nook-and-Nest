@@ -2,6 +2,7 @@ import {MultiMaterial} from '@babylonjs/core/Materials/multiMaterial';
 import {Geometry} from '@babylonjs/core/Meshes/geometry';
 import {VertexBuffer} from '@babylonjs/core/Buffers/buffer';
 import {isVegetation} from '../vegetation';
+import {renderableSeasonalLook,seasonalRenderPlan,seasonalRoles} from '../seasonalLook';
 import {Mesh} from '@babylonjs/core/Meshes/mesh';
 import {Matrix,Quaternion,Vector3} from '@babylonjs/core/Maths/math.vector';
 import {TransformNode} from '@babylonjs/core/Meshes/transformNode';
@@ -20,6 +21,7 @@ export function grassLodIndices(indices:ArrayLike<number>,vertices:number){
  return [...groups.values()].filter((_,i)=>i%3===0).flat();
 }
 export class GrassRenderer{
+ private seasonalKey='';
  private patches=new Map<string,{meshes:Mesh[];far:Mesh[];signature:string;center:Vector3;detailHeight:number;isFar:boolean}>();
  private prototypes=new Map<string,Mesh[]>();private distant=new Map<Mesh,Mesh>();private stamp='';private last?:{items:PlanDocumentV1['furniture'];floors:PlanDocumentV1['floors'];floor:string;selected?:string;draft?:string;mode:string};
  constructor(private scene:Scene,private library:FurnitureModelLibrary,private fallback?:Pick<FurnitureModelLibrary,'build'>,private pickable=true,private shadow?:{addShadowCaster:(m:Mesh)=>unknown}){scene.onDisposeObservable.add(()=>this.dispose());scene.onBeforeRenderObservable.add(()=>{const camera=scene.activeCamera;if(!camera)return;for(const p of this.patches.values()){const distance=Vector3.Distance(camera.position,p.center);const projection=camera as any,span=projection.mode===1?Math.abs((projection.orthoTop??10)-(projection.orthoBottom??-10)):2*Math.max(.01,distance)*Math.tan((projection.fov??.8)/2);const pixels=p.detailHeight*this.scene.getEngine().getRenderHeight()/span;const distant=p.isFar?pixels<56:pixels<40;if(distant===p.isFar)continue;p.isFar=distant;for(const m of p.meshes)m.setEnabled(!distant);for(const m of p.far)m.setEnabled(distant)}})}
@@ -33,11 +35,14 @@ export class GrassRenderer{
   // Authored/fallback leaves can contain dozens of separate meshes. Collapse
   // static parts with the same material once, not once per spatial patch.
   // Positions were baked above; no triangles, UVs or materials are simplified.
-  const byMaterial=new Map<number,Mesh[]>();for(const mesh of meshes){const id=mesh.material instanceof MultiMaterial? -mesh.uniqueId-2:mesh.material?.uniqueId??-1;const group=byMaterial.get(id)??[];group.push(mesh);byMaterial.set(id,group)}
+  // Identical materials can span textured and untextured authored parts. Babylon
+  // requires matching vertex channels when merging; retain each channel layout.
+  const byMaterial=new Map<string,Mesh[]>();for(const mesh of meshes){const materialId=mesh.material instanceof MultiMaterial?-mesh.uniqueId-2:mesh.material?.uniqueId??-1;const id=JSON.stringify([materialId,mesh.getVerticesDataKinds().sort().map(kind=>[kind,mesh.getVertexBuffer(kind)?.getSize()])]);const group=byMaterial.get(id)??[];group.push(mesh);byMaterial.set(id,group)}
   const merged:Mesh[]=[];for(const group of byMaterial.values()){const mesh=group.length===1?group[0]:Mesh.MergeMeshes(group,true,true,undefined,false,false);if(!mesh)throw new Error('Could not batch vegetation geometry');mesh.setEnabled(false);mesh.isPickable=false;mesh.metadata={...mesh.metadata,botanicalPart:group.map(m=>m.metadata?.botanicalPart??m.name).join(' ')};merged.push(mesh)}
   this.prototypes.set(key,merged);return merged;
  }
  update(plan:PlanDocumentV1,floorId:string,selected?:string,draft?:string){
+  const seasonalKey=JSON.stringify(plan.furniture.some(p=>!p.id.startsWith('field:')&&seasonalRoles[p.catalogId])?renderableSeasonalLook(plan)??null:null);if(seasonalKey!==this.seasonalKey){this.seasonalKey=seasonalKey;this.invalidate(Object.keys(seasonalRoles));}plan=seasonalRenderPlan(plan);
   const mode=plan.camera.mode+':'+plan.camera.ghostBelow;if(this.last?.items===plan.furniture&&this.last.floors===plan.floors&&this.last.floor===floorId&&this.last.selected===selected&&this.last.draft===draft&&this.last.mode===mode)return;this.last={items:plan.furniture,floors:plan.floors,floor:floorId,selected,draft,mode};
   const active=plan.floors.findIndex(f=>f.id===floorId),below=plan.camera.ghostBelow?plan.floors[active-1]?.id:undefined;
   const items=plan.furniture.filter(p=>isVegetation(p.catalogId)&&p.id!==selected&&p.id!==draft&&(p.floorId===floorId||p.floorId===below||plan.camera.mode==='dollhouse'));
