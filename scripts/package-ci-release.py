@@ -85,7 +85,15 @@ with tarfile.open(output / 'sites-source.tar.gz','w:gz') as tar:
         if name.startswith(('assets-source/','public/models/','public/textures/','public/data/toronto/')):
             external[name] = dict(sha256=hashlib.sha256(committed).hexdigest(),size=len(committed))
             continue
-        assert len(committed)<10*1024*1024, 'Unexpected large source input: '+name
+        if name == 'public/experiments/realism-lab/sofa-pipeline.glb':
+            # This reviewed pilot is a self-contained GLB, not application code.
+            # Keep its 12 MiB asset budget without relaxing other source limits.
+            review = json.loads((root / 'assets-source/model-pipeline/sofa.review.json').read_text())
+            assert review['decision'] == 'approved'
+            assert hashlib.sha256(committed).hexdigest() == review['artifactHashes']['glb'], 'Unreviewed pipeline source GLB'
+            assert committed[:4] == b'glTF' and len(committed) <= 12*1024*1024, 'Pipeline source GLB exceeds its budget'
+        else:
+            assert len(committed)<10*1024*1024, 'Unexpected large source input: '+name
         tar.add(p,arcname=name,recursive=False)
     # Generated asset manifest is also retained as independently verifiable provenance.
     tar.add(root / '.generated/library-manifest.json',arcname='.generated/library-manifest.json',recursive=False)
