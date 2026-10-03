@@ -1,0 +1,2940 @@
+{
+  "version": 1,
+  "catalogId": "storage-platform-bed",
+  "inputContractSha256": "d1c28868ba4d4d01331f0cea8dc998edb6a892a090c1599218e9298889fbec61",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/storage-platform-bed.blend",
+      "sha256": "00a1763ee3ef6d2c60424289f3670fa54cba5fb440c3567aae60c5159796ea40",
+      "bytes": 141166
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/storage-platform-bed.glb",
+      "sha256": "562218c1b5e2cd47354f1cb90ccb9def1a9a66a29d743d723625d7c2700f66dd",
+      "bytes": 144624
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/storage-platform-bed.blend",
+      "sha256": "00a1763ee3ef6d2c60424289f3670fa54cba5fb440c3567aae60c5159796ea40",
+      "bytes": 141166
+    },
+    {
+      "path": "public/models/furniture/storage-platform-bed.glb",
+      "sha256": "562218c1b5e2cd47354f1cb90ccb9def1a9a66a29d743d723625d7c2700f66dd",
+      "bytes": 144624
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "tailored-pillow",
+      "component": "gusseted_pillow",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d05ef57aa881f580a99f5337fd48474478c655c2b9af7d19ba8336b9ae89b6d5",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.70897376537323,
+            0.3225000202655792,
+            0.5600000023841858
+          ],
+          "max": [
+            -0.05704385042190552,
+            0.7524999976158142,
+            0.6800000071525574
+          ],
+          "size": [
+            0.6519299149513245,
+            0.429999977350235,
+            0.12000000476837158
+          ]
+        }
+      },
+      "after": {
+        "sha256": "614862163ac392468fa40165342cbdc135c6cadb4cfbf8404ae7eb3a0a1b3fd1",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.70897376537323,
+            0.3225000202655792,
+            0.5600000023841858
+          ],
+          "max": [
+            -0.05704385042190552,
+            0.7524999976158142,
+            0.6800000071525574
+          ],
+          "size": [
+            0.6519299149513245,
+            0.429999977350235,
+            0.12000000476837158
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "tailored-pillow",
+      "component": "gusseted_pillow.001",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "61a5aa1e02f917e0051a35d9698806c54287b5afcf006f982f2a45ea4a321ed4",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.05704385042190552,
+            0.3225000202655792,
+            0.5600000023841858
+          ],
+          "max": [
+            0.70897376537323,
+            0.7524999976158142,
+            0.6800000071525574
+          ],
+          "size": [
+            0.6519299149513245,
+            0.429999977350235,
+            0.12000000476837158
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ef27e2fa08e0d4938d1f4e838c74634fbdbf0134e154b0742617ee9faf9346d3",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            0.05704385042190552,
+            0.3225000202655792,
+            0.5600000023841858
+          ],
+          "max": [
+            0.70897376537323,
+            0.7524999976158142,
+            0.6800000071525574
+          ],
+          "size": [
+            0.6519299149513245,
+            0.429999977350235,
+            0.12000000476837158
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "pillow_welt",
+      "matchedPadVertices": {
+        "gusseted_pillow": 960
+      },
+      "transportedSections": 120,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.025252411213156092,
+      "edgeLengthRatioRange": [
+        0.9121664857129977,
+        1.3164493102045391
+      ],
+      "pillowAttachment": {
+        "seatedSections": 120,
+        "maxOriginalSurfaceDistanceM": 0.019999980829968584,
+        "surfaceOffsetRangeM": [
+          0.0008420098456554115,
+          0.0008723386155907064
+        ]
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": {
+        "method": "longitudinal quad strips only; UV layers interpolated; round section radius restored",
+        "originalVertices": 192,
+        "subdividedVertices": 960,
+        "longSpans": 4,
+        "maximumSampleSpacingM": 0.016,
+        "sectionRadiusM": 0.0024923750803855665
+      },
+      "preservedChannels": [
+        "material keys",
+        "UV layers with subdivision interpolation",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "30cd1b0dc29a45c322d264c8d9c32e6bee5781238344e892ed58064be4385219",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.6869882345199585,
+            0.3415077030658722,
+            0.6575000286102295
+          ],
+          "max": [
+            -0.07902941852807999,
+            0.7334922552108765,
+            0.6625000238418579
+          ],
+          "size": [
+            0.6079588159918785,
+            0.3919845521450043,
+            0.004999995231628418
+          ]
+        }
+      },
+      "after": {
+        "sha256": "8e884a8dec9da037b2ab05ec0cbeb6b346befb79861752c448f7243280c5fce3",
+        "vertices": 960,
+        "triangles": 1920,
+        "bounds": {
+          "min": [
+            -0.6864736676216125,
+            0.3410987854003906,
+            0.634191632270813
+          ],
+          "max": [
+            -0.0795360803604126,
+            0.733871579170227,
+            0.6488413214683533
+          ],
+          "size": [
+            0.6069375872612,
+            0.3927727937698364,
+            0.014649689197540283
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.023308396339416504
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "pillow_welt.001",
+      "matchedPadVertices": {
+        "gusseted_pillow.001": 960
+      },
+      "transportedSections": 120,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.02562913353817536,
+      "edgeLengthRatioRange": [
+        0.9016797459792859,
+        1.3012844643451245
+      ],
+      "pillowAttachment": {
+        "seatedSections": 120,
+        "maxOriginalSurfaceDistanceM": 0.019999980830018544,
+        "surfaceOffsetRangeM": [
+          0.0008420098456554115,
+          0.0008723386155907064
+        ]
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": {
+        "method": "longitudinal quad strips only; UV layers interpolated; round section radius restored",
+        "originalVertices": 192,
+        "subdividedVertices": 960,
+        "longSpans": 4,
+        "maximumSampleSpacingM": 0.016,
+        "sectionRadiusM": 0.002492375064420681
+      },
+      "preservedChannels": [
+        "material keys",
+        "UV layers with subdivision interpolation",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "eabfbf5c94a5e39a762f254a903829ff98721ee18c3d3c6ac07e276858cadb1c",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            0.07902941852807999,
+            0.3415077030658722,
+            0.6575000286102295
+          ],
+          "max": [
+            0.6869882345199585,
+            0.7334922552108765,
+            0.6625000238418579
+          ],
+          "size": [
+            0.6079588159918785,
+            0.3919845521450043,
+            0.004999995231628418
+          ]
+        }
+      },
+      "after": {
+        "sha256": "afe1986904c5bc0f7fe61e1b93bcc649951114434fcaded2013f55c6bc17ac72",
+        "vertices": 960,
+        "triangles": 1920,
+        "bounds": {
+          "min": [
+            0.07954148948192596,
+            0.3408459424972534,
+            0.6336609721183777
+          ],
+          "max": [
+            0.6864710450172424,
+            0.7341090440750122,
+            0.6486791372299194
+          ],
+          "size": [
+            0.6069295555353165,
+            0.3932631015777588,
+            0.015018165111541748
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.023839056491851807
+    },
+    {
+      "kind": "tailored-mattress",
+      "component": "mattress",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "86fd1768f161bdf7e0b4c0041f61fb51d6ebb43362bc20f570b6343c642ea711",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.741570234298706,
+            -0.9889999032020569,
+            0.36000001430511475
+          ],
+          "max": [
+            0.741570234298706,
+            0.8814999461174011,
+            0.5799999833106995
+          ],
+          "size": [
+            1.483140468597412,
+            1.870499849319458,
+            0.21999996900558472
+          ]
+        }
+      },
+      "after": {
+        "sha256": "551d67b52d89bdde4e4d86307d295f9cfcaff2fe732e618614b279fa6a22a707",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.741570234298706,
+            -0.9889999032020569,
+            0.36000001430511475
+          ],
+          "max": [
+            0.741570234298706,
+            0.8814999461174011,
+            0.5799999833106995
+          ],
+          "size": [
+            1.483140468597412,
+            1.870499849319458,
+            0.21999996900558472
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "tailored-duvet",
+      "component": "folded_duvet",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "1495bf1b8671ac656b84e0b12bf11691b38b20fd21566a0050aff8dee466486b",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.7660176157951355,
+            -1.0104999542236328,
+            0.5724999904632568
+          ],
+          "max": [
+            0.7660176157951355,
+            0.15049999952316284,
+            0.6375000476837158
+          ],
+          "size": [
+            1.532035231590271,
+            1.1609999537467957,
+            0.06500005722045898
+          ]
+        }
+      },
+      "after": {
+        "sha256": "0412013b2804845e5d97356074f67b3f68b772b935ff4a3fa3cc71923a817c1d",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.7660176157951355,
+            -1.0104999542236328,
+            0.5724999904632568
+          ],
+          "max": [
+            0.7660176157951355,
+            0.15050002932548523,
+            0.6375000476837158
+          ],
+          "size": [
+            1.532035231590271,
+            1.160999983549118,
+            0.06500005722045898
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "mattress_upper_ticking seam",
+      "matchedPadVertices": {
+        "mattress": 1120
+      },
+      "transportedSections": 140,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.04290181677127169,
+      "edgeLengthRatioRange": [
+        0.866900463181548,
+        1.1608131038170257
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6c6531c9c7a2313bfcec82c0dcefe46f735bc748203bba79fc1ff47af91277f8",
+        "vertices": 1120,
+        "triangles": 2240,
+        "bounds": {
+          "min": [
+            -0.7195847034454346,
+            -0.9592422246932983,
+            0.5674999952316284
+          ],
+          "max": [
+            0.7195847034454346,
+            0.8517422676086426,
+            0.5724999904632568
+          ],
+          "size": [
+            1.4391694068908691,
+            1.810984492301941,
+            0.004999995231628418
+          ]
+        }
+      },
+      "after": {
+        "sha256": "3ba61e1e39461718a9db94457c060d4f422b6d86cb3d782234a9b72febf2d861",
+        "vertices": 1120,
+        "triangles": 2240,
+        "bounds": {
+          "min": [
+            -0.7096896767616272,
+            -0.9515173435211182,
+            0.5268036127090454
+          ],
+          "max": [
+            0.7098243236541748,
+            0.8437210917472839,
+            0.538963258266449
+          ],
+          "size": [
+            1.419514000415802,
+            1.795238435268402,
+            0.012159645557403564
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.04069638252258301
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01514101878126976,
+      "edgeLengthRatioRange": [
+        0.9949186915589032,
+        1.0039243786482728
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6eef1816f507f6a8478142cec807ea4c253d42d64e9ff8cb73acdf0d2f1fb1ad",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.6629928946495056,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            -0.6604247689247131,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025681257247924805,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "8ab06fd0264e9b4c5d3031d347800ddda549a1d15b707516a298182f2315fe4d",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.6630249619483948,
+            -0.945810079574585,
+            0.6235645413398743
+          ],
+          "max": [
+            -0.6600693464279175,
+            0.07502917945384979,
+            0.6304832696914673
+          ],
+          "size": [
+            0.002955615520477295,
+            1.0208392590284348,
+            0.006918728351593018
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.015135467052459717
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.001",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01550656894986399,
+      "edgeLengthRatioRange": [
+        0.9959858129476942,
+        1.0050050985059074
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "24be76423d9f7ec24e277641686d7877765eadc917764ee4845aa59a7babd767",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.5684630274772644,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            -0.5658949017524719,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025681257247924805,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "81655dd353a342203c543168b37b715fb0f927b1a6575f1d18b0f7306856bba8",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.5685182213783264,
+            -0.9457494616508484,
+            0.6232022047042847
+          ],
+          "max": [
+            -0.5656613707542419,
+            0.07498083263635635,
+            0.6343128085136414
+          ],
+          "size": [
+            0.0028568506240844727,
+            1.0207302942872047,
+            0.01111060380935669
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.015497803688049316
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.002",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01618834730790043,
+      "edgeLengthRatioRange": [
+        0.9957848129293718,
+        1.0093682468161975
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "8d4d1efe0c48851ec4de614a1dcf4e38e43278ab72c5ef4c0cab163753710a61",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.47393327951431274,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            -0.4713650643825531,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682151317596436,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "48507f26a6ba1d9933c1b48fd293dff46840bcb9e2ff16050446b9a1f5b95e7d",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.4740522503852844,
+            -0.945710301399231,
+            0.6225329637527466
+          ],
+          "max": [
+            -0.47119441628456116,
+            0.07477148622274399,
+            0.637622058391571
+          ],
+          "size": [
+            0.0028578341007232666,
+            1.020481787621975,
+            0.015089094638824463
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.016167044639587402
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.003",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.017010839545784473,
+      "edgeLengthRatioRange": [
+        0.9901844816841167,
+        1.0179120683613163
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "83ef09cff24f22a6e414d3160ecba8fc7c79680d71860a9dcaae6a9c32fac2ee",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.3794034421443939,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            -0.3768352270126343,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682151317596436,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "696bfaf488fd3af6907d1b56df8e2c6cbb6d698de4207721baf9efb5368d9098",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.3795299530029297,
+            -0.9457093477249146,
+            0.6217111349105835
+          ],
+          "max": [
+            -0.3767121434211731,
+            0.07473887503147125,
+            0.6398776769638062
+          ],
+          "size": [
+            0.002817809581756592,
+            1.0204482227563858,
+            0.018166542053222656
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.01698887348175049
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.004",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.017807049555022297,
+      "edgeLengthRatioRange": [
+        0.9892563825689199,
+        1.0220650219701857
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "37686100998503b8daa7e7d881e9bb321294bc791924f83a4735616bd3bf8ec6",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.2848736047744751,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            -0.28230535984039307,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682449340820312,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7ab08557e1e7081e5fa8d8c6da9cbcdf0007b52292df7ec9564f4cd471c0d3fb",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.2850264310836792,
+            -0.9457380771636963,
+            0.6209122538566589
+          ],
+          "max": [
+            -0.28221312165260315,
+            0.07475049793720245,
+            0.6409851908683777
+          ],
+          "size": [
+            0.00281330943107605,
+            1.0204885751008987,
+            0.02007293701171875
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.01778775453567505
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.005",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01841850230524539,
+      "edgeLengthRatioRange": [
+        0.9887989894798348,
+        1.026525834282394
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "76944806d7d975d377465758ceb6317904b7597464e0e5ec1603cd6eaf024bbb",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.19034378230571747,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            -0.18777555227279663,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682300329208374,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "264a9d7fd77164f7b4c09de24116f6d10e399cb861d5a7e6d9e553fc98b70096",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.1904931664466858,
+            -0.9457827210426331,
+            0.6202955842018127
+          ],
+          "max": [
+            -0.1877157986164093,
+            0.07479647547006607,
+            0.6411553621292114
+          ],
+          "size": [
+            0.0027773678302764893,
+            1.0205791965126991,
+            0.02085977792739868
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.01840442419052124
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.006",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01872764569004423,
+      "edgeLengthRatioRange": [
+        0.9880789221200983,
+        1.0305165965503407
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "0575f8df30f7b155681e4c30ea18bbeaaffb8bf6946f02df33a8a6c70f090d1a",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.09581393748521805,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            -0.093245729804039,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682076811790466,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "60c9b6cd7f40f227c547cc0cedfe6a49380e05d877f47631f0d1456a3c1b0bae",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.09593211114406586,
+            -0.9458258152008057,
+            0.6199802756309509
+          ],
+          "max": [
+            -0.09321505576372147,
+            0.0748581811785698,
+            0.640633761882782
+          ],
+          "size": [
+            0.002717055380344391,
+            1.0206839963793755,
+            0.020653486251831055
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.018719732761383057
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.007",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01869448616778577,
+      "edgeLengthRatioRange": [
+        0.9879630587773952,
+        1.0345639676953855
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3cff71dede266af427c0b65bf8c399e3eecebd32b921ad0e24cdf67ace5c1f0b",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.0012841045390814543,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.0012841045390814543,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682090781629086,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ee2d20b77a56fae26a6d9ac8594d52b762060383e01fcae00c137992d15fcfa3",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            -0.001383041380904615,
+            -0.9458559155464172,
+            0.6200135350227356
+          ],
+          "max": [
+            0.0013353718677535653,
+            0.07491584122180939,
+            0.639804482460022
+          ],
+          "size": [
+            0.0027184132486581802,
+            1.0207717567682266,
+            0.019790947437286377
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.01868647336959839
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.008",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01834097608971197,
+      "edgeLengthRatioRange": [
+        0.9888910678276092,
+        1.033917443385945
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "08532447bcbb1f2e419dac8b693ab3e145a201e30e5c327939278962996673ab",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.093245729804039,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.09581393748521805,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682076811790466,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7cb45878a8e8ed6d414f2c214c40b21d2e38a2d5119b8848d7829ea6ae3f905e",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.09309586882591248,
+            -0.9458731412887573,
+            0.6203694939613342
+          ],
+          "max": [
+            0.09590192884206772,
+            0.07495593279600143,
+            0.6390683054924011
+          ],
+          "size": [
+            0.002806060016155243,
+            1.0208290740847588,
+            0.018698811531066895
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.018330514430999756
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.009",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01777335841666718,
+      "edgeLengthRatioRange": [
+        0.9890881652620502,
+        1.0327751521837314
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6d0260e23bb7017607ce745b7743897e100440bf3d2fbe54001b49c3802b11c7",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.18777555227279663,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.19034378230571747,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682300329208374,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "9a6edc74e2dec91c9e22ce6c571cec610a838cde7b865f0f3a48529ae7d587fb",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.18760663270950317,
+            -0.9458873867988586,
+            0.6209380030632019
+          ],
+          "max": [
+            0.19044524431228638,
+            0.07498842477798462,
+            0.638566792011261
+          ],
+          "size": [
+            0.002838611602783203,
+            1.0208758115768433,
+            0.017628788948059082
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.01776200532913208
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.010",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.017118903142564885,
+      "edgeLengthRatioRange": [
+        0.9908831321445413,
+        1.0292867802506531
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "04ad59609b6daf45ff0d396e97425de356f551ab37cbb7c1d85694fc19475a46",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.28230535984039307,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.2848736047744751,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682449340820312,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "40484c4e2ce7a1e23f00c2dbf64cdd6beddad342f275568065ffe232d5268d2c",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.28213822841644287,
+            -0.9459102153778076,
+            0.6215916872024536
+          ],
+          "max": [
+            0.28496798872947693,
+            0.07502403110265732,
+            0.6382453441619873
+          ],
+          "size": [
+            0.0028297603130340576,
+            1.020934246480465,
+            0.01665365695953369
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.01710832118988037
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.011",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.016496891693798692,
+      "edgeLengthRatioRange": [
+        0.9917402731139405,
+        1.026797291543183
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5908ea05b30b0bced399fd8f6c6897fd8207792e94778978def4b66b2cb009b7",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.3768352270126343,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.3794034421443939,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682151317596436,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ee427e8e16c0f3ff8796cfc38b68bab647516ad79d521f8a3b66bf42f88921fc",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.37668710947036743,
+            -0.9459444284439087,
+            0.6222115159034729
+          ],
+          "max": [
+            0.3794780373573303,
+            0.07506977021694183,
+            0.6376802325248718
+          ],
+          "size": [
+            0.0027909278869628906,
+            1.0210141986608505,
+            0.015468716621398926
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.016488492488861084
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.012",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.01598688194462555,
+      "edgeLengthRatioRange": [
+        0.9969497309362433,
+        1.015520910116046
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "24d879278fba4d41cc6eb264983d631d69098a73261aed071665a9f60bd42949",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.4713650643825531,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.47393327951431274,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025682151317596436,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "89035944e91627dd4d9e06d3ec1cb04e735077ed5091626f6b2aefe9f18f4e72",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.47119608521461487,
+            -0.9459831714630127,
+            0.6227188110351562
+          ],
+          "max": [
+            0.4740353226661682,
+            0.0751255601644516,
+            0.6364374756813049
+          ],
+          "size": [
+            0.0028392374515533447,
+            1.0211087316274643,
+            0.013718664646148682
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.015981197357177734
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.013",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.015612098347531633,
+      "edgeLengthRatioRange": [
+        0.9950626337367308,
+        1.0158275713135263
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "7515bb3bb38287d9e9defa0803014b0daad638c1f261794527163a0d54bba6b4",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.5658949017524719,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.5684630274772644,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025681257247924805,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c20aa66b6a9f0ad459b75b115c4098a8a3c724c5800e14114426f0d99ee30599",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.5657192468643188,
+            -0.9460188746452332,
+            0.623091459274292
+          ],
+          "max": [
+            0.5686867833137512,
+            0.07518354803323746,
+            0.6341472864151001
+          ],
+          "size": [
+            0.002967536449432373,
+            1.0212024226784706,
+            0.011055827140808105
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.015608549118041992
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "duvet_quilt_stitch.014",
+      "matchedPadVertices": {
+        "folded_duvet": 184
+      },
+      "transportedSections": 23,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.015327078145576512,
+      "edgeLengthRatioRange": [
+        0.9978711890747696,
+        1.0075152232809081
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "b825f238aea82082d09de413358c55cefda816bd5080a06b7cd99c739f369aca",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.6604247689247131,
+            -0.9459999203681946,
+            0.638700008392334
+          ],
+          "max": [
+            0.6629928946495056,
+            0.07524999976158142,
+            0.6412999629974365
+          ],
+          "size": [
+            0.0025681257247924805,
+            1.021249920129776,
+            0.002599954605102539
+          ]
+        }
+      },
+      "after": {
+        "sha256": "fd701ff29d6400a1c01fe909a0393f80e06d7a47e588a9d1e195123a0a5a5539",
+        "vertices": 184,
+        "triangles": 352,
+        "bounds": {
+          "min": [
+            0.6600655913352966,
+            -0.946026086807251,
+            0.6233758330345154
+          ],
+          "max": [
+            0.6631574630737305,
+            0.07523080706596375,
+            0.6308958530426025
+          ],
+          "size": [
+            0.003091871738433838,
+            1.0212568938732147,
+            0.007520020008087158
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.015324175357818604
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-porcelain-detail",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "modern-porcelain-detail",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-porcelain-detail",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-porcelain-detail",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-recess-charcoal",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "modern-porcelain-detail",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-porcelain-detail",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 2429780,
+    "afterBytes": 2429780,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/storage-platform-bed.blend",
+      "sha256": "daa3086bda0bc25eaa75d16bc6ed58f0a29cd2c9848d6e0491a0d441301ebac9",
+      "bytes": 2170237
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/storage-platform-bed.glb",
+      "sha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+      "bytes": 2429780
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/storage-platform-bed/front-938233d59ce489c55c7a.webp",
+      "sha256": "938233d59ce489c55c7a229c6dca59d80220bad4e16704781b3c409b3205dd8d",
+      "bytes": 122448,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.811,
+      "camera": {
+        "orthoScale": 3.036971092224121,
+        "position": [
+          4.001924514770508,
+          -6.66987419128418,
+          4.1284308433532715
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.00215000007301569,
+        "clipEnd": 25.80000114440918,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.08494345098733902,
+            0.06521740555763245
+          ],
+          "max": [
+            0.9150565266609192,
+            0.9347816109657288
+          ]
+        }
+      },
+      "glbSha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+      "renderConfigSha256": "a183b91bb452da41fdda5650d78478358535d8aac8f0c545f072ca6b4c2daeb9",
+      "inputSetSha256": "2ce0bbf6a3b568f40de4ddc145cf59d77e18e3b605ec35b77801054da46b3c16"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/storage-platform-bed/rear-8ea0f3d2a0be97bd8763.webp",
+      "sha256": "8ea0f3d2a0be97bd876347f4fb38f7b7c6845afbfb55a4d119b832440d778fb9",
+      "bytes": 109000,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.805,
+      "camera": {
+        "orthoScale": 3.036970615386963,
+        "position": [
+          -4.001924514770508,
+          6.66987419128418,
+          4.1284308433532715
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.00215000007301569,
+        "clipEnd": 25.80000114440918,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.08494342863559723,
+            0.06521741300821304
+          ],
+          "max": [
+            0.9150565266609192,
+            0.9347816705703735
+          ]
+        }
+      },
+      "glbSha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+      "renderConfigSha256": "a183b91bb452da41fdda5650d78478358535d8aac8f0c545f072ca6b4c2daeb9",
+      "inputSetSha256": "2ce0bbf6a3b568f40de4ddc145cf59d77e18e3b605ec35b77801054da46b3c16"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/storage-platform-bed/detail-c6c25d29c2f7723677a8.webp",
+      "sha256": "c6c25d29c2f7723677a8664b7cc7eb4d4d4c4b5272ee2b5774c0ba79c92c7f00",
+      "bytes": 162444,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.849,
+      "camera": {
+        "orthoScale": 1.6703355312347412,
+        "position": [
+          4.001924514770508,
+          -6.66987419128418,
+          4.1284308433532715
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.00215000007301569,
+        "clipEnd": 25.80000114440918,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.08494382351636887,
+            0.06521736830472946
+          ],
+          "max": [
+            0.9150561690330505,
+            0.9347808957099915
+          ]
+        }
+      },
+      "glbSha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+      "renderConfigSha256": "a183b91bb452da41fdda5650d78478358535d8aac8f0c545f072ca6b4c2daeb9",
+      "inputSetSha256": "2ce0bbf6a3b568f40de4ddc145cf59d77e18e3b605ec35b77801054da46b3c16"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/storage-platform-bed/underside-ef4871ae3985486b976d.webp",
+      "sha256": "ef4871ae3985486b976d0ca3c56ca516d1030f6ec6d82d112e4e4ec4a64009fc",
+      "bytes": 52108,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.777,
+      "camera": {
+        "orthoScale": 3.143171787261963,
+        "position": [
+          3.9344632625579834,
+          -6.557438850402832,
+          -3.4744632244110107
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.00215000007301569,
+        "clipEnd": 25.80000114440918,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09896723926067352,
+            0.06521748006343842
+          ],
+          "max": [
+            0.901032567024231,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+      "renderConfigSha256": "a183b91bb452da41fdda5650d78478358535d8aac8f0c545f072ca6b4c2daeb9",
+      "inputSetSha256": "2ce0bbf6a3b568f40de4ddc145cf59d77e18e3b605ec35b77801054da46b3c16"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/storage-platform-bed/clay-4d7c871a016aaa2e9b3f.webp",
+      "sha256": "4d7c871a016aaa2e9b3f6343559fcdcb6dc9332e8692bf0b524ecd602bfbe9f9",
+      "bytes": 89326,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.808,
+      "camera": {
+        "orthoScale": 3.036971092224121,
+        "position": [
+          4.001924514770508,
+          -6.66987419128418,
+          4.1284308433532715
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.00215000007301569,
+        "clipEnd": 25.80000114440918,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.08494345098733902,
+            0.06521740555763245
+          ],
+          "max": [
+            0.9150565266609192,
+            0.9347816109657288
+          ]
+        }
+      },
+      "glbSha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+      "renderConfigSha256": "a183b91bb452da41fdda5650d78478358535d8aac8f0c545f072ca6b4c2daeb9",
+      "inputSetSha256": "2ce0bbf6a3b568f40de4ddc145cf59d77e18e3b605ec35b77801054da46b3c16"
+    }
+  ],
+  "timingSeconds": 6.62,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.824999988079071,
+          1.0750000476837158,
+          0.9200000166893005
+        ],
+        "min": [
+          -0.824999988079071,
+          -1.0750000476837158,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 1,
+          "materialKey": "upholstery-textured",
+          "rawGlbBaseColorFactor": [
+            0.8100000023841858,
+            0.8399999737739563,
+            0.8399999737739563,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.22331040834112742,
+            0.04614884242235095,
+            0.017936433339950233,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "terracotta",
+          "variantHex": "#813f29"
+        },
+        {
+          "materialIndex": 3,
+          "materialKey": "modern-tailored-welting",
+          "rawGlbBaseColorFactor": [
+            0.6317999958992004,
+            0.6552000045776367,
+            0.6552000045776367,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.16078349400561173,
+            0.03322716654409268,
+            0.012914232004764168,
+            1
+          ],
+          "rule": "bedding-seam-0.72",
+          "variant": "terracotta",
+          "variantHex": "#813f29"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+      "renderImportSha256": "d0fd03a2071f3630a0ce768a30cfe673b00b468fde411b4c85d2343df98129e6",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.824999988079071,1.0750000476837158,0.9200000166893005],\"min\":[-0.824999988079071,-1.0750000476837158,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":1,\"materialKey\":\"upholstery-textured\",\"rawGlbBaseColorFactor\":[0.8100000023841858,0.8399999737739563,0.8399999737739563,1],\"renderBaseColorFactor\":[0.22331040834112742,0.04614884242235095,0.017936433339950233,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"terracotta\",\"variantHex\":\"#813f29\"},{\"materialIndex\":3,\"materialKey\":\"modern-tailored-welting\",\"rawGlbBaseColorFactor\":[0.6317999958992004,0.6552000045776367,0.6552000045776367,1],\"renderBaseColorFactor\":[0.16078349400561173,0.03322716654409268,0.012914232004764168,1],\"rule\":\"bedding-seam-0.72\",\"variant\":\"terracotta\",\"variantHex\":\"#813f29\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263\",\"renderImportSha256\":\"d0fd03a2071f3630a0ce768a30cfe673b00b468fde411b4c85d2343df98129e6\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "a183b91bb452da41fdda5650d78478358535d8aac8f0c545f072ca6b4c2daeb9",
+    "inputs": [
+      {
+        "path": "assets-source/blender/storage-platform-bed.blend",
+        "sha256": "00a1763ee3ef6d2c60424289f3670fa54cba5fb440c3567aae60c5159796ea40",
+        "bytes": 141166
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/storage-platform-bed.blend",
+        "sha256": "daa3086bda0bc25eaa75d16bc6ed58f0a29cd2c9848d6e0491a0d441301ebac9",
+        "bytes": 2170237
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-porcelain-detail-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/storage-platform-bed/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/storage-platform-bed/upholstery-textured-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/storage-platform-bed.glb",
+        "sha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+        "bytes": 2429780
+      },
+      {
+        "path": "public/models/furniture/storage-platform-bed.glb",
+        "sha256": "562218c1b5e2cd47354f1cb90ccb9def1a9a66a29d743d723625d7c2700f66dd",
+        "bytes": 144624
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "2ce0bbf6a3b568f40de4ddc145cf59d77e18e3b605ec35b77801054da46b3c16",
+    "afterSha256": "2ce0bbf6a3b568f40de4ddc145cf59d77e18e3b605ec35b77801054da46b3c16"
+  },
+  "formatValidation": {
+    "sha256": "d04d8c2a6ca7c6b2ca4578422465e512b923cdc73095f51008ebd369c30e0263",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 11,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/1"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/2"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/3"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/4"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/5"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "0c1d3d7c5d9ec635860fd4bbdfc32ed2a89824b0f0ce5ee981443073bed927dc",
+    "views": {
+      "front": "Warm upholstered bed has separate pillows and a channelled duvet.",
+      "rear": "Rear footboard and headboard connect to the platform.",
+      "detail": "Drawer pulls and cover seams remain distinct.",
+      "underside": "Dark base closes the storage platform below the mattress.",
+      "clay": "Wide drawer-platform bed retains connected layered construction."
+    }
+  }
+}

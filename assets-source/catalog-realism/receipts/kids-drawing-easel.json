@@ -1,0 +1,1864 @@
+{
+  "version": 1,
+  "catalogId": "kids-drawing-easel",
+  "inputContractSha256": "e50b55afb31e3e3ba4d39c4b2f7f227abbe43edf2752be837dc578eda37bffff",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/kids-drawing-easel.blend",
+      "sha256": "782439fccf7ee3f0cc28d6a86bbd14b1a2a04d0ec6ca768e5541376f7228e968",
+      "bytes": 112750
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-orm-cd830dbb3049765b.png",
+      "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+      "bytes": 52081
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-orm.png",
+      "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+      "bytes": 32780
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/kids-drawing-easel.glb",
+      "sha256": "cdd58dceb0c97767b3ac962e34532295b6b6f4fe3d3cebfb6f662d717a7f0095",
+      "bytes": 181368
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/kids-drawing-easel.blend",
+      "sha256": "782439fccf7ee3f0cc28d6a86bbd14b1a2a04d0ec6ca768e5541376f7228e968",
+      "bytes": 112750
+    },
+    {
+      "path": "public/models/furniture/kids-drawing-easel.glb",
+      "sha256": "cdd58dceb0c97767b3ac962e34532295b6b6f4fe3d3cebfb6f662d717a7f0095",
+      "bytes": 181368
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-orm.png",
+      "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+      "bytes": 32780
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-orm-cd830dbb3049765b.png",
+      "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+      "bytes": 52081
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "top folding hinge",
+      "widthM": 0.0007085896795615554,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "54e04246cc3a610fffbbac9da9a00792c1704d5d16c4ec0062822a9bb6cf4854",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.3117791712284088,
+            -0.034002404659986496,
+            1.0872583389282227
+          ],
+          "max": [
+            -0.283435583114624,
+            0.034002404659986496,
+            1.1162627935409546
+          ],
+          "size": [
+            0.02834358811378479,
+            0.06800480931997299,
+            0.029004454612731934
+          ]
+        }
+      },
+      "after": {
+        "sha256": "1215fec3f6dff8e2e3efb76a2104695d43a3eb0dfbde4ee031da7539a2a80210",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.3117791712284088,
+            -0.034002404659986496,
+            1.0872583389282227
+          ],
+          "max": [
+            -0.283435583114624,
+            0.034002404659986496,
+            1.1162627935409546
+          ],
+          "size": [
+            0.02834358811378479,
+            0.06800480931997299,
+            0.029004454612731934
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top folding hinge.001",
+      "widthM": 0.0007085896795615554,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3636ebbf71dc4e1c7e2fa3068a44b62ada8007ac1acbd0886486bb0293d1e3b2",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.283435583114624,
+            -0.034002404659986496,
+            1.0872583389282227
+          ],
+          "max": [
+            0.3117791712284088,
+            0.034002404659986496,
+            1.1162627935409546
+          ],
+          "size": [
+            0.02834358811378479,
+            0.06800480931997299,
+            0.029004454612731934
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c44d1caeeba9d4628319eb8cac863862a349f81d7904ba48aef56da41000d731",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.283435583114624,
+            -0.034002404659986496,
+            1.0872583389282227
+          ],
+          "max": [
+            0.3117791712284088,
+            0.034002404659986496,
+            1.1162627935409546
+          ],
+          "size": [
+            0.02834358811378479,
+            0.06800480931997299,
+            0.029004454612731934
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "household-slate-fabric",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "household-warm-paper",
+      "profile": "paper",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "oiled-maple",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "slate-blue-glaze",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "terracotta-glaze",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-ceramic",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "charcoal-details",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "household-slate-fabric",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "household-slate-fabric",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "household-slate-fabric",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "household-warm-paper",
+      "profile": "paper",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "household-warm-paper",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paper-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "household-warm-paper",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paper-orm.png",
+          "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+          "bytes": 32780,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "oiled-maple",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "oiled-maple",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "oiled-maple",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "slate-blue-glaze",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "slate-blue-glaze",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "slate-blue-glaze",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "terracotta-glaze",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "terracotta-glaze",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "terracotta-glaze",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-ceramic",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-ceramic",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-ceramic",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "brushed-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "household-slate-fabric",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "household-slate-fabric",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "household-warm-paper",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "household-warm-paper",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-orm-cd830dbb3049765b.png",
+      "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+      "bytes": 52081,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "oiled-maple",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "oiled-maple",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "slate-blue-glaze",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "slate-blue-glaze",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "terracotta-glaze",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "terracotta-glaze",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-ceramic",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-ceramic",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 2849036,
+    "afterBytes": 2849036,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/kids-drawing-easel.blend",
+      "sha256": "bfefd15596261d91c2478af96afe853abaf098b313834b8c94f45e0e92b07594",
+      "bytes": 2285266
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/kids-drawing-easel.glb",
+      "sha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "bytes": 2849036
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/kids-drawing-easel/front-165f5e37d7d169ca65ad.webp",
+      "sha256": "165f5e37d7d169ca65ad4d05bb94d800761339e7cbb184a9e1ae674ddc466682",
+      "bytes": 81834,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.846,
+      "camera": {
+        "orthoScale": 2.050173759460449,
+        "position": [
+          2.084723711013794,
+          -3.474539279937744,
+          2.470996618270874
+        ],
+        "target": [
+          0,
+          0,
+          0.5600000619888306
+        ],
+        "clipStart": 0.001120000146329403,
+        "clipEnd": 13.440001487731934,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3004928529262543,
+            0.06521738320589066
+          ],
+          "max": [
+            0.6995069980621338,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "renderConfigSha256": "002165b4d0e75ea68a49c270c789066b1534994328fcebee059228f60d085008",
+      "inputSetSha256": "47b1b1db776d9764713fabaee09b3fb8df60ccbbf8e6f8946392ca73e747eab8"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/kids-drawing-easel/rear-74a04da82a59165cd1bb.webp",
+      "sha256": "74a04da82a59165cd1bb9cd0b40af47e945fdddb74ec4fdd2d233f80d5fae8c7",
+      "bytes": 75430,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.847,
+      "camera": {
+        "orthoScale": 2.050173282623291,
+        "position": [
+          -2.084723711013794,
+          3.474539279937744,
+          2.470996618270874
+        ],
+        "target": [
+          0,
+          0,
+          0.5600000619888306
+        ],
+        "clipStart": 0.001120000146329403,
+        "clipEnd": 13.440001487731934,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3004928231239319,
+            0.06521736085414886
+          ],
+          "max": [
+            0.6995069980621338,
+            0.9347822666168213
+          ]
+        }
+      },
+      "glbSha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "renderConfigSha256": "002165b4d0e75ea68a49c270c789066b1534994328fcebee059228f60d085008",
+      "inputSetSha256": "47b1b1db776d9764713fabaee09b3fb8df60ccbbf8e6f8946392ca73e747eab8"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/kids-drawing-easel/detail-e4c2b2fb54efde6147f4.webp",
+      "sha256": "e4c2b2fb54efde6147f4314db46478f69f2f4940caeab7cde1f33913be841398",
+      "bytes": 103318,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.798,
+      "camera": {
+        "orthoScale": 1.1275960206985474,
+        "position": [
+          2.084723711013794,
+          -3.474539279937744,
+          2.470996618270874
+        ],
+        "target": [
+          0,
+          0,
+          0.5600000619888306
+        ],
+        "clipStart": 0.001120000146329403,
+        "clipEnd": 13.440001487731934,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.3004928529262543,
+            0.06521741300821304
+          ],
+          "max": [
+            0.6995068788528442,
+            0.9347817897796631
+          ]
+        }
+      },
+      "glbSha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "renderConfigSha256": "002165b4d0e75ea68a49c270c789066b1534994328fcebee059228f60d085008",
+      "inputSetSha256": "47b1b1db776d9764713fabaee09b3fb8df60ccbbf8e6f8946392ca73e747eab8"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/kids-drawing-easel/underside-f434ce538c95f35b19c7.webp",
+      "sha256": "f434ce538c95f35b19c751b0376824bcff9e11997229023d197bf51f606186ee",
+      "bytes": 51096,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.676,
+      "camera": {
+        "orthoScale": 2.0600244998931885,
+        "position": [
+          2.0495810508728027,
+          -3.415968418121338,
+          -1.4895809888839722
+        ],
+        "target": [
+          0,
+          0,
+          0.5600000619888306
+        ],
+        "clipStart": 0.001120000146329403,
+        "clipEnd": 13.440001487731934,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3014468252658844,
+            0.06521742790937424
+          ],
+          "max": [
+            0.6985529065132141,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "renderConfigSha256": "002165b4d0e75ea68a49c270c789066b1534994328fcebee059228f60d085008",
+      "inputSetSha256": "47b1b1db776d9764713fabaee09b3fb8df60ccbbf8e6f8946392ca73e747eab8"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/kids-drawing-easel/clay-7dfb95bc4b8920b31aca.webp",
+      "sha256": "7dfb95bc4b8920b31aca536ece7c86ab88e7bc5be64bb6af91563eb2792a7b18",
+      "bytes": 59768,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.764,
+      "camera": {
+        "orthoScale": 2.050173759460449,
+        "position": [
+          2.084723711013794,
+          -3.474539279937744,
+          2.470996618270874
+        ],
+        "target": [
+          0,
+          0,
+          0.5600000619888306
+        ],
+        "clipStart": 0.001120000146329403,
+        "clipEnd": 13.440001487731934,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3004928529262543,
+            0.06521738320589066
+          ],
+          "max": [
+            0.6995069980621338,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "renderConfigSha256": "002165b4d0e75ea68a49c270c789066b1534994328fcebee059228f60d085008",
+      "inputSetSha256": "47b1b1db776d9764713fabaee09b3fb8df60ccbbf8e6f8946392ca73e747eab8"
+    }
+  ],
+  "timingSeconds": 3.5,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.33000001311302185,
+          0.24500001966953278,
+          1.1200001239776611
+        ],
+        "min": [
+          -0.33000001311302185,
+          -0.24500001966953278,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "renderImportSha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.33000001311302185,0.24500001966953278,1.1200001239776611],\"min\":[-0.33000001311302185,-0.24500001966953278,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9\",\"renderImportSha256\":\"32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "002165b4d0e75ea68a49c270c789066b1534994328fcebee059228f60d085008",
+    "inputs": [
+      {
+        "path": "assets-source/blender/kids-drawing-easel.blend",
+        "sha256": "782439fccf7ee3f0cc28d6a86bbd14b1a2a04d0ec6ca768e5541376f7228e968",
+        "bytes": 112750
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/kids-drawing-easel.blend",
+        "sha256": "bfefd15596261d91c2478af96afe853abaf098b313834b8c94f45e0e92b07594",
+        "bytes": 2285266
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-slate-fabric-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/household-warm-paper-orm-cd830dbb3049765b.png",
+        "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+        "bytes": 52081
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/oiled-maple-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/slate-blue-glaze-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/terracotta-glaze-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/kids-drawing-easel/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paper-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paper-orm.png",
+        "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+        "bytes": 32780
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/kids-drawing-easel.glb",
+        "sha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+        "bytes": 2849036
+      },
+      {
+        "path": "public/models/furniture/kids-drawing-easel.glb",
+        "sha256": "cdd58dceb0c97767b3ac962e34532295b6b6f4fe3d3cebfb6f662d717a7f0095",
+        "bytes": 181368
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-roughness.jpg",
+        "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+        "bytes": 464458
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "47b1b1db776d9764713fabaee09b3fb8df60ccbbf8e6f8946392ca73e747eab8",
+    "afterSha256": "47b1b1db776d9764713fabaee09b3fb8df60ccbbf8e6f8946392ca73e747eab8"
+  },
+  "formatValidation": {
+    "sha256": "32376546ac8934a100f19df822ddc0b3ec1b1b82e6fa0f1b1018e0f776285db9",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 11,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/5/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/6/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/2"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/3"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "83f885a9b413c2b0378c263b50dd8f2f6b76cfc9a402c8b1a22b78a768be3ed1",
+    "views": {
+      "front": "The framed drawing board sits on an open A-frame with its original small tray.",
+      "rear": "The reverse face and rear legs remain complete and aligned.",
+      "detail": "The original house drawing, separate chalk marks and tray edges stay legible.",
+      "underside": "The lower view confirms the board frame, tray supports and four legs remain connected.",
+      "clay": "The hinged-looking A-frame and separate drawing panel remain clear in clay."
+    }
+  }
+}

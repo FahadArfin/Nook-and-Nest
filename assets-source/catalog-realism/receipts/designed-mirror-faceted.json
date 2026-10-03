@@ -1,0 +1,1336 @@
+{
+  "version": 1,
+  "catalogId": "designed-mirror-faceted",
+  "inputContractSha256": "182980238be20a0411d6d5917f7f29dc12652dda9e8c5ab7b0d5a9b1f411b7d4",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/designed-mirror-faceted.blend",
+      "sha256": "e4df1fe3720e2f0e8a2c4e36fa5ca8c3e865dd549eedaa683a8e580d3514c2ea",
+      "bytes": 98896
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/designed-mirror-faceted.glb",
+      "sha256": "48acd4318a80070f16044c9707c375bf1aa678d00533d85108f786c6ab0eba67",
+      "bytes": 19752
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.json",
+      "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+      "bytes": 167
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.py",
+      "sha256": "bad3205c7737a2ca77d15e913a47c8b1d4ba8291bd20b11075714b58b4368546",
+      "bytes": 1496
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.py",
+      "sha256": "bad3205c7737a2ca77d15e913a47c8b1d4ba8291bd20b11075714b58b4368546",
+      "bytes": 1496
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.json",
+      "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+      "bytes": 167
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/designed-mirror-faceted.blend",
+      "sha256": "e4df1fe3720e2f0e8a2c4e36fa5ca8c3e865dd549eedaa683a8e580d3514c2ea",
+      "bytes": 98896
+    },
+    {
+      "path": "public/models/furniture/designed-mirror-faceted.glb",
+      "sha256": "48acd4318a80070f16044c9707c375bf1aa678d00533d85108f786c6ab0eba67",
+      "bytes": 19752
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.py",
+      "sha256": "bad3205c7737a2ca77d15e913a47c8b1d4ba8291bd20b11075714b58b4368546",
+      "bytes": 1496
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.json",
+      "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+      "bytes": 167
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "sculpted mirror frame",
+      "construction": "continuous measured planar sweep with stable cross-section orientation",
+      "sourceSectionCount": 9,
+      "candidateSectionCount": 8,
+      "fixedPlaneNormal": [
+        0,
+        1,
+        0
+      ],
+      "sourceVertices": 108,
+      "candidateVertices": 128,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.3499999940395355,
+          -0.020180413499474525,
+          0
+        ],
+        "max": [
+          0.3499999940395355,
+          0.02250000089406967,
+          0.800000011920929
+        ]
+      },
+      "preserved": [
+        "original component envelope",
+        "original material keys and factors",
+        "all optical panels, source textures and unrelated construction"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "inner polished reveal",
+      "construction": "continuous measured planar sweep with stable cross-section orientation",
+      "sourceSectionCount": 9,
+      "candidateSectionCount": 8,
+      "fixedPlaneNormal": [
+        0,
+        1,
+        0
+      ],
+      "sourceVertices": 54,
+      "candidateVertices": 128,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.3179340660572052,
+          -0.02250000089406967,
+          0.030654234811663628
+        ],
+        "max": [
+          0.3179340660572052,
+          -0.01693299040198326,
+          0.7696718573570251
+        ]
+      },
+      "preserved": [
+        "original component envelope",
+        "original material keys and factors",
+        "all optical panels, source textures and unrelated construction"
+      ]
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "champagne-brass",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "walnut",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "champagne-brass",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "champagne-brass",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "champagne-brass",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "silvered-mirror",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "walnut",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "walnut",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "walnut",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "champagne-brass",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 0
+    },
+    {
+      "materialKey": "champagne-brass",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 0
+    },
+    {
+      "materialKey": "walnut",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 0
+    },
+    {
+      "materialKey": "walnut",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 0
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1012416,
+    "afterBytes": 1012124,
+    "removedAttributes": 2,
+    "remappedSets": [
+      {
+        "from": 1,
+        "to": 0
+      }
+    ],
+    "compaction": {
+      "removedMeshes": 0,
+      "removedAccessors": 2,
+      "removedBufferViews": 2,
+      "deduplicatedPayloads": 0,
+      "beforeBinaryBytes": 1006915,
+      "afterBinaryBytes": 1006915
+    }
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/designed-mirror-faceted.blend",
+      "sha256": "604b34630a0ec4ef6a70e7bbe66cdc6997816a84b01a76fe54a793c0c1b23050",
+      "bytes": 1008611
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/designed-mirror-faceted.glb",
+      "sha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "bytes": 1012124
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/designed-mirror-faceted/front-1bcfba9d261bd6cb3be9.webp",
+      "sha256": "1bcfba9d261bd6cb3be9c039173aa64fe93ba845b0c483bcd4369c5e8e1224b3",
+      "bytes": 65632,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.76,
+      "camera": {
+        "orthoScale": 1.3702667951583862,
+        "position": [
+          1.4890881776809692,
+          -2.481813669204712,
+          1.7649974822998047
+        ],
+        "target": [
+          0,
+          0,
+          0.4000000059604645
+        ],
+        "clipStart": 0.000800000037997961,
+        "clipEnd": 9.600000381469727,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2725270092487335,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7274729609489441,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "renderConfigSha256": "c2341ebe4bef64e4b0453622d7e31834e1c29f70e12fbcf3e6cf183c721d5414",
+      "inputSetSha256": "f0b333438ad2ceb33ace29b1fe68fe51463e6357a0f2f144ad6be511ab247468"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/designed-mirror-faceted/rear-403fa2695b1c30c600d0.webp",
+      "sha256": "403fa2695b1c30c600d0daeb5f03487508effc222bc11120ba9cec3c819c7d77",
+      "bytes": 64718,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.755,
+      "camera": {
+        "orthoScale": 1.3702666759490967,
+        "position": [
+          -1.4890881776809692,
+          2.481813669204712,
+          1.7649974822998047
+        ],
+        "target": [
+          0,
+          0,
+          0.4000000059604645
+        ],
+        "clipStart": 0.000800000037997961,
+        "clipEnd": 9.600000381469727,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2725270092487335,
+            0.06521735340356827
+          ],
+          "max": [
+            0.7274729609489441,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "renderConfigSha256": "c2341ebe4bef64e4b0453622d7e31834e1c29f70e12fbcf3e6cf183c721d5414",
+      "inputSetSha256": "f0b333438ad2ceb33ace29b1fe68fe51463e6357a0f2f144ad6be511ab247468"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/designed-mirror-faceted/detail-3edbd58890f972ce89ce.webp",
+      "sha256": "3edbd58890f972ce89ce34783e71d9b6b9f0885190a3959751b2b8a9a3c005c7",
+      "bytes": 63840,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.787,
+      "camera": {
+        "orthoScale": 0.7536472082138062,
+        "position": [
+          1.4890881776809692,
+          -2.481813669204712,
+          1.7649974822998047
+        ],
+        "target": [
+          0,
+          0,
+          0.4000000059604645
+        ],
+        "clipStart": 0.000800000037997961,
+        "clipEnd": 9.600000381469727,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.27252712845802307,
+            0.06521736830472946
+          ],
+          "max": [
+            0.7274728417396545,
+            0.9347814321517944
+          ]
+        }
+      },
+      "glbSha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "renderConfigSha256": "c2341ebe4bef64e4b0453622d7e31834e1c29f70e12fbcf3e6cf183c721d5414",
+      "inputSetSha256": "f0b333438ad2ceb33ace29b1fe68fe51463e6357a0f2f144ad6be511ab247468"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/designed-mirror-faceted/underside-00cecb7fc341504bf3a1.webp",
+      "sha256": "00cecb7fc341504bf3a11c6034359656752ae06eedc32a7b0bc89e0f8e5a826d",
+      "bytes": 51990,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.673,
+      "camera": {
+        "orthoScale": 1.3704758882522583,
+        "position": [
+          1.4639862775802612,
+          -2.4399771690368652,
+          -1.0639863014221191
+        ],
+        "target": [
+          0,
+          0,
+          0.4000000059604645
+        ],
+        "clipStart": 0.000800000037997961,
+        "clipEnd": 9.600000381469727,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.27256160974502563,
+            0.06521753966808319
+          ],
+          "max": [
+            0.7274381518363953,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "renderConfigSha256": "c2341ebe4bef64e4b0453622d7e31834e1c29f70e12fbcf3e6cf183c721d5414",
+      "inputSetSha256": "f0b333438ad2ceb33ace29b1fe68fe51463e6357a0f2f144ad6be511ab247468"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/designed-mirror-faceted/clay-4893ddf7006745ca81a9.webp",
+      "sha256": "4893ddf7006745ca81a95c33becf84ff00452a33b1ab38a72adc5c1d4dca8342",
+      "bytes": 46162,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.746,
+      "camera": {
+        "orthoScale": 1.3702667951583862,
+        "position": [
+          1.4890881776809692,
+          -2.481813669204712,
+          1.7649974822998047
+        ],
+        "target": [
+          0,
+          0,
+          0.4000000059604645
+        ],
+        "clipStart": 0.000800000037997961,
+        "clipEnd": 9.600000381469727,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2725270092487335,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7274729609489441,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "renderConfigSha256": "c2341ebe4bef64e4b0453622d7e31834e1c29f70e12fbcf3e6cf183c721d5414",
+      "inputSetSha256": "f0b333438ad2ceb33ace29b1fe68fe51463e6357a0f2f144ad6be511ab247468"
+    }
+  ],
+  "timingSeconds": 1.68,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.3499999940395355,
+          0.02250000089406967,
+          0.800000011920929
+        ],
+        "min": [
+          -0.3499999940395355,
+          -0.02250000089406967,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "renderImportSha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.3499999940395355,0.02250000089406967,0.800000011920929],\"min\":[-0.3499999940395355,-0.02250000089406967,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f\",\"renderImportSha256\":\"86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "c2341ebe4bef64e4b0453622d7e31834e1c29f70e12fbcf3e6cf183c721d5414",
+    "inputs": [
+      {
+        "path": "assets-source/blender/designed-mirror-faceted.blend",
+        "sha256": "e4df1fe3720e2f0e8a2c4e36fa5ca8c3e865dd549eedaa683a8e580d3514c2ea",
+        "bytes": 98896
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/designed-mirror-faceted.blend",
+        "sha256": "604b34630a0ec4ef6a70e7bbe66cdc6997816a84b01a76fe54a793c0c1b23050",
+        "bytes": 1008611
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-mirror-faceted/walnut-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/designed-mirror-faceted.glb",
+        "sha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+        "bytes": 1012124
+      },
+      {
+        "path": "public/models/furniture/designed-mirror-faceted.glb",
+        "sha256": "48acd4318a80070f16044c9707c375bf1aa678d00533d85108f786c6ab0eba67",
+        "bytes": 19752
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-roughness.jpg",
+        "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+        "bytes": 464458
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.json",
+        "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+        "bytes": 167
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/designed-mirror-faceted.py",
+        "sha256": "bad3205c7737a2ca77d15e913a47c8b1d4ba8291bd20b11075714b58b4368546",
+        "bytes": 1496
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+        "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+        "bytes": 15729
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+        "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+        "bytes": 14306
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+        "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+        "bytes": 12009
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "f0b333438ad2ceb33ace29b1fe68fe51463e6357a0f2f144ad6be511ab247468",
+    "afterSha256": "f0b333438ad2ceb33ace29b1fe68fe51463e6357a0f2f144ad6be511ab247468"
+  },
+  "formatValidation": {
+    "sha256": "86b7b65df012d63bb1b6cded983599b9599bf8bec8cd7bbef66f1fa112312e1f",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 0,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [],
+    "messages": []
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "96d38e858caf01daffa495953931358cd811bd25629ef1c5bddcd3bba9c1a95f",
+    "views": {
+      "front": "The walnut frame preserves its intended clipped-corner outline with consistent long rail widths.",
+      "rear": "The rear outline remains coherent, with the original octagonal glass panel enclosed on all sides.",
+      "detail": "Full detail confirms the long rails no longer pinch inward; the slim inner reveal stays continuous.",
+      "underside": "The lower view shows complete frame thickness and the original reflective panel without open seams.",
+      "clay": "Clay preserves the deliberate angular corners and constant-width frame rather than an accidental hourglass."
+    }
+  }
+}
