@@ -1,5 +1,6 @@
 import {parseSceneAtmosphere,type SceneAtmosphereV1} from './sceneAtmosphere';
 import {validCameraShot, type CameraShotPose} from './walkthrough';
+import {parsePhotoPrivacy,type PhotoPrivacy} from './photoPrivacy';
 
 export type ListingFormat = 'landscape' | 'portrait' | 'square';
 export type MediaKind = 'photo' | 'render' | 'staged' | 'concept';
@@ -13,6 +14,8 @@ export interface ListingMedia {
   sourceImage?:string;
   /** A separately paired, unaltered property photo. */
   originalImage?:string;
+  /** Private source remains unchanged; output requires an explicitly selected reviewed copy. */
+  privacy?:PhotoPrivacy;
   atmosphere?:SceneAtmosphereV1; camera?:CameraShotPose; floorId?:string; seconds:number;
 }
 export interface ListingDocument {
@@ -51,6 +54,7 @@ export function parseListing(value:unknown,planId?:string):ListingDocument {
     ids.add(m.id);imageBytes+=m.image.length;
     if(m.originalImage!==undefined){if(!isListingImage(m.originalImage))throw new Error('A source photo is invalid.');imageBytes+=m.originalImage.length;}
     if(m.sourceImage!==undefined){if(!isListingImage(m.sourceImage))throw new Error('An uploaded source photo is invalid.');imageBytes+=m.sourceImage.length;}
+    const privacy=m.privacy===undefined?undefined:parsePhotoPrivacy(m.privacy);if(privacy)imageBytes+=privacy.image.length;
     const atmosphere=m.atmosphere===undefined?undefined:parseSceneAtmosphere(m.atmosphere);if(m.atmosphere!==undefined&&!atmosphere)throw new Error('A saved lighting mood is invalid.');
     if(m.camera!==undefined&&!validCameraShot(m.camera))throw new Error('A saved viewpoint is invalid.');
     if(m.camera&&m.kind==='photo')throw new Error('A captured 3D view must remain labeled as a render or design concept.');
@@ -60,11 +64,11 @@ export function parseListing(value:unknown,planId?:string):ListingDocument {
     // Earlier local drafts put the raw upload in originalImage. Keep its bytes without claiming it is unstaged.
     const legacySource=!camera&&m.sourceImage===undefined&&m.originalImage!==undefined;
     const sourceImage=legacySource?m.originalImage:m.sourceImage,originalImage=legacySource?undefined:m.originalImage;
-    return {id:m.id,title:m.title,caption:m.caption,kind:m.kind,image:m.image,seconds:m.seconds,...(originalImage?{originalImage}:{}),...(sourceImage?{sourceImage}:{}),...(camera?{camera}:{}),...(atmosphere?{atmosphere}:{}),...(floorId?{floorId}:{})};
+    return {id:m.id,title:m.title,caption:m.caption,kind:m.kind,image:m.image,seconds:m.seconds,...(privacy?{privacy}:{}),...(originalImage?{originalImage}:{}),...(sourceImage?{sourceImage}:{}),...(camera?{camera}:{}),...(atmosphere?{atmosphere}:{}),...(floorId?{floorId}:{})};
   });
   const parsed:ListingDocument={version:1,planId:planId??d.planId,details,media,format:d.format,branded:d.branded,updatedAt:d.updatedAt};
   // Data URLs are ASCII; count the remaining JSON in UTF-8 without copying all photos again.
-  const metadata={...parsed,media:media.map(({image,sourceImage,originalImage,...m})=>({...m,image:'',...(sourceImage?{sourceImage:''}:{}),...(originalImage?{originalImage:''}:{})}))};
+  const metadata={...parsed,media:media.map(({image,sourceImage,originalImage,privacy,...m})=>({...m,image:'',...(sourceImage?{sourceImage:''}:{}),...(originalImage?{originalImage:''}:{}),...(privacy?{privacy:{...privacy,image:''}}:{})}))};
   if(imageBytes+new TextEncoder().encode(JSON.stringify(metadata)).byteLength>MAX_LISTING_BYTES)throw new Error('Listing media exceeds the 100 MB backup limit.');
   return parsed;
 }

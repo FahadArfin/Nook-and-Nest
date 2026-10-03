@@ -8,6 +8,7 @@ import { MAX_LISTING_MEDIA, hasPairedOriginal, mediaLabels, type ListingDocument
 import { ringOf, shapeArea } from './polygonGeometry';
 import type { FloorPlan, PlanDocumentV1 } from './types';
 import { windowProblem } from './windows';
+import {listingOutputImage} from './photoPrivacy';
 
 const MEASUREMENT_NOTE = 'Planning estimate from the editable design. Verify dimensions on site. Not an appraisal, survey or certified living-area measurement.';
 const MEDIA_NOTE = 'Design renders and AI imagery illustrate possibilities; they are not photographs of the existing property. Review dimensions, permanent features and required local disclosures before publishing.';
@@ -85,7 +86,7 @@ ${text(bounds.left, bounds.bottom + padding, 'Planning estimate. Verify dimensio
 </g></svg>`;
 }
 
-interface PackSlide { title: string; caption: string; label: string; kind: ListingMedia['kind']; seconds: number; path: string; sourcePath?: string; originalPath?: string; floor?: string }
+interface PackSlide { privacyReviewed?:boolean; title: string; caption: string; label: string; kind: ListingMedia['kind']; seconds: number; path: string; sourcePath?: string; originalPath?: string; floor?: string }
 const presentationCss = `:root{color-scheme:light;font-family:system-ui,sans-serif;color:#253b32;background:#f5f3ed}*{box-sizing:border-box}body{margin:0}main{max-width:1100px;padding:clamp(16px,4vw,48px);margin:auto}h1{font-family:Georgia,serif;font-size:clamp(28px,5vw,48px);margin:0 0 12px}h2{font-size:23px}p{line-height:1.6;white-space:pre-line}header{margin-bottom:24px}.facts{display:flex;flex-wrap:wrap;gap:12px}.facts span{padding:8px 14px;background:white;border:1px solid #d6ddd5;border-radius:8px}.stage{background:#14281f;border-radius:18px;overflow:hidden;position:relative;max-height:72vh;display:grid;place-items:center;margin:auto}.stage img{width:100%;height:100%;object-fit:contain;min-height:0}.disclosure{display:inline-block;background:#e6eddf;color:#233e2d;padding:6px 10px;border-radius:5px;font-size:13px}.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:16px 0}button,.link{font:inherit;cursor:pointer;background:#fff;border:1px solid #b8c8bb;border-radius:8px;padding:11px 16px;color:#203e2d}button:hover,.link:hover{background:#e6eddf}button:focus-visible,a:focus-visible{outline:3px solid #8d682d;outline-offset:3px}button:disabled{opacity:.5;cursor:default}.primary{background:#284c3c;color:#fff}#count{margin-left:auto}.caption{min-height:50px}.note{font-size:13px;color:#506257}a{color:#285f47}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}figure{margin:0}figure img{width:100%;display:block;background:white;border-radius:10px}figcaption{font-size:13px;line-height:1.5;margin-top:7px}.floor{background:white;border-radius:12px;padding:10px}.contact{border-top:1px solid #cdd6ca;margin-top:28px;padding-top:15px}.contact p{margin:4px 0}.print-only{display:none}[hidden]{display:none!important}@media print{body{background:white}main{padding:0}.controls,.no-print{display:none!important}.print-only{display:block}.grid{grid-template-columns:1fr 1fr}figure,.floor{break-inside:avoid}h1{font-size:30px}a{color:inherit;text-decoration:none}.stage{max-height:350px}footer{font-size:11px}}`;
 function detailsHtml(doc: ListingDocument): string {
   const d = publicDetails(doc), facts = [[d.price, ''], [d.beds, ' beds'], [d.baths, ' baths'], [d.area, '']].filter(([value]) => value !== '' && value != null);
@@ -127,6 +128,8 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(
 export function buildListingPackFiles(doc: ListingDocument, plan: PlanDocumentV1): Record<string, Uint8Array> {
   if (doc.planId !== plan.id) throw new Error('Open the matching home before exporting this listing.');
   if (doc.media.length > MAX_LISTING_MEDIA) throw new Error(`Export up to ${MAX_LISTING_MEDIA} images in one listing pack.`);
+  const protectedImages=new Set(doc.media.filter(m=>m.privacy).flatMap(m=>[m.image,m.sourceImage,m.originalImage].filter((v):v is string=>!!v)));
+  for(const media of doc.media){listingOutputImage(media);if(!media.privacy&&[media.image,media.sourceImage,media.originalImage].some(image=>image&&protectedImages.has(image)))throw new Error(`Review the duplicate source on ${media.title || 'this slide'} before exporting. It also belongs to a privacy-reviewed photo.`);}
   const files: Record<string, Uint8Array> = {}, slides: PackSlide[] = [];
   let byteCount = 0;
   const addImage = (image: string, stem: string) => {
@@ -136,10 +139,11 @@ export function buildListingPackFiles(doc: ListingDocument, plan: PlanDocumentV1
   };
   doc.media.forEach((media, index) => {
     const stem = `${String(index + 1).padStart(2, '0')}-${slug(media.title)}`;
-    const path = addImage(media.image, `${stem}-${media.kind}`);
-    const sourcePath = media.sourceImage ? addImage(media.sourceImage, `${stem}-source`) : undefined;
-    const originalPath = hasPairedOriginal(media) ? addImage(media.originalImage!, `${stem}-original`) : undefined;
-    slides.push({ title: media.title, caption: media.caption, label: mediaLabels[media.kind], kind: media.kind, seconds: duration(media.seconds), path, ...(sourcePath ? { sourcePath } : {}), ...(originalPath ? { originalPath } : {}), ...(media.floorId ? { floor: plan.floors.find(floor => floor.id === media.floorId)?.name } : {}) });
+    const path = addImage(listingOutputImage(media), `${stem}-${media.kind}`);
+    // A privacy-reviewed slide must never carry a hidden original in its pack.
+    const sourcePath = !media.privacy && media.sourceImage ? addImage(media.sourceImage, `${stem}-source`) : undefined;
+    const originalPath = !media.privacy && hasPairedOriginal(media) ? addImage(media.originalImage!, `${stem}-original`) : undefined;
+    slides.push({ title: media.title, caption: media.caption, label: mediaLabels[media.kind], kind: media.kind, seconds: duration(media.seconds), path, ...(media.privacy?{privacyReviewed:true}:{}), ...(sourcePath ? { sourcePath } : {}), ...(originalPath ? { originalPath } : {}), ...(media.floorId ? { floor: plan.floors.find(floor => floor.id === media.floorId)?.name } : {}) });
   });
   const floors = plan.floors.map((floor, index) => {
     const path = `floorplans/${String(index + 1).padStart(2, '0')}-${slug(floor.name)}.svg`;
@@ -161,7 +165,7 @@ export function buildListingPackFiles(doc: ListingDocument, plan: PlanDocumentV1
     '', 'REVIEW BEFORE PUBLISHING', 'Compare every generated clip with its source. Reject changes to structure, dimensions, condition or permanent features. Keep original photos with staged images. Confirm image rights and local listing-platform requirements. Add approved narration/captions, review the complete video, then publish manually.',
     ...(doc.branded ? ['', 'OPTIONAL CLOSING CARD', ...[doc.details.agentName, doc.details.agency, doc.details.agentPhone, doc.details.agentEmail].filter(Boolean)] : ['', 'UNBRANDED OUTPUT', 'Do not add agent, brokerage, logo, phone, email or promotional closing cards.']),
   ].join('\n'));
-  files['README.txt'] = strToU8('LISTING MEDIA PACK\n\nExtract the entire ZIP into one folder, then open index.html for the offline slideshow. Keep the media and floorplans folders alongside it. The presentation needs no account, server or internet connection. Use property-sheet.html and your browser Print command for a PDF.\n\nMedia files are the selected source images, with paired originals when supplied. Captions and disclosures are in listing.txt and provenance.json; image pixels are not stamped with a watermark by this export. Keep these disclosures when uploading.\n\nseedance-storyboard.txt is a ready-to-review brief for a separate video service. It does not contain a generated video.\n\nUnbranded packs omit the dedicated agent/contact fields. Review free-form text and uploaded images for baked-in logos or contact details before sharing. Local MLS requirements vary; this pack is not a compliance certification.\n\n' + MEDIA_NOTE + '\n' + MEASUREMENT_NOTE);
+  files['README.txt'] = strToU8('LISTING MEDIA PACK\n\nExtract the entire ZIP into one folder, then open index.html for the offline slideshow. Keep the media and floorplans folders alongside it. The presentation needs no account, server or internet connection. Use property-sheet.html and your browser Print command for a PDF.\n\nPrivacy-reviewed slides contain only the explicitly selected flattened copy. Their private source and paired original are omitted. Other slides include source images, with paired originals when supplied. Captions and disclosures are in listing.txt and provenance.json; image pixels are not stamped with a watermark by this export. Keep these disclosures when uploading.\n\nseedance-storyboard.txt is a ready-to-review brief for a separate video service. It does not contain a generated video.\n\nUnbranded packs omit the dedicated agent/contact fields. Review free-form text and uploaded images for baked-in logos or contact details before sharing. Local MLS requirements vary; this pack is not a compliance certification.\n\n' + MEDIA_NOTE + '\n' + MEASUREMENT_NOTE);
   return files;
 }
 

@@ -16,7 +16,8 @@ The app reports the integration as unavailable without a key or database. Config
 
 - `GET /api/listing-video`: availability, sign-in state, exact provider/model and supported limits. It creates no task.
 - `POST /api/listing-video`: authenticated, same-origin JSON with `requestId`, `images: [{dataUrl,label}]`, `prompt`, `duration`, `ratio`, `resolution` and `consent: true`. The user must first review the selected images and explicitly agree to external, paid generation.
-- `POST /api/listing-video?validate=1`: validates a new reviewed request before the browser saves its pending marker. It creates no job and consumes no generation quota. Recovery retries keep their existing request rather than rerunning preflight.
+- `POST /api/listing-video?validate=1`: validates a new reviewed request before the browser saves its pending marker. It creates no job and consumes no generation quota.
+- `GET /api/listing-video?requestId={requestId}`: authenticated lookup of the owner's saved job metadata after an interrupted submission. It accepts no image payload, calls no provider and consumes no quota. The browser keeps its pending record if lookup is missing or fails; a missing record alone is not permission to generate again. Ask the site owner to reconcile the displayed request ID.
 - `GET /api/listing-video/{id}`: the signed-in owner's current job. Active jobs are polled at most once every 10 seconds per job, across worker instances.
 - `DELETE /api/listing-video/{id}`: cancel a queued job or remove a finished job. The provider does not allow cancelling a running task. State is checked again before deletion, and a provider rejection never claims cancellation succeeded.
 

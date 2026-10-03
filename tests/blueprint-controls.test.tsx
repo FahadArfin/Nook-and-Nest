@@ -8,6 +8,8 @@ import { BlueprintControls } from '../src/BlueprintControls';
 import { blueprintPlan,type BlueprintRoom } from '../src/blueprint';
 import { createSamplePlan } from '../src/domain';
 import { usePlanner } from '../src/store';
+import {saveServicePoint,servicePointWalls,verifyServicePoint} from '../src/servicePoints';
+import {validatePlan} from '../src/planValidation';
 vi.mock('../src/blueprintImport',()=>({renderReference:vi.fn(async(file:File)=>{if(file.name==='broken.pdf')throw new Error('Invalid PDF');return {url:'data:image/png;base64,AA',width:1000,height:800,pages:2,name:file.name};})}));
 vi.mock('../src/blueprintRecognition',async(importOriginal)=>({...await importOriginal<typeof import('../src/blueprintRecognition')>(),recognizeReference:vi.fn(async()=>({rooms:[{name:'Detected bedroom',kind:'Bedroom',x:0,y:0,width:500,height:400,enclosed:true,note:''}],dimensions:[{text:'5 m',millimetres:5000,ax:0,ay:0,bx:500,by:0}],fixtures:[],warnings:[]}))}));
 function metricField(label:string){const toggle=screen.queryByRole('button',{name:'Metric'});if(toggle)fireEvent.click(toggle);return screen.getByLabelText(label);}
@@ -23,6 +25,14 @@ beforeEach(()=>{
 });
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.unstubAllGlobals();});
 describe('floor plan studio flow',()=>{
+  it('exports service points only when their drawing layer is visible and never changes home history for a toggle',async()=>{
+    const p=usePlanner.getState().plan,w=servicePointWalls(p,p.floors[0].id)[0],saved=saveServicePoint(p,p,{id:'desk-data',kind:'data',label:'Desk data',floorId:p.floors[0].id,wallKey:w.key,face:'front',offsetMm:1200,heightMm:400},validatePlan),verified=verifyServicePoint(saved,saved,'desk-data',{reviewer:'Owner',checkedOn:'2026-10-03'},validatePlan);usePlanner.getState().replacePlan(verified);const original=usePlanner.getState().plan;
+    const blobs:Blob[]=[];vi.stubGlobal('URL',class extends URL {static createObjectURL(blob:Blob){blobs.push(blob);return 'blob:service-map';}static revokeObjectURL(){}});vi.spyOn(HTMLAnchorElement.prototype,'click').mockImplementation(()=>{});
+    render(<BlueprintStudio onClose={()=>{}}/>);expect(document.querySelector('[data-service-point]')).toBeNull();fireEvent.click(screen.getByRole('button',{name:'Export floor plan SVG'}));
+    fireEvent.click(screen.getByText('Layers & visibility'));fireEvent.click(screen.getByLabelText('Service points'));expect(document.querySelector('[data-service-point="desk-data"]')).toHaveAttribute('data-service-status','verified');fireEvent.click(screen.getByRole('button',{name:'Export floor plan SVG'}));
+    const read=(blob:Blob)=>new Promise<string>((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(String(reader.result));reader.onerror=reject;reader.readAsText(blob);});expect(await read(blobs[0])).not.toContain('Desk data');expect(await read(blobs[1])).toContain('Desk data');expect(usePlanner.getState().plan).toBe(original);expect(usePlanner.getState().past).toHaveLength(0);
+    fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));fireEvent.change(metricField('Width metres'),{target:{value:'4.2'}});fireEvent.blur(metricField('Width metres'));expect(document.querySelector('[data-service-point="desk-data"]')).toHaveAttribute('data-service-status','changed');fireEvent.click(screen.getByRole('button',{name:'Undo drawing'}));expect(document.querySelector('[data-service-point="desk-data"]')).toHaveAttribute('data-service-status','verified');
+  });
   it('keeps the 3D home untouched until the explicit review confirmation and supports undo',async()=>{
     const original=usePlanner.getState().plan,onClose=vi.fn();render(<BlueprintStudio onClose={onClose}/>);
     fireEvent.click(screen.getByRole('button',{name:/^Main bedroom/}));

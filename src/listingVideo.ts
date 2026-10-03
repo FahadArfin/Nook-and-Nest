@@ -48,6 +48,13 @@ export async function getListingVideo(id:string,signal?:AbortSignal):Promise<Lis
   if(!validId(id))throw new Error('Invalid video job ID.');
   return validateVideoJob(await api('/'+encodeURIComponent(id),{signal}));
 }
+/** Recover an interrupted submission without sending its old images or starting another job. */
+export async function getListingVideoByRequest(requestId:string,signal?:AbortSignal):Promise<ListingVideoJob> {
+  if(!validId(requestId))throw new Error('Invalid saved video request ID.');
+  const job=validateVideoJob(await api('?requestId='+encodeURIComponent(requestId),{signal}));
+  if(job.requestId!==requestId)throw new Error('The video response belongs to a different request. Your saved request has been kept.');
+  return job;
+}
 export async function deleteListingVideo(id:string,signal?:AbortSignal):Promise<ListingVideoJob> {
   if(!validId(id))throw new Error('Invalid video job ID.');
   return validateVideoJob(await api('/'+encodeURIComponent(id),{method:'DELETE',body:'{}',signal}));

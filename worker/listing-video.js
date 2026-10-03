@@ -121,9 +121,17 @@ async function poll(db,owner,row,key,fetcher,force=false) {
 export async function listingVideoApi(request,env,fetcher=fetch) {
   const url=new URL(request.url),match=url.pathname.match(/^\/api\/listing-video(?:\/([a-zA-Z0-9_-]{16,80}))?$/);
   if(!match)return null;
-  const id=match[1],owner=request.headers.get('oai-authenticated-user-id'),db=env.DB,key=env.ARK_API_KEY;
-  if(!id&&request.method==='GET')return json({available:!!key&&!!db,signedIn:!!owner,provider:'BytePlus',model:VIDEO_MODEL,limits:VIDEO_LIMITS,...(!key||!db?{reason:'Seedance video generation is not configured on this site. Your slideshow and exports still work.'}:{})});
+  const id=match[1],requestId=url.searchParams.get('requestId'),owner=request.headers.get('oai-authenticated-user-id'),db=env.DB,key=env.ARK_API_KEY;
+  if(!id&&request.method==='GET'&&requestId===null)return json({available:!!key&&!!db,signedIn:!!owner,provider:'BytePlus',model:VIDEO_MODEL,limits:VIDEO_LIMITS,...(!key||!db?{reason:'Seedance video generation is not configured on this site. Your slideshow and exports still work.'}:{})});
   if(!owner)return fail('Sign in with ChatGPT to create or manage a listing video.',401);
+  if(requestId!==null){
+    if(id||request.method!=='GET')return fail('Method not allowed.',405);
+    if(!/^[a-zA-Z0-9_-]{16,80}$/.test(requestId)||url.searchParams.getAll('requestId').length!==1)return fail('A valid saved request ID is required.',400);
+    if(!db)return fail('Saved video requests are temporarily unavailable. Keep the recovery record and try again.',503);
+    // Recovery never accepts images, consumes quota or calls the paid provider.
+    const row=await rowByRequest(db,owner,requestId);
+    return row?json(job(row)):fail('No saved video job was found for this request. Keep its recovery record, check again, or ask the site owner to reconcile this request ID. No new generation was started.',404);
+  }
   if(!key||!db)return fail('Seedance video generation is not configured on this site.',503);
   if(['POST','DELETE'].includes(request.method)){
     if(request.headers.get('origin')!==url.origin||request.headers.get('sec-fetch-site')==='cross-site')return fail('Use the video studio on this site.',403);
