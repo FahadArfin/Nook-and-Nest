@@ -74,4 +74,3 @@ it('uses an already permitted saved gallery snapshot offline while preserving it
  expect(create.mock.calls[0]).toEqual([expect.objectContaining({remixAttribution:expect.objectContaining({credits:[expect.objectContaining({source:'gallery',id:'saved-community-design',revision:3})]})})]);
  expect(read).not.toHaveBeenCalled();expect(fetch).not.toHaveBeenCalled();
 });
-
