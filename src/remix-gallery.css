@@ -3,3 +3,13 @@
 /* Follow the app palette; public pages retain the light token fallbacks. */
 :is(.remix-tools,.remix-viewer) :is(h1,h2,h3,h4,h5,legend){color:var(--ink,#3f493f)}:is(.remix-tools,.remix-viewer) a{color:var(--ink,#3f493f)}:is(.remix-tools,.remix-viewer) input[type=checkbox]{accent-color:var(--sage,#78866b)}
 .remix-viewer :is(select,textarea){color:var(--ink,#3f493f);background:var(--paper,#fffaf0);border-color:var(--line,#c4ccbb)}
+
+.saved-ideas-tabs,.saved-ideas-filters{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}
+.remix-tools>header{display:block;margin-bottom:16px}.remix-tools>header p{margin:8px 0}.remix-tools>header h2{font-size:clamp(1.4rem,2.5vw,1.8rem);margin:8px 0}
+.saved-ideas-tabs button,.saved-ideas-filters button{border-radius:999px;margin:0;display:inline-flex;align-items:center;gap:7px;min-height:42px}
+.saved-ideas-tabs button[aria-pressed=true],.saved-ideas-filters button[aria-pressed=true]{background:var(--sage,#687e58);color:var(--paper,#fffaf0);border-color:transparent}
+.saved-ideas-heading{display:flex;align-items:center;justify-content:space-between;gap:16px}.saved-ideas-heading h3{margin:10px 0}.saved-ideas-heading span,.saved-ideas-note,.saved-ideas-count{font-size:.85rem}.saved-ideas-note{margin:0 0 16px}.saved-ideas-search{max-width:520px}.saved-ideas-filters button{text-transform:capitalize;padding:7px 12px;min-height:38px}.saved-ideas-count{margin:10px 0}
+.saved-ideas-empty{padding:28px 20px;text-align:center;border:1px dashed var(--line,#c4ccbb);border-radius:18px}.saved-ideas-empty h4{margin:8px 0}.saved-ideas-empty p{margin:5px 0}
+.saved-ideas-actions{display:flex;align-items:center;gap:6px}.saved-ideas-actions>button:first-child{flex:1;min-width:0;text-align:left}.saved-ideas-actions button{margin:4px 0}.saved-ideas-actions .saved-ideas-remove{width:42px;height:42px;padding:10px;flex:0 0 auto;background:transparent}
+.saved-ideas-save{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.saved-ideas-save button{display:inline-flex;align-items:center;gap:8px}.saved-ideas-save span{font-size:.85rem}.remix-tools [aria-label="Selected idea"]:focus{outline:none}
+.saved-ideas-shelf .idea-grid{grid-template-columns:repeat(auto-fill,minmax(min(230px,100%),1fr))}
