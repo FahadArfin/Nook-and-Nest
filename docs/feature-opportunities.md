@@ -1,8 +1,8 @@
 # Next opportunities
 
-Five **planned, not implemented** additions proposed on October 2, 2026. They are separate from the original 32 features recorded in [roadmap-progress.json](roadmap-progress.json), the September 29 source tracker. The current feature guide reports 25 released features, seven implemented pilots and nine external acceptance/setup items; these recommendations do not change those totals or update the source tracker's release status. P1 means first to explore; P2 means a useful follow-on, not a delivery commitment.
+Five additions proposed on October 2, 2026. **NN-34 is implemented as a measured delivery worksheet; NN-37 has an implemented manual/link-based first increment. NN-33, NN-35 and NN-36 remain planned.** See [Delivery check and Home manual](delivery-and-home-manual.md) for implemented behavior and limits. They are separate from the original 32 features recorded in [roadmap-progress.json](roadmap-progress.json), the September 29 source tracker. The current feature guide reports 25 released features, seven implemented pilots and nine external acceptance/setup items; these recommendations do not change those totals or update the source tracker's release status. P1 means first to explore; P2 means a useful follow-on, not a delivery commitment.
 
-The linked primary sources inform each opportunity. The first implementations below are proposals for Nook & Nest, not claims about existing app behavior or identical competitor capabilities.
+The linked primary sources inform each opportunity. The proposed targets below are distinct from identical competitor capabilities. The NN-34 and NN-37 status notes describe the implemented scope; remaining opportunities are proposals.
 
 ## P1 · NN-33 · Review photos before sharing
 
@@ -17,6 +17,8 @@ The linked primary sources inform each opportunity. The first implementations be
 **Source:** [Matterport: Use the Blur Tool](https://matterport.com/matterport-academy/intro-to-editing-tools/use-the-blur-tool) demonstrates privacy editing before sharing a digital twin.
 
 ## P1 · NN-34 · Check the delivery route
+
+**Status:** Implemented bounded worksheet. Fixed-orientation measurements, unknowns, source changes and manual checks for stairs/turns are retained; this is not a physical carrying simulation.
 
 **Value:** A piece may fit its room but fail at a doorway, stair landing or lift.
 
@@ -54,6 +56,8 @@ The linked primary sources inform each opportunity. The first implementations be
 
 ## P2 · NN-37 · Keep the home’s manuals together
 
+**Status:** Implemented first increment: private records, product/manual links, warranty and maintenance dates, service history and selected printable handover. File attachments, room anchors and automatic reminders remain future work. Backups retain links and records, not externally hosted documents.
+
 **Value:** Find the correct manual, warranty and maintenance history alongside an installed item after move-in.
 
 **First implementation:** A private register linked to rooms or owned items, selected manuals, warranty dates and a simple maintenance checklist. Begin with manual entry and local storage.
@@ -64,4 +68,4 @@ The linked primary sources inform each opportunity. The first implementations be
 
 **Source:** [HomeZada: Home Builder Warranty Software](https://www.homezada.com/professionals/builders) combines manuals, warranties and maintenance in a digital home handover.
 
-The device-local **Saved ideas** shelf currently being added is an advancement of NN-28, not one of these five new recommendations. Its implementation and release evidence belong to the existing pilot tracker; public-gallery operating gates remain separate.
+The released device-local **Saved ideas** shelf is an advancement of NN-28, not one of these five new recommendations. Its implementation and release evidence belong to the existing pilot tracker; public-gallery operating gates remain separate.

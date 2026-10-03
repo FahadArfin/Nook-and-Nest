@@ -8,6 +8,7 @@ import { captureDesignMilestone, clearDesignMilestones, clearRenovationPhases, d
 import { exportDesignReplay, REPLAY_SIZES, type DesignReplayBridge } from './designReplay';
 import { useDesignReplay } from './useDesignReplay';
 import './design-history.css';
+import {homeRecordsRestoreNotice} from './layoutAlternatives';
 
 export interface DesignHistoryPanelProps {
   plan: PlanDocumentV1; activeFloorId: string;
@@ -116,7 +117,7 @@ export function DesignHistoryPanel({ plan, activeFloorId, onChange, onApply, bri
         <button type="button" disabled={busy} onClick={() => setConfirmation({ kind: 'clear-milestones', name: 'all design milestones', base: plan })}>Clear all milestones</button>
       </>}
     </>}
-    {confirmation && <div className="history-confirm" role="group" aria-label="Confirm design history action"><h3>{confirmation.kind === 'restore' ? 'Restore' : confirmation.kind === 'delete' ? 'Delete' : 'Clear'} {confirmation.name}?</h3><p>{confirmation.kind === 'restore' ? 'This replaces the working layout and clears unfinished placement and tracing drafts. The Existing baseline and saved milestones stay unchanged. Undo restores your previous layout.' : 'Your working layout stays unchanged. Checkpoints still referenced by renovation phases or another milestone are retained. Undo can restore this saved-history change.'}</p><button type="button" disabled={busy} onClick={confirm}>Confirm {confirmation.kind === 'restore' ? 'restoration' : 'removal'}</button><button type="button" disabled={busy} onClick={() => setConfirmation(undefined)}>Keep working</button></div>}
+    {confirmation && <div className="history-confirm" role="group" aria-label="Confirm design history action"><h3>{confirmation.kind === 'restore' ? 'Restore' : confirmation.kind === 'delete' ? 'Delete' : 'Clear'} {confirmation.name}?</h3><p>{confirmation.kind === 'restore' ? 'This replaces the working layout and clears unfinished placement and tracing drafts. The Existing baseline and saved milestones stay unchanged. Undo restores your previous layout.' : 'Your working layout stays unchanged. Checkpoints still referenced by renovation phases or another milestone are retained. Undo can restore this saved-history change.'}</p>{confirmation.kind==='restore'&&history?.checkpoints.find(c=>c.id===confirmation.id)&&<p>{homeRecordsRestoreNotice(plan,history.checkpoints.find(c=>c.id===confirmation.id)!.snapshot)}</p>}<button type="button" disabled={busy} onClick={confirm}>Confirm {confirmation.kind === 'restore' ? 'restoration' : 'removal'}</button><button type="button" disabled={busy} onClick={() => setConfirmation(undefined)}>Keep working</button></div>}
     <p className="history-muted">Stored design history: {Math.ceil(historyBytes(history ?? {}) / 1000)} KB of 2,000 KB. Floor-plan references stay on this device and travel with a complete project backup.</p>
     {(message || replay.error) && <p role="status" className="history-notice">{message || replay.error}</p>}
   </section>;
