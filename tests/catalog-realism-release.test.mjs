@@ -141,3 +141,37 @@ test('final live proof verifies full artifact HTML around the permitted platform
   writeFileSync(path.join(f.releaseDir,'dist/client/index.html'),'stale local HTML');
   await assert.rejects(()=>live.verifyBetaLive(f.releaseDir,f.candidateRoot,f.activeRoot,{fetch,environment:{}}),/HTML.*hash|artifact.*HTML/i);
 });
+
+test('live verification bounds GET concurrency at six and reports each fifty completed requests',async t=>{
+  const f=liveFixture(t),activePath=path.join(f.releaseDir,'active-library-manifest.json');
+  const active=JSON.parse(readFileSync(activePath,'utf8'));
+  const payload=Buffer.from('preserved fixture texture'),extra=new Set();
+  for(let i=0;i<100;i++){
+    const name=`/textures/progress-${i}.png`;extra.add(name);
+    active.assets[name]={sha256:hash(payload),size:payload.length,type:'image/png'};
+    writeFileSync(path.join(f.activeRoot,name.slice(1)),payload);
+  }
+  const candidates=JSON.parse(readFileSync(path.join(f.releaseDir,'candidate-manifest.json'),'utf8'));
+  const activeBytes=JSON.stringify(active),workerBytes=JSON.stringify(beta.assembleBetaManifest('final',active,candidates,head));
+  writeFileSync(activePath,activeBytes);writeFileSync(path.join(f.releaseDir,'worker-library-manifest.json'),workerBytes);
+  f.receipt.activeManifestSha256=hash(activeBytes);f.receipt.workerManifestSha256=hash(workerBytes);
+  writeFileSync(path.join(f.releaseDir,'release.json'),JSON.stringify(f.receipt));
+  let inFlight=0,maximum=0,gets=0;const progress=[];
+  const fetch=async(url,options)=>{
+    if(options.method==='HEAD')return new Response(null,{status:403});
+    gets++;maximum=Math.max(maximum,++inFlight);
+    const name=new URL(url).pathname;
+    const original=extra.has(name)?new Response(payload,{headers:{'x-nook-asset-storage':'r2'}}):await f.fetch(url,options);
+    const bytes=new Uint8Array(await original.arrayBuffer());
+    const body=new ReadableStream({async start(controller){
+      await new Promise(resolve=>setTimeout(resolve,2));controller.enqueue(bytes);controller.close();inFlight--;
+    }});
+    return new Response(body,{status:original.status,headers:original.headers});
+  };
+  const proof=await live.verifyBetaLive(f.releaseDir,f.candidateRoot,f.activeRoot,{fetch,environment:{},onProgress:update=>progress.push(update)});
+  assert.equal(maximum,6);assert.equal(inFlight,0);assert.equal(gets,107);assert.equal(proof.requests,gets);
+  assert.deepEqual(progress.map(row=>row.completed),[50,100]);
+  assert(progress.every(row=>row.total===107&&Number.isSafeInteger(row.bytes)&&row.bytes>0));
+  assert(progress[1].bytes>progress[0].bytes);
+  assert(progress.every(row=>Object.keys(row).sort().join(',')==='bytes,completed,total'));
+});

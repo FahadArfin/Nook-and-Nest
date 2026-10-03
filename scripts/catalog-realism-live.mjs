@@ -53,7 +53,8 @@ export async function requestBeta(url,{fetch=globalThis.fetch,environment=proces
   return response;
 }
 
-export async function verifyBetaLive(releaseDir,candidateRoot,activeRoot,{fetch=globalThis.fetch,environment=process.env}={}) {
+export async function verifyBetaLive(releaseDir,candidateRoot,activeRoot,{fetch=globalThis.fetch,environment=process.env,onProgress}={}) {
+  assert(onProgress===undefined||typeof onProgress==='function','Optional progress callback must be a function');
   const receiptBytes=readFileSync(path.join(releaseDir,'release.json')),receipt=JSON.parse(receiptBytes);
   assert(receipt.version===1&&receipt.scope==='beta-only'&&receipt.mode==='final'&&receipt.project_id===BETA_PROJECT,'Final Beta 1 release required');
   const inputs=[];
@@ -103,9 +104,10 @@ export async function verifyBetaLive(releaseDir,candidateRoot,activeRoot,{fetch=
         htmlPayloads.push({file:htmlFile,...verifyHtmlPayload(payload,expectedHtml)});
       }else{assert.equal(bytes,record.size,'Live asset size differs: '+name);assert.equal(hash.digest('hex'),record.sha256,'Live asset hash differs: '+name);}
       verified++;totalBytes+=bytes;
+      if(onProgress&&verified%50===0)await onProgress({completed:verified,total:requests.length,bytes:totalBytes});
     }
   }
-  const results=await Promise.allSettled([check(),check()]);for(const result of results)if(result.status==='rejected')throw result.reason;
+  const results=await Promise.allSettled(Array.from({length:6},()=>check()));for(const result of results)if(result.status==='rejected')throw result.reason;
   const model=Object.values(candidates.assets)[0];assert(model,'Candidate manifest is empty');
   const upload=await requestBeta(new URL('/api/library-upload/'+model.sha256,BETA_ORIGIN),{fetch,environment,method:'HEAD'});
   assert.equal(upload.status,403,'Final Beta upload endpoint must be disabled');
@@ -115,5 +117,5 @@ export async function verifyBetaLive(releaseDir,candidateRoot,activeRoot,{fetch=
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href) {
   assert(process.argv.length===6,'Usage: node scripts/catalog-realism-live.mjs RELEASE_DIR OPTIMIZED_ASSET_ROOT ACTIVE_ASSET_ROOT OUTPUT_JSON');
-  const proof=await verifyBetaLive(...process.argv.slice(2,5));writeFileSync(process.argv[5],JSON.stringify(proof,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(proof,null,2));
+  const proof=await verifyBetaLive(...process.argv.slice(2,5),{onProgress:progress=>console.log(JSON.stringify({phase:'verify',...progress}))});writeFileSync(process.argv[5],JSON.stringify(proof,null,2)+'\n',{flag:'wx'});console.log(JSON.stringify(proof,null,2));
 }

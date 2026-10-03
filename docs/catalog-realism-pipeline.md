@@ -179,13 +179,13 @@ Use the guarded helper to prepare a small forward hosting commit after verifying
 python scripts/catalog-realism-source.py prepare .generated/catalog-realism-beta/STAGING --parent CURRENT_BETA_HOSTING_HEAD --output .generated/catalog-realism-beta/staging-source.json
 # Root publishes the exact staging archive through the existing Beta project,
 # waits for terminal success, uploads and verifies its prefixed candidate assets.
-node scripts/upload-library-assets.mjs .generated/catalog-realism-beta/STAGING .generated/catalog-realism-beta/STAGING/library https://nook-and-nest-beta-1.fwad101.chatgpt.site
+node scripts/catalog-realism-upload.mjs .generated/catalog-realism-beta/STAGING .generated/catalog-realism-beta/STAGING/library
 # Bind STAGING/r2-verification.json in the final plan, then assemble FINAL.
 node scripts/build-catalog-realism-beta.mjs .generated/catalog-realism-beta-plans/final.json
 python scripts/catalog-realism-source.py prepare .generated/catalog-realism-beta/FINAL --parent VERIFIED_STAGING_HOSTING_HEAD --output .generated/catalog-realism-beta/final-source.json
 ```
 
-The uploader reads its existing token environment variable; never place credentials in a plan, command argument, receipt or source archive. Keep the existing Beta access/bindings unchanged. Each source snapshot must use the freshly verified hosting parent, and the deployment must consume the matching exact archive. No master merge or production publish is part of this flow.
+The scoped uploader accepts only the staging release directory and its staged asset root; its destination is fixed to Beta 1. Supply `NOOK_LIBRARY_UPLOAD_TOKEN` and, for the existing private Beta access, `NOOK_SITES_AUTH_TOKEN` through the established environment secret handoff. It validates all local paths, hashes and the release-bound manifest before transfer, uses at most six concurrent transfers, resumes existing content-addressed objects with HEAD, and PUTs only hashes from the allowlist. Every staged alias must then return the exact expected bytes from R2. It rechecks the manifest, release, uploader source and all local assets before writing `r2-verification.json`; incomplete transfers produce no success receipt and can resume using the same command. A completed receipt is retained without overwriting it. Never place credentials in a plan, command argument, receipt or source archive. Keep the existing Beta access/bindings unchanged. Each source snapshot must use the freshly verified hosting parent, and the deployment must consume the matching exact archive. No master merge or production publish is part of this flow.
 
 ### Final canonical live verification
 
