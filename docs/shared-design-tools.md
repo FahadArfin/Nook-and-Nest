@@ -38,3 +38,14 @@ Private online-media pilot quotas are 20 MiB per project, 50 MiB per account and
 Meaningful checks cover cross-account rejection, fixed-revision publication, public field allowlists, ownership, stale writes, malformed payloads, actual SQLite migrations, concurrent last-unit reservations, queue recovery and idempotency. Browser checks cover local tools and transitions separately from backend tests. No synthetic test is evidence of physical-phone AR acceptance, representative recognition accuracy, a configured rendering model or adoption by an actual staging business.
 
 The existing fixed-scale AR and measured-capture acceptance limits are recorded in `living-design.md`. All releases use the validated master artifact and verify the live entry plus every published catalog asset.
+
+
+## NN-28: saved ideas on this device
+
+My projects → Ideas → Saved ideas holds up to 24 validated room packages (8 MiB total) in a separate IndexedDB store. Saving is explicit and requires the snapshot's copy permission. Previewing, searching and filtering never change a project. Removal has a one-action Undo; export a selected package for a portable backup. The shelf is not currently part of a project's combined backup.
+
+New community saves check the live revision and permission. An already permitted, saved snapshot can be previewed, copied or exported offline without fetching its source again; attribution and the saved revision remain unchanged. Copies already saved cannot be recalled by later source withdrawal. Imported credits remain self-reported. The read-only 3D viewer is still loaded only on request.
+
+The storage transaction enforces count and byte limits across concurrent tabs. Same-source/revision duplicates are idempotent; conflicting content is not silently overwritten. Failed/quota writes do not report success. Damaged records block writing; when their safe identity is recoverable the user can explicitly remove only the damaged saved copy. No automatic shelf wipe is performed for broader corruption.
+
+This advances the local gallery pilot. Configured community moderation and representative device/load acceptance remain outstanding. The separate [next opportunities](feature-opportunities.md) are proposals, not delivered features.
