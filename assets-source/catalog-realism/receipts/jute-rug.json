@@ -1,0 +1,2443 @@
+{
+  "version": 1,
+  "catalogId": "jute-rug",
+  "inputContractSha256": "1b358e50a2e656dcdebfc1a92e02b80c976d3db9276a8c3ddeef8b1bbe57ff1f",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/jute-rug.blend",
+      "sha256": "465076d828c3cd62b7cb71368bc3305500c5f6b21c53ed3d777fc37ef5573cef",
+      "bytes": 167904
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/jute-rug.glb",
+      "sha256": "01905a262b25ed607a83b14ef02d2c8a11faa9cd3ffd82603f84ecba2d938da6",
+      "bytes": 1513316
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/botanical_weave.py",
+      "sha256": "a691c35668fdf1af47546350e0210ddb926d652fbd1cdb108c4a384901997500",
+      "bytes": 4708
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/jute-rug.json",
+      "sha256": "64e6378e1691c42b467234cbad7cb10a5046f672ecb34e987ae9ba94a83be437",
+      "bytes": 106
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/jute-rug.py",
+      "sha256": "e915a25e187560c148ac6438acf4f99bab3f1a349c260462e2e5c838fd49d090",
+      "bytes": 11025
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/jute-rug.py",
+      "sha256": "e915a25e187560c148ac6438acf4f99bab3f1a349c260462e2e5c838fd49d090",
+      "bytes": 11025
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/jute-rug.json",
+      "sha256": "64e6378e1691c42b467234cbad7cb10a5046f672ecb34e987ae9ba94a83be437",
+      "bytes": 106
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/botanical_weave.py",
+      "sha256": "a691c35668fdf1af47546350e0210ddb926d652fbd1cdb108c4a384901997500",
+      "bytes": 4708
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/jute-rug.blend",
+      "sha256": "465076d828c3cd62b7cb71368bc3305500c5f6b21c53ed3d777fc37ef5573cef",
+      "bytes": 167904
+    },
+    {
+      "path": "public/models/furniture/jute-rug.glb",
+      "sha256": "01905a262b25ed607a83b14ef02d2c8a11faa9cd3ffd82603f84ecba2d938da6",
+      "bytes": 1513316
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/jute-rug.py",
+      "sha256": "e915a25e187560c148ac6438acf4f99bab3f1a349c260462e2e5c838fd49d090",
+      "bytes": 11025
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/jute-rug.json",
+      "sha256": "64e6378e1691c42b467234cbad7cb10a5046f672ecb34e987ae9ba94a83be437",
+      "bytes": 106
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/botanical_weave.py",
+      "sha256": "a691c35668fdf1af47546350e0210ddb926d652fbd1cdb108c4a384901997500",
+      "bytes": 4708
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 162,
+      "candidateTriangles": 324,
+      "boundsM": {
+        "min": [
+          -0.049495222713713684,
+          -0.049747861875660195,
+          0.009999998845160007
+        ],
+        "max": [
+          0.04848893742814759,
+          0.04974786187566021,
+          0.017999999225139618
+        ]
+      },
+      "row": 1,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.001",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 180,
+      "candidateTriangles": 360,
+      "boundsM": {
+        "min": [
+          -0.08200023777706442,
+          -0.08337293045907967,
+          0.009999998845160007
+        ],
+        "max": [
+          0.0820002377770644,
+          0.08337293045907962,
+          0.017999999225139618
+        ]
+      },
+      "row": 2,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.002",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 198,
+      "candidateTriangles": 396,
+      "boundsM": {
+        "min": [
+          -0.11729861309301108,
+          -0.1176987023875313,
+          0.009999998845160007
+        ],
+        "max": [
+          0.115702785516471,
+          0.1176987023875313,
+          0.017999999225139618
+        ]
+      },
+      "row": 3,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.003",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 216,
+      "candidateTriangles": 432,
+      "boundsM": {
+        "min": [
+          -0.14952549631432083,
+          -0.14952549631432083,
+          0.009999998845160007
+        ],
+        "max": [
+          0.14952549631432083,
+          0.1495254963143208,
+          0.017999999225139618
+        ]
+      },
+      "row": 4,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.004",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 252,
+      "candidateTriangles": 504,
+      "boundsM": {
+        "min": [
+          -0.18375657079411264,
+          -0.1853125380935104,
+          0.009999998845160007
+        ],
+        "max": [
+          0.18375657079411262,
+          0.18531253809351036,
+          0.017999999225139618
+        ]
+      },
+      "row": 5,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.005",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 270,
+      "candidateTriangles": 540,
+      "boundsM": {
+        "min": [
+          -0.21929665682181138,
+          -0.21969824109699018,
+          0.009999998845160007
+        ],
+        "max": [
+          0.21769276546789773,
+          0.21969824109699018,
+          0.017999999225139618
+        ]
+      },
+      "row": 6,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.006",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 288,
+      "candidateTriangles": 576,
+      "boundsM": {
+        "min": [
+          -0.25166059683596137,
+          -0.25166059683596137,
+          0.009999998845160007
+        ],
+        "max": [
+          0.25166059683596137,
+          0.25166059683596137,
+          0.017999999225139618
+        ]
+      },
+      "row": 7,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.007",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 306,
+      "candidateTriangles": 612,
+      "boundsM": {
+        "min": [
+          -0.28728626736102725,
+          -0.2876956772713545,
+          0.009999998845160007
+        ],
+        "max": [
+          0.28565056910184117,
+          0.28769567727135453,
+          0.017999999225139618
+        ]
+      },
+      "row": 8,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.008",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 324,
+      "candidateTriangles": 648,
+      "boundsM": {
+        "min": [
+          -0.31965605590111895,
+          -0.32128768080643755,
+          0.009999998845160007
+        ],
+        "max": [
+          0.31965605590111895,
+          0.3212876808064375,
+          0.017999999225139618
+        ]
+      },
+      "row": 9,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.009",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 342,
+      "candidateTriangles": 684,
+      "boundsM": {
+        "min": [
+          -0.3552918538828375,
+          -0.3556970722207109,
+          0.009999998845160007
+        ],
+        "max": [
+          0.3536725188832305,
+          0.35569707222071084,
+          0.017999999225139618
+        ]
+      },
+      "row": 10,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.010",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 360,
+      "candidateTriangles": 720,
+      "boundsM": {
+        "min": [
+          -0.387696646980368,
+          -0.387696646980368,
+          0.009999998845160007
+        ],
+        "max": [
+          0.38769664698036793,
+          0.387696646980368,
+          0.017999999225139618
+        ]
+      },
+      "row": 11,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.011",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 378,
+      "candidateTriangles": 756,
+      "boundsM": {
+        "min": [
+          -0.4233053112190047,
+          -0.4237004333273304,
+          0.009999998845160007
+        ],
+        "max": [
+          0.42172605074364594,
+          0.4237004333273303,
+          0.017999999225139618
+        ]
+      },
+      "row": 12,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.012",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 396,
+      "candidateTriangles": 792,
+      "boundsM": {
+        "min": [
+          -0.45575907774478863,
+          -0.4573136087241236,
+          0.009999998845160007
+        ],
+        "max": [
+          0.45575907774478863,
+          0.4573136087241236,
+          0.017999999225139618
+        ]
+      },
+      "row": 13,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.013",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 414,
+      "candidateTriangles": 828,
+      "boundsM": {
+        "min": [
+          -0.49132248793407385,
+          -0.49170474541536713,
+          0.009999998845160007
+        ],
+        "max": [
+          0.4897944483933197,
+          0.49170474541536713,
+          0.017999999225139618
+        ]
+      },
+      "row": 14,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.014",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 450,
+      "candidateTriangles": 900,
+      "boundsM": {
+        "min": [
+          -0.5253709219372843,
+          -0.5257168424029468,
+          0.009999998845160007
+        ],
+        "max": [
+          0.5239879986688243,
+          0.5257168424029468,
+          0.017999999225139618
+        ]
+      },
+      "row": 15,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.015",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 468,
+      "candidateTriangles": 936,
+      "boundsM": {
+        "min": [
+          -0.5580168418491069,
+          -0.5593781802450534,
+          0.009999998845160007
+        ],
+        "max": [
+          0.5580168418491069,
+          0.5593781802450534,
+          0.017999999225139618
+        ]
+      },
+      "row": 16,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.016",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 486,
+      "candidateTriangles": 972,
+      "boundsM": {
+        "min": [
+          -0.593385594675678,
+          -0.5937205266837252,
+          0.009999998845160007
+        ],
+        "max": [
+          0.5920464963672759,
+          0.5937205266837252,
+          0.017999999225139618
+        ]
+      },
+      "row": 17,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.017",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 504,
+      "candidateTriangles": 1008,
+      "boundsM": {
+        "min": [
+          -0.6260766181118554,
+          -0.6260766181118553,
+          0.009999998845160007
+        ],
+        "max": [
+          0.6260766181118554,
+          0.6260766181118554,
+          0.017999999225139618
+        ]
+      },
+      "row": 18,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.018",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 522,
+      "candidateTriangles": 1044,
+      "boundsM": {
+        "min": [
+          -0.6614007518151473,
+          -0.6617243316226108,
+          0.009999998845160007
+        ],
+        "max": [
+          0.6601069599518102,
+          0.6617243316226109,
+          0.017999999225139618
+        ]
+      },
+      "row": 19,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.019",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 540,
+      "candidateTriangles": 1080,
+      "boundsM": {
+        "min": [
+          -0.6941371705508895,
+          -0.6954083006107373,
+          0.009999998845160007
+        ],
+        "max": [
+          0.6941371705508895,
+          0.6954083006107373,
+          0.017999999225139618
+        ]
+      },
+      "row": 20,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.020",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 558,
+      "candidateTriangles": 1116,
+      "boundsM": {
+        "min": [
+          -0.7294157864033706,
+          -0.7297280608802622,
+          0.009999998845160007
+        ],
+        "max": [
+          0.7281671338907111,
+          0.7297280608802621,
+          0.017999999225139618
+        ]
+      },
+      "row": 21,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.021",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 576,
+      "candidateTriangles": 1152,
+      "boundsM": {
+        "min": [
+          -0.7621967779964123,
+          -0.7621967779964125,
+          0.009999998845160007
+        ],
+        "max": [
+          0.7621967779964123,
+          0.7621967779964123,
+          0.017999999225139618
+        ]
+      },
+      "row": 22,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.022",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 594,
+      "candidateTriangles": 1188,
+      "boundsM": {
+        "min": [
+          -0.797430506179981,
+          -0.797731755875916,
+          0.009999998845160007
+        ],
+        "max": [
+          0.7962258865671492,
+          0.797731755875916,
+          0.017999999225139618
+        ]
+      },
+      "row": 23,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.023",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 612,
+      "candidateTriangles": 1224,
+      "boundsM": {
+        "min": [
+          -0.8302544482102158,
+          -0.8314376387689324,
+          0.009999998845160007
+        ],
+        "max": [
+          0.8302544482102158,
+          0.8314376387689324,
+          0.017999999225139618
+        ]
+      },
+      "row": 24,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.024",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 648,
+      "candidateTriangles": 1296,
+      "boundsM": {
+        "min": [
+          -0.8643673484198938,
+          -0.864367348419894,
+          0.009999998845160007
+        ],
+        "max": [
+          0.8643673484198938,
+          0.8643673484198938,
+          0.017999999225139618
+        ]
+      },
+      "row": 25,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.025",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 666,
+      "candidateTriangles": 1332,
+      "boundsM": {
+        "min": [
+          -0.8994718025786517,
+          -0.8997420803547289,
+          0.009999998845160007
+        ],
+        "max": [
+          0.8983909620878663,
+          0.8997420803547288,
+          0.017999999225139618
+        ]
+      },
+      "row": 26,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.026",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 684,
+      "candidateTriangles": 1368,
+      "boundsM": {
+        "min": [
+          -0.9324141496703751,
+          -0.9334775889465923,
+          0.009999998845160007
+        ],
+        "max": [
+          0.932414149670375,
+          0.9334775889465923,
+          0.017999999225139618
+        ]
+      },
+      "row": 27,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.027",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 702,
+      "candidateTriangles": 1404,
+      "boundsM": {
+        "min": [
+          -0.967483320831234,
+          -0.9677449744457015,
+          0.009999998845160007
+        ],
+        "max": [
+          0.9664369421727093,
+          0.9677449744457015,
+          0.017999999225139618
+        ]
+      },
+      "row": 28,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.0168
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "woven_concentric_ring.028",
+      "construction": "two continuous interlaced flattened jute strands in the original concentric row pattern",
+      "sourceVertices": 256,
+      "candidateVertices": 720,
+      "candidateTriangles": 1440,
+      "boundsM": {
+        "min": [
+          -0.9975417837284384,
+          -0.9975417837284385,
+          0.009999998845160007
+        ],
+        "max": [
+          0.9975417837284384,
+          0.9975417837284384,
+          0.017999999225139618
+        ]
+      },
+      "row": 29,
+      "preservedOriginalRowColor": true,
+      "packedRowHalfWidthM": 0.013699999999999901
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "mustard-cloth",
+      "profile": "fabric",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-cream",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "linen-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-twill-color.jpg",
+              "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+              "bytes": 364520
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-twill-normal.jpg",
+              "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+              "bytes": 69792
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-twill-orm.jpg",
+              "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+              "bytes": 317744
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-twill-color.jpg",
+            "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+            "bytes": 364520
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+          "materialKey": "linen-textured",
+          "profile": "fabric",
+          "family": "twill",
+          "repeatM": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "scanFamily": "twill"
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "mustard-cloth",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-twill-color.jpg",
+              "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+              "bytes": 364520
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "mustard-cloth",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "mustard-cloth",
+          "kind": "normal",
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-twill-normal.jpg",
+              "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+              "bytes": 69792
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "mustard-cloth",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "mustard-cloth",
+          "kind": "orm",
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-twill-orm.jpg",
+              "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+              "bytes": 317744
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "mustard-cloth",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-twill-color.jpg",
+            "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+            "bytes": 364520
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+          "materialKey": "mustard-cloth",
+          "profile": "fabric",
+          "family": "twill",
+          "repeatM": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "scanFamily": "twill"
+    },
+    {
+      "materialKey": "warm-cream",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-cream",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-cream",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "linen-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "baseColor",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "normal",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "orm",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "mustard-cloth",
+        "kind": "baseColor",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "mustard-cloth",
+        "kind": "normal",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "mustard-cloth",
+        "kind": "orm",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "warm-cream",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-cream",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "family": "twill",
+      "repeatM": [
+        0.3,
+        0.3
+      ],
+      "newSha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7"
+    },
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+      "materialKey": "mustard-cloth",
+      "profile": "fabric",
+      "family": "twill",
+      "repeatM": [
+        0.3,
+        0.3
+      ],
+      "newSha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7"
+    }
+  ],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 4006348,
+    "afterBytes": 4006348,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/jute-rug.blend",
+      "sha256": "2dd9712984a96c780d9342486931f1101792e9478bfc11c4bc2d59d517f8b150",
+      "bytes": 2855415
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/jute-rug.glb",
+      "sha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "bytes": 4006348
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/jute-rug/front-5d882a630d4dffefcdea.webp",
+      "sha256": "5d882a630d4dffefcdeaac3c6bcda4c2e93a3f23e9d622ace1175d9833fc7247",
+      "bytes": 76406,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.856,
+      "camera": {
+        "orthoScale": 3.155574321746826,
+        "position": [
+          3.7227203845977783,
+          -6.20453405380249,
+          3.4214935302734375
+        ],
+        "target": [
+          0,
+          0,
+          0.008999999612569809
+        ],
+        "clipStart": 0.0020000000949949026,
+        "clipEnd": 24,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521745026111603,
+            0.24927814304828644
+          ],
+          "max": [
+            0.9347825646400452,
+            0.750721275806427
+          ]
+        }
+      },
+      "glbSha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "renderConfigSha256": "0602e22671938c12277abb60674044b28e6c958d9a8039a8940d880533d768ea",
+      "inputSetSha256": "79349689bb506a75101450bb9a97fb17223bf549b2a1b01de361c6a6d471c997"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/jute-rug/rear-8fd04f635208b91bce12.webp",
+      "sha256": "8fd04f635208b91bce12b08359a0bbbf7e871c63862f1a225154afdfd13aa373",
+      "bytes": 80598,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.795,
+      "camera": {
+        "orthoScale": 3.155573844909668,
+        "position": [
+          -3.7227203845977783,
+          6.20453405380249,
+          3.4214935302734375
+        ],
+        "target": [
+          0,
+          0,
+          0.008999999612569809
+        ],
+        "clipStart": 0.0020000000949949026,
+        "clipEnd": 24,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521742045879364,
+            0.24927814304828644
+          ],
+          "max": [
+            0.9347826242446899,
+            0.750721275806427
+          ]
+        }
+      },
+      "glbSha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "renderConfigSha256": "0602e22671938c12277abb60674044b28e6c958d9a8039a8940d880533d768ea",
+      "inputSetSha256": "79349689bb506a75101450bb9a97fb17223bf549b2a1b01de361c6a6d471c997"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/jute-rug/detail-4db586731958e7ea141c.webp",
+      "sha256": "4db586731958e7ea141c26f7b2105990021eafe9150b9b7fcb60164211bee3bf",
+      "bytes": 170332,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.888,
+      "camera": {
+        "orthoScale": 1.7355660200119019,
+        "position": [
+          3.7227203845977783,
+          -6.20453405380249,
+          3.4214935302734375
+        ],
+        "target": [
+          0,
+          0,
+          0.008999999612569809
+        ],
+        "clipStart": 0.0020000000949949026,
+        "clipEnd": 24,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.06521746516227722,
+            0.24927794933319092
+          ],
+          "max": [
+            0.9347825646400452,
+            0.7507210373878479
+          ]
+        }
+      },
+      "glbSha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "renderConfigSha256": "0602e22671938c12277abb60674044b28e6c958d9a8039a8940d880533d768ea",
+      "inputSetSha256": "79349689bb506a75101450bb9a97fb17223bf549b2a1b01de361c6a6d471c997"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/jute-rug/underside-ad0db629b532ff8db72d.webp",
+      "sha256": "ad0db629b532ff8db72d212c401fe0deee7273d6fd1304f8f44a2d648c923f90",
+      "bytes": 19850,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.722,
+      "camera": {
+        "orthoScale": 3.1555750370025635,
+        "position": [
+          3.659965753555298,
+          -6.099942684173584,
+          -3.650965690612793
+        ],
+        "target": [
+          0,
+          0,
+          0.008999999612569809
+        ],
+        "clipStart": 0.0020000000949949026,
+        "clipEnd": 24,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521739810705185,
+            0.23140381276607513
+          ],
+          "max": [
+            0.9347822666168213,
+            0.7685962915420532
+          ]
+        }
+      },
+      "glbSha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "renderConfigSha256": "0602e22671938c12277abb60674044b28e6c958d9a8039a8940d880533d768ea",
+      "inputSetSha256": "79349689bb506a75101450bb9a97fb17223bf549b2a1b01de361c6a6d471c997"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/jute-rug/clay-5f45a0ae4dcd95bcb58a.webp",
+      "sha256": "5f45a0ae4dcd95bcb58a6f3f72ca541151c746f4f1bbf0042c6f4548588488c9",
+      "bytes": 71110,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.777,
+      "camera": {
+        "orthoScale": 3.155574321746826,
+        "position": [
+          3.7227203845977783,
+          -6.20453405380249,
+          3.4214935302734375
+        ],
+        "target": [
+          0,
+          0,
+          0.008999999612569809
+        ],
+        "clipStart": 0.0020000000949949026,
+        "clipEnd": 24,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521745026111603,
+            0.24927814304828644
+          ],
+          "max": [
+            0.9347825646400452,
+            0.750721275806427
+          ]
+        }
+      },
+      "glbSha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "renderConfigSha256": "0602e22671938c12277abb60674044b28e6c958d9a8039a8940d880533d768ea",
+      "inputSetSha256": "79349689bb506a75101450bb9a97fb17223bf549b2a1b01de361c6a6d471c997"
+    }
+  ],
+  "timingSeconds": 3.59,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          1,
+          1,
+          0.017999999225139618
+        ],
+        "min": [
+          -1,
+          -1,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "renderImportSha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[1.0,1.0,0.017999999225139618],\"min\":[-1.0,-1.0,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd\",\"renderImportSha256\":\"0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "0602e22671938c12277abb60674044b28e6c958d9a8039a8940d880533d768ea",
+    "inputs": [
+      {
+        "path": "assets-source/blender/jute-rug.blend",
+        "sha256": "465076d828c3cd62b7cb71368bc3305500c5f6b21c53ed3d777fc37ef5573cef",
+        "bytes": 167904
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/jute-rug.blend",
+        "sha256": "2dd9712984a96c780d9342486931f1101792e9478bfc11c4bc2d59d517f8b150",
+        "bytes": 2855415
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/linen-textured-orm-d06a0862d657901e.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-normal-f23e4eb6337de814.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/mustard-cloth-orm-d06a0862d657901e.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/jute-rug/warm-cream-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/jute-rug.glb",
+        "sha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+        "bytes": 4006348
+      },
+      {
+        "path": "public/models/furniture/jute-rug.glb",
+        "sha256": "01905a262b25ed607a83b14ef02d2c8a11faa9cd3ffd82603f84ecba2d938da6",
+        "bytes": 1513316
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "public/textures/realism/material-twill-normal.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "public/textures/realism/material-twill-orm.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/botanical_weave.py",
+        "sha256": "a691c35668fdf1af47546350e0210ddb926d652fbd1cdb108c4a384901997500",
+        "bytes": 4708
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/jute-rug.json",
+        "sha256": "64e6378e1691c42b467234cbad7cb10a5046f672ecb34e987ae9ba94a83be437",
+        "bytes": 106
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/jute-rug.py",
+        "sha256": "e915a25e187560c148ac6438acf4f99bab3f1a349c260462e2e5c838fd49d090",
+        "bytes": 11025
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "79349689bb506a75101450bb9a97fb17223bf549b2a1b01de361c6a6d471c997",
+    "afterSha256": "79349689bb506a75101450bb9a97fb17223bf549b2a1b01de361c6a6d471c997"
+  },
+  "formatValidation": {
+    "sha256": "0b848afd7f906823a53635b8e8a14c836beeeef0907ea2970dcd9026a43224bd",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 7,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/1"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/7"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/8"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "4b0187308ec75af7880c77c068419889fa955a508dfad7f8f8c0bf8f5f99c606",
+    "views": {
+      "front": "The circular rug now reads as interlaced textile rows instead of smooth plastic rings.",
+      "rear": "The reverse angle shows coherent concentric weaving and a thin continuous outer edge.",
+      "detail": "Full-size detail shows overlapping strand relief across the original concentric pattern; the braid remains a bounded stylized weave.",
+      "underside": "The original closed backing supports the thin woven face and preserves the circular footprint.",
+      "clay": "The clay view confirms modeled braided relief across the rug while retaining its original low thickness."
+    }
+  }
+}

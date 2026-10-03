@@ -1,0 +1,2704 @@
+{
+  "version": 1,
+  "catalogId": "checker-rug",
+  "inputContractSha256": "616ce1bdb4cb9e724ce793b75a5a7c64ebab1f10d3a6766b7ffe0a821782dd5a",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/checker-rug.blend",
+      "sha256": "d58a0816a83c091c268d577c1e2b74d368766551ae12aa689fb211083ff173e1",
+      "bytes": 122443
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/checker-rug.glb",
+      "sha256": "f02e4a9c79626f4248641fb442f8da0493fd6b09d1e753d7a960f7ad73682036",
+      "bytes": 711140
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/checker-rug.json",
+      "sha256": "57abebefe0d900c66f28ebfa095a839edb7b1722be5969856903c8e3e193e63a",
+      "bytes": 82
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/checker-rug.py",
+      "sha256": "234f44c5c6ddf4cad5adb905f8878e4ea70842b1da9bba8175b90b8e061753db",
+      "bytes": 13667
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/checker-rug.py",
+      "sha256": "234f44c5c6ddf4cad5adb905f8878e4ea70842b1da9bba8175b90b8e061753db",
+      "bytes": 13667
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/checker-rug.json",
+      "sha256": "57abebefe0d900c66f28ebfa095a839edb7b1722be5969856903c8e3e193e63a",
+      "bytes": 82
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/checker-rug.blend",
+      "sha256": "d58a0816a83c091c268d577c1e2b74d368766551ae12aa689fb211083ff173e1",
+      "bytes": 122443
+    },
+    {
+      "path": "public/models/furniture/checker-rug.glb",
+      "sha256": "f02e4a9c79626f4248641fb442f8da0493fd6b09d1e753d7a960f7ad73682036",
+      "bytes": 711140
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/checker-rug.py",
+      "sha256": "234f44c5c6ddf4cad5adb905f8878e4ea70842b1da9bba8175b90b8e061753db",
+      "bytes": 13667
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/checker-rug.json",
+      "sha256": "57abebefe0d900c66f28ebfa095a839edb7b1722be5969856903c8e3e193e63a",
+      "bytes": 82
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.75,
+          -0.75,
+          0.024
+        ],
+        "max": [
+          -0.375,
+          -0.375,
+          0.03925
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.001",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.375,
+          -0.75,
+          0.024
+        ],
+        "max": [
+          0,
+          -0.375,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.002",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0,
+          -0.75,
+          0.024
+        ],
+        "max": [
+          0.375,
+          -0.375,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.003",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0.375,
+          -0.75,
+          0.024
+        ],
+        "max": [
+          0.75,
+          -0.375,
+          0.03925
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.004",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.75,
+          -0.375,
+          0.024
+        ],
+        "max": [
+          -0.375,
+          0,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.005",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.375,
+          -0.375,
+          0.024
+        ],
+        "max": [
+          0,
+          0,
+          0.04
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.006",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0,
+          -0.375,
+          0.024
+        ],
+        "max": [
+          0.375,
+          0,
+          0.04
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.007",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0.375,
+          -0.375,
+          0.024
+        ],
+        "max": [
+          0.75,
+          0,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.008",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.75,
+          0,
+          0.024
+        ],
+        "max": [
+          -0.375,
+          0.375,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.009",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.375,
+          0,
+          0.024
+        ],
+        "max": [
+          0,
+          0.375,
+          0.04
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.010",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0,
+          0,
+          0.024
+        ],
+        "max": [
+          0.375,
+          0.375,
+          0.04
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.011",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0.375,
+          0,
+          0.024
+        ],
+        "max": [
+          0.75,
+          0.375,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.012",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.75,
+          0.375,
+          0.024
+        ],
+        "max": [
+          -0.375,
+          0.75,
+          0.03925
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.013",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          -0.375,
+          0.375,
+          0.024
+        ],
+        "max": [
+          0,
+          0.75,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.014",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0,
+          0.375,
+          0.024
+        ],
+        "max": [
+          0.375,
+          0.75,
+          0.0395
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_patch.015",
+      "construction": "contiguous cloth checker surface with identical shared edge heights",
+      "sourceVertices": 96,
+      "candidateVertices": 162,
+      "candidateTriangles": 320,
+      "boundsM": {
+        "min": [
+          0.375,
+          0.375,
+          0.024
+        ],
+        "max": [
+          0.75,
+          0.75,
+          0.03925
+        ]
+      },
+      "backingOverlapM": 0.0015,
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.6915000081062317,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.6585000157356262,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.001",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.6915000081062317,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.6585000157356262,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.002",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.5864999890327454,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.5534999966621399,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.003",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.5864999890327454,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.5534999966621399,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.004",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.4814999997615814,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.44850000739097595,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.005",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.4814999997615814,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.44850000739097595,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.006",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.3765000104904175,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.343500018119812,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.007",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.3765000104904175,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.343500018119812,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.008",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.27149999141693115,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.23849999904632568,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.009",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.27149999141693115,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.23849999904632568,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.010",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.1665000021457672,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.13350000977516174,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.011",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.1665000021457672,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.13350000977516174,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.012",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.061500001698732376,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.02850000187754631,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.013",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          -0.061500001698732376,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          -0.02850000187754631,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.014",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.04349999874830246,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          0.07649999856948853,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.015",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.04349999874830246,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          0.07649999856948853,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.016",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.1485000103712082,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          0.18150000274181366,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.017",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.1485000103712082,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          0.18150000274181366,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.018",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.2535000145435333,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          0.2865000069141388,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.019",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.2535000145435333,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          0.2865000069141388,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.020",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.35850000381469727,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          0.39149999618530273,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.021",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.35850000381469727,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          0.39149999618530273,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.022",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.4634999930858612,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          0.4964999854564667,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.023",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.4634999930858612,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          0.4964999854564667,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.024",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.5684999823570251,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          0.6014999747276306,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.025",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.5684999823570251,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          0.6014999747276306,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.026",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.6735000014305115,
+          -0.8212499618530273,
+          0.007000001147389412
+        ],
+        "max": [
+          0.7064999938011169,
+          -0.7387499809265137,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "checker_rug_fringe.027",
+      "construction": "seven curved closed yarn strands replace the rectangular fringe slab",
+      "sourceVertices": 96,
+      "candidateVertices": 336,
+      "candidateTriangles": 644,
+      "boundsM": {
+        "min": [
+          0.6735000014305115,
+          0.7387499809265137,
+          0.007000001147389412
+        ],
+        "max": [
+          0.7064999938011169,
+          0.8212499618530273,
+          0.02500000037252903
+        ]
+      },
+      "preserved": [
+        "original material keys and factors",
+        "original named component and unrelated geometry",
+        "overall catalog dimensions"
+      ]
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "terracotta",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-dark",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "linen-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-twill-color.jpg",
+              "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+              "bytes": 364520
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-twill-normal.jpg",
+              "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+              "bytes": 69792
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-twill-orm.jpg",
+              "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+              "bytes": 317744
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-twill-color.jpg",
+            "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+            "bytes": 364520
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+          "materialKey": "linen-textured",
+          "profile": "fabric",
+          "family": "twill",
+          "repeatM": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "scanFamily": "twill"
+    },
+    {
+      "materialKey": "terracotta",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "terracotta",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "terracotta",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-dark",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-dark",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "wood-dark",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "linen-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "baseColor",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "normal",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "orm",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "terracotta",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "terracotta",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-dark",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-dark",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "family": "twill",
+      "repeatM": [
+        0.3,
+        0.3
+      ],
+      "newSha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7"
+    }
+  ],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 3870884,
+    "afterBytes": 3870884,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/checker-rug.blend",
+      "sha256": "f311b5b9d4d23a7f805159fe6484c3cfa2c88d61fcd73fb5d61156cfa37cc626",
+      "bytes": 2820419
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/checker-rug.glb",
+      "sha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "bytes": 3870884
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/checker-rug/front-0318c58e6ef5a0511628.webp",
+      "sha256": "0318c58e6ef5a05116282278d1fdf046755a1d4ea8c88f79143d37b38ad2b9d2",
+      "bytes": 60268,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.742,
+      "camera": {
+        "orthoScale": 2.450993776321411,
+        "position": [
+          3.057283878326416,
+          -5.095473289489746,
+          2.8227603435516357
+        ],
+        "target": [
+          0,
+          0,
+          0.020249999593943357
+        ],
+        "clipStart": 0.001642499933950603,
+        "clipEnd": 19.709999084472656,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521747261285782,
+            0.2373291552066803
+          ],
+          "max": [
+            0.9347825646400452,
+            0.7626700401306152
+          ]
+        }
+      },
+      "glbSha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "renderConfigSha256": "2725739177868498d424e265cf557baf3345adf86eac81686e71a770eec50471",
+      "inputSetSha256": "516c1035f6658e06650a773436c9765820dad407c84a73409659ecbe29104174"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/checker-rug/rear-1dd6e603cdcf2ec51761.webp",
+      "sha256": "1dd6e603cdcf2ec517617f0fced2147b1e65a17582a35754824e1634635270b2",
+      "bytes": 61900,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.745,
+      "camera": {
+        "orthoScale": 2.450993299484253,
+        "position": [
+          -3.057283878326416,
+          5.095473289489746,
+          2.8227603435516357
+        ],
+        "target": [
+          0,
+          0,
+          0.020249999593943357
+        ],
+        "clipStart": 0.001642499933950603,
+        "clipEnd": 19.709999084472656,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521743535995483,
+            0.23732909560203552
+          ],
+          "max": [
+            0.9347826242446899,
+            0.76267009973526
+          ]
+        }
+      },
+      "glbSha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "renderConfigSha256": "2725739177868498d424e265cf557baf3345adf86eac81686e71a770eec50471",
+      "inputSetSha256": "516c1035f6658e06650a773436c9765820dad407c84a73409659ecbe29104174"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/checker-rug/detail-5adfb8f7cbb8912b0e38.webp",
+      "sha256": "5adfb8f7cbb8912b0e38926ea133018655d51ad784e0640400fe56513a7d0b62",
+      "bytes": 103094,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.774,
+      "camera": {
+        "orthoScale": 1.3480465412139893,
+        "position": [
+          3.057283878326416,
+          -5.095473289489746,
+          2.8227603435516357
+        ],
+        "target": [
+          0,
+          0,
+          0.020249999593943357
+        ],
+        "clipStart": 0.001642499933950603,
+        "clipEnd": 19.709999084472656,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.06521743535995483,
+            0.23732882738113403
+          ],
+          "max": [
+            0.9347826242446899,
+            0.7626696825027466
+          ]
+        }
+      },
+      "glbSha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "renderConfigSha256": "2725739177868498d424e265cf557baf3345adf86eac81686e71a770eec50471",
+      "inputSetSha256": "516c1035f6658e06650a773436c9765820dad407c84a73409659ecbe29104174"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/checker-rug/underside-39cc1b818a1c66087a58.webp",
+      "sha256": "39cc1b818a1c66087a58400f0acd3d95ec60f019e9710d7de1f9b47db82a11ad",
+      "bytes": 25300,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.662,
+      "camera": {
+        "orthoScale": 2.450993776321411,
+        "position": [
+          3.005746603012085,
+          -5.009577751159668,
+          -2.985496759414673
+        ],
+        "target": [
+          0,
+          0,
+          0.020249999593943357
+        ],
+        "clipStart": 0.001642499933950603,
+        "clipEnd": 19.709999084472656,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521737575531006,
+            0.21914947032928467
+          ],
+          "max": [
+            0.9347823858261108,
+            0.7808507084846497
+          ]
+        }
+      },
+      "glbSha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "renderConfigSha256": "2725739177868498d424e265cf557baf3345adf86eac81686e71a770eec50471",
+      "inputSetSha256": "516c1035f6658e06650a773436c9765820dad407c84a73409659ecbe29104174"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/checker-rug/clay-17b63cb56e021ed17948.webp",
+      "sha256": "17b63cb56e021ed179483012d165cf16ad36c6247a0ec8f6d78c258a60dd1d4d",
+      "bytes": 36868,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.74,
+      "camera": {
+        "orthoScale": 2.450993776321411,
+        "position": [
+          3.057283878326416,
+          -5.095473289489746,
+          2.8227603435516357
+        ],
+        "target": [
+          0,
+          0,
+          0.020249999593943357
+        ],
+        "clipStart": 0.001642499933950603,
+        "clipEnd": 19.709999084472656,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521747261285782,
+            0.2373291552066803
+          ],
+          "max": [
+            0.9347825646400452,
+            0.7626700401306152
+          ]
+        }
+      },
+      "glbSha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "renderConfigSha256": "2725739177868498d424e265cf557baf3345adf86eac81686e71a770eec50471",
+      "inputSetSha256": "516c1035f6658e06650a773436c9765820dad407c84a73409659ecbe29104174"
+    }
+  ],
+  "timingSeconds": 4.42,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.75,
+          0.8212499618530273,
+          0.03999999910593033
+        ],
+        "min": [
+          -0.75,
+          -0.8212499618530273,
+          0.0005000000819563866
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "renderImportSha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.75,0.8212499618530273,0.03999999910593033],\"min\":[-0.75,-0.8212499618530273,0.0005000000819563866]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4\",\"renderImportSha256\":\"7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "2725739177868498d424e265cf557baf3345adf86eac81686e71a770eec50471",
+    "inputs": [
+      {
+        "path": "assets-source/blender/checker-rug.blend",
+        "sha256": "d58a0816a83c091c268d577c1e2b74d368766551ae12aa689fb211083ff173e1",
+        "bytes": 122443
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/checker-rug.blend",
+        "sha256": "f311b5b9d4d23a7f805159fe6484c3cfa2c88d61fcd73fb5d61156cfa37cc626",
+        "bytes": 2820419
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-normal-f23e4eb6337de814.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/checker-rug/linen-textured-orm-d06a0862d657901e.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/checker-rug/terracotta-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/checker-rug/wood-dark-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/checker-rug.glb",
+        "sha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+        "bytes": 3870884
+      },
+      {
+        "path": "public/models/furniture/checker-rug.glb",
+        "sha256": "f02e4a9c79626f4248641fb442f8da0493fd6b09d1e753d7a960f7ad73682036",
+        "bytes": 711140
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "public/textures/realism/material-twill-normal.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "public/textures/realism/material-twill-orm.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/checker-rug.json",
+        "sha256": "57abebefe0d900c66f28ebfa095a839edb7b1722be5969856903c8e3e193e63a",
+        "bytes": 82
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/checker-rug.py",
+        "sha256": "234f44c5c6ddf4cad5adb905f8878e4ea70842b1da9bba8175b90b8e061753db",
+        "bytes": 13667
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+        "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+        "bytes": 12800
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "516c1035f6658e06650a773436c9765820dad407c84a73409659ecbe29104174",
+    "afterSha256": "516c1035f6658e06650a773436c9765820dad407c84a73409659ecbe29104174"
+  },
+  "formatValidation": {
+    "sha256": "7568a4985b2038bb2f637127169ea938ab43f2fbdac097dad7d050f2300d83f4",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 8,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/4"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/5"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/6"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/7"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "dbc028a9b90c50af8fc8037aa69bf9ab749fee928c8cc3d884f4001c383540f7",
+    "views": {
+      "front": "The alternating colors now share one continuous cloth surface instead of raised tile-like plates.",
+      "rear": "Opposite view confirms there are no deep grid gaps between the checker squares.",
+      "detail": "Full detail shows contiguous checks and small separated yarn fringes; the original backing remains comparatively thick.",
+      "underside": "The closed backing is retained and all fringe groups stay attached along the two edges.",
+      "clay": "Clay shows a continuous textile panel with yarn fringe, a clear construction improvement over individual beveled tiles."
+    }
+  }
+}
