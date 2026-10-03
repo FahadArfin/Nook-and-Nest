@@ -3,11 +3,12 @@ import assert from 'node:assert/strict';
 import {readFileSync,writeFileSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import path from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import {BETA_PROJECT,BETA_ORIGIN,assembleBetaManifest,catalogCacheRevision} from './build-catalog-realism-beta.mjs';
 import {canonicalJson} from './lib/catalog-realism-inventory.mjs';
 import {resolveRepoPath} from './lib/model-pipeline-inspect.mjs';
 const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
+const verifierPath=fileURLToPath(import.meta.url),verifierSha256=sha(readFileSync(verifierPath));
 
 // Exact 938-byte Cloudflare JSD insertion captured from both existing Beta HTML
 // routes on 2026-10-03. Only the 16-hex ray ID and base64 decimal epoch vary.
@@ -21,8 +22,11 @@ const CHALLENGE_BYTES=Buffer.byteLength(CHALLENGE_TEMPLATE.replace('{{RAY}}','0'
 export function verifyHtmlPayload(actual,expected) {
   const proof={actualSha256:sha(actual),originalArtifactSha256:sha(expected),originalArtifactHtmlPreserved:true,platformInsertedBytes:0};
   if(actual.equals(expected))return proof;
-  const added=actual.length-expected.length,at=expected.indexOf('</body>');
-  assert(added===CHALLENGE_BYTES&&at>=0&&expected.indexOf('</body>',at+1)<0,'Unexpected HTML insertion size or body boundary');
+  const added=actual.length-expected.length,bodyEnd=expected.indexOf('</body>');
+  // Captured legacy attribution HTML omits </body>; Sites appends the same
+  // exact challenge at EOF without rewriting even one original byte.
+  const at=bodyEnd<0?expected.length:bodyEnd;
+  assert(added===CHALLENGE_BYTES&&(bodyEnd<0?!/<\/body\s*>/i.test(expected.toString('utf8')):expected.indexOf('</body>',at+1)<0),'Unexpected HTML insertion size or body boundary');
   assert(actual.subarray(0,at).equals(expected.subarray(0,at))&&actual.subarray(at+added).equals(expected.subarray(at)),'Original artifact HTML changed around the platform insertion');
   const inserted=actual.subarray(at,at+added),match=CHALLENGE_RE.exec(inserted.toString('utf8'));
   assert(match,'Unrecognized HTML challenge insertion');
@@ -34,7 +38,7 @@ export function verifyHtmlPayload(actual,expected) {
 }
 
 /** Credentials stay in the request headers and are never returned or logged. */
-export async function requestBeta(url,{fetch=globalThis.fetch,environment=process.env,method='GET',allowIndexRedirect=false}={}) {
+export async function requestBeta(url,{fetch=globalThis.fetch,environment=process.env,method='GET',allowIndexRedirect=false,allowHtmlRedirect=false}={}) {
   url=new URL(url);
   assert(url.origin===BETA_ORIGIN&&!url.username&&!url.password,'Live requests require the fixed Beta origin');
   const headers={'Cache-Control':'no-cache'},token=environment.NOOK_SITES_AUTH_TOKEN;
@@ -43,10 +47,13 @@ export async function requestBeta(url,{fetch=globalThis.fetch,environment=proces
   const send=async target=>{try{return await fetch(target,options);}catch{throw Error('Live request failed: '+url.pathname);}};
   let response=await send(url);
   if([301,302,303,307,308].includes(response.status)) {
-    assert(allowIndexRedirect&&method==='GET'&&url.pathname.endsWith('/index.html'),'Unexpected live redirect');
+    const index=(allowIndexRedirect||allowHtmlRedirect)&&url.pathname.endsWith('/index.html');
+    const pretty=allowHtmlRedirect&&url.pathname.endsWith('.html')&&!url.pathname.endsWith('/index.html');
+    assert(method==='GET'&&(index||pretty),'Unexpected live redirect');
     const location=response.headers.get('location');assert(location,'Missing live redirect location');
     const next=new URL(location,url);
-    assert(next.origin===BETA_ORIGIN&&!next.username&&!next.password&&next.pathname===url.pathname.slice(0,-'index.html'.length)&&!next.hash&&(!next.search||next.search===url.search),'Unexpected live redirect');
+    const target=index?url.pathname.slice(0,-'index.html'.length):url.pathname.slice(0,-'.html'.length);
+    assert(next.origin===BETA_ORIGIN&&!next.username&&!next.password&&next.pathname===target&&!next.hash&&(!next.search||next.search===url.search),'Unexpected live redirect');
     next.search=url.search;response=await send(next);
     assert(![301,302,303,307,308].includes(response.status),'Repeated live redirect');
   }
@@ -55,6 +62,7 @@ export async function requestBeta(url,{fetch=globalThis.fetch,environment=proces
 
 export async function verifyBetaLive(releaseDir,candidateRoot,activeRoot,{fetch=globalThis.fetch,environment=process.env,onProgress}={}) {
   assert(onProgress===undefined||typeof onProgress==='function','Optional progress callback must be a function');
+  assert.equal(sha(readFileSync(verifierPath)),verifierSha256,'Verifier source changed before verification');
   const receiptBytes=readFileSync(path.join(releaseDir,'release.json')),receipt=JSON.parse(receiptBytes);
   assert(receipt.version===1&&receipt.scope==='beta-only'&&receipt.mode==='final'&&receipt.project_id===BETA_PROJECT,'Final Beta 1 release required');
   const inputs=[];
@@ -93,7 +101,7 @@ export async function verifyBetaLive(releaseDir,candidateRoot,activeRoot,{fetch=
       const {name,record,r2,expectedHtml,htmlFile}=request,url=new URL(name,BETA_ORIGIN);
       assert(/^[a-f0-9]{64}$/.test(record.sha256)&&Number.isSafeInteger(record.size)&&record.size>0&&record.size<=32*1024*1024,'Invalid live object bound: '+name);
       url.searchParams.set('catalog_realism',revision);url.searchParams.set('verify',record.sha256);
-      const response=await requestBeta(url,{fetch,environment,allowIndexRedirect:!r2&&name.endsWith('/index.html')});
+      const response=await requestBeta(url,{fetch,environment,allowHtmlRedirect:!r2&&Boolean(expectedHtml)});
       assert.equal(response.status,200,'Live response failed: '+name);
       if(r2)assert.equal(response.headers.get('x-nook-asset-storage'),'r2','Canonical asset was not served from R2: '+name);
       const hash=createHash('sha256'),chunks=[];let bytes=0;
@@ -113,7 +121,8 @@ export async function verifyBetaLive(releaseDir,candidateRoot,activeRoot,{fetch=
   assert.equal(upload.status,403,'Final Beta upload endpoint must be disabled');
   assert.equal(sha(readFileSync(path.join(releaseDir,'release.json'))),sha(receiptBytes),'Release changed during live verification');
   for(const input of inputs)assert.equal(sha(readFileSync(input.file)),input.sha256,'Local verification input changed: '+input.file);
-  return {version:1,scope:'beta-only',mode:'final',origin:BETA_ORIGIN,commit_sha:receipt.commit_sha,catalogRevision:revision,releaseSha256:sha(receiptBytes),manifest_sha256:receipt.workerManifestSha256,artifactSha256:receipt.archive.sha256,completed:Object.keys(worker.assets).length,previewAliases:candidates.models.length,appFiles:appFiles.length,htmlPayloads:htmlPayloads.sort((a,b)=>a.file.localeCompare(b.file)),requests:verified,bytes:totalBytes,uploadsDisabled:true,verified_at:new Date().toISOString()};
+  assert.equal(sha(readFileSync(verifierPath)),verifierSha256,'Verifier source changed during verification');
+  return {version:1,scope:'beta-only',mode:'final',origin:BETA_ORIGIN,commit_sha:receipt.commit_sha,catalogRevision:revision,releaseSha256:sha(receiptBytes),manifest_sha256:receipt.workerManifestSha256,artifactSha256:receipt.archive.sha256,verifierSha256,completed:Object.keys(worker.assets).length,previewAliases:candidates.models.length,appFiles:appFiles.length,htmlPayloads:htmlPayloads.sort((a,b)=>a.file.localeCompare(b.file)),requests:verified,bytes:totalBytes,uploadsDisabled:true,verified_at:new Date().toISOString()};
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href) {
   assert(process.argv.length===6,'Usage: node scripts/catalog-realism-live.mjs RELEASE_DIR OPTIMIZED_ASSET_ROOT ACTIVE_ASSET_ROOT OUTPUT_JSON');

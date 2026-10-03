@@ -2,7 +2,7 @@
 
 This is the **902-item, Beta-only extension** on `codex/catalog-realism-overhaul`. It reads the existing editable catalog sources, applies bounded construction and material recipes, and writes separate candidates. The earlier [detailed sofa pipeline](detailed-model-pipeline.md) remains a historical pilot with its own specification, bakes and evidence; its successful review does not approve this catalog extension.
 
-**Checkpoint, October 3, 2026:** all 902 items have first-pass editable candidates and GLBs. Validation and five-view inspection are still in progress: early inspections found an armchair piping-contact defect, overly regular timber roughness, and ten legacy texture-coordinate defects that require correction. Shared recipe changes invalidate dependent candidates, so first-pass generation is not current approval. Use the live status command below; no catalog-wide release is recorded at this checkpoint.
+**Catalog completion, October 3, 2026:** all 902 models have current five-view approvals, editable packed Blender sources, and validated GLBs. The early piping-contact, timber-roughness and legacy texture-coordinate defects were corrected and their affected views re-reviewed. Beta 1 now serves the exact validated feature build `35ae301a91ad22f6a26ace7853f94853f0ad5927`; production and master remain unchanged. The release evidence below distinguishes model approval, browser compatibility, and hosted delivery verification. Future recipe changes still invalidate dependent candidates.
 
 ## Files and responsibilities
 

@@ -4,6 +4,7 @@ import {mkdtempSync,mkdirSync,writeFileSync,readFileSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
+import {pathToFileURL} from 'node:url';
 import * as beta from '../scripts/build-catalog-realism-beta.mjs';
 const app=await import('../scripts/catalog-realism-app.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const live=await import('../scripts/catalog-realism-live.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
@@ -11,6 +12,7 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const head='a'.repeat(40),merge='b'.repeat(40),base='d'.repeat(40),catalog='c'.repeat(64);
 const event={number:12,repository:{full_name:'FahadArfin/Nook-and-Nest'},pull_request:{head:{sha:head,ref:'codex/catalog-realism-overhaul',repo:{full_name:'FahadArfin/Nook-and-Nest'}},merge_commit_sha:merge,base:{ref:'master',sha:base}}};
 const platformHtml=JSON.parse(readFileSync(new URL('./fixtures/catalog-realism-platform-html.json',import.meta.url),'utf8'));
+const attributionHtml=JSON.parse(readFileSync(new URL('./fixtures/catalog-realism-attribution-html.json',import.meta.url),'utf8'));
 test('master retention stays in Validate while Beta artifact uses exact PR HEAD after that gate',()=>{
   const workflow=readFileSync(new URL('../.github/workflows/validate-release.yml',import.meta.url),'utf8');
   const [before,after]=workflow.split('\n  catalog-beta-artifact:');
@@ -61,6 +63,7 @@ function liveFixture(t){
 test('final live proof verifies canonical assets, shared textures, preview aliases and exact app bytes',async t=>{
   const f=liveFixture(t);const proof=await live.verifyBetaLive(f.releaseDir,f.candidateRoot,f.activeRoot,{fetch:f.fetch});
   assert.equal(proof.completed,4);assert.equal(proof.previewAliases,1);assert.equal(proof.appFiles,2);
+  assert.equal(proof.verifierSha256,hash(readFileSync(new URL('../scripts/catalog-realism-live.mjs',import.meta.url))));
   assert(f.requests.includes('/models/furniture/table.glb'));assert(f.requests.includes('/api/previews/table.webp'));
   assert(!f.requests.some(n=>n.startsWith('/experiments/catalog-realism/')));
 });
@@ -96,6 +99,90 @@ test('Beta live HTML follows only one same-origin index-to-directory redirect',a
   }
   await assert.rejects(()=>live.requestBeta(new URL('/model-lab/index.html',beta.BETA_ORIGIN),{environment:{},allowIndexRedirect:true,fetch:async()=>new Response(null,{status:302,headers:{location:'/model-lab/'}})}),/redirect/);
   await assert.rejects(()=>live.requestBeta(new URL('/models/furniture/a.glb',beta.BETA_ORIGIN),{environment:{},fetch:async()=>new Response(null,{status:302,headers:{location:'/models/furniture/'}})}),/redirect/);
+});
+
+test('artifact HTML opts into exactly one extensionless redirect while preserving verification queries',async()=>{
+  const original=new URL('/data/toronto/attribution.html?verify=abc&catalog_realism=revision',beta.BETA_ORIGIN);
+  for(const query of ['',original.search]){
+    const calls=[];
+    const response=await live.requestBeta(original,{environment:{},allowHtmlRedirect:true,fetch:async(url)=>{
+      calls.push(new URL(url));return calls.length===1?new Response(null,{status:307,headers:{location:'/data/toronto/attribution'+query}}):new Response(attributionHtml.liveHtml);
+    }});
+    assert.equal(await response.text(),attributionHtml.liveHtml);assert.equal(calls.length,2);
+    assert.equal(calls[1].pathname,'/data/toronto/attribution');assert.equal(calls[1].search,original.search);
+  }
+});
+
+test('HTML pretty redirects cannot authorize wrong origins, credentials, paths, queries, fragments, methods or another hop',async()=>{
+  const original=new URL('/data/toronto/attribution.html?verify=abc',beta.BETA_ORIGIN);
+  const wrong=[
+    'https://other.example/data/toronto/attribution',
+    beta.BETA_ORIGIN.replace('https://','https://user:pass@')+'/data/toronto/attribution',
+    '/data/toronto/another','/data/toronto/attribution/','/data/toronto/attribution#fragment',
+    '/data/toronto/attribution?verify=other','/data/toronto/attribution?verify=abc&extra=1',
+  ];
+  for(const location of wrong)await assert.rejects(()=>live.requestBeta(original,{environment:{},allowHtmlRedirect:true,fetch:async()=>new Response(null,{status:307,headers:{location}})}),/redirect/);
+  const redirect=async()=>new Response(null,{status:307,headers:{location:'/data/toronto/attribution'}});
+  await assert.rejects(()=>live.requestBeta(original,{environment:{},fetch:redirect}),/redirect/);
+  await assert.rejects(()=>live.requestBeta(original,{environment:{},allowIndexRedirect:true,fetch:redirect}),/redirect/);
+  await assert.rejects(()=>live.requestBeta(original,{environment:{},allowHtmlRedirect:true,method:'HEAD',fetch:redirect}),/redirect/);
+  await assert.rejects(()=>live.requestBeta(original,{environment:{},allowHtmlRedirect:true,fetch:redirect}),/Repeated.*redirect/);
+  await assert.rejects(()=>live.requestBeta(new URL('/models/furniture/a.glb',beta.BETA_ORIGIN),{environment:{},allowHtmlRedirect:true,fetch:redirect}),/redirect/);
+});
+
+test('captured legacy HTML allows only the exact known challenge appended at EOF with all original bytes retained',()=>{
+  const sample=attributionHtml,original=Buffer.from(sample.artifactHtml),actual=Buffer.from(sample.liveHtml);
+  assert.equal(hash(original),sample.artifactSha256);assert.equal(hash(actual),sample.liveSha256);
+  assert.equal(original.indexOf('</body>'),-1);assert.equal(sample.insertionOffset,original.length);
+  const proof=live.verifyHtmlPayload(actual,original);
+  assert.equal(proof.platformInsertedBytes,938);assert.equal(proof.insertionOffset,2677);
+  assert.equal(proof.insertionSha256,sample.insertionSha256);assert.equal(proof.originalArtifactHtmlPreserved,true);
+  const inserted=actual.subarray(original.length).toString();
+  const bad=[
+    sample.liveHtml.replace('Toronto scenery: data & credits','Toronto scenery: fake & credits'),
+    sample.artifactHtml+'<script>alert(1)</script>',
+    sample.liveHtml.replace('/cdn-cgi/challenge-platform/scripts/jsd/main.js','/cdn-cgi/challenge-platform/scripts/jsd/evil.js'),
+    sample.liveHtml.replace(/r:'[a-f0-9]{16}'/,"r:'not-a-valid-ray!'"),
+    sample.liveHtml.replace(/t:'[A-Za-z0-9+/]{14}=='/,"t:'YXJiaXRyYXJ5IQ=='"),
+    inserted+sample.artifactHtml,
+    sample.artifactHtml.replace('</html>',inserted+'</html>'),
+    sample.liveHtml+inserted,
+  ];
+  for(const candidate of bad)assert.throws(()=>live.verifyHtmlPayload(Buffer.from(candidate),original),/HTML|challenge|insertion/i);
+  const withBody=Buffer.from(platformHtml.cases[0].artifactHtml);
+  assert.throws(()=>live.verifyHtmlPayload(Buffer.concat([withBody,Buffer.from(inserted)]),withBody),/HTML|insertion/i);
+});
+
+test('full verifier applies pretty redirect and EOF rules only to a bound app HTML file',async t=>{
+  const f=liveFixture(t),sample=attributionHtml,name='client/data/toronto/attribution.html';
+  const inventoryPath=path.join(f.releaseDir,'artifact-inventory.json'),inventory=JSON.parse(readFileSync(inventoryPath));
+  inventory.files[name]={sha256:sample.artifactSha256,size:Buffer.byteLength(sample.artifactHtml)};
+  const bytes=JSON.stringify(inventory);writeFileSync(inventoryPath,bytes);
+  mkdirSync(path.dirname(path.join(f.releaseDir,'dist',name)),{recursive:true});writeFileSync(path.join(f.releaseDir,'dist',name),sample.artifactHtml);
+  f.receipt.artifactInventorySha256=hash(bytes);writeFileSync(path.join(f.releaseDir,'release.json'),JSON.stringify(f.receipt));
+  const fetch=async(url,options)=>{
+    const target=new URL(url);
+    if(target.pathname==='/data/toronto/attribution.html')return new Response(null,{status:307,headers:{location:'/data/toronto/attribution'+target.search}});
+    if(target.pathname==='/data/toronto/attribution')return new Response(sample.liveHtml,{headers:{'content-type':'text/html'}});
+    return f.fetch(url,options);
+  };
+  const proof=await live.verifyBetaLive(f.releaseDir,f.candidateRoot,f.activeRoot,{fetch,environment:{}});
+  assert.equal(proof.requests,8);assert.equal(proof.appFiles,3);
+  assert.equal(proof.htmlPayloads.find(row=>row.file===name).insertionSha256,sample.insertionSha256);
+});
+
+test('live proof rejects verifier source changes during a run and before a later run',async t=>{
+  const f=liveFixture(t),sourceUrl=new URL('../scripts/catalog-realism-live.mjs',import.meta.url);
+  const copy=path.join(f.root,'verifier-copy.mjs'),moduleRoot=new URL('../scripts/',import.meta.url).href;
+  writeFileSync(copy,readFileSync(sourceUrl,'utf8').replaceAll("from './",`from '${moduleRoot}`));
+  const isolated=await import(pathToFileURL(copy).href);let requests=0;
+  await assert.rejects(()=>isolated.verifyBetaLive(f.releaseDir,f.candidateRoot,f.activeRoot,{environment:{},fetch:async(url,options)=>{
+    if(requests++===0)writeFileSync(copy,readFileSync(copy,'utf8')+'\n// changed during verification\n');
+    return f.fetch(url,options);
+  }}),/Verifier source changed/);
+  requests=0;
+  await assert.rejects(()=>isolated.verifyBetaLive(f.releaseDir,f.candidateRoot,f.activeRoot,{environment:{},fetch:async()=>{requests++;throw Error('must not fetch');}}),/Verifier source changed/);
+  assert.equal(requests,0);
 });
 
 test('actual Beta HTML accepts only the captured Cloudflare script template and preserves exact artifact bytes',()=>{
