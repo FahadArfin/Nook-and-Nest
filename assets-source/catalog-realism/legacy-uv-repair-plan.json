@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "scope": "beta-only",
+  "sourceEvidence": {
+    "path": "assets-source/catalog-realism/legacy-uv-source-evidence.json",
+    "sha256": "11f82c1534418e5297ac3e32ce7bf598db03153e3271ea61705561bc82446b4b",
+    "bytes": 92990
+  },
+  "models": {
+    "bud-vase-trio": {
+      "sourceBlendSha256": "50c0463bbea0d74b82a77c07da0f9379b62e809120b17a5e47c9c84d6608a3aa",
+      "baselineGlbSha256": "8c6e12e812cf10a4f803d0ae11c867682ce129d473c0a0fb465828d3075e2727",
+      "repairs": [
+        {
+          "materialKey": "dusty-rose",
+          "kind": "baseColor",
+          "from": -1,
+          "to": 0,
+          "mode": "missing-source-uv-zero",
+          "imageSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+          "reason": "Preserve the UV-less source image sampling as constant Blender UV zero (glTF 0,1)."
+        }
+      ]
+    },
+    "designed-basin-console": {
+      "sourceBlendSha256": "ff02e136e357260068ef79d736fb6f31a5709471917177a5189d5eceaa8c9292",
+      "baselineGlbSha256": "6237b546909c0afaf828175e8c7531f2fe89bdf1a810c1fef586222ac5b5e8ee",
+      "repairs": [
+        {
+          "materialKey": "honed-travertine",
+          "kind": "baseColor",
+          "from": -1,
+          "to": 0,
+          "mode": "authored-source-uv0",
+          "imageSha256": "ff019bde7940434b64427bc2702985bf56702b098bfbbffbbaa0ee6ae097bb6f",
+          "reason": "Bind the unchanged original image to the native active source UVMap."
+        }
+      ]
+    },
+    "designed-rug-amazigh": {
+      "sourceBlendSha256": "8fd2e22ad901afa19aa65b824587e07ea34d13a530b19c0cda15962555bf026c",
+      "baselineGlbSha256": "749006041ca9c9c594d9b5df28f81361db669beaa4e02d9c10fd51d9f89c0c28",
+      "repairs": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "kind": "baseColor",
+          "from": -1,
+          "to": 0,
+          "mode": "authored-source-uv0",
+          "imageSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0",
+          "reason": "Bind the unchanged original image to the native active source UVMap."
+        }
+      ]
+    },
+    "designed-rug-artdeco": {
+      "sourceBlendSha256": "cff3285a5d35f2353f6bd0303f393e6d8e621c7e528e4418ae0dc18585c1a7eb",
+      "baselineGlbSha256": "7150f64820fb7b6c948ebe7d01446f40e884914c0595d88110a9d3797aa741da",
+      "repairs": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "kind": "baseColor",
+          "from": -1,
+          "to": 0,
+          "mode": "authored-source-uv0",
+          "imageSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0",
+          "reason": "Bind the unchanged original image to the native active source UVMap."
+        }
+      ]
+    },
+    "designed-rug-kilim": {
+      "sourceBlendSha256": "1fec55417c7f9ab68947228b6c75c8c48971df9807a32e8d0269f376baf1977d",
+      "baselineGlbSha256": "e5d9319f5fc891280af7e2da44ca803f845f984f420d1aac84e04e53b269b227",
+      "repairs": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "kind": "baseColor",
+          "from": -1,
+          "to": 0,
+          "mode": "authored-source-uv0",
+          "imageSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0",
+          "reason": "Bind the unchanged original image to the native active source UVMap."
+        }
+      ]
+    },
+    "designed-rug-persian": {
+      "sourceBlendSha256": "0c5b3f71560622ce2a1ab174774c097cffc1bb017e9319352b02c09c5512520e",
+      "baselineGlbSha256": "367cd28820ba4dd01aec2aa24ee39c10f103b60fc8d67418e489da96de16de48",
+      "repairs": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "kind": "baseColor",
+          "from": -1,
+          "to": 0,
+          "mode": "authored-source-uv0",
+          "imageSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0",
+          "reason": "Bind the unchanged original image to the native active source UVMap."
+        }
+      ]
+    }
+  }
+}

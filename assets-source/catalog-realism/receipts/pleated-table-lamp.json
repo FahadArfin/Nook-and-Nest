@@ -1,0 +1,1987 @@
+{
+  "version": 1,
+  "catalogId": "pleated-table-lamp",
+  "inputContractSha256": "fffcf296a56bb7357187cb7ea1042edbcc4f2de3f20b242aedaa538b8163bf78",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/pleated-table-lamp.blend",
+      "sha256": "c0ea383b8f4e808fa9b945049ffcbb680e2fb0aa2c042b812c11cd34afb442cc",
+      "bytes": 171528
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/pleated-table-lamp.glb",
+      "sha256": "2ce9d4adf119bcfc02642987d9737e2df6a3105a6cc4ff287c53ac09a307c309",
+      "bytes": 788768
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.json",
+      "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+      "bytes": 92
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.py",
+      "sha256": "f2c48c4a66d2d810c0b1ccf89f5bbdad31772d60317581af0d9addd9d4e97931",
+      "bytes": 1793
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+      "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+      "bytes": 15266
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.py",
+      "sha256": "f2c48c4a66d2d810c0b1ccf89f5bbdad31772d60317581af0d9addd9d4e97931",
+      "bytes": 1793
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.json",
+      "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+      "bytes": 92
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+      "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+      "bytes": 15266
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/pleated-table-lamp.blend",
+      "sha256": "c0ea383b8f4e808fa9b945049ffcbb680e2fb0aa2c042b812c11cd34afb442cc",
+      "bytes": 171528
+    },
+    {
+      "path": "public/models/furniture/pleated-table-lamp.glb",
+      "sha256": "2ce9d4adf119bcfc02642987d9737e2df6a3105a6cc4ff287c53ac09a307c309",
+      "bytes": 788768
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.py",
+      "sha256": "f2c48c4a66d2d810c0b1ccf89f5bbdad31772d60317581af0d9addd9d4e97931",
+      "bytes": 1793
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.json",
+      "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+      "bytes": 92
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+      "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+      "bytes": 15266
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "shade_core",
+      "construction": "Open conical lampshade liner, 1.5 mm thick; both circular openings remain unobstructed.",
+      "beforeGeometrySha256": "d64e6e6dc8f432105659c72230b7f98485eb124b4a1c8c47bbc72713e458a3b5",
+      "afterGeometrySha256": "3a918f38d491d30c814761786d6dad68909440a718e902b744d6b54ac6dbd24e",
+      "originalVertices": 144,
+      "candidateVertices": 384,
+      "boundsM": {
+        "min": [
+          -0.1589999943971634,
+          -0.1589999943971634,
+          0.3153459429740906
+        ],
+        "max": [
+          0.1589999943971634,
+          0.1589999943971634,
+          0.518450140953064
+        ]
+      },
+      "topologyChanged": true,
+      "preserved": [
+        "original component identity and material keys",
+        "overall model bounds",
+        "all unrelated original components"
+      ]
+    },
+    {
+      "kind": "source-evidenced-lamp-internals",
+      "newComponents": [
+        {
+          "component": "detail_pleated_lamp_stem",
+          "candidateVertices": 98,
+          "boundsM": {
+            "min": [
+              -0.009999999776482582,
+              -0.009999999776482582,
+              0.23000000417232513
+            ],
+            "max": [
+              0.009999999776482582,
+              0.009999999776482582,
+              0.35899999737739563
+            ]
+          }
+        },
+        {
+          "component": "detail_pleated_lamp_socket",
+          "candidateVertices": 194,
+          "boundsM": {
+            "min": [
+              -0.017000000923871994,
+              -0.017000000923871994,
+              0.35199999809265137
+            ],
+            "max": [
+              0.017000000923871994,
+              0.017000000923871994,
+              0.3889999985694885
+            ]
+          }
+        },
+        {
+          "component": "detail_pleated_lamp_bulb",
+          "candidateVertices": 290,
+          "boundsM": {
+            "min": [
+              -0.02800000086426735,
+              -0.02800000086426735,
+              0.382999986410141
+            ],
+            "max": [
+              0.02800000086426735,
+              0.02800000086426735,
+              0.4519999921321869
+            ]
+          }
+        },
+        {
+          "component": "detail_pleated_lamp_spider_1",
+          "candidateVertices": 24,
+          "boundsM": {
+            "min": [
+              0,
+              -0.0020000000949949026,
+              0.3540000021457672
+            ],
+            "max": [
+              0.14900000393390656,
+              0.0020000000949949026,
+              0.3580000102519989
+            ]
+          }
+        },
+        {
+          "component": "detail_pleated_lamp_spider_2",
+          "candidateVertices": 24,
+          "boundsM": {
+            "min": [
+              -0.07623205333948135,
+              -0.0010000000474974513,
+              0.3540000021457672
+            ],
+            "max": [
+              0.001732050790451467,
+              0.13003778457641602,
+              0.3580000102519989
+            ]
+          }
+        },
+        {
+          "component": "detail_pleated_lamp_spider_3",
+          "candidateVertices": 24,
+          "boundsM": {
+            "min": [
+              -0.07623205333948135,
+              -0.13003778457641602,
+              0.3540000021457672
+            ],
+            "max": [
+              0.001732050790451467,
+              0.0010000000474974513,
+              0.3580000102519989
+            ]
+          }
+        }
+      ],
+      "construction": "Stem connects ceramic base to socket; three spider arms support the hollow shade and the bulb is visible below.",
+      "preserved": [
+        "all original linen pleats and bound hem",
+        "existing exact material keys and factors",
+        "overall envelope",
+        "no emission changes"
+      ]
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "tailored-tone-on-tone-stitch",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "variant-surface",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-brass",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "linen-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-twill-color.jpg",
+              "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+              "bytes": 364520
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-twill-normal.jpg",
+              "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+              "bytes": 69792
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-twill-orm.jpg",
+              "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+              "bytes": 317744
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-twill-color.jpg",
+            "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+            "bytes": 364520
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+          "materialKey": "linen-textured",
+          "profile": "fabric",
+          "family": "twill",
+          "repeatM": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "scanFamily": "twill"
+    },
+    {
+      "materialKey": "tailored-tone-on-tone-stitch",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "tailored-tone-on-tone-stitch",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "tailored-tone-on-tone-stitch",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "variant-surface",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "variant-surface",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "variant-surface",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-brass",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-brass",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-brass",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "linen-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "baseColor",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "normal",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "orm",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "tailored-tone-on-tone-stitch",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "tailored-tone-on-tone-stitch",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-brass",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-brass",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "family": "twill",
+      "repeatM": [
+        0.3,
+        0.3
+      ],
+      "newSha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7"
+    }
+  ],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 3414832,
+    "afterBytes": 3414832,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/pleated-table-lamp.blend",
+      "sha256": "853c3ebb9dca70f5f7ecb4ea9a53864e5e27392e1b2f389799bbadb84209d0b9",
+      "bytes": 3138058
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/pleated-table-lamp.glb",
+      "sha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+      "bytes": 3414832
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/pleated-table-lamp/front-c34d2738ce581c1ad296.webp",
+      "sha256": "c34d2738ce581c1ad29677c1820ee41cbf13d35df456140c55fdc00312e3d030",
+      "bytes": 74432,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.794,
+      "camera": {
+        "orthoScale": 1.0262596607208252,
+        "position": [
+          0.9679072499275208,
+          -1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.27272990345954895,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7272700071334839,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+      "renderConfigSha256": "772ab059755735d5d1a6a3244d33aaaf2ce00d0749d7d0208ad86b24dc94b764",
+      "inputSetSha256": "9a5c5a6a24b04ec4e390dafebef774add3e1dca4ebae2d3dc214ac7b0ca4f570"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/pleated-table-lamp/rear-2957a5db91c6dc24804b.webp",
+      "sha256": "2957a5db91c6dc24804be4c5fd3cc94dc2e9f91f02ea84ef934f9f21820a9f01",
+      "bytes": 78534,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.79,
+      "camera": {
+        "orthoScale": 1.0262595415115356,
+        "position": [
+          -0.9679072499275208,
+          1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.27272990345954895,
+            0.06521739810705185
+          ],
+          "max": [
+            0.7272700071334839,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+      "renderConfigSha256": "772ab059755735d5d1a6a3244d33aaaf2ce00d0749d7d0208ad86b24dc94b764",
+      "inputSetSha256": "9a5c5a6a24b04ec4e390dafebef774add3e1dca4ebae2d3dc214ac7b0ca4f570"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/pleated-table-lamp/detail-c113a6d600f58eab89ae.webp",
+      "sha256": "c113a6d600f58eab89ae4540208d173b736064b606a339bb6114926ad6b40692",
+      "bytes": 109438,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.807,
+      "camera": {
+        "orthoScale": 0.5644431114196777,
+        "position": [
+          0.9679072499275208,
+          -1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.2727299630641937,
+            0.06521736085414886
+          ],
+          "max": [
+            0.7272698879241943,
+            0.9347814917564392
+          ]
+        }
+      },
+      "glbSha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+      "renderConfigSha256": "772ab059755735d5d1a6a3244d33aaaf2ce00d0749d7d0208ad86b24dc94b764",
+      "inputSetSha256": "9a5c5a6a24b04ec4e390dafebef774add3e1dca4ebae2d3dc214ac7b0ca4f570"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/pleated-table-lamp/underside-ae674a369ea5ebbdf491.webp",
+      "sha256": "ae674a369ea5ebbdf491d084c6eb621794b76903d5d483961829e692cb6511e8",
+      "bytes": 45598,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.683,
+      "camera": {
+        "orthoScale": 1.0362279415130615,
+        "position": [
+          0.9515910148620605,
+          -1.5859850645065308,
+          -0.6915910243988037
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2749161422252655,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7250836491584778,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+      "renderConfigSha256": "772ab059755735d5d1a6a3244d33aaaf2ce00d0749d7d0208ad86b24dc94b764",
+      "inputSetSha256": "9a5c5a6a24b04ec4e390dafebef774add3e1dca4ebae2d3dc214ac7b0ca4f570"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/pleated-table-lamp/clay-951364134059878db4c1.webp",
+      "sha256": "951364134059878db4c14604ea53faa9cf743699608e989681e1e5cf71e936c3",
+      "bytes": 62040,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.78,
+      "camera": {
+        "orthoScale": 1.0262596607208252,
+        "position": [
+          0.9679072499275208,
+          -1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.27272990345954895,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7272700071334839,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+      "renderConfigSha256": "772ab059755735d5d1a6a3244d33aaaf2ce00d0749d7d0208ad86b24dc94b764",
+      "inputSetSha256": "9a5c5a6a24b04ec4e390dafebef774add3e1dca4ebae2d3dc214ac7b0ca4f570"
+    }
+  ],
+  "timingSeconds": 3.83,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.17000000178813934,
+          0.17000000178813934,
+          0.5199999809265137
+        ],
+        "min": [
+          -0.17000000178813934,
+          -0.17000000178813934,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 1,
+          "materialKey": "variant-surface",
+          "rawGlbBaseColorFactor": [
+            0.5600000023841858,
+            0.6499999761581421,
+            0.44999998807907104,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+      "renderImportSha256": "fff83c219b1ee2980ba4ab45f90b4e19c69660a0a70987a3d64b93c1add9c870",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.17000000178813934,0.17000000178813934,0.5199999809265137],\"min\":[-0.17000000178813934,-0.17000000178813934,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":1,\"materialKey\":\"variant-surface\",\"rawGlbBaseColorFactor\":[0.5600000023841858,0.6499999761581421,0.44999998807907104,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024\",\"renderImportSha256\":\"fff83c219b1ee2980ba4ab45f90b4e19c69660a0a70987a3d64b93c1add9c870\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "772ab059755735d5d1a6a3244d33aaaf2ce00d0749d7d0208ad86b24dc94b764",
+    "inputs": [
+      {
+        "path": "assets-source/blender/pleated-table-lamp.blend",
+        "sha256": "c0ea383b8f4e808fa9b945049ffcbb680e2fb0aa2c042b812c11cd34afb442cc",
+        "bytes": 171528
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/pleated-table-lamp.blend",
+        "sha256": "853c3ebb9dca70f5f7ecb4ea9a53864e5e27392e1b2f389799bbadb84209d0b9",
+        "bytes": 3138058
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-normal-f23e4eb6337de814.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/linen-textured-orm-d06a0862d657901e.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/tailored-tone-on-tone-stitch-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/variant-surface-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-brass-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pleated-table-lamp/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/pleated-table-lamp.glb",
+        "sha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+        "bytes": 3414832
+      },
+      {
+        "path": "public/models/furniture/pleated-table-lamp.glb",
+        "sha256": "2ce9d4adf119bcfc02642987d9737e2df6a3105a6cc4ff287c53ac09a307c309",
+        "bytes": 788768
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "public/textures/realism/material-twill-normal.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "public/textures/realism/material-twill-orm.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.json",
+        "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+        "bytes": 92
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/pleated-table-lamp.py",
+        "sha256": "f2c48c4a66d2d810c0b1ccf89f5bbdad31772d60317581af0d9addd9d4e97931",
+        "bytes": 1793
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+        "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+        "bytes": 15266
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+        "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+        "bytes": 12009
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "9a5c5a6a24b04ec4e390dafebef774add3e1dca4ebae2d3dc214ac7b0ca4f570",
+    "afterSha256": "9a5c5a6a24b04ec4e390dafebef774add3e1dca4ebae2d3dc214ac7b0ca4f570"
+  },
+  "formatValidation": {
+    "sha256": "b0365b09be1fabefc510c126a79f26a89f7572c4f2e10fcca26ca18309240024",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 10,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/4"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/5"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/6"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/7"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "catalog_materials independent five-view review",
+    "artifactSetSha256": "5af3811adf44ce73eacb8a1ab1a7ba89d4309b6740b24140792a42ab4cd3ed0c",
+    "views": {
+      "front": "The shade remains pleated with an open top above the ceramic base and connected brass stem.",
+      "rear": "The rear pleats remain continuous around the hollow shade rather than closing it with a solid cap.",
+      "detail": "The liner sits behind the separate pleats, preserving the scalloped edge and thin open rim.",
+      "underside": "The open bottom exposes the connected central stem, socket and radial spider inside the shade.",
+      "clay": "The clay view confirms a hollow pleated shell above a connected lamp body and base."
+    }
+  }
+}

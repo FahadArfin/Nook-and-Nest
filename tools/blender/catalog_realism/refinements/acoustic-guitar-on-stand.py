@@ -1,0 +1,60 @@
+"""Smooth the authored guitar contour, preserving its instrument and support details."""
+from pathlib import Path
+import runpy
+
+CATALOG_ID = 'acoustic-guitar-on-stand'
+SOURCE_COMPONENTS = [{'name': 'Guitar solid mahogany back',
+  'vertices': 240,
+  'materials': ['end-grain'],
+  'bounds': {'min': [-0.2061510533094406,
+                     0.045500002801418304,
+                     0.10685840994119644],
+             'max': [0.2061510533094406,
+                     0.05150000378489494,
+                     0.6065486669540405]},
+  'kind': 'back'},
+ {'name': 'Guitar curved hollow body sides',
+  'vertices': 48,
+  'materials': ['oiled-maple'],
+  'bounds': {'min': [-0.20631740987300873,
+                     -0.061500001698732376,
+                     0.10685840994119644],
+             'max': [0.20631740987300873,
+                     0.045500002801418304,
+                     0.6065486669540405]},
+  'kind': 'sides'},
+ {'name': 'Spruce soundboard with real sound hole',
+  'vertices': 369,
+  'materials': ['maple-lamella'],
+  'bounds': {'min': [-0.20623424649238586,
+                     -0.06700000166893005,
+                     0.10685840994119644],
+             'max': [0.20623424649238586,
+                     -0.06200000271201134,
+                     0.6065486669540405]},
+  'kind': 'soundboard'},
+ {'name': 'Ivory body edge binding',
+  'vertices': 150,
+  'materials': ['warm-ceramic'],
+  'bounds': {'min': [-0.20827990770339966,
+                     -0.06823205947875977,
+                     0.10482678562402725],
+             'max': [0.20827990770339966,
+                     -0.06476794928312302,
+                     0.6085737347602844]},
+  'kind': 'binding'},
+ {'name': 'Ivory body edge binding.001',
+  'vertices': 150,
+  'materials': ['warm-ceramic'],
+  'bounds': {'min': [-0.20827990770339966,
+                     0.048767950385808945,
+                     0.10482678562402725],
+             'max': [0.20827990770339966,
+                     0.0522320531308651,
+                     0.6085737347602844]},
+  'kind': 'binding'}]
+
+def apply(root, scene, item, material_keys, object_names):
+    if item["id"] != CATALOG_ID: raise ValueError("Wrong source-specific recipe")
+    helper = runpy.run_path(str(Path(__file__).with_name("curved_construction.py")))
+    return helper["apply_guitar"](scene,item,material_keys,object_names,SOURCE_COMPONENTS)

@@ -1,0 +1,1476 @@
+{
+  "version": 1,
+  "catalogId": "dish-rack",
+  "inputContractSha256": "4759255f695ba4af963a1534d9f0318246c0597c0365de7aa9930c93ed95fec4",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/dish-rack.blend",
+      "sha256": "fce5b15f23dec3a4b9a3c90b9d66a2f565431ce6bd905b1f7864b7c94e673386",
+      "bytes": 117189
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/dish-rack.glb",
+      "sha256": "98d5a5510c3a15648862d3e29f95ad1ecd7807963f3bdf8ac0362580e1f2e0bf",
+      "bytes": 396392
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/dish-rack.json",
+      "sha256": "347bfa2756b1405d674121b7576d66d019b4734772b3e9c52428a6df0f835ff1",
+      "bytes": 103
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/dish-rack.py",
+      "sha256": "6ecb933d5f7df9307cf172bd5ce6a68aec74c18b2ec7fd75677b5cc8edd23d78",
+      "bytes": 2256
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/small_turned_shells.py",
+      "sha256": "cc20f984040211d47dfacb5dbc15d57661af5db22843a51a22e75b17871f7f55",
+      "bytes": 5723
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/dish-rack.py",
+      "sha256": "6ecb933d5f7df9307cf172bd5ce6a68aec74c18b2ec7fd75677b5cc8edd23d78",
+      "bytes": 2256
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/dish-rack.json",
+      "sha256": "347bfa2756b1405d674121b7576d66d019b4734772b3e9c52428a6df0f835ff1",
+      "bytes": 103
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/small_turned_shells.py",
+      "sha256": "cc20f984040211d47dfacb5dbc15d57661af5db22843a51a22e75b17871f7f55",
+      "bytes": 5723
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/dish-rack.blend",
+      "sha256": "fce5b15f23dec3a4b9a3c90b9d66a2f565431ce6bd905b1f7864b7c94e673386",
+      "bytes": 117189
+    },
+    {
+      "path": "public/models/furniture/dish-rack.glb",
+      "sha256": "98d5a5510c3a15648862d3e29f95ad1ecd7807963f3bdf8ac0362580e1f2e0bf",
+      "bytes": 396392
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/dish-rack.py",
+      "sha256": "6ecb933d5f7df9307cf172bd5ce6a68aec74c18b2ec7fd75677b5cc8edd23d78",
+      "bytes": 2256
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/dish-rack.json",
+      "sha256": "347bfa2756b1405d674121b7576d66d019b4734772b3e9c52428a6df0f835ff1",
+      "bytes": 103
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/small_turned_shells.py",
+      "sha256": "cc20f984040211d47dfacb5dbc15d57661af5db22843a51a22e75b17871f7f55",
+      "bytes": 5723
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "stacked_plate",
+      "construction": "smooth upright plate with rolled rim, shallow recessed face and closed back",
+      "sourceVertices": 144,
+      "candidateVertices": 962,
+      "candidateTriangles": 1920,
+      "preserved": [
+        "catalog envelope and material keys",
+        "unrelated source parts and protected motion"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "stacked_plate.001",
+      "construction": "smooth upright plate with rolled rim, shallow recessed face and closed back",
+      "sourceVertices": 144,
+      "candidateVertices": 962,
+      "candidateTriangles": 1920,
+      "preserved": [
+        "catalog envelope and material keys",
+        "unrelated source parts and protected motion"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "stacked_plate.002",
+      "construction": "smooth upright plate with rolled rim, shallow recessed face and closed back",
+      "sourceVertices": 144,
+      "candidateVertices": 962,
+      "candidateTriangles": 1920,
+      "preserved": [
+        "catalog envelope and material keys",
+        "unrelated source parts and protected motion"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "stacked_plate.003",
+      "construction": "smooth upright plate with rolled rim, shallow recessed face and closed back",
+      "sourceVertices": 144,
+      "candidateVertices": 962,
+      "candidateTriangles": 1920,
+      "preserved": [
+        "catalog envelope and material keys",
+        "unrelated source parts and protected motion"
+      ]
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-oak-color.jpg",
+              "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+              "bytes": 284236
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-oak-normal.jpg",
+              "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+              "bytes": 159674
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-oak-orm.jpg",
+              "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+              "bytes": 813714
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-oak-color.jpg",
+            "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+            "bytes": 284236
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+          "materialKey": "wood-honey-textured",
+          "profile": "wood",
+          "family": "oak",
+          "repeatM": [
+            1.83,
+            1.83
+          ]
+        }
+      ],
+      "scanFamily": "oak"
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "baseColor",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "normal",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "orm",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "family": "oak",
+      "repeatM": [
+        1.83,
+        1.83
+      ],
+      "newSha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df"
+    }
+  ],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 2719048,
+    "afterBytes": 2719048,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/dish-rack.blend",
+      "sha256": "1f6f57781b3aa595b3e5c15bc9e99e8bfa3e2c3ac4db7ce035f9f2b75f99609f",
+      "bytes": 1797423
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/dish-rack.glb",
+      "sha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "bytes": 2719048
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/dish-rack/front-d97dbdb7aae7cc616e78.webp",
+      "sha256": "d97dbdb7aae7cc616e780ec34be420609acafcc98efd595f3e237aab45589a54",
+      "bytes": 133076,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.869,
+      "camera": {
+        "orthoScale": 0.6836292743682861,
+        "position": [
+          0.8562256693840027,
+          -1.427042841911316,
+          0.9148735404014587
+        ],
+        "target": [
+          0,
+          0,
+          0.12999999523162842
+        ],
+        "clipStart": 0.0004600000102072954,
+        "clipEnd": 5.519999980926514,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09861617535352707,
+            0.06521738320589066
+          ],
+          "max": [
+            0.9013838768005371,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "renderConfigSha256": "5a265d1091a7ac2af3048061c494468f0f26f86fba81863167cecb445d1453f5",
+      "inputSetSha256": "9b781d4b778ae4ab16c5088ff8de4b8a8bffec60bc5ae0bbb165587538eef166"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/dish-rack/rear-96fd798ddbcd9901f310.webp",
+      "sha256": "96fd798ddbcd9901f31013250d3506a3f44fd4469d2d4b29c16ae610ae5df6fe",
+      "bytes": 134218,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.799,
+      "camera": {
+        "orthoScale": 0.6836292147636414,
+        "position": [
+          -0.8562256693840027,
+          1.427042841911316,
+          0.9148735404014587
+        ],
+        "target": [
+          0,
+          0,
+          0.12999999523162842
+        ],
+        "clipStart": 0.0004600000102072954,
+        "clipEnd": 5.519999980926514,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09861614555120468,
+            0.06521739065647125
+          ],
+          "max": [
+            0.9013838768005371,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "renderConfigSha256": "5a265d1091a7ac2af3048061c494468f0f26f86fba81863167cecb445d1453f5",
+      "inputSetSha256": "9b781d4b778ae4ab16c5088ff8de4b8a8bffec60bc5ae0bbb165587538eef166"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/dish-rack/detail-cb2bb18477553a189d7e.webp",
+      "sha256": "cb2bb18477553a189d7e018ae87ddc9798103e87a9955aacdb5c456f89616be5",
+      "bytes": 213846,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.851,
+      "camera": {
+        "orthoScale": 0.37599632143974304,
+        "position": [
+          0.8562256693840027,
+          -1.427042841911316,
+          0.9148735404014587
+        ],
+        "target": [
+          0,
+          0,
+          0.12999999523162842
+        ],
+        "clipStart": 0.0004600000102072954,
+        "clipEnd": 5.519999980926514,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.09861641377210617,
+            0.06521736830472946
+          ],
+          "max": [
+            0.901383638381958,
+            0.9347813725471497
+          ]
+        }
+      },
+      "glbSha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "renderConfigSha256": "5a265d1091a7ac2af3048061c494468f0f26f86fba81863167cecb445d1453f5",
+      "inputSetSha256": "9b781d4b778ae4ab16c5088ff8de4b8a8bffec60bc5ae0bbb165587538eef166"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/dish-rack/underside-a7301b2fe4707d25fdba.webp",
+      "sha256": "a7301b2fe4707d25fdba0e62c6b5b212be6dafa85bf908aa3a1d7c0027bda127",
+      "bytes": 71930,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.704,
+      "camera": {
+        "orthoScale": 0.7009777426719666,
+        "position": [
+          0.841792106628418,
+          -1.4029868841171265,
+          -0.7117921113967896
+        ],
+        "target": [
+          0,
+          0,
+          0.12999999523162842
+        ],
+        "clipStart": 0.0004600000102072954,
+        "clipEnd": 5.519999980926514,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.10854992270469666,
+            0.06521737575531006
+          ],
+          "max": [
+            0.8914499282836914,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "renderConfigSha256": "5a265d1091a7ac2af3048061c494468f0f26f86fba81863167cecb445d1453f5",
+      "inputSetSha256": "9b781d4b778ae4ab16c5088ff8de4b8a8bffec60bc5ae0bbb165587538eef166"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/dish-rack/clay-102906a4e5054226a015.webp",
+      "sha256": "102906a4e5054226a01570d817ba9d244fe102d0e3d0afeaa2bd826b929e428b",
+      "bytes": 85030,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.794,
+      "camera": {
+        "orthoScale": 0.6836292743682861,
+        "position": [
+          0.8562256693840027,
+          -1.427042841911316,
+          0.9148735404014587
+        ],
+        "target": [
+          0,
+          0,
+          0.12999999523162842
+        ],
+        "clipStart": 0.0004600000102072954,
+        "clipEnd": 5.519999980926514,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09861617535352707,
+            0.06521738320589066
+          ],
+          "max": [
+            0.9013838768005371,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "renderConfigSha256": "5a265d1091a7ac2af3048061c494468f0f26f86fba81863167cecb445d1453f5",
+      "inputSetSha256": "9b781d4b778ae4ab16c5088ff8de4b8a8bffec60bc5ae0bbb165587538eef166"
+    }
+  ],
+  "timingSeconds": 1.34,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.23000000417232513,
+          0.15000000596046448,
+          0.25999999046325684
+        ],
+        "min": [
+          -0.23000000417232513,
+          -0.15000000596046448,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "renderImportSha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.23000000417232513,0.15000000596046448,0.25999999046325684],\"min\":[-0.23000000417232513,-0.15000000596046448,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d\",\"renderImportSha256\":\"4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "5a265d1091a7ac2af3048061c494468f0f26f86fba81863167cecb445d1453f5",
+    "inputs": [
+      {
+        "path": "assets-source/blender/dish-rack.blend",
+        "sha256": "fce5b15f23dec3a4b9a3c90b9d66a2f565431ce6bd905b1f7864b7c94e673386",
+        "bytes": 117189
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/dish-rack.blend",
+        "sha256": "1f6f57781b3aa595b3e5c15bc9e99e8bfa3e2c3ac4db7ce035f9f2b75f99609f",
+        "bytes": 1797423
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/dish-rack/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/dish-rack/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/dish-rack.glb",
+        "sha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+        "bytes": 2719048
+      },
+      {
+        "path": "public/models/furniture/dish-rack.glb",
+        "sha256": "98d5a5510c3a15648862d3e29f95ad1ecd7807963f3bdf8ac0362580e1f2e0bf",
+        "bytes": 396392
+      },
+      {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-orm.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/dish-rack.json",
+        "sha256": "347bfa2756b1405d674121b7576d66d019b4734772b3e9c52428a6df0f835ff1",
+        "bytes": 103
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/dish-rack.py",
+        "sha256": "6ecb933d5f7df9307cf172bd5ce6a68aec74c18b2ec7fd75677b5cc8edd23d78",
+        "bytes": 2256
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+        "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+        "bytes": 9057
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/small_turned_shells.py",
+        "sha256": "cc20f984040211d47dfacb5dbc15d57661af5db22843a51a22e75b17871f7f55",
+        "bytes": 5723
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "9b781d4b778ae4ab16c5088ff8de4b8a8bffec60bc5ae0bbb165587538eef166",
+    "afterSha256": "9b781d4b778ae4ab16c5088ff8de4b8a8bffec60bc5ae0bbb165587538eef166"
+  },
+  "formatValidation": {
+    "sha256": "4c04090f448199fc17f32c3f7c99357466b46b04860014da9315ccf1670da24d",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 3,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "a6f89b372125d4b2cc97d845b0a73ada3bd2bae1a68272a70158788585959af6",
+    "views": {
+      "front": "Four rounded plates sit between the independent wood drying-rack dividers.",
+      "rear": "Rear plate faces and wood supports remain joined to the base.",
+      "detail": "Plates now have shallow recessed faces and rounded rims instead of flat faceted discs.",
+      "underside": "Closed base, plate backs and original divider feet remain intact.",
+      "clay": "Clay confirms the recessed plate profiles and separate supporting rails."
+    }
+  }
+}

@@ -1,0 +1,1939 @@
+{
+  "version": 1,
+  "catalogId": "patio-parasol",
+  "inputContractSha256": "afba6627b00a2e34d28d27ef64aa72f58c7fd0195c5e023a16bae05d84488fe3",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/patio-parasol.blend",
+      "sha256": "1bcacb215c1275f1bc8cd71a5e91729763b9860eb59446e90970efe1044d0908",
+      "bytes": 134745
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-normal-4d6b256548470c84.jpg",
+      "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+      "bytes": 1276822
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-orm-8685aa5a3d584710.png",
+      "sha256": "8685aa5a3d584710dfee3839173ba96fb22e51504fbed6ff64784c5c7c16c75b",
+      "bytes": 622676
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/canvas-orm.png",
+      "sha256": "16f7955bae3d631eebbc84d2a588c63bd54ee6abe49c01c36da118a83a4d9f4d",
+      "bytes": 354227
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/patio-parasol.glb",
+      "sha256": "3b0fb5bba0297347c713d48ed3a467ec2efd6df43a90f4b03276640b9b13819f",
+      "bytes": 466796
+    },
+    {
+      "path": "public/textures/realism/material-canvas-normal.jpg",
+      "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+      "bytes": 1276822
+    },
+    {
+      "path": "public/textures/realism/material-canvas-roughness.jpg",
+      "sha256": "3e0ac4c60b61a359066fd8582923cd39285d71c80ad8fb0513959a3d42df85af",
+      "bytes": 367203
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/patio-parasol.json",
+      "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+      "bytes": 92
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/patio-parasol.py",
+      "sha256": "57f0e79fc99425ffe6ed4dbc059b3912dcc365d239db4dd7ad32eaba295136b4",
+      "bytes": 1216
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+      "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+      "bytes": 15266
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/patio-parasol.py",
+      "sha256": "57f0e79fc99425ffe6ed4dbc059b3912dcc365d239db4dd7ad32eaba295136b4",
+      "bytes": 1216
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/patio-parasol.json",
+      "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+      "bytes": 92
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+      "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+      "bytes": 15266
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/patio-parasol.blend",
+      "sha256": "1bcacb215c1275f1bc8cd71a5e91729763b9860eb59446e90970efe1044d0908",
+      "bytes": 134745
+    },
+    {
+      "path": "public/models/furniture/patio-parasol.glb",
+      "sha256": "3b0fb5bba0297347c713d48ed3a467ec2efd6df43a90f4b03276640b9b13819f",
+      "bytes": 466796
+    },
+    {
+      "path": "public/textures/realism/material-canvas-normal.jpg",
+      "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+      "bytes": 1276822
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/canvas-orm.png",
+      "sha256": "16f7955bae3d631eebbc84d2a588c63bd54ee6abe49c01c36da118a83a4d9f4d",
+      "bytes": 354227
+    },
+    {
+      "path": "public/textures/realism/material-canvas-roughness.jpg",
+      "sha256": "3e0ac4c60b61a359066fd8582923cd39285d71c80ad8fb0513959a3d42df85af",
+      "bytes": 367203
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-normal-4d6b256548470c84.jpg",
+      "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+      "bytes": 1276822
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-orm-8685aa5a3d584710.png",
+      "sha256": "8685aa5a3d584710dfee3839173ba96fb22e51504fbed6ff64784c5c7c16c75b",
+      "bytes": 622676
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/patio-parasol.py",
+      "sha256": "57f0e79fc99425ffe6ed4dbc059b3912dcc365d239db4dd7ad32eaba295136b4",
+      "bytes": 1216
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/patio-parasol.json",
+      "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+      "bytes": 92
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+      "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+      "bytes": 15266
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "curved_sewn_canopy_gore",
+      "construction": "Smooth sewn gores with 28 mm interior cloth sag; original rib boundaries, outer scallops, mast and mechanism remain exact.",
+      "beforeGeometrySha256": "214777c138725bbcddcb943fb373e160a867ae3e33ee1f01fffcfb8405ab439f",
+      "afterGeometrySha256": "cd43f9531675f3e83af128863aeb640f206cf139841db910b6a597fb9b3c33c2",
+      "originalVertices": 196,
+      "candidateVertices": 1092,
+      "boundsM": {
+        "min": [
+          -1.199628472328186,
+          -1.199628472328186,
+          2.019481897354126
+        ],
+        "max": [
+          1.199628472328186,
+          1.199628472328186,
+          2.4433236122131348
+        ]
+      },
+      "topologyChanged": true,
+      "preserved": [
+        "original component identity and material keys",
+        "overall model bounds",
+        "all unrelated original components"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "curved_sewn_canopy_gore.001",
+      "construction": "Smooth sewn gores with 28 mm interior cloth sag; original rib boundaries, outer scallops, mast and mechanism remain exact.",
+      "beforeGeometrySha256": "9ffc546cb7bdedb6c2e4eafa4203ba8e31cc09ea98433a685d3b675801ed220b",
+      "afterGeometrySha256": "2a6618f65cf25df10b71f411749458669360c1b61064cd4fd0cfe5c7759f5955",
+      "originalVertices": 196,
+      "candidateVertices": 1092,
+      "boundsM": {
+        "min": [
+          -1.199628472328186,
+          -1.199628472328186,
+          2.019481897354126
+        ],
+        "max": [
+          1.199628472328186,
+          1.199628472328186,
+          2.4433236122131348
+        ]
+      },
+      "topologyChanged": true,
+      "preserved": [
+        "original component identity and material keys",
+        "overall model bounds",
+        "all unrelated original components"
+      ]
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "canvas-piping",
+      "profile": "canvas",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "powder-coated-charcoal",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "weathered-fasteners",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "canvas-piping",
+      "profile": "canvas",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "canvas-piping",
+          "kind": "normal",
+          "path": "public/textures/realism/material-canvas-normal.jpg",
+          "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+          "bytes": 1276822,
+          "colorSpace": "Non-Color",
+          "source": "https://ambientcg.com/a/Fabric036",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "canvas-piping",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/canvas-orm.png",
+          "sha256": "16f7955bae3d631eebbc84d2a588c63bd54ee6abe49c01c36da118a83a4d9f4d",
+          "bytes": 354227,
+          "colorSpace": "Non-Color",
+          "source": "https://ambientcg.com/a/Fabric036",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-canvas-roughness.jpg",
+            "sha256": "3e0ac4c60b61a359066fd8582923cd39285d71c80ad8fb0513959a3d42df85af",
+            "bytes": 367203
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.84,
+              0.94
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "powder-coated-charcoal",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "powder-coated-charcoal",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "powder-coated-charcoal",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "weathered-fasteners",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "weathered-fasteners",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "weathered-fasteners",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-oak-color.jpg",
+              "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+              "bytes": 284236
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-oak-normal.jpg",
+              "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+              "bytes": 159674
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-oak-orm.jpg",
+              "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+              "bytes": 813714
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-oak-color.jpg",
+            "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+            "bytes": 284236
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+          "materialKey": "wood-honey-textured",
+          "profile": "wood",
+          "family": "oak",
+          "repeatM": [
+            1.83,
+            1.83
+          ]
+        }
+      ],
+      "scanFamily": "oak"
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "canvas-piping",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-normal-4d6b256548470c84.jpg",
+      "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+      "bytes": 1276822,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "canvas-piping",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-orm-8685aa5a3d584710.png",
+      "sha256": "8685aa5a3d584710dfee3839173ba96fb22e51504fbed6ff64784c5c7c16c75b",
+      "bytes": 622676,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "powder-coated-charcoal",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "powder-coated-charcoal",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "weathered-fasteners",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "weathered-fasteners",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "baseColor",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "normal",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "orm",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "family": "oak",
+      "repeatM": [
+        1.83,
+        1.83
+      ],
+      "newSha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df"
+    }
+  ],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 5369908,
+    "afterBytes": 5369908,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/patio-parasol.blend",
+      "sha256": "92551686469c6bba78ca11bd8780b21327329c9089d11f97c7248aa8734941d2",
+      "bytes": 4514329
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/patio-parasol.glb",
+      "sha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+      "bytes": 5369908
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/patio-parasol/front-8f9945c8c8d1ee318e31.webp",
+      "sha256": "8f9945c8c8d1ee318e31919607c615ed71c2b216870b10d63ee41b10cb46c26e",
+      "bytes": 49378,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.772,
+      "camera": {
+        "orthoScale": 5.551427364349365,
+        "position": [
+          4.560332298278809,
+          -7.6005539894104,
+          5.405304908752441
+        ],
+        "target": [
+          0,
+          0,
+          1.225000023841858
+        ],
+        "clipStart": 0.0024500000290572643,
+        "clipEnd": 29.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.20343005657196045,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7965699434280396,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+      "renderConfigSha256": "0e5032286ca3efdd7ce6ec6e2f38e1f1c27ba01689b12b808564e7d4087d6db4",
+      "inputSetSha256": "717d41be704ada22bd407ca5fd7093ba0893c6c97e5b8fc954e3d080a17a679e"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/patio-parasol/rear-0f7ff2f024a470b9185d.webp",
+      "sha256": "0f7ff2f024a470b9185d82f27afd762edc69921544926b04ced03d53942a4399",
+      "bytes": 50758,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.763,
+      "camera": {
+        "orthoScale": 5.551427364349365,
+        "position": [
+          -4.560332298278809,
+          7.6005539894104,
+          5.405304908752441
+        ],
+        "target": [
+          0,
+          0,
+          1.225000023841858
+        ],
+        "clipStart": 0.0024500000290572643,
+        "clipEnd": 29.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.20343007147312164,
+            0.06521741300821304
+          ],
+          "max": [
+            0.7965699434280396,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+      "renderConfigSha256": "0e5032286ca3efdd7ce6ec6e2f38e1f1c27ba01689b12b808564e7d4087d6db4",
+      "inputSetSha256": "717d41be704ada22bd407ca5fd7093ba0893c6c97e5b8fc954e3d080a17a679e"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/patio-parasol/detail-3913ba0e593d85a75452.webp",
+      "sha256": "3913ba0e593d85a754526d089dd9eb8b158aa5fe6906b3b03d0889b7ec5584db",
+      "bytes": 56242,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.775,
+      "camera": {
+        "orthoScale": 3.053286552429199,
+        "position": [
+          4.560332298278809,
+          -7.6005539894104,
+          5.405304908752441
+        ],
+        "target": [
+          0,
+          0,
+          1.225000023841858
+        ],
+        "clipStart": 0.0024500000290572643,
+        "clipEnd": 29.400001525878906,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.20343022048473358,
+            0.06521740555763245
+          ],
+          "max": [
+            0.79656982421875,
+            0.9347817897796631
+          ]
+        }
+      },
+      "glbSha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+      "renderConfigSha256": "0e5032286ca3efdd7ce6ec6e2f38e1f1c27ba01689b12b808564e7d4087d6db4",
+      "inputSetSha256": "717d41be704ada22bd407ca5fd7093ba0893c6c97e5b8fc954e3d080a17a679e"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/patio-parasol/underside-a637cee09c0bcb5ba0f5.webp",
+      "sha256": "a637cee09c0bcb5ba0f547f8dd4ea815a7226b9a53fe9ce82ced8ff51db0e859",
+      "bytes": 21106,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.649,
+      "camera": {
+        "orthoScale": 5.650330543518066,
+        "position": [
+          4.483458042144775,
+          -7.472430229187012,
+          -3.258458137512207
+        ],
+        "target": [
+          0,
+          0,
+          1.225000023841858
+        ],
+        "clipStart": 0.0024500000290572643,
+        "clipEnd": 29.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.20862118899822235,
+            0.06521748751401901
+          ],
+          "max": [
+            0.7913787364959717,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+      "renderConfigSha256": "0e5032286ca3efdd7ce6ec6e2f38e1f1c27ba01689b12b808564e7d4087d6db4",
+      "inputSetSha256": "717d41be704ada22bd407ca5fd7093ba0893c6c97e5b8fc954e3d080a17a679e"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/patio-parasol/clay-355e8c5e752b1c9466b6.webp",
+      "sha256": "355e8c5e752b1c9466b6cbab9e37cb77d7091e4ae176e44fc3feb3456bb27adf",
+      "bytes": 37662,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.774,
+      "camera": {
+        "orthoScale": 5.551427364349365,
+        "position": [
+          4.560332298278809,
+          -7.6005539894104,
+          5.405304908752441
+        ],
+        "target": [
+          0,
+          0,
+          1.225000023841858
+        ],
+        "clipStart": 0.0024500000290572643,
+        "clipEnd": 29.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.20343005657196045,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7965699434280396,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+      "renderConfigSha256": "0e5032286ca3efdd7ce6ec6e2f38e1f1c27ba01689b12b808564e7d4087d6db4",
+      "inputSetSha256": "717d41be704ada22bd407ca5fd7093ba0893c6c97e5b8fc954e3d080a17a679e"
+    }
+  ],
+  "timingSeconds": 3.59,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          1.2000000476837158,
+          1.2000000476837158,
+          2.450000047683716
+        ],
+        "min": [
+          -1.2000000476837158,
+          -1.2000000476837158,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 4,
+          "materialKey": "upholstery-textured",
+          "rawGlbBaseColorFactor": [
+            0.5600000023841858,
+            0.6499999761581421,
+            0.44999998807907104,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+      "renderImportSha256": "93b86326f9efecf84bc029c45db10c00c3feab8a3ed8b99b78a9cf0f1d536674",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[1.2000000476837158,1.2000000476837158,2.450000047683716],\"min\":[-1.2000000476837158,-1.2000000476837158,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":4,\"materialKey\":\"upholstery-textured\",\"rawGlbBaseColorFactor\":[0.5600000023841858,0.6499999761581421,0.44999998807907104,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2\",\"renderImportSha256\":\"93b86326f9efecf84bc029c45db10c00c3feab8a3ed8b99b78a9cf0f1d536674\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "0e5032286ca3efdd7ce6ec6e2f38e1f1c27ba01689b12b808564e7d4087d6db4",
+    "inputs": [
+      {
+        "path": "assets-source/blender/patio-parasol.blend",
+        "sha256": "1bcacb215c1275f1bc8cd71a5e91729763b9860eb59446e90970efe1044d0908",
+        "bytes": 134745
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/patio-parasol.blend",
+        "sha256": "92551686469c6bba78ca11bd8780b21327329c9089d11f97c7248aa8734941d2",
+        "bytes": 4514329
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-normal-4d6b256548470c84.jpg",
+        "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+        "bytes": 1276822
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/canvas-piping-orm-8685aa5a3d584710.png",
+        "sha256": "8685aa5a3d584710dfee3839173ba96fb22e51504fbed6ff64784c5c7c16c75b",
+        "bytes": 622676
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/powder-coated-charcoal-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/upholstery-textured-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/weathered-fasteners-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/patio-parasol/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/canvas-orm.png",
+        "sha256": "16f7955bae3d631eebbc84d2a588c63bd54ee6abe49c01c36da118a83a4d9f4d",
+        "bytes": 354227
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/patio-parasol.glb",
+        "sha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+        "bytes": 5369908
+      },
+      {
+        "path": "public/models/furniture/patio-parasol.glb",
+        "sha256": "3b0fb5bba0297347c713d48ed3a467ec2efd6df43a90f4b03276640b9b13819f",
+        "bytes": 466796
+      },
+      {
+        "path": "public/textures/realism/material-canvas-normal.jpg",
+        "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+        "bytes": 1276822
+      },
+      {
+        "path": "public/textures/realism/material-canvas-roughness.jpg",
+        "sha256": "3e0ac4c60b61a359066fd8582923cd39285d71c80ad8fb0513959a3d42df85af",
+        "bytes": 367203
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-orm.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/patio-parasol.json",
+        "sha256": "d2ee6e0b06fa61a5f76c2d8e75c41d0977320fc38792f21aef1455f20439ed2d",
+        "bytes": 92
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/patio-parasol.py",
+        "sha256": "57f0e79fc99425ffe6ed4dbc059b3912dcc365d239db4dd7ad32eaba295136b4",
+        "bytes": 1216
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/reviewed_612.py",
+        "sha256": "ee382030b74bee85c3c7eb753bfcd6a7a5cce8a907baee5f9e614e536d769f46",
+        "bytes": 15266
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+        "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+        "bytes": 12009
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "717d41be704ada22bd407ca5fd7093ba0893c6c97e5b8fc954e3d080a17a679e",
+    "afterSha256": "717d41be704ada22bd407ca5fd7093ba0893c6c97e5b8fc954e3d080a17a679e"
+  },
+  "formatValidation": {
+    "sha256": "21fd2f79284b32d283f460260bef2c06224eb88c34dccb89ab638854e8b8f0a2",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 8,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/5"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/6"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "catalog_materials independent five-view review",
+    "artifactSetSha256": "4bd87c01667381818cd6d0e2a833e152bc4a58a03b26d83f51af86a0dc88d858",
+    "views": {
+      "front": "The alternating canopy gores form a smooth continuous umbrella surface supported by the central pole.",
+      "rear": "The far gores retain an even outer hem and continuous crown without detached facets.",
+      "detail": "The closer canopy view shows restrained drape between the radial seams instead of coarse panel steps.",
+      "underside": "The underside retains the radial ribs, runner and braces connected to the pole.",
+      "clay": "The neutral view preserves the umbrella outline while showing a smooth cloth canopy and weighted foot."
+    }
+  }
+}

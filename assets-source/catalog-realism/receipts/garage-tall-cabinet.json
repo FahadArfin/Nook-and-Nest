@@ -1,0 +1,2155 @@
+{
+  "version": 1,
+  "catalogId": "garage-tall-cabinet",
+  "inputContractSha256": "ca8bf82646fe7e98b281c95fb0ecbbbf54fd458aa2e34b85a3324eb7539b08c8",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/garage-tall-cabinet.blend",
+      "sha256": "8cf53c1bd78a70ad2fe490cc8ce3638e7d148b4483c75277053010b5974237f1",
+      "bytes": 128281
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/garage-tall-cabinet.glb",
+      "sha256": "7eb4066a970550b4254f4f3db6511c5c8a5c455f67fd27ac00dbca150463c7f8",
+      "bytes": 350080
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/garage-tall-cabinet.blend",
+      "sha256": "8cf53c1bd78a70ad2fe490cc8ce3638e7d148b4483c75277053010b5974237f1",
+      "bytes": 128281
+    },
+    {
+      "path": "public/models/furniture/garage-tall-cabinet.glb",
+      "sha256": "7eb4066a970550b4254f4f3db6511c5c8a5c455f67fd27ac00dbca150463c7f8",
+      "bytes": 350080
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "Adjustable threaded foot",
+      "widthM": 0.00036916619865223765,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e929089f563f39014bc80fb84155d36cdafcc1eaaed62bed4ec6407984ce897e",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.373600035905838,
+            -0.19217416644096375,
+            0
+          ],
+          "max": [
+            -0.35760003328323364,
+            -0.17740751802921295,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "077b6cd2cb283eb16f1e7c63fc16bd7a6d294f649ee46542a82bec5152dbfd25",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.373600035905838,
+            -0.19217416644096375,
+            0
+          ],
+          "max": [
+            -0.35760003328323364,
+            -0.17740751802921295,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Adjustable threaded foot.001",
+      "widthM": 0.00036916619865223765,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5f0da511707f3b67f71b951697408325c83d090d6fd30149aacd38a5d687ea7c",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.373600035905838,
+            0.22442953288555145,
+            0
+          ],
+          "max": [
+            -0.35760003328323364,
+            0.23919618129730225,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "1f2b877108eb789a7c4e8898bf022b7e2e2683b0f9f0b90b0f34db6652e6aebb",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.373600035905838,
+            0.22442953288555145,
+            0
+          ],
+          "max": [
+            -0.35760003328323364,
+            0.23919618129730225,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Adjustable threaded foot.002",
+      "widthM": 0.00036916619865223765,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "f0307a5083c51d94e0e5f5d2e6714ec139a5aa9fc0202a36bf5e36798d3e11f8",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.35760003328323364,
+            -0.19217416644096375,
+            0
+          ],
+          "max": [
+            0.373600035905838,
+            -0.17740751802921295,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "3a50ebf8fa2a96bcd609a0cc09284e7305600dc301868e12f2eca6fd8f24469e",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.35760003328323364,
+            -0.19217416644096375,
+            0
+          ],
+          "max": [
+            0.373600035905838,
+            -0.17740751802921295,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Adjustable threaded foot.003",
+      "widthM": 0.00036916619865223765,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5f328099fb514e9199b3ba4bd8aadebaa7638c81ec7a0ee1d645f7cd25701990",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.35760003328323364,
+            0.22442953288555145,
+            0
+          ],
+          "max": [
+            0.373600035905838,
+            0.23919618129730225,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "57f1eea09f46dc66580bd505ce9361ea26d841c9c0a15211d210bcbd880601c3",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.35760003328323364,
+            0.22442953288555145,
+            0
+          ],
+          "max": [
+            0.373600035905838,
+            0.23919618129730225,
+            0.06036585196852684
+          ],
+          "size": [
+            0.01600000262260437,
+            0.014766648411750793,
+            0.06036585196852684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.4375000104904175,
+          -0.17029054701328278,
+          0.4935030381679535
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            -0.44600001454353333,
+            -0.17279054701328278,
+            0.4910030381679535
+          ],
+          "max": [
+            -0.42900000643730163,
+            -0.16779054701328278,
+            0.4960030381679535
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "e01779bb8cbf43349c8f219643dcf2606d0bd9152e87565b4b53ff504384ba17",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.44600000977516174,
+            -0.1727905422449112,
+            0.49100303649902344
+          ],
+          "max": [
+            -0.42900002002716064,
+            -0.16779054701328278,
+            0.49600303173065186
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.4375000104904175,
+          0.23577085375785828,
+          0.4935030381679535
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            -0.44600001454353333,
+            0.23327085375785828,
+            0.4910030381679535
+          ],
+          "max": [
+            -0.42900000643730163,
+            0.23827085375785828,
+            0.4960030381679535
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "017df1ac69f631a947562fa3945d451beb1b46453be890841bb065ebf1ff131b",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.44600000977516174,
+            0.23327085375785828,
+            0.49100303649902344
+          ],
+          "max": [
+            -0.42900002002716064,
+            0.2382708489894867,
+            0.49600303173065186
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.4375000104904175,
+          -0.17029054701328278,
+          0.4935030381679535
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            0.42900000643730163,
+            -0.17279054701328278,
+            0.4910030381679535
+          ],
+          "max": [
+            0.44600001454353333,
+            -0.16779054701328278,
+            0.4960030381679535
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "d62124a7c7c499875e0a635a7f2d205f5fbc09c785ed3d34695e6a6021d90b74",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.42900002002716064,
+            -0.1727905422449112,
+            0.49100303649902344
+          ],
+          "max": [
+            0.44600000977516174,
+            -0.16779054701328278,
+            0.49600303173065186
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.4375000104904175,
+          0.23577085375785828,
+          0.4935030381679535
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            0.42900000643730163,
+            0.23327085375785828,
+            0.4910030381679535
+          ],
+          "max": [
+            0.44600001454353333,
+            0.23827085375785828,
+            0.4960030381679535
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "7114d4ab8c3d1310e45bf703db24b41e1f76e9d6aa77cc86c00ecd4ddce8903d",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.42900002002716064,
+            0.23327085375785828,
+            0.49100303649902344
+          ],
+          "max": [
+            0.44600000977516174,
+            0.2382708489894867,
+            0.49600303173065186
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.001",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.001 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.4375000104904175,
+          -0.17029054701328278,
+          0.9663688879013062
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            -0.44600001454353333,
+            -0.17279054701328278,
+            0.9638688879013062
+          ],
+          "max": [
+            -0.42900000643730163,
+            -0.16779054701328278,
+            0.9688688879013061
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "53d7e914fe834b57176c26261ab224448a0cb2379d1b14f4d02684c191d18ea2",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.44600000977516174,
+            -0.1727905422449112,
+            0.9638689160346985
+          ],
+          "max": [
+            -0.42900002002716064,
+            -0.16779054701328278,
+            0.9688689112663269
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.001",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.001 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.4375000104904175,
+          0.23577085375785828,
+          0.9663688879013062
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            -0.44600001454353333,
+            0.23327085375785828,
+            0.9638688879013062
+          ],
+          "max": [
+            -0.42900000643730163,
+            0.23827085375785828,
+            0.9688688879013061
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "1cd2cc2660878cd615faac9292c887f9a1fc2810c70ba5269865da01fa976385",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.44600000977516174,
+            0.23327085375785828,
+            0.9638689160346985
+          ],
+          "max": [
+            -0.42900002002716064,
+            0.2382708489894867,
+            0.9688689112663269
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.001",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.001 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.4375000104904175,
+          -0.17029054701328278,
+          0.9663688879013062
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            0.42900000643730163,
+            -0.17279054701328278,
+            0.9638688879013062
+          ],
+          "max": [
+            0.44600001454353333,
+            -0.16779054701328278,
+            0.9688688879013061
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "2ac7637d78bd02692ead99db7019661e0e8b22627bc0b5c094cfefdba040f6bf",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.42900002002716064,
+            -0.1727905422449112,
+            0.9638689160346985
+          ],
+          "max": [
+            0.44600000977516174,
+            -0.16779054701328278,
+            0.9688689112663269
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.001",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.001 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.4375000104904175,
+          0.23577085375785828,
+          0.9663688879013062
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            0.42900000643730163,
+            0.23327085375785828,
+            0.9638688879013062
+          ],
+          "max": [
+            0.44600001454353333,
+            0.23827085375785828,
+            0.9688688879013061
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "55b802454a10e263bd0ad7809327321bd3e62b2c8cd16902149aa73f04ab061b",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.42900002002716064,
+            0.23327085375785828,
+            0.9638689160346985
+          ],
+          "max": [
+            0.44600000977516174,
+            0.2382708489894867,
+            0.9688689112663269
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.002",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.002 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.4375000104904175,
+          -0.17029054701328278,
+          1.4392347078323364
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            -0.44600001454353333,
+            -0.17279054701328278,
+            1.4367347078323365
+          ],
+          "max": [
+            -0.42900000643730163,
+            -0.16779054701328278,
+            1.4417347078323364
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "3e84fc433cf32218a0c3869b1bbd77faf19a5fd97859b57643b1f620e164496d",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.44600000977516174,
+            -0.1727905422449112,
+            1.436734676361084
+          ],
+          "max": [
+            -0.42900002002716064,
+            -0.16779054701328278,
+            1.4417346715927124
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.002",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.002 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.4375000104904175,
+          0.23577085375785828,
+          1.4392347078323364
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            -0.44600001454353333,
+            0.23327085375785828,
+            1.4367347078323365
+          ],
+          "max": [
+            -0.42900000643730163,
+            0.23827085375785828,
+            1.4417347078323364
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "6fe022be6b372f018b4f26e170ae40ed1c92b3fbaedaf20d915de38e864e6b88",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.44600000977516174,
+            0.23327085375785828,
+            1.436734676361084
+          ],
+          "max": [
+            -0.42900002002716064,
+            0.2382708489894867,
+            1.4417346715927124
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.002",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.002 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.4375000104904175,
+          -0.17029054701328278,
+          1.4392347078323364
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            0.42900000643730163,
+            -0.17279054701328278,
+            1.4367347078323365
+          ],
+          "max": [
+            0.44600001454353333,
+            -0.16779054701328278,
+            1.4417347078323364
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "ea5cbd7295618fc8c4e2f08f455f5f6cb7f5d7720a706b69758a8ceccd64bbfc",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.42900002002716064,
+            -0.1727905422449112,
+            1.436734676361084
+          ],
+          "max": [
+            0.44600000977516174,
+            -0.16779054701328278,
+            1.4417346715927124
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "Editable internal adjustable shelf.002",
+      "newComponent": "Realism shelf support Editable internal adjustable shelf.002 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.4375000104904175,
+          0.23577085375785828,
+          1.4392347078323364
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.017000008106231687,
+        "bounds": {
+          "min": [
+            0.42900000643730163,
+            0.23327085375785828,
+            1.4367347078323365
+          ],
+          "max": [
+            0.44600001454353333,
+            0.23827085375785828,
+            1.4417347078323364
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "e072be66a13d861deb599707667d05f397221228fc0477480ea961cf94a6e7e0",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.42900002002716064,
+            0.23327085375785828,
+            1.436734676361084
+          ],
+          "max": [
+            0.44600000977516174,
+            0.2382708489894867,
+            1.4417346715927124
+          ],
+          "size": [
+            0.0169999897480011,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-fine-rubber",
+      "profile": "rubber",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-graphite-cast-metal",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-satin-machined-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-slate-powdercoat",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "garage-fine-rubber",
+      "profile": "rubber",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-fine-rubber",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-fine-rubber",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+          "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+          "bytes": 32499,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-graphite-cast-metal",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-graphite-cast-metal",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-satin-machined-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-satin-machined-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-satin-machined-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-slate-powdercoat",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-slate-powdercoat",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "garage-fine-rubber",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-fine-rubber",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-satin-machined-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-satin-machined-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1041660,
+    "afterBytes": 1041660,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/garage-tall-cabinet.blend",
+      "sha256": "a34d62a79eed13a0c5f5a4b822772e752e825a8616e0ae21da18519f94825c55",
+      "bytes": 324050
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/garage-tall-cabinet.glb",
+      "sha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "bytes": 1041660
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/garage-tall-cabinet/front-5d71f9c1c3541cb506ec.webp",
+      "sha256": "5d71f9c1c3541cb506ec7175ac645a398df4156f75da6bdb542f21c60056e101",
+      "bytes": 65034,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.781,
+      "camera": {
+        "orthoScale": 3.3956315517425537,
+        "position": [
+          3.685492992401123,
+          -6.1424880027771,
+          4.368368625640869
+        ],
+        "target": [
+          0,
+          0,
+          0.9899999499320984
+        ],
+        "clipStart": 0.001979999942705035,
+        "clipEnd": 23.759998321533203,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3383817970752716,
+            0.06521736830472946
+          ],
+          "max": [
+            0.6616179943084717,
+            0.9347816705703735
+          ]
+        }
+      },
+      "glbSha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "renderConfigSha256": "c1093a00b7002f51feb3db8a57c4d77b75029e18cce51b6c3e51439a4693339d",
+      "inputSetSha256": "15b2ba7dab344ab48583a33572699928e03affa12846a2d67bdc7d5268d89183"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/garage-tall-cabinet/rear-e7b96de5a01087d7e5e8.webp",
+      "sha256": "e7b96de5a01087d7e5e8e7286afad970a1ea8888e24bb6306f993e9d3fac40a6",
+      "bytes": 54050,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.764,
+      "camera": {
+        "orthoScale": 3.3956315517425537,
+        "position": [
+          -3.685492992401123,
+          6.1424880027771,
+          4.368368625640869
+        ],
+        "target": [
+          0,
+          0,
+          0.9899999499320984
+        ],
+        "clipStart": 0.001979999942705035,
+        "clipEnd": 23.759998321533203,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.338381826877594,
+            0.06521736830472946
+          ],
+          "max": [
+            0.6616179943084717,
+            0.9347816705703735
+          ]
+        }
+      },
+      "glbSha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "renderConfigSha256": "c1093a00b7002f51feb3db8a57c4d77b75029e18cce51b6c3e51439a4693339d",
+      "inputSetSha256": "15b2ba7dab344ab48583a33572699928e03affa12846a2d67bdc7d5268d89183"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/garage-tall-cabinet/detail-8ffc350a8596a9259360.webp",
+      "sha256": "8ffc350a8596a925936024279f879ce484287c1caa6beb38323bfce66b4df499",
+      "bytes": 66414,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.788,
+      "camera": {
+        "orthoScale": 1.8675991296768188,
+        "position": [
+          3.685492992401123,
+          -6.1424880027771,
+          4.368368625640869
+        ],
+        "target": [
+          0,
+          0,
+          0.9899999499320984
+        ],
+        "clipStart": 0.001979999942705035,
+        "clipEnd": 23.759998321533203,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.33838191628456116,
+            0.06521739065647125
+          ],
+          "max": [
+            0.6616178154945374,
+            0.9347807765007019
+          ]
+        }
+      },
+      "glbSha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "renderConfigSha256": "c1093a00b7002f51feb3db8a57c4d77b75029e18cce51b6c3e51439a4693339d",
+      "inputSetSha256": "15b2ba7dab344ab48583a33572699928e03affa12846a2d67bdc7d5268d89183"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/garage-tall-cabinet/underside-d65c90d287967b32006d.webp",
+      "sha256": "d65c90d287967b32006d6bfc69ff3347c2d44ee2d99e5f4827ba5a3fe6c9d677",
+      "bytes": 35374,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.684,
+      "camera": {
+        "orthoScale": 3.396453619003296,
+        "position": [
+          3.623365879058838,
+          -6.038943290710449,
+          -2.6333658695220947
+        ],
+        "target": [
+          0,
+          0,
+          0.9899999499320984
+        ],
+        "clipStart": 0.001979999942705035,
+        "clipEnd": 23.759998321533203,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.33842095732688904,
+            0.06521735340356827
+          ],
+          "max": [
+            0.661578893661499,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "renderConfigSha256": "c1093a00b7002f51feb3db8a57c4d77b75029e18cce51b6c3e51439a4693339d",
+      "inputSetSha256": "15b2ba7dab344ab48583a33572699928e03affa12846a2d67bdc7d5268d89183"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/garage-tall-cabinet/clay-9bdc2a6ebb7ce8488dc5.webp",
+      "sha256": "9bdc2a6ebb7ce8488dc55bbd821763f86b0a52fc60d3128d4ea0c6786b99d80d",
+      "bytes": 46378,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.762,
+      "camera": {
+        "orthoScale": 3.3956315517425537,
+        "position": [
+          3.685492992401123,
+          -6.1424880027771,
+          4.368368625640869
+        ],
+        "target": [
+          0,
+          0,
+          0.9899999499320984
+        ],
+        "clipStart": 0.001979999942705035,
+        "clipEnd": 23.759998321533203,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3383817970752716,
+            0.06521736830472946
+          ],
+          "max": [
+            0.6616179943084717,
+            0.9347816705703735
+          ]
+        }
+      },
+      "glbSha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "renderConfigSha256": "c1093a00b7002f51feb3db8a57c4d77b75029e18cce51b6c3e51439a4693339d",
+      "inputSetSha256": "15b2ba7dab344ab48583a33572699928e03affa12846a2d67bdc7d5268d89183"
+    }
+  ],
+  "timingSeconds": 1.46,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.4570000171661377,
+          0.304999977350235,
+          1.9799998998641968
+        ],
+        "min": [
+          -0.4570000171661377,
+          -0.304999977350235,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "renderImportSha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.4570000171661377,0.304999977350235,1.9799998998641968],\"min\":[-0.4570000171661377,-0.304999977350235,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489\",\"renderImportSha256\":\"b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "c1093a00b7002f51feb3db8a57c4d77b75029e18cce51b6c3e51439a4693339d",
+    "inputs": [
+      {
+        "path": "assets-source/blender/garage-tall-cabinet.blend",
+        "sha256": "8cf53c1bd78a70ad2fe490cc8ce3638e7d148b4483c75277053010b5974237f1",
+        "bytes": 128281
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/garage-tall-cabinet.blend",
+        "sha256": "a34d62a79eed13a0c5f5a4b822772e752e825a8616e0ae21da18519f94825c55",
+        "bytes": 324050
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+        "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+        "bytes": 52138
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-tall-cabinet/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+        "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+        "bytes": 32499
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/garage-tall-cabinet.glb",
+        "sha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+        "bytes": 1041660
+      },
+      {
+        "path": "public/models/furniture/garage-tall-cabinet.glb",
+        "sha256": "7eb4066a970550b4254f4f3db6511c5c8a5c455f67fd27ac00dbca150463c7f8",
+        "bytes": 350080
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "15b2ba7dab344ab48583a33572699928e03affa12846a2d67bdc7d5268d89183",
+    "afterSha256": "15b2ba7dab344ab48583a33572699928e03affa12846a2d67bdc7d5268d89183"
+  },
+  "formatValidation": {
+    "sha256": "b81a94f70156b06bb82b15421a79dbcab3e3417aef4886cb502032c513c6e489",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 4,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "4a7b8efad60b2fcb8c973f6cdca2d11132e65d44d2ebb6adefac2bf49bb2f2dd",
+    "views": {
+      "front": "Two blue steel doors have paired metal pulls.",
+      "rear": "Rear enclosure is continuous with a separate lower plinth.",
+      "detail": "Louver slots and narrow door reveals remain modeled.",
+      "underside": "Closed dark base has attached small supporting feet.",
+      "clay": "Clay retains a tall two-door locker silhouette."
+    }
+  }
+}

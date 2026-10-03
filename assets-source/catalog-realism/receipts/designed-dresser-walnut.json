@@ -1,0 +1,1609 @@
+{
+  "version": 1,
+  "catalogId": "designed-dresser-walnut",
+  "inputContractSha256": "89b60a45ee17b57d9448899b9ea9fc390001c2e50c9f57143acb661c8135adee",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/designed-dresser-walnut.blend",
+      "sha256": "7ed93b065ae1cd42c2f7e5a5f752a7f9a1ad128121b0def8ef8be650e91efc15",
+      "bytes": 118429
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/designed-dresser-walnut.glb",
+      "sha256": "9e8c854a3df6f57cefc52ac78c197eb6205384572034c35426a90d8d34635667",
+      "bytes": 115756
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/designed-dresser-walnut.blend",
+      "sha256": "7ed93b065ae1cd42c2f7e5a5f752a7f9a1ad128121b0def8ef8be650e91efc15",
+      "bytes": 118429
+    },
+    {
+      "path": "public/models/furniture/designed-dresser-walnut.glb",
+      "sha256": "9e8c854a3df6f57cefc52ac78c197eb6205384572034c35426a90d8d34635667",
+      "bytes": 115756
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "continuous fitted top",
+      "widthM": 0.0006999999168328941,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "b0ecbba84d9c58ee2be709d983b816375af8274e708c91d22567d9610e9f6db9",
+        "vertices": 56,
+        "triangles": 108,
+        "bounds": {
+          "min": [
+            -0.45000001788139343,
+            -0.1837499886751175,
+            0.8220000267028809
+          ],
+          "max": [
+            0.45000001788139343,
+            0.20999999344348907,
+            0.8500000238418579
+          ],
+          "size": [
+            0.9000000357627869,
+            0.39374998211860657,
+            0.02799999713897705
+          ]
+        }
+      },
+      "after": {
+        "sha256": "844213557ae51a32e559a7e0a5b96e1410af51048ba98f9fb0e3ee64a261f1ad",
+        "vertices": 224,
+        "triangles": 444,
+        "bounds": {
+          "min": [
+            -0.45000001788139343,
+            -0.1837499886751175,
+            0.8220000267028809
+          ],
+          "max": [
+            0.45000001788139343,
+            0.20999999344348907,
+            0.8500000238418579
+          ],
+          "size": [
+            0.9000000357627869,
+            0.39374998211860657,
+            0.02799999713897705
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fitted drawer front",
+      "widthM": 0.0005624998593702912,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "8fe9ef942569c5252b4c9c50d4df9d98f607c9fc5e2f12e17fb3640e04ab0218",
+        "vertices": 56,
+        "triangles": 108,
+        "bounds": {
+          "min": [
+            -0.42600002884864807,
+            -0.19499999284744263,
+            0.12050000578165054
+          ],
+          "max": [
+            0.42600002884864807,
+            -0.17249999940395355,
+            0.3525000214576721
+          ],
+          "size": [
+            0.8520000576972961,
+            0.022499993443489075,
+            0.23200001567602158
+          ]
+        }
+      },
+      "after": {
+        "sha256": "03bb8f8a3eccd0715eee81b5cab51cc1d4c723284fe0583ec56041561f0b2dfc",
+        "vertices": 224,
+        "triangles": 444,
+        "bounds": {
+          "min": [
+            -0.42600002884864807,
+            -0.19499999284744263,
+            0.12050000578165054
+          ],
+          "max": [
+            0.42600002884864807,
+            -0.17249999940395355,
+            0.3525000214576721
+          ],
+          "size": [
+            0.8520000576972961,
+            0.022499993443489075,
+            0.23200001567602158
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fitted drawer front.001",
+      "widthM": 0.0005624998593702912,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "777741f780e3504c423dd1b6add6c6cab0c6b438b0b49dfb7c1696cef267ffd6",
+        "vertices": 56,
+        "triangles": 108,
+        "bounds": {
+          "min": [
+            -0.42600002884864807,
+            -0.19499999284744263,
+            0.3595000207424164
+          ],
+          "max": [
+            0.42600002884864807,
+            -0.17249999940395355,
+            0.5915000438690186
+          ],
+          "size": [
+            0.8520000576972961,
+            0.022499993443489075,
+            0.23200002312660217
+          ]
+        }
+      },
+      "after": {
+        "sha256": "10b128369d3d2b3feaab80f40071fb649080f1995454fa9cdbc81ab42c4feae8",
+        "vertices": 224,
+        "triangles": 444,
+        "bounds": {
+          "min": [
+            -0.42600002884864807,
+            -0.19499999284744263,
+            0.3595000207424164
+          ],
+          "max": [
+            0.42600002884864807,
+            -0.17249999940395355,
+            0.5915000438690186
+          ],
+          "size": [
+            0.8520000576972961,
+            0.022499993443489075,
+            0.23200002312660217
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fitted drawer front.002",
+      "widthM": 0.0005624998593702912,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "31cab7ee0dc9a0f10425b4f7367c6243c98a8f7f8563aee9ffcc3c5b787c38b6",
+        "vertices": 56,
+        "triangles": 108,
+        "bounds": {
+          "min": [
+            -0.42600002884864807,
+            -0.19499999284744263,
+            0.5985000133514404
+          ],
+          "max": [
+            0.42600002884864807,
+            -0.17249999940395355,
+            0.830500066280365
+          ],
+          "size": [
+            0.8520000576972961,
+            0.022499993443489075,
+            0.23200005292892456
+          ]
+        }
+      },
+      "after": {
+        "sha256": "07dc9ab541cd1c8845470d204d944e15d8dd321b0fe7cbd36a289abb69e4dfce",
+        "vertices": 224,
+        "triangles": 444,
+        "bounds": {
+          "min": [
+            -0.42600002884864807,
+            -0.19499999284744263,
+            0.5985000133514404
+          ],
+          "max": [
+            0.42600002884864807,
+            -0.17249999940395355,
+            0.830500066280365
+          ],
+          "size": [
+            0.8520000576972961,
+            0.022499993443489075,
+            0.23200005292892456
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "champagne-brass",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "graphite-metal",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "matte-rubber",
+      "profile": "rubber",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "walnut",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "champagne-brass",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "champagne-brass",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "champagne-brass",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "graphite-metal",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "graphite-metal",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "graphite-metal",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "matte-rubber",
+      "profile": "rubber",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "matte-rubber",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "matte-rubber",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+          "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+          "bytes": 32499,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "walnut",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "walnut",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "walnut",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "champagne-brass",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "champagne-brass",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "graphite-metal",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "graphite-metal",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "matte-rubber",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "matte-rubber",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "walnut",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "walnut",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [
+    {
+      "mesh": 0,
+      "primitive": 0,
+      "vertices": 24,
+      "method": "largest incident UV triangle, orthogonalized against normal"
+    }
+  ],
+  "uvPruning": {
+    "beforeBytes": 1621024,
+    "afterBytes": 1621024,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/designed-dresser-walnut.blend",
+      "sha256": "2ca7ce1c972db712ba9479de9de168c99c13c17f0a39f165787b8a025b082801",
+      "bytes": 1180758
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/designed-dresser-walnut.glb",
+      "sha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "bytes": 1621024
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/designed-dresser-walnut/front-91512388a6823283c6e7.webp",
+      "sha256": "91512388a6823283c6e7f0f6cabb9f46265b80f808069f67be1de7cb7e82b9ab",
+      "bytes": 83448,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.764,
+      "camera": {
+        "orthoScale": 1.717231273651123,
+        "position": [
+          1.6752241849899292,
+          -2.7920403480529785,
+          1.9606221914291382
+        ],
+        "target": [
+          0,
+          0,
+          0.42500001192092896
+        ],
+        "clipStart": 0.0009000000427477062,
+        "clipEnd": 10.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.21237649023532867,
+            0.06521742045879364
+          ],
+          "max": [
+            0.7876233458518982,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "renderConfigSha256": "b9a32308cde313e0f6788b836bc3c9ba498e9c478f27d149be81f4cb690c7d23",
+      "inputSetSha256": "ab43de44dfbc5c7d8ac9c47aeab74330b78e23026f9ed5eb6df44d18ce20a0fa"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/designed-dresser-walnut/rear-47da57d96ca363d0456a.webp",
+      "sha256": "47da57d96ca363d0456adae575d51bf6ac089ab3b4611015c1bd90b72b7dba3a",
+      "bytes": 76356,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.806,
+      "camera": {
+        "orthoScale": 1.717231035232544,
+        "position": [
+          -1.6752241849899292,
+          2.7920403480529785,
+          1.9606221914291382
+        ],
+        "target": [
+          0,
+          0,
+          0.42500001192092896
+        ],
+        "clipStart": 0.0009000000427477062,
+        "clipEnd": 10.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.21237647533416748,
+            0.06521742790937424
+          ],
+          "max": [
+            0.7876233458518982,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "renderConfigSha256": "b9a32308cde313e0f6788b836bc3c9ba498e9c478f27d149be81f4cb690c7d23",
+      "inputSetSha256": "ab43de44dfbc5c7d8ac9c47aeab74330b78e23026f9ed5eb6df44d18ce20a0fa"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/designed-dresser-walnut/detail-6ed442694fd296d089a7.webp",
+      "sha256": "6ed442694fd296d089a7a47132b93b66edd00d88327e26d2bb9c7882c9264ad4",
+      "bytes": 100380,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.799,
+      "camera": {
+        "orthoScale": 0.9444776773452759,
+        "position": [
+          1.6752241849899292,
+          -2.7920403480529785,
+          1.9606221914291382
+        ],
+        "target": [
+          0,
+          0,
+          0.42500001192092896
+        ],
+        "clipStart": 0.0009000000427477062,
+        "clipEnd": 10.800000190734863,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.21237656474113464,
+            0.06521741300821304
+          ],
+          "max": [
+            0.7876231670379639,
+            0.9347813725471497
+          ]
+        }
+      },
+      "glbSha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "renderConfigSha256": "b9a32308cde313e0f6788b836bc3c9ba498e9c478f27d149be81f4cb690c7d23",
+      "inputSetSha256": "ab43de44dfbc5c7d8ac9c47aeab74330b78e23026f9ed5eb6df44d18ce20a0fa"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/designed-dresser-walnut/underside-1b3f4cc200e4cdbb6e0b.webp",
+      "sha256": "1b3f4cc200e4cdbb6e0b5806b5dcdca52ac4e2ec0367d13ebf47374ac50a6bfd",
+      "bytes": 58410,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.732,
+      "camera": {
+        "orthoScale": 1.7364037036895752,
+        "position": [
+          1.646984577178955,
+          -2.744974374771118,
+          -1.221984624862671
+        ],
+        "target": [
+          0,
+          0,
+          0.42500001192092896
+        ],
+        "clipStart": 0.0009000000427477062,
+        "clipEnd": 10.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.21555228531360626,
+            0.06521744281053543
+          ],
+          "max": [
+            0.7844475507736206,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "renderConfigSha256": "b9a32308cde313e0f6788b836bc3c9ba498e9c478f27d149be81f4cb690c7d23",
+      "inputSetSha256": "ab43de44dfbc5c7d8ac9c47aeab74330b78e23026f9ed5eb6df44d18ce20a0fa"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/designed-dresser-walnut/clay-8e56e8f25f13ac7ee351.webp",
+      "sha256": "8e56e8f25f13ac7ee351e1df2039df2248631291eb7659c36d8be8d2ba412f79",
+      "bytes": 58480,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.771,
+      "camera": {
+        "orthoScale": 1.717231273651123,
+        "position": [
+          1.6752241849899292,
+          -2.7920403480529785,
+          1.9606221914291382
+        ],
+        "target": [
+          0,
+          0,
+          0.42500001192092896
+        ],
+        "clipStart": 0.0009000000427477062,
+        "clipEnd": 10.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.21237649023532867,
+            0.06521742045879364
+          ],
+          "max": [
+            0.7876233458518982,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "renderConfigSha256": "b9a32308cde313e0f6788b836bc3c9ba498e9c478f27d149be81f4cb690c7d23",
+      "inputSetSha256": "ab43de44dfbc5c7d8ac9c47aeab74330b78e23026f9ed5eb6df44d18ce20a0fa"
+    }
+  ],
+  "timingSeconds": 2.1,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.45000001788139343,
+          0.20999999344348907,
+          0.8500000238418579
+        ],
+        "min": [
+          -0.45000001788139343,
+          -0.20999999344348907,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "renderImportSha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.45000001788139343,0.20999999344348907,0.8500000238418579],\"min\":[-0.45000001788139343,-0.20999999344348907,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55\",\"renderImportSha256\":\"eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "b9a32308cde313e0f6788b836bc3c9ba498e9c478f27d149be81f4cb690c7d23",
+    "inputs": [
+      {
+        "path": "assets-source/blender/designed-dresser-walnut.blend",
+        "sha256": "7ed93b065ae1cd42c2f7e5a5f752a7f9a1ad128121b0def8ef8be650e91efc15",
+        "bytes": 118429
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/designed-dresser-walnut.blend",
+        "sha256": "2ca7ce1c972db712ba9479de9de168c99c13c17f0a39f165787b8a025b082801",
+        "bytes": 1180758
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/champagne-brass-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/graphite-metal-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/matte-rubber-orm-ccb040239f1f42ae.png",
+        "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+        "bytes": 52138
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/designed-dresser-walnut/walnut-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+        "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+        "bytes": 32499
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/designed-dresser-walnut.glb",
+        "sha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+        "bytes": 1621024
+      },
+      {
+        "path": "public/models/furniture/designed-dresser-walnut.glb",
+        "sha256": "9e8c854a3df6f57cefc52ac78c197eb6205384572034c35426a90d8d34635667",
+        "bytes": 115756
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-roughness.jpg",
+        "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+        "bytes": 464458
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "ab43de44dfbc5c7d8ac9c47aeab74330b78e23026f9ed5eb6df44d18ce20a0fa",
+    "afterSha256": "ab43de44dfbc5c7d8ac9c47aeab74330b78e23026f9ed5eb6df44d18ce20a0fa"
+  },
+  "formatValidation": {
+    "sha256": "eafc682e55ad7b536e17473d8677a70660353fd454b62b1b5ea81ff71c90ce55",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 4,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "af5d48a2a3459952e360bc2586ada866ce9538610586d07c811179d2b44b17e1",
+    "views": {
+      "front": "The compact three-drawer case retains its warm color and softly finished fitted top.",
+      "rear": "Rear panel and feet remain aligned without new gaps.",
+      "detail": "Brass pulls and narrow drawer reveals stay legible; detailed walnut grain is not claimed.",
+      "underside": "The bottom panel and four short feet remain complete.",
+      "clay": "The three fitted fronts and supported case remain clear in clay."
+    }
+  }
+}

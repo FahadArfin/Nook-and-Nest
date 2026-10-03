@@ -1,0 +1,339 @@
+{
+  "version": 1,
+  "recipe": "sofa",
+  "seed": 73021,
+  "spec": {
+    "path": "assets-source/model-pipeline/sofa.spec.json",
+    "sha256": "7499cd0aa766d21464c634ece08d9d52d9ad21d76b88f5e7e20267ba3d9fd3fb",
+    "bytes": 1486
+  },
+  "sourceBlend": {
+    "path": "assets-source/experiments/realism-lab/sofa-refined.blend",
+    "sha256": "8be87d1741019f6bbcf931ffe729c877609af21af4984932279c92703ce61018",
+    "bytes": 3516067
+  },
+  "outputBlend": {
+    "path": "assets-source/experiments/realism-lab/sofa-pipeline.blend",
+    "sha256": "921ef63fb224bd6af4d5be8c690fcc4634de745f51e1df661d443b96b7d52cc4",
+    "bytes": 15089979
+  },
+  "glb": {
+    "path": "public/experiments/realism-lab/sofa-pipeline.glb",
+    "sha256": "9145c222f4022b7dd95bd089a45ef6eda5d5716bff61fa501d476051a2b22bba",
+    "bytes": 11159704
+  },
+  "maps": [
+    {
+      "path": "assets-source/model-pipeline/bakes/sofa/normal.png",
+      "sha256": "3387309c9acd09b433f7ebed0d820c1d6e0bf4e6f4c83c566af12384c2a3295e",
+      "bytes": 2044360,
+      "kind": "normal",
+      "materialKey": "upholstery-textured",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "method": "Cycles selected-to-active",
+      "normalSpace": "TANGENT",
+      "sourceObjects": 8,
+      "pairIsolation": "matching high/low pairs translated 5 m apart; restored after bake",
+      "seconds": 5.0264
+    },
+    {
+      "path": "assets-source/model-pipeline/bakes/sofa/baseColor.png",
+      "sha256": "796fb8a7b634c6a9c6cc8e0f49cc8e64b1a68a294629a75e04944ae4cd8ebd92",
+      "bytes": 2455539,
+      "kind": "baseColor",
+      "materialKey": "upholstery-textured",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "method": "Cycles selected-to-active",
+      "normalSpace": null,
+      "sourceObjects": 8,
+      "pairIsolation": "matching high/low pairs translated 5 m apart; restored after bake",
+      "seconds": 5.6708
+    },
+    {
+      "path": "assets-source/model-pipeline/bakes/sofa/roughness.png",
+      "sha256": "28d6b21059c6010073b2321f6ce9856a783a20e235ef2bd876cf8317f7a9553f",
+      "bytes": 3082266,
+      "kind": "roughness",
+      "materialKey": "upholstery-textured",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "method": "Cycles selected-to-active",
+      "normalSpace": null,
+      "sourceObjects": 8,
+      "pairIsolation": "matching high/low pairs translated 5 m apart; restored after bake",
+      "seconds": 8.2522
+    },
+    {
+      "path": "assets-source/model-pipeline/bakes/sofa/ao.png",
+      "sha256": "02e46d30209addf73754e4d0a3b5b411a80d7f1f878948f58805b5f7c39c8cb4",
+      "bytes": 329223,
+      "kind": "ao",
+      "materialKey": "upholstery-textured",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "method": "Cycles selected-to-active",
+      "normalSpace": null,
+      "sourceObjects": 8,
+      "pairIsolation": "matching high/low pairs translated 5 m apart; restored after bake",
+      "seconds": 6.553
+    },
+    {
+      "path": "assets-source/model-pipeline/bakes/sofa/orm.png",
+      "sha256": "3b9ecef13dde6371a70bb52500743e76b53ed4e574d5ce6581e25f4d0ef9f21a",
+      "bytes": 3211963,
+      "kind": "orm",
+      "materialKey": "upholstery-textured",
+      "resolution": [
+        2048,
+        2048
+      ],
+      "channels": {
+        "r": "baked ao",
+        "g": "baked roughness",
+        "b": "metallic zero"
+      }
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236,
+      "kind": "baseColor",
+      "materialKey": "wood-honey-textured",
+      "method": "retained measured CC0 oak map"
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "kind": "normal",
+      "materialKey": "wood-honey-textured",
+      "method": "retained measured CC0 oak map"
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714,
+      "kind": "orm",
+      "materialKey": "wood-honey-textured",
+      "method": "retained measured CC0 oak map"
+    }
+  ],
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-front.png",
+      "sha256": "da02b0483cb2d2943ba7bcb1acd602b9e47a10037b11a284e8c8f7e852039f54",
+      "bytes": 705259,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 2.41
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-rear.png",
+      "sha256": "5916e6dc3d7b3797e0365034d5e33725f4ef387a7a7877e76ba3aac4224a4ab8",
+      "bytes": 727017,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 2.38
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-detail.png",
+      "sha256": "51473c9da3028ecaffaefc13e67fe4f501127baece65c80b18b676de0e152840",
+      "bytes": 821982,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 2.87
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-underside.png",
+      "sha256": "57630e23f8f8f2a531e3a89e03c7eff2205bf99f47c2d28f509d84ae56c3b9e5",
+      "bytes": 674617,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 1.94
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-clay.png",
+      "sha256": "0d0f2822dd724f6f84401856e4a7cf548cfa62eb3d5558f49dbf414727c8aeb5",
+      "bytes": 600645,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 2.33
+    }
+  ],
+  "master": {
+    "triangles": 270156,
+    "parts": 179,
+    "boundsM": {
+      "min": [
+        -1.0,
+        -0.42500001192092896,
+        2.9802322387695312e-08
+      ],
+      "max": [
+        1.0,
+        0.42500001192092896,
+        0.7800003290176392
+      ]
+    },
+    "dimensionsM": [
+      2.0,
+      0.8500000238418579,
+      0.7800003290176392
+    ]
+  },
+  "browser": {
+    "triangles": 36204,
+    "parts": 172,
+    "boundsM": {
+      "min": [
+        -1.0,
+        -0.42500001192092896,
+        2.9802322387695312e-08
+      ],
+      "max": [
+        1.0,
+        0.42500001192092896,
+        0.7799999713897705
+      ]
+    },
+    "dimensionsM": [
+      2.0,
+      0.8500000238418579,
+      0.7799999713897705
+    ]
+  },
+  "dimensionsM": [
+    2.0,
+    0.8500000238418579,
+    0.7799999713897705
+  ],
+  "boundsM": {
+    "min": [
+      -1.0,
+      -0.42500001192092896,
+      2.9802322387695312e-08
+    ],
+    "max": [
+      1.0,
+      0.42500001192092896,
+      0.7799999713897705
+    ]
+  },
+  "materialKeys": [
+    "joinery-aged-brass",
+    "tailored-tone-on-tone-stitch",
+    "upholstery-textured",
+    "wood-honey-textured"
+  ],
+  "primitiveCount": 4,
+  "stageDurations": {
+    "prepareSeconds": 3.2583,
+    "normalBakeSeconds": 5.0264,
+    "baseColorBakeSeconds": 5.6708,
+    "roughnessBakeSeconds": 8.2522,
+    "aoBakeSeconds": 6.553,
+    "finishSeconds": 1.9251
+  },
+  "bake": {
+    "resolution": 2048,
+    "passes": [
+      "normal",
+      "baseColor",
+      "roughness",
+      "ao"
+    ],
+    "device": "GPU",
+    "normalMethod": "Cycles selected-to-active tangent-space from dense master"
+  },
+  "masterScene": "sofa pipeline editable master",
+  "browserScene": "sofa pipeline browser mesh",
+  "failures": [],
+  "authoringStateSha256": "48bfa70d475ba5ee9a23fe19451db332cff347627cd2a48c493e14eca3b36c45",
+  "inputs": [
+    {
+      "path": "tools/blender/detail_pipeline/core.py",
+      "sha256": "b32407ebc9178205283dc0f0aab0890b496a195931953cfe183e49a200adde5c",
+      "bytes": 42376,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/detail_pipeline/__init__.py",
+      "sha256": "450a8e5624b9407e289d93b096390efb0ddee79ce675fe77029077ad0b346727",
+      "bytes": 239,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/detail_pipeline/sofa.py",
+      "sha256": "2fdb2e72f351428aa296fe95a86e3e13b5dfa4dbc21ec08e82987e05f49df091",
+      "bytes": 17062,
+      "role": "builder"
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-linen-color.jpg",
+      "sha256": "6e9947444f9dff54fdb50075265d858da22f3a716ea2cd508170eb26d3177f55",
+      "bytes": 411728,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-linen-orm.jpg",
+      "sha256": "262dca8e460d48302693b0821775735a22dff5005148e10e9977322af4688427",
+      "bytes": 1178124,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714,
+      "role": "material"
+    }
+  ]
+}

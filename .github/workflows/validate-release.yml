@@ -19,8 +19,13 @@ jobs:
     name: Validate
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    outputs:
+      validated_sha: ${{ steps.validation-checkout.outputs.validated_sha }}
+      validated_parents: ${{ steps.validation-checkout.outputs.validated_parents }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 2
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: '22.14.0'
@@ -30,6 +35,17 @@ jobs:
         run: npm run assets:verify
       - name: Type check
         run: npm run check
+      - name: Detailed model pipeline and review gate
+        run: npm run test:model-pipeline && npm run models:ready && npm run build:model-lab
+      - name: Catalog review Python dependencies
+        run: |
+          python3 -m venv .generated/catalog-review-python
+          .generated/catalog-review-python/bin/python -m pip install --disable-pip-version-check --only-binary=:all: -r scripts/requirements-catalog-realism-review.txt
+          echo "PYTHON=$GITHUB_WORKSPACE/.generated/catalog-review-python/bin/python" >> "$GITHUB_ENV"
+      - name: Catalog realism pipeline contracts
+        run: node --test tests/catalog-realism-*.test.mjs tests/catalog-public-assets.test.mjs
+      - name: Source archive provenance contracts
+        run: python3 -m unittest discover -s tests -p 'test_*release.py'
       - name: Application tests
         run: npm test -- --maxWorkers=2
       - name: Model integrity and lossless compression tests
@@ -42,6 +58,13 @@ jobs:
         run: node scripts/verify-release.mjs
       - name: Package and verify exact build
         run: python3 scripts/package-ci-release.py
+      - name: Record the successful Validate checkout
+        id: validation-checkout
+        if: >-
+          github.event_name == 'pull_request' &&
+          github.event.pull_request.head.repo.full_name == github.repository &&
+          github.event.pull_request.head.ref == 'codex/catalog-realism-overhaul'
+        run: node scripts/catalog-realism-app.mjs validation-checkout
       - name: Retain complete test diagnostics on failure
         if: failure()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -56,6 +79,46 @@ jobs:
         with:
           name: sites-release-${{ github.sha }}
           path: release/*
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+
+  catalog-beta-artifact:
+    name: Exact feature Beta artifact
+    needs: validate
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      github.event.pull_request.head.ref == 'codex/catalog-realism-overhaul'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      # Validate above checks GitHub's merge commit. This checkout and retained
+      # artifact intentionally identify the distinct, exact feature source SHA.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22.14.0'
+          cache: npm
+      - run: npm ci
+      - name: Derive exact feature cache revision
+        run: echo "VITE_CATALOG_REALISM_VERSION=$(node scripts/catalog-realism-app.mjs revision)" >> "$GITHUB_ENV"
+      - name: Build exact feature app with Beta overlay
+        run: npm run check && npm run build && npm run test:sites
+      - name: Bind app bytes and source to feature and successful PR validation
+        env:
+          VALIDATE_RESULT: ${{ needs.validate.result }}
+          VALIDATE_SHA: ${{ needs.validate.outputs.validated_sha }}
+          VALIDATE_PARENTS: ${{ needs.validate.outputs.validated_parents }}
+        run: node scripts/catalog-realism-app.mjs package .generated/catalog-realism-app/feature
+      - name: Retain immutable feature app and source
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: catalog-realism-feature-${{ github.event.pull_request.head.sha }}
+          path: .generated/catalog-realism-app/feature/
+          include-hidden-files: true
           if-no-files-found: error
           compression-level: 0
           retention-days: 7

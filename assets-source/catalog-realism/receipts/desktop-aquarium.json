@@ -1,0 +1,1444 @@
+{
+  "version": 1,
+  "catalogId": "desktop-aquarium",
+  "inputContractSha256": "4b9a690a999b762a6a260d5d521cb18ad20641b6e6c51061f47c4ff1096e1015",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153,
+    "capabilities": [
+      "aquarium-additive-casework"
+    ]
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/desktop-aquarium.blend",
+      "sha256": "0b7c7410b6783263ba0f48c4093febee940425dca8231b3bb7376bc98271b3cc",
+      "bytes": 458357
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/desktop-aquarium.glb",
+      "sha256": "4e45969062ab3b9f00d58fba7d2c9a51dc6377fea1bbec68ad536fb12f8b030b",
+      "bytes": 1411144
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/desktop-aquarium.blend",
+      "sha256": "0b7c7410b6783263ba0f48c4093febee940425dca8231b3bb7376bc98271b3cc",
+      "bytes": 458357
+    },
+    {
+      "path": "public/models/furniture/desktop-aquarium.glb",
+      "sha256": "4e45969062ab3b9f00d58fba7d2c9a51dc6377fea1bbec68ad536fb12f8b030b",
+      "bytes": 1411144
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "exterior-base-socket-fastener",
+      "newComponent": "detail_fastener_aquarium_base_1",
+      "materialKey": "aquarium-charcoal-frame",
+      "sourceComponents": [
+        "tank_base_frame"
+      ],
+      "contactEvidence": {
+        "caseworkFaceY": -0.17253521084785461,
+        "glassWaterExclusion": {
+          "min": [
+            -0.296999990940094,
+            -0.17204226553440094,
+            0.030508464202284813
+          ],
+          "max": [
+            0.296999990940094,
+            0.17204226553440094,
+            0.4342372715473175
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "originalGeometry": "unchanged; additive detail only",
+      "added": {
+        "sha256": "456bd0d070882b490578f09682d8dc248b0ef71051fc48cddb0f1bb992e9d54e",
+        "vertices": 120,
+        "triangles": 236,
+        "bounds": {
+          "min": [
+            -0.2686000119209289,
+            -0.17403521084785462,
+            0.010128808891028167
+          ],
+          "max": [
+            -0.26140001192092893,
+            -0.17228521084785461,
+            0.017328808891028166
+          ]
+        }
+      }
+    },
+    {
+      "kind": "exterior-base-socket-fastener",
+      "newComponent": "detail_fastener_aquarium_base_2",
+      "materialKey": "aquarium-charcoal-frame",
+      "sourceComponents": [
+        "tank_base_frame"
+      ],
+      "contactEvidence": {
+        "caseworkFaceY": -0.17253521084785461,
+        "glassWaterExclusion": {
+          "min": [
+            -0.296999990940094,
+            -0.17204226553440094,
+            0.030508464202284813
+          ],
+          "max": [
+            0.296999990940094,
+            0.17204226553440094,
+            0.4342372715473175
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "originalGeometry": "unchanged; additive detail only",
+      "added": {
+        "sha256": "de2eb9d4660edd2b6354aea1106d00031905fee57e8795dafd7251d9b239bd58",
+        "vertices": 120,
+        "triangles": 236,
+        "bounds": {
+          "min": [
+            0.26140001192092893,
+            -0.17403521084785462,
+            0.010128808891028167
+          ],
+          "max": [
+            0.2686000119209289,
+            -0.17228521084785461,
+            0.017328808891028166
+          ]
+        }
+      }
+    },
+    {
+      "kind": "molded-base-register-bead",
+      "newComponent": "detail_casework_aquarium_base_register",
+      "materialKey": "aquarium-charcoal-frame",
+      "sourceComponents": [
+        "tank_base_frame"
+      ],
+      "contactEvidence": {
+        "caseworkFaceY": -0.17253521084785461,
+        "glassWaterExclusion": {
+          "min": [
+            -0.296999990940094,
+            -0.17204226553440094,
+            0.030508464202284813
+          ],
+          "max": [
+            0.296999990940094,
+            0.17204226553440094,
+            0.4342372715473175
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "originalGeometry": "unchanged; additive detail only",
+      "added": {
+        "sha256": "4b058651ecff3b28c0c501b3d53a7c05d3c3fac39642e1429bafd44c0f1f3883",
+        "vertices": 8,
+        "triangles": 12,
+        "bounds": {
+          "min": [
+            -0.24700001192092896,
+            -0.1735252108478546,
+            0.012528808891028167
+          ],
+          "max": [
+            0.24700001192092896,
+            -0.17228521084785461,
+            0.014928808891028166
+          ]
+        }
+      }
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "aquarium-air-bubble",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquarium-charcoal-frame",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquarium-clear-glass",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquarium-led-strip",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquarium-river-sand",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquarium-water-surface",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquascape-weathered-stone",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquatic-leaf-emerald",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "aquatic-leaf-tips",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-copper-scales.001",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-copper-scales.003",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-obsidian-eye",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-obsidian-eye.001",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-obsidian-eye.002",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-obsidian-eye.003",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-pearl-stripe",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-pearl-stripe.001",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-pearl-stripe.002",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-pearl-stripe.003",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-turquoise-scales",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "fish-turquoise-scales.002",
+      "profile": null,
+      "protectedReason": "material used by preserved motion/shared subtree; cannot add RealismUV",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-dark",
+      "profile": null,
+      "protectedReason": "aquarium fidelity is frozen, including glass, fish, plants and frame",
+      "maps": [],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1327380,
+    "afterBytes": 1327380,
+    "removedAttributes": 0,
+    "remappedSets": [],
+    "skipped": "Original, animated or shared geometry is protected"
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/desktop-aquarium.blend",
+      "sha256": "2e3a1860cc4752a11b897bccc19f32244c5eb7fa1bdc669ec117d46a113949c4",
+      "bytes": 444093
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/desktop-aquarium.glb",
+      "sha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "bytes": 1327380
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/desktop-aquarium/front-00cd8a2a1e6ddb6fcc72.webp",
+      "sha256": "00cd8a2a1e6ddb6fcc72372f74b6dead0fa6da897acb3c48270afc1063925b80",
+      "bytes": 141460,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 1.138,
+      "camera": {
+        "orthoScale": 1.0222829580307007,
+        "position": [
+          1.1168161630630493,
+          -1.8613601922988892,
+          1.2487481832504272
+        ],
+        "target": [
+          0,
+          0,
+          0.22499999403953552
+        ],
+        "clipStart": 0.0006000000284984708,
+        "clipEnd": 7.200000286102295,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.1602851152420044,
+            0.06521738320589066
+          ],
+          "max": [
+            0.839714765548706,
+            0.9347817301750183
+          ]
+        }
+      },
+      "glbSha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "renderConfigSha256": "486de68ec38421169ced72fdcf4cd5a7fd679fbbc3fa7608617be200e660461f",
+      "inputSetSha256": "dd25483a78b3a3cc306cab90a09cf1d7c4dc89624da7a467f2596cdbe78ff729"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/desktop-aquarium/rear-1d92fbf2904d1efe821a.webp",
+      "sha256": "1d92fbf2904d1efe821ae92a14b15731504d9ee87492f76ed358643ba1743e6e",
+      "bytes": 137036,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 1.122,
+      "camera": {
+        "orthoScale": 1.0222828388214111,
+        "position": [
+          -1.1168161630630493,
+          1.8613601922988892,
+          1.2487481832504272
+        ],
+        "target": [
+          0,
+          0,
+          0.22499999403953552
+        ],
+        "clipStart": 0.0006000000284984708,
+        "clipEnd": 7.200000286102295,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.1602851003408432,
+            0.06521739065647125
+          ],
+          "max": [
+            0.839714765548706,
+            0.9347817301750183
+          ]
+        }
+      },
+      "glbSha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "renderConfigSha256": "486de68ec38421169ced72fdcf4cd5a7fd679fbbc3fa7608617be200e660461f",
+      "inputSetSha256": "dd25483a78b3a3cc306cab90a09cf1d7c4dc89624da7a467f2596cdbe78ff729"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/desktop-aquarium/detail-c4014d69eedfcca279ed.webp",
+      "sha256": "c4014d69eedfcca279ed4c05d07c3559a428e3f45cf7a09c83aab5ec2b44e04d",
+      "bytes": 214440,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 1.3,
+      "camera": {
+        "orthoScale": 0.5622560977935791,
+        "position": [
+          1.1168161630630493,
+          -1.8613601922988892,
+          1.2487481832504272
+        ],
+        "target": [
+          0,
+          0,
+          0.22499999403953552
+        ],
+        "clipStart": 0.0006000000284984708,
+        "clipEnd": 7.200000286102295,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.16028538346290588,
+            0.06521739065647125
+          ],
+          "max": [
+            0.8397144079208374,
+            0.934781014919281
+          ]
+        }
+      },
+      "glbSha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "renderConfigSha256": "486de68ec38421169ced72fdcf4cd5a7fd679fbbc3fa7608617be200e660461f",
+      "inputSetSha256": "dd25483a78b3a3cc306cab90a09cf1d7c4dc89624da7a467f2596cdbe78ff729"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/desktop-aquarium/underside-95ec4a5f0267b7c24b30.webp",
+      "sha256": "95ec4a5f0267b7c24b301fcd5c52a659b7c676180922f12138f2c994da8d3c4a",
+      "bytes": 90774,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 1.003,
+      "camera": {
+        "orthoScale": 1.0406392812728882,
+        "position": [
+          1.097989797592163,
+          -1.829982876777649,
+          -0.8729897737503052
+        ],
+        "target": [
+          0,
+          0,
+          0.22499999403953552
+        ],
+        "clipStart": 0.0006000000284984708,
+        "clipEnd": 7.200000286102295,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.16627748310565948,
+            0.06521748751401901
+          ],
+          "max": [
+            0.8337222337722778,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "renderConfigSha256": "486de68ec38421169ced72fdcf4cd5a7fd679fbbc3fa7608617be200e660461f",
+      "inputSetSha256": "dd25483a78b3a3cc306cab90a09cf1d7c4dc89624da7a467f2596cdbe78ff729"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/desktop-aquarium/clay-b7ab0ca2612b1a0546c4.webp",
+      "sha256": "b7ab0ca2612b1a0546c44a8c43b39702a7fd4981a934c60c1f61ab6a7ee1faaa",
+      "bytes": 60748,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.974,
+      "camera": {
+        "orthoScale": 1.0222829580307007,
+        "position": [
+          1.1168161630630493,
+          -1.8613601922988892,
+          1.2487481832504272
+        ],
+        "target": [
+          0,
+          0,
+          0.22499999403953552
+        ],
+        "clipStart": 0.0006000000284984708,
+        "clipEnd": 7.200000286102295,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.1602851152420044,
+            0.06521738320589066
+          ],
+          "max": [
+            0.839714765548706,
+            0.9347817301750183
+          ]
+        }
+      },
+      "glbSha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "renderConfigSha256": "486de68ec38421169ced72fdcf4cd5a7fd679fbbc3fa7608617be200e660461f",
+      "inputSetSha256": "dd25483a78b3a3cc306cab90a09cf1d7c4dc89624da7a467f2596cdbe78ff729"
+    }
+  ],
+  "timingSeconds": 0.83,
+  "exportMeshes": 3,
+  "aquariumPreservation": {
+    "mode": "additive-casework-only",
+    "additions": [
+      {
+        "node": "detail_casework_aquarium_base_register.001",
+        "kind": "casework"
+      },
+      {
+        "node": "detail_fastener_aquarium_base_1.001",
+        "kind": "fastener"
+      },
+      {
+        "node": "detail_fastener_aquarium_base_2.001",
+        "kind": "fastener"
+      }
+    ]
+  },
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.30000001192092896,
+          0.17499999701976776,
+          0.44999998807907104
+        ],
+        "min": [
+          -0.30000001192092896,
+          -0.17499999701976776,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "renderImportSha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.30000001192092896,0.17499999701976776,0.44999998807907104],\"min\":[-0.30000001192092896,-0.17499999701976776,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146\",\"renderImportSha256\":\"a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "486de68ec38421169ced72fdcf4cd5a7fd679fbbc3fa7608617be200e660461f",
+    "inputs": [
+      {
+        "path": "assets-source/blender/desktop-aquarium.blend",
+        "sha256": "0b7c7410b6783263ba0f48c4093febee940425dca8231b3bb7376bc98271b3cc",
+        "bytes": 458357
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/desktop-aquarium.blend",
+        "sha256": "2e3a1860cc4752a11b897bccc19f32244c5eb7fa1bdc669ec117d46a113949c4",
+        "bytes": 444093
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/desktop-aquarium.glb",
+        "sha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+        "bytes": 1327380
+      },
+      {
+        "path": "public/models/furniture/desktop-aquarium.glb",
+        "sha256": "4e45969062ab3b9f00d58fba7d2c9a51dc6377fea1bbec68ad536fb12f8b030b",
+        "bytes": 1411144
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "dd25483a78b3a3cc306cab90a09cf1d7c4dc89624da7a467f2596cdbe78ff729",
+    "afterSha256": "dd25483a78b3a3cc306cab90a09cf1d7c4dc89624da7a467f2596cdbe78ff729"
+  },
+  "formatValidation": {
+    "sha256": "a50383be4a9a9f4dade1eb91ecd1d81fa11bd3212829ef2915af24bd3a9c5146",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 45,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/2/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/3/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/4/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/5/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/6/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/7/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/8/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/9/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/10/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/11/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/12/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/13/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/14/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/15/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/16/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/17/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/18/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/18/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/18/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/19/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/19/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/19/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/20/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/20/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/20/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/21/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/21/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/21/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/4/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/5/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/6/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/7/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/26/primitives/8/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/27/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/27/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/28/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/28/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/29/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/29/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "1b6c5a9b4ad549c1f404746becd236e5f9563e0d98f13c4ddec65f717c7cee3c",
+    "views": {
+      "front": "Fish, plants, substrate and clear tank remain intact.",
+      "rear": "Original filter and planted interior are preserved.",
+      "detail": "Individual fish and leaves remain visible through the original glazing.",
+      "underside": "Tank base is enclosed and supports the substrate.",
+      "clay": "Opaque clay view shows the tank envelope; protected interior geometry and motion require semantic and runtime checks."
+    }
+  }
+}

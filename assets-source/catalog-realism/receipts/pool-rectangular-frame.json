@@ -1,0 +1,2242 @@
+{
+  "version": 1,
+  "catalogId": "pool-rectangular-frame",
+  "inputContractSha256": "d913d32908644173644aa838e6fb25f6e2f4a0be2c3deff6fb2c688f47ddbe47",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/pool-rectangular-frame.blend",
+      "sha256": "053f0d6d45670db93f7b99aff56d3ae2d24098256a0000c3a162a7dbf7bed948",
+      "bytes": 126445
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+      "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+      "bytes": 29170
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/pool-rectangular-frame.glb",
+      "sha256": "41124e73d78cf6ecffb6283f993d27edc820391de6a7887492d079ac11169284",
+      "bytes": 268228
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/pool-rectangular-frame.blend",
+      "sha256": "053f0d6d45670db93f7b99aff56d3ae2d24098256a0000c3a162a7dbf7bed948",
+      "bytes": 126445
+    },
+    {
+      "path": "public/models/furniture/pool-rectangular-frame.glb",
+      "sha256": "41124e73d78cf6ecffb6283f993d27edc820391de6a7887492d079ac11169284",
+      "bytes": 268228
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+      "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+      "bytes": 29170
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "long tubular top rail",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "877caef2dbf604f45c1d8aae8db44085f40ae3487b0acf474eac7e5313010329",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -2.7064380645751953,
+            -1.3955897092819214,
+            1.2540000677108765
+          ],
+          "max": [
+            2.7064380645751953,
+            -1.3306328058242798,
+            1.3200000524520874
+          ],
+          "size": [
+            5.412876129150391,
+            0.0649569034576416,
+            0.06599998474121094
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ee48e436dae210ad6e21c9e6a74a6fc964cd243c17968efb010ec1d3b7d3e6b6",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -2.7064380645751953,
+            -1.3955897092819214,
+            1.2540000677108765
+          ],
+          "max": [
+            2.7064380645751953,
+            -1.3306328058242798,
+            1.3200000524520874
+          ],
+          "size": [
+            5.412876129150391,
+            0.0649569034576416,
+            0.06599998474121094
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d301d818ef4e7bd05e3c008d1c661b7d59e2b4889b9b691a117cee4b50e85438",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -2.4462037086486816,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            -2.3520236015319824,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "68fae74547c14da8dd186b4ab3093b50841c0da16207609d3cd0d2252853daf8",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -2.4462037086486816,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            -2.3520236015319824,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.001",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "deb5f66d078bcc1912b17b8cec77f567f69f0fd2285f135af1afe7b43534e3ec",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -1.486558198928833,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            -1.3923780918121338,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "cfe3db7f062d493c2bf3395e3a2a896d5df114bdeaab7de893023384f0cda900",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -1.486558198928833,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            -1.3923780918121338,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.002",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "96b3399c5e31fb000f4eaf3bd92963cf4732d9510dc5d24ba172c833122924b0",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.5269127488136292,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            -0.4327326714992523,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "dbae33a58dce6dbe2f7e6b5b6b96147b0faf13a5ec737400d1bd8aa5e33b49a7",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.5269127488136292,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            -0.4327326714992523,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.003",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "dc43ef5008762ea3c2eff0c90832005b32ba6df038eb74d8f7eb68c9592cb3c2",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.4327326714992523,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            0.5269127488136292,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7cad428ec89babe74a9d6ebce938968bec0d7040f58f16897f2f2bdd65f84f5a",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.4327326714992523,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            0.5269127488136292,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.004",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5924b5eee28bbda554f32ffeb346030c1934470a36bb7b1c759036f1db8cd867",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            1.3923780918121338,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            1.486558198928833,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ac907b94369b932ed2f311f85147e7e64192a6334a84eb1a1cc552033b2cb1bf",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            1.3923780918121338,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            1.486558198928833,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.005",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "71d6fe1099918c8ce590361ae59786fc60d152c46ca82c8bb4e2a0ef144754ba",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            2.3520236015319824,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            2.4462037086486816,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c24fc457d82056f6c2727c62063da08fe8e908e70763f1fce53fb5275c2cea0d",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            2.3520236015319824,
+            -1.4014948606491089,
+            1.2170000076293945
+          ],
+          "max": [
+            2.4462037086486816,
+            -1.3247276544570923,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "long tubular top rail.001",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "fc2b2255cba7717fee7196523296b3502e8a7faa436bd45ef6a5345f225757e8",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -2.7064380645751953,
+            1.3306328058242798,
+            1.2540000677108765
+          ],
+          "max": [
+            2.7064380645751953,
+            1.3955897092819214,
+            1.3200000524520874
+          ],
+          "size": [
+            5.412876129150391,
+            0.0649569034576416,
+            0.06599998474121094
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c3e24a7f2282165ec79c774508b16821372618112686650c5633d3e49c59aa8c",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -2.7064380645751953,
+            1.3306328058242798,
+            1.2540000677108765
+          ],
+          "max": [
+            2.7064380645751953,
+            1.3955897092819214,
+            1.3200000524520874
+          ],
+          "size": [
+            5.412876129150391,
+            0.0649569034576416,
+            0.06599998474121094
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.006",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e57dbbbbfbdcbc2ab11008e3fd9b78c3eaabc5a83fc61c82f53ad00a0c0cc317",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -2.4462037086486816,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            -2.3520236015319824,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ed0323655c17d700eee8de30a0e401a0ddb5e32e760cbe5a504ffa9b6bbc7b0d",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -2.4462037086486816,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            -2.3520236015319824,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.007",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6f0ebafbd220a232a2fcc2df815831ced152d21615472664e3af31cfd43f443a",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -1.486558198928833,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            -1.3923780918121338,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ed423a9df7207040beccb4e52151a5ab1e161bab93b421c9303fbf9761a9c029",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -1.486558198928833,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            -1.3923780918121338,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.008",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3672d5ab22186d3125dd7fef119054b2cce2a8d8ad4ebaeb251e34d8dde214f8",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.5269127488136292,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            -0.4327326714992523,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "3985e654878ab0175cf4aaec96ecbb2169b5e4ebacc64eaa48d0923f8492ce2c",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.5269127488136292,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            -0.4327326714992523,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.009",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2fee1b48da0ada63579840cfc4cb240f2272dfc2a10c1f5e704b3fe5eadb5f0c",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.4327326714992523,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            0.5269127488136292,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "553b4a8d33aa6ff54924aa14d0f1d6892c8dbc9ca87380743f8ca48beb20d4ba",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.4327326714992523,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            0.5269127488136292,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418007731437683,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.010",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "8c640286cbb289ee4f30416442e31c869ade2c5a99ea9bf14208f339445b8f87",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            1.3923780918121338,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            1.486558198928833,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7fe8d988eab1a48cc537072ec237bd69d2de63ad0886c47ad56357c46d7c2b09",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            1.3923780918121338,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            1.486558198928833,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "top rail clamp.011",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "c9b0a1752d56f3fe0847c92c452942ab12d9335a0586cfda329caba3669db8d7",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            2.3520236015319824,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            2.4462037086486816,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "after": {
+        "sha256": "6011e3c77079ec870dc747827bfbfebb356c4d962b9dada471492e7a5856110b",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            2.3520236015319824,
+            1.3247276544570923,
+            1.2170000076293945
+          ],
+          "max": [
+            2.4462037086486816,
+            1.4014948606491089,
+            1.2950000762939453
+          ],
+          "size": [
+            0.09418010711669922,
+            0.0767672061920166,
+            0.07800006866455078
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "short tubular top rail",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e27388cc2e93b5978d7132532596d424d9866babbec6546b9f34c4b1b54090ff",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -2.773851156234741,
+            -1.3385063409805298,
+            1.2540000677108765
+          ],
+          "max": [
+            -2.708420753479004,
+            1.3385063409805298,
+            1.3200000524520874
+          ],
+          "size": [
+            0.0654304027557373,
+            2.6770126819610596,
+            0.06599998474121094
+          ]
+        }
+      },
+      "after": {
+        "sha256": "430f7a58eac398179e6857cc5dad969276e707a9051612bb0609384f22901a2f",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -2.773851156234741,
+            -1.3385063409805298,
+            1.2540000677108765
+          ],
+          "max": [
+            -2.708420753479004,
+            1.3385063409805298,
+            1.3200000524520874
+          ],
+          "size": [
+            0.0654304027557373,
+            2.6770126819610596,
+            0.06599998474121094
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "short tubular top rail.001",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3ce46b52751c77d94568f0f9282ea3da5a0f1ceef60226eb7d3bdab082c5553f",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            2.708420753479004,
+            -1.3385063409805298,
+            1.2540000677108765
+          ],
+          "max": [
+            2.773851156234741,
+            1.3385063409805298,
+            1.3200000524520874
+          ],
+          "size": [
+            0.0654304027557373,
+            2.6770126819610596,
+            0.06599998474121094
+          ]
+        }
+      },
+      "after": {
+        "sha256": "a9f5a96a44f5bd13c60ca581adff6f523230bef0405821ec65185d817525d0bf",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            2.708420753479004,
+            -1.3385063409805298,
+            1.2540000677108765
+          ],
+          "max": [
+            2.773851156234741,
+            1.3385063409805298,
+            1.3200000524520874
+          ],
+          "size": [
+            0.0654304027557373,
+            2.6770126819610596,
+            0.06599998474121094
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "outdoor-graphite-powdercoat",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "outdoor-pool-liner",
+      "profile": "polymer",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-ceramic",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "charcoal-details",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "outdoor-graphite-powdercoat",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "outdoor-graphite-powdercoat",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "outdoor-graphite-powdercoat",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "outdoor-pool-liner",
+      "profile": "polymer",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "outdoor-pool-liner",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "outdoor-pool-liner",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+          "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+          "bytes": 29170,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "outdoor-water",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-ceramic",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-ceramic",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-ceramic",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "brushed-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "outdoor-graphite-powdercoat",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "outdoor-graphite-powdercoat",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "outdoor-pool-liner",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "outdoor-pool-liner",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-ceramic",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-ceramic",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1019188,
+    "afterBytes": 1019188,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/pool-rectangular-frame.blend",
+      "sha256": "ac038bdb40e7079a03a44a6f5e5655cefa48534f781bf54e9de8296634b9270c",
+      "bytes": 337317
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/pool-rectangular-frame.glb",
+      "sha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "bytes": 1019188
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/pool-rectangular-frame/front-92d4c05cc8bf52642ea7.webp",
+      "sha256": "92d4c05cc8bf52642ea7437bc3d47d0e1b16234a7b7e6209cf407957d9a8864e",
+      "bytes": 88656,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.807,
+      "camera": {
+        "orthoScale": 7.908659934997559,
+        "position": [
+          11.075092315673828,
+          -18.45848846435547,
+          10.81216812133789
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.005949999671429396,
+        "clipEnd": 71.39999389648438,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521765887737274,
+            0.1829112023115158
+          ],
+          "max": [
+            0.9347825646400452,
+            0.8170879483222961
+          ]
+        }
+      },
+      "glbSha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "renderConfigSha256": "ca2dd2f3b8cdaec4f667500b2a6d14a497c9b5ed490bb37cf16f7149b036e676",
+      "inputSetSha256": "86f998a8bc3646e819cc1b317b4a42337f1555a02a15f1dc991a11ad6d715948"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/pool-rectangular-frame/rear-b7e4a4401875c4b73ed7.webp",
+      "sha256": "b7e4a4401875c4b73ed7887282a5e99400bede94fc09911bb8162fcecec6e2c6",
+      "bytes": 88188,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.813,
+      "camera": {
+        "orthoScale": 7.908658504486084,
+        "position": [
+          -11.075092315673828,
+          18.45848846435547,
+          10.81216812133789
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.005949999671429396,
+        "clipEnd": 71.39999389648438,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521763652563095,
+            0.1829112023115158
+          ],
+          "max": [
+            0.9347826242446899,
+            0.8170879483222961
+          ]
+        }
+      },
+      "glbSha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "renderConfigSha256": "ca2dd2f3b8cdaec4f667500b2a6d14a497c9b5ed490bb37cf16f7149b036e676",
+      "inputSetSha256": "86f998a8bc3646e819cc1b317b4a42337f1555a02a15f1dc991a11ad6d715948"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/pool-rectangular-frame/detail-3effac59955f0c38a025.webp",
+      "sha256": "3effac59955f0c38a025911ffe9dbac2a137cb9afe0049683f7e329c44072734",
+      "bytes": 120526,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.874,
+      "camera": {
+        "orthoScale": 4.349763870239258,
+        "position": [
+          11.075092315673828,
+          -18.45848846435547,
+          10.81216812133789
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.005949999671429396,
+        "clipEnd": 71.39999389648438,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.06521787494421005,
+            0.18291091918945312
+          ],
+          "max": [
+            0.9347825646400452,
+            0.8170875310897827
+          ]
+        }
+      },
+      "glbSha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "renderConfigSha256": "ca2dd2f3b8cdaec4f667500b2a6d14a497c9b5ed490bb37cf16f7149b036e676",
+      "inputSetSha256": "86f998a8bc3646e819cc1b317b4a42337f1555a02a15f1dc991a11ad6d715948"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/pool-rectangular-frame/underside-a5b40b24fe643ff20579.webp",
+      "sha256": "a5b40b24fe643ff20579394b02ee43dca3071897546e7efc6d910a240ed13a62",
+      "bytes": 56126,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.685,
+      "camera": {
+        "orthoScale": 7.908658504486084,
+        "position": [
+          10.888397216796875,
+          -18.147329330444336,
+          -10.228397369384766
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.005949999671429396,
+        "clipEnd": 71.39999389648438,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521739810705185,
+            0.1689113974571228
+          ],
+          "max": [
+            0.9347824454307556,
+            0.8310886025428772
+          ]
+        }
+      },
+      "glbSha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "renderConfigSha256": "ca2dd2f3b8cdaec4f667500b2a6d14a497c9b5ed490bb37cf16f7149b036e676",
+      "inputSetSha256": "86f998a8bc3646e819cc1b317b4a42337f1555a02a15f1dc991a11ad6d715948"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/pool-rectangular-frame/clay-3e88069c8e28a84b6cbd.webp",
+      "sha256": "3e88069c8e28a84b6cbd05806f3ad343e9ee967d8f8a3b646ab0fd2eecc01d03",
+      "bytes": 60152,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.765,
+      "camera": {
+        "orthoScale": 7.908659934997559,
+        "position": [
+          11.075092315673828,
+          -18.45848846435547,
+          10.81216812133789
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.005949999671429396,
+        "clipEnd": 71.39999389648438,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521765887737274,
+            0.1829112023115158
+          ],
+          "max": [
+            0.9347825646400452,
+            0.8170879483222961
+          ]
+        }
+      },
+      "glbSha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "renderConfigSha256": "ca2dd2f3b8cdaec4f667500b2a6d14a497c9b5ed490bb37cf16f7149b036e676",
+      "inputSetSha256": "86f998a8bc3646e819cc1b317b4a42337f1555a02a15f1dc991a11ad6d715948"
+    }
+  ],
+  "timingSeconds": 1.41,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          2.9749999046325684,
+          1.725000023841858,
+          1.3200000524520874
+        ],
+        "min": [
+          -2.9749999046325684,
+          -1.725000023841858,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "renderImportSha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[2.9749999046325684,1.725000023841858,1.3200000524520874],\"min\":[-2.9749999046325684,-1.725000023841858,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed\",\"renderImportSha256\":\"ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "ca2dd2f3b8cdaec4f667500b2a6d14a497c9b5ed490bb37cf16f7149b036e676",
+    "inputs": [
+      {
+        "path": "assets-source/blender/pool-rectangular-frame.blend",
+        "sha256": "053f0d6d45670db93f7b99aff56d3ae2d24098256a0000c3a162a7dbf7bed948",
+        "bytes": 126445
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/pool-rectangular-frame.blend",
+        "sha256": "ac038bdb40e7079a03a44a6f5e5655cefa48534f781bf54e9de8296634b9270c",
+        "bytes": 337317
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-graphite-powdercoat-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/outdoor-pool-liner-orm-7017c3d137d228d9.png",
+        "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+        "bytes": 49569
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/pool-rectangular-frame/warm-ceramic-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+        "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+        "bytes": 29170
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/pool-rectangular-frame.glb",
+        "sha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+        "bytes": 1019188
+      },
+      {
+        "path": "public/models/furniture/pool-rectangular-frame.glb",
+        "sha256": "41124e73d78cf6ecffb6283f993d27edc820391de6a7887492d079ac11169284",
+        "bytes": 268228
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "86f998a8bc3646e819cc1b317b4a42337f1555a02a15f1dc991a11ad6d715948",
+    "afterSha256": "86f998a8bc3646e819cc1b317b4a42337f1555a02a15f1dc991a11ad6d715948"
+  },
+  "formatValidation": {
+    "sha256": "ee5f4c3e52a0da45d5034737e5a8b34717360aecc20e7189066b3df8a9ba2bed",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 7,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/1/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "catalog_materials independent five-view review",
+    "artifactSetSha256": "44aae3bda8e339d66f06ef45797f0d4f7fd68af7495ff391e2298401d29b7952",
+    "views": {
+      "front": "Blue rectangular liner is held by a rim and repeated external supports.",
+      "rear": "Rear frame repeats the same bracing and level rim.",
+      "detail": "Waterline, liner edge and side drain fitting are distinct.",
+      "underside": "Closed liner base sits inside a complete external support system.",
+      "clay": "Rectangular pool volume and repeated bracing remain clear in clay."
+    }
+  }
+}

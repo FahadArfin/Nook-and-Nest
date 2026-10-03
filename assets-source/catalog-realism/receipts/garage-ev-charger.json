@@ -1,0 +1,1724 @@
+{
+  "version": 1,
+  "catalogId": "garage-ev-charger",
+  "inputContractSha256": "2d719059f1434f984920ded6d1eec7a5fe6fecacfb949475c385cadea39a1912",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/garage-ev-charger.blend",
+      "sha256": "df0b06353038bc4597a43c71ad32af527731c9cd0d19fdef3f56065887621262",
+      "bytes": 120250
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+      "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+      "bytes": 29170
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/garage-ev-charger.glb",
+      "sha256": "d0c2e818c8d30bea0229bc890a4b47168cfa75c3dc6f0026c13c7cdb485e40d6",
+      "bytes": 182816
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.json",
+      "sha256": "e8e9559e0a95e97a426fc2446a0079b6e1240fa896f663b80c8fb05aaec4268b",
+      "bytes": 288
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.py",
+      "sha256": "c8270d91ac2acc328b07637813ce27fa4eaf50fb748b3c61fc15a33fe78530c8",
+      "bytes": 4101
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.py",
+      "sha256": "c8270d91ac2acc328b07637813ce27fa4eaf50fb748b3c61fc15a33fe78530c8",
+      "bytes": 4101
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.json",
+      "sha256": "e8e9559e0a95e97a426fc2446a0079b6e1240fa896f663b80c8fb05aaec4268b",
+      "bytes": 288
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/garage-ev-charger.blend",
+      "sha256": "df0b06353038bc4597a43c71ad32af527731c9cd0d19fdef3f56065887621262",
+      "bytes": 120250
+    },
+    {
+      "path": "public/models/furniture/garage-ev-charger.glb",
+      "sha256": "d0c2e818c8d30bea0229bc890a4b47168cfa75c3dc6f0026c13c7cdb485e40d6",
+      "bytes": 182816
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+      "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+      "bytes": 29170
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.py",
+      "sha256": "c8270d91ac2acc328b07637813ce27fa4eaf50fb748b3c61fc15a33fe78530c8",
+      "bytes": 4101
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.json",
+      "sha256": "e8e9559e0a95e97a426fc2446a0079b6e1240fa896f663b80c8fb05aaec4268b",
+      "bytes": 288
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stowed EV charging cable loop",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 328,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.21000000834465027,
+          0.02100371941924095,
+          0
+        ],
+        "max": [
+          0.21000000834465027,
+          0.033292029052972794,
+          0.4505224823951721
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stowed EV charging cable loop.001",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 328,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.2067185640335083,
+          0.009593144059181213,
+          0.003519706893712282
+        ],
+        "max": [
+          0.2067185640335083,
+          0.021881455555558205,
+          0.4470027685165405
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stowed EV charging cable loop.002",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 328,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.20343713462352753,
+          -0.0018174299038946629,
+          0.007039413787424564
+        ],
+        "max": [
+          0.20343713462352753,
+          0.010470881126821041,
+          0.44348305463790894
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stowed EV charging cable loop.003",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 328,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.20015570521354675,
+          -0.013228003866970539,
+          0.01055912021547556
+        ],
+        "max": [
+          0.20015570521354675,
+          -0.0009396934183314443,
+          0.43996334075927734
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stowed EV charging cable loop.004",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 328,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.19687426090240479,
+          -0.024638578295707703,
+          0.014078827574849129
+        ],
+        "max": [
+          0.19687426090240479,
+          -0.012350267730653286,
+          0.43644362688064575
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Bottom charging cable inlet",
+      "construction": "continuous rounded lead joining the original case or holster to a measured stored loop",
+      "sourceVertices": 30,
+      "candidateVertices": 736,
+      "candidateTriangles": 1468,
+      "boundsM": {
+        "min": [
+          -0.20560291401780761,
+          0.02002156600550943,
+          0.2048890413157656
+        ],
+        "max": [
+          0.0025848691154305523,
+          0.0630323765606304,
+          0.31535779005700115
+        ]
+      },
+      "originalLooseEndpointM": [
+        -0.16952897757291793,
+        0.04733581319451332,
+        0.21352887898683548
+      ],
+      "seatedLoopCenterM": [
+        -0.20192349587405886,
+        0.02714787470176816,
+        0.21128715197675657
+      ],
+      "endpointCorrectionM": 0.03823588650126388
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Cable connection to holster",
+      "construction": "continuous rounded lead joining the original case or holster to a measured stored loop",
+      "sourceVertices": 40,
+      "candidateVertices": 784,
+      "candidateTriangles": 1564,
+      "boundsM": {
+        "min": [
+          0.017109432649355293,
+          -0.07381125482051218,
+          0.32470967557247893
+        ],
+        "max": [
+          0.167603376273975,
+          -0.011891127391702335,
+          0.3983705282459414
+        ]
+      },
+      "originalLooseEndpointM": [
+        0.1651773303747177,
+        -0.022005369886755943,
+        0.33202566802501676
+      ],
+      "seatedLoopCenterM": [
+        0.16208494151325376,
+        -0.01849442219827324,
+        0.33002672095718394
+      ],
+      "endpointCorrectionM": 0.005087770820483743
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-fine-rubber",
+      "profile": "rubber",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-graphite-cast-metal",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-graphite-moulded-polymer",
+      "profile": "polymer",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-slate-powdercoat",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "garage-fine-rubber",
+      "profile": "rubber",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-fine-rubber",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-fine-rubber",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+          "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+          "bytes": 32499,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-graphite-cast-metal",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-graphite-cast-metal",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-graphite-moulded-polymer",
+      "profile": "polymer",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-graphite-moulded-polymer",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-graphite-moulded-polymer",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+          "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+          "bytes": 29170,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-slate-powdercoat",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-slate-powdercoat",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-static-status-lens",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "garage-fine-rubber",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-fine-rubber",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-moulded-polymer",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-moulded-polymer",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 860532,
+    "afterBytes": 860532,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/garage-ev-charger.blend",
+      "sha256": "ac5eab7c4f7202f8b07fa294046993cad077a2097a612b5fbfa06d34716e1574",
+      "bytes": 389401
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/garage-ev-charger.glb",
+      "sha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "bytes": 860532
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/garage-ev-charger/front-91ec0d67983afe37fe4c.webp",
+      "sha256": "91ec0d67983afe37fe4c2bb3c13c598cd3687227648b3634ed756410d5a5c9f9",
+      "bytes": 66772,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.759,
+      "camera": {
+        "orthoScale": 1.1410815715789795,
+        "position": [
+          1.1912705898284912,
+          -1.9854509830474854,
+          1.4119980335235596
+        ],
+        "target": [
+          0,
+          0,
+          0.320000022649765
+        ],
+        "clipStart": 0.000640000042039901,
+        "clipEnd": 7.680000305175781,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2971019744873047,
+            0.06521737575531006
+          ],
+          "max": [
+            0.702897846698761,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "renderConfigSha256": "bb6332e07f2a44b39c673ba2c64a0612f678f64fbe80cf0479ecfdf8f098a070",
+      "inputSetSha256": "f89d393259e0414f5946673bf425d4c4fc6971e9c3bf3e97cd4366df545826c6"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/garage-ev-charger/rear-7bd5d1c9b680c6a8d43f.webp",
+      "sha256": "7bd5d1c9b680c6a8d43fb0be8e366256cb158f771684a91889cffc4252d69e5e",
+      "bytes": 61590,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.749,
+      "camera": {
+        "orthoScale": 1.1410815715789795,
+        "position": [
+          -1.1912705898284912,
+          1.9854509830474854,
+          1.4119980335235596
+        ],
+        "target": [
+          0,
+          0,
+          0.320000022649765
+        ],
+        "clipStart": 0.000640000042039901,
+        "clipEnd": 7.680000305175781,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2971020042896271,
+            0.06521737575531006
+          ],
+          "max": [
+            0.702897846698761,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "renderConfigSha256": "bb6332e07f2a44b39c673ba2c64a0612f678f64fbe80cf0479ecfdf8f098a070",
+      "inputSetSha256": "f89d393259e0414f5946673bf425d4c4fc6971e9c3bf3e97cd4366df545826c6"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/garage-ev-charger/detail-ed6ea34b1571c87f3025.webp",
+      "sha256": "ed6ea34b1571c87f30254c45ce6936ef23c105f734eaee08e53df7fec5edfd6e",
+      "bytes": 81740,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.762,
+      "camera": {
+        "orthoScale": 0.6275952458381653,
+        "position": [
+          1.1912705898284912,
+          -1.9854509830474854,
+          1.4119980335235596
+        ],
+        "target": [
+          0,
+          0,
+          0.320000022649765
+        ],
+        "clipStart": 0.000640000042039901,
+        "clipEnd": 7.680000305175781,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.29710206389427185,
+            0.06521739810705185
+          ],
+          "max": [
+            0.7028977274894714,
+            0.934781551361084
+          ]
+        }
+      },
+      "glbSha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "renderConfigSha256": "bb6332e07f2a44b39c673ba2c64a0612f678f64fbe80cf0479ecfdf8f098a070",
+      "inputSetSha256": "f89d393259e0414f5946673bf425d4c4fc6971e9c3bf3e97cd4366df545826c6"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/garage-ev-charger/underside-f41b15564186b44872d3.webp",
+      "sha256": "f41b15564186b44872d33168af9d154074885f5dc2027004931579aa7b581f12",
+      "bytes": 33036,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.702,
+      "camera": {
+        "orthoScale": 1.1445026397705078,
+        "position": [
+          1.1711890697479248,
+          -1.951981782913208,
+          -0.8511890769004822
+        ],
+        "target": [
+          0,
+          0,
+          0.320000022649765
+        ],
+        "clipStart": 0.000640000042039901,
+        "clipEnd": 7.680000305175781,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2977084219455719,
+            0.06521738320589066
+          ],
+          "max": [
+            0.7022913098335266,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "renderConfigSha256": "bb6332e07f2a44b39c673ba2c64a0612f678f64fbe80cf0479ecfdf8f098a070",
+      "inputSetSha256": "f89d393259e0414f5946673bf425d4c4fc6971e9c3bf3e97cd4366df545826c6"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/garage-ev-charger/clay-993f2067f62219d4dda3.webp",
+      "sha256": "993f2067f62219d4dda3af3a97fa7f2e2d39e49625797f682ed866be8d3a1801",
+      "bytes": 50178,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.754,
+      "camera": {
+        "orthoScale": 1.1410815715789795,
+        "position": [
+          1.1912705898284912,
+          -1.9854509830474854,
+          1.4119980335235596
+        ],
+        "target": [
+          0,
+          0,
+          0.320000022649765
+        ],
+        "clipStart": 0.000640000042039901,
+        "clipEnd": 7.680000305175781,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2971019744873047,
+            0.06521737575531006
+          ],
+          "max": [
+            0.702897846698761,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "renderConfigSha256": "bb6332e07f2a44b39c673ba2c64a0612f678f64fbe80cf0479ecfdf8f098a070",
+      "inputSetSha256": "f89d393259e0414f5946673bf425d4c4fc6971e9c3bf3e97cd4366df545826c6"
+    }
+  ],
+  "timingSeconds": 1.78,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.21000000834465027,
+          0.10000000149011612,
+          0.64000004529953
+        ],
+        "min": [
+          -0.21000000834465027,
+          -0.10000000149011612,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "renderImportSha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.21000000834465027,0.10000000149011612,0.64000004529953],\"min\":[-0.21000000834465027,-0.10000000149011612,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c\",\"renderImportSha256\":\"aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "bb6332e07f2a44b39c673ba2c64a0612f678f64fbe80cf0479ecfdf8f098a070",
+    "inputs": [
+      {
+        "path": "assets-source/blender/garage-ev-charger.blend",
+        "sha256": "df0b06353038bc4597a43c71ad32af527731c9cd0d19fdef3f56065887621262",
+        "bytes": 120250
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/garage-ev-charger.blend",
+        "sha256": "ac5eab7c4f7202f8b07fa294046993cad077a2097a612b5fbfa06d34716e1574",
+        "bytes": 389401
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-fine-rubber-orm-ccb040239f1f42ae.png",
+        "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+        "bytes": 52138
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+        "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+        "bytes": 49569
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-ev-charger/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+        "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+        "bytes": 29170
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+        "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+        "bytes": 32499
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/garage-ev-charger.glb",
+        "sha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+        "bytes": 860532
+      },
+      {
+        "path": "public/models/furniture/garage-ev-charger.glb",
+        "sha256": "d0c2e818c8d30bea0229bc890a4b47168cfa75c3dc6f0026c13c7cdb485e40d6",
+        "bytes": 182816
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+        "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+        "bytes": 15729
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+        "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+        "bytes": 14306
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.json",
+        "sha256": "e8e9559e0a95e97a426fc2446a0079b6e1240fa896f663b80c8fb05aaec4268b",
+        "bytes": 288
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/garage-ev-charger.py",
+        "sha256": "c8270d91ac2acc328b07637813ce27fa4eaf50fb748b3c61fc15a33fe78530c8",
+        "bytes": 4101
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+        "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+        "bytes": 10417
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+        "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+        "bytes": 9057
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+        "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+        "bytes": 12800
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+        "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+        "bytes": 8608
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+        "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+        "bytes": 12009
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "f89d393259e0414f5946673bf425d4c4fc6971e9c3bf3e97cd4366df545826c6",
+    "afterSha256": "f89d393259e0414f5946673bf425d4c4fc6971e9c3bf3e97cd4366df545826c6"
+  },
+  "formatValidation": {
+    "sha256": "aaa1ee257e299350f96a87061acb7f037c03671d35853c8e6107e0012a89b00c",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 6,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "56e6eef1bc5aede24de199b5a390131db1075debc7fc2fc4a2820ad34867ddaf",
+    "views": {
+      "front": "Smooth stored cable loops and the connected holster lead make the compact wall charger read as an assembled device.",
+      "rear": "Rear cable arcs remain continuous and the original mounting enclosure is intact; cable storage stays stylized at this catalog scale.",
+      "detail": "The former loose cable ends now meet the stored loops, with rounded transitions into the case and connector holster.",
+      "underside": "The underside view shows seated case and holster connections with no dangling disconnected short tail.",
+      "clay": "The clay view confirms clean closed winding contours and improved lead contact while retaining the original charger silhouette."
+    }
+  }
+}

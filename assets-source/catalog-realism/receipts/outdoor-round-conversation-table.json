@@ -1,0 +1,3576 @@
+{
+  "version": 1,
+  "catalogId": "outdoor-round-conversation-table",
+  "inputContractSha256": "910fbcb53035694079641a63dd7a18daa08d995e5aa8097d5783311a5ae4c080",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/outdoor-round-conversation-table.blend",
+      "sha256": "b115c595082672e32901d2e191813c5ada6039d3c5c0e275dfcf27d1bb4d9a7e",
+      "bytes": 868411
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/outdoor-round-conversation-table.glb",
+      "sha256": "2059d4aa111f5629b5fb3bc66bd35f8dfaedf5b6c16fc5d054775736aac3e888",
+      "bytes": 915992
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/outdoor-round-conversation-table.blend",
+      "sha256": "b115c595082672e32901d2e191813c5ada6039d3c5c0e275dfcf27d1bb4d9a7e",
+      "bytes": 868411
+    },
+    {
+      "path": "public/models/furniture/outdoor-round-conversation-table.glb",
+      "sha256": "2059d4aa111f5629b5fb3bc66bd35f8dfaedf5b6c16fc5d054775736aac3e888",
+      "bytes": 915992
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "recessed plinth",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "31c986ec848d82c0e101c8d4a8816fc3a81bf438732b056a9c9771d39c80ef2c",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.2590000033378601,
+            -0.2590000033378601,
+            0
+          ],
+          "max": [
+            0.2590000033378601,
+            0.2590000033378601,
+            0.05593341588973999
+          ],
+          "size": [
+            0.5180000066757202,
+            0.5180000066757202,
+            0.05593341588973999
+          ]
+        }
+      },
+      "after": {
+        "sha256": "4bacceff10df4e73da3688569aba60c69bd7a20600b3e1e7bcea717e28748d6a",
+        "vertices": 512,
+        "triangles": 1020,
+        "bounds": {
+          "min": [
+            -0.2590000033378601,
+            -0.2590000033378601,
+            0
+          ],
+          "max": [
+            0.2590000033378601,
+            0.2590000033378601,
+            0.05593341588973999
+          ],
+          "size": [
+            0.5180000066757202,
+            0.5180000066757202,
+            0.05593341588973999
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "stone pedestal core",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "684db31b9d5899844820cc24699891a8a9a96b2426ee8e11e72215a54092c2bd",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.28600001335144043,
+            -0.28600001335144043,
+            0.04644471034407616
+          ],
+          "max": [
+            0.28600001335144043,
+            0.28600001335144043,
+            0.3810463845729828
+          ],
+          "size": [
+            0.5720000267028809,
+            0.5720000267028809,
+            0.33460167422890663
+          ]
+        }
+      },
+      "after": {
+        "sha256": "22a87c7e414dfd94e077bf16a0f830c216d651dc5fdfa0459673fef7fc1aaf4e",
+        "vertices": 512,
+        "triangles": 1020,
+        "bounds": {
+          "min": [
+            -0.28600001335144043,
+            -0.28600001335144043,
+            0.04644471034407616
+          ],
+          "max": [
+            0.28600001335144043,
+            0.28600001335144043,
+            0.3810463845729828
+          ],
+          "size": [
+            0.5720000267028809,
+            0.5720000267028809,
+            0.33460167422890663
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "ea4548f8afc403a528dc573f9c6a6d2debb95a214ee9e0c11e2387a7047f4e7b",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.2770000100135803,
+            -0.009000000543892384,
+            0.060428064316511154
+          ],
+          "max": [
+            0.29500001668930054,
+            0.009000000543892384,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "89f4354de8c7f61c3bdc5d600ed72677802d823334905471821ef98b174794c1",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.2770000100135803,
+            -0.009000000543892384,
+            0.060428064316511154
+          ],
+          "max": [
+            0.29500001668930054,
+            0.009000000543892384,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.001",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "491af617117833ca7e2b95a6151eebcbf6b362cb4ec7cb4fb53a74f2e1f34d4e",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.27455323934555054,
+            0.028330491855740547,
+            0.060428064316511154
+          ],
+          "max": [
+            0.29255324602127075,
+            0.046330492943525314,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ba9b2aebce9ac7b17276e13f5e85aa5fdfd8973e0d252e3e63af39d7416ba11e",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.27455323934555054,
+            0.028330491855740547,
+            0.060428064316511154
+          ],
+          "max": [
+            0.29255324602127075,
+            0.046330492943525314,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.002",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a47169afba6f0f68d8fd54b75920b17e9412c6b32fef1185a48e6899d0f8868d",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.2672547996044159,
+            0.06502225250005722,
+            0.060428064316511154
+          ],
+          "max": [
+            0.2852548062801361,
+            0.08302225172519684,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "54dce7363d6c8246e7f1adc21a70c17d984b976cea88eeaa88d8e8e5c18b23b0",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.2672547996044159,
+            0.06502225250005722,
+            0.060428064316511154
+          ],
+          "max": [
+            0.2852548062801361,
+            0.08302225172519684,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.003",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "7b7f47dc7c7a886074c85d0fa1b01b966b0aaf411f12d0f17b5e6d897c354d07",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.25522956252098083,
+            0.10044746845960617,
+            0.060428064316511154
+          ],
+          "max": [
+            0.27322956919670105,
+            0.11844746768474579,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ec453badf5f5027eaaa453e4c00ae6fe612b0291175c0d1ce8a47ec13e0a9452",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.25522956252098083,
+            0.10044746845960617,
+            0.060428064316511154
+          ],
+          "max": [
+            0.27322956919670105,
+            0.11844746768474579,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.004",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "172f690aaaa42f7eaede50c6408f16ab3127f38c57ea53b357a0503e70313a7b",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.23868326842784882,
+            0.1340000033378601,
+            0.060428064316511154
+          ],
+          "max": [
+            0.25668326020240784,
+            0.15200001001358032,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "8c6ccb15a348edbb9e37ab27a6d5e0cb126f7ac919e34bdc4773315744cd94dd",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.23868326842784882,
+            0.1340000033378601,
+            0.060428064316511154
+          ],
+          "max": [
+            0.25668326020240784,
+            0.15200001001358032,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.005",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2b17483d795b6ab684e03ba6ceb994e418304a8b39812aa69d10738c536943c5",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.21789905428886414,
+            0.16510577499866486,
+            0.060428064316511154
+          ],
+          "max": [
+            0.23589906096458435,
+            0.18310578167438507,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d452d3cfeac1cf82a908063b2851ea731480e8b5299f6b701e0e13811e9f5816",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.21789905428886414,
+            0.16510577499866486,
+            0.060428064316511154
+          ],
+          "max": [
+            0.23589906096458435,
+            0.18310578167438507,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.006",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "841ddfa7b94028ece81f456659494116a3fa4e256f8a3318f55865f89998bfa2",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.19323255121707916,
+            0.19323255121707916,
+            0.060428064316511154
+          ],
+          "max": [
+            0.21123255789279938,
+            0.21123255789279938,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "aa71153bf6d2d175fefcd8e3e93bff674f072a03901a3a4be6aa6f32e323c5bb",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.19323255121707916,
+            0.19323255121707916,
+            0.060428064316511154
+          ],
+          "max": [
+            0.21123255789279938,
+            0.21123255789279938,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.007",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "155efa443b4ae3de737a4d48dba6cbc2da110d92c1330bfae717eb21dc54dcb2",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.16510577499866486,
+            0.21789905428886414,
+            0.060428064316511154
+          ],
+          "max": [
+            0.18310578167438507,
+            0.23589906096458435,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "1f8595f3a959a3014a14cf4b744fe048f37712f10abbff78608d5b98db998d66",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.16510577499866486,
+            0.21789905428886414,
+            0.060428064316511154
+          ],
+          "max": [
+            0.18310578167438507,
+            0.23589906096458435,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.008",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "66344bc6728480a4f0eeda458ef16dc0e21ae6b9a6bf48ddfb5a17d2e6ac49bc",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.1340000033378601,
+            0.23868326842784882,
+            0.060428064316511154
+          ],
+          "max": [
+            0.15200001001358032,
+            0.25668326020240784,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "a2ad59e2a4ae81d13422408dcd6bd692269e34a5e93b708a4e0c93361341e5cb",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.1340000033378601,
+            0.23868326842784882,
+            0.060428064316511154
+          ],
+          "max": [
+            0.15200001001358032,
+            0.25668326020240784,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.009",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "ad0409cd3a5a5b8c33d3d11a5aaf00c0a7a0b07fd4390b7d76692fe81aeac734",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.10044746845960617,
+            0.25522956252098083,
+            0.060428064316511154
+          ],
+          "max": [
+            0.11844746768474579,
+            0.27322956919670105,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "9647fb46a6bd77b43a655090bcab28e1ce651f960bdbfd4b1ab155ad5c06225f",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.10044746845960617,
+            0.25522956252098083,
+            0.060428064316511154
+          ],
+          "max": [
+            0.11844746768474579,
+            0.27322956919670105,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.010",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "fc21fa5f73cdd1eed1b82d705a1ee20275916fd24b561cff8f67d59c0c894654",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.06502225250005722,
+            0.2672547996044159,
+            0.060428064316511154
+          ],
+          "max": [
+            0.08302225172519684,
+            0.2852548062801361,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "b52854ea7cf5016a9c8e3dd353c14b1493b2cbfb4dd80079c51867fefbc8ce62",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.06502225250005722,
+            0.2672547996044159,
+            0.060428064316511154
+          ],
+          "max": [
+            0.08302225172519684,
+            0.2852548062801361,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.011",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "dff9e13ec2fce150cb29d0e5efea3331967d3e78d82fcacc124f70b09245e768",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.028330491855740547,
+            0.27455323934555054,
+            0.060428064316511154
+          ],
+          "max": [
+            0.046330492943525314,
+            0.29255324602127075,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "4c61a634e8097ae2f278b019f50d923835064534b7dd6a735a9a96761915e41a",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.028330491855740547,
+            0.27455323934555054,
+            0.060428064316511154
+          ],
+          "max": [
+            0.046330492943525314,
+            0.29255324602127075,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.012",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "834a7274d341435dc4edd412704a9f4678884fe1439354604028bfe113b8ee36",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.009000000543892384,
+            0.2770000100135803,
+            0.060428064316511154
+          ],
+          "max": [
+            0.009000000543892384,
+            0.29500001668930054,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "90e8b5ba2614f77936beb78d27a1744c1f4fca21cce3befbc224b66a5c1076eb",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.009000000543892384,
+            0.2770000100135803,
+            0.060428064316511154
+          ],
+          "max": [
+            0.009000000543892384,
+            0.29500001668930054,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.013",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e0837c75bfa11362322ee574bcf26524433953e6e129e0060db49a822ac0cec7",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.046330492943525314,
+            0.27455323934555054,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.028330491855740547,
+            0.29255324602127075,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "167803d1763fd8ec1ccbb0fb6dcea0d917a0be54246215c8680b635560470e00",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.046330492943525314,
+            0.27455323934555054,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.028330491855740547,
+            0.29255324602127075,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.014",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a8263ff06d7ffcd3f2337bc4a438a775e5f3a875d518c278f8592e4009e72eb3",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.08302225172519684,
+            0.2672547996044159,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.06502225250005722,
+            0.2852548062801361,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7f8c5b88ae48c85465a2d7203f1f02cb2eaf0d2c17b35838d74a8207ce7d622a",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.08302225172519684,
+            0.2672547996044159,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.06502225250005722,
+            0.2852548062801361,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.015",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d2e098684425f944d68e30333b7b1e75d1fc2af970acc41bcd52c7a2d95b6987",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.11844746768474579,
+            0.25522956252098083,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.10044746845960617,
+            0.27322956919670105,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ed8a37aed60aa85e1fbb2818c4701f4e04d5f6ccd0c2d287a5adf8b493dfefb9",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.11844746768474579,
+            0.25522956252098083,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.10044746845960617,
+            0.27322956919670105,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.016",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "919897b32c619bba6345ed131effd05e91fb1aebf5cb10cfc25afdc4ff05a8a8",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.15200001001358032,
+            0.23868326842784882,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.1340000033378601,
+            0.25668326020240784,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "51ef24daf724c11844da0a1483a5475542c01057f5b56094bad277ab0659b1c5",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.15200001001358032,
+            0.23868326842784882,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.1340000033378601,
+            0.25668326020240784,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.017",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "84b768499be204bb807150322a737097b0c5c6816939cafcfb57cdb6fb3e2eef",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.18310578167438507,
+            0.21789905428886414,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.16510577499866486,
+            0.23589906096458435,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "76679b616effe1e8b30961783de1053a2d19299d81bbbaa776334ec7097a1cf2",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.18310578167438507,
+            0.21789905428886414,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.16510577499866486,
+            0.23589906096458435,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.018",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "8dc0065c35c6c34b200a04c2949b23afa6a7256d55d29819903306635e9b2f64",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.21123255789279938,
+            0.19323255121707916,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.19323255121707916,
+            0.21123255789279938,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "77f3df4dd8ea0671280bf9ec946f5891a6b2d3dfc3d3021c91bb5a47ceef5ca6",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.21123255789279938,
+            0.19323255121707916,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.19323255121707916,
+            0.21123255789279938,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.019",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "52702a64cda837d339d0856c627f8ebd496cb6c360fac52775b479c5ead74f7e",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.23589906096458435,
+            0.16510577499866486,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.21789905428886414,
+            0.18310578167438507,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "acf5ca53958d831e80e0ea243873fec304dc4b92095d36dd2b745a8254f79a80",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.23589906096458435,
+            0.16510577499866486,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.21789905428886414,
+            0.18310578167438507,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.020",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "33f76bb650b21681f501c3ee68911429a22a39194cbc542532785913e2046e19",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.25668326020240784,
+            0.1340000033378601,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.23868326842784882,
+            0.15200001001358032,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "4e15a497364acc58e9f2eb4156e89b61982c7c982b395f060bb8223ada812a87",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.25668326020240784,
+            0.1340000033378601,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.23868326842784882,
+            0.15200001001358032,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.021",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "8b9dc205dee1bd9172269aa9961b5a84194a9647b8954f591b48c09f696bd9c4",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.27322956919670105,
+            0.10044746845960617,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.25522956252098083,
+            0.11844746768474579,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "cc3eb92a8bb73daed3b30d4822d02242615a9f155c97c29216569fde91966e73",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.27322956919670105,
+            0.10044746845960617,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.25522956252098083,
+            0.11844746768474579,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.022",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "437672f19ae1d97107b8edf7b305cc7f73d6a9152ad050749b3c696d0bc9d6fd",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.2852548062801361,
+            0.06502225250005722,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.2672547996044159,
+            0.08302225172519684,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "62f4b4d727a1a5ce4aee493650d40532d28806ecccf8d97ae3efd2d3f4423f1a",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.2852548062801361,
+            0.06502225250005722,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.2672547996044159,
+            0.08302225172519684,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.023",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2c8798cc65aab0d025fc58faf3f8a76ffa66202453195439593dcae2ca8aa760",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.29255324602127075,
+            0.028330491855740547,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.27455323934555054,
+            0.046330492943525314,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "0faf35f1f27429e31c20ce31b1a0e36281b736935ac66d05be7233bf22bec00b",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.29255324602127075,
+            0.028330491855740547,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.27455323934555054,
+            0.046330492943525314,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.024",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "cf4d29773f846f05de4651bbc9d8d23a95c4e5082e78f188b8ab2a52b6791cca",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.29500001668930054,
+            -0.009000000543892384,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.2770000100135803,
+            0.009000000543892384,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "8702c9a77a561d91ba4738116e4b4f892686c7adf2a7d2f423f9bbd1369f9089",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.29500001668930054,
+            -0.009000000543892384,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.2770000100135803,
+            0.009000000543892384,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.025",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "706c9ca6778276eb073a9d6d4aaeacb76c5b0ec7fd0ca66fdbf497ec08e45af5",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.29255324602127075,
+            -0.046330492943525314,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.27455323934555054,
+            -0.028330491855740547,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "b6aef31301b806cb70bdcc2a428b207a07d7d9b058087efc3c51363e0d17c92e",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.29255324602127075,
+            -0.046330492943525314,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.27455323934555054,
+            -0.028330491855740547,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.026",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "24176417607bc6d17eb70d6409fe8fefe9b9ea089bdccebfd2e3e472eaede913",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.2852548062801361,
+            -0.08302225172519684,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.2672547996044159,
+            -0.06502225250005722,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d22f5abb2090f82c4d78c14b65ec329ba108fdbf6d584396babe9fa070022a6f",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.2852548062801361,
+            -0.08302225172519684,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.2672547996044159,
+            -0.06502225250005722,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.027",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "564c1a6e9d00913db262bf80704c7744bc90e4b67e846bec5aa2884d61ad52af",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.27322956919670105,
+            -0.11844746768474579,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.25522956252098083,
+            -0.10044746845960617,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "af0959d4f15b72780990aa76c37df325c00b0bc4c958ef2567bb5922604df441",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.27322956919670105,
+            -0.11844746768474579,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.25522956252098083,
+            -0.10044746845960617,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.028",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3d7d93c4606f0618b99a09da4591158b30d58218543e8386ee1eb181f559bba8",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.25668326020240784,
+            -0.15200001001358032,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.23868326842784882,
+            -0.1340000033378601,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c74958c3e356992e5d8d947b50a577513a2150ba949bbdc92c9e49582ebb64cf",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.25668326020240784,
+            -0.15200001001358032,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.23868326842784882,
+            -0.1340000033378601,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.029",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "375666a001e34be80e71f8cf8d53fb2d4ccb35a4db30bca9d1999c5e517c47a7",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.23589906096458435,
+            -0.18310578167438507,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.21789905428886414,
+            -0.16510577499866486,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "32d3e125599f92b74f503ad3afee33657d710966ad0b375104583ba5ccf93612",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.23589906096458435,
+            -0.18310578167438507,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.21789905428886414,
+            -0.16510577499866486,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.030",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "b869d03366f884fdb5cd8f79fe3028eeb8ba3b8a9f2ab9bac79b96dac23835a2",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.21123255789279938,
+            -0.21123255789279938,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.19323255121707916,
+            -0.19323255121707916,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "724a6c9b007a9537e3d1397d04e88652d3298a617e4f93458dd58eafc80a10ea",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.21123255789279938,
+            -0.21123255789279938,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.19323255121707916,
+            -0.19323255121707916,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.031",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "acceb0044eae28559b089f94c37f16fe3993a1a8367617fea43e5093dd4d7ee4",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.18310578167438507,
+            -0.23589906096458435,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.16510577499866486,
+            -0.21789905428886414,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d3c393528b7eb2ee70eb02db688a3e09d73cca8986bb7f298e946982a9f940b2",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.18310578167438507,
+            -0.23589906096458435,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.16510577499866486,
+            -0.21789905428886414,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.032",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e52843e988e9f33bea42ee75de75521f6ad59db0c7cec83722f095a7b0a75617",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.15200001001358032,
+            -0.25668326020240784,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.1340000033378601,
+            -0.23868326842784882,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7de9e1790b580eb159044550984723d70f0dc79232d14e4040fc48f0a95c97d1",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.15200001001358032,
+            -0.25668326020240784,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.1340000033378601,
+            -0.23868326842784882,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.033",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "21bc2e3ea616c1c9ed4ffe137c3a7d4541f5a1fbcc0b3683c2ca2efa8e815265",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.11844746768474579,
+            -0.27322956919670105,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.10044746845960617,
+            -0.25522956252098083,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "0adda9badc39acdee4880ec323d7f5e8209098a281a7eebc3810933f772ccf6b",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.11844746768474579,
+            -0.27322956919670105,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.10044746845960617,
+            -0.25522956252098083,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.034",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e8ca46ac6219403af55047fc7af1313332e6b69c3ae74e7055d32e6595d894e3",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.08302225172519684,
+            -0.2852548062801361,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.06502225250005722,
+            -0.2672547996044159,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "5673d054e1ec3ddc52f88639d428ec15432842a66f0e3f95aa5684f3cba87011",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.08302225172519684,
+            -0.2852548062801361,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.06502225250005722,
+            -0.2672547996044159,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.035",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e5f1a2f16a79232dc437d734349f3505e51b461bc75cdd39af15a6365c2c4dd1",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.046330492943525314,
+            -0.29255324602127075,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.028330491855740547,
+            -0.27455323934555054,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "9347482cb62e6b6dd65e8f647f5b705bfac4be79f4c13d29182b2c7ce00022f3",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.046330492943525314,
+            -0.29255324602127075,
+            0.060428064316511154
+          ],
+          "max": [
+            -0.028330491855740547,
+            -0.27455323934555054,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.036",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "68ab2231cc61c67d690d3ae59a0eb819dc03a3216af5b735a71cb29918b5e43d",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            -0.009000000543892384,
+            -0.29500001668930054,
+            0.060428064316511154
+          ],
+          "max": [
+            0.009000000543892384,
+            -0.2770000100135803,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "285bf162de54deb132e9a06ff23fca652ee54616c39244d040b2802698e9fd86",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.009000000543892384,
+            -0.29500001668930054,
+            0.060428064316511154
+          ],
+          "max": [
+            0.009000000543892384,
+            -0.2770000100135803,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.037",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "0bd0ea7949d357dfd5c362f26611f1b34b68ef7633724b0256aaa08402c498e6",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.028330491855740547,
+            -0.29255324602127075,
+            0.060428064316511154
+          ],
+          "max": [
+            0.046330492943525314,
+            -0.27455323934555054,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "223c2c197ef10072b650839b4b38b6a6e42bc6e501fc49b9517efcc40c230f40",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.028330491855740547,
+            -0.29255324602127075,
+            0.060428064316511154
+          ],
+          "max": [
+            0.046330492943525314,
+            -0.27455323934555054,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000001087784767,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.038",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "bf7c4c0f88cab806abdcad9058694a911b85f5664978e741933aae2aabd26b3d",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.06502225250005722,
+            -0.2852548062801361,
+            0.060428064316511154
+          ],
+          "max": [
+            0.08302225172519684,
+            -0.2672547996044159,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "aaa2af172fee8f41ea7f9c595046333e0c550f3493a547c0e48b84854ade8a42",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.06502225250005722,
+            -0.2852548062801361,
+            0.060428064316511154
+          ],
+          "max": [
+            0.08302225172519684,
+            -0.2672547996044159,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.039",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "80d329feb48c204e23027f6b98c35d3eaf9c25255b28b650bce2d5ca2c1cfab7",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.10044746845960617,
+            -0.27322956919670105,
+            0.060428064316511154
+          ],
+          "max": [
+            0.11844746768474579,
+            -0.25522956252098083,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "70ed2a09012196ae9eb44c57ff594b3f24acee3e3541fe6d6b7cb8a5a67d4660",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.10044746845960617,
+            -0.27322956919670105,
+            0.060428064316511154
+          ],
+          "max": [
+            0.11844746768474579,
+            -0.25522956252098083,
+            0.3750535249710083
+          ],
+          "size": [
+            0.017999999225139618,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.040",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "c2ea273169627f9e7032a4fabe2b9d34e1093ed987865d70b4dd13b27a693cc4",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.1340000033378601,
+            -0.25668326020240784,
+            0.060428064316511154
+          ],
+          "max": [
+            0.15200001001358032,
+            -0.23868326842784882,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "769344cf6faac868fce22da854f438ef4ae5b62d5d001727bdbaadf1df4fd0b6",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.1340000033378601,
+            -0.25668326020240784,
+            0.060428064316511154
+          ],
+          "max": [
+            0.15200001001358032,
+            -0.23868326842784882,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.01799999177455902,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.041",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "95b501a130e21ff984ba50310372f20736c87521386bea5eee92b39deefed11f",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.16510577499866486,
+            -0.23589906096458435,
+            0.060428064316511154
+          ],
+          "max": [
+            0.18310578167438507,
+            -0.21789905428886414,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "29993eb33009ab406b52aa8b2d4b0fbfd9993ba21dbf9bc844ea5cb1733f9e83",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.16510577499866486,
+            -0.23589906096458435,
+            0.060428064316511154
+          ],
+          "max": [
+            0.18310578167438507,
+            -0.21789905428886414,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.042",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "83c6912b9d48356ecfa04970dbcda066dd0118e3aa62e20399332afc44c22d0a",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.19323255121707916,
+            -0.21123255789279938,
+            0.060428064316511154
+          ],
+          "max": [
+            0.21123255789279938,
+            -0.19323255121707916,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "dfffad4ab2b1239e49fc3e41ed63fbf223af3afaba3f8e7861f1203c1a14bb82",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.19323255121707916,
+            -0.21123255789279938,
+            0.060428064316511154
+          ],
+          "max": [
+            0.21123255789279938,
+            -0.19323255121707916,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.043",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "af30416a0cba7272090c628a662a67cf6f0c6440c69cdc6d9ff952abae20a3fe",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.21789905428886414,
+            -0.18310578167438507,
+            0.060428064316511154
+          ],
+          "max": [
+            0.23589906096458435,
+            -0.16510577499866486,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "bced0342ff3fb53dd348175f0a87341ea8994e2d390126bfaf2fb0a9e32e1a03",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.21789905428886414,
+            -0.18310578167438507,
+            0.060428064316511154
+          ],
+          "max": [
+            0.23589906096458435,
+            -0.16510577499866486,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.044",
+      "widthM": 0.00044999978854320943,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "165a069e204e042bb399ab90f2d21c72273d7565b221e7c8f6d2ce89f5311664",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.23868326842784882,
+            -0.15200001001358032,
+            0.060428064316511154
+          ],
+          "max": [
+            0.25668326020240784,
+            -0.1340000033378601,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ecd7bc98ed0b7fbf0941f33dc4d092328bbffc4bca272220aff4b2725fd41919",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.23868326842784882,
+            -0.15200001001358032,
+            0.060428064316511154
+          ],
+          "max": [
+            0.25668326020240784,
+            -0.1340000033378601,
+            0.3750535249710083
+          ],
+          "size": [
+            0.01799999177455902,
+            0.018000006675720215,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.045",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2918c6dba5e5f082566a6d452560da88a7adcbe980c19ec8a7ebc763bb404952",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.25522956252098083,
+            -0.11844746768474579,
+            0.060428064316511154
+          ],
+          "max": [
+            0.27322956919670105,
+            -0.10044746845960617,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "440b96b1d868e40f430dbac3ddf87fb83a818bbceca7147a31c8eed9943ef791",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.25522956252098083,
+            -0.11844746768474579,
+            0.060428064316511154
+          ],
+          "max": [
+            0.27322956919670105,
+            -0.10044746845960617,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.046",
+      "widthM": 0.00044999999227002263,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e6a2e91bcdb6e3e443ede88bc6efab391effcab749a17699031fc43ce1ffeadb",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.2672547996044159,
+            -0.08302225172519684,
+            0.060428064316511154
+          ],
+          "max": [
+            0.2852548062801361,
+            -0.06502225250005722,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7da81ac62f5ffc738486e5a5e24188cfd6e8e20ded6de903d77176d4d0d6ccb5",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.2672547996044159,
+            -0.08302225172519684,
+            0.060428064316511154
+          ],
+          "max": [
+            0.2852548062801361,
+            -0.06502225250005722,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.017999999225139618,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "fluted pedestal reed.047",
+      "widthM": 0.0004500000213738531,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d4cccb4a0ecb71d3906857063d191f786f3f39b87d789ce6568c6b08c08ed6d9",
+        "vertices": 16,
+        "triangles": 28,
+        "bounds": {
+          "min": [
+            0.27455323934555054,
+            -0.046330492943525314,
+            0.060428064316511154
+          ],
+          "max": [
+            0.29255324602127075,
+            -0.028330491855740547,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "after": {
+        "sha256": "38a43d34b70c2fa046826977c5e2b4bd6bd3336281a3548c93a6deb560205b74",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.27455323934555054,
+            -0.046330492943525314,
+            0.060428064316511154
+          ],
+          "max": [
+            0.29255324602127075,
+            -0.028330491855740547,
+            0.3750535249710083
+          ],
+          "size": [
+            0.018000006675720215,
+            0.018000001087784767,
+            0.31462546065449715
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "profiled-pedestal-bearing-collar",
+      "newComponent": "detail_casework_stone_table_bearing_collar",
+      "materialKey": "outdoor-honed-basalt",
+      "sourceComponents": [
+        "stone pedestal core",
+        "broad stone tabletop"
+      ],
+      "contactEvidence": {
+        "coreTopZ": 0.3810463845729828,
+        "tabletopUndersideZ": 0.3895362913608551,
+        "jointGapM": 0.008489906787872314
+      },
+      "geometryChanged": true,
+      "originalGeometry": "unchanged; additive detail only",
+      "added": {
+        "sha256": "629bb08abbd50cbee033b1e490006ab42f4e6d184a48568ee899692442698a66",
+        "vertices": 384,
+        "triangles": 768,
+        "bounds": {
+          "min": [
+            -0.30000001335144044,
+            -0.30000001335144044,
+            0.3800463845729828
+          ],
+          "max": [
+            0.30000001335144044,
+            0.30000001335144044,
+            0.3905362913608551
+          ]
+        }
+      }
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "outdoor-honed-basalt",
+      "profile": "stone",
+      "protectedReason": null,
+      "maps": [],
+      "surfaceAdjustments": [],
+      "retainedChannels": [
+        "normal",
+        "roughness"
+      ],
+      "retainedChannelReason": "existing normal and roughness graphs retained at full quality"
+    },
+    {
+      "materialKey": "outdoor-limestone",
+      "profile": "stone",
+      "protectedReason": null,
+      "maps": [],
+      "surfaceAdjustments": [],
+      "retainedChannels": [
+        "normal",
+        "roughness"
+      ],
+      "retainedChannelReason": "existing normal and roughness graphs retained at full quality"
+    }
+  ],
+  "newMaps": [],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1771576,
+    "afterBytes": 1771576,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/outdoor-round-conversation-table.blend",
+      "sha256": "7fbcf77a8268c90b8f602caefa79bbc842b2a79bf91195f47856c0f60042d837",
+      "bytes": 880316
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/outdoor-round-conversation-table.glb",
+      "sha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "bytes": 1771576
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/outdoor-round-conversation-table/front-accaef81c7ce888d9e16.webp",
+      "sha256": "accaef81c7ce888d9e16dcf66e86255c2d1ed49d45a00e5ce609c9c08d4631e2",
+      "bytes": 93590,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.782,
+      "camera": {
+        "orthoScale": 1.577787160873413,
+        "position": [
+          1.8613601922988892,
+          -3.102267026901245,
+          1.916246771812439
+        ],
+        "target": [
+          0,
+          0,
+          0.21000000834465027
+        ],
+        "clipStart": 0.0010000000474974513,
+        "clipEnd": 12,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521741300821304,
+            0.09220901876688004
+          ],
+          "max": [
+            0.9347825646400452,
+            0.9077904224395752
+          ]
+        }
+      },
+      "glbSha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "renderConfigSha256": "ce9786568fdea6c84236d88a3aacf019b6ceced8a2be67c01526eee9cf713b24",
+      "inputSetSha256": "7dd9f7ce78ae59ae3144f2f3b03f06fa798b92bc69a7492e9954675609960f44"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/outdoor-round-conversation-table/rear-512fb33c159319e0d3c3.webp",
+      "sha256": "512fb33c159319e0d3c3a723bcb75453a3b26d0406ed8427b05c00d74dca16b5",
+      "bytes": 94522,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.788,
+      "camera": {
+        "orthoScale": 1.577786922454834,
+        "position": [
+          -1.8613601922988892,
+          3.102267026901245,
+          1.916246771812439
+        ],
+        "target": [
+          0,
+          0,
+          0.21000000834465027
+        ],
+        "clipStart": 0.0010000000474974513,
+        "clipEnd": 12,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521738320589066,
+            0.09220902621746063
+          ],
+          "max": [
+            0.9347825646400452,
+            0.9077904224395752
+          ]
+        }
+      },
+      "glbSha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "renderConfigSha256": "ce9786568fdea6c84236d88a3aacf019b6ceced8a2be67c01526eee9cf713b24",
+      "inputSetSha256": "7dd9f7ce78ae59ae3144f2f3b03f06fa798b92bc69a7492e9954675609960f44"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/outdoor-round-conversation-table/detail-1d306dc7d6fae3208963.webp",
+      "sha256": "1d306dc7d6fae32089630229db0332260bf6e51fe8835e56e576215166573e47",
+      "bytes": 160860,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.835,
+      "camera": {
+        "orthoScale": 0.8677829504013062,
+        "position": [
+          1.8613601922988892,
+          -3.102267026901245,
+          1.916246771812439
+        ],
+        "target": [
+          0,
+          0,
+          0.21000000834465027
+        ],
+        "clipStart": 0.0010000000474974513,
+        "clipEnd": 12,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.06521740555763245,
+            0.09220878779888153
+          ],
+          "max": [
+            0.9347825646400452,
+            0.9077901840209961
+          ]
+        }
+      },
+      "glbSha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "renderConfigSha256": "ce9786568fdea6c84236d88a3aacf019b6ceced8a2be67c01526eee9cf713b24",
+      "inputSetSha256": "7dd9f7ce78ae59ae3144f2f3b03f06fa798b92bc69a7492e9954675609960f44"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/outdoor-round-conversation-table/underside-690f0ad72773c454d67d.webp",
+      "sha256": "690f0ad72773c454d67d4a2485ebc64c19699b5d4edaabeee129a6154ea9dfad",
+      "bytes": 72026,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.685,
+      "camera": {
+        "orthoScale": 1.5777875185012817,
+        "position": [
+          1.829982876777649,
+          -3.049971342086792,
+          -1.6199828386306763
+        ],
+        "target": [
+          0,
+          0,
+          0.21000000834465027
+        ],
+        "clipStart": 0.0010000000474974513,
+        "clipEnd": 12,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521739810705185,
+            0.07698255032300949
+          ],
+          "max": [
+            0.9347822666168213,
+            0.923017680644989
+          ]
+        }
+      },
+      "glbSha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "renderConfigSha256": "ce9786568fdea6c84236d88a3aacf019b6ceced8a2be67c01526eee9cf713b24",
+      "inputSetSha256": "7dd9f7ce78ae59ae3144f2f3b03f06fa798b92bc69a7492e9954675609960f44"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/outdoor-round-conversation-table/clay-be6f10d20eb97ef5c091.webp",
+      "sha256": "be6f10d20eb97ef5c091f66efcc51b22539411dfa7483ae5fee32456f4c9bb3e",
+      "bytes": 52410,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.768,
+      "camera": {
+        "orthoScale": 1.577787160873413,
+        "position": [
+          1.8613601922988892,
+          -3.102267026901245,
+          1.916246771812439
+        ],
+        "target": [
+          0,
+          0,
+          0.21000000834465027
+        ],
+        "clipStart": 0.0010000000474974513,
+        "clipEnd": 12,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521741300821304,
+            0.09220901876688004
+          ],
+          "max": [
+            0.9347825646400452,
+            0.9077904224395752
+          ]
+        }
+      },
+      "glbSha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "renderConfigSha256": "ce9786568fdea6c84236d88a3aacf019b6ceced8a2be67c01526eee9cf713b24",
+      "inputSetSha256": "7dd9f7ce78ae59ae3144f2f3b03f06fa798b92bc69a7492e9954675609960f44"
+    }
+  ],
+  "timingSeconds": 1.23,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.5,
+          0.5,
+          0.42000001668930054
+        ],
+        "min": [
+          -0.5,
+          -0.5,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "renderImportSha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.5,0.5,0.42000001668930054],\"min\":[-0.5,-0.5,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198\",\"renderImportSha256\":\"64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "ce9786568fdea6c84236d88a3aacf019b6ceced8a2be67c01526eee9cf713b24",
+    "inputs": [
+      {
+        "path": "assets-source/blender/outdoor-round-conversation-table.blend",
+        "sha256": "b115c595082672e32901d2e191813c5ada6039d3c5c0e275dfcf27d1bb4d9a7e",
+        "bytes": 868411
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/outdoor-round-conversation-table.blend",
+        "sha256": "7fbcf77a8268c90b8f602caefa79bbc842b2a79bf91195f47856c0f60042d837",
+        "bytes": 880316
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/outdoor-round-conversation-table.glb",
+        "sha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+        "bytes": 1771576
+      },
+      {
+        "path": "public/models/furniture/outdoor-round-conversation-table.glb",
+        "sha256": "2059d4aa111f5629b5fb3bc66bd35f8dfaedf5b6c16fc5d054775736aac3e888",
+        "bytes": 915992
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "7dd9f7ce78ae59ae3144f2f3b03f06fa798b92bc69a7492e9954675609960f44",
+    "afterSha256": "7dd9f7ce78ae59ae3144f2f3b03f06fa798b92bc69a7492e9954675609960f44"
+  },
+  "formatValidation": {
+    "sha256": "64fc3e2c12e184f522df1c74f5fc0c69bea09aa521a7a15aac8e880c2be48198",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 0,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [],
+    "messages": []
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "1da4b425c28ccbbfa55376b30074429cbf5968eb8a6335b076c333c87ea4c7f6",
+    "views": {
+      "front": "The rounded pale tabletop and vertically fluted drum base read clearly as a low conversation table.",
+      "rear": "The reverse view retains the consistent round top and supporting drum proportions.",
+      "detail": "Restrained stone grain, the eased top rim and narrow base flutes remain clear.",
+      "underside": "The drum meets the underside of the tabletop and retains a closed dark foot.",
+      "clay": "The clay view confirms smooth round profiles and distinct vertical fluting without visible support gaps."
+    }
+  }
+}

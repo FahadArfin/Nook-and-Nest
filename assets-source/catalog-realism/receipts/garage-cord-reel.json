@@ -1,0 +1,1928 @@
+{
+  "version": 1,
+  "catalogId": "garage-cord-reel",
+  "inputContractSha256": "2fd1194d5dcabc080057867bb8eefd01a75e8e05b32839f15cb04e9124cdc133",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/garage-cord-reel.blend",
+      "sha256": "caf104a90b4a52135a179fb0f62948b566a77449af878df91ed964b46d7e1882",
+      "bytes": 129959
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+      "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+      "bytes": 29170
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/garage-cord-reel.glb",
+      "sha256": "60f08f11aa0f28808a10ae02a2c86b6954bda580ae927ac2dc35c40d4c7189e8",
+      "bytes": 304444
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.json",
+      "sha256": "28ce9b44d3382f211175c068bd557fc2663069a28a7f8d93c47260200d1a9c2d",
+      "bytes": 316
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.py",
+      "sha256": "2732ecebea21d82473d90b8fe45aed9a33cf581ca11c02cd382ff4c85efb0674",
+      "bytes": 4863
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reel_guide_contact.py",
+      "sha256": "607c90c7f9a93c25f6ccee28ae59603ec84feaa13778befe42013ac3b4eeb382",
+      "bytes": 2626
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.py",
+      "sha256": "2732ecebea21d82473d90b8fe45aed9a33cf581ca11c02cd382ff4c85efb0674",
+      "bytes": 4863
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.json",
+      "sha256": "28ce9b44d3382f211175c068bd557fc2663069a28a7f8d93c47260200d1a9c2d",
+      "bytes": 316
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reel_guide_contact.py",
+      "sha256": "607c90c7f9a93c25f6ccee28ae59603ec84feaa13778befe42013ac3b4eeb382",
+      "bytes": 2626
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/garage-cord-reel.blend",
+      "sha256": "caf104a90b4a52135a179fb0f62948b566a77449af878df91ed964b46d7e1882",
+      "bytes": 129959
+    },
+    {
+      "path": "public/models/furniture/garage-cord-reel.glb",
+      "sha256": "60f08f11aa0f28808a10ae02a2c86b6954bda580ae927ac2dc35c40d4c7189e8",
+      "bytes": 304444
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+      "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+      "bytes": 29170
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.py",
+      "sha256": "2732ecebea21d82473d90b8fe45aed9a33cf581ca11c02cd382ff4c85efb0674",
+      "bytes": 4863
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.json",
+      "sha256": "28ce9b44d3382f211175c068bd557fc2663069a28a7f8d93c47260200d1a9c2d",
+      "bytes": 316
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/reel_guide_contact.py",
+      "sha256": "607c90c7f9a93c25f6ccee28ae59603ec84feaa13778befe42013ac3b4eeb382",
+      "bytes": 2626
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          -0.06869369745254517,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          -0.0578828826546669,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.001",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          -0.05467968061566353,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          -0.04386886954307556,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.002",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          -0.04066566750407219,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          -0.029854856431484222,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.003",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          -0.0266516525298357,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          -0.015840841457247734,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.004",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          -0.012637637555599213,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          -0.0018268268322572112,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.005",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          0.0013763763708993793,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          0.012187187559902668,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.006",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          0.01539039146155119,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          0.02620120160281658,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.007",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          0.029404405504465103,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          0.04021521657705307,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.008",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          0.04341841861605644,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          0.05422922968864441,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stored hose winding.009",
+      "construction": "closed smooth stored cable winding without duplicate capped end seam",
+      "sourceVertices": 264,
+      "candidateVertices": 960,
+      "candidateTriangles": 1920,
+      "boundsM": {
+        "min": [
+          -0.11322695016860962,
+          0.05743243545293808,
+          0.055527638643980026
+        ],
+        "max": [
+          0.11319518834352493,
+          0.06824324280023575,
+          0.3246733546257019
+        ]
+      },
+      "radialSegments": 96,
+      "tubeSides": 10
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Stowed reel lead",
+      "construction": "rounded flexible lead retaining both authored guide and outlet endpoint positions",
+      "sourceVertices": 32,
+      "candidateVertices": 1056,
+      "candidateTriangles": 2108,
+      "boundsM": {
+        "min": [
+          0.07528677232575226,
+          -0.10743144408924392,
+          0.02344476167522954
+        ],
+        "max": [
+          0.14854503265363686,
+          -0.09301833222187614,
+          0.29331342929222476
+        ]
+      },
+      "endpointCentersM": [
+        [
+          0.10333333536982536,
+          -0.09842342603951693,
+          0.29070350900292397
+        ],
+        [
+          0.07804964669048786,
+          -0.10202702973037958,
+          0.028090452309697866
+        ]
+      ]
+    },
+    {
+      "kind": "source-evidenced-contact",
+      "component": "Stowed reel lead",
+      "support": "Hose guide support.001",
+      "originalEndpointM": [
+        0.10333333536982536,
+        -0.09842342603951693,
+        0.29070350900292397
+      ],
+      "seatedEndpointM": [
+        0.10333333536982536,
+        -0.09842342603951693,
+        0.3045276056190697
+      ],
+      "guideInsertionM": 0.007568771686193132,
+      "construction": "upper lead seated inside the original steel guide; outlet and remaining source anchors unchanged",
+      "sourceVertices": 1056,
+      "candidateVertices": 1072,
+      "candidateTriangles": 2140,
+      "boundsM": {
+        "min": [
+          0.07528681500807222,
+          -0.10743162276776883,
+          0.023444528434015288
+        ],
+        "max": [
+          0.14834823855863882,
+          -0.0930180582130868,
+          0.30681196509300895
+        ]
+      }
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-graphite-cast-metal",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-graphite-moulded-polymer",
+      "profile": "polymer",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-ochre-tool-polymer",
+      "profile": "polymer",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-satin-machined-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "garage-slate-powdercoat",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-graphite-cast-metal",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-graphite-cast-metal",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-graphite-moulded-polymer",
+      "profile": "polymer",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-graphite-moulded-polymer",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-graphite-moulded-polymer",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+          "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+          "bytes": 29170,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-ochre-tool-polymer",
+      "profile": "polymer",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-ochre-tool-polymer",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-ochre-tool-polymer",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+          "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+          "bytes": 29170,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-satin-machined-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-satin-machined-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-satin-machined-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "garage-slate-powdercoat",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "garage-slate-powdercoat",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-cast-metal",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-moulded-polymer",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-graphite-moulded-polymer",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-ochre-tool-polymer",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-ochre-tool-polymer",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-orm-7017c3d137d228d9.png",
+      "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+      "bytes": 49569,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-satin-machined-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-satin-machined-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "garage-slate-powdercoat",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1306420,
+    "afterBytes": 1306420,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/garage-cord-reel.blend",
+      "sha256": "465c846eef753416ad0ecdf0385d3fa599efa08ccd144bbddea21c20eb4511db",
+      "bytes": 408739
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/garage-cord-reel.glb",
+      "sha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "bytes": 1306420
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/garage-cord-reel/front-4d0d2f98599bd74fe39f.webp",
+      "sha256": "4d0d2f98599bd74fe39ff1d8f4b6484701b7e093f7dd231ff0cdf14fb5eb91bd",
+      "bytes": 91294,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.808,
+      "camera": {
+        "orthoScale": 0.785398542881012,
+        "position": [
+          0.7259304523468018,
+          -1.2098840475082397,
+          0.860436201095581
+        ],
+        "target": [
+          0,
+          0,
+          0.19499999284744263
+        ],
+        "clipStart": 0.0003899999719578773,
+        "clipEnd": 4.679999828338623,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.24888741970062256,
+            0.06521739810705185
+          ],
+          "max": [
+            0.7511124014854431,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "renderConfigSha256": "2be507c15c910e66a91041f5b105e1979c4f1bca7fb6c0e2a5875665272f9e0a",
+      "inputSetSha256": "72334b7f1285b06cc3cbb1a68db9537962e240b9b73d035519b8bc889a006edc"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/garage-cord-reel/rear-1fb6a64449d0d7ef69a6.webp",
+      "sha256": "1fb6a64449d0d7ef69a61971384510ec02d5f03b0b586820c276cd81bddca677",
+      "bytes": 88662,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.785,
+      "camera": {
+        "orthoScale": 0.785398542881012,
+        "position": [
+          -0.7259304523468018,
+          1.2098840475082397,
+          0.860436201095581
+        ],
+        "target": [
+          0,
+          0,
+          0.19499999284744263
+        ],
+        "clipStart": 0.0003899999719578773,
+        "clipEnd": 4.679999828338623,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.24888743460178375,
+            0.06521739810705185
+          ],
+          "max": [
+            0.7511123418807983,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "renderConfigSha256": "2be507c15c910e66a91041f5b105e1979c4f1bca7fb6c0e2a5875665272f9e0a",
+      "inputSetSha256": "72334b7f1285b06cc3cbb1a68db9537962e240b9b73d035519b8bc889a006edc"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/garage-cord-reel/detail-363e9d9b6016e5a44326.webp",
+      "sha256": "363e9d9b6016e5a443262f0ce04087dc091e8bf9b765e2f98eba9c05a79a7d22",
+      "bytes": 159426,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.813,
+      "camera": {
+        "orthoScale": 0.43196946382522583,
+        "position": [
+          0.7259304523468018,
+          -1.2098840475082397,
+          0.860436201095581
+        ],
+        "target": [
+          0,
+          0,
+          0.19499999284744263
+        ],
+        "clipStart": 0.0003899999719578773,
+        "clipEnd": 4.679999828338623,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.24888750910758972,
+            0.06521742045879364
+          ],
+          "max": [
+            0.751112163066864,
+            0.9347814917564392
+          ]
+        }
+      },
+      "glbSha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "renderConfigSha256": "2be507c15c910e66a91041f5b105e1979c4f1bca7fb6c0e2a5875665272f9e0a",
+      "inputSetSha256": "72334b7f1285b06cc3cbb1a68db9537962e240b9b73d035519b8bc889a006edc"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/garage-cord-reel/underside-6be3d0e38cfb544da664.webp",
+      "sha256": "6be3d0e38cfb544da664278578cf4394c23e941865b570396f47c81e102ddbb6",
+      "bytes": 62834,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.676,
+      "camera": {
+        "orthoScale": 0.7940136194229126,
+        "position": [
+          0.7136932611465454,
+          -1.1894887685775757,
+          -0.5186932682991028
+        ],
+        "target": [
+          0,
+          0,
+          0.19499999284744263
+        ],
+        "clipStart": 0.0003899999719578773,
+        "clipEnd": 4.679999828338623,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2516120374202728,
+            0.06521742045879364
+          ],
+          "max": [
+            0.7483878135681152,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "renderConfigSha256": "2be507c15c910e66a91041f5b105e1979c4f1bca7fb6c0e2a5875665272f9e0a",
+      "inputSetSha256": "72334b7f1285b06cc3cbb1a68db9537962e240b9b73d035519b8bc889a006edc"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/garage-cord-reel/clay-73b1232c3e6873091ce3.webp",
+      "sha256": "73b1232c3e6873091ce35057b0244e3ec4fade0e84d3588c558a061b2052c448",
+      "bytes": 61008,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.767,
+      "camera": {
+        "orthoScale": 0.785398542881012,
+        "position": [
+          0.7259304523468018,
+          -1.2098840475082397,
+          0.860436201095581
+        ],
+        "target": [
+          0,
+          0,
+          0.19499999284744263
+        ],
+        "clipStart": 0.0003899999719578773,
+        "clipEnd": 4.679999828338623,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.24888741970062256,
+            0.06521739810705185
+          ],
+          "max": [
+            0.7511124014854431,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "renderConfigSha256": "2be507c15c910e66a91041f5b105e1979c4f1bca7fb6c0e2a5875665272f9e0a",
+      "inputSetSha256": "72334b7f1285b06cc3cbb1a68db9537962e240b9b73d035519b8bc889a006edc"
+    }
+  ],
+  "timingSeconds": 2.59,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.1550000011920929,
+          0.125,
+          0.38999998569488525
+        ],
+        "min": [
+          -0.1550000011920929,
+          -0.125,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "renderImportSha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.1550000011920929,0.125,0.38999998569488525],\"min\":[-0.1550000011920929,-0.125,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287\",\"renderImportSha256\":\"84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "2be507c15c910e66a91041f5b105e1979c4f1bca7fb6c0e2a5875665272f9e0a",
+    "inputs": [
+      {
+        "path": "assets-source/blender/garage-cord-reel.blend",
+        "sha256": "caf104a90b4a52135a179fb0f62948b566a77449af878df91ed964b46d7e1882",
+        "bytes": 129959
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/garage-cord-reel.blend",
+        "sha256": "465c846eef753416ad0ecdf0385d3fa599efa08ccd144bbddea21c20eb4511db",
+        "bytes": 408739
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-cast-metal-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-graphite-moulded-polymer-orm-7017c3d137d228d9.png",
+        "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+        "bytes": 49569
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-ochre-tool-polymer-orm-7017c3d137d228d9.png",
+        "sha256": "7017c3d137d228d9728668036c5c0ce68d4f36caee34e01da8a7c72ae65f64c2",
+        "bytes": 49569
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-satin-machined-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-cord-reel/garage-slate-powdercoat-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+        "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+        "bytes": 29170
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/garage-cord-reel.glb",
+        "sha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+        "bytes": 1306420
+      },
+      {
+        "path": "public/models/furniture/garage-cord-reel.glb",
+        "sha256": "60f08f11aa0f28808a10ae02a2c86b6954bda580ae927ac2dc35c40d4c7189e8",
+        "bytes": 304444
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+        "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+        "bytes": 15729
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+        "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+        "bytes": 14306
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.json",
+        "sha256": "28ce9b44d3382f211175c068bd557fc2663069a28a7f8d93c47260200d1a9c2d",
+        "bytes": 316
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/garage-cord-reel.py",
+        "sha256": "2732ecebea21d82473d90b8fe45aed9a33cf581ca11c02cd382ff4c85efb0674",
+        "bytes": 4863
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+        "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+        "bytes": 10417
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/reel_guide_contact.py",
+        "sha256": "607c90c7f9a93c25f6ccee28ae59603ec84feaa13778befe42013ac3b4eeb382",
+        "bytes": 2626
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+        "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+        "bytes": 9057
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+        "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+        "bytes": 12800
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+        "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+        "bytes": 8608
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+        "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+        "bytes": 12009
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "72334b7f1285b06cc3cbb1a68db9537962e240b9b73d035519b8bc889a006edc",
+    "afterSha256": "72334b7f1285b06cc3cbb1a68db9537962e240b9b73d035519b8bc889a006edc"
+  },
+  "formatValidation": {
+    "sha256": "84d9292baa9e40f70af387b74c4c4a2906b77a18174d1e85a1739333a3afe287",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 5,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "b664ebebd57e90c3f5164c2f14d1e9dac14ae2a678e96ba2b39390d7cd61c328",
+    "views": {
+      "front": "The smoothly wound cable and rounded free lead now meet the original steel guide, with the outlet and reel dimensions retained.",
+      "rear": "Rear mounting plate, spool cheeks and continuous yellow winding remain coherent and unchanged by the local lead correction.",
+      "detail": "Full-size inspection shows the upper cable entering the right steel guide with no exposed floating end; the smooth winding and outlet lead retain their original roles.",
+      "underside": "The outlet remains connected and the upper endpoint is seated beneath the guide; no new unsupported cable end is visible.",
+      "clay": "The clay view confirms a continuous lead silhouette from outlet to guide and smooth closed stored winding, acceptable as a stylized catalog assembly."
+    }
+  }
+}

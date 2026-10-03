@@ -1,0 +1,995 @@
+{
+  "version": 1,
+  "catalogId": "balcony-rail-limestone",
+  "inputContractSha256": "99acf356869581e944b193759ff73ca2f78127e84231827f2ee82e5d95f367f9",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/balcony-rail-limestone.blend",
+      "sha256": "b92fb999160af8c8d14824a2ffeb523dcdf7ab8a6d754a4aff1d6a11c3c2e49d",
+      "bytes": 128092
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-orm.png",
+      "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+      "bytes": 35540
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/balcony-rail-limestone.glb",
+      "sha256": "1defdb1a2b4e255273efad19b13c9b7b4b95a812dee8289a2eaa961a556f8d41",
+      "bytes": 151028
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/balcony-rail-limestone.blend",
+      "sha256": "b92fb999160af8c8d14824a2ffeb523dcdf7ab8a6d754a4aff1d6a11c3c2e49d",
+      "bytes": 128092
+    },
+    {
+      "path": "public/models/furniture/balcony-rail-limestone.glb",
+      "sha256": "1defdb1a2b4e255273efad19b13c9b7b4b95a812dee8289a2eaa961a556f8d41",
+      "bytes": 151028
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-orm.png",
+      "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+      "bytes": 35540
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-limestone",
+      "profile": "stone",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "warm-limestone",
+      "profile": "stone",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-limestone",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/stone-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-limestone",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/stone-orm.png",
+          "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+          "bytes": 35540,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "warm-limestone",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-limestone",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 703772,
+    "afterBytes": 703772,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/balcony-rail-limestone.blend",
+      "sha256": "8a786aaa3ece11f7edb4f37d25f8b9854058287aa978fbc9dcac5ceeebee2aeb",
+      "bytes": 248325
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/balcony-rail-limestone.glb",
+      "sha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "bytes": 703772
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/balcony-rail-limestone/front-4d7acf95cb1819e13f53.webp",
+      "sha256": "4d7acf95cb1819e13f53ed98a17e639f114e4bb451246c1db71077f024b781b7",
+      "bytes": 88882,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.771,
+      "camera": {
+        "orthoScale": 2.0527234077453613,
+        "position": [
+          2.2336323261260986,
+          -3.7227203845977783,
+          2.597496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.22178888320922852,
+            0.06521741300821304
+          ],
+          "max": [
+            0.7782109975814819,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "renderConfigSha256": "6e6e19f8ca4977d4aeadd1dd098637657543dec8e7b3ef26c0941cba12df3fde",
+      "inputSetSha256": "fb804946611186fe88908b6f1acbf912f0bf86552bf04ea8c14416e2031d3c01"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/balcony-rail-limestone/rear-948cff9c594524ed8a59.webp",
+      "sha256": "948cff9c594524ed8a59a6e1e382f2a0827e5203bfdebbb3e675955fc97ead37",
+      "bytes": 89948,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.765,
+      "camera": {
+        "orthoScale": 2.0527231693267822,
+        "position": [
+          -2.2336323261260986,
+          3.7227203845977783,
+          2.597496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.22178888320922852,
+            0.06521741300821304
+          ],
+          "max": [
+            0.7782109975814819,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "renderConfigSha256": "6e6e19f8ca4977d4aeadd1dd098637657543dec8e7b3ef26c0941cba12df3fde",
+      "inputSetSha256": "fb804946611186fe88908b6f1acbf912f0bf86552bf04ea8c14416e2031d3c01"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/balcony-rail-limestone/detail-c5e22dd166870beb33bd.webp",
+      "sha256": "c5e22dd166870beb33bd22141a8c156328d50a70ea389bd0c1d79a4ae1519f92",
+      "bytes": 109982,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.792,
+      "camera": {
+        "orthoScale": 1.1289986371994019,
+        "position": [
+          2.2336323261260986,
+          -3.7227203845977783,
+          2.597496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.22178904712200165,
+            0.06521738320589066
+          ],
+          "max": [
+            0.7782107591629028,
+            0.9347814321517944
+          ]
+        }
+      },
+      "glbSha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "renderConfigSha256": "6e6e19f8ca4977d4aeadd1dd098637657543dec8e7b3ef26c0941cba12df3fde",
+      "inputSetSha256": "fb804946611186fe88908b6f1acbf912f0bf86552bf04ea8c14416e2031d3c01"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/balcony-rail-limestone/underside-382698a44a74bcb86c70.webp",
+      "sha256": "382698a44a74bcb86c7022a868ec978f6ea9178ce20dcb01fe1b18f349470971",
+      "bytes": 71312,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.679,
+      "camera": {
+        "orthoScale": 2.0652379989624023,
+        "position": [
+          2.195979595184326,
+          -3.659965753555298,
+          -1.6459795236587524
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.22347469627857208,
+            0.06521749496459961
+          ],
+          "max": [
+            0.77652508020401,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "renderConfigSha256": "6e6e19f8ca4977d4aeadd1dd098637657543dec8e7b3ef26c0941cba12df3fde",
+      "inputSetSha256": "fb804946611186fe88908b6f1acbf912f0bf86552bf04ea8c14416e2031d3c01"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/balcony-rail-limestone/clay-7d563a1c26644ec5bd2d.webp",
+      "sha256": "7d563a1c26644ec5bd2d0b7e59fcf3939d4fc142d677408b56f0575d267c5b6f",
+      "bytes": 77230,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.758,
+      "camera": {
+        "orthoScale": 2.0527234077453613,
+        "position": [
+          2.2336323261260986,
+          -3.7227203845977783,
+          2.597496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.22178888320922852,
+            0.06521741300821304
+          ],
+          "max": [
+            0.7782109975814819,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "renderConfigSha256": "6e6e19f8ca4977d4aeadd1dd098637657543dec8e7b3ef26c0941cba12df3fde",
+      "inputSetSha256": "fb804946611186fe88908b6f1acbf912f0bf86552bf04ea8c14416e2031d3c01"
+    }
+  ],
+  "timingSeconds": 0.86,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.6000000238418579,
+          0.10999999940395355,
+          1.100000023841858
+        ],
+        "min": [
+          -0.6000000238418579,
+          -0.10999999940395355,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "renderImportSha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.6000000238418579,0.10999999940395355,1.100000023841858],\"min\":[-0.6000000238418579,-0.10999999940395355,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77\",\"renderImportSha256\":\"0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "6e6e19f8ca4977d4aeadd1dd098637657543dec8e7b3ef26c0941cba12df3fde",
+    "inputs": [
+      {
+        "path": "assets-source/blender/balcony-rail-limestone.blend",
+        "sha256": "b92fb999160af8c8d14824a2ffeb523dcdf7ab8a6d754a4aff1d6a11c3c2e49d",
+        "bytes": 128092
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/balcony-rail-limestone.blend",
+        "sha256": "8a786aaa3ece11f7edb4f37d25f8b9854058287aa978fbc9dcac5ceeebee2aeb",
+        "bytes": 248325
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/balcony-rail-limestone/warm-limestone-orm-c556c4a94277b572.png",
+        "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+        "bytes": 54508
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/stone-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/stone-orm.png",
+        "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+        "bytes": 35540
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/balcony-rail-limestone.glb",
+        "sha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+        "bytes": 703772
+      },
+      {
+        "path": "public/models/furniture/balcony-rail-limestone.glb",
+        "sha256": "1defdb1a2b4e255273efad19b13c9b7b4b95a812dee8289a2eaa961a556f8d41",
+        "bytes": 151028
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "fb804946611186fe88908b6f1acbf912f0bf86552bf04ea8c14416e2031d3c01",
+    "afterSha256": "fb804946611186fe88908b6f1acbf912f0bf86552bf04ea8c14416e2031d3c01"
+  },
+  "formatValidation": {
+    "sha256": "0d606c49981b926e19d0a71be47821e5b6fc197e36cb3767fe969055b4a9cf77",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 1,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "f59366a3ac7864440be325d724d6ef8081cac6aa987b49401be5d76c89ffa7d7",
+    "views": {
+      "front": "Turned balusters sit between layered stone rails and heavy piers.",
+      "rear": "Reverse view retains the same supported baluster rhythm.",
+      "detail": "Close view resolves the shaped shafts and stepped pier detailing.",
+      "underside": "Baluster feet meet the lower stone rail without floating pieces.",
+      "clay": "Clay confirms turned profiles and layered masonry construction."
+    }
+  }
+}

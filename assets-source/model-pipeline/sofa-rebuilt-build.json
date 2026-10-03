@@ -1,0 +1,325 @@
+{
+  "version": 1,
+  "recipe": "sofa",
+  "seed": 73021,
+  "spec": {
+    "path": "assets-source/model-pipeline/sofa-rebuilt.spec.json",
+    "sha256": "5ea1b2227bfacb5e562f364a7d6bcee013a15856701ad1a83e11dccea51c6b6e",
+    "bytes": 1524
+  },
+  "sourceBlend": {
+    "path": "assets-source/experiments/realism-lab/sofa-refined.blend",
+    "sha256": "8be87d1741019f6bbcf931ffe729c877609af21af4984932279c92703ce61018",
+    "bytes": 3516067
+  },
+  "outputBlend": {
+    "path": "assets-source/experiments/realism-lab/sofa-rebuilt.blend",
+    "sha256": "e8ec4987029adc815296b7e3bc43d562c8dfed04f80a0f36e967c88da55d7d1a",
+    "bytes": 9317143
+  },
+  "glb": {
+    "path": "public/experiments/realism-lab/sofa-rebuilt.glb",
+    "sha256": "a90d0f0750251c88c416ff4db07143df82093e04b41302e1cf1377df7c072b64",
+    "bytes": 10147048
+  },
+  "inputs": [
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/sofa_realism_materials.py",
+      "sha256": "d6422d0c76ff08fbca7a087532845b2d9c1afe28f6f4ab930841ad42a19cacb0",
+      "bytes": 11771,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/sofa_realism_export.py",
+      "sha256": "cfb4308cc97efff3fef52d0979cb8af6e48c2e203f0c69909bfdd716ce83f14e",
+      "bytes": 7977,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/detail_pipeline/core.py",
+      "sha256": "b32407ebc9178205283dc0f0aab0890b496a195931953cfe183e49a200adde5c",
+      "bytes": 42376,
+      "role": "builder"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-wool-albedo.jpg",
+      "sha256": "fd889a46f617efd331e522e36b8ad2548e16e1cb018c001872f17537d7666af5",
+      "bytes": 942966,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-wool-normal.png",
+      "sha256": "f2e3d60088b7416425b6e81c3285507d5c3d9d630e7a28016012a1befd1c04b1",
+      "bytes": 5768966,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-wool-arm.png",
+      "sha256": "921fcbb8116778e2c727b36a390f0b3c67602d645978fae028d12ec13cecc4be",
+      "bytes": 7093535,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-oak-albedo.png",
+      "sha256": "b7cba7c1238625f0cae34b9273e7b1e8773e72a23fe0c6bc147d8830a1523686",
+      "bytes": 1295189,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-oak-orm.png",
+      "sha256": "618b3cb05b49ef9ed3743f54bb40ca5a21f77ed963725c170de2ca8d11adc2fa",
+      "bytes": 1382599,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-wool-neutral.png",
+      "sha256": "82fb96abcb639bcdf6cdfb1befcdf528fb06f2facdcc65f584def4549ab283f1",
+      "bytes": 1240419,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-wool-normal-compact.png",
+      "sha256": "c6e8311b7c5879a72798f50643170f8f789e82cb74a6decc78b82cd6aa1dbbea",
+      "bytes": 2067055,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/rebuilt-wool-orm.png",
+      "sha256": "8f768b9ae988ab76cde9a3679fba1154e0ae79596811688f5047a0bb31de53fd",
+      "bytes": 1688999,
+      "role": "material"
+    }
+  ],
+  "maps": [
+    {
+      "kind": "baseColor",
+      "materialKey": "wood-honey-textured",
+      "path": "public/textures/realism/rebuilt-oak-albedo.png",
+      "sha256": "b7cba7c1238625f0cae34b9273e7b1e8773e72a23fe0c6bc147d8830a1523686",
+      "bytes": 1295189,
+      "method": "native tiled photographic PBR; measured metre UV",
+      "repeatM": [
+        1.8300000429153442,
+        1.8300000429153442
+      ]
+    },
+    {
+      "kind": "normal",
+      "materialKey": "wood-honey-textured",
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "method": "native tiled photographic PBR; measured metre UV",
+      "repeatM": [
+        1.8300000429153442,
+        1.8300000429153442
+      ]
+    },
+    {
+      "kind": "orm",
+      "materialKey": "wood-honey-textured",
+      "path": "public/textures/realism/rebuilt-oak-orm.png",
+      "sha256": "618b3cb05b49ef9ed3743f54bb40ca5a21f77ed963725c170de2ca8d11adc2fa",
+      "bytes": 1382599,
+      "method": "native tiled photographic PBR; measured metre UV",
+      "repeatM": [
+        1.8300000429153442,
+        1.8300000429153442
+      ]
+    },
+    {
+      "kind": "baseColor",
+      "materialKey": "upholstery-textured",
+      "path": "public/textures/realism/rebuilt-wool-neutral.png",
+      "sha256": "82fb96abcb639bcdf6cdfb1befcdf528fb06f2facdcc65f584def4549ab283f1",
+      "bytes": 1240419,
+      "method": "native tiled photographic PBR; measured metre UV",
+      "repeatM": [
+        0.2700788548673393,
+        0.27570000290870667
+      ]
+    },
+    {
+      "kind": "normal",
+      "materialKey": "upholstery-textured",
+      "path": "public/textures/realism/rebuilt-wool-normal-compact.png",
+      "sha256": "c6e8311b7c5879a72798f50643170f8f789e82cb74a6decc78b82cd6aa1dbbea",
+      "bytes": 2067055,
+      "method": "native tiled photographic PBR; measured metre UV",
+      "repeatM": [
+        0.2700788548673393,
+        0.27570000290870667
+      ]
+    },
+    {
+      "kind": "orm",
+      "materialKey": "upholstery-textured",
+      "path": "public/textures/realism/rebuilt-wool-orm.png",
+      "sha256": "8f768b9ae988ab76cde9a3679fba1154e0ae79596811688f5047a0bb31de53fd",
+      "bytes": 1688999,
+      "method": "native tiled photographic PBR; measured metre UV",
+      "repeatM": [
+        0.2700788548673393,
+        0.27570000290870667
+      ]
+    }
+  ],
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-rebuilt-front.png",
+      "sha256": "3182b410abfb3f870778b928627d428b26a28ae80e656cffe3717ecb10d8911c",
+      "bytes": 717630,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 3.56
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-rebuilt-rear.png",
+      "sha256": "fb5a23ad9560c2a6ef61e80d87a1f1fc61d4e9ffe50ec42d8f2468ffd4e6665b",
+      "bytes": 722555,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 3.67
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-rebuilt-detail.png",
+      "sha256": "99b796999d1d644cd81e357e9597ed103dd7c1ddd178205f65e3933c78dcfb8c",
+      "bytes": 870868,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 3.41
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-rebuilt-underside.png",
+      "sha256": "063668e7725db7f99f8c1fb50c1cce7cd9d1f5a1ceb4326796ccda2ecc9ea0c9",
+      "bytes": 644351,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 2.38
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-rebuilt-clay.png",
+      "sha256": "9a74ee2e9254fbb0580ce3455daa5e041fffa94fec74ce3ae89455cb9182b368",
+      "bytes": 606653,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 3.3
+    }
+  ],
+  "master": {
+    "triangles": 92992,
+    "parts": 69,
+    "boundsM": {
+      "min": [
+        -0.9999998807907104,
+        -0.42499998211860657,
+        0.0
+      ],
+      "max": [
+        0.9999998807907104,
+        0.42500001192092896,
+        0.7799999713897705
+      ]
+    },
+    "dimensionsM": [
+      1.999999761581421,
+      0.8500000238418579,
+      0.7799999713897705
+    ]
+  },
+  "browser": {
+    "triangles": 65344,
+    "parts": 69,
+    "boundsM": {
+      "min": [
+        -0.9999998807907104,
+        -0.42499998211860657,
+        0.0
+      ],
+      "max": [
+        0.9999998807907104,
+        0.42500001192092896,
+        0.7799999713897705
+      ]
+    },
+    "dimensionsM": [
+      1.999999761581421,
+      0.8500000238418579,
+      0.7799999713897705
+    ]
+  },
+  "boundsM": {
+    "min": [
+      -0.9999998807907104,
+      -0.42499998211860657,
+      0.0
+    ],
+    "max": [
+      0.9999998807907104,
+      0.42500001192092896,
+      0.7799999713897705
+    ]
+  },
+  "dimensionsM": [
+    1.999999761581421,
+    0.8500000238418579,
+    0.7799999713897705
+  ],
+  "materialKeys": [
+    "joinery-aged-brass",
+    "tailored-tone-on-tone-stitch",
+    "upholstery-textured",
+    "wood-honey-textured"
+  ],
+  "primitiveCount": 4,
+  "surface": {
+    "method": "tiled-pbr",
+    "resolution": 1024
+  },
+  "masterScene": "Sofa realism editable master 579ff3e1",
+  "browserScene": "Sofa realism browser 579ff3e1",
+  "notes": [
+    "Three crowned seat cushions and three separately inclined back pillows",
+    "Real corner-tension displacement, boxed covers and separate sewn welts",
+    "Palm-shaped arm rests, tapered splayed legs, pegged joinery and recessed support slats"
+  ]
+}

@@ -1,0 +1,1553 @@
+{
+  "version": 1,
+  "catalogId": "four-slot-toaster",
+  "inputContractSha256": "eb3600ba3fc6c52ab6546eacefc06a171669260db1263d08fb414ad89964c691",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/four-slot-toaster.blend",
+      "sha256": "fb4afebb456faa7535149d708bab9dadae0ae766cf5f70f445316305c877c405",
+      "bytes": 165118
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/four-slot-toaster.glb",
+      "sha256": "7c7804de8dce0ffc84da54a7f19b8d118649489c77bc264ee4de7c508818b11e",
+      "bytes": 317772
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/four-slot-toaster.blend",
+      "sha256": "fb4afebb456faa7535149d708bab9dadae0ae766cf5f70f445316305c877c405",
+      "bytes": 165118
+    },
+    {
+      "path": "public/models/furniture/four-slot-toaster.glb",
+      "sha256": "7c7804de8dce0ffc84da54a7f19b8d118649489c77bc264ee4de7c508818b11e",
+      "bytes": 317772
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot",
+      "widthM": 0.0006382978754118085,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "1f854c85cd4b8042eec67a66ca6dfe89b010280e0484646ad6be8cf23b9fef14",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.1454000025987625,
+            -0.09319762885570526,
+            0
+          ],
+          "max": [
+            -0.11060000956058502,
+            -0.06071612611413002,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248150274157524,
+            0.025531914085149765
+          ]
+        }
+      },
+      "after": {
+        "sha256": "dbbd2ae1a8469fa9ccf8401d7ef1851107306ffd964e1015e3bc4d3bbbe34b5f",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            -0.1454000025987625,
+            -0.09319762885570526,
+            0
+          ],
+          "max": [
+            -0.11060000956058502,
+            -0.06071612611413002,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248150274157524,
+            0.025531914085149765
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot.001",
+      "widthM": 0.0006382978754118085,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e70ed3793ebc66563e133eea4ca37076f65e35aa003576bfd0f245bf0b9e22ae",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.1454000025987625,
+            0.08003701269626617,
+            0
+          ],
+          "max": [
+            -0.11060000956058502,
+            0.11251851171255112,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248149901628494,
+            0.025531914085149765
+          ]
+        }
+      },
+      "after": {
+        "sha256": "66921ef92927c69874fa9e92df6468220155d2d4deef2296b3bfe167995a465c",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            -0.1454000025987625,
+            0.08003701269626617,
+            0
+          ],
+          "max": [
+            -0.11060000956058502,
+            0.11251851171255112,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248149901628494,
+            0.025531914085149765
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot.002",
+      "widthM": 0.0006382978754118085,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e8a7683506f6c31c6db481f27c2526ada741386aca20ae471ee12e5e8c61c898",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.11060000956058502,
+            -0.09319762885570526,
+            0
+          ],
+          "max": [
+            0.1454000025987625,
+            -0.06071612611413002,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248150274157524,
+            0.025531914085149765
+          ]
+        }
+      },
+      "after": {
+        "sha256": "adcdfbeece4c75366fd270dae353a4ab82fe279e704efcbfbef904cb3d4377bc",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            0.11060000956058502,
+            -0.09319762885570526,
+            0
+          ],
+          "max": [
+            0.1454000025987625,
+            -0.06071612611413002,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248150274157524,
+            0.025531914085149765
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot.003",
+      "widthM": 0.0006382978754118085,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5aa8624e0a24e8a3180a2fd6c373f275156473aca79db01505e888b4e6d88d59",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.11060000956058502,
+            0.08003701269626617,
+            0
+          ],
+          "max": [
+            0.1454000025987625,
+            0.11251851171255112,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248149901628494,
+            0.025531914085149765
+          ]
+        }
+      },
+      "after": {
+        "sha256": "54a92174e3ba230c2b3c778d6fd0a965131a9d2ad4d4fdc81431e95672d39a37",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            0.11060000956058502,
+            0.08003701269626617,
+            0
+          ],
+          "max": [
+            0.1454000025987625,
+            0.11251851171255112,
+            0.025531914085149765
+          ],
+          "size": [
+            0.03479999303817749,
+            0.03248149901628494,
+            0.025531914085149765
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "polished-chrome-trim",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "black-enamel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "black-enamel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "display-markings",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "polished-chrome-trim",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "polished-chrome-trim",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "variant-surface",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "variant-surface",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "black-enamel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "black-enamel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 971564,
+    "afterBytes": 971564,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/four-slot-toaster.blend",
+      "sha256": "c74ab38306fb5f29a79d49d423bc0b6afcd21b14b84035d99864c81b3bf8fa64",
+      "bytes": 320040
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/four-slot-toaster.glb",
+      "sha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+      "bytes": 971564
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/four-slot-toaster/front-f065acf1b407833f24e9.webp",
+      "sha256": "f065acf1b407833f24e98b8c4b1f0f9c60cb32fb86deb0afc69a39173dc409f4",
+      "bytes": 118054,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.783,
+      "camera": {
+        "orthoScale": 0.602356493473053,
+        "position": [
+          0.7445440888404846,
+          -1.240906834602356,
+          0.7924987077713013
+        ],
+        "target": [
+          0,
+          0,
+          0.10999999940395355
+        ],
+        "clipStart": 0.0004000000189989805,
+        "clipEnd": 4.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09143717586994171,
+            0.06521740555763245
+          ],
+          "max": [
+            0.9085628390312195,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+      "renderConfigSha256": "06f090912bdb4f38b847f602d512518fd4c96c134f4c0262e2cc54a6346096c6",
+      "inputSetSha256": "5dfd652c8b3b579807e3d953ed7efbad53ecbad9a573a9a628e8ec6c6d14b575"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/four-slot-toaster/rear-b7d4592053be4e89b444.webp",
+      "sha256": "b7d4592053be4e89b444eff2346b6cfe586463dafd6c764657e2f6458884db77",
+      "bytes": 107938,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.785,
+      "camera": {
+        "orthoScale": 0.6023564338684082,
+        "position": [
+          -0.7445440888404846,
+          1.240906834602356,
+          0.7924987077713013
+        ],
+        "target": [
+          0,
+          0,
+          0.10999999940395355
+        ],
+        "clipStart": 0.0004000000189989805,
+        "clipEnd": 4.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09143713861703873,
+            0.06521738320589066
+          ],
+          "max": [
+            0.9085628390312195,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+      "renderConfigSha256": "06f090912bdb4f38b847f602d512518fd4c96c134f4c0262e2cc54a6346096c6",
+      "inputSetSha256": "5dfd652c8b3b579807e3d953ed7efbad53ecbad9a573a9a628e8ec6c6d14b575"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/four-slot-toaster/detail-aa5c16a1dde0892d606c.webp",
+      "sha256": "aa5c16a1dde0892d606cf81db3be82871c7fb69db94abd7eb3d20ee23b21650e",
+      "bytes": 170314,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.807,
+      "camera": {
+        "orthoScale": 0.33129629492759705,
+        "position": [
+          0.7445440888404846,
+          -1.240906834602356,
+          0.7924987077713013
+        ],
+        "target": [
+          0,
+          0,
+          0.10999999940395355
+        ],
+        "clipStart": 0.0004000000189989805,
+        "clipEnd": 4.800000190734863,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.0914374366402626,
+            0.06521738320589066
+          ],
+          "max": [
+            0.9085625410079956,
+            0.9347813129425049
+          ]
+        }
+      },
+      "glbSha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+      "renderConfigSha256": "06f090912bdb4f38b847f602d512518fd4c96c134f4c0262e2cc54a6346096c6",
+      "inputSetSha256": "5dfd652c8b3b579807e3d953ed7efbad53ecbad9a573a9a628e8ec6c6d14b575"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/four-slot-toaster/underside-0511a476097d858328a8.webp",
+      "sha256": "0511a476097d858328a8860065676d1154f54515ffab2c8ef3e16d22fc5acbd9",
+      "bytes": 57026,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.698,
+      "camera": {
+        "orthoScale": 0.6187692284584045,
+        "position": [
+          0.7319931387901306,
+          -1.2199885845184326,
+          -0.6219931244850159
+        ],
+        "target": [
+          0,
+          0,
+          0.10999999940395355
+        ],
+        "clipStart": 0.0004000000189989805,
+        "clipEnd": 4.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.10227412730455399,
+            0.06521741300821304
+          ],
+          "max": [
+            0.8977256417274475,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+      "renderConfigSha256": "06f090912bdb4f38b847f602d512518fd4c96c134f4c0262e2cc54a6346096c6",
+      "inputSetSha256": "5dfd652c8b3b579807e3d953ed7efbad53ecbad9a573a9a628e8ec6c6d14b575"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/four-slot-toaster/clay-2044574e22f621f7c2a0.webp",
+      "sha256": "2044574e22f621f7c2a0b011a6e4146ed4f396131e6cc7b65b6a320d7c79fe0e",
+      "bytes": 85054,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.778,
+      "camera": {
+        "orthoScale": 0.602356493473053,
+        "position": [
+          0.7445440888404846,
+          -1.240906834602356,
+          0.7924987077713013
+        ],
+        "target": [
+          0,
+          0,
+          0.10999999940395355
+        ],
+        "clipStart": 0.0004000000189989805,
+        "clipEnd": 4.800000190734863,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09143717586994171,
+            0.06521740555763245
+          ],
+          "max": [
+            0.9085628390312195,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+      "renderConfigSha256": "06f090912bdb4f38b847f602d512518fd4c96c134f4c0262e2cc54a6346096c6",
+      "inputSetSha256": "5dfd652c8b3b579807e3d953ed7efbad53ecbad9a573a9a628e8ec6c6d14b575"
+    }
+  ],
+  "timingSeconds": 1.67,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.20000000298023224,
+          0.14499999582767487,
+          0.2199999988079071
+        ],
+        "min": [
+          -0.20000000298023224,
+          -0.14499999582767487,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 1,
+          "materialKey": "variant-surface",
+          "rawGlbBaseColorFactor": [
+            0.054999999701976776,
+            0.15000000596046448,
+            0.12999999523162842,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+      "renderImportSha256": "4be3a82500da277736cb3c24146d669e97a6723aeb55a6c1cde36eec3dd69a72",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.20000000298023224,0.14499999582767487,0.2199999988079071],\"min\":[-0.20000000298023224,-0.14499999582767487,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":1,\"materialKey\":\"variant-surface\",\"rawGlbBaseColorFactor\":[0.054999999701976776,0.15000000596046448,0.12999999523162842,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74\",\"renderImportSha256\":\"4be3a82500da277736cb3c24146d669e97a6723aeb55a6c1cde36eec3dd69a72\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "06f090912bdb4f38b847f602d512518fd4c96c134f4c0262e2cc54a6346096c6",
+    "inputs": [
+      {
+        "path": "assets-source/blender/four-slot-toaster.blend",
+        "sha256": "fb4afebb456faa7535149d708bab9dadae0ae766cf5f70f445316305c877c405",
+        "bytes": 165118
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/four-slot-toaster.blend",
+        "sha256": "c74ab38306fb5f29a79d49d423bc0b6afcd21b14b84035d99864c81b3bf8fa64",
+        "bytes": 320040
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/black-enamel-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/four-slot-toaster/variant-surface-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-orm.png",
+        "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+        "bytes": 29345
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/four-slot-toaster.glb",
+        "sha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+        "bytes": 971564
+      },
+      {
+        "path": "public/models/furniture/four-slot-toaster.glb",
+        "sha256": "7c7804de8dce0ffc84da54a7f19b8d118649489c77bc264ee4de7c508818b11e",
+        "bytes": 317772
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "5dfd652c8b3b579807e3d953ed7efbad53ecbad9a573a9a628e8ec6c6d14b575",
+    "afterSha256": "5dfd652c8b3b579807e3d953ed7efbad53ecbad9a573a9a628e8ec6c6d14b575"
+  },
+  "formatValidation": {
+    "sha256": "23428f87fae11f2a5880ef618124ce12e8c69cf6e88afb82db5ef281d7208b74",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 6,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "fc6ab58aa7c0195946126811569a89569c2f6ed93b11d1cbfef3f7e38c216b5a",
+    "views": {
+      "front": "Rounded white toaster body has four recessed metal slots and paired controls.",
+      "rear": "Rear housing retains a continuous rounded shell and separate metal top.",
+      "detail": "Slot bars, two levers and rotary knobs remain modeled and readable.",
+      "underside": "Four feet and the closed lower body remain attached.",
+      "clay": "Clay confirms four real slot recesses and distinct control hardware."
+    }
+  }
+}
