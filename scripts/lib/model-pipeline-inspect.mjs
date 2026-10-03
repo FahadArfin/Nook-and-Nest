@@ -9,7 +9,7 @@ export const REQUIRED_VIEWS = Object.freeze(['front', 'rear', 'underside', 'clay
 const DEFAULT_ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const HASH = /^[a-f0-9]{64}$/;
 const TOLERANCE_M = .00015;
-const TEXTURED_MATERIAL = /upholstery|wood|oak|walnut/i;
+const TEXTURED_MATERIAL = /upholstery|chenille|wood|oak|walnut/i;
 const TILED_MAP_KINDS = Object.freeze(['baseColor', 'normal', 'orm']);
 const isTiledSurface = spec => spec.surface?.method === 'tiled-pbr';
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');

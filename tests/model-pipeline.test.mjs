@@ -216,6 +216,31 @@ test('native tiled PBR accepts real 1K retained maps without claiming an atlas b
   assert.throws(() => pipeline.inspectPipeline(f.specPath, { root: f.root }), /hash-bound retained material input/);
 });
 
+test('saved chenille material names require retained and exported PBR triplets', t => {
+  const materialKey = 'soft-grey-chenille';
+  const rename = g => { g.materials[1].name = materialKey; };
+  const f = tiledFixture(t, rename);
+  f.spec.materialKeys[1] = materialKey;
+  f.write(f.specPath, JSON.stringify(f.spec)); f.receipt.spec = f.record(f.specPath);
+  for (const map of f.receipt.maps) if (map.materialKey === 'upholstery-textured') map.materialKey = materialKey;
+  f.saveReceipt();
+  const result = pipeline.inspectPipeline(f.specPath, { root: f.root });
+  assert.deepEqual([...new Set(result.geometry.materialMaps.filter(map => map.materialKey === materialKey).map(map => map.kind))].sort(), ['baseColor','normal','orm']);
+
+  for (const [kind, omit] of [
+    ['normal', material => { delete material.normalTexture; }],
+    ['orm', material => { delete material.pbrMetallicRoughness.metallicRoughnessTexture; }],
+  ]) {
+    f.write(f.spec.outputs.glb, glbFixture(g => { rename(g); omit(g.materials[1]); }, tiledPng));
+    f.receipt.glb = f.record(f.spec.outputs.glb); f.saveReceipt();
+    assert.throws(() => pipeline.inspectPipeline(f.specPath, { root: f.root }), new RegExp(`GLB: missing ${kind} map on ${materialKey}`));
+  }
+  f.write(f.spec.outputs.glb, glbFixture(rename, tiledPng));
+  f.receipt.glb = f.record(f.spec.outputs.glb);
+  f.receipt.maps = f.receipt.maps.filter(map => map.materialKey !== materialKey); f.saveReceipt();
+  assert.throws(() => pipeline.inspectPipeline(f.specPath, { root: f.root }), /Receipt: missing soft-grey-chenille baseColor tiled texture/);
+});
+
 test('native tiled PBR rejects ambiguous modes, fake bake claims and stale surface metadata', t => {
   for (const [name, mutate, expected] of [
     ['unknown mode', f => { f.spec.surface.method = 'bake-ish'; }, /unsupported explicit surface method/],

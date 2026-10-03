@@ -22,7 +22,7 @@ const preservedSource = JSON.parse(readFileSync('SOURCE_PROVENANCE.json', 'utf8'
 for (const file of restoredInputs) assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),
   preservedSource.external_inputs[file].sha256, 'Restored Beta source input does not match its original receipt.');
 assert.match(receipt.featureCommit, /^[0-9a-f]{40}$/);
-assert.equal(receipt.betaSourceCommit, '8410b5112bd7e0792efe40e124c09d482668e250');
+assert.equal(receipt.betaSourceCommit, 'b8a472dfff65453495d4b3c9fbb19383a3694aac');
 assert.equal(execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim(), receipt.betaSourceCommit,
   'The Beta checkout must still be the freshly opened source snapshot.');
 const trackedChanges = execFileSync('git', ['diff', '--name-only', 'HEAD'], {encoding: 'utf8'}).trim().split('\n').filter(Boolean);
@@ -58,7 +58,7 @@ mkdirSync('dist/client/model-lab', {recursive: true});
 cpSync('.generated/model-lab-build/model-lab/index.html', 'dist/client/model-lab/index.html');
 cpSync('.generated/model-lab-build/assets', 'dist/client/model-lab/assets', {recursive: true});
 assert.equal(createHash('sha256').update(readFileSync('.generated/library-manifest.json')).digest('hex'), hash);
-for (const id of ['sofa-current','sofa-material','sofa-refined','sofa-pipeline','sofa-rebuilt','table-current','table-material','table-refined']) {
+for (const id of ['sofa-sectional-current','sofa-sectional-rebuilt','sofa-current','sofa-material','sofa-refined','sofa-pipeline','sofa-rebuilt','table-current','table-material','table-refined']) {
   assert(readFileSync(`dist/client/experiments/realism-lab/${id}.glb`).equals(readFileSync(`public/experiments/realism-lab/${id}.glb`)), `${id} changed during build`);
 }
 const pipeline = JSON.parse(readFileSync('public/experiments/realism-lab/pipeline.json', 'utf8'));
@@ -69,4 +69,9 @@ const rebuilt = JSON.parse(readFileSync('public/experiments/realism-lab/rebuilt.
 assert.equal(rebuilt.variant.id, 'sofa-rebuilt');
 assert.equal(rebuilt.reviewedViews, 5, 'The realism revision needs all five reviewed export views.');
 assert.equal(rebuilt.variant.sha256, createHash('sha256').update(readFileSync('public/experiments/realism-lab/sofa-rebuilt.glb')).digest('hex'), 'Reviewed realism revision is stale.');
-console.log(JSON.stringify({projectId, featureCommit: receipt.featureCommit, preservedLibrarySha256: hash, experimentVariants: 8}));
+const sectional = JSON.parse(readFileSync('public/experiments/realism-lab/sectional.json', 'utf8'));
+assert.equal(sectional.variant.id, 'sofa-sectional-rebuilt');
+assert.equal(sectional.reviewedViews, 5);
+assert.equal(sectional.variant.sha256, createHash('sha256').update(readFileSync('public/experiments/realism-lab/sofa-sectional-rebuilt.glb')).digest('hex'), 'Reviewed sectional is stale.');
+assert.equal(sectional.baseline.sha256, createHash('sha256').update(readFileSync('public/experiments/realism-lab/sofa-sectional-current.glb')).digest('hex'), 'Sectional baseline changed.');
+console.log(JSON.stringify({projectId, featureCommit: receipt.featureCommit, preservedLibrarySha256: hash, experimentVariants: 10}));

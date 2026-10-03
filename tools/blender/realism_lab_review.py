@@ -79,12 +79,13 @@ def setup(stem, glb_path=None, output_dir=None):
     # same moss default on both comparisons rather than comparing a raw white
     # export against a tinted source render.
     if stem.startswith('sofa-'):
-        srgb = [int('405e42'[i:i+2],16)/255 for i in (0,2,4)]
+        tint_hex = '5f6465' if stem.startswith('sofa-sectional-') else '405e42'
+        srgb = [int(tint_hex[i:i+2],16)/255 for i in (0,2,4)]
         tint = [c/12.92 if c <= .04045 else ((c+.055)/1.055)**2.4 for c in srgb]
         for material in {m for o in parts for m in o.data.materials if m}:
             name = material.name.split('.')[0]
-            if name not in ('upholstery-textured','tailored-tone-on-tone-stitch'): continue
-            factor = .72 if name=='tailored-tone-on-tone-stitch' else 1
+            if name not in ('upholstery-textured','tailored-tone-on-tone-stitch','soft-grey-chenille','seam'): continue
+            factor = .72 if name in ('tailored-tone-on-tone-stitch','seam') else 1
             bs = next(n for n in material.node_tree.nodes if n.type=='BSDF_PRINCIPLED')
             color = tuple(c*factor for c in tint)+(1,)
             # Importer's graph uses a texture-multiply node when a factor exists.

@@ -20,17 +20,25 @@ import { preserveCatalogCoordinates } from '../scene/planCoordinates';
 import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import '@babylonjs/loaders/glTF/2.0';
 
-type Family = 'sofa' | 'table';
-type VariantId = 'sofa-current' | 'sofa-material' | 'sofa-refined' | 'sofa-pipeline' | 'sofa-rebuilt' | 'table-current' | 'table-material' | 'table-refined';
+type Family = 'sectional' | 'sofa' | 'table';
+type VariantId = 'sofa-sectional-current' | 'sofa-sectional-rebuilt' | 'sofa-current' | 'sofa-material' | 'sofa-refined' | 'sofa-pipeline' | 'sofa-rebuilt' | 'table-current' | 'table-material' | 'table-refined';
 type Dimensions = { width: number; depth: number; height: number };
 type VariantResult = {
   id: VariantId; label?: string; note?: string; dimensionsMm?: Dimensions;
   triangles?: number; bytes?: number; materialKeys?: string[]; tintMaterialKeys?: string[]; findings?: string[];
 };
 type Results = { version: 1; generatedAt?: string; summary?: string; variants: VariantResult[]; notes?: string[] };
-type Variant = { id: VariantId; family: Family; label: string; caption: string; note: string };
+type Variant = { id: VariantId; family: Family; label: string; caption: string; note: string; dimensionsMm?: Dimensions };
 const ASSETS = '/experiments/realism-lab/';
+const SECTIONAL_DIMENSIONS: Dimensions = { width: 2800, depth: 2200, height: 930 };
+const FAMILY_DEFAULTS: Record<Family, { variant: VariantId; tint: string | null; label: string }> = {
+  sectional: { variant: 'sofa-sectional-rebuilt', tint: '#5f6465', label: 'Sectional' },
+  sofa: { variant: 'sofa-rebuilt', tint: '#405e42', label: 'Sofa' },
+  table: { variant: 'table-current', tint: null, label: 'Table' },
+};
 const VARIANTS: Variant[] = [
+  { id: 'sofa-sectional-current', family: 'sectional', label: 'Before', caption: 'Original sectional export', dimensionsMm: SECTIONAL_DIMENSIONS, note: 'The unchanged everyday track-arm sectional export. Both versions use the same catalog dimensions, blue-grey upholstery tint, lighting and camera view.' },
+  { id: 'sofa-sectional-rebuilt', family: 'sectional', label: 'After', caption: 'Sectional study', dimensionsMm: SECTIONAL_DIMENSIONS, note: 'A new Blender construction study of the same L-shaped sectional. Compare the cushion shape, fabric response, seams and supporting frame using the same view and upholstery color.' },
   { id: 'sofa-current', family: 'sofa', label: 'Current', caption: 'Original export', note: 'The current exported mesh and fabric response, with the same catalog upholstery tint used by every sofa version.' },
   { id: 'sofa-material', family: 'sofa', label: 'Calibrated fabric', caption: 'Same mesh · corrected sheen', note: 'The current sofa geometry with calibrated exported fabric sheen. This control separates material response from the geometry changes.' },
   { id: 'sofa-refined', family: 'sofa', label: 'Reference assisted', caption: 'Geometry + materials', note: 'An original Blender study informed by a generated visual reference. Dimensions are checked independently of the image.' },
@@ -60,18 +68,19 @@ app.innerHTML = `
       <div class="viewer-footer"><span><span aria-hidden="true">↔</span> Drag to orbit · scroll or pinch to zoom</span><span>Live 3D mesh</span></div>
     </section>
     <aside class="controls-panel" aria-label="Comparison controls">
-      <div class="study-heading"><span class="eyebrow">FURNITURE STUDIES / 01—02</span><h2>Compare the craft</h2><p>One piece, the same view. <br>Switch versions to judge the change.</p></div>
-      <section class="control-section"><h3>01 <span>Choose a piece</span></h3><div class="family-switch" role="group" aria-label="Furniture family"><button type="button" data-family="sofa" aria-pressed="true">Sofa</button><button type="button" data-family="table" aria-pressed="false">Table</button></div></section>
+      <div class="study-heading"><span class="eyebrow">FURNITURE STUDIES / 01—03</span><h2>Compare the craft</h2><p>One piece, the same view. <br>Switch versions to judge the change.</p></div>
+      <section class="control-section"><h3>01 <span>Choose a piece</span></h3><div class="family-switch" role="group" aria-label="Furniture family"><button type="button" data-family="sectional" aria-pressed="true">Sectional</button><button type="button" data-family="sofa" aria-pressed="false">Sofa</button><button type="button" data-family="table" aria-pressed="false">Table</button></div></section>
       <section class="control-section"><h3>02 <span>Compare versions</span></h3><div class="variant-list" id="variant-list" role="group" aria-label="Model version"></div><p class="variant-note" id="variant-note"></p></section>
       <section class="control-section"><h3>03 <span>Look beneath the finish</span></h3>
         <div class="select-row"><label for="lighting">Lighting</label><select id="lighting"><option value="neutral">Neutral studio</option><option value="app">Nook & Nest day</option></select></div>
         <p class="lighting-note" id="lighting-note" role="status">Preparing the studio lighting…</p>
         <div class="inspection-toggles"><label><input type="checkbox" id="clay"/><span>Clay surface</span></label><label><input type="checkbox" id="wireframe"/><span>Wireframe</span></label><label><input type="checkbox" id="surface-detail" checked/><span>Surface normals</span></label></div>
-        <fieldset class="tint-controls"><legend id="tint-label">Upholstery</legend><div id="color-swatches" class="color-swatches"></div><p id="tint-note">Catalog moss is applied equally to all sofa variants.</p></fieldset>
+        <fieldset class="tint-controls"><legend id="tint-label">Upholstery</legend><div id="color-swatches" class="color-swatches"></div><p id="tint-note">Catalog blue-grey is applied equally to both sectional versions.</p></fieldset>
       </section>
       <section class="control-section measurement-section"><h3>04 <span>Measured, not imagined</span></h3><dl class="measurements"><div class="wide"><dt>Loaded mesh · W × D × H</dt><dd id="mesh-dimensions">—</dd></div><div class="wide" id="envelope-row" hidden><dt>Catalog envelope · W × D × H</dt><dd id="catalog-dimensions">—</dd></div><div><dt>Triangles</dt><dd id="triangle-count">—</dd></div><div><dt>GLB size</dt><dd id="download-size">—</dd></div><div><dt>Mesh parts</dt><dd id="mesh-count">—</dd></div><div><dt>Fetch + decode</dt><dd id="load-time">—</dd></div></dl><p class="measurement-note">Measured from the loaded GLB. Load time reflects this browser and cache, not a performance benchmark.</p><ul id="findings" class="findings" hidden></ul></section>
       <details class="reference-details pipeline-details" id="pipeline-details" open><summary>How this model is made <span aria-hidden="true">↗</span></summary><ol><li><strong>Measure.</strong> Fix dimensions, material names and contact points.</li><li><strong>Construct.</strong> Keep the frame, cushion shapes and seams editable.</li><li><strong>Bake.</strong> Transfer fine detail from the master onto the browser mesh.</li><li><strong>Inspect.</strong> Check the exported geometry, maps and five rendered views.</li></ol><p id="pipeline-evidence" class="measurement-note">Loading the build record…</p><p class="measurement-note">Surface normals changes the lighting detail without changing the mesh. Use clay and the underside view to inspect construction.</p></details>
       <details class="reference-details" id="rebuilt-details" open><summary>What changed <span aria-hidden="true">↗</span></summary><ol><li><strong>Shape.</strong> Individually crowned cushions, relaxed seams and inclined back pillows.</li><li><strong>Construction.</strong> Shaped armrests, splayed legs and separate timber members.</li><li><strong>Texture.</strong> Photographed wool and oak at measured scale, with surface detail retained in the browser export.</li></ol><p id="rebuilt-evidence" class="measurement-note">Loading the revision record…</p><p class="measurement-note">An original study informed by <a href="https://www.carlhansen.com/en/en/collection/sofas-daybeds/ch293" target="_blank" rel="noreferrer">solid-oak sofa construction</a>. Your next rating will determine how close it comes.</p></details>
+      <details class="reference-details pipeline-details" id="sectional-details" open><summary>How this study is made <span aria-hidden="true">↗</span></summary><ol><li><strong>Research and measure.</strong> Study real sectional construction and several views, while preserving the original 2800 × 2200 × 930 mm catalog envelope.</li><li><strong>Construct the shape.</strong> Model the frame, individual cushions, compression, seams and feet in editable Blender geometry.</li><li><strong>Calibrate fabric scale.</strong> Repeat licensed color, roughness and normal maps at a calibrated fabric scale, retaining fine surface detail in the GLB.</li><li><strong>Review the export.</strong> Inspect clay, close-up, rear and underside views, then compare the actual browser model under identical lighting.</li><li><strong>Validate and publish.</strong> Check dimensions, material controls and browser costs, run the release tests, then publish the experiment to Beta.</li></ol><p id="sectional-evidence" class="measurement-note">Loading the sectional build record…</p><p class="measurement-note">Generated images can guide the design; measured references establish dimensions. The Before version is preserved for comparison. Your rating judges the result.</p></details>
       <details class="reference-details" id="reference-details"><summary>See the visual reference <span aria-hidden="true">↗</span></summary><figure><img src="${ASSETS}sofa-reference.png" alt="Generated multi-view sofa design reference used for the reference-assisted Blender study" loading="lazy"/><figcaption>AI-generated concept reference. This image guides the design; it does not prove dimensions or multi-view accuracy.</figcaption></figure></details>
       <p class="isolation-note">A separate Beta 1 experiment. These controls only affect this preview; your home and saved projects stay as they are.</p>
       <p id="metadata-note" class="metadata-note" role="status"></p>
@@ -81,8 +90,8 @@ app.innerHTML = `
 const element = <T extends HTMLElement>(id: string) => document.getElementById(id) as T;
 const canvas = element<HTMLCanvasElement>('model-canvas');
 const message = element<HTMLDivElement>('load-message');
-let family: Family = 'sofa';
-let selected: VariantId = 'sofa-rebuilt';
+let family: Family = 'sectional';
+let selected: VariantId = FAMILY_DEFAULTS.sectional.variant;
 let results: Results | null = null;
 let container: AssetContainer | null = null;
 let disposed = false;
@@ -95,7 +104,7 @@ let visible = true;
 let boundsCenter = new Vector3(0, .45, 0);
 let boundsSize = new Vector3(2.4, .9, 1);
 let loadedFamily: Family | null = null;
-let activeTint: string | null = '#405e42';
+let activeTint: string | null = FAMILY_DEFAULTS.sectional.tint;
 const pointers = new Set<number>();
 const originalMaterials = new Map<AbstractMesh, Material | null>();
 const originalColors = new Map<PBRMaterial, Color3>();
@@ -131,7 +140,7 @@ async function start() {
   shadow.useBlurExponentialShadowMap = true;
   shadow.blurKernel = 24;
   shadow.setDarkness(.3);
-  const ground = MeshBuilder.CreateGround('studio-ground', { width: 30, height: 30 }, scene);
+  const ground = MeshBuilder.CreateGround('studio-ground', { width: 100, height: 100 }, scene);
   ground.position.y = -.006;
   ground.isPickable = false;
   ground.receiveShadows = true;
@@ -142,7 +151,8 @@ async function start() {
   groundMaterial.environmentIntensity = .65;
   ground.material = groundMaterial;
   const clayMaterial = new StandardMaterial('inspection-clay', scene);
-  clayMaterial.diffuseColor = Color3.FromHexString('#c8c3b7').toLinearSpace();
+  // StandardMaterial accepts display-space diffuse colors; PBR tints below are linear.
+  clayMaterial.diffuseColor = Color3.FromHexString('#c8c3b7');
   clayMaterial.specularColor = new Color3(.06, .06, .06);
   let studioEnvironment: HDRCubeTexture | null = null;
   let environmentReady = false;
@@ -194,6 +204,10 @@ async function start() {
     // profile retains its actual sun direction for a separate runtime check.
     sun.direction.set(...(appProfile ? [-.8, -1.5, .7] : [.8, -1.5, -1]) as [number, number, number]);
     sun.position.set(...(appProfile ? [10, 18, -10] : [-10, 18, 10]) as [number, number, number]);
+    // A studio piece occupies metres, not the camera's default 10 km depth
+    // range. Keep shadow bias at millimetre scale and retain the app profile.
+    sun.shadowMinZ = appProfile ? .01 : 10;
+    sun.shadowMaxZ = appProfile ? 10000 : 40;
     sun.diffuse = appProfile ? new Color3(1, .86, .68) : Color3.White();
     scene.ambientColor = appProfile ? new Color3(.12, .11, .09) : new Color3(.08, .08, .08);
     scene.imageProcessingConfiguration.exposure = appProfile ? .72 : 1;
@@ -201,8 +215,12 @@ async function start() {
     scene.clearColor = new Color4(.949, .937, .906, 1);
     scene.environmentTexture = !appProfile && environmentReady ? studioEnvironment : null;
     scene.environmentIntensity = appProfile ? 1 : 1.0;
+    // ESM exponentials can underflow in half-float textures with a close studio
+    // depth range. PCF compares depth directly and retains contact shadows.
+    if (appProfile) shadow.useBlurExponentialShadowMap = true;
+    else { shadow.usePercentageCloserFiltering = true; shadow.filteringQuality = ShadowGenerator.QUALITY_MEDIUM; }
     shadow.bias = appProfile ? .00005 : .00015;
-    shadow.normalBias = appProfile ? 0 : .015;
+    shadow.normalBias = appProfile ? 0 : .003;
     shadow.blurKernel = appProfile ? 24 : 32;
     shadow.setDarkness(appProfile ? .3 : .22);
     element('lighting-note').textContent = appProfile ? 'The app’s default day lights, exposure, and contrast.' : environmentReady ? 'Soft studio illumination · Poly Haven, CC0.' : environmentFailed ? 'Studio environment unavailable; using the direct-light fallback.' : 'Preparing the studio lighting…';
@@ -213,7 +231,7 @@ async function start() {
     camera.inertialAlphaOffset = camera.inertialBetaOffset = camera.inertialRadiusOffset = 0;
     camera.inertialPanningX = camera.inertialPanningY = 0;
     const aspect = Math.max(.5, engine.getRenderWidth() / engine.getRenderHeight());
-    const fitRadius = Math.max(boundsSize.y, boundsSize.x / aspect, boundsSize.z) / (2 * Math.tan(camera.fov / 2)) * 1.65;
+    const fitRadius = Math.max(boundsSize.y, boundsSize.x / aspect, boundsSize.z) / (2 * Math.tan(camera.fov / 2)) * (family === 'sectional' ? 1.30 : 1.65);
     camera.setTarget(view === 'detail'
       ? boundsCenter.add(new Vector3(-boundsSize.x * .2, boundsSize.y * .06, boundsSize.z * .18))
       : boundsCenter.clone());
@@ -232,6 +250,7 @@ async function start() {
   function tintKeys() {
     const explicit = results?.variants.find(item => item.id === selected)?.tintMaterialKeys;
     if (explicit?.length) return new Set(explicit);
+    if (family === 'sectional') return new Set(['soft-grey-chenille', 'seam']);
     return family === 'sofa'
       ? new Set(['upholstery-textured', 'tailored-tone-on-tone-stitch'])
       : new Set(['honey-oak', 'walnut']);
@@ -247,7 +266,7 @@ async function start() {
         tintable++;
         if (activeTint) {
           material.albedoColor = Color3.FromHexString(activeTint).toLinearSpace();
-          if (key === 'tailored-tone-on-tone-stitch') material.albedoColor.scaleInPlace(.72);
+          if (key === 'tailored-tone-on-tone-stitch' || (family === 'sectional' && key === 'seam')) material.albedoColor.scaleInPlace(.72);
         }
       }
       material.wireframe = element<HTMLInputElement>('wireframe').checked;
@@ -262,7 +281,7 @@ async function start() {
       button.disabled = !tintable || element<HTMLInputElement>('clay').checked;
       button.setAttribute('aria-pressed', String((button.dataset.tint || null) === activeTint));
     });
-    element('tint-note').textContent = !container ? 'Color controls activate after the model loads.' : !tintable ? 'No matching editable material keys were found in this asset.' : family === 'sofa' ? 'Catalog moss is the default for all sofa variants. Color changes preserve the texture maps.' : 'Wood tint changes preserve the texture maps. Original restores the exported finish.';
+    element('tint-note').textContent = !container ? 'Color controls activate after the model loads.' : !tintable ? 'No matching editable material keys were found in this asset.' : family === 'sectional' ? 'Catalog blue-grey is the default for both sectional versions. Color changes preserve the texture maps.' : family === 'sofa' ? 'Catalog moss is the default for all sofa variants. Color changes preserve the texture maps.' : 'Wood tint changes preserve the texture maps. Original restores the exported finish.';
     refreshShadow();
     invalidate();
   }
@@ -270,7 +289,7 @@ async function start() {
     const info = results?.variants.find(item => item.id === selected);
     const variant = VARIANTS.find(item => item.id === selected)!;
     element('variant-note').textContent = info?.note || variant.note;
-    const dimensions = info?.dimensionsMm;
+    const dimensions = info?.dimensionsMm || variant.dimensionsMm;
     const validDimensions = dimensions && [dimensions.width, dimensions.depth, dimensions.height].every(value => Number.isFinite(value) && value > 0);
     element('envelope-row').hidden = !validDimensions;
     element('catalog-dimensions').textContent = validDimensions ? `${dimensions.width} × ${dimensions.depth} × ${dimensions.height} mm` : '—';
@@ -300,16 +319,16 @@ async function start() {
       list.append(button);
     });
     document.querySelectorAll<HTMLButtonElement>('[data-family]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.family === family)));
-    element('model-caption').textContent = `${family === 'sofa' ? 'Sofa' : 'Table'} / ${VARIANTS.find(variant => variant.id === selected)!.caption}`;
-    element('tint-label').textContent = family === 'sofa' ? 'Upholstery' : 'Wood finish';
+    element('model-caption').textContent = `${FAMILY_DEFAULTS[family].label} / ${VARIANTS.find(variant => variant.id === selected)!.caption}`;
+    element('tint-label').textContent = family === 'table' ? 'Wood finish' : 'Upholstery';
     const swatches = element('color-swatches');
     swatches.replaceChildren();
-    const colors = family === 'sofa' ? [['Moss', '#405e42'], ['Ochre', '#aa7b3c'], ['Blue', '#456e85']] : [['Original', ''], ['Oak', '#b9915f'], ['Walnut', '#6f4931']];
+    const colors = family === 'sectional' ? [['Blue-grey', '#5f6465'], ['Moss', '#405e42'], ['Terracotta', '#9b6250']] : family === 'sofa' ? [['Moss', '#405e42'], ['Ochre', '#aa7b3c'], ['Blue', '#456e85']] : [['Original', ''], ['Oak', '#b9915f'], ['Walnut', '#6f4931']];
     for (const [label, color] of colors) {
       const button = document.createElement('button');
       button.type = 'button';
       button.dataset.tint = color;
-      button.setAttribute('aria-label', `${label} ${family === 'sofa' ? 'upholstery' : 'wood tint'}`);
+      button.setAttribute('aria-label', `${label} ${family === 'table' ? 'wood tint' : 'upholstery'}`);
       const swatch = document.createElement('i');
       swatch.style.background = color || 'linear-gradient(125deg, #c8a774, #725034)';
       swatch.setAttribute('aria-hidden', 'true');
@@ -322,6 +341,7 @@ async function start() {
     element('reference-details').hidden = selected !== 'sofa-refined';
     element('pipeline-details').hidden = selected !== 'sofa-pipeline';
     element('rebuilt-details').hidden = selected !== 'sofa-rebuilt';
+    element('sectional-details').hidden = family !== 'sectional';
     updateMetadata();
     applySurface();
   }
@@ -337,7 +357,7 @@ async function start() {
   function selectVariant(id: VariantId, force = false) {
     if (id === selected && container && !force) return;
     const variant = VARIANTS.find(item => item.id === id)!;
-    if (family !== variant.family) activeTint = variant.family === 'sofa' ? '#405e42' : null;
+    if (family !== variant.family) activeTint = FAMILY_DEFAULTS[variant.family].tint;
     family = variant.family;
     selected = id;
     activeRequest?.abort();
@@ -391,10 +411,17 @@ async function start() {
         }
         if (!meshes.length) throw new Error('This GLB contains no renderable mesh.');
         for (const material of asset.materials) if (material instanceof PBRMaterial) originalColors.set(material, material.albedoColor.clone());
-        boundsSize = max.subtract(min);
-        boundsCenter = min.add(max).scale(.5);
+        const measuredSize = max.subtract(min);
+        // Sectional cameras use one catalog envelope in both versions. Keep
+        // reporting the actual loaded bounds so differences remain visible.
+        boundsSize = family === 'sectional'
+          ? new Vector3(SECTIONAL_DIMENSIONS.width / 1000, SECTIONAL_DIMENSIONS.height / 1000, SECTIONAL_DIMENSIONS.depth / 1000)
+          : measuredSize;
+        boundsCenter = family === 'sectional'
+          ? new Vector3(0, SECTIONAL_DIMENSIONS.height / 2000, 0)
+          : min.add(max).scale(.5);
         ground.position.y = min.y - .006;
-        element('mesh-dimensions').textContent = `${Math.round(boundsSize.x * 1000)} × ${Math.round(boundsSize.z * 1000)} × ${Math.round(boundsSize.y * 1000)} mm`;
+        element('mesh-dimensions').textContent = `${Math.round(measuredSize.x * 1000)} × ${Math.round(measuredSize.z * 1000)} × ${Math.round(measuredSize.y * 1000)} mm`;
         element('triangle-count').textContent = formatNumber.format(Math.round(triangles));
         element('download-size').textContent = `${(bytes.byteLength / 1024 / 1024).toFixed(2)} MB`;
         element('mesh-count').textContent = formatNumber.format(meshes.length);
@@ -420,7 +447,7 @@ async function start() {
     });
   }
 
-  document.querySelectorAll<HTMLButtonElement>('[data-family]').forEach(button => button.addEventListener('click', () => selectVariant(button.dataset.family === 'table' ? 'table-current' : 'sofa-rebuilt')));
+  document.querySelectorAll<HTMLButtonElement>('[data-family]').forEach(button => button.addEventListener('click', () => selectVariant(FAMILY_DEFAULTS[button.dataset.family as Family].variant)));
   document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view!)));
   element('lighting').addEventListener('change', setLighting);
   element('clay').addEventListener('change', applySurface);
@@ -487,6 +514,12 @@ async function start() {
     if (rebuilt.version !== 1 || rebuilt.variant?.id !== 'sofa-rebuilt' || rebuilt.reviewedViews !== 5 || !Number.isFinite(rebuilt.textureResolution)) throw new Error('Unsupported realism revision record.');
     results.variants.push(rebuilt.variant);
     element('rebuilt-evidence').textContent = `${rebuilt.textureResolution}px tiled material maps. Five views of the exported model reviewed; editable Blender construction preserved.`;
+    const sectionalResponse = await fetch(`${ASSETS}sectional.json`, { signal: metadataAbort.signal });
+    if (!sectionalResponse.ok) throw new Error('Sectional study record unavailable.');
+    const sectional = await sectionalResponse.json() as { version: number; variant: VariantResult; reviewedViews: number; textureResolution: number };
+    if (sectional.version !== 1 || sectional.variant?.id !== 'sofa-sectional-rebuilt' || sectional.reviewedViews !== 5 || !Number.isFinite(sectional.textureResolution)) throw new Error('Unsupported sectional study record.');
+    results.variants.push(sectional.variant);
+    element('sectional-evidence').textContent = `${sectional.textureResolution}px tiled material maps. Five views of the exported sectional reviewed; editable Blender construction and catalog dimensions preserved.`;
     updateMetadata();
     applySurface();
     element('metadata-note').textContent = parsed.generatedAt ? `Study record · ${parsed.generatedAt.slice(0, 10)}` : '';
@@ -494,6 +527,7 @@ async function start() {
     element('metadata-note').textContent = 'Study notes are unavailable. The values above are still measured from the loaded model.';
     element('pipeline-evidence').textContent = 'Build record unavailable. Inspect the loaded model using the controls above.';
     element('rebuilt-evidence').textContent = 'Revision record unavailable. Inspect the loaded model using the controls above.';
+    element('sectional-evidence').textContent = 'Sectional build record unavailable. Inspect the loaded model using the controls above.';
   } finally {
     window.clearTimeout(metadataTimeout);
   }
