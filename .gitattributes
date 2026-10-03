@@ -14,6 +14,7 @@ tools/blender/catalog_realism/*.py text eol=lf
 scripts/catalog-realism* text eol=lf
 scripts/lib/catalog-realism* text eol=lf
 scripts/build-catalog-realism-beta.mjs text eol=lf
+scripts/prepare-catalog-realism-assets.mjs text eol=lf
 scripts/catalog-public-assets.mjs text eol=lf
 src/catalogRealism.ts text eol=lf
 src/catalogRealismBeds.json text eol=lf
@@ -27,4 +28,9 @@ src/modernCollection.ts text eol=lf
 tools/blender/sofa_realism_*.py text eol=lf
 public/experiments/realism-lab/rebuilt.json text eol=lf
 tools/blender/sectional_realism_*.py text eol=lf
+# Reviewed per-ID inputs retain their exact native bytes; changing line endings invalidates receipts.
+tools/blender/catalog_realism/refinements/*.py -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+tools/blender/catalog_realism/refinements/*.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+assets-source/catalog-realism/legacy-uv-repair-plan.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+assets-source/catalog-realism/legacy-uv-source-evidence.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
 public/experiments/realism-lab/sectional.json text eol=lf

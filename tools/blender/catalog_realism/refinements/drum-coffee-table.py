@@ -1,0 +1,61 @@
+"""Measured reviewed construction correction; Beta candidate only."""
+from pathlib import Path
+import runpy
+
+CATALOG_ID = 'drum-coffee-table'
+SOURCE_COMPONENTS = [{'name': 'shaped_slab_top',
+  'vertices': 192,
+  'materials': ['variant-surface'],
+  'sourceMaterials': ['variant-surface'],
+  'bounds': {'min': [-0.4300000071525574, -0.4300000071525574, 0.34930291771888733],
+             'max': [0.4300000071525574, 0.4300000071525574, 0.4000000059604645]},
+  'kind': 'turned',
+  'axis': 2,
+  'sides': 32,
+  'sourceProfile': [(0, 0),
+                    (0.993970960536357, 0.0),
+                    (0.998234087368151, 0.03514700972070034),
+                    (1, 0.11999974134566095),
+                    (1, 0.8799996708035684),
+                    (0.998234087368151, 0.9648529902792996),
+                    (0.993970960536357, 1.0),
+                    (0, 1)]},
+ {'name': 'weighted_elliptic_foot',
+  'vertices': 192,
+  'materials': ['wood-honey-textured'],
+  'sourceMaterials': ['wood-honey-textured'],
+  'bounds': {'min': [-0.2924000024795532, -0.2924000024795532, 0.0],
+             'max': [0.2924000024795532, 0.2924000024795532, 0.05576678737998009]},
+  'kind': 'turned',
+  'axis': 2,
+  'sides': 32,
+  'sourceProfile': [(0, 0),
+                    (0.9773189747633428, 0.0),
+                    (0.9933568500115738, 0.03514720286860538),
+                    (1, 0.12000001102220387),
+                    (1, 0.8799999973279505),
+                    (0.9933568500115738, 0.9648528639326301),
+                    (0.9773189747633428, 1.0),
+                    (0, 1)]},
+ {'name': 'sculpted_center_pedestal',
+  'vertices': 192,
+  'materials': ['wood-honey-textured'],
+  'sourceMaterials': ['wood-honey-textured'],
+  'bounds': {'min': [-0.22476433217525482, -0.22476433217525482, 0.03295311704277992],
+             'max': [0.22476433217525482, 0.22476433217525482, 0.33916351199150085]},
+  'kind': 'turned',
+  'axis': 2,
+  'sides': 32,
+  'sourceProfile': [(0, 0),
+                    (0.9085123652245745, 0.0),
+                    (0.9869069093259447, 0.02605344549247694),
+                    (1, 0.08895177843543046),
+                    (0.6942545489530711, 0.9110481485698504),
+                    (0.6343763912609391, 0.9739464328496578),
+                    (0.5366028295631111, 1.0),
+                    (0, 1)]}]
+
+def apply(root, scene, item, material_keys, object_names):
+    if item["id"] != CATALOG_ID: raise ValueError("Wrong source-specific recipe")
+    helper=runpy.run_path(str(Path(__file__).with_name("round_appliances.py")))
+    return helper["apply"](root,scene,item,material_keys,object_names,SOURCE_COMPONENTS)

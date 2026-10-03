@@ -50,6 +50,7 @@ def run(root_path, stage='build', seconds=35, limit=15, retry=False, ids=None):
     if ids is not None and len(items) != len(set(ids)):
         raise ValueError('Unknown or duplicate requested catalog ID')
     module = runpy.run_path(str(root/f'tools/blender/catalog_realism/{"build" if stage == "build" else "review"}.py'))
+    refinements = runpy.run_path(str(root/'tools/blender/catalog_realism/refinements.py'))
     helper_paths = sorted((root/'tools/blender/catalog_realism').glob('*.py'))
     dependency_paths = set(helper_paths)
     for name in ('catalog', 'material-plan', 'material-provenance', 'scan-plan'):
@@ -77,7 +78,8 @@ def run(root_path, stage='build', seconds=35, limit=15, retry=False, ids=None):
     for item in items:
         path = root/item['outputs']['receipt']
         receipt = json.loads(path.read_text()) if path.exists() else None
-        ready = bool(receipt and receipt.get('inputContractSha256') == item['contractSha256'] and
+        refinement_inputs = refinements['inputs'](root, item['id'])
+        ready = bool(receipt and receipt.get('modelRefinementInputs', []) == refinement_inputs and receipt.get('inputContractSha256') == item['contractSha256'] and
                      all(current(root, r, status_cache) for r in [*receipt.get('buildInputs', receipt.get('inputs', [])), *receipt['outputs'].values()]))
         if stage == 'build' and ready:
             skipped += 1
@@ -88,7 +90,7 @@ def run(root_path, stage='build', seconds=35, limit=15, retry=False, ids=None):
         if stage == 'render' and len(receipt.get('renders', [])) == 5 and all(current(root, r, status_cache) for r in [*receipt.get('inputs', []), *receipt['renders']]):
             skipped += 1
             continue
-        failure_signature = hashlib.sha256((signature+item['contractSha256']).encode()+
+        failure_signature = hashlib.sha256((signature+item['contractSha256']+json.dumps(refinement_inputs, sort_keys=True)).encode()+
             b''.join((root/item[key]['path']).read_bytes() if (root/item[key]['path']).is_file() else b'MISSING'
                      for key in ('sourceBlend', 'baselineGlb'))).hexdigest() if item['id'] in failures else None
         if failure_signature and failures[item['id']].get('signature') == failure_signature and not retry:
@@ -106,7 +108,7 @@ def run(root_path, stage='build', seconds=35, limit=15, retry=False, ids=None):
             failures.pop(item['id'], None)
             results.append(result)
         except Exception as error:
-            failure_signature = hashlib.sha256((signature+item['contractSha256']).encode()+
+            failure_signature = hashlib.sha256((signature+item['contractSha256']+json.dumps(refinement_inputs, sort_keys=True)).encode()+
                 b''.join((root/item[key]['path']).read_bytes() if (root/item[key]['path']).is_file() else b'MISSING'
                          for key in ('sourceBlend', 'baselineGlb'))).hexdigest()
             failures[item['id']] = {'signature': failure_signature, 'error': str(error), 'type': type(error).__name__}

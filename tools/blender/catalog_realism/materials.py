@@ -309,42 +309,71 @@ def _generated_maps(profile, resolution=256):
     return {'normal': _png(resolution, resolution, normal), 'orm': _png(resolution, resolution, orm)}
 
 
+def pack_scanned_roughness(encoded, interval):
+    """Pack matched scan grain without resampling, tint, AO or metal changes."""
+    from io import BytesIO
+    from PIL import Image
+    lo, hi = interval
+    if not 0 <= lo <= hi <= 1:
+        raise ValueError('Roughness calibration must remain in the unit interval')
+    with Image.open(BytesIO(encoded)) as image:
+        gray = image.convert('L')
+        # A single point transform keeps the scan's complete spatial structure.
+        # White AO/B preserve the original material AO and metallic multiplier.
+        green = gray.point([round(255*lo + (hi-lo)*value) for value in range(256)])
+        white = Image.new('L', gray.size, 255)
+        packed = Image.merge('RGB', (white, green, white))
+        return _png(packed.width, packed.height, packed.tobytes())
+
+
 def create_library(root):
     """Generate shared lossless files; safe outside Blender and idempotent.
 
-    Scanned normals already licensed/retained by this repository are reused
-    byte-for-byte where available, without a second JPEG encode. All newly
-    authored maps are PNG. No new base-color maps are introduced.
+    Scanned normals are reused byte-for-byte. Their matching roughness scans
+    retain full resolution and grain alignment in lossless calibrated ORM.
+    No new base-color maps are introduced.
     """
     root = Path(root).resolve()
     destination = root / LIBRARY
     destination.mkdir(parents=True, exist_ok=True)
     result = {}
-    scans = {'fabric': ('material-linen-normal.jpg', 'https://polyhaven.com/a/rough_linen'),
-             'canvas': ('material-canvas-normal.jpg', 'https://ambientcg.com/a/Fabric036'),
-             'wood': ('material-oak-normal.jpg', 'https://polyhaven.com/a/oak_veneer_01')}
+    scans = {'fabric': ('material-linen', 'https://polyhaven.com/a/rough_linen'),
+             'canvas': ('material-canvas', 'https://ambientcg.com/a/Fabric036'),
+             'wood': ('material-oak', 'https://polyhaven.com/a/oak_veneer_01')}
     for profile in PROFILES:
         result[profile] = {}
         for kind, data in _generated_maps(profile).items():
             path = destination / (profile + '-' + kind + '.png')
             source = 'Original Nook & Nest periodic microstructure'
             license_ = 'project-original'
-            if kind == 'normal' and profile in scans and (root / 'public/textures/realism' / scans[profile][0]).is_file():
-                original = root / 'public/textures/realism' / scans[profile][0]
+            evidence = {}
+            scan = scans.get(profile)
+            normal_file = root / 'public/textures/realism' / (scan[0]+'-normal.jpg') if scan else None
+            roughness_file = root / 'public/textures/realism' / (scan[0]+'-roughness.jpg') if scan else None
+            if kind == 'normal' and normal_file and normal_file.is_file():
+                original = normal_file
                 path = original
                 data = original.read_bytes()
-                source, license_ = scans[profile][1], 'CC0-1.0'
-            elif not path.exists() or path.read_bytes() != data:
+                source, license_ = scan[1], 'CC0-1.0'
+            elif kind == 'orm' and normal_file and normal_file.is_file() and roughness_file.is_file():
+                raw = roughness_file.read_bytes()
+                data = pack_scanned_roughness(raw, PROFILES[profile]['roughness'])
+                source, license_ = scan[1], 'CC0-1.0'
+                evidence = {'input': {'path': roughness_file.relative_to(root).as_posix(),
+                            'sha256': hashlib.sha256(raw).hexdigest(), 'bytes': len(raw)},
+                            'derivation': {'R': 255, 'B': 255, 'G': 'linear calibration of matching source roughness; no resize or rotation',
+                                           'roughnessRange': list(PROFILES[profile]['roughness'])}}
+            if path != normal_file and (not path.exists() or path.read_bytes() != data):
                 path.write_bytes(data)
             result[profile][kind] = {'path': path.relative_to(root).as_posix(),
                 'sha256': hashlib.sha256(data).hexdigest(), 'bytes': len(data),
-                'colorSpace': 'Non-Color', 'source': source, 'license': license_}
+                'colorSpace': 'Non-Color', 'source': source, 'license': license_, **evidence}
     return result
 
 
 def provenance(root, library):
     root = Path(root)
-    return {'version': 1, 'description': 'New lossless original microstructure with byte-identical reuse of licensed existing normals. No base-color replacements.',
+    return {'version': 1, 'description': 'Lossless original microstructure and byte-identical licensed normals with matching full-resolution scan roughness packed into calibrated neutral ORM. No base-color replacements.',
             'calibration': 'Profile repeats and strengths are authored calibrations; only scan repeats inherited from realism-materials.json are provider-derived where documented.',
             'retainedProvenance': ['assets-source/realism-materials.json', 'assets-source/realism-texture-provenance.json'],
             'references': ['https://polyhaven.com/license', 'https://docs.ambientcg.com/license/',
@@ -556,6 +585,8 @@ def apply_materials(root, scene, item, material_key_map):
             record['scanFamily'] = scan['family']
         for kind in kinds:
             asset = library[profile][kind]
+            if asset.get('input'):
+                _verified_scan_file(root, asset['input'])
             path = root / asset['path']
             if hashlib.sha256(path.read_bytes()).hexdigest() != asset['sha256']:
                 raise ValueError('Changed calibrated material image: ' + str(path))
@@ -627,5 +658,5 @@ if __name__ == '__main__':
         print(json.dumps({'models': len(plan['models']), 'unclassified': plan['unclassified']}))
     if args.library:
         maps = create_library(args.root)
-        (args.root / PROVENANCE).write_text(json.dumps(provenance(args.root, maps), indent=2) + '\n', encoding='utf-8')
+        (args.root / PROVENANCE).write_text(json.dumps(provenance(args.root, maps), indent=2) + '\n', encoding='utf-8', newline='\n')
         print(json.dumps({'profiles': len(maps), 'mapFiles': sum(len(v) for v in maps.values())}))

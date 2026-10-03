@@ -50,6 +50,25 @@ class LoadedBuildProvenanceTests(unittest.TestCase):
         self.assertEqual(written, results)
         self.assertFalse((self.root / 'assets-source/catalog-realism/receipts').exists())
 
+    def test_uvless_bud_petals_get_explicit_zero_chart_without_touching_other_models(self):
+        class Layers(list):
+            def new(self, name, do_init):
+                self.assert_no_init = not do_init
+                layer = SimpleNamespace(name=name, data=[SimpleNamespace(uv=None) for _ in range(3)])
+                self.append(layer)
+                return layer
+        objects = [SimpleNamespace(name=f'loaded-{i}',type='MESH',data=SimpleNamespace(materials=[SimpleNamespace(name='rose')],uv_layers=Layers())) for i in range(18)]
+        scene = SimpleNamespace(objects=objects)
+        names = {o.name: 'flower_petal' + (f'.{i:03d}' if i else '') for i,o in enumerate(objects)}
+        prepare = self.module['prepare_legacy_source_uv']
+        self.assertEqual(prepare(scene, {'id':'other'}, {'rose':'dusty-rose'}, names), [])
+        self.assertTrue(all(not o.data.uv_layers for o in objects))
+        evidence = prepare(scene, {'id':'bud-vase-trio'}, {'rose':'dusty-rose'}, names)
+        self.assertEqual(evidence[0]['objects'],18)
+        self.assertTrue(all(o.data.uv_layers.assert_no_init and all(x.uv == (0.0,0.0) for x in o.data.uv_layers[0].data) for o in objects))
+        with self.assertRaisesRegex(ValueError,'source UV'):
+            prepare(scene, {'id':'bud-vase-trio'}, {'rose':'dusty-rose'}, names)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,2582 @@
+{
+  "version": 1,
+  "scope": "representative-native-edit-save-reopen",
+  "status": "passed",
+  "error": null,
+  "catalogSha256": "46cc5f5b689e3bceb14277edfceb6f5394fec2e22445ddfb017f509606f412ab",
+  "probe": {
+    "path": "tools/blender/catalog_realism/editability_roundtrip.py",
+    "sha256": "b558f1f2e3067687ae8820c3212a30e95ba9c03c3bf23adeae35505cbe22eddc",
+    "bytes": 9319
+  },
+  "dependencies": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/editability_probe.py",
+      "sha256": "70749cf35aaef821313c1ae73729f0c7b7b879b6cf739856c51d78ec03685ff6",
+      "bytes": 10925
+    }
+  ],
+  "ownership": {
+    "before": {
+      "scenes": 38,
+      "objects": 1981,
+      "collections": 3,
+      "meshes": 2688,
+      "curves": 219,
+      "metaballs": 0,
+      "armatures": 0,
+      "materials": 266,
+      "images": 285,
+      "textures": 0,
+      "node_groups": 19,
+      "cameras": 12,
+      "lights": 34,
+      "worlds": 12,
+      "actions": 0
+    },
+    "after": {
+      "scenes": 38,
+      "objects": 1981,
+      "collections": 3,
+      "meshes": 2688,
+      "curves": 219,
+      "metaballs": 0,
+      "armatures": 0,
+      "materials": 266,
+      "images": 285,
+      "textures": 0,
+      "node_groups": 19,
+      "cameras": 12,
+      "lights": 34,
+      "worlds": 12,
+      "actions": 0
+    },
+    "identical": true,
+    "activeSceneRestored": true
+  },
+  "models": [
+    {
+      "id": "sofa",
+      "original": {
+        "path": "assets-source/catalog-realism/candidates/sofa.blend",
+        "sha256": "9a162c2dde622f872954fe0932b5d344aa4201e7755a1373e1d02856c7a3f144",
+        "bytes": 4497193
+      },
+      "temporaryCopy": {
+        "path": ".generated/catalog-realism-editability-roundtrip/sofa-edited.blend",
+        "sha256": "edfd98fb7daed946e6d76ff9cad8b1b7ec880e0a29ff2f299905a587814b4c79",
+        "bytes": 4497049
+      },
+      "edits": {
+        "mesh": "Tailoring - individual saddle stitches.002",
+        "savedMeshObjectName": "Tailoring - individual saddle stitches.002",
+        "vertexIndex": 0,
+        "beforeVertex": [
+          0.34290561079978943,
+          -0.3613736629486084,
+          0.49795547127723694
+        ],
+        "afterVertex": [
+          0.3434056043624878,
+          -0.3613736629486084,
+          0.49795547127723694
+        ],
+        "material": "modern-tailored-welting.002",
+        "savedMaterialName": "modern-tailored-welting.002",
+        "node": "Principled BSDF",
+        "property": "inputs.Roughness.default_value",
+        "beforeRoughness": 0.9100000262260437,
+        "afterRoughness": 0.9412500262260437,
+        "socketLinked": true
+      },
+      "before": {
+        "meshes": [
+          {
+            "name": "Tailoring - individual saddle stitches.002",
+            "vertices": 2880,
+            "vertexSha256": "e11c226d9db1e525a94880e517174b939fcc1214cbf980de39b9982a2dcc54df",
+            "faceSha256": "0f49e6b7a3a5e2281e09fe2700ee39b34aa5485903f3d8be880cf0cfefaec5f8",
+            "materialIndicesSha256": "7f6e2fc41fed6d7b3c4c2ef171d6f8826bddcee5a518edd472c73a38a8cbddb8",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 8640,
+                "sha256": "e2c36173cd536b772de3123c9fa0f245a61866977d1970ca85e5ab4f3c6aaf35"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 8640,
+                "sha256": "1ec8b9b2fdd798e7c6e42b95f9b62458bae8598d3f0769d35aa841dbdea49255"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot",
+            "vertices": 192,
+            "vertexSha256": "3b1e964b252f2b9b44c8a341e77d9f046292e3fda6ba1286ad40c18d6ce78f26",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "81ed447d8051de21049d438996b8cac83429626f756354c74abe4e46586a6a23"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot.001",
+            "vertices": 192,
+            "vertexSha256": "47513683316539156dce02764db2fd1bd036b4ebac0c780552272b04017a505a",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "4c233b3f8020e9e4697d7a8e76d3f7f53023c5d672a726a2da103b2d8232096d"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot.002",
+            "vertices": 192,
+            "vertexSha256": "6197b68ae0013920c1af1ea49f86d089e00817e382dda6f499510f28d4fa0f38",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "a512489b45a77f19d2b08431f96a32d97fa04d9e75342220a6215e813891e63a"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot.003",
+            "vertices": 192,
+            "vertexSha256": "3f6315540e216eaaa91f58d223167bba8e448c8ac032c4a0a9f9d6e6172a8fb6",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "5fe061e8270d25b45c6e000deb9d63f8fb8ace0465a99e6a2425dfce0e545d5c"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "angled_back_cushion",
+            "vertices": 2690,
+            "vertexSha256": "e082a71cd3d7925c80034800dc8d90673d1b86fef261735e9132378fd7af97ca",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "560cecc5f81326170b238328ec53c4e2ad893ce76a91c64aec3b3eb4b886a831"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "angled_back_cushion.001",
+            "vertices": 2690,
+            "vertexSha256": "5b16f13ea7470ce21383a43c4a1dff374c41a20f67a9c6b17e38f890eabe0396",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "85dd588a2e328233f44e404314b8d7db61dd9827e1200d9ba4c767f65650adde"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "angled_back_cushion.002",
+            "vertices": 2690,
+            "vertexSha256": "507c512e5678fee3c45d0f0a3d7ff102f24b0a05add0c1d95126a0c265bfa1b8",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "09d5a3ec9052e76bc780b9f9119acc00d4f6768581ab93fa2f2f0cc0a772846e"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "connected_upholstered_platform",
+            "vertices": 96,
+            "vertexSha256": "a5fc87607c227087b8048b0fa376aeeb606abb1591cae72c81bb6ab8b0c731a1",
+            "faceSha256": "6a3c7435b92b9ea8e3492b50bee76adb756cc669c97932b565f31893f6c2799a",
+            "materialIndicesSha256": "1ca5fedb5572f00f1f44e42ccc514bf814200a2a2aa6de3b943ea076ab66e96a",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 384,
+                "sha256": "1dd13258b082d5d42fd220a801fa02027884703c8db112de4eaa203b71c1ee2d"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_continuous_upholstered_back",
+            "vertices": 128,
+            "vertexSha256": "64c8d4dd57fa867e92e527f8228d3f8a33d24155f4838b492a27acd38bf273f6",
+            "faceSha256": "d2f54fd2f58b833b1d1b55d03326ff8c8fef421a24d14d79576b9f81bf7f92d8",
+            "materialIndicesSha256": "e6f82825479958263b975ae612059cfd7b2e515c593daa01419e8b4106731e9d",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 480,
+                "sha256": "bcf44ecd88f426d60778006d0027b640ee915a801fe0aad91fa5309cc2f73a81"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "individual_seat_cushion",
+            "vertices": 2690,
+            "vertexSha256": "2fd24b464bd0439d9b2522f204686fc82fa4bf443f6ea891fc88983cafc52afd",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "170bd4381973d7119508f41c120e59a6cd6dbd469d5257e488edd7b5434680f0"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "individual_seat_cushion.001",
+            "vertices": 2690,
+            "vertexSha256": "45843fe1dd04e16de2ed9894e77094f0caca74bce265093dd12a8049b1494e5e",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "6639900bceb6606c6e4735855f5161c1f6e1f647eeb37c396141a06b84ca93b0"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "individual_seat_cushion.002",
+            "vertices": 2690,
+            "vertexSha256": "e6f4e0f750e588e5fc0b889b21c25cb01098037d4080c8649f71da548e388e53",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "68f68dbe98b654ccdf3ffd66a47a5c347480fbdb547d255ff281cc1170d988df"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "integrated_track_arm",
+            "vertices": 96,
+            "vertexSha256": "38692005f09975acc20718bf144ed7b490ed026100817dc74dd30814734f1016",
+            "faceSha256": "6a3c7435b92b9ea8e3492b50bee76adb756cc669c97932b565f31893f6c2799a",
+            "materialIndicesSha256": "1ca5fedb5572f00f1f44e42ccc514bf814200a2a2aa6de3b943ea076ab66e96a",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 384,
+                "sha256": "a330e4dbfa8ca270b968b727c5cf929b1d58216c645817abddb67297cb03e290"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "integrated_track_arm.001",
+            "vertices": 96,
+            "vertexSha256": "dd50c8bcdc7793633021023e0856e5a738f19e7e9a0458189f76c15031c0c757",
+            "faceSha256": "6a3c7435b92b9ea8e3492b50bee76adb756cc669c97932b565f31893f6c2799a",
+            "materialIndicesSha256": "1ca5fedb5572f00f1f44e42ccc514bf814200a2a2aa6de3b943ea076ab66e96a",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 384,
+                "sha256": "56f487e883bce1de32d409d12981244765241cfa373a61b30d838f90ac9fa596"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide",
+            "vertices": 192,
+            "vertexSha256": "3d936d619e4543c83cf994a7d5a359f68550082899dc3bba737fa755873574c6",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide.001",
+            "vertices": 192,
+            "vertexSha256": "6c6a8628588c76444a525b2ad623458439002bfd8baedca47f4cc501800c5052",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide.002",
+            "vertices": 192,
+            "vertexSha256": "9daccf924a5c64982b6f53d00b2ff4ecf6a6cf17aefa7fabf48026b7b94548a6",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide.003",
+            "vertices": 192,
+            "vertexSha256": "07e0b180d82f261718d1f5e4e511df264f3a5a835bb63aa367ea73be83049818",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "tailored_cushion_welt",
+            "vertices": 192,
+            "vertexSha256": "c64413a2fe44b6ce475820411f74eb23fcc10116e3490bca91d8590545279dd5",
+            "faceSha256": "d7f99c0e5ff3a3bf6996ece5ba25765d9c1d0635b60de11ff6a1b1bdddb1a972",
+            "materialIndicesSha256": "1e3066c840ce0e88f69c6ca3a6ae89064b199d6ef5fe7fa3ad427920ecbfdd81",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 768,
+                "sha256": "727a4d186ec4f215ea93aad096a8449b1d4815b70dbfeae191ab3ba7e6dd0d2d"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 768,
+                "sha256": "70493cfbfaedafe5a7f2b4b31d5c9b7001a46d0178bc59627db2f934fe97dc92"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "tailored_cushion_welt.001",
+            "vertices": 192,
+            "vertexSha256": "4210e127df469391272c9bb7c21ec6ae929148744fa8cc2985fa9105f7a05fbd",
+            "faceSha256": "d7f99c0e5ff3a3bf6996ece5ba25765d9c1d0635b60de11ff6a1b1bdddb1a972",
+            "materialIndicesSha256": "1e3066c840ce0e88f69c6ca3a6ae89064b199d6ef5fe7fa3ad427920ecbfdd81",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 768,
+                "sha256": "727a4d186ec4f215ea93aad096a8449b1d4815b70dbfeae191ab3ba7e6dd0d2d"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 768,
+                "sha256": "bbd71d6de33ed860b22eb2eaec3b4681e6a06d6a15e96f4ab2888829190c2194"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "tailored_cushion_welt.002",
+            "vertices": 192,
+            "vertexSha256": "98000e1c3399cd78641e2da5b70bca4f5152bca3cd6751870176222d1951e24b",
+            "faceSha256": "d7f99c0e5ff3a3bf6996ece5ba25765d9c1d0635b60de11ff6a1b1bdddb1a972",
+            "materialIndicesSha256": "1e3066c840ce0e88f69c6ca3a6ae89064b199d6ef5fe7fa3ad427920ecbfdd81",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 768,
+                "sha256": "727a4d186ec4f215ea93aad096a8449b1d4815b70dbfeae191ab3ba7e6dd0d2d"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 768,
+                "sha256": "4145f10695242846b6b9b9bc68f1825fd7e2822154cd14ceccfbead52f0689c8"
+              }
+            ],
+            "modifiers": []
+          }
+        ],
+        "materials": [
+          {
+            "name": "modern-brushed-aluminum.002",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.3199999928474426
+              ]
+            ]
+          },
+          {
+            "name": "modern-recess-charcoal.002",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ]
+            ],
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.8199999928474426
+              ]
+            ]
+          },
+          {
+            "name": "modern-tailored-welting.002",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.9100000262260437
+              ]
+            ]
+          },
+          {
+            "name": "upholstery-textured.023",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "Measured neutral chenille",
+                "TEX_IMAGE"
+              ],
+              [
+                "Mix",
+                "MIX"
+              ],
+              [
+                "Fine pore normal",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "PBR occlusion roughness metal",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Fine pore normal",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Measured neutral chenille",
+                "Color",
+                "Mix",
+                "A_Color"
+              ],
+              [
+                "Mix",
+                "Result_Color",
+                "Principled BSDF",
+                "Base Color"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "PBR occlusion roughness metal",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Blue",
+                "Principled BSDF",
+                "Metallic"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.9399999976158142
+              ]
+            ]
+          }
+        ]
+      },
+      "afterSaveReopen": {
+        "meshes": [
+          {
+            "name": "Tailoring - individual saddle stitches.002",
+            "vertices": 2880,
+            "vertexSha256": "a318d02c8ef54f99260e5a5572839607304ad0726309783f1c64bd4be47a5b96",
+            "faceSha256": "0f49e6b7a3a5e2281e09fe2700ee39b34aa5485903f3d8be880cf0cfefaec5f8",
+            "materialIndicesSha256": "7f6e2fc41fed6d7b3c4c2ef171d6f8826bddcee5a518edd472c73a38a8cbddb8",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 8640,
+                "sha256": "e2c36173cd536b772de3123c9fa0f245a61866977d1970ca85e5ab4f3c6aaf35"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 8640,
+                "sha256": "1ec8b9b2fdd798e7c6e42b95f9b62458bae8598d3f0769d35aa841dbdea49255"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot",
+            "vertices": 192,
+            "vertexSha256": "3b1e964b252f2b9b44c8a341e77d9f046292e3fda6ba1286ad40c18d6ce78f26",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "81ed447d8051de21049d438996b8cac83429626f756354c74abe4e46586a6a23"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot.001",
+            "vertices": 192,
+            "vertexSha256": "47513683316539156dce02764db2fd1bd036b4ebac0c780552272b04017a505a",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "4c233b3f8020e9e4697d7a8e76d3f7f53023c5d672a726a2da103b2d8232096d"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot.002",
+            "vertices": 192,
+            "vertexSha256": "6197b68ae0013920c1af1ea49f86d089e00817e382dda6f499510f28d4fa0f38",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "a512489b45a77f19d2b08431f96a32d97fa04d9e75342220a6215e813891e63a"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "aluminum_foot.003",
+            "vertices": 192,
+            "vertexSha256": "3f6315540e216eaaa91f58d223167bba8e448c8ac032c4a0a9f9d6e6172a8fb6",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-brushed-aluminum.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "a5802489415a44501bafb2f670113287f95798264e30def09303497962621b5e"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 704,
+                "sha256": "5fe061e8270d25b45c6e000deb9d63f8fb8ace0465a99e6a2425dfce0e545d5c"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "angled_back_cushion",
+            "vertices": 2690,
+            "vertexSha256": "e082a71cd3d7925c80034800dc8d90673d1b86fef261735e9132378fd7af97ca",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "560cecc5f81326170b238328ec53c4e2ad893ce76a91c64aec3b3eb4b886a831"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "angled_back_cushion.001",
+            "vertices": 2690,
+            "vertexSha256": "5b16f13ea7470ce21383a43c4a1dff374c41a20f67a9c6b17e38f890eabe0396",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "85dd588a2e328233f44e404314b8d7db61dd9827e1200d9ba4c767f65650adde"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "angled_back_cushion.002",
+            "vertices": 2690,
+            "vertexSha256": "507c512e5678fee3c45d0f0a3d7ff102f24b0a05add0c1d95126a0c265bfa1b8",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "09d5a3ec9052e76bc780b9f9119acc00d4f6768581ab93fa2f2f0cc0a772846e"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "connected_upholstered_platform",
+            "vertices": 96,
+            "vertexSha256": "a5fc87607c227087b8048b0fa376aeeb606abb1591cae72c81bb6ab8b0c731a1",
+            "faceSha256": "6a3c7435b92b9ea8e3492b50bee76adb756cc669c97932b565f31893f6c2799a",
+            "materialIndicesSha256": "1ca5fedb5572f00f1f44e42ccc514bf814200a2a2aa6de3b943ea076ab66e96a",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 384,
+                "sha256": "1dd13258b082d5d42fd220a801fa02027884703c8db112de4eaa203b71c1ee2d"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_continuous_upholstered_back",
+            "vertices": 128,
+            "vertexSha256": "64c8d4dd57fa867e92e527f8228d3f8a33d24155f4838b492a27acd38bf273f6",
+            "faceSha256": "d2f54fd2f58b833b1d1b55d03326ff8c8fef421a24d14d79576b9f81bf7f92d8",
+            "materialIndicesSha256": "e6f82825479958263b975ae612059cfd7b2e515c593daa01419e8b4106731e9d",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 480,
+                "sha256": "bcf44ecd88f426d60778006d0027b640ee915a801fe0aad91fa5309cc2f73a81"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "individual_seat_cushion",
+            "vertices": 2690,
+            "vertexSha256": "2fd24b464bd0439d9b2522f204686fc82fa4bf443f6ea891fc88983cafc52afd",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "170bd4381973d7119508f41c120e59a6cd6dbd469d5257e488edd7b5434680f0"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "individual_seat_cushion.001",
+            "vertices": 2690,
+            "vertexSha256": "45843fe1dd04e16de2ed9894e77094f0caca74bce265093dd12a8049b1494e5e",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "6639900bceb6606c6e4735855f5161c1f6e1f647eeb37c396141a06b84ca93b0"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "individual_seat_cushion.002",
+            "vertices": 2690,
+            "vertexSha256": "e6f4e0f750e588e5fc0b889b21c25cb01098037d4080c8649f71da548e388e53",
+            "faceSha256": "84b27b5c66ecfe50799b7376a115318822a46a432cb48f7be8cd78e68acbea1c",
+            "materialIndicesSha256": "e92567f414c6833dccb4aec6a2bfd5ab4175fc97677db96c4ff96ca0508be63e",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 10920,
+                "sha256": "68f68dbe98b654ccdf3ffd66a47a5c347480fbdb547d255ff281cc1170d988df"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "integrated_track_arm",
+            "vertices": 96,
+            "vertexSha256": "38692005f09975acc20718bf144ed7b490ed026100817dc74dd30814734f1016",
+            "faceSha256": "6a3c7435b92b9ea8e3492b50bee76adb756cc669c97932b565f31893f6c2799a",
+            "materialIndicesSha256": "1ca5fedb5572f00f1f44e42ccc514bf814200a2a2aa6de3b943ea076ab66e96a",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 384,
+                "sha256": "a330e4dbfa8ca270b968b727c5cf929b1d58216c645817abddb67297cb03e290"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "integrated_track_arm.001",
+            "vertices": 96,
+            "vertexSha256": "dd50c8bcdc7793633021023e0856e5a738f19e7e9a0458189f76c15031c0c757",
+            "faceSha256": "6a3c7435b92b9ea8e3492b50bee76adb756cc669c97932b565f31893f6c2799a",
+            "materialIndicesSha256": "1ca5fedb5572f00f1f44e42ccc514bf814200a2a2aa6de3b943ea076ab66e96a",
+            "materials": [
+              "upholstery-textured.023"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 384,
+                "sha256": "56f487e883bce1de32d409d12981244765241cfa373a61b30d838f90ac9fa596"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide",
+            "vertices": 192,
+            "vertexSha256": "3d936d619e4543c83cf994a7d5a359f68550082899dc3bba737fa755873574c6",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide.001",
+            "vertices": 192,
+            "vertexSha256": "6c6a8628588c76444a525b2ad623458439002bfd8baedca47f4cc501800c5052",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide.002",
+            "vertices": 192,
+            "vertexSha256": "9daccf924a5c64982b6f53d00b2ff4ecf6a6cf17aefa7fabf48026b7b94548a6",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "rubber_floor_glide.003",
+            "vertices": 192,
+            "vertexSha256": "07e0b180d82f261718d1f5e4e511df264f3a5a835bb63aa367ea73be83049818",
+            "faceSha256": "6439ea8c6604cbe9f2d165fec73a51be1ef0dc54fba5e7092601938f346c26bd",
+            "materialIndicesSha256": "cea177d4a54bfc7a63e890aef3fc06461d61c7d752bdcfed6c8228a38c825e98",
+            "materials": [
+              "modern-recess-charcoal.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 704,
+                "sha256": "f9fe76a61bd7094fe09a4f80712e5362bbcb91f78b9f01b47bdf52dff76e01ae"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "tailored_cushion_welt",
+            "vertices": 192,
+            "vertexSha256": "c64413a2fe44b6ce475820411f74eb23fcc10116e3490bca91d8590545279dd5",
+            "faceSha256": "d7f99c0e5ff3a3bf6996ece5ba25765d9c1d0635b60de11ff6a1b1bdddb1a972",
+            "materialIndicesSha256": "1e3066c840ce0e88f69c6ca3a6ae89064b199d6ef5fe7fa3ad427920ecbfdd81",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 768,
+                "sha256": "727a4d186ec4f215ea93aad096a8449b1d4815b70dbfeae191ab3ba7e6dd0d2d"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 768,
+                "sha256": "70493cfbfaedafe5a7f2b4b31d5c9b7001a46d0178bc59627db2f934fe97dc92"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "tailored_cushion_welt.001",
+            "vertices": 192,
+            "vertexSha256": "4210e127df469391272c9bb7c21ec6ae929148744fa8cc2985fa9105f7a05fbd",
+            "faceSha256": "d7f99c0e5ff3a3bf6996ece5ba25765d9c1d0635b60de11ff6a1b1bdddb1a972",
+            "materialIndicesSha256": "1e3066c840ce0e88f69c6ca3a6ae89064b199d6ef5fe7fa3ad427920ecbfdd81",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 768,
+                "sha256": "727a4d186ec4f215ea93aad096a8449b1d4815b70dbfeae191ab3ba7e6dd0d2d"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 768,
+                "sha256": "bbd71d6de33ed860b22eb2eaec3b4681e6a06d6a15e96f4ab2888829190c2194"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "tailored_cushion_welt.002",
+            "vertices": 192,
+            "vertexSha256": "98000e1c3399cd78641e2da5b70bca4f5152bca3cd6751870176222d1951e24b",
+            "faceSha256": "d7f99c0e5ff3a3bf6996ece5ba25765d9c1d0635b60de11ff6a1b1bdddb1a972",
+            "materialIndicesSha256": "1e3066c840ce0e88f69c6ca3a6ae89064b199d6ef5fe7fa3ad427920ecbfdd81",
+            "materials": [
+              "modern-tailored-welting.002"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 768,
+                "sha256": "727a4d186ec4f215ea93aad096a8449b1d4815b70dbfeae191ab3ba7e6dd0d2d"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 768,
+                "sha256": "4145f10695242846b6b9b9bc68f1825fd7e2822154cd14ceccfbead52f0689c8"
+              }
+            ],
+            "modifiers": []
+          }
+        ],
+        "materials": [
+          {
+            "name": "modern-brushed-aluminum.002",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.3199999928474426
+              ]
+            ]
+          },
+          {
+            "name": "modern-recess-charcoal.002",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ]
+            ],
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.8199999928474426
+              ]
+            ]
+          },
+          {
+            "name": "modern-tailored-welting.002",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.9412500262260437
+              ]
+            ]
+          },
+          {
+            "name": "upholstery-textured.023",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "Measured neutral chenille",
+                "TEX_IMAGE"
+              ],
+              [
+                "Mix",
+                "MIX"
+              ],
+              [
+                "Fine pore normal",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "PBR occlusion roughness metal",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Fine pore normal",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Measured neutral chenille",
+                "Color",
+                "Mix",
+                "A_Color"
+              ],
+              [
+                "Mix",
+                "Result_Color",
+                "Principled BSDF",
+                "Base Color"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "PBR occlusion roughness metal",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Blue",
+                "Principled BSDF",
+                "Metallic"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.9399999976158142
+              ]
+            ]
+          }
+        ]
+      },
+      "exactRoundTrip": true,
+      "originalUnchanged": true,
+      "ownershipIdentical": true
+    },
+    {
+      "id": "vessel-sink",
+      "original": {
+        "path": "assets-source/catalog-realism/candidates/vessel-sink.blend",
+        "sha256": "42b58ab3aec84344a1d8953054c9acc8ffcc3710f73a8aa7d716339c586c73b5",
+        "bytes": 253755
+      },
+      "temporaryCopy": {
+        "path": ".generated/catalog-realism-editability-roundtrip/vessel-sink-edited.blend",
+        "sha256": "1af9b90c0f9359a14f850fcd44545037abd969767206185d18cb68f92fd9d73e",
+        "bytes": 253470
+      },
+      "edits": {
+        "mesh": "Fine rim vessel",
+        "savedMeshObjectName": "Fine rim vessel",
+        "vertexIndex": 0,
+        "beforeVertex": [
+          0.1656000018119812,
+          0.0,
+          0.0
+        ],
+        "afterVertex": [
+          0.16609999537467957,
+          0.0,
+          0.0
+        ],
+        "material": "variant-surface",
+        "savedMaterialName": "variant-surface",
+        "node": "Principled BSDF",
+        "property": "inputs.Roughness.default_value",
+        "beforeRoughness": 0.699999988079071,
+        "afterRoughness": 0.731249988079071,
+        "socketLinked": true
+      },
+      "before": {
+        "meshes": [
+          {
+            "name": "Fine rim vessel",
+            "vertices": 432,
+            "vertexSha256": "b8a54d38f30210a4b57abd3abf3b7777a7c4844b4a09a0be717b8a62c589daa3",
+            "faceSha256": "069a4ca5ac6627f7513f759db3fcb12aabfc8b5c549844555dd515072f3e51f0",
+            "materialIndicesSha256": "433f69a6bdb3baab643eb863cd80b3d9f22ab3225f9cba2835daa09d4c56a56e",
+            "materials": [
+              "variant-surface"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 1728,
+                "sha256": "8e611f8523cfde24234562ffa13d064bd19f5213408862e5ef29065a77bc19aa"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 1728,
+                "sha256": "8e611f8523cfde24234562ffa13d064bd19f5213408862e5ef29065a77bc19aa"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "Retained finish fixing brushed-steel",
+            "vertices": 16,
+            "vertexSha256": "86522857e06749be64ee81db39ae615b81cce5d000409d7d35f361318d6c509d",
+            "faceSha256": "17fdccdb1eb934dd219313af54a171c6f8502f6859d98732da8b383a9381236f",
+            "materialIndicesSha256": "2a852b73e5f58e0a800b0beba12978687e46397cfa4f71e3d90a6f8cb13d99a0",
+            "materials": [
+              "brushed-steel.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 48,
+                "sha256": "e97c1befc04dcc2e3786b1b7eff26c59b9e0032f6c9fa8e086d1688112ae8887"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 48,
+                "sha256": "90997671502f423e238427a4087a05f4fe5333bfe33f473cc793fbfb3154ff25"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "Retained finish fixing recess-shadow-detail",
+            "vertices": 16,
+            "vertexSha256": "c15621fffd40c76384317f154c10b13c88d41abb2872a08e426e40c6b2af4f83",
+            "faceSha256": "17fdccdb1eb934dd219313af54a171c6f8502f6859d98732da8b383a9381236f",
+            "materialIndicesSha256": "2a852b73e5f58e0a800b0beba12978687e46397cfa4f71e3d90a6f8cb13d99a0",
+            "materials": [
+              "recess-shadow-detail.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 48,
+                "sha256": "e97c1befc04dcc2e3786b1b7eff26c59b9e0032f6c9fa8e086d1688112ae8887"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "Retained finish fixing warm-porcelain",
+            "vertices": 16,
+            "vertexSha256": "f3036a99c1fe4c140ff8d3560ab836dc1c60c2d8935969f410d626d9124ac4fb",
+            "faceSha256": "17fdccdb1eb934dd219313af54a171c6f8502f6859d98732da8b383a9381236f",
+            "materialIndicesSha256": "2a852b73e5f58e0a800b0beba12978687e46397cfa4f71e3d90a6f8cb13d99a0",
+            "materials": [
+              "warm-porcelain"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 48,
+                "sha256": "e97c1befc04dcc2e3786b1b7eff26c59b9e0032f6c9fa8e086d1688112ae8887"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 48,
+                "sha256": "c8e5029034693717cafc04ab63a36680ef3d71279055c9e4ec696587f6032b6c"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_drain pop-up cap",
+            "vertices": 194,
+            "vertexSha256": "d03000696303823167ae257f778503915f1809282902832c5913fe7f0b1d023d",
+            "faceSha256": "020ae6a0f31296a080d229a49884d6b0ecaeb67c155b9857733a2ce73a598609",
+            "materialIndicesSha256": "924ae03b6111734d8ab1d2d4c88ec6a7da5ba6612c50b2f0e3c27d0511980e0f",
+            "materials": [
+              "brushed-steel.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 896,
+                "sha256": "ed88d5d7e60b890f056ce4c985619774e6d7d80f180125bc212bdbea029bf4f2"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 896,
+                "sha256": "8dd5e57b4e9c9d1c2981b32704885f6981be4e7548df5de80753891a70737ed7"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_drain recess",
+            "vertices": 256,
+            "vertexSha256": "b52360e8e2201f7cbc7fc90608c846e4b9ecc9e51ad9e391a16f391c20d99180",
+            "faceSha256": "4eefe1d580b974d2fb8fdd38b8dfb72b1b637c261aaa240946aeb5fbfa5d3f81",
+            "materialIndicesSha256": "924ae03b6111734d8ab1d2d4c88ec6a7da5ba6612c50b2f0e3c27d0511980e0f",
+            "materials": [
+              "recess-shadow-detail.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 1024,
+                "sha256": "704278afa0c3314bf5f9b1ac334fb716ab707339606d0f587c4b8b289ae9d2ef"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_drain rim",
+            "vertices": 256,
+            "vertexSha256": "548658068e5ae21d052caef7a5b23639720aceb2ffad647fb03adb16a8def149",
+            "faceSha256": "4eefe1d580b974d2fb8fdd38b8dfb72b1b637c261aaa240946aeb5fbfa5d3f81",
+            "materialIndicesSha256": "924ae03b6111734d8ab1d2d4c88ec6a7da5ba6612c50b2f0e3c27d0511980e0f",
+            "materials": [
+              "brushed-steel.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 1024,
+                "sha256": "5c87505d30e7911a1420e86227e7641aa4e0e5e9661ff39559dad1ff77e3d862"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 1024,
+                "sha256": "563dae8ae1967b8184ab02509033b65c2b3282bd68a7b8ba47a733975a638d99"
+              }
+            ],
+            "modifiers": []
+          }
+        ],
+        "materials": [
+          {
+            "name": "brushed-steel.001",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.699999988079071
+              ]
+            ]
+          },
+          {
+            "name": "recess-shadow-detail.001",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ]
+            ],
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.699999988079071
+              ]
+            ]
+          },
+          {
+            "name": "variant-surface",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.699999988079071
+              ]
+            ]
+          },
+          {
+            "name": "warm-porcelain",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.3499999940395355
+              ]
+            ]
+          }
+        ]
+      },
+      "afterSaveReopen": {
+        "meshes": [
+          {
+            "name": "Fine rim vessel",
+            "vertices": 432,
+            "vertexSha256": "f49cf915f3d1d93aa41408fc2d513362b33fc62770a7497496bb3edb591671e9",
+            "faceSha256": "069a4ca5ac6627f7513f759db3fcb12aabfc8b5c549844555dd515072f3e51f0",
+            "materialIndicesSha256": "433f69a6bdb3baab643eb863cd80b3d9f22ab3225f9cba2835daa09d4c56a56e",
+            "materials": [
+              "variant-surface"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 1728,
+                "sha256": "8e611f8523cfde24234562ffa13d064bd19f5213408862e5ef29065a77bc19aa"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 1728,
+                "sha256": "8e611f8523cfde24234562ffa13d064bd19f5213408862e5ef29065a77bc19aa"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "Retained finish fixing brushed-steel",
+            "vertices": 16,
+            "vertexSha256": "86522857e06749be64ee81db39ae615b81cce5d000409d7d35f361318d6c509d",
+            "faceSha256": "17fdccdb1eb934dd219313af54a171c6f8502f6859d98732da8b383a9381236f",
+            "materialIndicesSha256": "2a852b73e5f58e0a800b0beba12978687e46397cfa4f71e3d90a6f8cb13d99a0",
+            "materials": [
+              "brushed-steel.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 48,
+                "sha256": "e97c1befc04dcc2e3786b1b7eff26c59b9e0032f6c9fa8e086d1688112ae8887"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 48,
+                "sha256": "90997671502f423e238427a4087a05f4fe5333bfe33f473cc793fbfb3154ff25"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "Retained finish fixing recess-shadow-detail",
+            "vertices": 16,
+            "vertexSha256": "c15621fffd40c76384317f154c10b13c88d41abb2872a08e426e40c6b2af4f83",
+            "faceSha256": "17fdccdb1eb934dd219313af54a171c6f8502f6859d98732da8b383a9381236f",
+            "materialIndicesSha256": "2a852b73e5f58e0a800b0beba12978687e46397cfa4f71e3d90a6f8cb13d99a0",
+            "materials": [
+              "recess-shadow-detail.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 48,
+                "sha256": "e97c1befc04dcc2e3786b1b7eff26c59b9e0032f6c9fa8e086d1688112ae8887"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "Retained finish fixing warm-porcelain",
+            "vertices": 16,
+            "vertexSha256": "f3036a99c1fe4c140ff8d3560ab836dc1c60c2d8935969f410d626d9124ac4fb",
+            "faceSha256": "17fdccdb1eb934dd219313af54a171c6f8502f6859d98732da8b383a9381236f",
+            "materialIndicesSha256": "2a852b73e5f58e0a800b0beba12978687e46397cfa4f71e3d90a6f8cb13d99a0",
+            "materials": [
+              "warm-porcelain"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 48,
+                "sha256": "e97c1befc04dcc2e3786b1b7eff26c59b9e0032f6c9fa8e086d1688112ae8887"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 48,
+                "sha256": "c8e5029034693717cafc04ab63a36680ef3d71279055c9e4ec696587f6032b6c"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_drain pop-up cap",
+            "vertices": 194,
+            "vertexSha256": "d03000696303823167ae257f778503915f1809282902832c5913fe7f0b1d023d",
+            "faceSha256": "020ae6a0f31296a080d229a49884d6b0ecaeb67c155b9857733a2ce73a598609",
+            "materialIndicesSha256": "924ae03b6111734d8ab1d2d4c88ec6a7da5ba6612c50b2f0e3c27d0511980e0f",
+            "materials": [
+              "brushed-steel.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 896,
+                "sha256": "ed88d5d7e60b890f056ce4c985619774e6d7d80f180125bc212bdbea029bf4f2"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 896,
+                "sha256": "8dd5e57b4e9c9d1c2981b32704885f6981be4e7548df5de80753891a70737ed7"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_drain recess",
+            "vertices": 256,
+            "vertexSha256": "b52360e8e2201f7cbc7fc90608c846e4b9ecc9e51ad9e391a16f391c20d99180",
+            "faceSha256": "4eefe1d580b974d2fb8fdd38b8dfb72b1b637c261aaa240946aeb5fbfa5d3f81",
+            "materialIndicesSha256": "924ae03b6111734d8ab1d2d4c88ec6a7da5ba6612c50b2f0e3c27d0511980e0f",
+            "materials": [
+              "recess-shadow-detail.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 1024,
+                "sha256": "704278afa0c3314bf5f9b1ac334fb716ab707339606d0f587c4b8b289ae9d2ef"
+              }
+            ],
+            "modifiers": []
+          },
+          {
+            "name": "detail_casework_drain rim",
+            "vertices": 256,
+            "vertexSha256": "548658068e5ae21d052caef7a5b23639720aceb2ffad647fb03adb16a8def149",
+            "faceSha256": "4eefe1d580b974d2fb8fdd38b8dfb72b1b637c261aaa240946aeb5fbfa5d3f81",
+            "materialIndicesSha256": "924ae03b6111734d8ab1d2d4c88ec6a7da5ba6612c50b2f0e3c27d0511980e0f",
+            "materials": [
+              "brushed-steel.001"
+            ],
+            "uv": [
+              {
+                "name": "UVMap",
+                "loops": 1024,
+                "sha256": "5c87505d30e7911a1420e86227e7641aa4e0e5e9661ff39559dad1ff77e3d862"
+              },
+              {
+                "name": "RealismUV",
+                "loops": 1024,
+                "sha256": "563dae8ae1967b8184ab02509033b65c2b3282bd68a7b8ba47a733975a638d99"
+              }
+            ],
+            "modifiers": []
+          }
+        ],
+        "materials": [
+          {
+            "name": "brushed-steel.001",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.699999988079071
+              ]
+            ]
+          },
+          {
+            "name": "recess-shadow-detail.001",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ]
+            ],
+            "links": [
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.699999988079071
+              ]
+            ]
+          },
+          {
+            "name": "variant-surface",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.731249988079071
+              ]
+            ]
+          },
+          {
+            "name": "warm-porcelain",
+            "roughness": 0.4000000059604645,
+            "nodes": [
+              [
+                "Principled BSDF",
+                "BSDF_PRINCIPLED"
+              ],
+              [
+                "Material Output",
+                "OUTPUT_MATERIAL"
+              ],
+              [
+                "UV Map",
+                "UVMAP"
+              ],
+              [
+                "Mapping",
+                "MAPPING"
+              ],
+              [
+                "Image Texture",
+                "TEX_IMAGE"
+              ],
+              [
+                "Normal Map",
+                "NORMAL_MAP"
+              ],
+              [
+                "Image Texture.001",
+                "TEX_IMAGE"
+              ],
+              [
+                "Separate Color",
+                "SEPARATE_COLOR"
+              ]
+            ],
+            "links": [
+              [
+                "Image Texture",
+                "Color",
+                "Normal Map",
+                "Color"
+              ],
+              [
+                "Image Texture.001",
+                "Color",
+                "Separate Color",
+                "Color"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture",
+                "Vector"
+              ],
+              [
+                "Mapping",
+                "Vector",
+                "Image Texture.001",
+                "Vector"
+              ],
+              [
+                "Normal Map",
+                "Normal",
+                "Principled BSDF",
+                "Normal"
+              ],
+              [
+                "Principled BSDF",
+                "BSDF",
+                "Material Output",
+                "Surface"
+              ],
+              [
+                "Separate Color",
+                "Green",
+                "Principled BSDF",
+                "Roughness"
+              ],
+              [
+                "UV Map",
+                "UV",
+                "Mapping",
+                "Vector"
+              ]
+            ],
+            "principledRoughness": [
+              [
+                "Principled BSDF",
+                0.3499999940395355
+              ]
+            ]
+          }
+        ]
+      },
+      "exactRoundTrip": true,
+      "originalUnchanged": true,
+      "ownershipIdentical": true
+    }
+  ],
+  "limits": [
+    "Two representative .blend round trips; not a 902-model mutation test.",
+    "Socket persistence proves editability; linked sockets may not change visible shading."
+  ]
+}

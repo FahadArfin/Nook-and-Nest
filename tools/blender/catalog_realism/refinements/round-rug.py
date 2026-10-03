@@ -1,0 +1,66 @@
+"""Exact reviewed rug construction, isolated candidate recipe."""
+from pathlib import Path
+import runpy
+
+CATALOG_ID = 'round-rug'
+SOURCE_SHA256 = 'c4c7174086f7d29dcc515b0ac4ba1fdf44c7d9deb74ad8eed4184fec18d35292'
+SOURCE_COMPONENTS = [{'name': 'round_rug_textured_base',
+  'vertices': 192,
+  'materials': ['upholstery-textured'],
+  'bounds': {'min': [-0.8999999761581421, -0.8999999761581421, 0.0005000000819563866],
+             'max': [0.8999999761581421, 0.8999999761581421, 0.025499999523162842]}},
+ {'name': 'round_rug_inner_field',
+  'vertices': 168,
+  'materials': ['linen-textured'],
+  'bounds': {'min': [-0.6299999952316284, -0.6299999952316284, 0.02500000223517418],
+             'max': [0.6299999952316284, 0.6299999952316284, 0.039000000804662704]}},
+ {'name': 'round_rug_medallion',
+  'vertices': 108,
+  'materials': ['terracotta'],
+  'bounds': {'min': [-0.26589810848236084, -0.27000001072883606, 0.03799999877810478],
+             'max': [0.26589810848236084, 0.27000001072883606, 0.05000000074505806]}},
+ {'name': 'round_rug_dot',
+  'vertices': 112,
+  'materials': ['leaf-green'],
+  'bounds': {'min': [0.38192281126976013, -0.05007719621062279, 0.039000000804662704],
+             'max': [0.4820772111415863, 0.05007719621062279, 0.05100000277161598]}},
+ {'name': 'round_rug_dot.001',
+  'vertices': 112,
+  'materials': ['mustard-cloth'],
+  'bounds': {'min': [0.2553929388523102, 0.2553929388523102, 0.039000000804662704],
+             'max': [0.35554733872413635, 0.35554733872413635, 0.05100000277161598]}},
+ {'name': 'round_rug_dot.002',
+  'vertices': 112,
+  'materials': ['leaf-green'],
+  'bounds': {'min': [-0.05007719621062279, 0.38192281126976013, 0.039000000804662704],
+             'max': [0.05007719621062279, 0.4820772111415863, 0.05100000277161598]}},
+ {'name': 'round_rug_dot.003',
+  'vertices': 112,
+  'materials': ['mustard-cloth'],
+  'bounds': {'min': [-0.35554733872413635, 0.2553929388523102, 0.039000000804662704],
+             'max': [-0.2553929388523102, 0.35554733872413635, 0.05100000277161598]}},
+ {'name': 'round_rug_dot.004',
+  'vertices': 112,
+  'materials': ['leaf-green'],
+  'bounds': {'min': [-0.4820772111415863, -0.05007719621062279, 0.039000000804662704],
+             'max': [-0.38192281126976013, 0.05007719621062279, 0.05100000277161598]}},
+ {'name': 'round_rug_dot.005',
+  'vertices': 112,
+  'materials': ['mustard-cloth'],
+  'bounds': {'min': [-0.35554733872413635, -0.35554733872413635, 0.039000000804662704],
+             'max': [-0.2553929388523102, -0.2553929388523102, 0.05100000277161598]}},
+ {'name': 'round_rug_dot.006',
+  'vertices': 112,
+  'materials': ['leaf-green'],
+  'bounds': {'min': [-0.05007719621062279, -0.4820772111415863, 0.039000000804662704],
+             'max': [0.05007719621062279, -0.38192281126976013, 0.05100000277161598]}},
+ {'name': 'round_rug_dot.007',
+  'vertices': 112,
+  'materials': ['mustard-cloth'],
+  'bounds': {'min': [0.2553929388523102, -0.35554733872413635, 0.039000000804662704],
+             'max': [0.35554733872413635, -0.2553929388523102, 0.05100000277161598]}}]
+
+def apply(root,scene,item,material_keys,object_names):
+    if item["id"] != CATALOG_ID: raise ValueError("Wrong exact rug recipe")
+    helper=runpy.run_path(str(Path(__file__).with_name("reviewed_rugs_684.py")))
+    return helper["apply"](root,scene,item,material_keys,object_names,SOURCE_COMPONENTS,SOURCE_SHA256)

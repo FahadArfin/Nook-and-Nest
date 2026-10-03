@@ -1,0 +1,62 @@
+"""Exact source-measured outdoor construction; isolated Beta candidate only."""
+from pathlib import Path
+import runpy
+
+CATALOG_ID = 'outdoor-solar-shower'
+EVIDENCE = {'sourceBlend': {'bytes': 108087,
+                 'path': 'assets-source/blender/outdoor-solar-shower.blend',
+                 'sha256': '0e9eae1198eeca50e54390b942b7fccb00b300b3a134c420a5127fdad5d20a40'},
+ 'bounds': {'min': [-0.16500000655651093, -0.32499998807907104, 0.0],
+            'max': [0.16500000655651093, 0.32499998807907104, 2.2800002098083496]},
+ 'objects': [{'name': 'anchored shower plinth',
+              'vertices': 56,
+              'materials': ['brushed-steel'],
+              'bounds': {'min': [-0.16500000655651093, 0.057758621871471405, 0.0],
+                         'max': [0.16500000655651093, 0.32499998807907104, 0.033883217722177505]}},
+             {'name': 'formed aluminium shower section',
+              'vertices': 56,
+              'materials': ['outdoor-graphite-powdercoat'],
+              'bounds': {'min': [-0.06599999964237213, 0.17722640931606293, 0.035786330699920654],
+                         'max': [0.06599999964237213, 0.24518737196922302, 0.8969987034797668]}},
+             {'name': 'formed aluminium shower section.001',
+              'vertices': 56,
+              'materials': ['outdoor-graphite-powdercoat'],
+              'bounds': {'min': [-0.06599999964237213, 0.15947575867176056, 0.8963923454284668],
+                         'max': [0.06599999964237213, 0.2413863092660904, 1.6847115755081177]}},
+             {'name': 'formed aluminium shower section.002',
+              'vertices': 56,
+              'materials': ['outdoor-graphite-powdercoat'],
+              'bounds': {'min': [-0.06599999964237213, 0.10237786173820496, 1.6803841590881348],
+                         'max': [0.06599999964237213, 0.22003592550754547, 2.03680419921875]}},
+             {'name': 'formed aluminium shower section.003',
+              'vertices': 56,
+              'materials': ['outdoor-graphite-powdercoat'],
+              'bounds': {'min': [-0.06599999964237213, -0.009927676990628242, 2.015507936477661],
+                         'max': [0.06599999964237213, 0.14872078597545624, 2.209928512573242]}},
+             {'name': 'formed aluminium shower section.004',
+              'vertices': 56,
+              'materials': ['outdoor-graphite-powdercoat'],
+              'bounds': {'min': [-0.06599999964237213, -0.15903042256832123, 2.1616125106811523],
+                         'max': [0.06599999964237213, 0.01247869711369276, 2.278085470199585]}},
+             {'name': 'formed aluminium shower section.005',
+              'vertices': 56,
+              'materials': ['outdoor-graphite-powdercoat'],
+              'bounds': {'min': [-0.06599999964237213, -0.27768442034721375, 2.1846120357513428],
+                         'max': [0.06599999964237213, -0.1507638692855835, 2.2800002098083496]}},
+             {'name': 'integrated shower rose',
+              'vertices': 56,
+              'materials': ['brushed-steel'],
+              'bounds': {'min': [-0.09000000357627869, -0.32499998807907104, 2.170020818710327],
+                         'max': [0.09000000357627869, -0.22155171632766724, 2.194934844970703]}}],
+ 'sourceCenterlineM': [(0, 0.21293102805652925, 0.03587634817642324),
+                       (0, 0.20948275236352795, 0.896908704410581),
+                       (0, 0.19137930497527122, 1.6841952338376465),
+                       (0, 0.13103448034774873, 2.0329930633306503),
+                       (0, 0.00775862432295274, 2.192443499670309),
+                       (0, -0.1543103332481077, 2.247254587162067),
+                       (0, -0.27413791357990236, 2.217357630348381)]}
+
+def apply(root,scene,item,material_keys,object_names):
+    if item["id"]!=CATALOG_ID:raise ValueError("Wrong source-specific refinement")
+    helper=runpy.run_path(str(Path(__file__).with_name("outdoor_contacts.py")))
+    return helper["apply"](root,scene,item,material_keys,object_names,EVIDENCE)

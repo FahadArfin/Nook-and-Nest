@@ -68,7 +68,7 @@ test('packaging requires Beta-only identity, full 902 coverage and feature cache
 test('final app cache revision changes when models are refined on a new feature commit',()=>{
   const revision=beta.catalogCacheRevision(catalogHash,commit),nextCommit='d'.repeat(40);
   assert.notEqual(revision,beta.catalogCacheRevision(catalogHash,nextCommit));
-  const provenance={commit_sha:commit,catalogRevision:revision,inventorySha256:'e'.repeat(64),validation:{check:'Validate',conclusion:'success',run_id:'123'},cacheOverlay:{decision:'validated',query:`catalog_realism=${revision}`}};
+  const provenance={commit_sha:commit,catalogRevision:revision,inventorySha256:'e'.repeat(64),validation:{check:'Validate',conclusion:'success',run_id:'123',event:'pull_request',repository:'FahadArfin/Nook-and-Nest',head_ref:'codex/catalog-realism-overhaul',source_sha:commit,validated_sha:'f'.repeat(40),pr_number:12},sourceArchive:{path:'sites-source.tar.gz',sha256:'e'.repeat(64)},cacheOverlay:{decision:'validated',query:`catalog_realism=${revision}`}};
   beta.validateAppProvenance(provenance,commit,catalogHash,true);
   assert.throws(()=>beta.validateAppProvenance({...provenance,commit_sha:nextCommit},nextCommit,catalogHash,true),/revision/i);
   assert.throws(()=>beta.validateAppProvenance({...provenance,catalogRevision:catalogHash},commit,catalogHash,true),/revision/i);

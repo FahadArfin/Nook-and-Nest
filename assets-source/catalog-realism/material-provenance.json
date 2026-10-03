@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "New lossless original microstructure with byte-identical reuse of licensed existing normals. No base-color replacements.",
+  "description": "Lossless original microstructure and byte-identical licensed normals with matching full-resolution scan roughness packed into calibrated neutral ORM. No base-color replacements.",
   "calibration": "Profile repeats and strengths are authored calibrations; only scan repeats inherited from realism-materials.json are provider-derived where documented.",
   "retainedProvenance": [
     "assets-source/realism-materials.json",
@@ -23,11 +23,25 @@
       },
       "orm": {
         "path": "assets-source/catalog-realism/materials/fabric-orm.png",
-        "sha256": "22aa05f548eb5ae016fde8b13fee24794885908afc3b052b982a4bc80e15c7ba",
-        "bytes": 26019,
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740,
         "colorSpace": "Non-Color",
-        "source": "Original Nook & Nest periodic microstructure",
-        "license": "project-original"
+        "source": "https://polyhaven.com/a/rough_linen",
+        "license": "CC0-1.0",
+        "input": {
+          "path": "public/textures/realism/material-linen-roughness.jpg",
+          "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+          "bytes": 582745
+        },
+        "derivation": {
+          "R": 255,
+          "B": 255,
+          "G": "linear calibration of matching source roughness; no resize or rotation",
+          "roughnessRange": [
+            0.88,
+            0.96
+          ]
+        }
       }
     },
     "canvas": {
@@ -41,11 +55,25 @@
       },
       "orm": {
         "path": "assets-source/catalog-realism/materials/canvas-orm.png",
-        "sha256": "691ff1ec2d980881bccb801052e5f2e4c3a6dda92e7cc8c6976172ca6a8cee0b",
-        "bytes": 29384,
+        "sha256": "16f7955bae3d631eebbc84d2a588c63bd54ee6abe49c01c36da118a83a4d9f4d",
+        "bytes": 354227,
         "colorSpace": "Non-Color",
-        "source": "Original Nook & Nest periodic microstructure",
-        "license": "project-original"
+        "source": "https://ambientcg.com/a/Fabric036",
+        "license": "CC0-1.0",
+        "input": {
+          "path": "public/textures/realism/material-canvas-roughness.jpg",
+          "sha256": "3e0ac4c60b61a359066fd8582923cd39285d71c80ad8fb0513959a3d42df85af",
+          "bytes": 367203
+        },
+        "derivation": {
+          "R": 255,
+          "B": 255,
+          "G": "linear calibration of matching source roughness; no resize or rotation",
+          "roughnessRange": [
+            0.84,
+            0.94
+          ]
+        }
       }
     },
     "wood": {
@@ -59,11 +87,25 @@
       },
       "orm": {
         "path": "assets-source/catalog-realism/materials/wood-orm.png",
-        "sha256": "d5d9698e96bef2c9eae1cddd667a804db3ccd181c959f1438c098489ad6c69e4",
-        "bytes": 36747,
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270,
         "colorSpace": "Non-Color",
-        "source": "Original Nook & Nest periodic microstructure",
-        "license": "project-original"
+        "source": "https://polyhaven.com/a/oak_veneer_01",
+        "license": "CC0-1.0",
+        "input": {
+          "path": "public/textures/realism/material-oak-roughness.jpg",
+          "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+          "bytes": 464458
+        },
+        "derivation": {
+          "R": 255,
+          "B": 255,
+          "G": "linear calibration of matching source roughness; no resize or rotation",
+          "roughnessRange": [
+            0.5,
+            0.65
+          ]
+        }
       }
     },
     "endgrain": {

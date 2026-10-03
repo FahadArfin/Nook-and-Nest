@@ -109,6 +109,50 @@ class GeometryTests(unittest.TestCase):
             self.assertGreater(plan['maxSpanM']/(plan['cuts']+1),.007)
             self.assertLessEqual(plan['maxSpanM']/(plan['cuts']+1),.016)
 
+    def test_armchair_seat_welt_admits_embedded_source_and_seats_round_section(self):
+        pair = {'component': 'tailored_seat_cushion', 'bounds': {
+            'min': [-.3668403625488281, -.4099999964237213, .4034629762172699],
+            'max': [.3668403625488281, .33591151237487793, .5245018005371094]}}
+        policy = self.g.armchair_seat_welt_attachment('armchair', 'seat_double_welt', pair, .0025)
+        self.assertGreater(policy['sourceDistanceLimitM'], .019)
+        self.assertLessEqual(policy['sourceDistanceLimitM'], .030)
+        self.assertGreater(policy['surfaceOffsetM'], 0)
+        self.assertLess(policy['surfaceOffsetM'], .0025)
+        for catalog_id, name, component in [('sofa', 'seat_double_welt', 'tailored_seat_cushion'),
+                                           ('armchair', 'back_welt', 'tailored_seat_cushion'),
+                                           ('armchair', 'seat_double_welt', 'tailored_back_cushion')]:
+            self.assertIsNone(self.g.armchair_seat_welt_attachment(catalog_id, name, dict(pair, component=component), .0025))
+        wrong_bounds = dict(pair, bounds={'min': [0, 0, 0], 'max': [.7, .7, .03]})
+        self.assertIsNone(self.g.armchair_seat_welt_attachment('armchair', 'seat_double_welt', wrong_bounds, .0025))
+        self.assertIsNone(self.g.armchair_seat_welt_attachment('armchair', 'seat_double_welt', pair, .02))
+
+    def test_armchair_closed_source_welt_samples_long_runs_without_collapsing_rings(self):
+        import math
+        # Authored modern chair seam_box: six samples on each rounded corner,
+        # with a long connecting run between corners and eight tube vertices.
+        sx, sy, r = .690, .702, .0897
+        points = []
+        for cx, cy, angle in [(sx/2-r, sy/2-r, 0), (-sx/2+r, sy/2-r, 90),
+                              (-sx/2+r, -sy/2+r, 180), (sx/2-r, -sy/2+r, 270)]:
+            for j in range(6):
+                theta = math.radians(angle+j*18)
+                center = (cx+r*math.cos(theta), cy+r*math.sin(theta), .51)
+                for k in range(8):
+                    around = math.tau*k/8
+                    points.append((center[0]+.0025*math.cos(around)*math.cos(theta),
+                                   center[1]+.0025*math.cos(around)*math.sin(theta),
+                                   center[2]+.0025*math.sin(around)))
+        edges = [(n*8+k, n*8+(k+1)%8) for n in range(24) for k in range(8)]
+        edges += [(n*8+k, ((n+1)%24)*8+k) for n in range(24) for k in range(8)]
+        self.assertEqual(len(self.g.trim_local_groups(points, edges)), 24)
+        plans = self.g.pillow_welt_subdivisions(points, edges)
+        self.assertEqual(sum(plan['maxSpanM'] > .1 for plan in plans), 4)
+        self.assertLess(192 + sum(plan['cuts']*8 for plan in plans), 4096)
+        for plan in plans:
+            spacing = plan['maxSpanM']/(plan['cuts']+1)
+            self.assertGreater(spacing, .007)
+            self.assertLessEqual(spacing, .016)
+
     def test_missing_stitch_uv_role_is_exact_and_never_overwrites_authored_uv(self):
         component = 'Tailoring - individual saddle stitches'
         self.assertTrue(self.g.uvless_stitch_role('chair-sleeper',component,['household-slate-fabric'],[]))

@@ -1,6 +1,7 @@
 """Compatibility and role regressions; runs without Blender."""
 import importlib.util
 import copy
+from io import BytesIO
 import json
 from pathlib import Path
 import tempfile
@@ -69,6 +70,19 @@ class MaterialPlanTests(unittest.TestCase):
                 for record in maps.values():
                     self.assertTrue((Path(temporary) / record['path']).read_bytes().startswith(b'\x89PNG'))
                     self.assertEqual(record['colorSpace'], 'Non-Color')
+
+    def test_scanned_roughness_keeps_spatial_detail_and_neutral_other_channels(self):
+        from PIL import Image
+        source = Image.new('L', (3, 2))
+        source.putdata([0, 64, 255, 192, 128, 32])
+        encoded = BytesIO(); source.save(encoded, format='PNG')
+        packed = self.m.pack_scanned_roughness(encoded.getvalue(), (.5, .65))
+        result = Image.open(BytesIO(packed))
+        self.assertEqual(result.size, source.size, 'Scan must not be resized or rotated')
+        self.assertEqual([result.getpixel((x, y)) for y in range(2) for x in range(3)], [(255, 128, 255), (255, 137, 255),
+                         (255, 166, 255), (255, 156, 255), (255, 147, 255), (255, 132, 255)])
+        # No added periodic crosshatch may obscure the measured grain pattern.
+        self.assertEqual(packed, self.m.pack_scanned_roughness(encoded.getvalue(), (.5, .65)))
 
     def test_plan_keeps_exact_keys_and_default_color(self):
         baseline = {'name': 'fish-pearl-stripe.002', 'pbrMetallicRoughness': {'baseColorFactor': [.2, .3, .4, .7]}}

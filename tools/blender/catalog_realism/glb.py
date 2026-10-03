@@ -289,6 +289,138 @@ def _effective_uv(reference):
     return value
 
 
+def prune_unused_uvs(candidate_path, baseline_path, new_maps, texture_replacements=(), preserve_all_original=False):
+    """Losslessly prune unbound, newly exported UV streams after preservation.
+
+    Baseline UV indices (including unbound authored streams), original texture
+    contracts and scan-plan indices are pinned. Protected documents are left
+    byte-for-byte unchanged. Both the core texture coordinate and an optional
+    KHR_texture_transform override remain bound, preserving fallback rendering.
+    Only exported GLB attributes change; editable Blender UV layers stay named.
+    """
+    _require(Path(candidate_path).resolve() != Path(baseline_path).resolve(), 'Candidate must not overwrite baseline')
+    before = Path(candidate_path).stat().st_size
+    document, binary = read_glb(candidate_path)
+    baseline, _ = read_glb(baseline_path)
+    maps = copy.deepcopy(new_maps)
+    result = {'beforeBytes': before, 'afterBytes': before, 'removedAttributes': 0, 'remappedSets': [], 'newMaps': maps}
+    # Unknown extension semantics may consume UVs outside glTF textureInfo.
+    # Leave such files alone instead of guessing which attributes are unused.
+    known_extensions = {'KHR_texture_transform', 'KHR_texture_basisu', 'EXT_texture_webp', 'EXT_texture_avif', 'MSFT_texture_dds', 'KHR_mesh_quantization'}
+    known_extensions.update('KHR_materials_' + suffix for suffix in (
+        'unlit', 'pbrSpecularGlossiness', 'clearcoat', 'transmission', 'volume',
+        'ior', 'specular', 'sheen', 'iridescence', 'anisotropy', 'emissive_strength',
+        'dispersion', 'diffuse_transmission'))
+
+    def unknown_extension(value):
+        if isinstance(value, dict):
+            if set(value.get('extensions', {})) - known_extensions:
+                return True
+            return any(unknown_extension(child) for key, child in value.items() if key != 'extras')
+        return isinstance(value, list) and any(unknown_extension(child) for child in value)
+
+    def protected(value):
+        meshes = [node['mesh'] for node in value.get('nodes', []) if 'mesh' in node]
+        return (value.get('animations') or value.get('skins') or
+                any(_is_protected(node) for node in value.get('nodes', [])) or len(meshes) != len(set(meshes)))
+
+    if preserve_all_original or protected(baseline) or protected(document):
+        return {**result, 'skipped': 'Original, animated or shared geometry is protected'}
+    if any(unknown_extension(value) or (set(value.get('extensionsUsed', [])) | set(value.get('extensionsRequired', []))) - known_extensions for value in (baseline, document)):
+        return {**result, 'skipped': 'Unknown extension UV semantics'}
+    if any(mesh.get('extensions') or any(primitive.get('extensions') for primitive in mesh.get('primitives', [])) for mesh in document.get('meshes', [])):
+        return {**result, 'skipped': 'Extended geometry requires a dedicated preserving codec'}
+
+    def texture_infos(value):
+        if isinstance(value, dict):
+            for key, child in value.items():
+                if key == 'extras':
+                    continue
+                if key.endswith('Texture') and isinstance(child, dict) and 'index' in child:
+                    yield child
+                else:
+                    yield from texture_infos(child)
+        elif isinstance(value, list):
+            for child in value:
+                yield from texture_infos(child)
+
+    def coordinate_sets(reference):
+        values = {reference.get('texCoord', 0), _effective_uv(reference)}
+        _require(all(type(index) is int and 0 <= index <= 7 for index in values), 'Invalid texture coordinate set')
+        return values
+
+    def uv_sets(value):
+        return {int(key[9:]) for mesh in value.get('meshes', []) for primitive in mesh.get('primitives', [])
+                for key in primitive.get('attributes', {}) if re.fullmatch(r'TEXCOORD_[0-7]', key)}
+
+    references = list(texture_infos(document.get('materials', [])))
+    original_references = list(texture_infos(baseline.get('materials', [])))
+    used = set().union(*(coordinate_sets(reference) for reference in references))
+    try:
+        original_sets = set().union(*(coordinate_sets(reference) for reference in original_references))
+    except ValueError:
+        # This optional lossless optimization is not a repair mechanism. The
+        # candidate above must already be valid; historical metadata stays exact.
+        return {**result, 'skipped': 'Malformed historical texture coordinates require preserving all streams'}
+    locked = uv_sets(baseline) | original_sets
+    # Retain explicit scan-plan indices. Their source contracts deliberately
+    # distinguish the metric RealismUV channel from existing artwork UVs.
+    for record in [*(entry['scanSource'] for entry in maps if entry.get('scanSource')), *texture_replacements]:
+        coordinate = record.get('texCoord')
+        _require(type(coordinate) is int and 0 <= coordinate <= 7, 'Invalid scan map coordinate')
+        locked.add(coordinate)
+    locked = set(range(max(locked) + 1)) if locked else set()
+    all_sets = uv_sets(document)
+    kept = all_sets & (used | locked)
+    mapping = {index: index for index in kept & locked}
+    next_index = max(locked) + 1 if locked else 0
+    for index in sorted(kept - locked):
+        mapping[index] = next_index
+        next_index += 1
+    roles = {'normal': 'normalTexture', 'orm': 'metallicRoughnessTexture', 'baseColor': 'baseColorTexture', 'occlusion': 'occlusionTexture', 'emissive': 'emissiveTexture'}
+    materials = {material.get('name'): material for material in document.get('materials', [])}
+    for entry in maps:
+        material = materials.get(entry.get('materialKey'), {})
+        reference = (material.get('pbrMetallicRoughness', {}) if entry.get('kind') in ('orm', 'baseColor') else material).get(roles.get(entry.get('kind')))
+        _require(reference is not None and entry.get('texCoord') == _effective_uv(reference), 'New map receipt UV differs from exported texture')
+        _require(entry['texCoord'] in mapping, 'New map refers to missing UV stream')
+        entry['texCoord'] = mapping[entry['texCoord']]
+    # Check every material consumer, not only the mesh that contributed a UV
+    # stream to the global union. Never generate a dangling texture reference.
+    for mesh in document.get('meshes', []):
+        for primitive in mesh.get('primitives', []):
+            attributes = primitive.get('attributes', {})
+            material = document.get('materials', [])[primitive['material']] if 'material' in primitive else {}
+            required = set().union(*(coordinate_sets(reference) for reference in texture_infos(material)))
+            _require(all('TEXCOORD_' + str(index) in attributes for index in required), 'Material texture refers to missing UV stream')
+            updated = {}
+            for name, accessor in attributes.items():
+                if re.fullmatch(r'TEXCOORD_[0-7]', name):
+                    index = int(name[9:])
+                    if index not in mapping:
+                        result['removedAttributes'] += 1
+                        continue
+                    name = 'TEXCOORD_' + str(mapping[index])
+                updated[name] = accessor
+            primitive['attributes'] = updated
+            indices = sorted(int(name[9:]) for name in updated if re.fullmatch(r'TEXCOORD_[0-7]', name))
+            _require(not indices or indices == list(range(indices[-1] + 1)), 'UV cleanup would leave non-contiguous streams')
+    for reference in references:
+        original_set = reference.get('texCoord', 0)
+        _require(original_set in mapping, 'Texture fallback refers to missing UV stream')
+        if 'texCoord' in reference or mapping[original_set] != 0:
+            reference['texCoord'] = mapping[original_set]
+        transform = reference.get('extensions', {}).get('KHR_texture_transform', {})
+        if 'texCoord' in transform:
+            transform['texCoord'] = mapping[transform['texCoord']]
+    result['remappedSets'] = [{'from': old, 'to': new} for old, new in mapping.items() if old != new]
+    if not result['removedAttributes'] and not result['remappedSets']:
+        return result
+    document, binary, compacted = compact_document(document, binary)
+    write_glb(candidate_path, document, binary)
+    return {**result, 'afterBytes': Path(candidate_path).stat().st_size, 'compaction': compacted}
+
+
 def _root_path(path, root):
     path = Path(path).resolve()
     try:
@@ -305,6 +437,98 @@ def _record_bytes(root, record):
     raw = file.read_bytes()
     _require(0 < len(raw) <= 32*1024*1024 and _sha(raw) == record.get('sha256') and ('bytes' not in record or len(raw) == record['bytes']), 'Scan source/provenance hash changed')
     return raw
+
+
+LEGACY_UV_REPAIRS = {
+    'bud-vase-trio': ('dusty-rose', 'missing-source-uv-zero'),
+    'designed-basin-console': ('honed-travertine', 'authored-source-uv0'),
+    **{('designed-rug-' + name): ('original-cultural-rug-pattern', 'authored-source-uv0')
+       for name in ('amazigh', 'artdeco', 'kilim', 'persian')},
+}
+
+
+def _legacy_uv_values(document, binary, material_index):
+    values = []
+    for mesh in document.get('meshes', []):
+        for primitive in mesh.get('primitives', []):
+            if primitive.get('material') != material_index:
+                continue
+            index = primitive.get('attributes', {}).get('TEXCOORD_0')
+            _require(index is not None, 'Legacy repair requires original UV0 on every material consumer')
+            accessor = document['accessors'][index]
+            _require(accessor.get('type') == 'VEC2' and accessor.get('componentType') == 5126 and not accessor.get('sparse') and not accessor.get('normalized'), 'Legacy repair requires uncompressed float UV0')
+            view = document['bufferViews'][accessor['bufferView']]
+            raw = _view_bytes(document, binary, accessor['bufferView'])
+            stride, offset = view.get('byteStride', 8), accessor.get('byteOffset', 0)
+            _require(stride >= 8 and offset + max(0, accessor['count']-1)*stride + 8 <= len(raw), 'Legacy UV0 accessor escapes its view')
+            values.extend(struct.unpack_from('<2f', raw, offset+i*stride) for i in range(accessor['count']))
+    _require(values and all(math.isfinite(v) for uv in values for v in uv), 'Legacy repair requires finite populated UV0')
+    return values
+
+
+def repair_legacy_uv_bindings(root, candidate_path, item):
+    """Repair six evidenced exporter -1 bindings; never infer a new UV chart.
+
+    The four other malformed baselines are handled by independently licensed
+    scan replacements. The editable source, images and all other bindings remain
+    unchanged. A missing or altered source observation fails before any write.
+    """
+    root = Path(root).resolve()
+    document, binary = read_glb(candidate_path)
+    invalid = [m for m in document.get('materials', []) if m.get('pbrMetallicRoughness', {}).get('baseColorTexture', {}).get('texCoord') == -1]
+    if not invalid:
+        return {'repairs': [], 'inputs': []}
+    ident = item['id']
+    _require(ident in LEGACY_UV_REPAIRS and len(invalid) == 1, 'No evidenced legacy UV repair for this catalog model')
+    key, mode = LEGACY_UV_REPAIRS[ident]
+    plan_path = 'assets-source/catalog-realism/legacy-uv-repair-plan.json'
+    raw = (root / plan_path).read_bytes()
+    _require(0 < len(raw) < 1024*1024, 'Legacy UV repair plan exceeds bound')
+    plan_record = {'path': plan_path, 'sha256': _sha(raw), 'bytes': len(raw)}
+    plan = json.loads(raw)
+    _require(plan.get('version') == 1 and plan.get('scope') == 'beta-only', 'Invalid legacy UV repair plan')
+    evidence = json.loads(_record_bytes(root, plan['sourceEvidence']))
+    _require(evidence.get('version') == 1 and evidence.get('scope') == 'read-only-native-source-uv' and evidence.get('before') == evidence.get('after'), 'Legacy source evidence must restore native ownership')
+    entry, observed = plan.get('models', {}).get(ident, {}), evidence.get('models', {}).get(ident, {})
+    for name in ('sourceBlend', 'baselineGlb'):
+        _record_bytes(root, item[name])
+        _require(entry.get(name+'Sha256') == item[name]['sha256'] and observed.get(name) == item[name], 'Legacy source evidence targets different input files')
+    repairs = entry.get('repairs', [])
+    _require(len(repairs) == 1, 'Legacy repair requires one exact binding declaration')
+    repair = repairs[0]
+    _require(repair.get('materialKey') == key and repair.get('kind') == 'baseColor' and repair.get('from') == -1 and repair.get('to') == 0 and repair.get('mode') == mode and len(repair.get('reason','')) >= 12, 'Legacy repair differs from evidenced allowlist')
+    old, old_bin = read_glb(root/item['baselineGlb']['path'])
+    old_index = next((i for i,m in enumerate(old['materials']) if m.get('name') == key), None)
+    new_index = next((i for i,m in enumerate(document['materials']) if m.get('name') == key), None)
+    _require(old_index is not None and new_index is not None, 'Legacy repair material missing')
+    old_ref = old['materials'][old_index].get('pbrMetallicRoughness', {}).get('baseColorTexture')
+    new_ref = document['materials'][new_index].get('pbrMetallicRoughness', {}).get('baseColorTexture')
+    _require(old_ref == new_ref and old_ref.get('texCoord') == -1 and 'texCoord' not in old_ref.get('extensions', {}).get('KHR_texture_transform', {}), 'Legacy binding changed before repair')
+    for value, blob in ((old,old_bin),(document,binary)):
+        texture = value['textures'][old_ref['index']]
+        _require(texture == old['textures'][old_ref['index']], 'Legacy texture binding changed')
+        if 'sampler' in texture:
+            _require(value['samplers'][texture['sampler']] == old['samplers'][texture['sampler']], 'Legacy sampler binding changed')
+        _require(all(_sha(image_bytes(value,blob,index)) == repair.get('imageSha256') for index in _texture_source(texture)), 'Legacy original image changed')
+    observed_materials = [m for m in observed.get('materials', []) if m.get('materialKey') == key]
+    _require(len(observed_materials) == 1, 'Legacy native material evidence missing')
+    source = observed_materials[0]
+    _require(source.get('baselineTextureInfo') == old_ref, 'Legacy observed binding differs')
+    images = [n for n in source.get('nodes', []) if n.get('type') == 'TEX_IMAGE' and any(i.get('name') == 'Vector' and i.get('links') == [] and i.get('default') == [0,0,0] for i in n.get('inputs', []))]
+    _require(any(any(i.get('name') == 'Base Color' and i.get('links') == [{'node':image['name'],'socket':'Color'}] for i in node.get('inputs', [])) for image in images for node in source.get('nodes', []) if node.get('type') == 'BSDF_PRINCIPLED'), 'Legacy source must directly sample its unlinked original image vector')
+    charts = source.get('meshCharts', [])
+    _require(charts and all(c.get('materialPolygonCount', 0) > 0 for c in charts), 'Legacy source chart evidence missing')
+    old_uv, new_uv = _legacy_uv_values(old,old_bin,old_index), _legacy_uv_values(document,binary,new_index)
+    if mode == 'missing-source-uv-zero':
+        _require(all(c.get('layers') == [] for c in charts) and all(uv == (0,1) for uv in [*old_uv,*new_uv]), 'UV-less legacy image requires constant glTF UV (0,1)')
+    else:
+        _require(all(any(l.get('index') == 0 and l.get('name') == 'UVMap' and l.get('activeRender') for l in c.get('layers', [])) for c in charts), 'Legacy repair requires native active UVMap evidence')
+        for axis in (0,1):
+            low, high = min(uv[axis] for uv in old_uv), max(uv[axis] for uv in old_uv)
+            _require(high-low > 1e-6 and all(low-1e-6 <= uv[axis] <= high+1e-6 for uv in new_uv), 'Legacy authored UV chart range changed')
+    document['materials'][new_index]['pbrMetallicRoughness']['baseColorTexture']['texCoord'] = 0
+    write_glb(candidate_path, document, binary)
+    return {'repairs': copy.deepcopy(repairs), 'plan': plan_record, 'inputs': [plan_record, plan['sourceEvidence']]}
 
 
 def _motion_material_keys(document):

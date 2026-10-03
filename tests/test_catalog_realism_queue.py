@@ -11,6 +11,8 @@ from unittest.mock import patch
 
 QUEUE = runpy.run_path(str(Path(__file__).resolve().parents[1] /
                           'tools/blender/catalog_realism/queue.py'))
+REFINEMENTS = runpy.run_path(str(Path(__file__).resolve().parents[1] /
+                                 'tools/blender/catalog_realism/refinements.py'))
 
 
 class QueueResumeTests(unittest.TestCase):
@@ -46,7 +48,7 @@ class QueueResumeTests(unittest.TestCase):
             if fail:
                 raise ValueError('fixture build failed')
             return {'id': 'fixture', 'renderedThisCall': 5, 'seconds': 0}
-        with patch.object(QUEUE['runpy'], 'run_path', return_value={'build': build, 'render_model': build}):
+        with patch.object(QUEUE['runpy'], 'run_path', return_value={'build': build, 'render_model': build, 'inputs': REFINEMENTS['inputs']}):
             result = QUEUE['run'](self.root, stage=stage, limit=1)
         return result, calls
 
@@ -79,6 +81,28 @@ class QueueResumeTests(unittest.TestCase):
     def test_baseline_source_change_retries_without_global_plan_changes(self):
         self.run_queue(fail=True)
         self.write('baseline.blend', b'fixed source')
+        _, calls = self.run_queue()
+        self.assertEqual(len(calls), 1)
+
+    def test_new_model_recipe_invalidates_only_its_own_current_candidate(self):
+        self.receipt()
+        name = 'tools/blender/catalog_realism/refinements/'
+        self.write(name+'unrelated.py', b'# other model correction')
+        result, calls = self.run_queue()
+        self.assertEqual((result['alreadyCurrent'], calls), (1, []))
+        self.write(name+'fixture.py', b'# local model correction')
+        _, calls = self.run_queue()
+        self.assertEqual(len(calls), 1)
+        result, calls = self.run_queue(stage='render')
+        self.assertEqual((result['remaining'], calls), (1, []))
+
+    def test_changed_model_recipe_retries_prior_failure(self):
+        name = 'tools/blender/catalog_realism/refinements/fixture.py'
+        self.write(name, b'# first recipe')
+        self.run_queue(fail=True)
+        _, skipped = self.run_queue()
+        self.assertEqual(skipped, [])
+        self.write(name, b'# corrected local recipe')
         _, calls = self.run_queue()
         self.assertEqual(len(calls), 1)
 

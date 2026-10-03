@@ -82,7 +82,11 @@ with tarfile.open(output / 'sites-source.tar.gz','w:gz') as tar:
         p = root / name
         committed = subprocess.check_output(['git','show',sha+':'+name],cwd=root)
         assert p.read_bytes() == committed, 'Uncommitted release source: '+name
-        if name.startswith(('assets-source/','public/models/','public/textures/','public/data/toronto/')):
+        # Editable sources and candidate GLBs remain in the exact GitHub commit;
+        # hosting source records their hashes without duplicating the R2 library.
+        # The catalog subtree is excluded from Vite's public copy independently.
+        if name.startswith(('assets-source/','public/models/','public/textures/','public/data/toronto/',
+                            'public/experiments/catalog-realism/')):
             external[name] = dict(sha256=hashlib.sha256(committed).hexdigest(),size=len(committed))
             continue
         if name == 'public/experiments/realism-lab/sofa-pipeline.glb':

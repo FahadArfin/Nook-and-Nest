@@ -64,6 +64,67 @@ function fixture(t,{id='study-table',baselineMutate}={}) {
 function inspect(f) { assert.equal(typeof validator.inspectCandidate,'function','candidate validator must be implemented'); return validator.inspectCandidate(f.root,f.item,f.receipt); }
 function rejected(f,pattern) {const result=inspect(f);assert.equal(result.ok,false,JSON.stringify(result));assert.match(result.issues.join('\n'),pattern);}
 
+test('per-model recipe additions and shared dependency edits invalidate only their consumer',t=>{
+  const f=fixture(t),base='tools/blender/catalog_realism/refinements/';
+  f.write(base+'other.py','# other model\n');assert.equal(inspect(f).ok,true);
+  f.write(base+f.item.id+'.py','# selected model correction\n');rejected(f,/refinement input set/i);
+  f.write(base+f.item.id+'.json',JSON.stringify({version:1,dependencies:['turned.py']}));
+  f.write(base+'turned.py','# shared turned geometry v1\n');
+  f.receipt.modelRefinementInputs=validator.modelRefinementInputs(f.root,f.item.id);
+  rejected(f,/refinement must be bound/i);
+  f.receipt.inputs.push(...f.receipt.modelRefinementInputs);assert.equal(inspect(f).ok,true,inspect(f).issues.join('\n'));
+  f.write(base+'unrelated.py','# another recipe\n');assert.equal(inspect(f).ok,true);
+  f.write(base+'turned.py','# shared turned geometry v2\n');rejected(f,/hash|byte|refinement/i);
+});
+
+test('per-model refinement manifests reject traversal, duplicates and missing entrypoints',t=>{
+  const f=fixture(t),base='tools/blender/catalog_realism/refinements/',id=f.item.id;
+  f.write(base+id+'.json',JSON.stringify({version:1,dependencies:[]}));rejected(f,/entrypoint/i);
+  f.write(base+id+'.py','# entrypoint\n');
+  for(const dependencies of [['../escape.py'],[id+'.py'],['a.py','a.py']]){
+    f.write(base+id+'.json',JSON.stringify({version:1,dependencies}));rejected(f,/dependency list/i);
+  }
+});
+
+function legacyUvFixture(t,{id='designed-basin-console'}={}) {
+  const missing=id==='bud-vase-trio',rug=id.startsWith('designed-rug-'),key=missing?'dusty-rose':rug?'original-cultural-rug-pattern':'honed-travertine';
+  const mutate=(g,{append,accessor})=>{delete g.nodes[1].extras;g.materials[0].name=key;g.materials.push({name:'detail-key'});if(g.meshes[2])g.meshes[2].primitives[0].material=1;g.images=[{bufferView:append(png),mimeType:'image/png'}];g.textures=[{source:0}];g.materials[0].pbrMetallicRoughness.baseColorTexture={index:0,texCoord:-1};if(missing){const uv=accessor([0,1,0,1,0,1],'VEC2');g.meshes.forEach(m=>m.primitives.forEach(p=>p.attributes.TEXCOORD_0=uv));}};
+  const f=fixture(t,{id,baselineMutate:mutate});
+  f.setCandidate((g,h)=>{mutate(g,h);g.materials[0].pbrMetallicRoughness.baseColorTexture.texCoord=0;});
+  const repair={materialKey:key,kind:'baseColor',from:-1,to:0,mode:missing?'missing-source-uv-zero':'authored-source-uv0',imageSha256:sha(png),reason:'Restore the source-evidenced original image UV binding.'};
+  const evidence={version:1,scope:'read-only-native-source-uv',before:{counts:{}},after:{counts:{}},models:{[id]:{sourceBlend:f.item.sourceBlend,baselineGlb:f.item.baselineGlb,materials:[{materialKey:key,baselineTextureInfo:{index:0,texCoord:-1},nodes:[{name:'Image Texture',type:'TEX_IMAGE',inputs:[{name:'Vector',links:[],default:[0,0,0]}]},{type:'BSDF_PRINCIPLED',inputs:[{name:'Base Color',links:[{node:'Image Texture',socket:'Color'}]}]}],meshCharts:[{materialPolygonCount:1,layers:missing?[]:[{index:0,name:'UVMap',activeRender:true}]}]}]}}};
+  const evidencePath='assets-source/catalog-realism/legacy-uv-source-evidence.json',planPath='assets-source/catalog-realism/legacy-uv-repair-plan.json';
+  f.write(evidencePath,JSON.stringify(evidence));const sourceEvidence=f.record(evidencePath);
+  const plan={version:1,scope:'beta-only',sourceEvidence,models:{[id]:{sourceBlendSha256:f.item.sourceBlend.sha256,baselineGlbSha256:f.item.baselineGlb.sha256,repairs:[repair]}}};
+  f.write(planPath,JSON.stringify(plan));f.receipt.legacyUvRepairPlan=f.record(planPath);f.receipt.inputs.push(sourceEvidence,f.receipt.legacyUvRepairPlan);f.receipt.textureCoordinateRepairs=[repair];
+  return {...f,mutate,key,plan,evidence};
+}
+
+test('source-evidenced legacy UV repair accepts only the original chart and image',t=>{
+  for(const id of ['designed-basin-console','designed-rug-kilim','bud-vase-trio']){const f=legacyUvFixture(t,{id}),r=inspect(f);assert.equal(r.ok,true,r.issues.join('\n'));}
+});
+test('legacy UV repair cannot waive changed channels, missing evidence or altered charts',t=>{
+  for(const mode of ['missing','stale','image','color','uv','sampler','declaration']) {
+    const f=legacyUvFixture(t,{id:mode==='uv'?'bud-vase-trio':'designed-basin-console'});
+    if(mode==='missing')delete f.receipt.legacyUvRepairPlan;
+    else if(mode==='stale')f.write(f.plan.sourceEvidence.path,'{}');
+    else if(mode==='declaration')f.receipt.textureCoordinateRepairs[0].to=1;
+    else f.setCandidate((g,h)=>{f.mutate(g,h);g.materials[0].pbrMetallicRoughness.baseColorTexture.texCoord=0;if(mode==='image')g.images[0].bufferView=h.append(Buffer.concat([png,Buffer.from('changed')]));if(mode==='color')g.materials[0].pbrMetallicRoughness.baseColorFactor=[1,1,1,1];if(mode==='sampler'){g.samplers=[{wrapS:33071}];g.textures[0].sampler=0;}if(mode==='uv')g.meshes[0].primitives[0].attributes.TEXCOORD_0=h.accessor([0,1,.1,1,0,1],'VEC2');});
+    rejected(f,/legacy|repair|hash|byte|color|binding|constant/i);
+  }
+});
+test('repaired original rug atlas rejects a moved UV island despite unchanged range',t=>{
+  const f=legacyUvFixture(t,{id:'designed-rug-persian'});
+  f.setCandidate((g,h)=>{f.mutate(g,h);g.materials[0].pbrMetallicRoughness.baseColorTexture.texCoord=0;g.meshes[0].primitives[0].attributes.TEXCOORD_0=h.accessor([1,0,0,0,.5,1],'VEC2');});
+  rejected(f,/chart|atlas/i);
+});
+test('legacy binding repair by itself does not count as a visual model improvement',t=>{
+  const f=legacyUvFixture(t);
+  const original=model({mutate:(g,h)=>{f.mutate(g,h);g.materials[0].pbrMetallicRoughness.baseColorTexture.texCoord=0;}});
+  f.write(f.item.outputs.glb,original.bytes);f.receipt.outputs.glb=f.record(f.item.outputs.glb);
+  rejected(f,/unchanged|improvement/i);
+});
+
 test('an authored candidate preserves measured contracts without requiring a visual approval yet',t=>{
   const f=fixture(t),result=inspect(f);assert.equal(result.ok,true,result.issues.join('\n'));assert.equal(result.stats.visualReview,'missing');assert.equal(result.stats.improvementDetected,true);assert.match(result.artifactSetSha256,/^[a-f0-9]{64}$/);
 });

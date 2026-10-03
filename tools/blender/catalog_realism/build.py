@@ -62,6 +62,28 @@ def is_protected(obj):
     return False
 
 
+def prepare_legacy_source_uv(scene, item, keys, object_names):
+    """Keep the evidenced UV-less petal image sample before adding RealismUV.
+
+    Blender initializes a newly created UVMap with generated coordinates unless
+    explicitly zeroed. These 18 original petals had no UV chart: their unlinked
+    image vector sampled Blender (0,0), exported as glTF (0,1).
+    """
+    if item['id'] != 'bud-vase-trio':
+        return []
+    petals = [obj for obj in scene.objects if obj.type == 'MESH' and
+              any(mat and keys.get(mat.name) == 'dusty-rose' for mat in obj.data.materials)]
+    if len(petals) != 18 or any(not re.fullmatch(r'flower_petal(?:\.\d{3})?', object_names.get(obj.name, '')) or
+                               obj.data.uv_layers or len(obj.data.materials) != 1 for obj in petals):
+        raise ValueError('Bud-vase legacy source UV evidence no longer matches the 18 UV-less petals')
+    for obj in petals:
+        layer = obj.data.uv_layers.new(name='UVMap', do_init=False)
+        for loop in layer.data:
+            loop.uv = (0.0, 0.0)
+    return [{'kind': 'source-evidenced-legacy-uv', 'materialKey': 'dusty-rose', 'objects': len(petals),
+             'sourceSample': [0, 0], 'gltfSample': [0, 1], 'details': 'Retain the original UV-less image sample before creating the separate metric detail chart.'}]
+
+
 def select(objects):
     bpy.ops.object.select_all(action='DESELECT')
     for obj in objects:
@@ -316,8 +338,10 @@ def build(root_path, catalog_id):
         if record(root, item[field]['path']) != item[field]:
             raise ValueError('Frozen baseline changed: ' + item[field]['path'])
     modules = {name: runpy.run_path(str(root / DIRECTORY / (name + '.py')))
-               for name in ('source', 'geometry', 'forms', 'books', 'lighting', 'special', 'materials', 'glb', 'tangents')}
-    inputs = [record(root, DIRECTORY + '/' + name + '.py') for name in ('source', 'geometry', 'forms', 'books', 'lighting', 'special', 'materials', 'scans', 'glb', 'tangents')]
+               for name in ('source', 'geometry', 'forms', 'books', 'lighting', 'special', 'materials', 'glb', 'tangents', 'refinements')}
+    inputs = [record(root, DIRECTORY + '/' + name + '.py') for name in ('source', 'geometry', 'forms', 'books', 'lighting', 'special', 'materials', 'scans', 'glb', 'tangents', 'refinements')]
+    refinement_inputs = modules['refinements']['inputs'](root, catalog_id)
+    inputs += refinement_inputs
     # Retain the entry-checked bytes so the final verification also rejects an
     # edit after entry, before the remaining helper inputs have been captured.
     inputs.append(build_input)
@@ -331,11 +355,13 @@ def build(root_path, catalog_id):
     temporary = output.with_name('.' + catalog_id + '-candidate.glb')
     with modules['source']['load_source'](root / item['sourceBlend']['path']) as (scene, names, object_names):
         keys = canonical_materials(scene, names, item)
-        changes = modules['geometry']['apply'](root, scene, item, keys, object_names)
+        changes = prepare_legacy_source_uv(scene, item, keys, object_names)
+        changes += modules['geometry']['apply'](root, scene, item, keys, object_names)
         changes += modules['forms']['apply'](root, scene, item, keys, object_names)
         changes += modules['books']['apply'](root, scene, item, keys, object_names)
         changes += modules['lighting']['apply'](root, scene, item, keys, object_names)
         changes += modules['special']['apply'](root, scene, item, keys, object_names)
+        changes += modules['refinements']['apply'](root, scene, item, keys, object_names, refinement_inputs)
         materials = modules['materials']['apply_materials'](root, scene, item, keys)
         for mat in {m for obj in scene.objects if obj.type == 'MESH' for m in obj.data.materials if m}:
             mat.update_tag()
@@ -348,6 +374,12 @@ def build(root_path, catalog_id):
             for image in material['maps']:
                 if not any(i['path'] == image['path'] for i in inputs):
                     inputs.append(record(root, image['path']))
+                if image.get('input'):
+                    measured_input = record(root, image['input']['path'])
+                    if measured_input != image['input']:
+                        raise ValueError('Derived material source input changed: ' + image['input']['path'])
+                    if not any(i['path'] == measured_input['path'] for i in inputs):
+                        inputs.append(measured_input)
         if not changes:
             raise ValueError('No substantiated improvement; model needs an individual geometry recipe')
         scene['catalog_realism_recipe'] = 'construction-refinement-v1'
@@ -374,28 +406,43 @@ def build(root_path, catalog_id):
             materials, root / 'assets-source/catalog-realism/maps' / catalog_id, root=root)
         preservation = modules['glb']['preserve_protected_subtrees'](temporary, root / item['baselineGlb']['path'],
             preserve_all_original=catalog_id in AQUARIUMS)
+        legacy_uv = modules['glb']['repair_legacy_uv_bindings'](root, temporary, item)
+        for bound_input in legacy_uv['inputs']:
+            if not any(i['path'] == bound_input['path'] for i in inputs):
+                inputs.append(bound_input)
+        uv_pruning = modules['glb']['prune_unused_uvs'](temporary, root / item['baselineGlb']['path'],
+            merged['newMaps'], texture_replacements=merged.get('textureReplacements', []),
+            preserve_all_original=catalog_id in AQUARIUMS)
+        merged['newMaps'] = uv_pruning.pop('newMaps')
         for mapped in merged['newMaps']:
             if not any(i['path'] == mapped['path'] for i in inputs):
                 inputs.append(record(root, mapped['path']))
         for old in inputs:
             if record(root, old['path']) != old:
                 raise ValueError('Build input changed while exporting: ' + old['path'])
+        if modules['refinements']['inputs'](root, catalog_id) != refinement_inputs:
+            raise ValueError('Model refinement file set changed while exporting')
         # A receipt is the commit marker. Until it exists with both hashes, a
         # interrupted pair is rejected by status and cannot enter a beta build.
         temporary_source.replace(source)
         temporary.replace(output)
         receipt = {'version': 1, 'catalogId': catalog_id, 'inputContractSha256': item['contractSha256'],
-            'state': 'processed', 'recipe': {'id': 'catalog-construction-refinement', 'version': 1,
+            'state': 'processed', 'recipe': {'id': 'catalog-construction-refinement', 'version': 2,
                 **record(root, DIRECTORY + '/build.py')},
             'inputs': inputs, 'buildInputs': inputs,
+            'modelRefinementInputs': refinement_inputs,
             'materialPlan': record(root, 'assets-source/catalog-realism/material-plan.json'),
             'changes': changes, 'materialRecords': materials, 'newMaps': merged['newMaps'],
             'surfaceAdjustments': merged.get('surfaceAdjustments', []),
             'scanPlan': record(root, 'assets-source/catalog-realism/scan-plan.json'),
             'textureReplacements': merged.get('textureReplacements', []),
             'tangentRepairs': tangent_repairs,
+            'uvPruning': uv_pruning,
+            'textureCoordinateRepairs': legacy_uv['repairs'],
             'outputs': {'sourceBlend': record(root, source), 'glb': record(root, output)},
             'renders': [], 'timingSeconds': round(time.monotonic() - started, 2), 'exportMeshes': count}
+        if legacy_uv['repairs']:
+            receipt['legacyUvRepairPlan'] = legacy_uv['plan']
         if catalog_id in AQUARIUMS:
             receipt['recipe']['capabilities'] = ['aquarium-additive-casework']
             receipt['aquariumPreservation'] = {'mode': 'additive-casework-only',

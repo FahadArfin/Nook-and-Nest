@@ -298,6 +298,112 @@ class PreservationTests(unittest.TestCase):
         self.assertEqual(actual['bufferViews'][actual['images'][0]['bufferView']]['byteOffset'],actual['bufferViews'][actual['images'][1]['bufferView']]['byteOffset'])
         self.assertGreater(result['deduplicatedPayloads'],0)
 
+    def uv_fixture(self, count=2):
+        old, old_bin = fixture()
+        old['meshes'][0]['primitives'][0]['attributes'] = {'POSITION': 0}
+        candidate, binary = fixture({'name': 'linen.001', 'normalTexture': {'index': 0, 'texCoord': count - 1}}, image=png((128, 128, 255)))
+        attrs = candidate['meshes'][0]['primitives'][0]['attributes']
+        for index in range(count):
+            payload = struct.pack('<6f', index + .125, 0, 1, 0, 0, 1)
+            view = len(candidate['bufferViews'])
+            candidate['bufferViews'].append({'buffer': 0, 'byteOffset': len(binary), 'byteLength': len(payload)})
+            binary += payload
+            attrs['TEXCOORD_' + str(index)] = len(candidate['accessors'])
+            candidate['accessors'].append({'bufferView': view, 'componentType': 5126, 'count': 3, 'type': 'VEC2'})
+        tangent = struct.pack('<12f', *([1, 0, 0, 1] * 3))
+        candidate['bufferViews'].append({'buffer': 0, 'byteOffset': len(binary), 'byteLength': len(tangent)})
+        binary += tangent
+        attrs['TANGENT'] = len(candidate['accessors'])
+        candidate['accessors'].append({'bufferView': len(candidate['bufferViews']) - 1, 'componentType': 5126, 'count': 3, 'type': 'VEC4'})
+        self.save((old, old_bin), (candidate, binary))
+        return old, candidate
+
+    def attribute_payload(self, document, binary, semantic):
+        accessor = document['accessors'][document['meshes'][0]['primitives'][0]['attributes'][semantic]]
+        return glb._view_bytes(document, binary, accessor['bufferView'])
+
+    def test_unused_uv_cleanup_keeps_exact_used_coordinates_tangents_and_receipt_binding(self):
+        old, native = self.uv_fixture()
+        before_baseline = self.baseline.read_bytes()
+        maps = [{'materialKey': 'linen.001', 'kind': 'normal', 'texCoord': 1, 'sha256': 'retained-image-hash'}]
+        result = glb.prune_unused_uvs(self.candidate, self.baseline, maps)
+        actual, binary = glb.read_glb(self.candidate)
+        self.assertEqual(set(actual['meshes'][0]['primitives'][0]['attributes']), {'POSITION', 'TANGENT', 'TEXCOORD_0'})
+        self.assertEqual(self.attribute_payload(actual, binary, 'TEXCOORD_0'), struct.pack('<6f', 1.125, 0, 1, 0, 0, 1))
+        self.assertEqual(self.attribute_payload(actual, binary, 'TANGENT'), struct.pack('<12f', *([1, 0, 0, 1] * 3)))
+        self.assertEqual(actual['materials'][0]['normalTexture'], {'index': 0, 'texCoord': 0})
+        self.assertEqual(glb.image_bytes(actual, binary, 0), png((128, 128, 255)))
+        self.assertEqual(result['newMaps'][0], {**maps[0], 'texCoord': 0})
+        self.assertEqual(maps[0]['texCoord'], 1)
+        self.assertLess(result['afterBytes'], result['beforeBytes'])
+        self.assertEqual(self.baseline.read_bytes(), before_baseline)
+
+    def test_uv_cleanup_remaps_core_extension_and_transform_fallback_bindings(self):
+        self.uv_fixture(4)
+        doc, binary = glb.read_glb(self.candidate)
+        material = doc['materials'][0]
+        material.update(normalTexture={'index': 0, 'texCoord': 2, 'extensions': {'KHR_texture_transform': {'texCoord': 3, 'scale': [2, 4]}}},
+                        emissiveTexture={'index': 0, 'texCoord': 3}, occlusionTexture={'index': 0, 'texCoord': 2})
+        material['pbrMetallicRoughness'] = {'baseColorTexture': {'index': 0, 'texCoord': 2}, 'metallicRoughnessTexture': {'index': 0, 'texCoord': 3}}
+        material['extensions'] = {'KHR_materials_clearcoat': {'clearcoatTexture': {'index': 0, 'texCoord': 2}, 'clearcoatNormalTexture': {'index': 0, 'texCoord': 3}},
+                                  'KHR_materials_sheen': {'sheenColorTexture': {'index': 0, 'texCoord': 3}},
+                                  'KHR_materials_specular': {'specularTexture': {'index': 0, 'texCoord': 2}}}
+        glb.write_glb(self.candidate, doc, binary)
+        result = glb.prune_unused_uvs(self.candidate, self.baseline, [{'materialKey': 'linen.001', 'kind': 'normal', 'texCoord': 3}])
+        actual, binary = glb.read_glb(self.candidate)
+        material = actual['materials'][0]
+        self.assertEqual(material['normalTexture'], {'index': 0, 'texCoord': 0, 'extensions': {'KHR_texture_transform': {'texCoord': 1, 'scale': [2, 4]}}})
+        self.assertEqual(material['emissiveTexture']['texCoord'], 1)
+        self.assertEqual(material['occlusionTexture']['texCoord'], 0)
+        self.assertEqual(material['pbrMetallicRoughness']['baseColorTexture']['texCoord'], 0)
+        self.assertEqual(material['pbrMetallicRoughness']['metallicRoughnessTexture']['texCoord'], 1)
+        self.assertEqual(material['extensions']['KHR_materials_clearcoat']['clearcoatNormalTexture']['texCoord'], 1)
+        self.assertEqual(material['extensions']['KHR_materials_clearcoat']['clearcoatTexture']['texCoord'], 0)
+        self.assertEqual(material['extensions']['KHR_materials_sheen']['sheenColorTexture']['texCoord'], 1)
+        self.assertEqual(material['extensions']['KHR_materials_specular']['specularTexture']['texCoord'], 0)
+        self.assertEqual(result['newMaps'][0]['texCoord'], 1)
+        self.assertEqual(self.attribute_payload(actual, binary, 'TEXCOORD_0'), struct.pack('<6f', 2.125, 0, 1, 0, 0, 1))
+        self.assertEqual(self.attribute_payload(actual, binary, 'TEXCOORD_1'), struct.pack('<6f', 3.125, 0, 1, 0, 0, 1))
+
+    def test_uv_cleanup_preserves_baseline_streams_and_implicit_texture_zero(self):
+        self.uv_fixture(3)
+        old, old_bin = fixture()
+        glb.write_glb(self.baseline, old, old_bin)
+        doc, binary = glb.read_glb(self.candidate)
+        doc['materials'][0]['normalTexture'] = {'index': 0}
+        glb.write_glb(self.candidate, doc, binary)
+        glb.prune_unused_uvs(self.candidate, self.baseline, [])
+        actual, binary = glb.read_glb(self.candidate)
+        self.assertEqual(set(actual['meshes'][0]['primitives'][0]['attributes']), {'POSITION', 'TANGENT', 'TEXCOORD_0', 'TEXCOORD_1'})
+        self.assertEqual(actual['materials'][0]['normalTexture'], {'index': 0})
+        self.assertEqual(self.attribute_payload(actual, binary, 'TEXCOORD_1'), struct.pack('<6f', 1.125, 0, 1, 0, 0, 1))
+
+    def test_uv_cleanup_leaves_protected_aquarium_and_unknown_extension_documents_exact(self):
+        for mode in ('motion', 'shared', 'aquarium', 'unknown'):
+            self.uv_fixture()
+            doc, binary = glb.read_glb(self.candidate)
+            if mode == 'motion': doc['nodes'][0]['extras'] = {'motion_role': 'hinge'}
+            if mode == 'shared': doc['nodes'].append({'name': 'also-shared', 'mesh': 0}); doc['scenes'][0]['nodes'].append(1)
+            if mode == 'unknown': doc['materials'][0]['extensions'] = {'VENDOR_future_uv': {'index': 0, 'texCoord': 0}}
+            glb.write_glb(self.candidate, doc, binary)
+            before = self.candidate.read_bytes()
+            result = glb.prune_unused_uvs(self.candidate, self.baseline, [], preserve_all_original=mode == 'aquarium')
+            self.assertEqual(self.candidate.read_bytes(), before, mode)
+            self.assertEqual(result['beforeBytes'], result['afterBytes'])
+            self.assertTrue(result['skipped'])
+
+    def test_uv_cleanup_keeps_scan_plan_coordinates_and_rejects_stale_map_records(self):
+        self.uv_fixture()
+        maps = [{'materialKey': 'linen.001', 'kind': 'normal', 'texCoord': 1, 'scanSource': {'texCoord': 1}}]
+        result = glb.prune_unused_uvs(self.candidate, self.baseline, maps)
+        self.assertEqual(result['newMaps'], maps)
+        actual, _ = glb.read_glb(self.candidate)
+        self.assertIn('TEXCOORD_1', actual['meshes'][0]['primitives'][0]['attributes'])
+        before = self.candidate.read_bytes()
+        with self.assertRaisesRegex(ValueError, 'receipt|map'):
+            glb.prune_unused_uvs(self.candidate, self.baseline, [{**maps[0], 'texCoord': 0}])
+        self.assertEqual(self.candidate.read_bytes(), before)
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,6 +1,6 @@
 // Candidate compatibility and evidence checks. Passing these is not an aesthetic verdict.
 import assert from 'node:assert/strict';
-import {readFileSync,statSync,realpathSync} from 'node:fs';
+import {readFileSync,statSync,realpathSync,existsSync,lstatSync} from 'node:fs';
 import {createHash} from 'node:crypto';
 import {inflateSync} from 'node:zlib';
 import {resolveRepoPath,imageDimensions,validateKhronosGlb} from './model-pipeline-inspect.mjs';
@@ -15,6 +15,22 @@ const canonical=value=>JSON.stringify(sorted(value));
 const same=(a,b,label)=>assert.equal(canonical(a),canonical(b),label);
 const hashContract=item=>sha(canonical(Object.fromEntries(Object.entries(item).filter(([key])=>!['state','contractSha256'].includes(key)))));
 const finiteArray=(v,n)=>Array.isArray(v)&&v.length===n&&v.every(Number.isFinite);
+
+/** Bind optional model recipes independently so a local fix cannot stale the other 901 assets. */
+export function modelRefinementInputs(root,id) {
+  assert(/^[a-z0-9][a-z0-9-]*$/.test(id),'Invalid catalog refinement ID');
+  const directory='tools/blender/catalog_realism/refinements/',entry=directory+id+'.py',manifest=directory+id+'.json';
+  const has=name=>existsSync(resolveRepoPath(root,name));
+  if(!has(entry)){assert(!has(manifest),'Model refinement manifest requires its entrypoint');return [];}
+  const names=[entry];
+  if(has(manifest)){
+    const file=resolveRepoPath(root,manifest),stat=lstatSync(file);assert(stat.isFile()&&!stat.isSymbolicLink()&&stat.size<=16384,'Invalid model refinement dependency manifest');
+    const doc=JSON.parse(readFileSync(file,'utf8')),deps=doc.dependencies;
+    assert(Object.keys(doc).sort().join(',')==='dependencies,version'&&doc.version===1&&Array.isArray(deps)&&deps.length<=16&&new Set(deps).size===deps.length&&deps.every(name=>typeof name==='string'&&/^[a-z][a-z0-9_-]*\.py$/.test(name)&&name!==id+'.py'),'Invalid model refinement dependency list');
+    names.push(manifest,...[...deps].sort().map(name=>directory+name));
+  }
+  return names.map(name=>{const file=resolveRepoPath(root,name),stat=lstatSync(file);assert(stat.isFile()&&!stat.isSymbolicLink()&&stat.size>0&&stat.size<=1024*1024,'Invalid model refinement file');const raw=readFileSync(file);return {path:name,sha256:sha(raw),bytes:raw.length};});
+}
 
 /** Python render-time text is immutable; parsed values use JSON/IEEE-754 semantics. */
 export function verifyRenderConfiguration(binding) {
@@ -351,10 +367,63 @@ function checkTextureReplacements(baseline,candidate,receipt,root,inputs) {
   }
   return allowed;
 }
-function checkMaterials(baseline,candidate,receipt,root,inputs) {
+const LEGACY_UV_REPAIRS = new Map([
+  ['bud-vase-trio',['dusty-rose','missing-source-uv-zero']],
+  ['designed-basin-console',['honed-travertine','authored-source-uv0']],
+  ...['amazigh','artdeco','kilim','persian'].map(id=>['designed-rug-'+id,['original-cultural-rug-pattern','authored-source-uv0']]),
+]);
+function legacyUvChart(model,key) {
+  const values=[],triangles=[];
+  for(const record of model.primitiveRecords.filter(r=>model.document.materials[r.primitive.material].name===key)) {
+    const p=record.primitive,uvIndex=p.attributes.TEXCOORD_0;assert(uvIndex!==undefined,'Legacy repair requires original UV0 on every material consumer');
+    const uv=model.accessor(uvIndex);assert(uv.type==='VEC2'&&uv.componentType===5126&&!uv.normalized,'Legacy repair requires float UV0');values.push(...uv.values);
+    const positions=worldPositions(model,record),indices=p.indices===undefined?positions.map((_,i)=>i):model.accessor(p.indices).values.flat();
+    assert((p.mode??4)===4,'Legacy original chart requires triangle geometry');
+    const corners=positions.map((pos,i)=>canonical([...pos.map(v=>Math.round(v*1e5)),...uv.values[i].map(v=>Math.round(v*1e6))]));
+    for(let i=0;i<indices.length;i+=3){const a=indices.slice(i,i+3).map(n=>corners[n]);triangles.push([a.join('|'),[a[1],a[2],a[0]].join('|'),[a[2],a[0],a[1]].join('|')].sort()[0]);}
+  }
+  assert(values.length&&values.every(v=>finiteArray(v,2)),'Legacy repair requires finite populated UV0');
+  return {values,triangles:triangles.sort()};
+}
+function checkLegacyUvRepairs(baseline,candidate,receipt,root,inputs,item) {
+  const repairs=receipt.textureCoordinateRepairs??[],allowed=new Map();
+  assert(Array.isArray(repairs)&&repairs.length<=1,'Legacy UV repair requires one exact binding declaration');
+  if(!repairs.length)return allowed;
+  const spec=LEGACY_UV_REPAIRS.get(item.id);assert(spec,'No evidenced legacy UV repair for this catalog model');
+  const planRecord=receipt.legacyUvRepairPlan,plan=JSON.parse(recordBytes(root,planRecord,'legacy UV repair plan','assets-source/catalog-realism/legacy-uv-repair-plan.json'));
+  assert(plan.version===1&&plan.scope==='beta-only','Invalid legacy UV repair plan');
+  const evidence=JSON.parse(recordBytes(root,plan.sourceEvidence,'legacy UV source evidence','assets-source/catalog-realism/legacy-uv-source-evidence.json'));
+  for(const record of [planRecord,plan.sourceEvidence])assert(inputs.some(i=>i.path===record.path&&i.sha256===record.sha256),'Legacy UV repair plan/evidence must be bound in inputs');
+  assert(evidence.version===1&&evidence.scope==='read-only-native-source-uv','Invalid legacy UV source evidence');same(evidence.before,evidence.after,'Legacy UV source inspection did not restore native ownership');
+  const entry=plan.models?.[item.id],observed=evidence.models?.[item.id];assert(entry&&observed,'Legacy UV source observation missing');
+  for(const name of ['sourceBlend','baselineGlb']){same(observed[name],item[name],'Legacy UV evidence targets different source files');assert.equal(entry[name+'Sha256'],item[name].sha256,'Legacy UV plan targets different source files');}
+  same(repairs,entry.repairs,'Legacy UV receipt differs from frozen repair plan');
+  const repair=repairs[0],[key,mode]=spec;
+  assert(repair.materialKey===key&&repair.kind==='baseColor'&&repair.from===-1&&repair.to===0&&repair.mode===mode&&typeof repair.reason==='string'&&repair.reason.length>=12,'Legacy UV repair differs from evidenced allowlist');
+  const old=baseline.document.materials.find(m=>m.name===key),fresh=candidate.document.materials.find(m=>m.name===key),reference=old?.pbrMetallicRoughness?.baseColorTexture;
+  assert(reference?.texCoord===-1&&reference.extensions?.KHR_texture_transform?.texCoord===undefined,'Legacy UV repair requires exact invalid original binding');
+  const expected={...reference,texCoord:0};
+  same(textureContract(candidate,fresh?.pbrMetallicRoughness?.baseColorTexture),textureContract(baseline,expected),'Legacy original image or sampler binding changed');
+  assert.equal(textureContract(baseline,reference).image,repair.imageSha256,'Legacy original image differs from source-evidenced repair');
+  const materials=observed.materials?.filter(m=>m.materialKey===key);assert(materials?.length===1,'Legacy native material evidence missing');const source=materials[0];
+  same(source.baselineTextureInfo,reference,'Legacy observed texture binding differs');
+  const images=source.nodes?.filter(n=>n.type==='TEX_IMAGE'&&n.inputs?.some(i=>i.name==='Vector'&&canonical(i.links)==='[]'&&canonical(i.default)==='[0,0,0]'))??[];
+  assert(images.some(image=>source.nodes.some(n=>n.type==='BSDF_PRINCIPLED'&&n.inputs?.some(i=>i.name==='Base Color'&&canonical(i.links)===canonical([{node:image.name,socket:'Color'}])))),'Legacy source must directly sample its unlinked original image vector');
+  const charts=source.meshCharts;assert(charts?.length&&charts.every(c=>c.materialPolygonCount>0),'Legacy native UV chart evidence missing');
+  const oldChart=legacyUvChart(baseline,key),newChart=legacyUvChart(candidate,key);
+  if(mode==='missing-source-uv-zero')assert(charts.every(c=>c.layers?.length===0)&&[...oldChart.values,...newChart.values].every(v=>v[0]===0&&v[1]===1),'UV-less legacy image requires constant glTF UV (0,1)');
+  else {
+    assert(charts.every(c=>c.layers?.some(l=>l.index===0&&l.name==='UVMap'&&l.activeRender)),'Legacy repair requires native active UVMap evidence');
+    for(const axis of [0,1]){const low=Math.min(...oldChart.values.map(v=>v[axis])),high=Math.max(...oldChart.values.map(v=>v[axis]));assert(high-low>1e-6&&newChart.values.every(v=>v[axis]>=low-1e-6&&v[axis]<=high+1e-6),'Legacy authored UV chart range changed');}
+    if(item.id.startsWith('designed-rug-'))same(newChart.triangles,oldChart.triangles,'Original rug atlas world-position/UV triangle chart changed');
+  }
+  allowed.set(key+'/baseColor',expected);return allowed;
+}
+function checkMaterials(baseline,candidate,receipt,root,inputs,item) {
   const oldByName=new Map(baseline.document.materials.map(m=>[m.name,m]));
   same([...oldByName.keys()].sort(),candidate.document.materials.map(m=>m.name).sort(),'Canonical material keys changed');
   const replacements=checkTextureReplacements(baseline,candidate,receipt,root,inputs);
+  const uvRepairs=checkLegacyUvRepairs(baseline,candidate,receipt,root,inputs,item);
   const adjustments=receipt.surfaceAdjustments??[];assert(Array.isArray(adjustments)&&adjustments.length<=128,'Surface adjustments must be a bounded list');
   const approvedExtensions=new Map(),adjusted=new Set();
   if(adjustments.length) {
@@ -382,7 +451,7 @@ function checkMaterials(baseline,candidate,receipt,root,inputs) {
     same(extensionTextureContracts(candidate,material.extensions),extensionTextureContracts(baseline,old.extensions),label+' protected extension texture changed');
     const oldRoles=imageRoles(old),roles=imageRoles(material);
     for(const [kind,reference] of Object.entries(roles)) {
-      if(oldRoles[kind]&&!replacements.has(material.name+'/'+kind)) {same(textureContract(candidate,reference),textureContract(baseline,oldRoles[kind]),label+' original '+kind+' image or binding changed');continue;}
+      if(oldRoles[kind]&&!replacements.has(material.name+'/'+kind)) {same(textureContract(candidate,reference),textureContract(baseline,uvRepairs.get(material.name+'/'+kind)??oldRoles[kind]),label+' original '+kind+' image or binding changed');continue;}
       if(!reference)continue;
       const image=candidate.images[candidate.document.textures?.[reference.index]?.source],map=maps.find(m=>m.materialKey===material.name&&m.kind===kind&&m.sha256===image?.sha256);
       // An explicitly declared ORM can also supply neutral AO, without claiming a cavity bake.
@@ -404,6 +473,7 @@ function checkMaterials(baseline,candidate,receipt,root,inputs) {
     if((!roles.orm&&!oldRoles.orm)||oldRoles.orm)same(material.pbrMetallicRoughness?.metallicFactor??1,old.pbrMetallicRoughness?.metallicFactor??1,label+' metallic factor changed');
   }
   assert.equal(usedMaps.size,maps.length,'Receipt contains unused or preexisting new maps');
+  return uvRepairs;
 }
 
 function budgetsFor(item,receipt,baseline) {
@@ -426,6 +496,9 @@ export function inspectCandidate(root,item,receipt) {
     same(item.baselineGltf.images??[],baseline.images.map(({index,mimeType,sha256,bytes})=>({index,...(baseline.document.images[index].name===undefined?{}:{name:baseline.document.images[index].name}),mimeType,sha256,bytes})),'Frozen baseline image hashes differ');same([...item.materialKeys].sort(),baseline.document.materials.map(m=>m.name).sort(),'Frozen material keys differ');
     const inputs=receipt.inputs;assert(Array.isArray(inputs)&&inputs.length>=2&&inputs.length<=512,'Bound recipe and material-plan inputs required');const paths=new Set();
     for(const input of inputs){recordBytes(root,input,'input '+input.path);assert(!paths.has(input.path),'Duplicate input path');paths.add(input.path);}
+    const refinementInputs=modelRefinementInputs(root,item.id);
+    same(receipt.modelRefinementInputs??[],refinementInputs,'Model refinement input set is stale');
+    for(const input of refinementInputs)assert(inputs.some(bound=>canonical(bound)===canonical(input)),'Model refinement must be bound in receipt inputs');
     const recipe=receipt.recipe;assert(recipe&&typeof recipe.id==='string'&&recipe.id.length&&((Number.isSafeInteger(recipe.version)&&recipe.version>0)||(typeof recipe.version==='string'&&recipe.version.length>0&&recipe.version.length<80)),'Receipt needs a versioned recipe');
     recordBytes(root,recipe,'recipe');assert(inputs.some(i=>i.path===recipe.path&&i.sha256===recipe.sha256),'Recipe hash must be bound in inputs');
     recordBytes(root,receipt.materialPlan,'material plan');assert(inputs.some(i=>i.path===receipt.materialPlan.path&&i.sha256===receipt.materialPlan.sha256),'Material plan hash must be bound in inputs');
@@ -439,11 +512,14 @@ export function inspectCandidate(root,item,receipt) {
     same(candidate.animationContract,baseline.animationContract,'Authored animation channels or values changed');same(candidate.skinContract,baseline.skinContract,'Authored skin/joint contract changed');
     for(const ext of baseline.document.extensionsRequired??[])assert(candidate.document.extensionsRequired?.includes(ext),'Required baseline extension removed');
     if(item.id.endsWith('-aquarium'))checkAquarium(baseline,candidate,receipt);
-    checkMaterials(baseline,candidate,receipt,root,inputs);
+    const uvRepairs=checkMaterials(baseline,candidate,receipt,root,inputs,item);
     const budgets=budgetsFor(item,receipt,baseline),uniqueImages=[...new Map(candidate.images.map(i=>[i.sha256,i])).values()];
     const costs={triangles:candidate.triangles,primitives:candidate.primitives,glbBytes:candidate.bytes,textureBytes:uniqueImages.reduce((s,i)=>s+i.bytes,0),texturePixels:uniqueImages.reduce((s,i)=>s+i.width*i.height,0)};
     for(const [key,cost] of Object.entries(costs))assert(cost<=budgets['max'+key[0].toUpperCase()+key.slice(1)],`Candidate ${key} budget exceeded`);
-    stats.improvementDetected=semanticTriangleHash(candidate)!==semanticTriangleHash(baseline)||appearanceSignature(candidate)!==appearanceSignature(baseline);
+    // Correcting invalid historical metadata alone is not a model improvement.
+    const comparableBaseline=uvRepairs.size?{...baseline,document:structuredClone(baseline.document)}:baseline;
+    for(const material of comparableBaseline.document.materials){const repaired=uvRepairs.get(material.name+'/baseColor');if(repaired)material.pbrMetallicRoughness.baseColorTexture=repaired;}
+    stats.improvementDetected=semanticTriangleHash(candidate)!==semanticTriangleHash(comparableBaseline)||appearanceSignature(candidate)!==appearanceSignature(comparableBaseline);
     assert(stats.improvementDetected,'Candidate model is semantically unchanged; processing is not improvement');
     assert(Array.isArray(receipt.changes)&&receipt.changes.length>0&&receipt.changes.length<=256&&receipt.changes.every(c=>typeof c.kind==='string'&&c.kind.trim().length>0),'Receipt requires explicit authored changes');
     assert(Array.isArray(receipt.renders)&&receipt.renders.length<=32,'Receipt requires a bounded renders list');const views=new Set();

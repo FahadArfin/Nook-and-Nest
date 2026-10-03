@@ -440,14 +440,26 @@ def pillow_welt_attachment(name, pair, section_radius):
             'surfaceOffsetM': min(.001, section_radius * .35)}
 
 
-def _conform_tailoring(objects, pairs, material_keys, object_names, envelope):
+def armchair_seat_welt_attachment(catalog_id, name, pair, section_radius):
+    """Seat the inspected 24-ring chair loop, whose old centers sit 15.13 mm deep."""
+    expected = {'min': [-.3668403625488281, -.4099999964237213, .4034629762172699],
+                'max': [.3668403625488281, .33591151237487793, .5245018005371094]}
+    if (catalog_id != 'armchair' or _norm(name) != 'seat_double_welt'
+            or _norm(pair['component']) != 'tailored_seat_cushion'
+            or bounds_delta(pair['bounds'], expected) > TOLERANCE
+            or not .001 <= section_radius <= .004):
+        return None
+    return {'sourceDistanceLimitM': .020, 'surfaceOffsetM': min(.001, section_radius * .35)}
+
+
+def _conform_tailoring(objects, pairs, material_keys, object_names, envelope, catalog_id=None):
     """Transport existing thin trim sections onto their exact matching cover.
 
     Rigid local sections retain the tube radius and old signed surface offset;
     projecting every tube vertex independently would flatten its cross-section.
     A combined stitch mesh is matched per short connected stitch, never assigned
-    wholesale to one cushion. Pillow-only long spans gain interpolated section
-    loops first; other trim changes only positions, with original topology/UV.
+    wholesale to one cushion. Reviewed pillow and exact armchair long spans gain
+    interpolated loops; other trim retains its original topology and UVs.
     """
     import bpy
     from mathutils import Vector
@@ -462,7 +474,12 @@ def _conform_tailoring(objects, pairs, material_keys, object_names, envelope):
         original_bounds = point_bounds(world)
         source_before, subdivision = None, None
         eligible_pairs = trim_candidate_indices(name, original_bounds, pairs)
-        if any(pillow_welt_attachment(name, pairs[i], .0025) for i in eligible_pairs):
+        exact_seat = any(armchair_seat_welt_attachment(catalog_id, name, pairs[i], .0025) for i in eligible_pairs)
+        if exact_seat:
+            keys = [material_keys.get(mat.name, mat.name) for mat in obj.data.materials if mat]
+            if len(world) != 192 or keys != ['modern-tailored-welting']:
+                raise ValueError('Armchair seat piping differs from its inspected source contract')
+        if exact_seat or any(pillow_welt_attachment(name, pairs[i], .0025) for i in eligible_pairs):
             source_before = _snapshot(obj)
             subdivision = _densify_pillow_welt(obj)
             world = [obj.matrix_world @ v.co for v in obj.data.vertices]
@@ -470,6 +487,7 @@ def _conform_tailoring(objects, pairs, material_keys, object_names, envelope):
         result = [p.copy() for p in world]
         matched, matched_groups, skipped_groups, largest_move = {}, 0, 0, 0.
         pillow_sections, largest_source_distance, pillow_offsets = 0, 0., []
+        seat_sections, seat_source_distance, seat_offsets = 0, 0., []
         for group in groups:
             group_bounds = point_bounds([world[i] for i in group])
             if max(group_bounds['size']) > .016:
@@ -482,7 +500,9 @@ def _conform_tailoring(objects, pairs, material_keys, object_names, envelope):
                 hit = pairs[index]['old'].find_nearest(center)
                 radius = max((world[i] - center).length for i in group)
                 pillow = pillow_welt_attachment(name, pairs[index], radius)
-                limit = pillow['sourceDistanceLimitM'] if pillow else .014
+                seat = armchair_seat_welt_attachment(catalog_id, name, pairs[index], radius)
+                attachment = pillow or seat
+                limit = attachment['sourceDistanceLimitM'] if attachment else .014
                 if hit[0] is not None and hit[3] <= limit:
                     candidates.append((hit[3], index, hit))
             if not candidates:
@@ -508,11 +528,17 @@ def _conform_tailoring(objects, pairs, material_keys, object_names, envelope):
             # outside the surface: the inner part overlaps the sewn cover.
             radius = max(abs((world[i] - center).dot(old_normal)) for i in group)
             pillow = pillow_welt_attachment(name, pair, radius)
+            seat = armchair_seat_welt_attachment(catalog_id, name, pair, radius)
             if pillow:
                 signed = pillow['surfaceOffsetM']
                 pillow_sections += 1
                 pillow_offsets.append(signed)
                 largest_source_distance = max(largest_source_distance, (center - old_point).length)
+            elif seat:
+                signed = seat['surfaceOffsetM']
+                seat_sections += 1
+                seat_offsets.append(signed)
+                seat_source_distance = max(seat_source_distance, (center - old_point).length)
             new_center = new_point + new_normal * signed
             rotation = old_normal.rotation_difference(new_normal)
             transported = [new_center + rotation @ (world[i] - center) for i in group]
@@ -527,11 +553,13 @@ def _conform_tailoring(objects, pairs, material_keys, object_names, envelope):
             matched[pair['component']] = matched.get(pair['component'], 0) + len(group)
             matched_groups += 1
         if not matched_groups or largest_move < 1e-7:
-            if subdivision:
-                raise ValueError('Densified pillow piping was not attached to its cover: ' + name)
+            if subdivision or exact_seat:
+                raise ValueError('Densified piping was not attached to its cover: ' + name)
             continue
-        if subdivision and skipped_groups:
-            raise ValueError('Pillow piping left unmatched sections after subdivision: ' + name)
+        if (subdivision or exact_seat) and skipped_groups:
+            raise ValueError('Reviewed piping left unmatched sections after subdivision: ' + name)
+        if exact_seat and seat_sections != len(groups):
+            raise ValueError('Armchair piping was not continuously seated on its exact cover')
         ratios = []
         for edge in obj.data.edges:
             a, b = edge.vertices
@@ -556,6 +584,8 @@ def _conform_tailoring(objects, pairs, material_keys, object_names, envelope):
                             'maxDisplacementM': largest_move, 'edgeLengthRatioRange': [min(ratios), max(ratios)] if ratios else [],
                             'pillowAttachment': {'seatedSections': pillow_sections, 'maxOriginalSurfaceDistanceM': largest_source_distance,
                                                  'surfaceOffsetRangeM': [min(pillow_offsets), max(pillow_offsets)] if pillow_offsets else []},
+                            'seatAttachment': {'seatedSections': seat_sections, 'maxOriginalSurfaceDistanceM': seat_source_distance,
+                                               'surfaceOffsetRangeM': [min(seat_offsets), max(seat_offsets)] if seat_offsets else []},
                             'topologyRefinement': subdivision,
                             'preservedChannels': (['material keys', 'UV layers with subdivision interpolation', 'thin section radius'] if subdivision
                                                   else ['topology', 'material keys', 'UV layers', 'thin section radius']), **evidence})
@@ -733,7 +763,7 @@ def apply(root, scene, item, material_keys, object_names):
             record = _refine_pad(root, scene, obj, kind, index, material_keys, name, surface_pairs)
             if record:
                 changes.append(record); padded_ids.add(obj.as_pointer())
-    changes.extend(_conform_tailoring(objects, surface_pairs, material_keys, object_names, envelope))
+    changes.extend(_conform_tailoring(objects, surface_pairs, material_keys, object_names, envelope, catalog_id))
     for obj in objects:
         if obj.as_pointer() in padded_ids or _protected(obj) or _optical_or_art(obj, material_keys):
             continue

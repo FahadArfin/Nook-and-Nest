@@ -8,6 +8,7 @@
  * betaHosting:{path,sha256}, libraryHandler:{path,sha256},
  * betaApp:{root,inventory:{path,sha256},provenance:{path,sha256}},
  * featureApp:{root,inventory:{path,sha256},provenance:{path,sha256}},
+ * featureSource:{path,sha256},
  * candidateR2Verification?:{path,sha256}, output:'.generated/catalog-realism-beta/NAME'}.
  * Paths are relative to the feature root, or absolute read-only input paths.
  * App inventories are {files:{'client/index.html':{sha256,size},...}}; their
@@ -25,6 +26,7 @@ import {readFileSync,writeFileSync,mkdirSync,copyFileSync,readdirSync,lstatSync,
 import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 import {createGzip} from 'node:zlib';
 import {Readable} from 'node:stream';
 import {pipeline} from 'node:stream/promises';
@@ -97,6 +99,15 @@ export function catalogCacheRevision(catalogSha256,commit) {
   assert(HASH.test(catalogSha256)&&COMMIT.test(commit),'Invalid catalog cache identity');
   return sha(`${catalogSha256}\n${commit}`);
 }
+export function validateFeatureCheckout(checkout,commit) {
+  assert.equal(checkout.head,commit,'Selected feature HEAD differs');
+  assert.equal(checkout.branch,'codex/catalog-realism-overhaul','Catalog feature branch required');
+  assert.equal(checkout.status,'','Feature checkout must be clean');
+}
+export function assertCleanFeatureHead(root,commit) {
+  const git=(...args)=>execFileSync('git',args,{cwd:root,encoding:'utf8'}).trim();
+  validateFeatureCheckout({head:git('rev-parse','HEAD'),branch:git('branch','--show-current'),status:git('status','--porcelain')},commit);
+}
 export function validateAppProvenance(provenance,commit,catalogSha256,final=false) {
   assert.equal(provenance.commit_sha,commit,'App artifact source commit differs');
   assert(provenance.validation?.check==='Validate'&&provenance.validation.conclusion==='success','App artifact requires successful Validate evidence');
@@ -105,6 +116,11 @@ export function validateAppProvenance(provenance,commit,catalogSha256,final=fals
   assert(typeof provenance.validation.run_id==='string'&&provenance.validation.run_id.length>0,'App Validate run ID missing');
   assert(HASH.test(provenance.inventorySha256),'App inventory SHA256 missing');
   if(final)assert(provenance.cacheOverlay?.decision==='validated'&&provenance.cacheOverlay.query===`catalog_realism=${revision}`,'Final model URL cache overlay validation missing');
+  if(final){
+    const check=provenance.validation;
+    assert(check.event==='pull_request'&&check.repository==='FahadArfin/Nook-and-Nest'&&check.head_ref==='codex/catalog-realism-overhaul'&&check.source_sha===commit&&COMMIT.test(check.validated_sha)&&Number.isSafeInteger(check.pr_number)&&check.pr_number>0,'Final app must distinguish feature HEAD from successful PR merge Validate evidence');
+    assert(HASH.test(provenance.sourceArchive?.sha256)&&provenance.sourceArchive.path==='sites-source.tar.gz','Exact feature source archive binding missing');
+  }
 }
 export function verifyFinalAppSourceInputs(root,inputs) {
   assert(Array.isArray(inputs),'Final app cache/color source input bindings missing');
@@ -173,16 +189,18 @@ export function betaWorkerSource(mode,manifest) {
 
 export async function buildCatalogRealismBeta(root,plan) {
   const catalog=JSON.parse(readBound(root,plan.catalog,'Frozen catalog'));validateReleaseIdentity(plan,catalog);
+  assertCleanFeatureHead(root,plan.featureCommit);
   // There is deliberately no partial/pilot/skip-review mode in the release path.
   const ready=requireCatalogReady(root,catalog);
   const activeBytes=readBound(root,plan.activeManifest,'Active Beta manifest'),active=JSON.parse(activeBytes);validateAssetManifest(active);
   verifyR2Receipt(JSON.parse(readBound(root,plan.activeR2Verification,'Active Beta R2 verification')),activeBytes);
-  const candidates=JSON.parse(readBound(root,plan.reviewedManifest,'Reviewed optimized candidates'));
+  const candidateBytes=readBound(root,plan.reviewedManifest,'Reviewed optimized candidates'),candidates=JSON.parse(candidateBytes);
   const assetRoot=await verifyReviewedAssets(root,plan,catalog,ready,candidates);
   const uploadManifest={schema:1,assets:Object.fromEntries(Object.entries(candidates.assets).map(([name,record])=>[stagePrefix(plan.featureCommit)+name,record]))};
   const uploadBytes=jsonBytes(uploadManifest);
   if(plan.mode==='final')verifyR2Receipt(JSON.parse(readBound(root,plan.candidateR2Verification,'Candidate R2 verification')),uploadBytes);
-  const beta=appInput(root,plan.betaApp,plan.betaSourceCommit,catalog.catalogSha256),app=plan.mode==='staging'?beta:appInput(root,plan.featureApp,plan.featureCommit,catalog.catalogSha256,true);
+  const beta=appInput(root,plan.betaApp,plan.betaSourceCommit,catalog.catalogSha256),feature=appInput(root,plan.featureApp,plan.featureCommit,catalog.catalogSha256,true),app=plan.mode==='staging'?beta:feature;
+  readBound(root,plan.featureSource,'Exact feature source archive');assert.equal(plan.featureSource.sha256,feature.provenance.sourceArchive.sha256,'Feature source archive differs from CI app provenance');
   const hostingBytes=readBound(root,plan.betaHosting,'Beta hosting'),hosting=JSON.parse(hostingBytes);assert(hosting.project_id===BETA_PROJECT&&hosting.d1==='DB'&&hosting.r2==='LIBRARY','Beta hosting bindings differ');
   const handler=readBound(root,plan.libraryHandler,'Existing Beta library handler');
   assert(typeof plan.output==='string'&&/^\.generated\/catalog-realism-beta\/[a-zA-Z0-9_-]+$/.test(plan.output),'Output must be a fresh private generated Beta directory');const output=resolveRepoPath(root,plan.output);assert(!existsSync(output),'Output exists; use a new immutable build directory');
@@ -199,6 +217,7 @@ export async function buildCatalogRealismBeta(root,plan) {
   const worker=betaWorkerSource(plan.mode,merged);
   writeFileSync(path.join(workerDir,'index.js'),worker);await bundle({entryPoints:[path.join(workerDir,'index.js')],outfile:path.join(dist,'server/index.js'),bundle:true,format:'esm',platform:'browser',target:'es2022'});
   writeFileSync(path.join(output,'library-manifest.json'),uploadBytes);writeFileSync(path.join(output,'worker-library-manifest.json'),jsonBytes(merged));
+  writeFileSync(path.join(output,'candidate-manifest.json'),candidateBytes);writeFileSync(path.join(output,'active-library-manifest.json'),activeBytes);
   // Uploader uses this root with the manifest's full feature-prefixed paths.
   const uploadRoot=path.join(output,'library');for(const name of Object.keys(candidates.assets))copyFile(resolveRepoPath(assetRoot,name.slice(1)),resolveRepoPath(output,'library'+stagePrefix(plan.featureCommit)+name));
   const planBytes=jsonBytes(plan);writeFileSync(path.join(output,'plan.json'),planBytes);
@@ -207,11 +226,17 @@ export async function buildCatalogRealismBeta(root,plan) {
   // release. Recheck the exact source/receipt and app snapshot at commit time.
   const current=requireCatalogReady(root,catalog);assert.equal(canonicalJson(current.results.map(r=>[r.id,r.artifactSetSha256])),canonicalJson(ready.results.map(r=>[r.id,r.artifactSetSha256])),'Reviewed catalog changed during packaging');
   const recheckRecords=value=>{if(!value||typeof value!=='object')return;if(typeof value.path==='string'&&HASH.test(value.sha256))readBound(root,value,'Release plan input');else for(const child of Object.values(value))recheckRecords(child);};recheckRecords(plan);
-  verifyArtifactInventory(beta.directory,beta.inventory);if(app!==beta)verifyArtifactInventory(app.directory,app.inventory);
-  if(plan.mode==='final')for(const input of app.provenance.cacheOverlay.sourceInputs)readBound(root,input,'Final app source input');
+  verifyArtifactInventory(beta.directory,beta.inventory);verifyArtifactInventory(feature.directory,feature.inventory);
+  for(const input of feature.provenance.cacheOverlay.sourceInputs)readBound(root,input,'Feature app source input');
   for(const [name,record] of Object.entries(uploadManifest.assets)){const bytes=readFileSync(resolveRepoPath(uploadRoot,name.slice(1)));assert.equal(sha(bytes),record.sha256,'Staged R2 asset changed during packaging');assert.equal(bytes.length,record.size,'Staged R2 asset size changed during packaging');}
   const artifact=await packageBetaArchive(dist,path.join(output,'sites-catalog-realism-beta.tar.gz'),{files:records});
-  const receipt={version:1,scope:'beta-only',mode:plan.mode,project_id:BETA_PROJECT,commit_sha:plan.featureCommit,beta_source_commit:plan.betaSourceCommit,catalogSha256:catalog.catalogSha256,planSha256:sha(planBytes),appInventorySha256:app.provenance.inventorySha256,activeManifestSha256:sha(activeBytes),candidateManifestSha256:sha(uploadBytes),workerManifestSha256:sha(jsonBytes(merged)),catalogCount:ready.count,archive:artifact,uploadRoot,limitations:['Offline packaging does not establish deployment success. Publish and verify through the existing Beta project only.']};
+  const receipt={version:1,scope:'beta-only',mode:plan.mode,project_id:BETA_PROJECT,commit_sha:plan.featureCommit,beta_source_commit:plan.betaSourceCommit,catalogSha256:catalog.catalogSha256,planSha256:sha(planBytes),appInventorySha256:app.provenance.inventorySha256,artifactInventorySha256:sha(jsonBytes({files:records})),featureSourceSha256:plan.featureSource.sha256,activeManifestSha256:sha(activeBytes),reviewedManifestSha256:sha(candidateBytes),candidateManifestSha256:sha(uploadBytes),workerManifestSha256:sha(jsonBytes(merged)),catalogCount:ready.count,archive:artifact,uploadRoot,limitations:['Offline packaging does not establish deployment success. Publish and verify through the existing Beta project only.']};
+  writeFileSync(path.join(output,'source-context.json'),jsonBytes(receipt));
+  const python=process.env.PYTHON??(process.platform==='win32'?'python':'python3');
+  const sourceArchive=JSON.parse(execFileSync(python,[path.join(root,'scripts/catalog-realism-source.py'),'release','--source',boundPath(root,plan.featureSource.path),'--sha256',plan.featureSource.sha256,'--context',path.join(output,'source-context.json'),'--hosting',boundPath(root,plan.betaHosting.path),'--output',path.join(output,'sites-source.tar.gz')],{encoding:'utf8'}));
+  receipt.archives={'sites-catalog-realism-beta.tar.gz':artifact,'sites-source.tar.gz':sourceArchive};
+  recheckRecords(plan);verifyArtifactInventory(dist,{files:records});
+  assertCleanFeatureHead(root,plan.featureCommit);
   writeFileSync(path.join(output,'release.json'),jsonBytes(receipt));return receipt;
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href){assert(process.argv.length===3,'Pass the reviewed Beta release plan JSON path');const root=fileURLToPath(new URL('../',import.meta.url));const plan=JSON.parse(readFileSync(boundPath(root,process.argv[2]),'utf8'));console.log(JSON.stringify(await buildCatalogRealismBeta(root,plan),null,2));}
