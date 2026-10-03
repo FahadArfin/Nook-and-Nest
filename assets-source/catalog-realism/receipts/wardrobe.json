@@ -1,0 +1,2390 @@
+{
+  "version": 1,
+  "catalogId": "wardrobe",
+  "inputContractSha256": "e49070aa287ecb2c8e6c915ea1ff28d1860329826c40a3d83e2c8cccbfe6a308",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/wardrobe.blend",
+      "sha256": "13322c2bb68092443f269398e7ebd5094572fdfc77a2649ec769cf1132b09660",
+      "bytes": 143033
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/wardrobe.glb",
+      "sha256": "a73dfa89cdeef0aa7c6c426c546f88a2e4b00d25849fcbf47d2e696964e563cf",
+      "bytes": 235444
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/wardrobe.blend",
+      "sha256": "13322c2bb68092443f269398e7ebd5094572fdfc77a2649ec769cf1132b09660",
+      "bytes": 143033
+    },
+    {
+      "path": "public/models/furniture/wardrobe.glb",
+      "sha256": "a73dfa89cdeef0aa7c6c426c546f88a2e4b00d25849fcbf47d2e696964e563cf",
+      "bytes": 235444
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.5702499852180481,
+          -0.17709291219711304,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            -0.5809999752044678,
+            -0.17959291219711304,
+            0.5202499942779542
+          ],
+          "max": [
+            -0.5594999952316285,
+            -0.17459291219711304,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "7437cc592ed00fcabc6e5711b7f147e25d56767b7d946e122fd482891ad25245",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.5809999704360962,
+            -0.17959290742874146,
+            0.5202500224113464
+          ],
+          "max": [
+            -0.559499979019165,
+            -0.17459291219711304,
+            0.5252500176429749
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.5702499852180481,
+          0.20806989312171936,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            -0.5809999752044678,
+            0.20556989312171936,
+            0.5202499942779542
+          ],
+          "max": [
+            -0.5594999952316285,
+            0.21056989312171936,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "fe957666f8feb22505932ba1501665d7af8f0b5870be01fe484fa44ff0e4ad9a",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.5809999704360962,
+            0.20556989312171936,
+            0.5202500224113464
+          ],
+          "max": [
+            -0.559499979019165,
+            0.21056988835334778,
+            0.5252500176429749
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.01224999338015914,
+          -0.17709291219711304,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            -0.02049998714774847,
+            -0.17959291219711304,
+            0.5202499942779542
+          ],
+          "max": [
+            -0.00399999961256981,
+            -0.17459291219711304,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "277b2c23b560cee3a1b4c88b3bddcf0931290276e66c29151308c19ade993e2a",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.02049998752772808,
+            -0.17959290742874146,
+            0.5202500224113464
+          ],
+          "max": [
+            -0.003999999724328518,
+            -0.17459291219711304,
+            0.5252500176429749
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.01224999338015914,
+          0.20806989312171936,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            -0.02049998714774847,
+            0.20556989312171936,
+            0.5202499942779542
+          ],
+          "max": [
+            -0.00399999961256981,
+            0.21056989312171936,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "98e83a7ecee39c4a1fe84c987f74de692247f9ea8e0334c4d887f6d6ee59082a",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.02049998752772808,
+            0.20556989312171936,
+            0.5202500224113464
+          ],
+          "max": [
+            -0.003999999724328518,
+            0.21056988835334778,
+            0.5252500176429749
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.5702499852180481,
+          -0.17709291219711304,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            -0.5809999752044678,
+            -0.17959291219711304,
+            0.9640000181198121
+          ],
+          "max": [
+            -0.5594999952316285,
+            -0.17459291219711304,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "437754ea34a25a31090ed39f7d46943053b069fc09e7720372d4d31011233123",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.5809999704360962,
+            -0.17959290742874146,
+            0.9640000462532043
+          ],
+          "max": [
+            -0.559499979019165,
+            -0.17459291219711304,
+            0.9690000414848328
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.5702499852180481,
+          0.20806989312171936,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            -0.5809999752044678,
+            0.20556989312171936,
+            0.9640000181198121
+          ],
+          "max": [
+            -0.5594999952316285,
+            0.21056989312171936,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "0aa610a6c943e35f531b97f7a97a878dd2033ea39d245c426d982a549cdc40ab",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.5809999704360962,
+            0.20556989312171936,
+            0.9640000462532043
+          ],
+          "max": [
+            -0.559499979019165,
+            0.21056988835334778,
+            0.9690000414848328
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.01224999338015914,
+          -0.17709291219711304,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            -0.02049998714774847,
+            -0.17959291219711304,
+            0.9640000181198121
+          ],
+          "max": [
+            -0.00399999961256981,
+            -0.17459291219711304,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "e0dc29ec1e9d56641fc4de66107ccd64f32b6fd6c41a8dfc8eb66a54919fae9e",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.02049998752772808,
+            -0.17959290742874146,
+            0.9640000462532043
+          ],
+          "max": [
+            -0.003999999724328518,
+            -0.17459291219711304,
+            0.9690000414848328
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.01224999338015914,
+          0.20806989312171936,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            -0.02049998714774847,
+            0.20556989312171936,
+            0.9640000181198121
+          ],
+          "max": [
+            -0.00399999961256981,
+            0.21056989312171936,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "663d9d18dafaf92ea73beb247a68e322bb497e8116a66ea155fedaa8c1d32582",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.02049998752772808,
+            0.20556989312171936,
+            0.9640000462532043
+          ],
+          "max": [
+            -0.003999999724328518,
+            0.21056988835334778,
+            0.9690000414848328
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.5702499852180481,
+          -0.17709291219711304,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            -0.5809999752044678,
+            -0.17959291219711304,
+            1.40775004196167
+          ],
+          "max": [
+            -0.5594999952316285,
+            -0.17459291219711304,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "087201575641780df98e27f9dc84f50706c8d6160474a8a60062da5df5b7c0fc",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.5809999704360962,
+            -0.17959290742874146,
+            1.4077500104904175
+          ],
+          "max": [
+            -0.559499979019165,
+            -0.17459291219711304,
+            1.412750005722046
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.5702499852180481,
+          0.20806989312171936,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            -0.5809999752044678,
+            0.20556989312171936,
+            1.40775004196167
+          ],
+          "max": [
+            -0.5594999952316285,
+            0.21056989312171936,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "0ee3acc22322c4282d9755a7b827aceba4012d4f2bb53bc02eb3864538ce851d",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.5809999704360962,
+            0.20556989312171936,
+            1.4077500104904175
+          ],
+          "max": [
+            -0.559499979019165,
+            0.21056988835334778,
+            1.412750005722046
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.01224999338015914,
+          -0.17709291219711304,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            -0.02049998714774847,
+            -0.17959291219711304,
+            1.40775004196167
+          ],
+          "max": [
+            -0.00399999961256981,
+            -0.17459291219711304,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "ce1495e9b361552f50a4df6cc15749fb2ec15195550179dc00174126c593383b",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.02049998752772808,
+            -0.17959290742874146,
+            1.4077500104904175
+          ],
+          "max": [
+            -0.003999999724328518,
+            -0.17459291219711304,
+            1.412750005722046
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.01224999338015914,
+          0.20806989312171936,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            -0.02049998714774847,
+            0.20556989312171936,
+            1.40775004196167
+          ],
+          "max": [
+            -0.00399999961256981,
+            0.21056989312171936,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "f5d9381b82166a75c0f8238cb45af954cb5ee30e18725208e8a746d9fe3f3985",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.02049998752772808,
+            0.20556989312171936,
+            1.4077500104904175
+          ],
+          "max": [
+            -0.003999999724328518,
+            0.21056988835334778,
+            1.412750005722046
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.003",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.003 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.01224999338015914,
+          -0.17709291219711304,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            0.00399999961256981,
+            -0.17959291219711304,
+            0.5202499942779542
+          ],
+          "max": [
+            0.02049998714774847,
+            -0.17459291219711304,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "e105dde70a46fcdb1cb8ab63e3aaed1d9a28fcc471d3b70fddc3b0da5925439b",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.003999999724328518,
+            -0.17959290742874146,
+            0.5202500224113464
+          ],
+          "max": [
+            0.02049998752772808,
+            -0.17459291219711304,
+            0.5252500176429749
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.003",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.003 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.01224999338015914,
+          0.20806989312171936,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            0.00399999961256981,
+            0.20556989312171936,
+            0.5202499942779542
+          ],
+          "max": [
+            0.02049998714774847,
+            0.21056989312171936,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "f33370101e0ad896b7820a7e1f4126b692641b69785864c2605108fa3d7a58e3",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.003999999724328518,
+            0.20556989312171936,
+            0.5202500224113464
+          ],
+          "max": [
+            0.02049998752772808,
+            0.21056988835334778,
+            0.5252500176429749
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.003",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.003 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.5702499852180481,
+          -0.17709291219711304,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            0.5594999952316285,
+            -0.17959291219711304,
+            0.5202499942779542
+          ],
+          "max": [
+            0.5809999752044678,
+            -0.17459291219711304,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "ae66c8ad427e58abe392dc3adbd41140b08cb377bb8f8a25b2421004699c23bd",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.559499979019165,
+            -0.17959290742874146,
+            0.5202500224113464
+          ],
+          "max": [
+            0.5809999704360962,
+            -0.17459291219711304,
+            0.5252500176429749
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.003",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.003 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.5702499852180481,
+          0.20806989312171936,
+          0.5227499942779541
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            0.5594999952316285,
+            0.20556989312171936,
+            0.5202499942779542
+          ],
+          "max": [
+            0.5809999752044678,
+            0.21056989312171936,
+            0.525249994277954
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "bcbcf170e5402c7c8910af586c2e2794ce08301910e4d700aaae2d4041df6349",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.559499979019165,
+            0.20556989312171936,
+            0.5202500224113464
+          ],
+          "max": [
+            0.5809999704360962,
+            0.21056988835334778,
+            0.5252500176429749
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.004",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.004 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.01224999338015914,
+          -0.17709291219711304,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            0.00399999961256981,
+            -0.17959291219711304,
+            0.9640000181198121
+          ],
+          "max": [
+            0.02049998714774847,
+            -0.17459291219711304,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "f7371e695d2faa1c58e4b39f36b025e2dc594fd87599df35e92d807f69b70bd7",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.003999999724328518,
+            -0.17959290742874146,
+            0.9640000462532043
+          ],
+          "max": [
+            0.02049998752772808,
+            -0.17459291219711304,
+            0.9690000414848328
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.004",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.004 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.01224999338015914,
+          0.20806989312171936,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            0.00399999961256981,
+            0.20556989312171936,
+            0.9640000181198121
+          ],
+          "max": [
+            0.02049998714774847,
+            0.21056989312171936,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "021b2bcaa8f2ddbaead067e3f436359c26d617916848f09b6d67dab38a5ce5c9",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.003999999724328518,
+            0.20556989312171936,
+            0.9640000462532043
+          ],
+          "max": [
+            0.02049998752772808,
+            0.21056988835334778,
+            0.9690000414848328
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.004",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.004 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.5702499852180481,
+          -0.17709291219711304,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            0.5594999952316285,
+            -0.17959291219711304,
+            0.9640000181198121
+          ],
+          "max": [
+            0.5809999752044678,
+            -0.17459291219711304,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "1c3570a0c649ba8291252fcee9d288aae325f8bd50da86792b46632cbb10c27c",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.559499979019165,
+            -0.17959290742874146,
+            0.9640000462532043
+          ],
+          "max": [
+            0.5809999704360962,
+            -0.17459291219711304,
+            0.9690000414848328
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.004",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.004 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.5702499852180481,
+          0.20806989312171936,
+          0.966500018119812
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            0.5594999952316285,
+            0.20556989312171936,
+            0.9640000181198121
+          ],
+          "max": [
+            0.5809999752044678,
+            0.21056989312171936,
+            0.969000018119812
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "f648eeffbd7548e22717e5db5ab91a416c394f4480f415f723857ec33d73acb2",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.559499979019165,
+            0.20556989312171936,
+            0.9640000462532043
+          ],
+          "max": [
+            0.5809999704360962,
+            0.21056988835334778,
+            0.9690000414848328
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.005",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.005 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.01224999338015914,
+          -0.17709291219711304,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            0.00399999961256981,
+            -0.17959291219711304,
+            1.40775004196167
+          ],
+          "max": [
+            0.02049998714774847,
+            -0.17459291219711304,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "898f853afc1fce1f6e187720553492d68c04e53691060171abe9b09b6020a146",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.003999999724328518,
+            -0.17959290742874146,
+            1.4077500104904175
+          ],
+          "max": [
+            0.02049998752772808,
+            -0.17459291219711304,
+            1.412750005722046
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.005",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.005 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.01224999338015914,
+          0.20806989312171936,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.01649998753517866,
+        "bounds": {
+          "min": [
+            0.00399999961256981,
+            0.20556989312171936,
+            1.40775004196167
+          ],
+          "max": [
+            0.02049998714774847,
+            0.21056989312171936,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "e0ae67d697f1d60d1c0e4d173c52cb0f1391a714ec4bc64519ac523839adfe87",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.003999999724328518,
+            0.20556989312171936,
+            1.4077500104904175
+          ],
+          "max": [
+            0.02049998752772808,
+            0.21056988835334778,
+            1.412750005722046
+          ],
+          "size": [
+            0.016499987803399563,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.005",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.005 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.5702499852180481,
+          -0.17709291219711304,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            0.5594999952316285,
+            -0.17959291219711304,
+            1.40775004196167
+          ],
+          "max": [
+            0.5809999752044678,
+            -0.17459291219711304,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "18fb52835329625fb08ab261deb79cad690450f370c78c1773478864ebae2a02",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.559499979019165,
+            -0.17959290742874146,
+            1.4077500104904175
+          ],
+          "max": [
+            0.5809999704360962,
+            -0.17459291219711304,
+            1.412750005722046
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.005",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.005 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.5702499852180481,
+          0.20806989312171936,
+          1.41025004196167
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.021499979972839353,
+        "bounds": {
+          "min": [
+            0.5594999952316285,
+            0.20556989312171936,
+            1.40775004196167
+          ],
+          "max": [
+            0.5809999752044678,
+            0.21056989312171936,
+            1.4127500419616699
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "daf140cf46ec4dced48920c906ffc5808b8a4e6c0a58e30c79c00f18168b4d28",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.559499979019165,
+            0.20556989312171936,
+            1.4077500104904175
+          ],
+          "max": [
+            0.5809999704360962,
+            0.21056988835334778,
+            1.412750005722046
+          ],
+          "size": [
+            0.021499991416931152,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-recess-charcoal",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1526928,
+    "afterBytes": 1526928,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/wardrobe.blend",
+      "sha256": "643cee0d997b56cd4e766b473546912386e3bd17c81d967b3028fbc9981626f4",
+      "bytes": 1376861
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/wardrobe.glb",
+      "sha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "bytes": 1526928
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/wardrobe/front-274014cb3b00a39d6604.webp",
+      "sha256": "274014cb3b00a39d66046a46fcecf02b0c0435bd3f8f294f00b044acc0d55464",
+      "bytes": 63928,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.776,
+      "camera": {
+        "orthoScale": 3.375317096710205,
+        "position": [
+          3.5365843772888184,
+          -5.8943071365356445,
+          4.191868782043457
+        ],
+        "target": [
+          0,
+          0,
+          0.949999988079071
+        ],
+        "clipStart": 0.0019000000320374966,
+        "clipEnd": 22.799999237060547,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.30184245109558105,
+            0.06521742045879364
+          ],
+          "max": [
+            0.698157548904419,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "renderConfigSha256": "8fabb88df04065313af45e1aff3e6df34433247ed8554616c26ecd47bb95024f",
+      "inputSetSha256": "3a1ecbf7c57f356132d600495eae45f123338a9a60e7910a0ff6038a7d9e763a"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/wardrobe/rear-b0bb89abe7579cad03e8.webp",
+      "sha256": "b0bb89abe7579cad03e87c6cc2680a824d486a7fa07881895fc3534acd6c5182",
+      "bytes": 52082,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.77,
+      "camera": {
+        "orthoScale": 3.375316619873047,
+        "position": [
+          -3.5365843772888184,
+          5.8943071365356445,
+          4.191868782043457
+        ],
+        "target": [
+          0,
+          0,
+          0.949999988079071
+        ],
+        "clipStart": 0.0019000000320374966,
+        "clipEnd": 22.799999237060547,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.30184242129325867,
+            0.06521739065647125
+          ],
+          "max": [
+            0.698157548904419,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "renderConfigSha256": "8fabb88df04065313af45e1aff3e6df34433247ed8554616c26ecd47bb95024f",
+      "inputSetSha256": "3a1ecbf7c57f356132d600495eae45f123338a9a60e7910a0ff6038a7d9e763a"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/wardrobe/detail-fd12fb99d5de7629cdaa.webp",
+      "sha256": "fd12fb99d5de7629cdaabd84cd4befac51ac5a29c3649a3cb30a41e844e77beb",
+      "bytes": 65752,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.801,
+      "camera": {
+        "orthoScale": 1.856425166130066,
+        "position": [
+          3.5365843772888184,
+          -5.8943071365356445,
+          4.191868782043457
+        ],
+        "target": [
+          0,
+          0,
+          0.949999988079071
+        ],
+        "clipStart": 0.0019000000320374966,
+        "clipEnd": 22.799999237060547,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.3018425405025482,
+            0.06521737575531006
+          ],
+          "max": [
+            0.6981574296951294,
+            0.9347817897796631
+          ]
+        }
+      },
+      "glbSha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "renderConfigSha256": "8fabb88df04065313af45e1aff3e6df34433247ed8554616c26ecd47bb95024f",
+      "inputSetSha256": "3a1ecbf7c57f356132d600495eae45f123338a9a60e7910a0ff6038a7d9e763a"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/wardrobe/underside-fb7dda0d62a2fe7f6f48.webp",
+      "sha256": "fb7dda0d62a2fe7f6f4876784bbc0ba1faec25c765706bb83d7856e6cea31447",
+      "bytes": 39300,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.685,
+      "camera": {
+        "orthoScale": 3.3845839500427246,
+        "position": [
+          3.4769673347473145,
+          -5.79494571685791,
+          -2.5269672870635986
+        ],
+        "target": [
+          0,
+          0,
+          0.949999988079071
+        ],
+        "clipStart": 0.0019000000320374966,
+        "clipEnd": 22.799999237060547,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3023849427700043,
+            0.06521736830472946
+          ],
+          "max": [
+            0.6976149082183838,
+            0.9347825050354004
+          ]
+        }
+      },
+      "glbSha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "renderConfigSha256": "8fabb88df04065313af45e1aff3e6df34433247ed8554616c26ecd47bb95024f",
+      "inputSetSha256": "3a1ecbf7c57f356132d600495eae45f123338a9a60e7910a0ff6038a7d9e763a"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/wardrobe/clay-80da2b45d258cc294f3c.webp",
+      "sha256": "80da2b45d258cc294f3c2893922d673e621029ee8705158b87efe784a032ea05",
+      "bytes": 56014,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.771,
+      "camera": {
+        "orthoScale": 3.375317096710205,
+        "position": [
+          3.5365843772888184,
+          -5.8943071365356445,
+          4.191868782043457
+        ],
+        "target": [
+          0,
+          0,
+          0.949999988079071
+        ],
+        "clipStart": 0.0019000000320374966,
+        "clipEnd": 22.799999237060547,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.30184245109558105,
+            0.06521742045879364
+          ],
+          "max": [
+            0.698157548904419,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "renderConfigSha256": "8fabb88df04065313af45e1aff3e6df34433247ed8554616c26ecd47bb95024f",
+      "inputSetSha256": "3a1ecbf7c57f356132d600495eae45f123338a9a60e7910a0ff6038a7d9e763a"
+    }
+  ],
+  "timingSeconds": 2.31,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.6000000238418579,
+          0.30000001192092896,
+          1.899999976158142
+        ],
+        "min": [
+          -0.6000000238418579,
+          -0.30000001192092896,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "renderImportSha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.6000000238418579,0.30000001192092896,1.899999976158142],\"min\":[-0.6000000238418579,-0.30000001192092896,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3\",\"renderImportSha256\":\"2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "8fabb88df04065313af45e1aff3e6df34433247ed8554616c26ecd47bb95024f",
+    "inputs": [
+      {
+        "path": "assets-source/blender/wardrobe.blend",
+        "sha256": "13322c2bb68092443f269398e7ebd5094572fdfc77a2649ec769cf1132b09660",
+        "bytes": 143033
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/wardrobe.blend",
+        "sha256": "643cee0d997b56cd4e766b473546912386e3bd17c81d967b3028fbc9981626f4",
+        "bytes": 1376861
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/wardrobe/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/wardrobe/wood-honey-textured-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/wardrobe.glb",
+        "sha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+        "bytes": 1526928
+      },
+      {
+        "path": "public/models/furniture/wardrobe.glb",
+        "sha256": "a73dfa89cdeef0aa7c6c426c546f88a2e4b00d25849fcbf47d2e696964e563cf",
+        "bytes": 235444
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-roughness.jpg",
+        "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+        "bytes": 464458
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "3a1ecbf7c57f356132d600495eae45f123338a9a60e7910a0ff6038a7d9e763a",
+    "afterSha256": "3a1ecbf7c57f356132d600495eae45f123338a9a60e7910a0ff6038a7d9e763a"
+  },
+  "formatValidation": {
+    "sha256": "2a22057d15c79dd996f505bbd76c2eb02d335866e92da72ef0c1281913d106f3",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 4,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "1a4d72a4a6c6215ced9eebe6beb4348af8acb669f1c4a0e4e9bbb3ce55d2518e",
+    "views": {
+      "front": "Six closed white fronts have narrow dark pulls.",
+      "rear": "Tall rear panel closes the cabinet body.",
+      "detail": "Fine front gaps separate the six storage compartments.",
+      "underside": "Dark plinth supports the enclosed base.",
+      "clay": "Upright cabinet silhouette and paired front divisions remain clear."
+    }
+  }
+}

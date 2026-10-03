@@ -1,0 +1,1367 @@
+{
+  "version": 1,
+  "catalogId": "cube-display-shelf",
+  "inputContractSha256": "37cd1878c8d68679cba1db58804fe9ce715707a0756cff21953bc41f1ce9bbec",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/cube-display-shelf.blend",
+      "sha256": "8f8862d2b77e2b4c79c7150d8cff9f9133b87852c7959ffa4e4fedd872c7ff8e",
+      "bytes": 106714
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/cube-display-shelf.glb",
+      "sha256": "4c39f38b6be70d539a816b8c71687f25c80ab40f65ab2a9a82246ab956f3b8e8",
+      "bytes": 347672
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/cube-display-shelf.blend",
+      "sha256": "8f8862d2b77e2b4c79c7150d8cff9f9133b87852c7959ffa4e4fedd872c7ff8e",
+      "bytes": 106714
+    },
+    {
+      "path": "public/models/furniture/cube-display-shelf.glb",
+      "sha256": "4c39f38b6be70d539a816b8c71687f25c80ab40f65ab2a9a82246ab956f3b8e8",
+      "bytes": 347672
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "variant-surface",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "variant-surface",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-oak-color.jpg",
+              "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+              "bytes": 284236
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-oak-normal.jpg",
+              "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+              "bytes": 159674
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-oak-orm.jpg",
+              "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+              "bytes": 813714
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-oak-color.jpg",
+            "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+            "bytes": 284236
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+          "materialKey": "wood-honey-textured",
+          "profile": "wood",
+          "family": "oak",
+          "repeatM": [
+            1.83,
+            1.83
+          ]
+        }
+      ],
+      "scanFamily": "oak"
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "variant-surface",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "baseColor",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "normal",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "orm",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "family": "oak",
+      "repeatM": [
+        1.83,
+        1.83
+      ],
+      "newSha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df"
+    }
+  ],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1783232,
+    "afterBytes": 1783232,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/cube-display-shelf.blend",
+      "sha256": "9605c21c9bebd515ff98c7ee78016bb0770693f231da9c1ef43edb18f5073999",
+      "bytes": 1757028
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/cube-display-shelf.glb",
+      "sha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+      "bytes": 1783232
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/cube-display-shelf/front-27b370eacb6089da3211.webp",
+      "sha256": "27b370eacb6089da3211d62b8d8ec4316a83727dac88e9736ddc32a7fcf9f612",
+      "bytes": 136196,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.801,
+      "camera": {
+        "orthoScale": 2.4767284393310547,
+        "position": [
+          2.4569954872131348,
+          -4.094992637634277,
+          2.912245988845825
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.0013200000394135714,
+        "clipEnd": 15.84000015258789,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2341030389070511,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7658969759941101,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+      "renderConfigSha256": "90756d221aeaaeacc07efa32a2c7e830a06b155804dcf94eab720d92e70536aa",
+      "inputSetSha256": "98b04f2a5b40211eaca68654b0748bc8a2a9132c96043daa106e7099f53a9bdd"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/cube-display-shelf/rear-0279bda2ac2eb8c9b7e4.webp",
+      "sha256": "0279bda2ac2eb8c9b7e445d66413bb9d5616c65f526708a88269653f743fad48",
+      "bytes": 90140,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.775,
+      "camera": {
+        "orthoScale": 2.4767282009124756,
+        "position": [
+          -2.4569954872131348,
+          4.094992637634277,
+          2.912245988845825
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.0013200000394135714,
+        "clipEnd": 15.84000015258789,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2341030240058899,
+            0.06521738320589066
+          ],
+          "max": [
+            0.7658970355987549,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+      "renderConfigSha256": "90756d221aeaaeacc07efa32a2c7e830a06b155804dcf94eab720d92e70536aa",
+      "inputSetSha256": "98b04f2a5b40211eaca68654b0748bc8a2a9132c96043daa106e7099f53a9bdd"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/cube-display-shelf/detail-3bb0b9d297558b97584f.webp",
+      "sha256": "3bb0b9d297558b97584ffc858409b71975536a672c523fde78059cdfa455aaea",
+      "bytes": 231276,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.848,
+      "camera": {
+        "orthoScale": 1.362201452255249,
+        "position": [
+          2.4569954872131348,
+          -4.094992637634277,
+          2.912245988845825
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.0013200000394135714,
+        "clipEnd": 15.84000015258789,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.23410320281982422,
+            0.06521738320589066
+          ],
+          "max": [
+            0.7658968567848206,
+            0.9347814917564392
+          ]
+        }
+      },
+      "glbSha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+      "renderConfigSha256": "90756d221aeaaeacc07efa32a2c7e830a06b155804dcf94eab720d92e70536aa",
+      "inputSetSha256": "98b04f2a5b40211eaca68654b0748bc8a2a9132c96043daa106e7099f53a9bdd"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/cube-display-shelf/underside-9094dfc61e29288160bb.webp",
+      "sha256": "9094dfc61e29288160bbf05478c64ed6c7a9c476d1dacfe37ab25bd097c0a5a1",
+      "bytes": 101470,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.708,
+      "camera": {
+        "orthoScale": 2.492722272872925,
+        "position": [
+          2.4155774116516113,
+          -4.0259623527526855,
+          -1.7555774450302124
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.0013200000394135714,
+        "clipEnd": 15.84000015258789,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.23580899834632874,
+            0.0652175098657608
+          ],
+          "max": [
+            0.7641907930374146,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+      "renderConfigSha256": "90756d221aeaaeacc07efa32a2c7e830a06b155804dcf94eab720d92e70536aa",
+      "inputSetSha256": "98b04f2a5b40211eaca68654b0748bc8a2a9132c96043daa106e7099f53a9bdd"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/cube-display-shelf/clay-fc9912a9be2baa1aa0da.webp",
+      "sha256": "fc9912a9be2baa1aa0da26d46a61b9a9834b911ff41fa59cc19b638b6199e7bc",
+      "bytes": 82602,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.792,
+      "camera": {
+        "orthoScale": 2.4767284393310547,
+        "position": [
+          2.4569954872131348,
+          -4.094992637634277,
+          2.912245988845825
+        ],
+        "target": [
+          0,
+          0,
+          0.6600000262260437
+        ],
+        "clipStart": 0.0013200000394135714,
+        "clipEnd": 15.84000015258789,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2341030389070511,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7658969759941101,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+      "renderConfigSha256": "90756d221aeaaeacc07efa32a2c7e830a06b155804dcf94eab720d92e70536aa",
+      "inputSetSha256": "98b04f2a5b40211eaca68654b0748bc8a2a9132c96043daa106e7099f53a9bdd"
+    }
+  ],
+  "timingSeconds": 0.78,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.6600000262260437,
+          0.18000000715255737,
+          1.3200000524520874
+        ],
+        "min": [
+          -0.6600000262260437,
+          -0.18000000715255737,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 1,
+          "materialKey": "variant-surface",
+          "rawGlbBaseColorFactor": [
+            0.5600000023841858,
+            0.6499999761581421,
+            0.44999998807907104,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+      "renderImportSha256": "43db730d99e3c6ab6d525c4e16066b143a8967e102a3aa9160469b4aa4cc85b9",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.6600000262260437,0.18000000715255737,1.3200000524520874],\"min\":[-0.6600000262260437,-0.18000000715255737,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":1,\"materialKey\":\"variant-surface\",\"rawGlbBaseColorFactor\":[0.5600000023841858,0.6499999761581421,0.44999998807907104,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7\",\"renderImportSha256\":\"43db730d99e3c6ab6d525c4e16066b143a8967e102a3aa9160469b4aa4cc85b9\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "90756d221aeaaeacc07efa32a2c7e830a06b155804dcf94eab720d92e70536aa",
+    "inputs": [
+      {
+        "path": "assets-source/blender/cube-display-shelf.blend",
+        "sha256": "8f8862d2b77e2b4c79c7150d8cff9f9133b87852c7959ffa4e4fedd872c7ff8e",
+        "bytes": 106714
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/cube-display-shelf.blend",
+        "sha256": "9605c21c9bebd515ff98c7ee78016bb0770693f231da9c1ef43edb18f5073999",
+        "bytes": 1757028
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cube-display-shelf/variant-surface-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cube-display-shelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-orm.png",
+        "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+        "bytes": 29345
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/cube-display-shelf.glb",
+        "sha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+        "bytes": 1783232
+      },
+      {
+        "path": "public/models/furniture/cube-display-shelf.glb",
+        "sha256": "4c39f38b6be70d539a816b8c71687f25c80ab40f65ab2a9a82246ab956f3b8e8",
+        "bytes": 347672
+      },
+      {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-orm.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "98b04f2a5b40211eaca68654b0748bc8a2a9132c96043daa106e7099f53a9bdd",
+    "afterSha256": "98b04f2a5b40211eaca68654b0748bc8a2a9132c96043daa106e7099f53a9bdd"
+  },
+  "formatValidation": {
+    "sha256": "4c85e71c707c593fcc8f78f60f0ca64591b2df9e232d091f1c38a7f9b9a737f7",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 3,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "87047eee71fc68104ba5b62db706aa635a547addeff63b6607a7451d02d5430f",
+    "views": {
+      "front": "Nine open cubbies form a clearly readable shelf.",
+      "rear": "Individual rear panels remain closed.",
+      "detail": "Wood grain follows visible panel directions and edges are eased.",
+      "underside": "Shelf bottoms and dividers meet the side panels.",
+      "clay": "Clay confirms actual cubby depth and solid partitions."
+    }
+  }
+}

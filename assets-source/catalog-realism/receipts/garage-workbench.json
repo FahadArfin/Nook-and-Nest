@@ -1,0 +1,1606 @@
+{
+  "version": 1,
+  "catalogId": "garage-workbench",
+  "inputContractSha256": "75f24ee6b27f64bddc803deb31c07a5963eefdbfdfe10f5a9a4bd81e58fd7e87",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/garage-workbench.blend",
+      "sha256": "71a1ab79a1a3a28aed42d94f85e3fd78303ebfbe7a91fe1fff2719f01f8d84be",
+      "bytes": 114314
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/garage-workbench.glb",
+      "sha256": "2e643b6e14b93f074df26b412956f895420ae05c82dcad35794af8385b21b750",
+      "bytes": 227388
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/garage-workbench.blend",
+      "sha256": "71a1ab79a1a3a28aed42d94f85e3fd78303ebfbe7a91fe1fff2719f01f8d84be",
+      "bytes": 114314
+    },
+    {
+      "path": "public/models/furniture/garage-workbench.glb",
+      "sha256": "2e643b6e14b93f074df26b412956f895420ae05c82dcad35794af8385b21b750",
+      "bytes": 227388
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+      "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+      "bytes": 32499
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "leveling foot screw",
+      "widthM": 0.000625347369350493,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e603bbb0681071e10d161fb603f25697b7e84bf7e5c6b2643012d65f51ea1bbf",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.7700000405311584,
+            -0.25200000405311584,
+            0.018010005354881287
+          ],
+          "max": [
+            -0.7440000176429749,
+            -0.22600001096725464,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "after": {
+        "sha256": "f3258e535f578cf47c54c10f62b014470c1b750d76f1003d464ff065c8b22d5a",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.7700000405311584,
+            -0.25200000405311584,
+            0.018010005354881287
+          ],
+          "max": [
+            -0.7440000176429749,
+            -0.22600001096725464,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "leveling foot screw.001",
+      "widthM": 0.000625347369350493,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "756d84569bd08daec3f5ce92a934412e682beebb7b59b765235f35af205fdef4",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.7700000405311584,
+            0.22600001096725464,
+            0.018010005354881287
+          ],
+          "max": [
+            -0.7440000176429749,
+            0.25200000405311584,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d3523842469c648f5f6afa458b0660c4282906c8b99b8f87d92f11266eb6c1d0",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.7700000405311584,
+            0.22600001096725464,
+            0.018010005354881287
+          ],
+          "max": [
+            -0.7440000176429749,
+            0.25200000405311584,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "leveling foot screw.002",
+      "widthM": 0.000625347369350493,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "27ccb08a980814de31aeffea8686bc7cadb15b47fb11e6c9331f6eb1b392b04f",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.7440000176429749,
+            -0.25200000405311584,
+            0.018010005354881287
+          ],
+          "max": [
+            0.7700000405311584,
+            -0.22600001096725464,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "after": {
+        "sha256": "30b788cf8cd629a519d43b0f12799ea8d142e47518365c23025fbab592a65add",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.7440000176429749,
+            -0.25200000405311584,
+            0.018010005354881287
+          ],
+          "max": [
+            0.7700000405311584,
+            -0.22600001096725464,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "leveling foot screw.003",
+      "widthM": 0.000625347369350493,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "643eb886fed029afa7a54df4dfc3e3bbead459b4063f7c452ee6ed2bc18e1113",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.7440000176429749,
+            0.22600001096725464,
+            0.018010005354881287
+          ],
+          "max": [
+            0.7700000405311584,
+            0.25200000405311584,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "after": {
+        "sha256": "b169862e7ea070792732c76f2a2421631fc9ca27edb236e5417a0e9924c05432",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.7440000176429749,
+            0.22600001096725464,
+            0.018010005354881287
+          ],
+          "max": [
+            0.7700000405311584,
+            0.25200000405311584,
+            0.04302389919757843
+          ],
+          "size": [
+            0.026000022888183594,
+            0.025999993085861206,
+            0.025013893842697144
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "maple-lamella",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "oiled-maple",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "rubber-gaskets",
+      "profile": "rubber",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "charcoal-details",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "maple-lamella",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "maple-lamella",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "maple-lamella",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "oiled-maple",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "oiled-maple",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "oiled-maple",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "rubber-gaskets",
+      "profile": "rubber",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "rubber-gaskets",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "rubber-gaskets",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+          "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+          "bytes": 32499,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "brushed-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "maple-lamella",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "maple-lamella",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "oiled-maple",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "oiled-maple",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "rubber-gaskets",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "rubber-gaskets",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-orm-ccb040239f1f42ae.png",
+      "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+      "bytes": 52138,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1663944,
+    "afterBytes": 1663944,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/garage-workbench.blend",
+      "sha256": "6ae9ab286cf2f3e115cde4d05c9d5cc8b74a7b3ccaedcc939f5ac91f7b62f0be",
+      "bytes": 1893613
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/garage-workbench.glb",
+      "sha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "bytes": 1663944
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/garage-workbench/front-6ab985c819b69117d36b.webp",
+      "sha256": "6ab985c819b69117d36b97ab7349ab538f6e6adbfbcda2e232430b5a80a69c6a",
+      "bytes": 87040,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.832,
+      "camera": {
+        "orthoScale": 2.2201132774353027,
+        "position": [
+          3.4062891006469727,
+          -5.677148818969727,
+          3.572431802749634
+        ],
+        "target": [
+          0,
+          0,
+          0.44999998807907104
+        ],
+        "clipStart": 0.0018300000810995698,
+        "clipEnd": 21.96000099182129,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.07301357388496399,
+            0.06521739810705185
+          ],
+          "max": [
+            0.9269866347312927,
+            0.9347816109657288
+          ]
+        }
+      },
+      "glbSha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "renderConfigSha256": "2a122d9ca4d37fc7be7149c56bf915a5d80d48195e86e55e1e1b2686ec464809",
+      "inputSetSha256": "9c87b5f29f0dddb2d3041f4bf73a007eceefcfcf9e4dc21a1a42d6219ec8a295"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/garage-workbench/rear-9f58c041b7b50c59fe01.webp",
+      "sha256": "9f58c041b7b50c59fe0150db192e7a5e33e4115a29d73aee17289ccc96dc2b91",
+      "bytes": 87824,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.87,
+      "camera": {
+        "orthoScale": 2.2201130390167236,
+        "position": [
+          -3.4062891006469727,
+          5.677148818969727,
+          3.572431802749634
+        ],
+        "target": [
+          0,
+          0,
+          0.44999998807907104
+        ],
+        "clipStart": 0.0018300000810995698,
+        "clipEnd": 21.96000099182129,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.07301358133554459,
+            0.06521740555763245
+          ],
+          "max": [
+            0.9269866347312927,
+            0.9347816705703735
+          ]
+        }
+      },
+      "glbSha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "renderConfigSha256": "2a122d9ca4d37fc7be7149c56bf915a5d80d48195e86e55e1e1b2686ec464809",
+      "inputSetSha256": "9c87b5f29f0dddb2d3041f4bf73a007eceefcfcf9e4dc21a1a42d6219ec8a295"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/garage-workbench/detail-9c203e91d0883c12c90c.webp",
+      "sha256": "9c203e91d0883c12c90c94a6a620bd7671b5c105fb718515099bc6f21ac13eb1",
+      "bytes": 94104,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.835,
+      "camera": {
+        "orthoScale": 1.221063494682312,
+        "position": [
+          3.4062891006469727,
+          -5.677148818969727,
+          3.572431802749634
+        ],
+        "target": [
+          0,
+          0,
+          0.44999998807907104
+        ],
+        "clipStart": 0.0018300000810995698,
+        "clipEnd": 21.96000099182129,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.07301408797502518,
+            0.06521740555763245
+          ],
+          "max": [
+            0.9269862771034241,
+            0.9347808361053467
+          ]
+        }
+      },
+      "glbSha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "renderConfigSha256": "2a122d9ca4d37fc7be7149c56bf915a5d80d48195e86e55e1e1b2686ec464809",
+      "inputSetSha256": "9c87b5f29f0dddb2d3041f4bf73a007eceefcfcf9e4dc21a1a42d6219ec8a295"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/garage-workbench/underside-bc621aac6f532b497442.webp",
+      "sha256": "bc621aac6f532b49744207c8d724a6c9cb6db3dcd5e0311cd28fe00bb12b876a",
+      "bytes": 63590,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.717,
+      "camera": {
+        "orthoScale": 2.2695560455322266,
+        "position": [
+          3.3488686084747314,
+          -5.581447601318359,
+          -2.8988687992095947
+        ],
+        "target": [
+          0,
+          0,
+          0.44999998807907104
+        ],
+        "clipStart": 0.0018300000810995698,
+        "clipEnd": 21.96000099182129,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.0823153555393219,
+            0.06521753966808319
+          ],
+          "max": [
+            0.9176843762397766,
+            0.9347826838493347
+          ]
+        }
+      },
+      "glbSha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "renderConfigSha256": "2a122d9ca4d37fc7be7149c56bf915a5d80d48195e86e55e1e1b2686ec464809",
+      "inputSetSha256": "9c87b5f29f0dddb2d3041f4bf73a007eceefcfcf9e4dc21a1a42d6219ec8a295"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/garage-workbench/clay-4e3c633a4e441f1ad0ed.webp",
+      "sha256": "4e3c633a4e441f1ad0ed04b514c90b01c4a2b278ea2e212aaf51499d31a8f372",
+      "bytes": 62194,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.803,
+      "camera": {
+        "orthoScale": 2.2201132774353027,
+        "position": [
+          3.4062891006469727,
+          -5.677148818969727,
+          3.572431802749634
+        ],
+        "target": [
+          0,
+          0,
+          0.44999998807907104
+        ],
+        "clipStart": 0.0018300000810995698,
+        "clipEnd": 21.96000099182129,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.07301357388496399,
+            0.06521739810705185
+          ],
+          "max": [
+            0.9269866347312927,
+            0.9347816109657288
+          ]
+        }
+      },
+      "glbSha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "renderConfigSha256": "2a122d9ca4d37fc7be7149c56bf915a5d80d48195e86e55e1e1b2686ec464809",
+      "inputSetSha256": "9c87b5f29f0dddb2d3041f4bf73a007eceefcfcf9e4dc21a1a42d6219ec8a295"
+    }
+  ],
+  "timingSeconds": 3.35,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.9150000214576721,
+          0.3175000250339508,
+          0.8999999761581421
+        ],
+        "min": [
+          -0.9150000214576721,
+          -0.3175000250339508,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "renderImportSha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.9150000214576721,0.3175000250339508,0.8999999761581421],\"min\":[-0.9150000214576721,-0.3175000250339508,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64\",\"renderImportSha256\":\"899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "2a122d9ca4d37fc7be7149c56bf915a5d80d48195e86e55e1e1b2686ec464809",
+    "inputs": [
+      {
+        "path": "assets-source/blender/garage-workbench.blend",
+        "sha256": "71a1ab79a1a3a28aed42d94f85e3fd78303ebfbe7a91fe1fff2719f01f8d84be",
+        "bytes": 114314
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/garage-workbench.blend",
+        "sha256": "6ae9ab286cf2f3e115cde4d05c9d5cc8b74a7b3ccaedcc939f5ac91f7b62f0be",
+        "bytes": 1893613
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/maple-lamella-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/oiled-maple-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/garage-workbench/rubber-gaskets-orm-ccb040239f1f42ae.png",
+        "sha256": "ccb040239f1f42ae61f926371ff1c12dda22ee446f10f4ffd84df322f7b839dc",
+        "bytes": 52138
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+        "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+        "bytes": 32499
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/garage-workbench.glb",
+        "sha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+        "bytes": 1663944
+      },
+      {
+        "path": "public/models/furniture/garage-workbench.glb",
+        "sha256": "2e643b6e14b93f074df26b412956f895420ae05c82dcad35794af8385b21b750",
+        "bytes": 227388
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-roughness.jpg",
+        "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+        "bytes": 464458
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "9c87b5f29f0dddb2d3041f4bf73a007eceefcfcf9e4dc21a1a42d6219ec8a295",
+    "afterSha256": "9c87b5f29f0dddb2d3041f4bf73a007eceefcfcf9e4dc21a1a42d6219ec8a295"
+  },
+  "formatValidation": {
+    "sha256": "899c38008f28965bbde815783b25c1b00deebe83e23b40e5d1975b2102646e64",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 6,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "00309715b7c5a02f66d3dd89d722fdb4f24d13c15b50a5937eaac92b7b6eda32",
+    "views": {
+      "front": "Pale lamella top rests on adjustable steel legs.",
+      "rear": "Rear cross rail connects both pairs of legs.",
+      "detail": "Leg adjustment holes and tabletop strip joins are visible; wood color remains restrained.",
+      "underside": "Top support rails, underside boards and rubber feet remain joined.",
+      "clay": "Clay confirms a supported worktop and telescoping leg construction."
+    }
+  }
+}
