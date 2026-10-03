@@ -36,16 +36,17 @@ const InstallChecklistPanel=lazy(()=>import('./InstallChecklistPanel').then(m=>(
 const SurfacePlanningPanel=lazy(()=>import('./SurfacePlanningPanel').then(m=>({default:m.SurfacePlanningPanel})));
 const DeliveryPlanningPanel=lazy(()=>import('./DeliveryPlanningPanel').then(m=>({default:m.DeliveryPlanningPanel})));
 const HomeManualPanel=lazy(()=>import('./HomeManualPanel').then(m=>({default:m.HomeManualPanel})));
+const CompareHomesPanel=lazy(()=>import('./CompareHomesPanel').then(m=>({default:m.CompareHomesPanel})));
 const date = (value: string) => new Date(value).toLocaleString([], { dateStyle: "medium", timeStyle: "short" });
 export function ProjectLibrary({ onClose, onOpen, onLayoutApplied, layoutBlocked=false, browseOnly=false, replayBridge, captureReplayView, onPreviewStockProxy, onOpenCollaboration, invitationToken }: { onClose(): void; onOpen?():void; onLayoutApplied?():void; layoutBlocked?:boolean; browseOnly?:boolean;replayBridge?:DesignReplayBridge;captureReplayView?:()=>CameraShotPose;onPreviewStockProxy?:(proxy:StagingVisualProxy)=>void;onOpenCollaboration?:(session:CollaborationSession)=>Promise<void>;invitationToken?:string }) {
   const plan = usePlanner(s => s.plan), replace = usePlanner(s => s.replacePlan);
   const [previewPlans,setPreviewPlans]=useState<Record<string,PlanDocumentV1>>({});
   const [sort,setSort]=useState("recent");
-  const [view,setView]=useState<'projects'|'ideas'|'backup'|'selections'|'surfaces'|'history'|'survey'|'presentation'|'install'|'gallery'|'remix'|'inventory'|'collaboration'|'reviews'|'delivery'|'manual'>(invitationToken?'collaboration':'projects');
+  const [view,setView]=useState<'projects'|'ideas'|'backup'|'selections'|'surfaces'|'history'|'survey'|'presentation'|'install'|'gallery'|'remix'|'inventory'|'collaboration'|'reviews'|'delivery'|'manual'|'compare'>(invitationToken?'collaboration':'projects');
   const [listing,setListing]=useState<ListingDocument>(),[listingError,setListingError]=useState('');
   useEffect(()=>{if(view!=='presentation'&&view!=='backup')return;let alive=true;setListing(undefined);setListingError('');void readListing(plan.id).then(value=>{if(alive)setListing(value);}).catch(()=>{if(alive)setListingError('Saved listing images could not be read. Your other presentation pages are available.');});return()=>{alive=false;};},[view,plan.id]);
   const commit=(base:PlanDocumentV1,next:PlanDocumentV1)=>{if(layoutBlocked)throw new Error('Finish the current preview before saving project changes.');usePlanner.getState().commitDesign(base,next);};
-  const group=['ideas','history'].includes(view)?'design':['selections','surfaces','survey','install','inventory','delivery','manual'].includes(view)?'planning':['gallery','remix','collaboration','reviews'].includes(view)?'sharing':view;
+  const group=['ideas','history'].includes(view)?'design':['selections','surfaces','survey','install','inventory','delivery','manual','compare'].includes(view)?'planning':['gallery','remix','collaboration','reviews'].includes(view)?'sharing':view;
   const [session, setSession] = useState<CloudSession>();
   const [sourceRevision,setSourceRevision]=useState<number>();
   useEffect(()=>{let alive=true;setSourceRevision(undefined);if(session?.userId)void getCloudRevision(session.userId,plan.id).then(value=>{if(alive&&value>0)setSourceRevision(value);}).catch(()=>{});return()=>{alive=false;};},[session?.userId,plan.id,plan.updatedAt]);
@@ -85,6 +86,11 @@ export function ProjectLibrary({ onClose, onOpen, onLayoutApplied, layoutBlocked
   const copyRemix=async(seed:PlanDocumentV1)=>{const current=usePlanner.getState().plan,next=await independentRemixPlan(seed);if(usePlanner.getState().plan!==current)throw new Error('The active project changed. Preview the copy again.');await switchPlan(next);};
   const historyClear = () => { if (/plan=|share=/.test(location.hash)) window.history.replaceState(window.history.state, "", location.pathname + location.search); };
   const refresh = async () => { setLocals(await listLocalPlans()); if (session?.signedIn) setOnline((await cloudProjects()).projects); };
+  const refreshComparisonPlans=useCallback(async()=>{
+    const saved=await listLocalPlans(),current=usePlanner.getState().plan;
+    const latest=[current,...saved.filter(p=>p.id!==current.id)];
+    setLocals(latest);return latest;
+  },[]);
   const saveOnline = (asCopy = false) => run(async () => {
     if (!session?.userId) throw new Error("Sign in again to save.");
     const current=await saveCurrent(),now = new Date().toISOString();
@@ -112,7 +118,7 @@ export function ProjectLibrary({ onClose, onOpen, onLayoutApplied, layoutBlocked
   return <dialog className="project-library" ref={dialog} aria-labelledby="project-heading" onCancel={e => { e.preventDefault(); if (!busyRef.current) onClose(); }} onKeyDown={e => e.stopPropagation()}>
     <header><div><span className="eyebrow">A home for every idea</span><h2 id="project-heading">Your projects</h2></div><button className="icon-button" disabled={busy} aria-label="Close project library" onClick={close}><X /></button></header>
     <nav className="project-views" aria-label="Project tools">{([{id:'projects',label:'Projects',target:'projects'},...(!browseOnly?[{id:'design',label:'Design',target:'ideas'},{id:'planning',label:'Planning',target:'selections'},{id:'presentation',label:'Present',target:'presentation'}]:[]),{id:'sharing',label:browseOnly?'Ideas':'Ideas & sharing',target:'gallery'},...(browseOnly?[{id:'planning',label:'Staging · pilot',target:'inventory'}]:[]),{id:'backup',label:'Backups',target:'backup'}] as const).map(item=><button key={item.id} disabled={busy} aria-pressed={group===item.id} onClick={()=>setView(item.target as typeof view)}>{item.label}</button>)}</nav>
-    {!browseOnly&&(group==='design'||group==='planning')&&<nav className="project-views project-subviews" aria-label={group==='design'?'Design tools':'Planning tools'}>{(group==='design'?[['ideas','Layout ideas'],['history','Renovation & milestones']]:[['selections','Selections & budget'],['delivery','Delivery check'],['manual','Home manual'],['surfaces','Surfaces & elevations'],['survey','Site notes'],['install','Install checklist'],['inventory','Staging inventory · pilot']]).map(([id,label])=><button key={id} disabled={busy} aria-pressed={view===id} onClick={()=>setView(id as typeof view)}>{label}</button>)}</nav>}
+    {!browseOnly&&(group==='design'||group==='planning')&&<nav className="project-views project-subviews" aria-label={group==='design'?'Design tools':'Planning tools'}>{(group==='design'?[['ideas','Layout ideas'],['history','Renovation & milestones']]:[['selections','Selections & budget'],['compare','Compare homes'],['delivery','Delivery check'],['manual','Home manual'],['surfaces','Surfaces & elevations'],['survey','Site notes'],['install','Install checklist'],['inventory','Staging inventory · pilot']]).map(([id,label])=><button key={id} disabled={busy} aria-pressed={view===id} onClick={()=>setView(id as typeof view)}>{label}</button>)}</nav>}
     {group==='sharing'&&<nav className="project-views project-subviews" aria-label="Sharing tools">{[['gallery','Ideas gallery'],...(!browseOnly?[['remix','Share an arrangement'],['reviews','Client reviews'],['collaboration','Work together']]:[])].map(([id,label])=><button key={id} disabled={busy} aria-pressed={view===id} onClick={()=>setView(id as typeof view)}>{label}</button>)}</nav>}
     <Suspense fallback={<p role="status">Opening project tools…</p>}>
       {view==='gallery'&&<><IdeasPanel onBusyChange={setBusy} onCreatePrivateCopy={copyRemix}/>{layoutBlocked&&<p>Finish the current placement or preview before creating a private copy.</p>}</>}
@@ -126,6 +132,7 @@ export function ProjectLibrary({ onClose, onOpen, onLayoutApplied, layoutBlocked
     {view==='selections'&&!browseOnly&&<SelectionSchedulePanel plan={plan} activeFloorId={usePlanner.getState().activeFloorId} disabled={layoutBlocked} onCommit={(base,next)=>usePlanner.getState().commitDesign(base,next)}/>}
     {view==='surfaces'&&!browseOnly&&<Suspense fallback={<p role="status">Opening surfaces and elevations…</p>}><SurfacePlanningPanel plan={plan} activeFloorId={usePlanner.getState().activeFloorId} disabled={layoutBlocked} onCommit={(base,next)=>usePlanner.getState().commitDesign(base,next)}/></Suspense>}
     {!browseOnly&&<Suspense fallback={<p role="status">Opening project tools…</p>}>
+      {view==='compare'&&<CompareHomesPanel localPlans={[plan,...locals.filter(p=>p.id!==plan.id)]} onlineProjects={online} disabled={layoutBlocked||plannerCollaborationActive()} onLoadOnline={async id=>{if(!online.some(p=>p.id===id))throw new Error('Choose a project from your private online saves.');return (await openCloudProject(id)).plan;}} onRefreshLocal={refreshComparisonPlans} onCopiesSaved={async()=>{await refreshComparisonPlans();}} onOpenCopy={switchPlan} onBusyChange={setBusy}/>}
       {view==='delivery'&&<DeliveryPlanningPanel plan={plan} disabled={layoutBlocked} onCommit={commit}/>}
       {view==='manual'&&<HomeManualPanel plan={plan} disabled={layoutBlocked} onCommit={commit}/>}
       {view==='history'&&(layoutBlocked?<p>Finish the current preview before working with design history.</p>:replayBridge&&captureReplayView?<DesignHistoryPanel plan={plan} activeFloorId={usePlanner.getState().activeFloorId} bridge={replayBridge} captureView={captureReplayView} onBusyChange={setBusy} onChange={commit} onApply={(base,next,floorId)=>{usePlanner.getState().commitDesign(base,next,floorId,{restoreLayout:true});onLayoutApplied?.();}}/>:<p>Open this project in Design in 3D to compare renovation phases and replay milestones.</p>)}

@@ -7,6 +7,7 @@ import {ClientReviewPanel} from '../src/ClientReviewPanel';
 import {ClientReviewViewer} from '../src/ClientReviewViewer';
 import {parseReviewSnapshot,reviewImagePreview,type ReviewView} from '../src/clientReview';
 import * as api from '../src/clientReviewApi';
+import {reviewedPhotoPrivacy} from '../src/photoPrivacy';
 vi.mock('../src/clientReviewApi',async importOriginal=>{const real=await importOriginal<typeof import('../src/clientReviewApi')>();return {...real,reviewAvailability:vi.fn(),listClientReviews:vi.fn(),publishClientReview:vi.fn(),getOwnedReview:vi.fn(),getClientReview:vi.fn(),getReviewMedia:vi.fn(),submitReviewFeedback:vi.fn()};});
 vi.mock('../src/ReviewScene',()=>({default:()=> <div>Read-only scene</div>}));
 vi.mock('../src/clientReview',async importOriginal=>({...await importOriginal<typeof import('../src/clientReview')>(),reviewImagePreview:vi.fn(async()=> 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAg')}));
@@ -15,6 +16,14 @@ function view():ReviewView{const plan=createSamplePlan(),floorId=plan.floors[0].
 beforeEach(()=>{vi.mocked(api.reviewAvailability).mockResolvedValue({available:true,signedIn:true});vi.mocked(api.listClientReviews).mockResolvedValue([]);vi.mocked(api.getOwnedReview).mockResolvedValue({review:{id:'review',projectId:'plan',revision:1,createdAt:Date.now(),expiresAt:Date.now()+3600000,revoked:false},revisions:[{revision:1,createdAt:Date.now()}],feedback:[],publication:{snapshot:view().snapshot,media:[],includeSelectedMedia:false}});});
 afterEach(()=>{cleanup();vi.clearAllMocks();});
 describe('review authoring and revision decisions',()=>{
+ it('uses the explicitly selected privacy derivative and blocks an unselected copy',async()=>{
+  const plan=createSamplePlan(),original='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5RkAAAAASUVORK5CYII=',copy='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==';
+  const privacy=reviewedPhotoPrivacy(original,{width:1,height:1,crop:{x:0,y:0,width:1,height:1},turns:0,masks:[]},copy),media=[{id:'selected',image:original,sourceImage:original,title:'Masked room',caption:'',kind:'photo' as const,seconds:4,privacy}];
+  const {rerender}=render(<ClientReviewPanel plan={plan} floorId={plan.floors[0].id} media={media}/>);
+  fireEvent.click(screen.getByRole('checkbox',{name:/Include selected photo/}));fireEvent.click(screen.getByRole('checkbox',{name:'Masked room · Property photo'}));fireEvent.change(screen.getByRole('combobox',{name:'Selected photo for this stop'}),{target:{value:'selected'}});fireEvent.click(screen.getByRole('button',{name:'Preview exact snapshot'}));
+  expect(await screen.findByRole('alert')).toHaveTextContent('Choose the reviewed privacy copy');expect(reviewImagePreview).not.toHaveBeenCalled();expect(api.publishClientReview).not.toHaveBeenCalled();
+  rerender(<ClientReviewPanel plan={plan} floorId={plan.floors[0].id} media={[{...media[0],privacy:{...privacy,selected:true}}]}/>);fireEvent.click(screen.getByRole('button',{name:'Preview exact snapshot'}));await screen.findByRole('button',{name:'Create private review link'});expect(reviewImagePreview).toHaveBeenCalledExactlyOnceWith(copy);
+ });
  it('keeps previews local and private photos off until explicit selection; publishes only after exact snapshot confirmation',async()=>{
   const plan=createSamplePlan(),saved=structuredClone(plan);vi.mocked(api.publishClientReview).mockResolvedValue({review:{id:'review',projectId:plan.id,revision:1,createdAt:Date.now(),expiresAt:Date.now()+3600000,revoked:false},token});
   render(<ClientReviewPanel plan={plan} floorId={plan.floors[0].id} media={[{id:'private-photo',image:'data:image/png;base64,aA==',sourceImage:'private-original',title:'Private photo',caption:'',kind:'photo',seconds:4}]}/>);

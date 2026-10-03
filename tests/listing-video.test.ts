@@ -6,7 +6,7 @@ import {webcrypto} from 'node:crypto';
 import {listingVideoApi,validateVideoRequest,videoImageDimensions,VIDEO_MODEL,VIDEO_LIMITS} from '../worker/listing-video.js';
 // @ts-expect-error Worker JavaScript is bundled separately.
 import worker from '../worker/projects.js';
-import {listingVideoAvailability,submitListingVideo,getListingVideo,deleteListingVideo,validateVideoJob,type ListingVideoRequest} from '../src/listingVideo';
+import {listingVideoAvailability,submitListingVideo,getListingVideo,getListingVideoByRequest,deleteListingVideo,validateVideoJob,type ListingVideoRequest} from '../src/listingVideo';
 
 const databases:DatabaseSync[]=[];
 function database(){
@@ -81,6 +81,22 @@ describe('listing video API and real SQLite ownership',()=>{
     expect((await listingVideoApi(request(undefined,'/'+job.id,'GET','bob'),env,fetcher)).status).toBe(404);
     expect((await listingVideoApi(request({},'/'+job.id,'DELETE','bob'),env,fetcher)).status).toBe(404);expect(fetcher).toHaveBeenCalledTimes(1);
   });
+  it('recovers a saved request by owner and request ID without images, provider calls or new quota',async()=>{
+    const env=setup(),fetcher=vi.fn(async()=>accepted()),body=input();
+    const submitted=await(await listingVideoApi(request(body),env,fetcher)).json();
+    const usage=env.DB.sql.prepare('SELECT * FROM listing_video_usage').all();
+    const response=await listingVideoApi(request(undefined,'?requestId='+body.requestId),env,fetcher);
+    expect(response.status).toBe(200);expect(await response.json()).toMatchObject({id:submitted.id,requestId:body.requestId,status:'queued'});
+    expect(response.headers.get('cache-control')).toContain('no-store');
+    expect(fetcher).toHaveBeenCalledTimes(1);expect(env.DB.sql.prepare('SELECT * FROM listing_video_usage').all()).toEqual(usage);
+    expect((await listingVideoApi(request(undefined,'?requestId='+body.requestId,'GET','bob'),env,fetcher)).status).toBe(404);
+    expect((await listingVideoApi(request(undefined,'?requestId='+body.requestId,'GET',''),env,fetcher)).status).toBe(401);
+    expect((await listingVideoApi(request(undefined,'?requestId='+crypto.randomUUID()),env,fetcher)).status).toBe(404);
+    expect((await listingVideoApi(request(undefined,'?requestId=bad'),env,fetcher)).status).toBe(400);
+    env.DB.sql.prepare("UPDATE listing_video_jobs SET status='submission_unknown',provider_id=NULL").run();
+    expect(await(await listingVideoApi(request(undefined,'?requestId='+body.requestId),{DB:env.DB},fetcher)).json()).toMatchObject({id:submitted.id,status:'submission_unknown'});
+    expect(fetcher).toHaveBeenCalledTimes(1);
+  });
   it('caps new submissions for both an owner and the whole site, while allowing retries without another charge',async()=>{
     const env=setup(),body=input(),fetcher=vi.fn(async()=>accepted());
     for(let i=0;i<3;i++)expect((await listingVideoApi(request(i===0?body:input()),env,fetcher)).status).toBe(202);
@@ -145,6 +161,12 @@ describe('reference image format validation',()=>{
 describe('typed listing video client',()=>{
   const id='7ef95643-0820-4c69-acfe-072f152e2903';
   const job=()=>({id,requestId:id,status:'queued',createdAt:new Date().toISOString(),updatedAt:new Date().toISOString(),retryAfterSeconds:10});
+  it('recovers by ID without a request body and rejects a response for a different request',async()=>{
+    const fetcher=vi.fn().mockResolvedValueOnce(Response.json(job())).mockResolvedValueOnce(Response.json({...job(),requestId:'another-request-12345678'}));vi.stubGlobal('fetch',fetcher);
+    expect((await getListingVideoByRequest(id)).id).toBe(id);
+    expect(fetcher.mock.calls[0][0]).toBe('/api/listing-video?requestId='+id);expect(fetcher.mock.calls[0][1]).toMatchObject({credentials:'same-origin'});expect(fetcher.mock.calls[0][1].body).toBeUndefined();expect(fetcher.mock.calls[0][1].method).toBeUndefined();
+    await expect(getListingVideoByRequest(id)).rejects.toThrow('different request');await expect(getListingVideoByRequest('../bad')).rejects.toThrow('Invalid');expect(fetcher).toHaveBeenCalledTimes(2);
+  });
   it('uses same-origin credentials, validates responses, and has no automatic paid retry',async()=>{
     vi.stubGlobal('crypto',webcrypto);const fetcher=vi.fn().mockResolvedValueOnce(Response.json({available:false,signedIn:false,provider:'BytePlus',model:VIDEO_MODEL,limits:VIDEO_LIMITS})).mockResolvedValueOnce(Response.json(job())).mockResolvedValueOnce(Response.json(job())).mockResolvedValueOnce(Response.json({...job(),status:'cancelled'}));vi.stubGlobal('fetch',fetcher);
     expect((await listingVideoAvailability()).available).toBe(false);expect((await submitListingVideo(input())).status).toBe('queued');await getListingVideo(id);await deleteListingVideo(id);

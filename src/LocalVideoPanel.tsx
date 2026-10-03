@@ -1,3 +1,4 @@
+import {listingOutputImage,listingPreviewImage} from './photoPrivacy';
 import {useEffect,useRef,useState} from 'react';
 import type {ListingDocument} from './listingTypes';
 import {discoverLocalVideo,downloadLocalVideo,getLocalVideo,loadLocalVideoProfile,localVideoEndpoint,readLocalVideoRecord,reserveLocalVideo,saveLocalVideoProfile,submitLocalVideo,updateLocalVideoRecord,type LocalVideoProfile,type LocalVideoRecord} from './localVideo';
@@ -22,11 +23,12 @@ export function LocalVideoPanel({listing}:{listing:ListingDocument}){
  const generate=()=>run(async signal=>{
   if(!loaded||storageError||record||!connected||!consent)return;
   const media=listing.media.find(m=>m.id===imageId);if(!media)throw new Error('Choose a reference image.');
+  const image=listingOutputImage(media);
   rememberProfile(profile);
   const saved=await reserveLocalVideo(listing.planId,profile);
   if(!alive.current){await updateLocalVideoRecord(listing.planId,saved,true);return;}
   setRecord(saved);setConsent(false);
-  const job=await submitLocalVideo(profile,token,{image:media.image,prompt,seconds,consent:true},signal),next={...saved,job};
+  const job=await submitLocalVideo(profile,token,{image,prompt,seconds,consent:true},signal),next={...saved,job};
   // Persist the accepted ID even if the user switches away during the request.
   try{await updateLocalVideoRecord(listing.planId,next)}catch{if(alive.current)setStorageError(`Job ${job.id} was accepted, but its status could not be saved. Keep this job ID.`)}
   if(alive.current)setRecord(next);
@@ -58,7 +60,7 @@ export function LocalVideoPanel({listing}:{listing:ListingDocument}){
    <label>Model<input value={profile.model} disabled={locked} onChange={e=>{setProfile(p=>({...p,model:e.target.value}));setConsent(false)}} list="local-video-models"/></label><datalist id="local-video-models">{models.map(m=><option key={m} value={m}/>)}</datalist>
    <div className="listing-segments" aria-label="Server request format">{(['standard','h3'] as const).map(adapter=><button key={adapter} disabled={locked} aria-pressed={profile.adapter===adapter} onClick={()=>{setProfile(p=>({...p,adapter}));setConsent(false)}}>{adapter==='h3'?'MiniMax H3 · SGLang':'Standard image to video'}</button>)}</div>
    {!record&&<>
-    <h3>Choose a starting image</h3><div className="listing-video-grid">{listing.media.map(m=><label className="listing-video-pick" key={m.id}><img src={m.image} alt=""/><input type="radio" name="local-video-image" disabled={busy} checked={imageId===m.id} onChange={()=>{setImageId(m.id);setConsent(false)}}/><span>{m.title}</span></label>)}</div>
+    <h3>Choose a starting image</h3><div className="listing-video-grid">{listing.media.map(m=><label className="listing-video-pick" key={m.id}><img src={listingPreviewImage(m)} alt=""/><input type="radio" name="local-video-image" disabled={busy} checked={imageId===m.id} onChange={()=>{setImageId(m.id);setConsent(false)}}/><span>{m.title}</span></label>)}</div>
     {!listing.media.length&&<p>Add photos or capture a 3D view first.</p>}
     <label>Direction<textarea maxLength={2000} value={prompt} disabled={busy} onChange={e=>{setPrompt(e.target.value);setConsent(false)}}/></label>
     <div className="listing-segments" aria-label="Video length">{[5,10,15].map(n=><button disabled={busy} key={n} aria-pressed={seconds===n} onClick={()=>{setSeconds(n);setConsent(false)}}>{n} seconds</button>)}</div>

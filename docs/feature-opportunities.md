@@ -1,10 +1,12 @@
 # Next opportunities
 
-Five additions proposed on October 2, 2026. **NN-34 is implemented as a measured delivery worksheet; NN-37 has an implemented manual/link-based first increment. NN-33, NN-35 and NN-36 remain planned.** See [Delivery check and Home manual](delivery-and-home-manual.md) for implemented behavior and limits. They are separate from the original 32 features recorded in [roadmap-progress.json](roadmap-progress.json), the September 29 source tracker. The current feature guide reports 25 released features, seven implemented pilots and nine external acceptance/setup items; these recommendations do not change those totals or update the source tracker's release status. P1 means first to explore; P2 means a useful follow-on, not a delivery commitment.
+Five additions proposed on October 2, 2026 now have implemented first increments. **NN-33 adds reviewed photo privacy copies; NN-35 adds measured service points; NN-36 compares private homes using one furniture snapshot. NN-34 is a measured delivery worksheet; NN-37 is a manual/link-based home register.** See [Photo privacy, service points and home comparison](next-home-tools.md) and [Delivery check and Home manual](delivery-and-home-manual.md) for behavior and limits. These are separate from the original 32 features in [roadmap-progress.json](roadmap-progress.json). The feature guide's 25 released features, seven implemented pilots and nine external acceptance/setup items remain unchanged. Implementation status here is distinct from the guide's verified deployment receipt.
 
-The linked primary sources inform each opportunity. The proposed targets below are distinct from identical competitor capabilities. The NN-34 and NN-37 status notes describe the implemented scope; remaining opportunities are proposals.
+The linked primary sources inform each opportunity; they do not imply identical competitor capabilities. Status notes describe the implemented scope, followed by the original target and its limits.
 
 ## P1 · NN-33 · Review photos before sharing
+
+**Status:** Implemented in Listing Studio → Photos & slides. Opaque masks, crop and quarter-turn rotation produce a separate metadata-free raster. Manual review and explicit output selection are required; private listing backups retain originals. Presentation packs, client reviews and provider inputs use the selected copy.
 
 **Value:** Hide personal details before a property photo enters a client pack or shared tour.
 
@@ -32,6 +34,8 @@ The linked primary sources inform each opportunity. The proposed targets below a
 
 ## P2 · NN-35 · Map the room’s service points
 
+**Status:** Implemented in Project → Planning → Site notes → Service points. Exact wall offsets, face and height, self-reported verification, retained stale anchors, a default-off Studio layer, visible-map SVG and measured CSV are available. Wall-elevation integration remains future work.
+
 **Value:** Plan near power/data, retain switch access and avoid covering vents.
 
 **First implementation:** A toggleable 2D overlay of structured outlet, switch, data and vent markers with measured wall position, height, labels and user verification. Include the selected layer in drawing exports.
@@ -43,6 +47,8 @@ The linked primary sources inform each opportunity. The proposed targets below a
 **Source:** [RoomSketcher: Create an Electrical Plan](https://help.roomsketcher.com/hc/en-us/articles/12794506158493-How-Do-I-Create-an-Electrical-Plan-in-RoomSketcher) documents located symbols and annotations. Data/vent overlays are our proposed extension.
 
 ## P2 · NN-36 · Compare homes with your furniture
+
+**Status:** Implemented in Project → Planning → Compare homes. Select 2–3 private homes and up to 40 owned items, review starting arrangements, apply common fit preferences and save independent copies atomically. A bounded device-local workspace retains the snapshot and assumptions. Missing measurements and unsupported obstacles remain unknown.
 
 **Value:** Compare two or three candidate homes using the same measured belongings and personal priorities.
 
