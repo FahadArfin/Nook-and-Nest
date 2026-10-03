@@ -1,3 +1,5 @@
+import {parseDeliveryPlanning} from './deliveryPlanning';
+import {parseHomeManual} from './homeManual';
 import {parseRemixAttribution} from './remixAttribution';
 import {parseCreativeChallenge} from './creativeChallenges';
 import {validateCaptureReview} from './captureReview';
@@ -38,6 +40,8 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
   if(p.remixAttribution!==undefined)parseRemixAttribution(p.remixAttribution);
   if(p.creativeChallenge!==undefined)parseCreativeChallenge(p.creativeChallenge);
   if(p.designHistory!==undefined)validateDesignHistory(p.designHistory,snapshot=>validatePlan(historySnapshotAsPlan(p,snapshot)));
+  if(p.deliveryPlanning!==undefined)parseDeliveryPlanning(p.deliveryPlanning);
+  if(p.homeManual!==undefined)parseHomeManual(p.homeManual);
   if(p.siteSurvey!==undefined)parseSiteSurvey(p.siteSurvey);
   if(p.presentation!==undefined)parsePresentationSettings(p.presentation);
   if(p.installChecklist!==undefined){parseInstallChecklist(p.installChecklist);if(p.installChecklist.projectId!==p.id)fail();}
@@ -80,7 +84,7 @@ export function validatePlan(value: unknown): asserts value is PlanDocumentV1 {
       if(s.draft.referenceCalibrated!==undefined&&typeof s.draft.referenceCalibrated!=='boolean')fail();
       if(s.draft.regionDividers!==undefined){arr(s.draft.regionDividers,400);unique(s.draft.regionDividers);for(const w of s.draft.regionDividers){obj(w);str(w.id,160);for(const k of ['ax','az','bx','bz'])num(w[k],-10000,10000);}}
       const host=p.floors.find((f:any)=>f.id===id);
-      validatePlan({...p,creativeChallenge:undefined,designHistory:undefined,siteSurvey:undefined,presentation:undefined,installChecklist:undefined,layoutAlternatives:undefined,moodboards:undefined,surfaceTakeoffSettings:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
+      validatePlan({...p,deliveryPlanning:undefined,homeManual:undefined,creativeChallenge:undefined,designHistory:undefined,siteSurvey:undefined,presentation:undefined,installChecklist:undefined,layoutAlternatives:undefined,moodboards:undefined,surfaceTakeoffSettings:undefined,selectionBudgets:undefined,furnitureGroups:undefined,studioDrafts:undefined,floors:[{...host,walls:s.draft.walls,wallCuts:s.draft.wallCuts,blueprint:{rooms:s.draft.rooms,geometryKey:'draft'},stairs:[]}],furniture:s.draft.fixtures});
     }
   }
   if(p.environment!==undefined){obj(p.environment);if(!["plain","city","suburban","rural","farm","medieval"].includes(p.environment.background)||!["off","sparse","lush"].includes(p.environment.grass))fail();}

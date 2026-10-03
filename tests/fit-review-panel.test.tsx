@@ -18,7 +18,7 @@ it('opens optional review, explains a measured gap, links its items, and clears 
   const view=render(<Harness/>);expect(screen.getByText('Review is off. Your home and undo history are unchanged.')).toBeTruthy();
   fireEvent.click(screen.getByRole('checkbox',{name:'Show practical fit review'}));
   await screen.findByText(/Measured 0.25 m/);fireEvent.click(screen.getByRole('button',{name:'Show these pieces'}));expect(select).toHaveBeenCalledWith(['left','right'],floor);
-  expect(publish.mock.calls.at(-1)![0].overlays.length).toBeGreaterThan(0);
+  await waitFor(()=>expect(publish.mock.calls.at(-1)![0].overlays.length).toBeGreaterThan(0));
   fireEvent.click(screen.getByRole('checkbox',{name:'Show practical fit review'}));await waitFor(()=>expect(publish.mock.calls.at(-1)![0].overlays).toEqual([]));expect(JSON.stringify(plan)).toBe(before);
   view.unmount();expect(publish.mock.calls.at(-1)![0].overlays).toEqual([]);
 });

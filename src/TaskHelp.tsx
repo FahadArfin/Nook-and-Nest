@@ -1,5 +1,7 @@
 import {useState} from 'react';
 const topics=[
+ ['Delivery check','Open Project → Planning → Delivery check. Record clear entrances and the dimensions of each item or shipping box. Pick its transport orientation and review each route step. Unknown measurements, stairs and turns need a manual check; straight clearance is not a delivery guarantee.'],
+ ['Home manual','Open Project → Planning → Home manual. Keep product and manual links, warranty dates, maintenance tasks and service history. These records stay private in project saves and backups. Choose records explicitly for a printable handover. No automatic reminders are sent.'],
  ['Create rooms','Open Floor plan studio. Import a reference for online analysis, or add a room by dimensions. Review the layout before creating the 3D home. Switching measurement units never resizes your plan.'],
  ['Move furniture','Select a piece, then enable the four-arrow Move button. Movement starts locked to prevent accidental edits. Use the inspector for precise size, position and rotation. Done locks movement again.'],
  ['Place furniture','Choose a library piece, position its preview, then confirm with the checkmark or Enter. Escape cancels. On a phone, tap a library piece, then tap its location in the home.'],
