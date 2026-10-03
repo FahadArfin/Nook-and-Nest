@@ -2,7 +2,9 @@
 
 This workflow creates richer, editable furniture and a separately validated browser model. It is an experimental **Beta 1 only** pipeline on `codex/detailed-model-pipeline`; it does not replace production catalog models, change placement IDs or saved plans, or authorize a master merge. Keep library-storage changes outside this work. Publication evidence belongs on the feature PR, including the exact source and deployed artifact.
 
-Only the **sofa recipe** is implemented. Its specification is [`sofa.spec.json`](../assets-source/model-pipeline/sofa.spec.json); see [the earlier study](blender-realism-lab.md) and [material-export audit](realism-lab-export-audit.md). Other families need authored recipe code and validation. Implemented stages are not evidence of successful bakes or visual acceptance.
+For the **historical pilot described in this document**, only the **sofa recipe** is implemented. Its specification is [`sofa.spec.json`](../assets-source/model-pipeline/sofa.spec.json); see [the earlier study](blender-realism-lab.md) and [material-export audit](realism-lab-export-audit.md). Other families in that pilot need authored recipe code and validation. Implemented stages are not evidence of successful bakes or visual acceptance.
+
+The separate [902-item catalog realism extension](catalog-realism-pipeline.md) documents the current family recipes, preserved contracts, resumable build/render queue and explicit review gates on `codex/catalog-realism-overhaul`. Its whole-catalog generation and review remain in progress; the sofa evidence below does not certify that extension.
 
 ## 1. Establish measurements and construction
 
