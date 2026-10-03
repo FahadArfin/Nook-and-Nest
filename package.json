@@ -14,7 +14,11 @@
     "test:sites": "node --test tests/sites-worker.test.mjs tests/google-tiles.test.mjs tests/shared-tools-server.test.mjs tests/staging-server.test.mjs",
     "test:watch": "vitest",
     "assets:verify": "node scripts/verify-asset-pipeline.mjs",
-    "assets:inventory": "node scripts/verify-asset-pipeline.mjs --inventory"
+    "assets:inventory": "node scripts/verify-asset-pipeline.mjs --inventory",
+    "models:inspect": "node scripts/model-pipeline.mjs inspect assets-source/model-pipeline/sofa.spec.json",
+    "models:ready": "node scripts/model-pipeline.mjs ready assets-source/model-pipeline/sofa.spec.json && node scripts/model-pipeline.mjs ready assets-source/model-pipeline/sofa-rebuilt.spec.json",
+    "test:model-pipeline": "node --test tests/model-pipeline.test.mjs",
+    "build:model-lab": "vite build --config vite.model-lab.config.mjs"
   },
   "dependencies": {
     "@babylonjs/core": "^8.0.0",
@@ -52,6 +56,7 @@
     "drizzle-kit": "^0.31.10",
     "esbuild": "^0.28.2",
     "fake-indexeddb": "^6.2.5",
+    "gltf-validator": "2.0.0-dev.3.10",
     "jsdom": "^29.1.1",
     "typescript": "^7.0.2",
     "vitest": "^4.1.11"
