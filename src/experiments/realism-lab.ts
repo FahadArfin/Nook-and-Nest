@@ -196,14 +196,15 @@ async function start() {
   function setLighting() {
     const appProfile = element<HTMLSelectElement>('lighting').value === 'app';
     // These day-profile values match SceneController's default constructor.
-    sky.intensity = appProfile ? .62 : .4;
+    sky.intensity = appProfile ? .62 : .18;
     sky.diffuse = appProfile ? new Color3(1, .91, .78) : Color3.White();
     sky.groundColor = appProfile ? new Color3(.3, .37, .28) : new Color3(.38, .38, .38);
-    sun.intensity = appProfile ? .72 : .65;
-    // Illuminate the visible front in the shared studio setup. The app
-    // profile retains its actual sun direction for a separate runtime check.
-    sun.direction.set(...(appProfile ? [-.8, -1.5, .7] : [.8, -1.5, -1]) as [number, number, number]);
-    sun.position.set(...(appProfile ? [10, 18, -10] : [-10, 18, 10]) as [number, number, number]);
+    sun.intensity = appProfile ? .72 : 4.5;
+    // An off-axis key gives cushion shape and visible grounding. PBR's diffuse
+    // key needs more energy than the unshadowed hemisphere and environment fill.
+    // Apply the same rig to both variants; keep the app profile unchanged.
+    sun.direction.set(...(appProfile ? [-.8, -1.5, .7] : [-.9, -1.5, -.65]) as [number, number, number]);
+    sun.position.set(...(appProfile ? [10, 18, -10] : [10, 18, 8]) as [number, number, number]);
     // A studio piece occupies metres, not the camera's default 10 km depth
     // range. Keep shadow bias at millimetre scale and retain the app profile.
     sun.shadowMinZ = appProfile ? .01 : 10;
@@ -214,11 +215,15 @@ async function start() {
     scene.imageProcessingConfiguration.contrast = appProfile ? 1.12 : 1;
     scene.clearColor = new Color4(.949, .937, .906, 1);
     scene.environmentTexture = !appProfile && environmentReady ? studioEnvironment : null;
-    scene.environmentIntensity = appProfile ? 1 : 1.0;
+    scene.environmentIntensity = appProfile ? 1 : .6;
     // ESM exponentials can underflow in half-float textures with a close studio
-    // depth range. PCF compares depth directly and retains contact shadows.
+    // depth range. PCSS compares depth directly and softens distant shadows.
     if (appProfile) shadow.useBlurExponentialShadowMap = true;
-    else { shadow.usePercentageCloserFiltering = true; shadow.filteringQuality = ShadowGenerator.QUALITY_MEDIUM; }
+    else {
+      shadow.useContactHardeningShadow = true;
+      shadow.contactHardeningLightSizeUVRatio = .12;
+      shadow.filteringQuality = ShadowGenerator.QUALITY_MEDIUM;
+    }
     shadow.bias = appProfile ? .00005 : .00015;
     shadow.normalBias = appProfile ? 0 : .003;
     shadow.blurKernel = appProfile ? 24 : 32;
