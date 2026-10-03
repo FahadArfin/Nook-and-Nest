@@ -57,7 +57,9 @@ woven textile with an artist-calibrated 0.28 m repeat. The existing saved materi
 key says chenille; it does not establish the fiber composition of this texture.
 [Poly Haven Walnut Veneer 02](https://polyhaven.com/a/walnut_veneer_02) is CC0,
 with a provider-documented one-metre tile. Color and ORM derivatives are retained
-under new `sectional-*` names, with originals and hashes preserved.
+under new `sectional-*` names in `assets-source/experiments/realism-lab/materials`,
+with originals and hashes preserved. The GLB embeds these maps; authoring copies
+stay outside the public package to avoid transferring the same texture twice.
 
 The baseline has `KHR_materials_sheen.sheenColorFactor = [1,1,1]`, which visibly
 washes out the nominal grey tint. The new material omits that white sheen and

@@ -9,6 +9,7 @@ import json
 import runpy
 from pathlib import Path
 import numpy as np
+import bpy
 
 FABRIC = 'soft-grey-chenille'
 THREAD = 'seam'
@@ -43,14 +44,21 @@ def create_materials(root):
     # The frozen portable node builder remains shared; all images written by
     # this study have new names, so previous reviewed artifacts cannot drift.
     globals_ = helper['_textured'].__globals__
+    # Derivatives are editable authoring inputs, already embedded in the GLB.
+    # Keep them out of public/ so production does not deploy a second copy.
+    derivative_root = 'assets-source/experiments/realism-lab/materials'
+    (root / derivative_root).mkdir(parents=True, exist_ok=True)
+    globals_['SOURCE_ROOT'] = derivative_root
     globals_['SOURCES'] = {
         'wool': {'url':'https://ambientcg.com/a/Fabric030','repeatM':(.28,.28)},
         'oak': {'url':'https://polyhaven.com/a/walnut_veneer_02','repeatM':(1.,1.)},
     }
     maps = {}
     for family, prefix in [('wool','Fabric030'),('oak','walnut_veneer_02')]:
-        source = {kind: helper['_load'](root, prefix+'-'+suffix+'.jpg', kind!='baseColor')
+        source = {kind: bpy.data.images.load(str(root / BASE / (prefix+'-'+suffix+'.jpg')), check_existing=False)
                   for kind,suffix in [('baseColor','color'),('normal','normal'),('orm','orm')]}
+        for kind, image in source.items():
+            image.colorspace_settings.name = 'sRGB' if kind == 'baseColor' else 'Non-Color'
         base = helper['_pixels'](source['baseColor'])
         if family == 'wool':
             luminance = base[:,:3] @ np.array((.2126,.7152,.0722), dtype=np.float32)
