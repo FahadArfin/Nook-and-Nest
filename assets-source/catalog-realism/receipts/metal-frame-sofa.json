@@ -1,0 +1,2142 @@
+{
+  "version": 1,
+  "catalogId": "metal-frame-sofa",
+  "inputContractSha256": "a6efcbf8b5cc3af4f74ff64d87ead989eada2dbbbf61b442e8a55fdbb6b9fc9f",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/metal-frame-sofa.blend",
+      "sha256": "2322bd270467794ab9439e7973d0a9eb01bd15cc8c324f2f9fda443ddd4432e9",
+      "bytes": 1885379
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/metal-frame-sofa.glb",
+      "sha256": "3e105ca9584b0e7b993de3dc62bcd89fd9cadfb1ca9a7140b1b538c15b7768f6",
+      "bytes": 2177476
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/metal-frame-sofa.blend",
+      "sha256": "2322bd270467794ab9439e7973d0a9eb01bd15cc8c324f2f9fda443ddd4432e9",
+      "bytes": 1885379
+    },
+    {
+      "path": "public/models/furniture/metal-frame-sofa.glb",
+      "sha256": "3e105ca9584b0e7b993de3dc62bcd89fd9cadfb1ca9a7140b1b538c15b7768f6",
+      "bytes": 2177476
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "tailored-seat",
+      "component": "individual_seat_cushion.002",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a4446a5563eccef95ed2acb6916314f041d9e59ee0f0d7b69d43e1ab7fdc6e60",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.31183332204818726,
+            -0.4295502305030823,
+            0.31820148229599
+          ],
+          "max": [
+            0.9054999947547913,
+            0.316866010427475,
+            0.5096462965011597
+          ],
+          "size": [
+            0.593666672706604,
+            0.7464162409305573,
+            0.19144481420516968
+          ]
+        }
+      },
+      "after": {
+        "sha256": "aa29c5454080d3aa109493170fa4cfe6cedd5542a257db393adefb8cc5712d32",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            0.31183332204818726,
+            -0.4295502305030823,
+            0.31820148229599
+          ],
+          "max": [
+            0.9054999947547913,
+            0.3168659806251526,
+            0.5096462965011597
+          ],
+          "size": [
+            0.593666672706604,
+            0.7464162111282349,
+            0.19144481420516968
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "tailored-seat",
+      "component": "individual_seat_cushion.001",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "52328a4a6ce50fdb0d09f3741091ae3f739e6b1d68bf299b9c2f3e15a4e2de3c",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.296833336353302,
+            -0.4295502305030823,
+            0.31820148229599
+          ],
+          "max": [
+            0.296833336353302,
+            0.316866010427475,
+            0.5096462965011597
+          ],
+          "size": [
+            0.593666672706604,
+            0.7464162409305573,
+            0.19144481420516968
+          ]
+        }
+      },
+      "after": {
+        "sha256": "9db418f693978c84615e02007e5959e0e0ecedc746f7ec44e1bdcc0e396680c2",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.296833336353302,
+            -0.4295502305030823,
+            0.31820148229599
+          ],
+          "max": [
+            0.296833336353302,
+            0.31686604022979736,
+            0.5096462965011597
+          ],
+          "size": [
+            0.593666672706604,
+            0.7464162707328796,
+            0.19144481420516968
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "tailored-seat",
+      "component": "individual_seat_cushion",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5d51f0052791a07cf53d527db589e936f446c6062147d78abfcffb175b583702",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.9054999947547913,
+            -0.4295502305030823,
+            0.31820148229599
+          ],
+          "max": [
+            -0.31183332204818726,
+            0.316866010427475,
+            0.5096462965011597
+          ],
+          "size": [
+            0.593666672706604,
+            0.7464162409305573,
+            0.19144481420516968
+          ]
+        }
+      },
+      "after": {
+        "sha256": "044483b56610b074f35dcd939604fb49f9a4d1503b10df2ca2c96e8eac30fc8c",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.9054999947547913,
+            -0.4295502305030823,
+            0.31820148229599
+          ],
+          "max": [
+            -0.31183332204818726,
+            0.3168659806251526,
+            0.5096462965011597
+          ],
+          "size": [
+            0.593666672706604,
+            0.7464162111282349,
+            0.19144481420516968
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "tailored-back",
+      "component": "angled_back_cushion.002",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "ac34a1a153730437889991f9fd163454f5b2ca8719066b5c2b1b9f9655e0c0d0",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.31433331966400146,
+            0.2144065946340561,
+            0.4501595199108124
+          ],
+          "max": [
+            0.902999997138977,
+            0.44999998807907104,
+            0.7900000214576721
+          ],
+          "size": [
+            0.5886666774749756,
+            0.23559339344501495,
+            0.33984050154685974
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c9d0ddfa9f3cbe67c8268120f3a38bef54ee8674e165893422beb9446c2f5621",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            0.31433331966400146,
+            0.2144065797328949,
+            0.45015949010849
+          ],
+          "max": [
+            0.902999997138977,
+            0.44999998807907104,
+            0.7900000214576721
+          ],
+          "size": [
+            0.5886666774749756,
+            0.23559340834617615,
+            0.33984053134918213
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "tailored-back",
+      "component": "angled_back_cushion.001",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "4fa77cb548c370d7743b91d02c75ca2364cff1e57bd242fc41f5ad044fa04114",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.2943333387374878,
+            0.2144065946340561,
+            0.4501595199108124
+          ],
+          "max": [
+            0.2943333387374878,
+            0.44999998807907104,
+            0.7900000214576721
+          ],
+          "size": [
+            0.5886666774749756,
+            0.23559339344501495,
+            0.33984050154685974
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e0f52480766e3d6d9b29c205a26d188dc03e7f67c68a2216573563de5d2a7c43",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.2943333387374878,
+            0.2144065797328949,
+            0.45015949010849
+          ],
+          "max": [
+            0.2943333387374878,
+            0.44999998807907104,
+            0.7899999618530273
+          ],
+          "size": [
+            0.5886666774749756,
+            0.23559340834617615,
+            0.33984047174453735
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "tailored-back",
+      "component": "angled_back_cushion",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "346d209d4c523fad645697aeb31e9b3a629f126bfef51d1fb8fba20ea073d5e6",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.902999997138977,
+            0.2144065946340561,
+            0.4501595199108124
+          ],
+          "max": [
+            -0.31433331966400146,
+            0.44999998807907104,
+            0.7900000214576721
+          ],
+          "size": [
+            0.5886666774749756,
+            0.23559339344501495,
+            0.33984050154685974
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e7154bd66bb4cae7450dc96267fc4e4bf1b867d939217031c56fe42cb642c6b5",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.902999997138977,
+            0.2144065797328949,
+            0.45015949010849
+          ],
+          "max": [
+            -0.31433331966400146,
+            0.44999998807907104,
+            0.7899999618530273
+          ],
+          "size": [
+            0.5886666774749756,
+            0.23559340834617615,
+            0.33984047174453735
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "tailored_cushion_welt.002",
+      "matchedPadVertices": {
+        "individual_seat_cushion.002": 162
+      },
+      "transportedSections": 24,
+      "untouchedSections": 4,
+      "maxDisplacementM": 0.0349334135152533,
+      "edgeLengthRatioRange": [
+        0.2135957538286057,
+        2.5298638245502807
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d51dbf18327c48a6090fe729fbf1e24706490ca1d92a91c62cf88696a7a9a306",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            0.31644535064697266,
+            -0.41865378618240356,
+            0.46137455105781555
+          ],
+          "max": [
+            0.9008879661560059,
+            0.30596956610679626,
+            0.5019554495811462
+          ],
+          "size": [
+            0.5844426155090332,
+            0.7246233522891998,
+            0.04058089852333069
+          ]
+        }
+      },
+      "after": {
+        "sha256": "810159d21a782bd6cb1fab139acdc46eef22381e69b10bc5514b8b5416b287da",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            0.3215028941631317,
+            -0.4108222424983978,
+            0.46137455105781555
+          ],
+          "max": [
+            0.895264744758606,
+            0.298444926738739,
+            0.47581207752227783
+          ],
+          "size": [
+            0.5737618505954742,
+            0.7092671692371368,
+            0.01443752646446228
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.026143372058868408
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "tailored_cushion_welt.001",
+      "matchedPadVertices": {
+        "individual_seat_cushion.001": 162
+      },
+      "transportedSections": 24,
+      "untouchedSections": 4,
+      "maxDisplacementM": 0.03641325304360973,
+      "edgeLengthRatioRange": [
+        0.25265568301575225,
+        2.534043017242459
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a3670f17a1f59c540b18dd46a43fe915c01d44a88b61afea580b4668d7cf2d2b",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.2922213077545166,
+            -0.41865378618240356,
+            0.46137455105781555
+          ],
+          "max": [
+            0.2922213077545166,
+            0.30596956610679626,
+            0.5019554495811462
+          ],
+          "size": [
+            0.5844426155090332,
+            0.7246233522891998,
+            0.04058089852333069
+          ]
+        }
+      },
+      "after": {
+        "sha256": "bdafcfbd12546cd155d934462063c50a7e7b4bf78a2eb3aa4c212cce03aaafda",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.28791436553001404,
+            -0.41180506348609924,
+            0.46137455105781555
+          ],
+          "max": [
+            0.28621146082878113,
+            0.298358678817749,
+            0.47599515318870544
+          ],
+          "size": [
+            0.5741258263587952,
+            0.7101637423038483,
+            0.014620602130889893
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.025960296392440796
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "tailored_cushion_welt",
+      "matchedPadVertices": {
+        "individual_seat_cushion": 162
+      },
+      "transportedSections": 24,
+      "untouchedSections": 4,
+      "maxDisplacementM": 0.034965163567690194,
+      "edgeLengthRatioRange": [
+        0.22073510133053534,
+        2.4246409260038693
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "4572bb241243531f7cfdba316946d448b02eb52a20c49b032ef3c6242926898e",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.9008879661560059,
+            -0.41865378618240356,
+            0.46137455105781555
+          ],
+          "max": [
+            -0.31644535064697266,
+            0.30596956610679626,
+            0.5019554495811462
+          ],
+          "size": [
+            0.5844426155090332,
+            0.7246233522891998,
+            0.04058089852333069
+          ]
+        }
+      },
+      "after": {
+        "sha256": "503a3bbd8433cb038677e9abfd195e938d3d143de166c9dd990a91adb6ad3c45",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.8957871198654175,
+            -0.4106651544570923,
+            0.46137455105781555
+          ],
+          "max": [
+            -0.3226793706417084,
+            0.29835739731788635,
+            0.4767201244831085
+          ],
+          "size": [
+            0.5731077492237091,
+            0.7090225517749786,
+            0.015345573425292969
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.02523532509803772
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "Tailoring - individual saddle stitches",
+      "matchedPadVertices": {
+        "individual_seat_cushion.002": 440,
+        "individual_seat_cushion.001": 440,
+        "individual_seat_cushion": 440,
+        "angled_back_cushion.002": 464,
+        "angled_back_cushion.001": 464,
+        "angled_back_cushion": 464
+      },
+      "transportedSections": 339,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.048033808957408296,
+      "edgeLengthRatioRange": [
+        0.9999010331014784,
+        1.0001060335422582
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3e3170cbb686e82d01e0cff80d9de41cef6ff844846a64f227dbdba4f2d952e0",
+        "vertices": 2712,
+        "triangles": 4068,
+        "bounds": {
+          "min": [
+            -0.8685635328292847,
+            -0.3750763535499573,
+            0.4864402413368225
+          ],
+          "max": [
+            0.8685635328292847,
+            0.2519143223762512,
+            0.7521367073059082
+          ],
+          "size": [
+            1.7371270656585693,
+            0.6269906759262085,
+            0.2656964659690857
+          ]
+        }
+      },
+      "after": {
+        "sha256": "80bb3ce47b72b504148f819febea3225d6bc220adade66d415b04873a44ee3eb",
+        "vertices": 2712,
+        "triangles": 4068,
+        "bounds": {
+          "min": [
+            -0.8614428639411926,
+            -0.37213078141212463,
+            0.4745110273361206
+          ],
+          "max": [
+            0.8592493534088135,
+            0.28346672654151917,
+            0.7375588417053223
+          ],
+          "size": [
+            1.720692217350006,
+            0.6555975079536438,
+            0.26304781436920166
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.031552404165267944
+    },
+    {
+      "kind": "edge-construction",
+      "component": "exposed_metal_side_frame.001",
+      "widthM": 0.0010999977821484208,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "f276a233f23bd744ec0ec89e6cb48f3198a1b2f8be9d2242a982d9694e91d4fb",
+        "vertices": 32,
+        "triangles": 48,
+        "bounds": {
+          "min": [
+            1.0120000839233398,
+            -0.4142129421234131,
+            0.07859313488006592
+          ],
+          "max": [
+            1.055999994277954,
+            0.42145100235939026,
+            0.6032527089118958
+          ],
+          "size": [
+            0.04399991035461426,
+            0.8356639444828033,
+            0.5246595740318298
+          ]
+        }
+      },
+      "after": {
+        "sha256": "0997d1f85423d4a8b63bbb9901a676bb00b8e458fd86f5f2e96c247aab16e746",
+        "vertices": 76,
+        "triangles": 136,
+        "bounds": {
+          "min": [
+            1.0120000839233398,
+            -0.4142129421234131,
+            0.07859313488006592
+          ],
+          "max": [
+            1.055999994277954,
+            0.42145100235939026,
+            0.6032527089118958
+          ],
+          "size": [
+            0.04399991035461426,
+            0.8356639444828033,
+            0.5246595740318298
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "exposed_metal_side_frame",
+      "widthM": 0.0010999977821484208,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5cec53de818e7db99c0c1342e6d9e923b79d4fb9f0f1dcc39c482dbfe4f55ed2",
+        "vertices": 32,
+        "triangles": 48,
+        "bounds": {
+          "min": [
+            -1.055999994277954,
+            -0.4142129421234131,
+            0.07859313488006592
+          ],
+          "max": [
+            -1.0120000839233398,
+            0.42145100235939026,
+            0.6032527089118958
+          ],
+          "size": [
+            0.04399991035461426,
+            0.8356639444828033,
+            0.5246595740318298
+          ]
+        }
+      },
+      "after": {
+        "sha256": "3c20be1949ec639a438f2176c85f76b55f09c5d40461ae61a0148320d900b7af",
+        "vertices": 76,
+        "triangles": 136,
+        "bounds": {
+          "min": [
+            -1.055999994277954,
+            -0.4142129421234131,
+            0.07859313488006592
+          ],
+          "max": [
+            -1.0120000839233398,
+            0.42145100235939026,
+            0.6032527089118958
+          ],
+          "size": [
+            0.04399991035461426,
+            0.8356639444828033,
+            0.5246595740318298
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "continuous-upholstered-supporting-back",
+      "newComponent": "detail_casework_continuous_upholstered_back",
+      "materialKey": "upholstery-textured",
+      "sourceComponents": [
+        "connected_upholstered_platform",
+        "angled_back_cushion.002",
+        "angled_back_cushion.001",
+        "angled_back_cushion",
+        "integrated_track_arm",
+        "integrated_track_arm.001"
+      ],
+      "contactEvidence": {
+        "platformBounds": {
+          "min": [
+            -1.055999994277954,
+            -0.4142129421234131,
+            0.15617868304252625
+          ],
+          "max": [
+            1.055999994277954,
+            0.40377748012542725,
+            0.3476234972476959
+          ]
+        },
+        "leftArmBounds": {
+          "min": [
+            -1.100000023841858,
+            -0.44999998807907104,
+            0.20138989388942719
+          ],
+          "max": [
+            -0.9020000696182251,
+            0.4395645558834076,
+            0.5436730980873108
+          ]
+        },
+        "rightArmBounds": {
+          "min": [
+            0.9020000696182251,
+            -0.44999998807907104,
+            0.20138989388942719
+          ],
+          "max": [
+            1.100000023841858,
+            0.4395645558834076,
+            0.5436730980873108
+          ]
+        },
+        "backCushionBounds": {
+          "min": [
+            -0.902999997138977,
+            0.2144065797328949,
+            0.45015949010849
+          ],
+          "max": [
+            0.902999997138977,
+            0.44999998807907104,
+            0.7900000214576721
+          ]
+        },
+        "platformOverlapM": 0.025000000000000022,
+        "armOverlapM": 0.018,
+        "bevelSegments": 3,
+        "coverConstruction": "Closed face, rear panel and eased boxing; existing cushion covers untouched."
+      },
+      "geometryChanged": true,
+      "originalGeometry": "unchanged; additive detail only",
+      "added": {
+        "sha256": "e7c8d6272eedb851e974f0199b6989f7efbf8d179866bc162479fe8b7d34b291",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.9200000696182251,
+            0.3405475221276283,
+            0.3226234972476959
+          ],
+          "max": [
+            0.9200000696182251,
+            0.4465645558834076,
+            0.6642590248584748
+          ]
+        }
+      }
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "maps": [],
+      "surfaceAdjustments": [
+        {
+          "property": "extensions.KHR_materials_sheen.sheenColorFactor",
+          "value": [
+            0.0047290936112403875,
+            0.006997604966163635,
+            0.006546431779861451
+          ],
+          "reason": "Reduce whitening cloth sheen; preserve original base RGBA and retain tinted fiber response."
+        }
+      ]
+    },
+    {
+      "kind": "export-only-realism-uv-repair",
+      "catalogId": "metal-frame-sofa",
+      "layer": "RealismUV",
+      "triangleCount": 22,
+      "components": [
+        {
+          "component": "exposed_metal_side_frame.001",
+          "materialKey": "modern-brushed-aluminum",
+          "triangleCount": 11,
+          "sourceTriangles": [
+            2,
+            5,
+            9,
+            10,
+            11,
+            14,
+            17,
+            18,
+            19,
+            20,
+            23
+          ]
+        },
+        {
+          "component": "exposed_metal_side_frame",
+          "materialKey": "modern-brushed-aluminum",
+          "triangleCount": 11,
+          "sourceTriangles": [
+            2,
+            5,
+            9,
+            10,
+            11,
+            14,
+            17,
+            18,
+            19,
+            20,
+            23
+          ]
+        }
+      ],
+      "details": "Only collapsed evaluated RealismUV triangles reprojected in part-local metres; original UV0, healthy UVs and editable modifiers retained."
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-recess-charcoal",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [],
+      "surfaceAdjustments": [
+        {
+          "property": "extensions.KHR_materials_sheen.sheenColorFactor",
+          "value": [
+            0.0047290936112403875,
+            0.006997604966163635,
+            0.006546431779861451
+          ],
+          "reason": "Reduce whitening cloth sheen; preserve original base RGBA and retain tinted fiber response."
+        }
+      ],
+      "retainedChannels": [
+        "normal",
+        "roughness"
+      ],
+      "retainedChannelReason": "existing normal and roughness graphs retained at full quality"
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [
+    {
+      "materialKey": "upholstery-textured",
+      "property": "extensions.KHR_materials_sheen.sheenColorFactor",
+      "value": [
+        0.0047290936112403875,
+        0.006997604966163635,
+        0.006546431779861451
+      ],
+      "reason": "Reduce whitening cloth sheen; preserve original base RGBA and retain tinted fiber response."
+    }
+  ],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 4759696,
+    "afterBytes": 4759696,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/metal-frame-sofa.blend",
+      "sha256": "e6b35b6a050a6436a1c8e53c919cac9eec46d66d1485eb3556ce46a1b621fe7d",
+      "bytes": 3388283
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/metal-frame-sofa.glb",
+      "sha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+      "bytes": 4759696
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/metal-frame-sofa/front-9918ec6925cab358c665.webp",
+      "sha256": "9918ec6925cab358c665dc15e8eef820dbdf030b9d501ea051731df8ce6eefaa",
+      "bytes": 111458,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.84,
+      "camera": {
+        "orthoScale": 2.701960802078247,
+        "position": [
+          4.094992637634277,
+          -6.824987411499023,
+          4.148743152618408
+        ],
+        "target": [
+          0,
+          0,
+          0.39500001072883606
+        ],
+        "clipStart": 0.002199999988079071,
+        "clipEnd": 26.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521738320589066,
+            0.12334969639778137
+          ],
+          "max": [
+            0.9347824454307556,
+            0.8766493797302246
+          ]
+        }
+      },
+      "glbSha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+      "renderConfigSha256": "28221d17e291c75496e13f8d9aeef9482a9ef2d8c3dc3f7346cb1f759362d0f8",
+      "inputSetSha256": "080f65bc592fa90654f5f604ccc483b959007dc66924ccf76c3fc10d7e992a6f"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/metal-frame-sofa/rear-539a6ba4e66cde30f6f9.webp",
+      "sha256": "539a6ba4e66cde30f6f97f9803075ab38bc731f5ca1847bec64fd3ae4b8a7b59",
+      "bytes": 99796,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.811,
+      "camera": {
+        "orthoScale": 2.701960563659668,
+        "position": [
+          -4.094992637634277,
+          6.824987411499023,
+          4.148743152618408
+        ],
+        "target": [
+          0,
+          0,
+          0.39500001072883606
+        ],
+        "clipStart": 0.002199999988079071,
+        "clipEnd": 26.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521739065647125,
+            0.12334968149662018
+          ],
+          "max": [
+            0.9347824454307556,
+            0.8766493797302246
+          ]
+        }
+      },
+      "glbSha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+      "renderConfigSha256": "28221d17e291c75496e13f8d9aeef9482a9ef2d8c3dc3f7346cb1f759362d0f8",
+      "inputSetSha256": "080f65bc592fa90654f5f604ccc483b959007dc66924ccf76c3fc10d7e992a6f"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/metal-frame-sofa/detail-fe21364318133fdad765.webp",
+      "sha256": "fe21364318133fdad7654277e9f21a2d679231ab3cbb46c4957eab0bcf32d9d8",
+      "bytes": 163454,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.899,
+      "camera": {
+        "orthoScale": 1.4860786199569702,
+        "position": [
+          4.094992637634277,
+          -6.824987411499023,
+          4.148743152618408
+        ],
+        "target": [
+          0,
+          0,
+          0.39500001072883606
+        ],
+        "clipStart": 0.002199999988079071,
+        "clipEnd": 26.400001525878906,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.06521739065647125,
+            0.12334933876991272
+          ],
+          "max": [
+            0.9347822666168213,
+            0.8766489624977112
+          ]
+        }
+      },
+      "glbSha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+      "renderConfigSha256": "28221d17e291c75496e13f8d9aeef9482a9ef2d8c3dc3f7346cb1f759362d0f8",
+      "inputSetSha256": "080f65bc592fa90654f5f604ccc483b959007dc66924ccf76c3fc10d7e992a6f"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/metal-frame-sofa/underside-93ef8462d86dca464bda.webp",
+      "sha256": "93ef8462d86dca464bda5eb6be29d810e0fdbf52e99b472c3f0fbd597aeb6841",
+      "bytes": 55744,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.719,
+      "camera": {
+        "orthoScale": 2.7019615173339844,
+        "position": [
+          4.0259623527526855,
+          -6.70993709564209,
+          -3.630962371826172
+        ],
+        "target": [
+          0,
+          0,
+          0.39500001072883606
+        ],
+        "clipStart": 0.002199999988079071,
+        "clipEnd": 26.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521741300821304,
+            0.11179287731647491
+          ],
+          "max": [
+            0.9347822070121765,
+            0.8882073163986206
+          ]
+        }
+      },
+      "glbSha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+      "renderConfigSha256": "28221d17e291c75496e13f8d9aeef9482a9ef2d8c3dc3f7346cb1f759362d0f8",
+      "inputSetSha256": "080f65bc592fa90654f5f604ccc483b959007dc66924ccf76c3fc10d7e992a6f"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/metal-frame-sofa/clay-21d6b3d98f4007629794.webp",
+      "sha256": "21d6b3d98f4007629794b9b1d0006ba8aae0f74f7c5849469d18ca8cb25e5a62",
+      "bytes": 80438,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.807,
+      "camera": {
+        "orthoScale": 2.701960802078247,
+        "position": [
+          4.094992637634277,
+          -6.824987411499023,
+          4.148743152618408
+        ],
+        "target": [
+          0,
+          0,
+          0.39500001072883606
+        ],
+        "clipStart": 0.002199999988079071,
+        "clipEnd": 26.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521738320589066,
+            0.12334969639778137
+          ],
+          "max": [
+            0.9347824454307556,
+            0.8766493797302246
+          ]
+        }
+      },
+      "glbSha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+      "renderConfigSha256": "28221d17e291c75496e13f8d9aeef9482a9ef2d8c3dc3f7346cb1f759362d0f8",
+      "inputSetSha256": "080f65bc592fa90654f5f604ccc483b959007dc66924ccf76c3fc10d7e992a6f"
+    }
+  ],
+  "timingSeconds": 4.22,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          1.100000023841858,
+          0.44999998807907104,
+          0.7900000214576721
+        ],
+        "min": [
+          -1.100000023841858,
+          -0.44999998807907104,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 0,
+          "materialKey": "modern-tailored-welting",
+          "rawGlbBaseColorFactor": [
+            0.021280920132994652,
+            0.03148921951651573,
+            0.029458941891789436,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.0182673193714089,
+            0.028761963121098418,
+            0.026660530196611344,
+            1
+          ],
+          "rule": "sofa-seam-0.72",
+          "variant": "charcoal",
+          "variantHex": "#303b39"
+        },
+        {
+          "materialIndex": 2,
+          "materialKey": "upholstery-textured",
+          "rawGlbBaseColorFactor": [
+            0.02955683507025242,
+            0.04373503103852272,
+            0.040915198624134064,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.025371276904734584,
+            0.03994717100152558,
+            0.0370285141619602,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "charcoal",
+          "variantHex": "#303b39"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+      "renderImportSha256": "6ac5a266196576d0b7939d42361b6834d11ad5eec913d7634375698280357b7f",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[1.100000023841858,0.44999998807907104,0.7900000214576721],\"min\":[-1.100000023841858,-0.44999998807907104,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":0,\"materialKey\":\"modern-tailored-welting\",\"rawGlbBaseColorFactor\":[0.021280920132994652,0.03148921951651573,0.029458941891789436,1],\"renderBaseColorFactor\":[0.0182673193714089,0.028761963121098418,0.026660530196611344,1],\"rule\":\"sofa-seam-0.72\",\"variant\":\"charcoal\",\"variantHex\":\"#303b39\"},{\"materialIndex\":2,\"materialKey\":\"upholstery-textured\",\"rawGlbBaseColorFactor\":[0.02955683507025242,0.04373503103852272,0.040915198624134064,1],\"renderBaseColorFactor\":[0.025371276904734584,0.03994717100152558,0.0370285141619602,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"charcoal\",\"variantHex\":\"#303b39\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad\",\"renderImportSha256\":\"6ac5a266196576d0b7939d42361b6834d11ad5eec913d7634375698280357b7f\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "28221d17e291c75496e13f8d9aeef9482a9ef2d8c3dc3f7346cb1f759362d0f8",
+    "inputs": [
+      {
+        "path": "assets-source/blender/metal-frame-sofa.blend",
+        "sha256": "2322bd270467794ab9439e7973d0a9eb01bd15cc8c324f2f9fda443ddd4432e9",
+        "bytes": 1885379
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/metal-frame-sofa.blend",
+        "sha256": "e6b35b6a050a6436a1c8e53c919cac9eec46d66d1485eb3556ce46a1b621fe7d",
+        "bytes": 3388283
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/metal-frame-sofa/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/metal-frame-sofa.glb",
+        "sha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+        "bytes": 4759696
+      },
+      {
+        "path": "public/models/furniture/metal-frame-sofa.glb",
+        "sha256": "3e105ca9584b0e7b993de3dc62bcd89fd9cadfb1ca9a7140b1b538c15b7768f6",
+        "bytes": 2177476
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "080f65bc592fa90654f5f604ccc483b959007dc66924ccf76c3fc10d7e992a6f",
+    "afterSha256": "080f65bc592fa90654f5f604ccc483b959007dc66924ccf76c3fc10d7e992a6f"
+  },
+  "formatValidation": {
+    "sha256": "1a8f215c6eca688bf6bb6bdfa5b2b854aa5361ccbca6f22ebc6561c8f555d9ad",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 9,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x985.",
+        "severity": 2,
+        "pointer": "/images/0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x985.",
+        "severity": 2,
+        "pointer": "/images/1"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x985.",
+        "severity": 2,
+        "pointer": "/images/2"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/5"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/6"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "catalog_materials independent five-view review",
+    "artifactSetSha256": "1fcc869e253f5bfa21b573d3a968018277ae4a82778b598ccf74fa4eeb470551",
+    "views": {
+      "front": "Three dark tailored cushions sit inside connected metal arm and base rails.",
+      "rear": "Continuous upholstered back closes the cushion support.",
+      "detail": "Seated seams and rounded cushion edges remain clean.",
+      "underside": "Full lower chassis joins the metal legs beneath the seat deck.",
+      "clay": "Back panel, arm rails and cushion layers form a complete sofa structure."
+    }
+  }
+}

@@ -1,0 +1,1596 @@
+{
+  "version": 1,
+  "catalogId": "cottage-fireplace",
+  "inputContractSha256": "668b58bdf7cf2efab7f3fe9caac22af343aae05940731f99cad0f34e171c57ef",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/cottage-fireplace.blend",
+      "sha256": "0aa2e67dfc27fa7c1530ae4d5e19f1857aeac3fb44eabdc6b5015ac5cc19a252",
+      "bytes": 208366
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-normal-7d5bda16b4c6dec6.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-orm-359bc337ca2cbe69.png",
+      "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+      "bytes": 49612
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-normal.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-orm.png",
+      "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+      "bytes": 29383
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-orm.png",
+      "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+      "bytes": 35540
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/cottage-fireplace.glb",
+      "sha256": "5b6c6d910d1e5ae707fe141aff4e421a496227f8b60c6c2a29fc766e86ae1fab",
+      "bytes": 600808
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/cottage-fireplace.blend",
+      "sha256": "0aa2e67dfc27fa7c1530ae4d5e19f1857aeac3fb44eabdc6b5015ac5cc19a252",
+      "bytes": 208366
+    },
+    {
+      "path": "public/models/furniture/cottage-fireplace.glb",
+      "sha256": "5b6c6d910d1e5ae707fe141aff4e421a496227f8b60c6c2a29fc766e86ae1fab",
+      "bytes": 600808
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-normal.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-orm.png",
+      "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+      "bytes": 29383
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-orm.png",
+      "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+      "bytes": 35540
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-normal-7d5bda16b4c6dec6.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-orm-359bc337ca2cbe69.png",
+      "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+      "bytes": 49612
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "antique-brass",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "bark-umber",
+      "profile": "bark",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "cast-iron",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "firebrick-ochre",
+      "profile": "stone",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "mortar",
+      "profile": "stone",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "antique-brass",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "antique-brass",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "antique-brass",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "bark-umber",
+      "profile": "bark",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "bark-umber",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/bark-normal.png",
+          "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+          "bytes": 17207,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "bark-umber",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/bark-orm.png",
+          "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+          "bytes": 29383,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "cast-iron",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "cast-iron",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "cast-iron",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "firebrick-ochre",
+      "profile": "stone",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "firebrick-ochre",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/stone-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "firebrick-ochre",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/stone-orm.png",
+          "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+          "bytes": 35540,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "golden-flame",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "mortar",
+      "profile": "stone",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "mortar",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/stone-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "mortar",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/stone-orm.png",
+          "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+          "bytes": 35540,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "recess-shadow-detail",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-light",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "antique-brass",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "antique-brass",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "bark-umber",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-normal-7d5bda16b4c6dec6.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "bark-umber",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-orm-359bc337ca2cbe69.png",
+      "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+      "bytes": 49612,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "cast-iron",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "cast-iron",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "firebrick-ochre",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "firebrick-ochre",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "mortar",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "mortar",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1392448,
+    "afterBytes": 1392448,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/cottage-fireplace.blend",
+      "sha256": "5b12495de2ca9ddf92872fa63819690866d0b17ebdac899324c398341560e525",
+      "bytes": 584666
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/cottage-fireplace.glb",
+      "sha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "bytes": 1392448
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/cottage-fireplace/front-1f23b5737d376c2b5599.webp",
+      "sha256": "1f23b5737d376c2b559974eace28f9724351a5ce331f73266462a6f47cf69f25",
+      "bytes": 116804,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.831,
+      "camera": {
+        "orthoScale": 2.1873276233673096,
+        "position": [
+          2.4197680950164795,
+          -4.032947063446045,
+          2.768120765686035
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0013000000035390258,
+        "clipEnd": 15.59999942779541,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.1981387883424759,
+            0.06521738320589066
+          ],
+          "max": [
+            0.8018613457679749,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "renderConfigSha256": "8f4bea6046b33cf5aa971cd1c0c53a7284b1d7667510f7e7a9b0ae18780d7ad6",
+      "inputSetSha256": "65a2caf02e1a874694c9446b807f459c2c180d7f64ab14fac15b65cac5c8603b"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/cottage-fireplace/rear-c1bcf505820b3d823e86.webp",
+      "sha256": "c1bcf505820b3d823e8629769065de6d205fa9347b444ebae6d1852c5c3bec23",
+      "bytes": 82186,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.804,
+      "camera": {
+        "orthoScale": 2.1873276233673096,
+        "position": [
+          -2.4197680950164795,
+          4.032947063446045,
+          2.768120765686035
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0013000000035390258,
+        "clipEnd": 15.59999942779541,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.1981387883424759,
+            0.06521742045879364
+          ],
+          "max": [
+            0.8018613457679749,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "renderConfigSha256": "8f4bea6046b33cf5aa971cd1c0c53a7284b1d7667510f7e7a9b0ae18780d7ad6",
+      "inputSetSha256": "65a2caf02e1a874694c9446b807f459c2c180d7f64ab14fac15b65cac5c8603b"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/cottage-fireplace/detail-22de45ad322ab3b5fe01.webp",
+      "sha256": "22de45ad322ab3b5fe01ab4612a0bdfbb1f0c901e74549e4a7c43c149e8ee6e3",
+      "bytes": 180434,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.913,
+      "camera": {
+        "orthoScale": 1.2030308246612549,
+        "position": [
+          2.4197680950164795,
+          -4.032947063446045,
+          2.768120765686035
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0013000000035390258,
+        "clipEnd": 15.59999942779541,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.19813896715641022,
+            0.06521740555763245
+          ],
+          "max": [
+            0.8018612265586853,
+            0.9347817897796631
+          ]
+        }
+      },
+      "glbSha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "renderConfigSha256": "8f4bea6046b33cf5aa971cd1c0c53a7284b1d7667510f7e7a9b0ae18780d7ad6",
+      "inputSetSha256": "65a2caf02e1a874694c9446b807f459c2c180d7f64ab14fac15b65cac5c8603b"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/cottage-fireplace/underside-34d9b06450ac596b8dbc.webp",
+      "sha256": "34d9b06450ac596b8dbcd5214c529d1d51110ef1d2cb9064cc7b9b8521de9e9b",
+      "bytes": 95108,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.747,
+      "camera": {
+        "orthoScale": 2.209603786468506,
+        "position": [
+          2.3789775371551514,
+          -3.9649627208709717,
+          -1.8289775848388672
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0013000000035390258,
+        "clipEnd": 15.59999942779541,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.20118188858032227,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7988179922103882,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "renderConfigSha256": "8f4bea6046b33cf5aa971cd1c0c53a7284b1d7667510f7e7a9b0ae18780d7ad6",
+      "inputSetSha256": "65a2caf02e1a874694c9446b807f459c2c180d7f64ab14fac15b65cac5c8603b"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/cottage-fireplace/clay-4b7563d2c46350c0a6cd.webp",
+      "sha256": "4b7563d2c46350c0a6cd15a4d21569fa5952428fd0ca1b42e43d9cdd49c008e1",
+      "bytes": 92486,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.812,
+      "camera": {
+        "orthoScale": 2.1873276233673096,
+        "position": [
+          2.4197680950164795,
+          -4.032947063446045,
+          2.768120765686035
+        ],
+        "target": [
+          0,
+          0,
+          0.550000011920929
+        ],
+        "clipStart": 0.0013000000035390258,
+        "clipEnd": 15.59999942779541,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.1981387883424759,
+            0.06521738320589066
+          ],
+          "max": [
+            0.8018613457679749,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "renderConfigSha256": "8f4bea6046b33cf5aa971cd1c0c53a7284b1d7667510f7e7a9b0ae18780d7ad6",
+      "inputSetSha256": "65a2caf02e1a874694c9446b807f459c2c180d7f64ab14fac15b65cac5c8603b"
+    }
+  ],
+  "timingSeconds": 2.15,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.6499999761581421,
+          0.20000000298023224,
+          1.100000023841858
+        ],
+        "min": [
+          -0.6499999761581421,
+          -0.20000000298023224,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "renderImportSha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.6499999761581421,0.20000000298023224,1.100000023841858],\"min\":[-0.6499999761581421,-0.20000000298023224,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801\",\"renderImportSha256\":\"472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "8f4bea6046b33cf5aa971cd1c0c53a7284b1d7667510f7e7a9b0ae18780d7ad6",
+    "inputs": [
+      {
+        "path": "assets-source/blender/cottage-fireplace.blend",
+        "sha256": "0aa2e67dfc27fa7c1530ae4d5e19f1857aeac3fb44eabdc6b5015ac5cc19a252",
+        "bytes": 208366
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/cottage-fireplace.blend",
+        "sha256": "5b12495de2ca9ddf92872fa63819690866d0b17ebdac899324c398341560e525",
+        "bytes": 584666
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/antique-brass-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-normal-7d5bda16b4c6dec6.png",
+        "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+        "bytes": 17207
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/bark-umber-orm-359bc337ca2cbe69.png",
+        "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+        "bytes": 49612
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/cast-iron-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/firebrick-ochre-orm-c556c4a94277b572.png",
+        "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+        "bytes": 54508
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/mortar-orm-c556c4a94277b572.png",
+        "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+        "bytes": 54508
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/cottage-fireplace/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/bark-normal.png",
+        "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+        "bytes": 17207
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/bark-orm.png",
+        "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+        "bytes": 29383
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/stone-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/stone-orm.png",
+        "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+        "bytes": 35540
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/cottage-fireplace.glb",
+        "sha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+        "bytes": 1392448
+      },
+      {
+        "path": "public/models/furniture/cottage-fireplace.glb",
+        "sha256": "5b6c6d910d1e5ae707fe141aff4e421a496227f8b60c6c2a29fc766e86ae1fab",
+        "bytes": 600808
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "65a2caf02e1a874694c9446b807f459c2c180d7f64ab14fac15b65cac5c8603b",
+    "afterSha256": "65a2caf02e1a874694c9446b807f459c2c180d7f64ab14fac15b65cac5c8603b"
+  },
+  "formatValidation": {
+    "sha256": "472f08154321c9370b09994e80f395ea6a385c085ff95615ccc300874a2e3801",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 6,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/5/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "34102bf6877869fab109d7c25f88a449786d369d1610c200e3e5bd9bd801035e",
+    "views": {
+      "front": "Fluted mantel surrounds a recessed brick firebox and grate.",
+      "rear": "Closed backing and layered mantel are intact.",
+      "detail": "Brick joints, round logs and authored flame silhouettes remain distinct.",
+      "underside": "Hearth, grate and lower surround meet cleanly.",
+      "clay": "Clay confirms layered masonry and firebox depth; motion remains protected."
+    }
+  }
+}

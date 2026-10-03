@@ -1,0 +1,1595 @@
+{
+  "version": 1,
+  "catalogId": "ottoman",
+  "inputContractSha256": "aa955b11b96d2f4ac6e55a1d26b7b0370d8b77925b2e77707d7334f9a6710fe5",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/ottoman.blend",
+      "sha256": "dbe6180420539ce19430a5c92d42e27e40c987bcb65693a9af01fc05980fd74c",
+      "bytes": 125111
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/ottoman.glb",
+      "sha256": "f5e748238d2b8b5977e9046355a5cbd3f9e1d1e1c5fa338e4add624c0a5a36db",
+      "bytes": 113452
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/ottoman.json",
+      "sha256": "db222dd48eb7181925ccab8947c9088a9da6cd0e9087409f6fe756ad90f06789",
+      "bytes": 157
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/ottoman.py",
+      "sha256": "9c35817361ced22c2f70118bf10461d6b086874706177c57aded69b72e4c33b1",
+      "bytes": 1459
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/room_construction.py",
+      "sha256": "24c911da31ab9b9560c0eeb451f5aa9d9bf03eb8bc496ab517b0a141ae429f1e",
+      "bytes": 8990
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/ottoman.py",
+      "sha256": "9c35817361ced22c2f70118bf10461d6b086874706177c57aded69b72e4c33b1",
+      "bytes": 1459
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/ottoman.json",
+      "sha256": "db222dd48eb7181925ccab8947c9088a9da6cd0e9087409f6fe756ad90f06789",
+      "bytes": 157
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/room_construction.py",
+      "sha256": "24c911da31ab9b9560c0eeb451f5aa9d9bf03eb8bc496ab517b0a141ae429f1e",
+      "bytes": 8990
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/ottoman.blend",
+      "sha256": "dbe6180420539ce19430a5c92d42e27e40c987bcb65693a9af01fc05980fd74c",
+      "bytes": 125111
+    },
+    {
+      "path": "public/models/furniture/ottoman.glb",
+      "sha256": "f5e748238d2b8b5977e9046355a5cbd3f9e1d1e1c5fa338e4add624c0a5a36db",
+      "bytes": 113452
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/ottoman.py",
+      "sha256": "9c35817361ced22c2f70118bf10461d6b086874706177c57aded69b72e4c33b1",
+      "bytes": 1459
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/ottoman.json",
+      "sha256": "db222dd48eb7181925ccab8947c9088a9da6cd0e9087409f6fe756ad90f06789",
+      "bytes": 157
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/room_construction.py",
+      "sha256": "24c911da31ab9b9560c0eeb451f5aa9d9bf03eb8bc496ab517b0a141ae429f1e",
+      "bytes": 8990
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "tailored-seat",
+      "component": "tailored_seat_cushion",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "619b28bf00412788a44b6b8bf8410eeaa05355448dc9fdea4988ee47702bc072",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.31066176295280457,
+            -0.24709302186965942,
+            0.22094787657260895
+          ],
+          "max": [
+            0.31066176295280457,
+            0.19476743042469025,
+            0.41999998688697815
+          ],
+          "size": [
+            0.6213235259056091,
+            0.44186045229434967,
+            0.1990521103143692
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7561385882f760b63ad56136e319aa2820d8d43c1f5fc8eee07e47d27c8167bf",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.31066176295280457,
+            -0.24709302186965942,
+            0.22094787657260895
+          ],
+          "max": [
+            0.31066176295280457,
+            0.19476744532585144,
+            0.41999998688697815
+          ],
+          "size": [
+            0.6213235259056091,
+            0.44186046719551086,
+            0.1990521103143692
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "seat_double_welt",
+      "matchedPadVertices": {
+        "tailored_seat_cushion": 128
+      },
+      "transportedSections": 16,
+      "untouchedSections": 8,
+      "maxDisplacementM": 0.016489894440474655,
+      "edgeLengthRatioRange": [
+        0.6004928215960269,
+        1.6533600237317825
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "91994ea0edcd7e4a3c60e7acba2c8daa205ee86eba56ea151b7b2d61c902d652",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.29402321577072144,
+            -0.23578467965126038,
+            0.3923317492008209
+          ],
+          "max": [
+            0.29402321577072144,
+            0.1834590882062912,
+            0.3979052007198334
+          ],
+          "size": [
+            0.5880464315414429,
+            0.4192437678575516,
+            0.005573451519012451
+          ]
+        }
+      },
+      "after": {
+        "sha256": "851dfb3051bbd0947e44278ce737c060e4d79e266a608df2f10782c8875d0584",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.2957253158092499,
+            -0.23072096705436707,
+            0.37863487005233765
+          ],
+          "max": [
+            0.2935584485530853,
+            0.17806239426136017,
+            0.3979052007198334
+          ],
+          "size": [
+            0.5892837643623352,
+            0.40878336131572723,
+            0.019270330667495728
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.013696879148483276
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "seat_double_welt",
+      "construction": "continuous seat welt follows the actual lofted cushion surface",
+      "sourceVertices": 192,
+      "candidateVertices": 2048,
+      "candidateTriangles": 4096,
+      "boundsM": {
+        "min": [
+          -0.2959670126438141,
+          -0.23128916323184967,
+          0.3712959885597229
+        ],
+        "max": [
+          0.29391345381736755,
+          0.17863912880420685,
+          0.39247581362724304
+        ]
+      },
+      "preserved": [
+        "catalog footprint and material keys",
+        "unrelated parts and protected image/motion content"
+      ],
+      "seatedSections": 256,
+      "maximumSampleSpacingM": 0.008,
+      "sectionRadiusM": 0.0024005512686924805,
+      "surfaceOffsetM": 0.0006001378171731201,
+      "maximumCenterDisplacementM": 0.021589409616199994
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-recess-charcoal",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1931392,
+    "afterBytes": 1931392,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/ottoman.blend",
+      "sha256": "0849e42fdc80b1eb34aac5eb3fed5c731942011871abaa2a90755971c74994a0",
+      "bytes": 1933764
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/ottoman.glb",
+      "sha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+      "bytes": 1931392
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/ottoman/front-563c5e0dcf4c7786749b.webp",
+      "sha256": "563c5e0dcf4c7786749b44334ad156ebfe41344968d3c0332b4dc3be6331f450",
+      "bytes": 86826,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.795,
+      "camera": {
+        "orthoScale": 1.0816309452056885,
+        "position": [
+          1.2098840475082397,
+          -2.0164735317230225,
+          1.3190603256225586
+        ],
+        "target": [
+          0,
+          0,
+          0.20999999344348907
+        ],
+        "clipStart": 0.0006500000017695129,
+        "clipEnd": 7.799999713897705,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.12343063205480576,
+            0.06521738320589066
+          ],
+          "max": [
+            0.8765694499015808,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+      "renderConfigSha256": "3750115312c6181c948000caf803963a6dd274256f0ee9124ffa62e8abda4136",
+      "inputSetSha256": "e20356c99a921087e0d031a1af2f344bfee365678940ff588faf1ec60623f089"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/ottoman/rear-802bf898b1b1e5fc2588.webp",
+      "sha256": "802bf898b1b1e5fc25884a90dcca3301989641df30af86050144c2581c6f133d",
+      "bytes": 89434,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.799,
+      "camera": {
+        "orthoScale": 1.0816309452056885,
+        "position": [
+          -1.2098840475082397,
+          2.0164735317230225,
+          1.3190603256225586
+        ],
+        "target": [
+          0,
+          0,
+          0.20999999344348907
+        ],
+        "clipStart": 0.0006500000017695129,
+        "clipEnd": 7.799999713897705,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.12343065440654755,
+            0.06521742045879364
+          ],
+          "max": [
+            0.8765694499015808,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+      "renderConfigSha256": "3750115312c6181c948000caf803963a6dd274256f0ee9124ffa62e8abda4136",
+      "inputSetSha256": "e20356c99a921087e0d031a1af2f344bfee365678940ff588faf1ec60623f089"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/ottoman/detail-d7b7c2774b47474b1e01.webp",
+      "sha256": "d7b7c2774b47474b1e0103a257657f965171a3d7b9940a7b218c1cab6bb1b1c7",
+      "bytes": 99998,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.825,
+      "camera": {
+        "orthoScale": 0.5948973298072815,
+        "position": [
+          1.2098840475082397,
+          -2.0164735317230225,
+          1.3190603256225586
+        ],
+        "target": [
+          0,
+          0,
+          0.20999999344348907
+        ],
+        "clipStart": 0.0006500000017695129,
+        "clipEnd": 7.799999713897705,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.12343084067106247,
+            0.06521739810705185
+          ],
+          "max": [
+            0.8765693306922913,
+            0.9347816705703735
+          ]
+        }
+      },
+      "glbSha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+      "renderConfigSha256": "3750115312c6181c948000caf803963a6dd274256f0ee9124ffa62e8abda4136",
+      "inputSetSha256": "e20356c99a921087e0d031a1af2f344bfee365678940ff588faf1ec60623f089"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/ottoman/underside-6082cd844c4d4cdf558c.webp",
+      "sha256": "6082cd844c4d4cdf558ceb226d65ae6f6bb9aaf94f914eee14ad97de31ebf6bb",
+      "bytes": 48484,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.681,
+      "camera": {
+        "orthoScale": 1.108010172843933,
+        "position": [
+          1.1894887685775757,
+          -1.9824813604354858,
+          -0.9794887900352478
+        ],
+        "target": [
+          0,
+          0,
+          0.20999999344348907
+        ],
+        "clipStart": 0.0006500000017695129,
+        "clipEnd": 7.799999713897705,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.13239581882953644,
+            0.06521739065647125
+          ],
+          "max": [
+            0.8676040768623352,
+            0.9347825050354004
+          ]
+        }
+      },
+      "glbSha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+      "renderConfigSha256": "3750115312c6181c948000caf803963a6dd274256f0ee9124ffa62e8abda4136",
+      "inputSetSha256": "e20356c99a921087e0d031a1af2f344bfee365678940ff588faf1ec60623f089"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/ottoman/clay-a1a3d33edbccfd49e341.webp",
+      "sha256": "a1a3d33edbccfd49e34143441a6f431d0ff6d11999e67f7510cfdffe90382c0d",
+      "bytes": 59356,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.782,
+      "camera": {
+        "orthoScale": 1.0816309452056885,
+        "position": [
+          1.2098840475082397,
+          -2.0164735317230225,
+          1.3190603256225586
+        ],
+        "target": [
+          0,
+          0,
+          0.20999999344348907
+        ],
+        "clipStart": 0.0006500000017695129,
+        "clipEnd": 7.799999713897705,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.12343063205480576,
+            0.06521738320589066
+          ],
+          "max": [
+            0.8765694499015808,
+            0.934782087802887
+          ]
+        }
+      },
+      "glbSha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+      "renderConfigSha256": "3750115312c6181c948000caf803963a6dd274256f0ee9124ffa62e8abda4136",
+      "inputSetSha256": "e20356c99a921087e0d031a1af2f344bfee365678940ff588faf1ec60623f089"
+    }
+  ],
+  "timingSeconds": 3.79,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.32499998807907104,
+          0.25,
+          0.41999998688697815
+        ],
+        "min": [
+          -0.32499998807907104,
+          -0.25,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 2,
+          "materialKey": "upholstery-textured",
+          "rawGlbBaseColorFactor": [
+            0.8100000023841858,
+            0.8399999737739563,
+            0.8399999737739563,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.04777575355617064,
+            0.11129941482466024,
+            0.051122050056493396,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "moss",
+          "variantHex": "#405e42"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+      "renderImportSha256": "f3c18ccf5752c5bf46a5af3e1992c086f423cd8912e7a182e835d233f5e73015",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.32499998807907104,0.25,0.41999998688697815],\"min\":[-0.32499998807907104,-0.25,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":2,\"materialKey\":\"upholstery-textured\",\"rawGlbBaseColorFactor\":[0.8100000023841858,0.8399999737739563,0.8399999737739563,1],\"renderBaseColorFactor\":[0.04777575355617064,0.11129941482466024,0.051122050056493396,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"moss\",\"variantHex\":\"#405e42\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f\",\"renderImportSha256\":\"f3c18ccf5752c5bf46a5af3e1992c086f423cd8912e7a182e835d233f5e73015\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "3750115312c6181c948000caf803963a6dd274256f0ee9124ffa62e8abda4136",
+    "inputs": [
+      {
+        "path": "assets-source/blender/ottoman.blend",
+        "sha256": "dbe6180420539ce19430a5c92d42e27e40c987bcb65693a9af01fc05980fd74c",
+        "bytes": 125111
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/ottoman.blend",
+        "sha256": "0849e42fdc80b1eb34aac5eb3fed5c731942011871abaa2a90755971c74994a0",
+        "bytes": 1933764
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/ottoman/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/ottoman/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/ottoman/upholstery-textured-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/ottoman.glb",
+        "sha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+        "bytes": 1931392
+      },
+      {
+        "path": "public/models/furniture/ottoman.glb",
+        "sha256": "f5e748238d2b8b5977e9046355a5cbd3f9e1d1e1c5fa338e4add624c0a5a36db",
+        "bytes": 113452
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/ottoman.json",
+        "sha256": "db222dd48eb7181925ccab8947c9088a9da6cd0e9087409f6fe756ad90f06789",
+        "bytes": 157
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/ottoman.py",
+        "sha256": "9c35817361ced22c2f70118bf10461d6b086874706177c57aded69b72e4c33b1",
+        "bytes": 1459
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/room_construction.py",
+        "sha256": "24c911da31ab9b9560c0eeb451f5aa9d9bf03eb8bc496ab517b0a141ae429f1e",
+        "bytes": 8990
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+        "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+        "bytes": 9057
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+        "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+        "bytes": 12800
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "e20356c99a921087e0d031a1af2f344bfee365678940ff588faf1ec60623f089",
+    "afterSha256": "e20356c99a921087e0d031a1af2f344bfee365678940ff588faf1ec60623f089"
+  },
+  "formatValidation": {
+    "sha256": "c348a62c6ec9429e362effdb31627651eb55469f604f4b176f28fa3e0fd2750f",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 9,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/2"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/3"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/4"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/5"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "bee5fec15b51ff72adb6e443617a94c3953e05121e7993426f9902a1f4d81ffd",
+    "views": {
+      "front": "Green pad now has continuous seated white piping around its perimeter.",
+      "rear": "Rear welt follows the cushion edge without floating loops.",
+      "detail": "Small fabric undulations remain but trim stays attached to the cover.",
+      "underside": "Metal legs and dark seat pan support the unchanged padded footprint.",
+      "clay": "Connected perimeter trim replaces the broken raised seam segments."
+    }
+  }
+}
