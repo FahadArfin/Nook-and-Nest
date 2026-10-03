@@ -8,8 +8,8 @@ import * as beta from '../scripts/build-catalog-realism-beta.mjs';
 const app=await import('../scripts/catalog-realism-app.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const live=await import('../scripts/catalog-realism-live.mjs').catch(e=>{if(e.code!=='ERR_MODULE_NOT_FOUND')throw e;return {};});
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
-const head='a'.repeat(40),merge='b'.repeat(40),catalog='c'.repeat(64);
-const event={number:12,repository:{full_name:'FahadArfin/Nook-and-Nest'},pull_request:{head:{sha:head,ref:'codex/catalog-realism-overhaul',repo:{full_name:'FahadArfin/Nook-and-Nest'}},merge_commit_sha:merge,base:{ref:'master'}}};
+const head='a'.repeat(40),merge='b'.repeat(40),base='d'.repeat(40),catalog='c'.repeat(64);
+const event={number:12,repository:{full_name:'FahadArfin/Nook-and-Nest'},pull_request:{head:{sha:head,ref:'codex/catalog-realism-overhaul',repo:{full_name:'FahadArfin/Nook-and-Nest'}},merge_commit_sha:merge,base:{ref:'master',sha:base}}};
 const platformHtml=JSON.parse(readFileSync(new URL('./fixtures/catalog-realism-platform-html.json',import.meta.url),'utf8'));
 test('master retention stays in Validate while Beta artifact uses exact PR HEAD after that gate',()=>{
   const workflow=readFileSync(new URL('../.github/workflows/validate-release.yml',import.meta.url),'utf8');
@@ -20,13 +20,15 @@ test('master retention stays in Validate while Beta artifact uses exact PR HEAD 
   assert.match(after,/include-hidden-files: true/);
 });
 test('feature artifact evidence distinguishes actual checkout HEAD from successful PR merge validation',()=>{
-  const evidence=app.featureValidation(event,{head,workflowSha:merge,result:'success',runId:'42',runAttempt:'1'});
+  const input={head,validatedSha:merge,validatedParents:[base,head],result:'success',runId:'42',runAttempt:'1'};
+  const evidence=app.featureValidation(event,input);
   assert.equal(evidence.source_sha,head);assert.equal(evidence.validated_sha,merge);assert.equal(evidence.check,'Validate');
-  assert.throws(()=>app.featureValidation(event,{head:merge,workflowSha:merge,result:'success',runId:'42'}),/feature HEAD/);
-  assert.throws(()=>app.featureValidation(event,{head,workflowSha:head,result:'success',runId:'42'}),/merge SHA/);
-  assert.throws(()=>app.featureValidation(event,{head,workflowSha:merge,result:'failure',runId:'42'}),/Validate/);
+  assert.deepEqual(evidence.validated_parents,[base,head]);assert.equal(evidence.base_sha,base);
+  assert.throws(()=>app.featureValidation(event,{...input,head:merge}),/feature HEAD/);
+  assert.throws(()=>app.featureValidation(event,{...input,validatedSha:head}),/merge SHA/);
+  assert.throws(()=>app.featureValidation(event,{...input,result:'failure'}),/Validate/);
   const fork=structuredClone(event);fork.pull_request.head.repo.full_name='other/repository';
-  assert.throws(()=>app.featureValidation(fork,{head,workflowSha:merge,result:'success',runId:'42'}),/same repository/);
+  assert.throws(()=>app.featureValidation(fork,input),/same repository/);
 });
 test('feature delivery guards reject dirty worktrees, wrong branches and obsolete HEADs',()=>{
   beta.validateFeatureCheckout({head,branch:'codex/catalog-realism-overhaul',status:''},head);
