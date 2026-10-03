@@ -15,12 +15,12 @@ const hash = createHash('sha256').update(manifest).digest('hex');
 assert.equal(hash, 'f3dd9690ac96a112f0e48f4da695ab2507145102af7567d37b8555cc5f547a79',
   'Beta library changed. Re-open and review the current beta before publishing.');
 const receipt = JSON.parse(readFileSync('MODEL_LAB_PROVENANCE.json', 'utf8'));
-// This 492-byte source import was externalized in the saved Beta snapshot.
-// Restore its exact original Git blob, checked against that snapshot's receipt.
-const restoredInput = 'public/textures/toronto/aerial-2022.json';
+// These build/test JSON inputs were externalized in the saved Beta snapshot.
+// Restore exact original Git blobs, checked against that snapshot's receipt.
+const restoredInputs = ['public/textures/toronto/aerial-2022.json', 'assets-source/studio-model-audit.json'];
 const preservedSource = JSON.parse(readFileSync('SOURCE_PROVENANCE.json', 'utf8'));
-assert.equal(createHash('sha256').update(readFileSync(restoredInput)).digest('hex'),
-  preservedSource.external_inputs[restoredInput].sha256, 'Restored Beta source input does not match its original receipt.');
+for (const file of restoredInputs) assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),
+  preservedSource.external_inputs[file].sha256, 'Restored Beta source input does not match its original receipt.');
 assert.match(receipt.featureCommit, /^[0-9a-f]{40}$/);
 assert.equal(receipt.betaSourceCommit, '9b81815930f248b6aa8d7a8ede3bdff124b9dbc5');
 assert.equal(execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim(), receipt.betaSourceCommit,
@@ -29,7 +29,7 @@ const trackedChanges = execFileSync('git', ['diff', '--name-only', 'HEAD'], {enc
 assert(trackedChanges.every(file => file === '.openai/hosting.json'), 'Existing Beta application files changed.');
 const additions = execFileSync('git', ['ls-files', '--others', '--exclude-standard'], {encoding: 'utf8'}).trim().split('\n').filter(Boolean);
 assert(additions.every(file => /^(model-lab\/|src\/experiments\/|public\/experiments\/realism-lab\/)/.test(file)
-  || ['MODEL_LAB_PROVENANCE.json', 'vite.model-lab.config.mjs', 'scripts/build-realism-beta.mjs', restoredInput].includes(file)),
+  || ['MODEL_LAB_PROVENANCE.json', 'vite.model-lab.config.mjs', 'scripts/build-realism-beta.mjs', ...restoredInputs].includes(file)),
   'Unexpected files in the Beta overlay.');
 
 await viteBuild();
