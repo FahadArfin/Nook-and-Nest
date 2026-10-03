@@ -32,6 +32,11 @@ jobs:
         run: npm run check
       - name: Detailed model pipeline and review gate
         run: npm run test:model-pipeline && npm run models:ready && npm run build:model-lab
+      - name: Catalog review Python dependencies
+        run: |
+          python3 -m venv .generated/catalog-review-python
+          .generated/catalog-review-python/bin/python -m pip install --disable-pip-version-check --only-binary=:all: -r scripts/requirements-catalog-realism-review.txt
+          echo "PYTHON=$GITHUB_WORKSPACE/.generated/catalog-review-python/bin/python" >> "$GITHUB_ENV"
       - name: Catalog realism pipeline contracts
         run: node --test tests/catalog-realism-*.test.mjs tests/catalog-public-assets.test.mjs
       - name: Source archive provenance contracts
