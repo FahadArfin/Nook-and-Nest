@@ -58,12 +58,19 @@ def _fresh_scene():
     scene['lab_review_owner'] = OWNER  # descriptive only; never read for cleanup
     return scene
 
-def setup(stem):
-    if stem not in ('sofa-current','sofa-material','sofa-refined','table-current','table-material','table-refined'):
+def setup(stem, glb_path=None, output_dir=None):
+    if glb_path is None and stem not in ('sofa-current','sofa-material','sofa-refined','sofa-pipeline','table-current','table-material','table-refined'):
         raise ValueError(stem)
     scene = _fresh_scene()
     resources_before = _snapshot()
-    bpy.ops.import_scene.gltf(filepath=str(FILES / (stem + '.glb')))
+    try:
+        bpy.ops.import_scene.gltf(filepath=str(glb_path or FILES / (stem + '.glb')))
+    except Exception:
+        # A failed importer can leave temporary objects behind in this new
+        # owned scene. Track their exact identities for the next safe cleanup.
+        _RUNTIME['objects'] = list(scene.objects)
+        _remember_resources(resources_before)
+        raise
     # Importer restores authored scene extras, including authoring_owner.
     # Keep review ownership in a distinct field so exported extras cannot replace it.
     scene['lab_review_owner'] = OWNER
@@ -97,6 +104,7 @@ def setup(stem):
     low = Vector([min(p[a] for p in points) for a in range(3)])
     high = Vector([max(p[a] for p in points) for a in range(3)])
     scene['lab_stem'] = stem
+    scene['lab_output_dir'] = str(output_dir or OUT)
     scene['lab_dimensions'] = list(high - low)
     scene['lab_original_materials'] = json.dumps({o.name:[m.name if m else None for m in o.data.materials] for o in parts})
     size = max(high-low)
@@ -161,7 +169,7 @@ def render(view='front'):
     bpy.context.window.scene = scene
     w,d,h = scene['lab_dimensions']
     size = max(w,d,h)
-    if view not in ('front','rear','detail','clay'):
+    if view not in ('front','rear','detail','clay','underside'):
         raise ValueError(view)
     target = Vector((0,0,h*.47))
     direction = Vector((1.3,-1.8,1.05) if view!='rear' else (-1.5,1.8,1.15))
@@ -170,6 +178,15 @@ def render(view='front'):
         target = Vector((w*.18,-d*.16,h*.53))
         direction = Vector((1.2,-1.8,1.2))
         scene.camera.data.ortho_scale = size*.76
+    if view == 'underside':
+        target = Vector((0, 0, h*.27))
+        direction = Vector((.8, -1.2, -1.0))
+    ground = scene.objects.get('Lab review ground')
+    # Blender may suffix names when another reviewed scene was preserved.
+    if ground is None:
+        ground = next((o for o in scene.objects if o.name.startswith('Lab review ground')), None)
+    if ground is not None:
+        ground.hide_render = view == 'underside'
     scene.camera.location = target + direction*size*2
     scene.camera.rotation_euler = (target-scene.camera.location).to_track_quat('-Z','Y').to_euler()
     originals = json.loads(scene['lab_original_materials'])
@@ -185,8 +202,9 @@ def render(view='front'):
         obj = bpy.data.objects[name]
         for i,material_name in enumerate(materials):
             obj.data.materials[i] = clay if view=='clay' else bpy.data.materials.get(material_name)
-    OUT.mkdir(parents=True,exist_ok=True)
-    path = OUT / (scene['lab_stem']+'-'+view+'.png')
+    output_dir = Path(scene['lab_output_dir'])
+    output_dir.mkdir(parents=True,exist_ok=True)
+    path = output_dir / (scene['lab_stem']+'-'+view+'.png')
     scene.render.filepath = str(path)
     bpy.context.view_layer.update()
     started = time.monotonic()

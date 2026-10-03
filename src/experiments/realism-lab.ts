@@ -21,7 +21,7 @@ import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import '@babylonjs/loaders/glTF/2.0';
 
 type Family = 'sofa' | 'table';
-type VariantId = 'sofa-current' | 'sofa-material' | 'sofa-refined' | 'table-current' | 'table-material' | 'table-refined';
+type VariantId = 'sofa-current' | 'sofa-material' | 'sofa-refined' | 'sofa-pipeline' | 'table-current' | 'table-material' | 'table-refined';
 type Dimensions = { width: number; depth: number; height: number };
 type VariantResult = {
   id: VariantId; label?: string; note?: string; dimensionsMm?: Dimensions;
@@ -34,6 +34,7 @@ const VARIANTS: Variant[] = [
   { id: 'sofa-current', family: 'sofa', label: 'Current', caption: 'Original export', note: 'The current exported mesh and fabric response, with the same catalog upholstery tint used by every sofa version.' },
   { id: 'sofa-material', family: 'sofa', label: 'Calibrated fabric', caption: 'Same mesh · corrected sheen', note: 'The current sofa geometry with calibrated exported fabric sheen. This control separates material response from the geometry changes.' },
   { id: 'sofa-refined', family: 'sofa', label: 'Reference assisted', caption: 'Geometry + materials', note: 'An original Blender study informed by a generated visual reference. Dimensions are checked independently of the image.' },
+  { id: 'sofa-pipeline', family: 'sofa', label: 'Detailed construction', caption: 'Editable master + baked detail', note: 'A detailed master with sewn covers and supporting construction. Fine surface detail is baked onto a separate browser mesh; the source stays editable.' },
   { id: 'table-current', family: 'table', label: 'Current', caption: 'Catalog baseline', note: 'The current catalog table, with its exported geometry and materials.' },
   { id: 'table-material', family: 'table', label: 'Materials only', caption: 'Surface study', note: 'A material treatment of the existing table. Compare grain, roughness, and light response before assessing the geometry study.' },
   { id: 'table-refined', family: 'table', label: 'Construction detail', caption: 'Construction study', note: 'An original Blender construction study. Look at the edges, joinery, and silhouette from several angles.' },
@@ -46,13 +47,13 @@ app.innerHTML = `
   </header>
   <main class="lab-layout">
     <section class="viewer-panel" aria-label="Interactive furniture model">
-      <div class="viewer-heading"><div><span class="eyebrow">A CLOSER LOOK</span><h1>Small details. <br>Real differences.</h1></div><p>Turn it around.<br>See what holds up.</p></div>
+      <div class="viewer-heading"><div><span class="eyebrow">THE DETAIL PIPELINE</span><h1>Built up close.</h1></div><p>Turn it around.<br>See what holds up.</p></div>
       <div class="canvas-wrap" id="canvas-wrap">
         <canvas id="model-canvas" tabindex="0" aria-label="3D furniture preview. Drag to orbit, scroll or pinch to zoom. Use the view buttons for fixed angles."></canvas>
         <div class="model-caption"><span id="model-caption">Catalog baseline</span><span class="render-indicator" id="render-indicator">Starting renderer</span></div>
         <div class="load-message" id="load-message" role="status" aria-live="polite"><span id="load-text">Preparing the model…</span><button type="button" id="retry-load" hidden>Try again</button></div>
         <div class="camera-controls" role="group" aria-label="Camera views">
-          <button type="button" data-view="overview" aria-pressed="true">Overview</button><button type="button" data-view="front" aria-pressed="false">Front</button><button type="button" data-view="rear" aria-pressed="false">Rear</button><button type="button" data-view="detail" aria-pressed="false">Detail</button>
+          <button type="button" data-view="overview" aria-pressed="true">Overview</button><button type="button" data-view="front" aria-pressed="false">Front</button><button type="button" data-view="rear" aria-pressed="false">Rear</button><button type="button" data-view="detail" aria-pressed="false">Detail</button><button type="button" data-view="underside" aria-pressed="false">Under</button>
         </div>
       </div>
       <div class="viewer-footer"><span><span aria-hidden="true">↔</span> Drag to orbit · scroll or pinch to zoom</span><span>Live 3D mesh</span></div>
@@ -64,10 +65,11 @@ app.innerHTML = `
       <section class="control-section"><h3>03 <span>Look beneath the finish</span></h3>
         <div class="select-row"><label for="lighting">Lighting</label><select id="lighting"><option value="neutral">Neutral studio</option><option value="app">Nook & Nest day</option></select></div>
         <p class="lighting-note" id="lighting-note" role="status">Preparing the studio lighting…</p>
-        <div class="inspection-toggles"><label><input type="checkbox" id="clay"/><span>Clay surface</span></label><label><input type="checkbox" id="wireframe"/><span>Wireframe</span></label></div>
+        <div class="inspection-toggles"><label><input type="checkbox" id="clay"/><span>Clay surface</span></label><label><input type="checkbox" id="wireframe"/><span>Wireframe</span></label><label><input type="checkbox" id="surface-detail" checked/><span>Surface normals</span></label></div>
         <fieldset class="tint-controls"><legend id="tint-label">Upholstery</legend><div id="color-swatches" class="color-swatches"></div><p id="tint-note">Catalog moss is applied equally to all sofa variants.</p></fieldset>
       </section>
       <section class="control-section measurement-section"><h3>04 <span>Measured, not imagined</span></h3><dl class="measurements"><div class="wide"><dt>Loaded mesh · W × D × H</dt><dd id="mesh-dimensions">—</dd></div><div class="wide" id="envelope-row" hidden><dt>Catalog envelope · W × D × H</dt><dd id="catalog-dimensions">—</dd></div><div><dt>Triangles</dt><dd id="triangle-count">—</dd></div><div><dt>GLB size</dt><dd id="download-size">—</dd></div><div><dt>Mesh parts</dt><dd id="mesh-count">—</dd></div><div><dt>Fetch + decode</dt><dd id="load-time">—</dd></div></dl><p class="measurement-note">Measured from the loaded GLB. Load time reflects this browser and cache, not a performance benchmark.</p><ul id="findings" class="findings" hidden></ul></section>
+      <details class="reference-details pipeline-details" id="pipeline-details" open><summary>How this model is made <span aria-hidden="true">↗</span></summary><ol><li><strong>Measure.</strong> Fix dimensions, material names and contact points.</li><li><strong>Construct.</strong> Keep the frame, cushion shapes and seams editable.</li><li><strong>Bake.</strong> Transfer fine detail from the master onto the browser mesh.</li><li><strong>Inspect.</strong> Check the exported geometry, maps and five rendered views.</li></ol><p id="pipeline-evidence" class="measurement-note">Loading the build record…</p><p class="measurement-note">Surface normals changes the lighting detail without changing the mesh. Use clay and the underside view to inspect construction.</p></details>
       <details class="reference-details" id="reference-details"><summary>See the visual reference <span aria-hidden="true">↗</span></summary><figure><img src="${ASSETS}sofa-reference.png" alt="Generated multi-view sofa design reference used for the reference-assisted Blender study" loading="lazy"/><figcaption>AI-generated concept reference. This image guides the design; it does not prove dimensions or multi-view accuracy.</figcaption></figure></details>
       <p class="isolation-note">A separate Beta 1 experiment. These controls only affect this preview; your home and saved projects stay as they are.</p>
       <p id="metadata-note" class="metadata-note" role="status"></p>
@@ -78,7 +80,7 @@ const element = <T extends HTMLElement>(id: string) => document.getElementById(i
 const canvas = element<HTMLCanvasElement>('model-canvas');
 const message = element<HTMLDivElement>('load-message');
 let family: Family = 'sofa';
-let selected: VariantId = 'sofa-refined';
+let selected: VariantId = 'sofa-pipeline';
 let results: Results | null = null;
 let container: AssetContainer | null = null;
 let disposed = false;
@@ -206,14 +208,18 @@ async function start() {
     camera.inertialPanningX = camera.inertialPanningY = 0;
     const aspect = Math.max(.5, engine.getRenderWidth() / engine.getRenderHeight());
     const fitRadius = Math.max(boundsSize.y, boundsSize.x / aspect, boundsSize.z) / (2 * Math.tan(camera.fov / 2)) * 1.65;
-    camera.setTarget(boundsCenter.clone());
+    camera.setTarget(view === 'detail'
+      ? boundsCenter.add(new Vector3(-boundsSize.x * .2, boundsSize.y * .06, boundsSize.z * .18))
+      : boundsCenter.clone());
     camera.alpha = view === 'rear' ? -Math.PI / 2 : view === 'front' ? Math.PI / 2 : Math.PI * .68;
     camera.beta = view === 'front' || view === 'rear' ? Math.PI / 2 - .04 : 1.12;
+    ground.setEnabled(view !== 'underside');
+    camera.upperBetaLimit = view === 'underside' ? Math.PI - .12 : Math.PI / 2 - .01;
     camera.radius = Math.max(.8, fitRadius);
     if (view === 'detail') {
       camera.radius = Math.max(.45, fitRadius * .43);
-      camera.setTarget(boundsCenter.add(new Vector3(-boundsSize.x * .2, boundsSize.y * .06, boundsSize.z * .18)));
     }
+    if (view === 'underside') camera.beta = 2.3;
     document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
     invalidate();
   }
@@ -239,6 +245,7 @@ async function start() {
         }
       }
       material.wireframe = element<HTMLInputElement>('wireframe').checked;
+      material.disableBumpMap = !element<HTMLInputElement>('surface-detail').checked;
     }
     clayMaterial.wireframe = element<HTMLInputElement>('wireframe').checked;
     for (const [mesh, material] of originalMaterials) {
@@ -307,6 +314,7 @@ async function start() {
       swatches.append(button);
     }
     element('reference-details').hidden = family !== 'sofa';
+    element('pipeline-details').hidden = selected !== 'sofa-pipeline';
     updateMetadata();
     applySurface();
   }
@@ -405,11 +413,12 @@ async function start() {
     });
   }
 
-  document.querySelectorAll<HTMLButtonElement>('[data-family]').forEach(button => button.addEventListener('click', () => selectVariant(button.dataset.family === 'table' ? 'table-current' : 'sofa-refined')));
+  document.querySelectorAll<HTMLButtonElement>('[data-family]').forEach(button => button.addEventListener('click', () => selectVariant(button.dataset.family === 'table' ? 'table-current' : 'sofa-pipeline')));
   document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view!)));
   element('lighting').addEventListener('change', setLighting);
   element('clay').addEventListener('change', applySurface);
   element('wireframe').addEventListener('change', applySurface);
+  element('surface-detail').addEventListener('change', applySurface);
   element('retry-load').addEventListener('click', () => selectVariant(selected, true));
   canvas.addEventListener('pointerdown', event => { pointers.add(event.pointerId); invalidate(); });
   canvas.addEventListener('pointermove', () => { if (pointers.size) invalidate(); });
@@ -457,11 +466,20 @@ async function start() {
     if (disposed) return;
     if (parsed.version !== 1 || !Array.isArray(parsed.variants)) throw new Error('Study notes use an unsupported format.');
     results = parsed;
+    const pipelineResponse = await fetch(`${ASSETS}pipeline.json`, { signal: metadataAbort.signal });
+    if (pipelineResponse.ok) {
+      const pipeline = await pipelineResponse.json() as { version: number; variant: VariantResult; masterTriangles: number; browserTriangles: number; bakeResolution: number; reviewedViews: number };
+      if (pipeline.version === 1 && pipeline.variant?.id === 'sofa-pipeline' && [pipeline.masterTriangles,pipeline.browserTriangles,pipeline.bakeResolution,pipeline.reviewedViews].every(Number.isFinite)) {
+        results.variants.push(pipeline.variant);
+        element('pipeline-evidence').textContent = `This build: ${formatNumber.format(pipeline.masterTriangles)} master triangles → ${formatNumber.format(pipeline.browserTriangles)} browser triangles, with ${pipeline.bakeResolution}px baked maps. ${pipeline.reviewedViews} exported views reviewed.`;
+      } else throw new Error('Unsupported pipeline record.');
+    } else throw new Error('Pipeline record unavailable.');
     updateMetadata();
     applySurface();
     element('metadata-note').textContent = parsed.generatedAt ? `Study record · ${parsed.generatedAt.slice(0, 10)}` : '';
   } catch {
     element('metadata-note').textContent = 'Study notes are unavailable. The values above are still measured from the loaded model.';
+    element('pipeline-evidence').textContent = 'Build record unavailable. Inspect the loaded model using the controls above.';
   } finally {
     window.clearTimeout(metadataTimeout);
   }

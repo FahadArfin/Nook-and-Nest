@@ -22,14 +22,16 @@ const preservedSource = JSON.parse(readFileSync('SOURCE_PROVENANCE.json', 'utf8'
 for (const file of restoredInputs) assert.equal(createHash('sha256').update(readFileSync(file)).digest('hex'),
   preservedSource.external_inputs[file].sha256, 'Restored Beta source input does not match its original receipt.');
 assert.match(receipt.featureCommit, /^[0-9a-f]{40}$/);
-assert.equal(receipt.betaSourceCommit, '9b81815930f248b6aa8d7a8ede3bdff124b9dbc5');
+assert.equal(receipt.betaSourceCommit, 'cbffe57a8e74e75806a9bc8fa0bd4714fcac008e');
 assert.equal(execFileSync('git', ['rev-parse', 'HEAD'], {encoding: 'utf8'}).trim(), receipt.betaSourceCommit,
   'The Beta checkout must still be the freshly opened source snapshot.');
 const trackedChanges = execFileSync('git', ['diff', '--name-only', 'HEAD'], {encoding: 'utf8'}).trim().split('\n').filter(Boolean);
-assert(trackedChanges.every(file => file === '.openai/hosting.json'), 'Existing Beta application files changed.');
+const isExperimentPath = file => /^(model-lab\/|public\/experiments\/realism-lab\/)/.test(file)
+  || ['src/experiments/realism-lab.ts', 'src/experiments/realism-lab.css', 'MODEL_LAB_PROVENANCE.json',
+    'vite.model-lab.config.mjs', 'scripts/build-realism-beta.mjs'].includes(file);
+assert(trackedChanges.every(file => file === '.openai/hosting.json' || isExperimentPath(file)), 'Existing Beta application files changed.');
 const additions = execFileSync('git', ['ls-files', '--others', '--exclude-standard'], {encoding: 'utf8'}).trim().split('\n').filter(Boolean);
-assert(additions.every(file => /^(model-lab\/|src\/experiments\/|public\/experiments\/realism-lab\/)/.test(file)
-  || ['MODEL_LAB_PROVENANCE.json', 'vite.model-lab.config.mjs', 'scripts/build-realism-beta.mjs', ...restoredInputs].includes(file)),
+assert(additions.every(file => isExperimentPath(file) || restoredInputs.includes(file)),
   'Unexpected files in the Beta overlay.');
 
 await viteBuild();
@@ -56,7 +58,11 @@ mkdirSync('dist/client/model-lab', {recursive: true});
 cpSync('.generated/model-lab-build/model-lab/index.html', 'dist/client/model-lab/index.html');
 cpSync('.generated/model-lab-build/assets', 'dist/client/model-lab/assets', {recursive: true});
 assert.equal(createHash('sha256').update(readFileSync('.generated/library-manifest.json')).digest('hex'), hash);
-for (const id of ['sofa-current','sofa-material','sofa-refined','table-current','table-material','table-refined']) {
+for (const id of ['sofa-current','sofa-material','sofa-refined','sofa-pipeline','table-current','table-material','table-refined']) {
   assert(readFileSync(`dist/client/experiments/realism-lab/${id}.glb`).equals(readFileSync(`public/experiments/realism-lab/${id}.glb`)), `${id} changed during build`);
 }
-console.log(JSON.stringify({projectId, featureCommit: receipt.featureCommit, preservedLibrarySha256: hash, experimentVariants: 6}));
+const pipeline = JSON.parse(readFileSync('public/experiments/realism-lab/pipeline.json', 'utf8'));
+assert.equal(pipeline.variant.id, 'sofa-pipeline');
+assert.equal(pipeline.reviewedViews, 5, 'The detailed model needs all five reviewed export views.');
+assert.equal(pipeline.variant.sha256, createHash('sha256').update(readFileSync('public/experiments/realism-lab/sofa-pipeline.glb')).digest('hex'), 'Reviewed pipeline output is stale.');
+console.log(JSON.stringify({projectId, featureCommit: receipt.featureCommit, preservedLibrarySha256: hash, experimentVariants: 7}));

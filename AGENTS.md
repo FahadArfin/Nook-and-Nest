@@ -1,5 +1,7 @@
 # Nook & Nest working guide
 
+Detailed-model experiments (October 2026): keep model-pipeline changes on isolated `codex/` feature branches and publish only to Beta 1 until explicitly authorized otherwise. Use measured editable Blender masters, separate browser targets, real high-to-low bakes and exported multi-view/browser review. Generated references guide style but never establish dimensions. Preserve catalog IDs, material keys and placement compatibility; an accepted experimental asset does not automatically replace the full catalog.
+
 September 29 overnight collection: complete the researched garage/shed and outdoor/backyard build queues, review every sofa, and replace sterile materials with richer, true-to-life fabric, wood, flooring and wall finishes. Use original editable model construction and properly licensed photographic PBR maps at measured scale; retain catalog IDs, real dimensions, saved material colors and placement behavior. The user wants the whole approved queue completed and published, not a report-only handoff or stopping after a small batch. Maintain practical browser costs and coordinate release checks with other chats.
 
 Furniture color preference (September 12, 2026): avoid a blanket white default for couches and beds. Use varied muted sage, slate blue, charcoal, terracotta and rose upholstery/bedding for new placements, with matching catalog previews. Preserve saved variants and individual part colors, including deliberately chosen white finishes.
