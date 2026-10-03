@@ -1,0 +1,1788 @@
+{
+  "version": 1,
+  "catalogId": "steel-prep-island",
+  "inputContractSha256": "d6e7237bda18e15ad0e29adc76aa05436b21b2e582b27b4d60e4e54ae2d84dee",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/steel-prep-island.blend",
+      "sha256": "e335fce324ae4550bd1a68d5389bd1b69dedc2d6869e9edad128b6eb2aa99d0e",
+      "bytes": 135857
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/steel-prep-island.glb",
+      "sha256": "f58632797136ff33058f54972dc43c0fe1b416a2736b4a032d0330742b2cdac0",
+      "bytes": 153660
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/steel-prep-island.blend",
+      "sha256": "e335fce324ae4550bd1a68d5389bd1b69dedc2d6869e9edad128b6eb2aa99d0e",
+      "bytes": 135857
+    },
+    {
+      "path": "public/models/furniture/steel-prep-island.glb",
+      "sha256": "f58632797136ff33058f54972dc43c0fe1b416a2736b4a032d0330742b2cdac0",
+      "bytes": 153660
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+      "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+      "bytes": 29373
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.8702499077320099,
+          -0.2781008207798004,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.02150003957748413,
+        "bounds": {
+          "min": [
+            -0.880999927520752,
+            -0.2806008207798004,
+            0.47374010252952575
+          ],
+          "max": [
+            -0.8594998879432679,
+            -0.2756008207798004,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "6b64b337309005972db8999df287d70c98491dcec3be0e33e38dff2e81476dbd",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.8809999227523804,
+            -0.28060081601142883,
+            0.4737401008605957
+          ],
+          "max": [
+            -0.8594998717308044,
+            -0.2756008207798004,
+            0.4787400960922241
+          ],
+          "size": [
+            0.021500051021575928,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.8702499077320099,
+          0.2865416431427002,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.02150003957748413,
+        "bounds": {
+          "min": [
+            -0.880999927520752,
+            0.2840416431427002,
+            0.47374010252952575
+          ],
+          "max": [
+            -0.8594998879432679,
+            0.2890416431427002,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "c66b5facdd31d80ead5941683f955ca1633e54aaf8b20a3ca32ff8d8494ce1da",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.8809999227523804,
+            0.2840416431427002,
+            0.4737401008605957
+          ],
+          "max": [
+            -0.8594998717308044,
+            0.2890416383743286,
+            0.4787400960922241
+          ],
+          "size": [
+            0.021500051021575928,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.30558331751823425,
+          -0.2781008207798004,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            -0.31383330988883973,
+            -0.2806008207798004,
+            0.47374010252952575
+          ],
+          "max": [
+            -0.2973333251476288,
+            -0.2756008207798004,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "3dc8db004e65098dd8f31ce5ba9fd6f6c64b41f4ac856b66bbaf7dbc7ed40791",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.3138332962989807,
+            -0.28060081601142883,
+            0.4737401008605957
+          ],
+          "max": [
+            -0.29733332991600037,
+            -0.2756008207798004,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf",
+      "newComponent": "Realism shelf support adjustable_internal_shelf 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.30558331751823425,
+          0.2865416431427002,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            -0.31383330988883973,
+            0.2840416431427002,
+            0.47374010252952575
+          ],
+          "max": [
+            -0.2973333251476288,
+            0.2890416431427002,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "40ce1ea049e69df19151156a082237c7ffa52bdfecc6600f60c55ff998a908fb",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.3138332962989807,
+            0.2840416431427002,
+            0.4737401008605957
+          ],
+          "max": [
+            -0.29733332991600037,
+            0.2890416383743286,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.2810833261013031,
+          -0.2781008207798004,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            -0.2893333184719086,
+            -0.2806008207798004,
+            0.47374010252952575
+          ],
+          "max": [
+            -0.2728333337306976,
+            -0.2756008207798004,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "2a165918ad29edd7eb169b785cfc77f071457ad6a686758e1e12fe6e4c8bb0b1",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.289333313703537,
+            -0.28060081601142883,
+            0.4737401008605957
+          ],
+          "max": [
+            -0.27283334732055664,
+            -0.2756008207798004,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          -0.2810833261013031,
+          0.2865416431427002,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            -0.2893333184719086,
+            0.2840416431427002,
+            0.47374010252952575
+          ],
+          "max": [
+            -0.2728333337306976,
+            0.2890416431427002,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "ea36c2e596617a67bb7e9f3cc3a4d92622eb5b9af8a64de3b05edcc7258e03fc",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            -0.289333313703537,
+            0.2840416431427002,
+            0.4737401008605957
+          ],
+          "max": [
+            -0.27283334732055664,
+            0.2890416383743286,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.2810833261013031,
+          -0.2781008207798004,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            0.2728333337306976,
+            -0.2806008207798004,
+            0.47374010252952575
+          ],
+          "max": [
+            0.2893333184719086,
+            -0.2756008207798004,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "b9333a34a413e312b57e8febc3c7868f611b973e4617a72c40c5b9317d5a0c11",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.27283334732055664,
+            -0.28060081601142883,
+            0.4737401008605957
+          ],
+          "max": [
+            0.289333313703537,
+            -0.2756008207798004,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.001",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.001 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.2810833261013031,
+          0.2865416431427002,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            0.2728333337306976,
+            0.2840416431427002,
+            0.47374010252952575
+          ],
+          "max": [
+            0.2893333184719086,
+            0.2890416431427002,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "7c40fdf475a231f2017a037a186d64114ea189a31ef085992b9f350f1b03333e",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.27283334732055664,
+            0.2840416431427002,
+            0.4737401008605957
+          ],
+          "max": [
+            0.289333313703537,
+            0.2890416383743286,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 1",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.30558331751823425,
+          -0.2781008207798004,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            0.2973333251476288,
+            -0.2806008207798004,
+            0.47374010252952575
+          ],
+          "max": [
+            0.31383330988883973,
+            -0.2756008207798004,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "52b61b44906959a6060cb8aa6bab2d8cb63766f5eeab7aceecfaea1088373b14",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.29733332991600037,
+            -0.28060081601142883,
+            0.4737401008605957
+          ],
+          "max": [
+            0.3138332962989807,
+            -0.2756008207798004,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 2",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.30558331751823425,
+          0.2865416431427002,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.016499984741210935,
+        "bounds": {
+          "min": [
+            0.2973333251476288,
+            0.2840416431427002,
+            0.47374010252952575
+          ],
+          "max": [
+            0.31383330988883973,
+            0.2890416431427002,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "70f65290750345316c413df61346bc055eb77fcd7fcb5e21e25e989081b8d791",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.29733332991600037,
+            0.2840416431427002,
+            0.4737401008605957
+          ],
+          "max": [
+            0.3138332962989807,
+            0.2890416383743286,
+            0.4787400960922241
+          ],
+          "size": [
+            0.016499966382980347,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 3",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.8702499077320099,
+          -0.2781008207798004,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.02150003957748413,
+        "bounds": {
+          "min": [
+            0.8594998879432679,
+            -0.2806008207798004,
+            0.47374010252952575
+          ],
+          "max": [
+            0.880999927520752,
+            -0.2756008207798004,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "9badfb37721ff7ab0c79223b1c9a9848d6bba855f73e6e7ea4f038a3588ca72d",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.8594998717308044,
+            -0.28060081601142883,
+            0.4737401008605957
+          ],
+          "max": [
+            0.8809999227523804,
+            -0.2756008207798004,
+            0.4787400960922241
+          ],
+          "size": [
+            0.021500051021575928,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "shelf-support-pin",
+      "component": "adjustable_internal_shelf.002",
+      "newComponent": "Realism shelf support adjustable_internal_shelf.002 4",
+      "contactEvidence": {
+        "kind": "shelf-pin",
+        "center": [
+          0.8702499077320099,
+          0.2865416431427002,
+          0.47624010252952576
+        ],
+        "axis": 0,
+        "radius": 0.0025,
+        "length": 0.02150003957748413,
+        "bounds": {
+          "min": [
+            0.8594998879432679,
+            0.2840416431427002,
+            0.47374010252952575
+          ],
+          "max": [
+            0.880999927520752,
+            0.2890416431427002,
+            0.47874010252952576
+          ]
+        }
+      },
+      "geometryChanged": true,
+      "added": {
+        "sha256": "608bfa0ed864c622bf7f79d6b1226244025bff956232f752dda537f787ff1488",
+        "vertices": 24,
+        "triangles": 44,
+        "bounds": {
+          "min": [
+            0.8594998717308044,
+            0.2840416431427002,
+            0.4737401008605957
+          ],
+          "max": [
+            0.8809999227523804,
+            0.2890416383743286,
+            0.4787400960922241
+          ],
+          "size": [
+            0.021500051021575928,
+            0.004999995231628418,
+            0.004999995231628418
+          ]
+        }
+      }
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-honey-textured",
+      "profile": "powdercoat",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "countertop-surface",
+      "profile": null,
+      "protectedReason": "runtime-selected finish; adding fixed normals would conflict with user finish",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-recess-charcoal",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "profile": "powdercoat",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+          "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+          "bytes": 29373,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-orm-aa499909c5d1956f.png",
+      "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+      "bytes": 49602,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 522696,
+    "afterBytes": 522696,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/steel-prep-island.blend",
+      "sha256": "3f8fdae40fa81f86709071fb57384ff1613d47fbe958ce7791784516e179e73a",
+      "bytes": 577149
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/steel-prep-island.glb",
+      "sha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+      "bytes": 522696
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/steel-prep-island/front-247b94de8522334cd21c.webp",
+      "sha256": "247b94de8522334cd21cd543288a13f79f85b706e7c23d56352aab257ace525f",
+      "bytes": 78138,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.771,
+      "camera": {
+        "orthoScale": 2.3302955627441406,
+        "position": [
+          3.3504481315612793,
+          -5.584080219268799,
+          3.5312442779541016
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.0017999999690800905,
+        "clipEnd": 21.599998474121094,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.0805073231458664,
+            0.06521742045879364
+          ],
+          "max": [
+            0.9194926619529724,
+            0.9347816109657288
+          ]
+        }
+      },
+      "glbSha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+      "renderConfigSha256": "d962361fe2a41c79f2701bc3993a5b9b9eade5567757854653333df1aaa36fbc",
+      "inputSetSha256": "a19d843c48f35461f6fa1acd99796fa92070865a3d811bf0a44e4e6c0e65c534"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/steel-prep-island/rear-d9cbe245d478c27443ae.webp",
+      "sha256": "d9cbe245d478c27443ae111dfca1f9588090f9ccbe7c4c96150afd2d80bbfe77",
+      "bytes": 69994,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.767,
+      "camera": {
+        "orthoScale": 2.3302953243255615,
+        "position": [
+          -3.3504481315612793,
+          5.584080219268799,
+          3.5312442779541016
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.0017999999690800905,
+        "clipEnd": 21.599998474121094,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.0805073082447052,
+            0.06521739810705185
+          ],
+          "max": [
+            0.9194926619529724,
+            0.9347816705703735
+          ]
+        }
+      },
+      "glbSha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+      "renderConfigSha256": "d962361fe2a41c79f2701bc3993a5b9b9eade5567757854653333df1aaa36fbc",
+      "inputSetSha256": "a19d843c48f35461f6fa1acd99796fa92070865a3d811bf0a44e4e6c0e65c534"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/steel-prep-island/detail-de727b02bf6aaa14d40d.webp",
+      "sha256": "de727b02bf6aaa14d40d558ae4e65af5209dbfbbb1d543447ca867ca025b8421",
+      "bytes": 73872,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.773,
+      "camera": {
+        "orthoScale": 1.2816636562347412,
+        "position": [
+          3.3504481315612793,
+          -5.584080219268799,
+          3.5312442779541016
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.0017999999690800905,
+        "clipEnd": 21.599998474121094,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.08050766587257385,
+            0.06521739810705185
+          ],
+          "max": [
+            0.9194923043251038,
+            0.9347808957099915
+          ]
+        }
+      },
+      "glbSha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+      "renderConfigSha256": "d962361fe2a41c79f2701bc3993a5b9b9eade5567757854653333df1aaa36fbc",
+      "inputSetSha256": "a19d843c48f35461f6fa1acd99796fa92070865a3d811bf0a44e4e6c0e65c534"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/steel-prep-island/underside-a4a7889ee81a074bc113.webp",
+      "sha256": "a4a7889ee81a074bc1136e6ff8539fc3a881277715280aff5589e63f79d5479e",
+      "bytes": 62274,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.698,
+      "camera": {
+        "orthoScale": 2.3852500915527344,
+        "position": [
+          3.293968915939331,
+          -5.489948272705078,
+          -2.8339691162109375
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.0017999999690800905,
+        "clipEnd": 21.599998474121094,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.09017204493284225,
+            0.06521771848201752
+          ],
+          "max": [
+            0.909827709197998,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+      "renderConfigSha256": "d962361fe2a41c79f2701bc3993a5b9b9eade5567757854653333df1aaa36fbc",
+      "inputSetSha256": "a19d843c48f35461f6fa1acd99796fa92070865a3d811bf0a44e4e6c0e65c534"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/steel-prep-island/clay-b21a74c252405d115011.webp",
+      "sha256": "b21a74c252405d115011fb64dee64496a3555559aa42f5ab12ee8a80dd4f7cc0",
+      "bytes": 65550,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.779,
+      "camera": {
+        "orthoScale": 2.3302955627441406,
+        "position": [
+          3.3504481315612793,
+          -5.584080219268799,
+          3.5312442779541016
+        ],
+        "target": [
+          0,
+          0,
+          0.46000000834465027
+        ],
+        "clipStart": 0.0017999999690800905,
+        "clipEnd": 21.599998474121094,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.0805073231458664,
+            0.06521742045879364
+          ],
+          "max": [
+            0.9194926619529724,
+            0.9347816109657288
+          ]
+        }
+      },
+      "glbSha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+      "renderConfigSha256": "d962361fe2a41c79f2701bc3993a5b9b9eade5567757854653333df1aaa36fbc",
+      "inputSetSha256": "a19d843c48f35461f6fa1acd99796fa92070865a3d811bf0a44e4e6c0e65c534"
+    }
+  ],
+  "timingSeconds": 1,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.8999999761581421,
+          0.4000000059604645,
+          0.9200000166893005
+        ],
+        "min": [
+          -0.8999999761581421,
+          -0.4000000059604645,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 3,
+          "materialKey": "countertop-surface",
+          "rawGlbBaseColorFactor": [
+            0.7400000095367432,
+            0.7699999809265137,
+            0.7599999904632568,
+            1
+          ],
+          "renderBaseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "rule": "countertop-white-factor",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+      "renderImportSha256": "0dabed0417e56568a7c30ce5b167784f77d825b2a03a8e3487541e02f322024f",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.8999999761581421,0.4000000059604645,0.9200000166893005],\"min\":[-0.8999999761581421,-0.4000000059604645,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":3,\"materialKey\":\"countertop-surface\",\"rawGlbBaseColorFactor\":[0.7400000095367432,0.7699999809265137,0.7599999904632568,1],\"renderBaseColorFactor\":[1,1,1,1],\"rule\":\"countertop-white-factor\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6\",\"renderImportSha256\":\"0dabed0417e56568a7c30ce5b167784f77d825b2a03a8e3487541e02f322024f\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "d962361fe2a41c79f2701bc3993a5b9b9eade5567757854653333df1aaa36fbc",
+    "inputs": [
+      {
+        "path": "assets-source/blender/steel-prep-island.blend",
+        "sha256": "e335fce324ae4550bd1a68d5389bd1b69dedc2d6869e9edad128b6eb2aa99d0e",
+        "bytes": 135857
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/steel-prep-island.blend",
+        "sha256": "3f8fdae40fa81f86709071fb57384ff1613d47fbe958ce7791784516e179e73a",
+        "bytes": 577149
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/steel-prep-island/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/steel-prep-island/wood-honey-textured-orm-aa499909c5d1956f.png",
+        "sha256": "aa499909c5d1956f82ceb1e5f11e094a3e89faf88d125d66ddb4c8b4cf3a13ea",
+        "bytes": 49602
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/steel-prep-island.glb",
+        "sha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+        "bytes": 522696
+      },
+      {
+        "path": "public/models/furniture/steel-prep-island.glb",
+        "sha256": "f58632797136ff33058f54972dc43c0fe1b416a2736b4a032d0330742b2cdac0",
+        "bytes": 153660
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "a19d843c48f35461f6fa1acd99796fa92070865a3d811bf0a44e4e6c0e65c534",
+    "afterSha256": "a19d843c48f35461f6fa1acd99796fa92070865a3d811bf0a44e4e6c0e65c534"
+  },
+  "formatValidation": {
+    "sha256": "346932d0e28e2810c65bba50fd59cf93e49770d969f4030d293d137058d7f1e6",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 6,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/1/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/1/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "3c582ca1c3abe56d60e9b01e0f8e4e31d686b721eeefa985ce483951739c46c6",
+    "views": {
+      "front": "Three steel-toned cabinet fronts sit below a pale worktop.",
+      "rear": "Closed rear meets the overhanging top and recessed base.",
+      "detail": "Slim handles and door gaps remain separate.",
+      "underside": "Dark plinth supports the complete cabinet body.",
+      "clay": "Rectangular preparation-island construction remains clear."
+    }
+  }
+}

@@ -1,0 +1,1781 @@
+{
+  "version": 1,
+  "catalogId": "atelier-espresso",
+  "inputContractSha256": "70703484918fb0130fb24a00bf7aa0ed398121641def39a7f3b8da5ba1879709",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/atelier-espresso.blend",
+      "sha256": "a1a0e6d760f32884f8900ab51667f9b011cfa49802e009987e57b77033d46525",
+      "bytes": 176744
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/atelier-espresso.glb",
+      "sha256": "6be693a791781464c08ece59b626b8ae46fe1eaeb02b0dc959f810472e78c460",
+      "bytes": 522680
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/atelier-espresso.blend",
+      "sha256": "a1a0e6d760f32884f8900ab51667f9b011cfa49802e009987e57b77033d46525",
+      "bytes": 176744
+    },
+    {
+      "path": "public/models/furniture/atelier-espresso.glb",
+      "sha256": "6be693a791781464c08ece59b626b8ae46fe1eaeb02b0dc959f810472e78c460",
+      "bytes": 522680
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot",
+      "widthM": 0.0006531351828016341,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "02945d897c385c9813d4ea045a615535ca2b5adfcdb599b5a9e0fde853075969",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.13679999113082886,
+            -0.1656000018119812,
+            0
+          ],
+          "max": [
+            -0.09359999746084213,
+            -0.12239999324083328,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e7e5ec944337b6df194531eb2847cab4fdfc89cabac0dd56811ebb78236d9172",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            -0.13679999113082886,
+            -0.1656000018119812,
+            0
+          ],
+          "max": [
+            -0.09359999746084213,
+            -0.12239999324083328,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot.001",
+      "widthM": 0.0006531351828016341,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6e7df6a1f41b912d18defc84c28d61dcc3601352b354f197ac6b37f88a886dd7",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.13679999113082886,
+            0.12239999324083328,
+            0
+          ],
+          "max": [
+            -0.09359999746084213,
+            0.1656000018119812,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "after": {
+        "sha256": "865f16c1680dea3e8d16e2e143241aee34821d1c7d14019f8bb836bd48ebf1a0",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            -0.13679999113082886,
+            0.12239999324083328,
+            0
+          ],
+          "max": [
+            -0.09359999746084213,
+            0.1656000018119812,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot.002",
+      "widthM": 0.0006531351828016341,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d8492b19367eb4cb0c762b176579657e560c48a74f69c41f825a28857f977279",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.09359999746084213,
+            -0.1656000018119812,
+            0
+          ],
+          "max": [
+            0.13679999113082886,
+            -0.12239999324083328,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e6b7961a165ff13fb85ce8fd069d0047337c53008a5207e8ce7de9fb98de2788",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            0.09359999746084213,
+            -0.1656000018119812,
+            0
+          ],
+          "max": [
+            0.13679999113082886,
+            -0.12239999324083328,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Isolation foot.003",
+      "widthM": 0.0006531351828016341,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "9f0af94a5f15899f31d94a36c0b4956e07b16b62c7945bc960c8b1ff4f44a66a",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.09359999746084213,
+            0.12239999324083328,
+            0
+          ],
+          "max": [
+            0.13679999113082886,
+            0.1656000018119812,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "after": {
+        "sha256": "bdc159675749d91736abac4af9e2611ba313948e6eddeeaef2b876baaa0173e8",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            0.09359999746084213,
+            0.12239999324083328,
+            0
+          ],
+          "max": [
+            0.13679999113082886,
+            0.1656000018119812,
+            0.026125406846404076
+          ],
+          "size": [
+            0.043199993669986725,
+            0.04320000857114792,
+            0.026125406846404076
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Gauge rim",
+      "widthM": 0.00025000012828968465,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "bad874e8976ef77a49c9ee5bcc1229d6d75b07f43ac580be836a861bcbf0cec6",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.11179999262094498,
+            -0.1035500019788742,
+            0.33244577050209045
+          ],
+          "max": [
+            -0.05379999801516533,
+            -0.09354999661445618,
+            0.3955821990966797
+          ],
+          "size": [
+            0.05799999460577965,
+            0.01000000536441803,
+            0.06313642859458923
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d42f2fd6847453b0f25009317dd1047f6f7e96e3cf0daa945e9eda27f48c4fcd",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            -0.11179999262094498,
+            -0.1035500019788742,
+            0.33244577050209045
+          ],
+          "max": [
+            -0.05379999801516533,
+            -0.09354999661445618,
+            0.3955821990966797
+          ],
+          "size": [
+            0.05799999460577965,
+            0.01000000536441803,
+            0.06313642859458923
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Gauge rim.001",
+      "widthM": 0.00025000012828968465,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "0b3aeb71a8b1cca59c7d7f4ada9ac3c2ed61710621009f06c548486e164d139a",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            0.05379999801516533,
+            -0.1035500019788742,
+            0.33244577050209045
+          ],
+          "max": [
+            0.11179999262094498,
+            -0.09354999661445618,
+            0.3955821990966797
+          ],
+          "size": [
+            0.05799999460577965,
+            0.01000000536441803,
+            0.06313642859458923
+          ]
+        }
+      },
+      "after": {
+        "sha256": "136ffe184d92c6384ab71522263e155f2b307c014e17bd643a58db090c814d07",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            0.05379999801516533,
+            -0.1035500019788742,
+            0.33244577050209045
+          ],
+          "max": [
+            0.11179999262094498,
+            -0.09354999661445618,
+            0.3955821990966797
+          ],
+          "size": [
+            0.05799999460577965,
+            0.01000000536441803,
+            0.06313642859458923
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "polished-chrome-trim",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "porcelain-white",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "black-enamel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "black-enamel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "display-markings",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "polished-chrome-trim",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "polished-chrome-trim",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "porcelain-white",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "porcelain-white",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "porcelain-white",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "variant-surface",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "variant-surface",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "black-enamel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "black-enamel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "porcelain-white",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "porcelain-white",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1509032,
+    "afterBytes": 1509032,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/atelier-espresso.blend",
+      "sha256": "21dc690bab315c3dbb2a5613bbe985debcd36014cf6cea5fd590a68151bdfa03",
+      "bytes": 367925
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/atelier-espresso.glb",
+      "sha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+      "bytes": 1509032
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/atelier-espresso/front-0efaef366294db08498c.webp",
+      "sha256": "0efaef366294db08498c9d67776842d215fae755dd0d979a8c49a53187f6c646",
+      "bytes": 117182,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.783,
+      "camera": {
+        "orthoScale": 0.9837365746498108,
+        "position": [
+          0.8376120328903198,
+          -1.3960200548171997,
+          0.9878110289573669
+        ],
+        "target": [
+          0,
+          0,
+          0.2199999988079071
+        ],
+        "clipStart": 0.00044999999227002263,
+        "clipEnd": 5.399999618530273,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2254241704940796,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7745758295059204,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+      "renderConfigSha256": "17aa33cb1110091b7d1eec3c8d72bd18409a58626a104e1abbe8a252be49331a",
+      "inputSetSha256": "74634045ff446ec54683f273b1580fa047d36caa969c6a635969d2c441c914f9"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/atelier-espresso/rear-137f9d06cedc18367be2.webp",
+      "sha256": "137f9d06cedc18367be2d727cd1aa4d2e41a419e1d14668e2583b80c9d68eca7",
+      "bytes": 115514,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.765,
+      "camera": {
+        "orthoScale": 0.983736515045166,
+        "position": [
+          -0.8376120328903198,
+          1.3960200548171997,
+          0.9878110289573669
+        ],
+        "target": [
+          0,
+          0,
+          0.2199999988079071
+        ],
+        "clipStart": 0.00044999999227002263,
+        "clipEnd": 5.399999618530273,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.22542418539524078,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7745758295059204,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+      "renderConfigSha256": "17aa33cb1110091b7d1eec3c8d72bd18409a58626a104e1abbe8a252be49331a",
+      "inputSetSha256": "74634045ff446ec54683f273b1580fa047d36caa969c6a635969d2c441c914f9"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/atelier-espresso/detail-c694be1d856ca5ebab64.webp",
+      "sha256": "c694be1d856ca5ebab6415c3196eb09608a1669c44baf9cf0543ed685f5b4770",
+      "bytes": 230638,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.813,
+      "camera": {
+        "orthoScale": 0.5410553216934204,
+        "position": [
+          0.8376120328903198,
+          -1.3960200548171997,
+          0.9878110289573669
+        ],
+        "target": [
+          0,
+          0,
+          0.2199999988079071
+        ],
+        "clipStart": 0.00044999999227002263,
+        "clipEnd": 5.399999618530273,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.22542427480220795,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7745757102966309,
+            0.9347817301750183
+          ]
+        }
+      },
+      "glbSha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+      "renderConfigSha256": "17aa33cb1110091b7d1eec3c8d72bd18409a58626a104e1abbe8a252be49331a",
+      "inputSetSha256": "74634045ff446ec54683f273b1580fa047d36caa969c6a635969d2c441c914f9"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/atelier-espresso/underside-418fdc1df7a222b37eb2.webp",
+      "sha256": "418fdc1df7a222b37eb208ab39815dc954720aaf778bfa06cc6c89398a16a0fe",
+      "bytes": 77528,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.696,
+      "camera": {
+        "orthoScale": 1.000537633895874,
+        "position": [
+          0.8234922289848328,
+          -1.3724870681762695,
+          -0.603492259979248
+        ],
+        "target": [
+          0,
+          0,
+          0.2199999988079071
+        ],
+        "clipStart": 0.00044999999227002263,
+        "clipEnd": 5.399999618530273,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.23003479838371277,
+            0.0652175173163414
+          ],
+          "max": [
+            0.7699650526046753,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+      "renderConfigSha256": "17aa33cb1110091b7d1eec3c8d72bd18409a58626a104e1abbe8a252be49331a",
+      "inputSetSha256": "74634045ff446ec54683f273b1580fa047d36caa969c6a635969d2c441c914f9"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/atelier-espresso/clay-7b965484f9a960947735.webp",
+      "sha256": "7b965484f9a960947735c42fb711d5cebc61d57e8dbe82577f580d7f9768da82",
+      "bytes": 75158,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.775,
+      "camera": {
+        "orthoScale": 0.9837365746498108,
+        "position": [
+          0.8376120328903198,
+          -1.3960200548171997,
+          0.9878110289573669
+        ],
+        "target": [
+          0,
+          0,
+          0.2199999988079071
+        ],
+        "clipStart": 0.00044999999227002263,
+        "clipEnd": 5.399999618530273,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2254241704940796,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7745758295059204,
+            0.9347821474075317
+          ]
+        }
+      },
+      "glbSha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+      "renderConfigSha256": "17aa33cb1110091b7d1eec3c8d72bd18409a58626a104e1abbe8a252be49331a",
+      "inputSetSha256": "74634045ff446ec54683f273b1580fa047d36caa969c6a635969d2c441c914f9"
+    }
+  ],
+  "timingSeconds": 2,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.18000000715255737,
+          0.22499999403953552,
+          0.4399999976158142
+        ],
+        "min": [
+          -0.18000000715255737,
+          -0.22499999403953552,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 2,
+          "materialKey": "variant-surface",
+          "rawGlbBaseColorFactor": [
+            0.054999999701976776,
+            0.15000000596046448,
+            0.12999999523162842,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+      "renderImportSha256": "bd7768a616d80a5584bbe7179be7c7e3cd7ede4970916655a8a866ff270a5ee8",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.18000000715255737,0.22499999403953552,0.4399999976158142],\"min\":[-0.18000000715255737,-0.22499999403953552,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":2,\"materialKey\":\"variant-surface\",\"rawGlbBaseColorFactor\":[0.054999999701976776,0.15000000596046448,0.12999999523162842,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea\",\"renderImportSha256\":\"bd7768a616d80a5584bbe7179be7c7e3cd7ede4970916655a8a866ff270a5ee8\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "17aa33cb1110091b7d1eec3c8d72bd18409a58626a104e1abbe8a252be49331a",
+    "inputs": [
+      {
+        "path": "assets-source/blender/atelier-espresso.blend",
+        "sha256": "a1a0e6d760f32884f8900ab51667f9b011cfa49802e009987e57b77033d46525",
+        "bytes": 176744
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/atelier-espresso.blend",
+        "sha256": "21dc690bab315c3dbb2a5613bbe985debcd36014cf6cea5fd590a68151bdfa03",
+        "bytes": 367925
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/black-enamel-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/porcelain-white-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/atelier-espresso/variant-surface-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-orm.png",
+        "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+        "bytes": 29345
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/atelier-espresso.glb",
+        "sha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+        "bytes": 1509032
+      },
+      {
+        "path": "public/models/furniture/atelier-espresso.glb",
+        "sha256": "6be693a791781464c08ece59b626b8ae46fe1eaeb02b0dc959f810472e78c460",
+        "bytes": 522680
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "74634045ff446ec54683f273b1580fa047d36caa969c6a635969d2c441c914f9",
+    "afterSha256": "74634045ff446ec54683f273b1580fa047d36caa969c6a635969d2c441c914f9"
+  },
+  "formatValidation": {
+    "sha256": "229c2acc047767b3a69199fea0b39593ff4424ea9377c548985bfa536088a4ea",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 7,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "a4759c57903eacefde8b1c6f5e3d433c169d0323dbe481b1d590cd1429dac2ef",
+    "views": {
+      "front": "Separate group head, twin gauges and drip tray read as an espresso station.",
+      "rear": "Rear housing and upper warming tray remain continuous and enclosed.",
+      "detail": "Dial ticks, knobs, steam wand and tray bars are individually visible.",
+      "underside": "Four dark feet support the base while the group head remains recessed.",
+      "clay": "Clay preserves the layered appliance housing and clear brewing workspace."
+    }
+  }
+}

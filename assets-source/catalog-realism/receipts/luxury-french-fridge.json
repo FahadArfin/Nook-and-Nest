@@ -1,0 +1,1976 @@
+{
+  "version": 1,
+  "catalogId": "luxury-french-fridge",
+  "inputContractSha256": "39f973a911db9a33375655bc8567e86154d8865fc4546bc6acc19e2e4d820d14",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/luxury-french-fridge.blend",
+      "sha256": "bc4561d5d3d23bcdd156fddc6d6fadbb13f2f6d4894b6cb970ef272f7c1307d1",
+      "bytes": 155982
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/luxury-french-fridge.glb",
+      "sha256": "cef0a5ffed473c4148fe8ca54b511ef1bfd159fc9ea2a547adc05b20f26ea21a",
+      "bytes": 424608
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/luxury-french-fridge.blend",
+      "sha256": "bc4561d5d3d23bcdd156fddc6d6fadbb13f2f6d4894b6cb970ef272f7c1307d1",
+      "bytes": 155982
+    },
+    {
+      "path": "public/models/furniture/luxury-french-fridge.glb",
+      "sha256": "cef0a5ffed473c4148fe8ca54b511ef1bfd159fc9ea2a547adc05b20f26ea21a",
+      "bytes": 424608
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "French door handle bracket",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e852705ccbe3ceb38cf08ee103bd8ba5577d952ea01497065dca0b0d0f2f7b25",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            -0.06700000166893005,
+            -0.3450281023979187,
+            1.0123200416564941
+          ],
+          "max": [
+            -0.0429999977350235,
+            -0.3051404356956482,
+            1.0363199710845947
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "43b6c53eae84b7c2a8b3136ed9441f6ce474d89057392070d550fec6cdf1fd64",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            -0.06700000166893005,
+            -0.3450281023979187,
+            1.0123200416564941
+          ],
+          "max": [
+            -0.0429999977350235,
+            -0.3051404356956482,
+            1.0363199710845947
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "French door handle bracket.001",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e22c69378fa2381074b6736a01c79d45f3e89d7b5f126370e193483c8370c33d",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            -0.06700000166893005,
+            -0.3450281023979187,
+            1.737879991531372
+          ],
+          "max": [
+            -0.0429999977350235,
+            -0.3051404356956482,
+            1.7618799209594727
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "3036125dfd88ac994e5c3236fb2d615c36d023dc7e94cd89fa2618967a0836d9",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            -0.06700000166893005,
+            -0.3450281023979187,
+            1.737879991531372
+          ],
+          "max": [
+            -0.0429999977350235,
+            -0.3051404356956482,
+            1.7618799209594727
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "French door handle grip",
+      "widthM": 0.0006980337202548981,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d04939c32b3f3d49eeb11f653803c09da880a5334d48bd429812694bbefd2857",
+        "vertices": 48,
+        "triangles": 92,
+        "bounds": {
+          "min": [
+            -0.0689999982714653,
+            -0.35400283336639404,
+            1.0123200416564941
+          ],
+          "max": [
+            -0.04100000113248825,
+            -0.3260814845561981,
+            1.7618799209594727
+          ],
+          "size": [
+            0.02799999713897705,
+            0.027921348810195923,
+            0.7495598793029785
+          ]
+        }
+      },
+      "after": {
+        "sha256": "624e564dc178e703e30397d1a95a8029a7bf80277ab0da87824f8aa9354145b5",
+        "vertices": 192,
+        "triangles": 380,
+        "bounds": {
+          "min": [
+            -0.0689999982714653,
+            -0.35400283336639404,
+            1.0123200416564941
+          ],
+          "max": [
+            -0.04100000113248825,
+            -0.3260814845561981,
+            1.7618799209594727
+          ],
+          "size": [
+            0.02799999713897705,
+            0.027921348810195923,
+            0.7495598793029785
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "French door handle bracket.002",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3ecbacda189ef9027c3717da09f96d25c7f673fe89e3814f29e5d208bfe4496f",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            0.0429999977350235,
+            -0.3450281023979187,
+            1.0123200416564941
+          ],
+          "max": [
+            0.06700000166893005,
+            -0.3051404356956482,
+            1.0363199710845947
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "0d3fc2231d4db4941eee035810b764773a24d415a3e2e457acc97a9317693b03",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            0.0429999977350235,
+            -0.3450281023979187,
+            1.0123200416564941
+          ],
+          "max": [
+            0.06700000166893005,
+            -0.3051404356956482,
+            1.0363199710845947
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "French door handle bracket.003",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "4dba6d2d08337ddbd2355f2eaced7cb13fa516135e36bef06c1f193526176978",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            0.0429999977350235,
+            -0.3450281023979187,
+            1.737879991531372
+          ],
+          "max": [
+            0.06700000166893005,
+            -0.3051404356956482,
+            1.7618799209594727
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "195375d31b1585cb06a7b459f9766d16a076265427533ab1c0fb8590a628c4c1",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            0.0429999977350235,
+            -0.3450281023979187,
+            1.737879991531372
+          ],
+          "max": [
+            0.06700000166893005,
+            -0.3051404356956482,
+            1.7618799209594727
+          ],
+          "size": [
+            0.024000003933906555,
+            0.03988766670227051,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "French door handle grip.001",
+      "widthM": 0.0006980337202548981,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "9b4d566273c6831cab3a5e05375c80909fb5e5ece4322a87d2c41b23df6a98c8",
+        "vertices": 48,
+        "triangles": 92,
+        "bounds": {
+          "min": [
+            0.04100000113248825,
+            -0.35400283336639404,
+            1.0123200416564941
+          ],
+          "max": [
+            0.0689999982714653,
+            -0.3260814845561981,
+            1.7618799209594727
+          ],
+          "size": [
+            0.02799999713897705,
+            0.027921348810195923,
+            0.7495598793029785
+          ]
+        }
+      },
+      "after": {
+        "sha256": "2d60a0c93585dfb63058371949427a42bdbfbb8895b77dfc4eaa686c6bae8af8",
+        "vertices": 192,
+        "triangles": 380,
+        "bounds": {
+          "min": [
+            0.04100000113248825,
+            -0.35400283336639404,
+            1.0123200416564941
+          ],
+          "max": [
+            0.0689999982714653,
+            -0.3260814845561981,
+            1.7618799209594727
+          ],
+          "size": [
+            0.02799999713897705,
+            0.027921348810195923,
+            0.7495598793029785
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Freezer drawer handle standoff",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e0c61abd7cdeb581487b398dceb2efdf1af5eb564cbd65084528f61b2150c208",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            -0.3426100015640259,
+            -0.3435323238372803,
+            0.4498099982738495
+          ],
+          "max": [
+            -0.32460999488830566,
+            -0.3086306154727936,
+            0.4678100049495697
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "after": {
+        "sha256": "db860dad87441d4590aaa893da6e0f389661625bcdc92de6ce45192349516288",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            -0.3426100015640259,
+            -0.3435323238372803,
+            0.4498099982738495
+          ],
+          "max": [
+            -0.32460999488830566,
+            -0.3086306154727936,
+            0.4678100049495697
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Freezer drawer handle standoff.001",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a7cc4a004dfbe0e9c49835eab82872017ed7ad95f9ead9e5fda419459f823903",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            0.32460999488830566,
+            -0.3435323238372803,
+            0.4498099982738495
+          ],
+          "max": [
+            0.3426100015640259,
+            -0.3086306154727936,
+            0.4678100049495697
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "after": {
+        "sha256": "4a84327fbed7dfa9139e54feb9b6f61880326560dd2303a3449107aa88627e79",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            0.32460999488830566,
+            -0.3435323238372803,
+            0.4498099982738495
+          ],
+          "max": [
+            0.3426100015640259,
+            -0.3086306154727936,
+            0.4678100049495697
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Freezer drawer handle bar",
+      "widthM": 0.0005983143928460777,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "7c50c1e000a1dcbf2da120599a0fb350c0e9b1be2f3761898c4fc8cb5f0e5831",
+        "vertices": 48,
+        "triangles": 92,
+        "bounds": {
+          "min": [
+            -0.3451099991798401,
+            -0.35499998927116394,
+            0.4468099772930145
+          ],
+          "max": [
+            0.3451099991798401,
+            -0.33106741309165955,
+            0.47081002593040466
+          ],
+          "size": [
+            0.6902199983596802,
+            0.023932576179504395,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ab5e7900e686d05454f273066b763ebb9b3969485bd5aad4e310859c8f1a3caa",
+        "vertices": 192,
+        "triangles": 380,
+        "bounds": {
+          "min": [
+            -0.3451099991798401,
+            -0.35499998927116394,
+            0.4468099772930145
+          ],
+          "max": [
+            0.3451099991798401,
+            -0.33106741309165955,
+            0.47081002593040466
+          ],
+          "size": [
+            0.6902199983596802,
+            0.023932576179504395,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Freezer drawer handle standoff.002",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "76286b42ccc4dd6e62fbbfab4f0be1d801634718fab835fda447bc1551f7e5d5",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            -0.3426100015640259,
+            -0.3435323238372803,
+            0.7699099779129028
+          ],
+          "max": [
+            -0.32460999488830566,
+            -0.3086306154727936,
+            0.787909984588623
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "after": {
+        "sha256": "6738e103b06633f5352f13ebad483639807f728f9d4f049990dd4df240455153",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            -0.3426100015640259,
+            -0.3435323238372803,
+            0.7699099779129028
+          ],
+          "max": [
+            -0.32460999488830566,
+            -0.3086306154727936,
+            0.787909984588623
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Freezer drawer handle standoff.003",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5a08e0f7a17f12cc5b96ced19bd031a30d853b0c290591f17c402f60625bfd55",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            0.32460999488830566,
+            -0.3435323238372803,
+            0.7699099779129028
+          ],
+          "max": [
+            0.3426100015640259,
+            -0.3086306154727936,
+            0.787909984588623
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "after": {
+        "sha256": "71a3da5f3ba2c12b6873200460b2fd1d0415e31bf330d01d0de5e4cfb7c27bcc",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            0.32460999488830566,
+            -0.3435323238372803,
+            0.7699099779129028
+          ],
+          "max": [
+            0.3426100015640259,
+            -0.3086306154727936,
+            0.787909984588623
+          ],
+          "size": [
+            0.018000006675720215,
+            0.034901708364486694,
+            0.018000006675720215
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Freezer drawer handle bar.001",
+      "widthM": 0.0005983143928460777,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "ca9c4358d0b67ed4098478d19db8af3041d11cb44f6f57fb160c7faf6769f252",
+        "vertices": 48,
+        "triangles": 92,
+        "bounds": {
+          "min": [
+            -0.3451099991798401,
+            -0.35499998927116394,
+            0.7669099569320679
+          ],
+          "max": [
+            0.3451099991798401,
+            -0.33106741309165955,
+            0.790910005569458
+          ],
+          "size": [
+            0.6902199983596802,
+            0.023932576179504395,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "84fccccfc0af4dc2e47c994a3d179c0f607a64bf3232f0bb282a7759ab2acdd7",
+        "vertices": 192,
+        "triangles": 380,
+        "bounds": {
+          "min": [
+            -0.3451099991798401,
+            -0.35499998927116394,
+            0.7669099569320679
+          ],
+          "max": [
+            0.3451099991798401,
+            -0.33106741309165955,
+            0.790910005569458
+          ],
+          "size": [
+            0.6902199983596802,
+            0.023932576179504395,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "black-enamel.001",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-stainless-steel.001",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "black-ceramic-glass",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "black-enamel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "black-enamel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "black-enamel.001",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "black-enamel.001",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "black-enamel.001",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "brushed-stainless-steel.001",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-stainless-steel.001",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-stainless-steel.001",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "display-markings",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "black-enamel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "black-enamel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "black-enamel.001",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "black-enamel.001",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel.001",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel.001",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1421476,
+    "afterBytes": 1421476,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/luxury-french-fridge.blend",
+      "sha256": "bb226158fef265b36a993cda1f255ce95ee1c1940441476bcd4c191653ec9ec9",
+      "bytes": 311361
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/luxury-french-fridge.glb",
+      "sha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "bytes": 1421476
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/luxury-french-fridge/front-2718ad95b8348bcbd0c7.webp",
+      "sha256": "2718ad95b8348bcbd0c77877f803df9a01dae015df3f2f16de525bce014601b3",
+      "bytes": 78872,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.782,
+      "camera": {
+        "orthoScale": 3.6652889251708984,
+        "position": [
+          3.9721426963806152,
+          -6.620237827301025,
+          4.708130836486816
+        ],
+        "target": [
+          0,
+          0,
+          1.0670000314712524
+        ],
+        "clipStart": 0.002133999951183796,
+        "clipEnd": 25.608001708984375,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3432537615299225,
+            0.06521737575531006
+          ],
+          "max": [
+            0.6567462682723999,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "renderConfigSha256": "eec01d69c771097b8ba5a9c4fa7ce41e336bf6e5c4f8df61ac6bdc3c29442d5f",
+      "inputSetSha256": "549635f985c2d09b7bc8f3fa888b44067686886ac3ff6a2f445e6a2d04dd3b19"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/luxury-french-fridge/rear-4eb3c46319cb89c0d9b9.webp",
+      "sha256": "4eb3c46319cb89c0d9b92d6426bdf8d2002e4f820f1675f0668f10f27322ab36",
+      "bytes": 54550,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.772,
+      "camera": {
+        "orthoScale": 3.6652889251708984,
+        "position": [
+          -3.9721426963806152,
+          6.620237827301025,
+          4.708130836486816
+        ],
+        "target": [
+          0,
+          0,
+          1.0670000314712524
+        ],
+        "clipStart": 0.002133999951183796,
+        "clipEnd": 25.608001708984375,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3432537615299225,
+            0.06521737575531006
+          ],
+          "max": [
+            0.6567462086677551,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "renderConfigSha256": "eec01d69c771097b8ba5a9c4fa7ce41e336bf6e5c4f8df61ac6bdc3c29442d5f",
+      "inputSetSha256": "549635f985c2d09b7bc8f3fa888b44067686886ac3ff6a2f445e6a2d04dd3b19"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/luxury-french-fridge/detail-ae0e391fa85cdd1401a9.webp",
+      "sha256": "ae0e391fa85cdd1401a9bd13ea390798baf59248985e44c4351c01cc5cb19da4",
+      "bytes": 98428,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.81,
+      "camera": {
+        "orthoScale": 2.0159103870391846,
+        "position": [
+          3.9721426963806152,
+          -6.620237827301025,
+          4.708130836486816
+        ],
+        "target": [
+          0,
+          0,
+          1.0670000314712524
+        ],
+        "clipStart": 0.002133999951183796,
+        "clipEnd": 25.608001708984375,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.34325388073921204,
+            0.06521743535995483
+          ],
+          "max": [
+            0.6567461490631104,
+            0.9347813725471497
+          ]
+        }
+      },
+      "glbSha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "renderConfigSha256": "eec01d69c771097b8ba5a9c4fa7ce41e336bf6e5c4f8df61ac6bdc3c29442d5f",
+      "inputSetSha256": "549635f985c2d09b7bc8f3fa888b44067686886ac3ff6a2f445e6a2d04dd3b19"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/luxury-french-fridge/underside-c993262259c5e315ee49.webp",
+      "sha256": "c993262259c5e315ee490cc73dab413a077efd14ab7168ab5d18cfe9c15c982d",
+      "bytes": 49404,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.684,
+      "camera": {
+        "orthoScale": 3.666579484939575,
+        "position": [
+          3.9051835536956787,
+          -6.508639335632324,
+          -2.8381834030151367
+        ],
+        "target": [
+          0,
+          0,
+          1.0670000314712524
+        ],
+        "clipStart": 0.002133999951183796,
+        "clipEnd": 25.608001708984375,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.34330886602401733,
+            0.065217524766922
+          ],
+          "max": [
+            0.6566909551620483,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "renderConfigSha256": "eec01d69c771097b8ba5a9c4fa7ce41e336bf6e5c4f8df61ac6bdc3c29442d5f",
+      "inputSetSha256": "549635f985c2d09b7bc8f3fa888b44067686886ac3ff6a2f445e6a2d04dd3b19"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/luxury-french-fridge/clay-1c401842bda4d6ed1123.webp",
+      "sha256": "1c401842bda4d6ed1123148da22103611c31a34793e3db3d3684e033e4000275",
+      "bytes": 58882,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.768,
+      "camera": {
+        "orthoScale": 3.6652889251708984,
+        "position": [
+          3.9721426963806152,
+          -6.620237827301025,
+          4.708130836486816
+        ],
+        "target": [
+          0,
+          0,
+          1.0670000314712524
+        ],
+        "clipStart": 0.002133999951183796,
+        "clipEnd": 25.608001708984375,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3432537615299225,
+            0.06521737575531006
+          ],
+          "max": [
+            0.6567462682723999,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "renderConfigSha256": "eec01d69c771097b8ba5a9c4fa7ce41e336bf6e5c4f8df61ac6bdc3c29442d5f",
+      "inputSetSha256": "549635f985c2d09b7bc8f3fa888b44067686886ac3ff6a2f445e6a2d04dd3b19"
+    }
+  ],
+  "timingSeconds": 1.66,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.4569999873638153,
+          0.35499998927116394,
+          2.134000062942505
+        ],
+        "min": [
+          -0.4569999873638153,
+          -0.35499998927116394,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "renderImportSha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.4569999873638153,0.35499998927116394,2.134000062942505],\"min\":[-0.4569999873638153,-0.35499998927116394,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2\",\"renderImportSha256\":\"78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "eec01d69c771097b8ba5a9c4fa7ce41e336bf6e5c4f8df61ac6bdc3c29442d5f",
+    "inputs": [
+      {
+        "path": "assets-source/blender/luxury-french-fridge.blend",
+        "sha256": "bc4561d5d3d23bcdd156fddc6d6fadbb13f2f6d4894b6cb970ef272f7c1307d1",
+        "bytes": 155982
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/luxury-french-fridge.blend",
+        "sha256": "bb226158fef265b36a993cda1f255ce95ee1c1940441476bcd4c191653ec9ec9",
+        "bytes": 311361
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/black-enamel.001-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-french-fridge/brushed-stainless-steel.001-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-orm.png",
+        "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+        "bytes": 29345
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/luxury-french-fridge.glb",
+        "sha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+        "bytes": 1421476
+      },
+      {
+        "path": "public/models/furniture/luxury-french-fridge.glb",
+        "sha256": "cef0a5ffed473c4148fe8ca54b511ef1bfd159fc9ea2a547adc05b20f26ea21a",
+        "bytes": 424608
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "549635f985c2d09b7bc8f3fa888b44067686886ac3ff6a2f445e6a2d04dd3b19",
+    "afterSha256": "549635f985c2d09b7bc8f3fa888b44067686886ac3ff6a2f445e6a2d04dd3b19"
+  },
+  "formatValidation": {
+    "sha256": "78a4d562d97bf9139b87a9d6e758b013d50f616024a910d8219eb6177d4af3d2",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 8,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/1/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/1/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "catalog_materials independent five-view review",
+    "artifactSetSha256": "85efb1169af32612ec26ba7db9723665219ed847359d1a4e014bf5b18bccb399",
+    "views": {
+      "front": "Paired upper doors and stacked freezer drawers have distinct pulls.",
+      "rear": "Enclosed tall rear maintains the refrigerator body silhouette.",
+      "detail": "Top grille, drawer divisions and handle standoffs are clear.",
+      "underside": "Dark toe and closed bottom are continuous.",
+      "clay": "Door and drawer relief remains readable in the neutral render."
+    }
+  }
+}
