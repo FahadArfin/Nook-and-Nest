@@ -16,7 +16,7 @@
     "assets:verify": "node scripts/verify-asset-pipeline.mjs",
     "assets:inventory": "node scripts/verify-asset-pipeline.mjs --inventory",
     "models:inspect": "node scripts/model-pipeline.mjs inspect assets-source/model-pipeline/sofa.spec.json",
-    "models:ready": "node scripts/model-pipeline.mjs ready assets-source/model-pipeline/sofa.spec.json",
+    "models:ready": "node scripts/model-pipeline.mjs ready assets-source/model-pipeline/sofa.spec.json && node scripts/model-pipeline.mjs ready assets-source/model-pipeline/sofa-rebuilt.spec.json",
     "test:model-pipeline": "node --test tests/model-pipeline.test.mjs",
     "build:model-lab": "vite build --config vite.model-lab.config.mjs"
   },

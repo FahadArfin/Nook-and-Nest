@@ -9,6 +9,9 @@ export const REQUIRED_VIEWS = Object.freeze(['front', 'rear', 'underside', 'clay
 const DEFAULT_ROOT = fileURLToPath(new URL('../../', import.meta.url));
 const HASH = /^[a-f0-9]{64}$/;
 const TOLERANCE_M = .00015;
+const TEXTURED_MATERIAL = /upholstery|wood|oak|walnut/i;
+const TILED_MAP_KINDS = Object.freeze(['baseColor', 'normal', 'orm']);
+const isTiledSurface = spec => spec.surface?.method === 'tiled-pbr';
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const inside = (root, candidate) => {
   const relative = path.relative(root, candidate);
@@ -236,7 +239,7 @@ export function inspectGlb(bytes, spec, maps = []) {
     return { index, ...dimensions, bytes: content.length, sha256: sha(content) };
   });
   const materialMaps = [];
-  for (const material of g.materials.filter(material => /upholstery|wood|oak|walnut/i.test(material.name))) {
+  for (const material of g.materials.filter(material => TEXTURED_MATERIAL.test(material.name))) {
     const required = [
       ['baseColor', material.pbrMetallicRoughness?.baseColorTexture], ['normal', material.normalTexture],
       ['orm', material.pbrMetallicRoughness?.metallicRoughnessTexture], ['orm', material.occlusionTexture],
@@ -249,7 +252,8 @@ export function inspectGlb(bytes, spec, maps = []) {
       assert(image && !texture.extensions, `GLB: missing embedded ${kind} image on ${material.name}`);
       const receiptMap = maps.find(map => map.materialKey === material.name && map.kind === kind && map.sha256 === image.sha256);
       assert(receiptMap, `GLB: ${material.name} ${kind} embedded bytes do not match a receipt map`);
-      if (/upholstery/i.test(material.name)) assert(image.width === spec.bake.resolution && image.height === spec.bake.resolution, `GLB: ${kind} bake resolution differs from spec`);
+      if (isTiledSurface(spec)) assert(image.width === spec.surface.resolution && image.height === spec.surface.resolution, `GLB: ${kind} tiled texture resolution differs from spec`);
+      else if (/upholstery/i.test(material.name)) assert(image.width === spec.bake.resolution && image.height === spec.bake.resolution, `GLB: ${kind} bake resolution differs from spec`);
       materialMaps.push({ materialKey: material.name, kind, image: image.index });
     }
   }
@@ -264,14 +268,21 @@ function loadSpec(specPath, root) {
   assert(Number.isSafeInteger(spec.seed), 'Spec: integer seed required');
   assert(Array.isArray(spec.dimensionsM) && spec.dimensionsM.length === 3 && spec.dimensionsM.every(value => Number.isFinite(value) && value > 0 && value < 100), 'Spec: width/depth/height dimensionsM must be positive metres');
   assert(Array.isArray(spec.materialKeys) && spec.materialKeys.length > 0 && spec.materialKeys.every(value => typeof value === 'string' && value.length > 0) && new Set(spec.materialKeys).size === spec.materialKeys.length, 'Spec: distinct material keys required');
-  const resolution = spec.bake?.resolution;
-  assert(Number.isSafeInteger(resolution) && resolution > 0 && resolution <= 8192 && (resolution & (resolution - 1)) === 0, 'Spec: bake resolution must be a power of two up to 8192');
-  assert(Number.isSafeInteger(spec.bake.samples) && spec.bake.samples > 0 && spec.bake.samples <= 4096, 'Spec: bounded bake samples required');
-  assert(['cageExtrusionM','maxRayDistanceM'].every(key => Number.isFinite(spec.bake[key]) && spec.bake[key] > 0 && spec.bake[key] < 1), 'Spec: bounded positive bake cage and ray distance required');
+  if (spec.surface !== undefined) {
+    assert(isTiledSurface(spec), 'Spec: unsupported explicit surface method');
+    const resolution = spec.surface.resolution;
+    assert(Number.isSafeInteger(resolution) && resolution > 0 && resolution <= 8192 && (resolution & (resolution - 1)) === 0, 'Spec: tiled texture resolution must be a power of two up to 8192');
+    assert(spec.bake === undefined && spec.outputs?.bakeDirectory === undefined, 'Spec: tiled PBR surfaces must not declare an atlas bake');
+  } else {
+    const resolution = spec.bake?.resolution;
+    assert(Number.isSafeInteger(resolution) && resolution > 0 && resolution <= 8192 && (resolution & (resolution - 1)) === 0, 'Spec: bake resolution must be a power of two up to 8192');
+    assert(Number.isSafeInteger(spec.bake.samples) && spec.bake.samples > 0 && spec.bake.samples <= 4096, 'Spec: bounded bake samples required');
+    assert(['cageExtrusionM','maxRayDistanceM'].every(key => Number.isFinite(spec.bake[key]) && spec.bake[key] > 0 && spec.bake[key] < 1), 'Spec: bounded positive bake cage and ray distance required');
+  }
   assert(['targetTriangles','maxTriangles','maxGlbBytes','maxPrimitives'].every(key => Number.isSafeInteger(spec.budgets?.[key]) && spec.budgets[key] > 0), 'Spec: positive integer budgets required');
   assert(spec.budgets.targetTriangles <= spec.budgets.maxTriangles && spec.budgets.maxTriangles <= 2000000 && spec.budgets.maxGlbBytes <= 128 * 1024 * 1024 && spec.budgets.maxPrimitives <= 128, 'Spec: budgets exceed bounded authoring limits');
   resolveRepoPath(root, spec.sourceBlend);
-  for (const key of ['sourceBlend','glb','receipt','bakeDirectory']) resolveRepoPath(root, spec.outputs?.[key]);
+  for (const key of ['sourceBlend','glb','receipt', ...(isTiledSurface(spec) ? [] : ['bakeDirectory'])]) resolveRepoPath(root, spec.outputs?.[key]);
   const distinct = [relative,spec.sourceBlend,spec.outputs.sourceBlend,spec.outputs.glb,spec.outputs.receipt].map(value => resolveRepoPath(root, value));
   assert.equal(new Set(distinct).size, distinct.length, 'Spec: source, output, receipt and spec paths must be distinct');
   return { spec, relative, filename, reviewPath: relative.replace(/\.spec\.json$/, '.review.json') };
@@ -289,6 +300,10 @@ export function inspectPipeline(specPath, { root = DEFAULT_ROOT } = {}) {
   const { spec, relative, filename, reviewPath } = loadSpec(specPath, root);
   const receiptFilename = resolveRepoPath(root, spec.outputs.receipt), receipt = readJson(receiptFilename, 'receipt');
   assert.equal(receipt.version, 1, 'Receipt: unsupported version');
+  if (isTiledSurface(spec)) {
+    assert(receipt.surface?.method === spec.surface.method && receipt.surface?.resolution === spec.surface.resolution, 'Receipt: tiled surface method or resolution differs from spec');
+    assert(receipt.bake === undefined, 'Receipt: tiled PBR surfaces must not claim an atlas bake');
+  }
   validateRecord(root, receipt.spec, 'spec', relative);
   assertBlend(validateRecord(root, receipt.sourceBlend, 'sourceBlend', spec.sourceBlend), 'sourceBlend');
   assertBlend(validateRecord(root, receipt.outputBlend, 'outputBlend', spec.outputs.sourceBlend), 'outputBlend');
@@ -302,20 +317,27 @@ export function inspectPipeline(specPath, { root = DEFAULT_ROOT } = {}) {
     return { path: input.path, role: input.role, sha256: input.sha256 };
   });
   assert(Array.isArray(receipt.maps) && receipt.maps.length > 0 && receipt.maps.length <= 128, 'Receipt: bounded maps list required');
-  const bakeRoot = resolveRepoPath(root, spec.outputs.bakeDirectory), mapKeys = new Set();
+  const tiled = isTiledSurface(spec);
+  const bakeRoot = tiled ? null : resolveRepoPath(root, spec.outputs.bakeDirectory), mapKeys = new Set();
   const maps = receipt.maps.map((map, index) => {
     assert(spec.materialKeys.includes(map.materialKey) && ['baseColor','normal','roughness','ao','orm'].includes(map.kind), `map ${index}: invalid materialKey or kind`);
+    if (tiled) assert(TILED_MAP_KINDS.includes(map.kind), `map ${index}: tiled PBR receipts contain baseColor, normal and packed orm only`);
     const key = `${map.materialKey}/${map.kind}`; assert(!mapKeys.has(key), `Receipt: duplicate map ${key}`); mapKeys.add(key);
     const mapFilename = validateRecord(root, map, `map ${key}`);
-    const baked = inside(bakeRoot, mapFilename) && mapFilename !== bakeRoot;
+    const baked = bakeRoot !== null && inside(bakeRoot, mapFilename) && mapFilename !== bakeRoot;
     const retained = inputs.some(input => input.role === 'material' && input.sha256 === map.sha256 && resolveRepoPath(root, input.path) === mapFilename);
-    assert(baked || retained, `map ${key}: must be inside bakeDirectory or a hash-bound retained material input`);
+    assert(baked || retained, tiled ? `map ${key}: tiled texture must be a hash-bound retained material input` : `map ${key}: must be inside bakeDirectory or a hash-bound retained material input`);
     assert(statSync(mapFilename).size <= 64 * 1024 * 1024, `map ${key}: image exceeds 64 MiB`);
     const dimensions = imageDimensions(readFileSync(mapFilename), `map ${key}`);
-    if (/upholstery/i.test(map.materialKey)) assert(dimensions.width === spec.bake.resolution && dimensions.height === spec.bake.resolution, `map ${key}: bake dimensions differ from spec`);
+    if (tiled) assert(dimensions.width === spec.surface.resolution && dimensions.height === spec.surface.resolution, `map ${key}: tiled texture dimensions differ from spec`);
+    else if (/upholstery/i.test(map.materialKey)) assert(dimensions.width === spec.bake.resolution && dimensions.height === spec.bake.resolution, `map ${key}: bake dimensions differ from spec`);
     return { ...map, ...dimensions };
   });
-  for (const material of spec.materialKeys.filter(key => /upholstery/i.test(key))) for (const kind of ['baseColor','normal','roughness','ao','orm']) assert(mapKeys.has(`${material}/${kind}`), `Receipt: missing ${material} ${kind} bake`);
+  if (tiled) {
+    for (const material of spec.materialKeys.filter(key => TEXTURED_MATERIAL.test(key))) for (const kind of TILED_MAP_KINDS) assert(mapKeys.has(`${material}/${kind}`), `Receipt: missing ${material} ${kind} tiled texture`);
+  } else {
+    for (const material of spec.materialKeys.filter(key => /upholstery/i.test(key))) for (const kind of ['baseColor','normal','roughness','ao','orm']) assert(mapKeys.has(`${material}/${kind}`), `Receipt: missing ${material} ${kind} bake`);
+  }
   assert(Array.isArray(receipt.renders) && receipt.renders.length <= 32, 'Receipt: bounded renders list required (empty until rendered)');
   const seenViews = new Set();
   const renders = receipt.renders.map(render => {

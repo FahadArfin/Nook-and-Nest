@@ -21,7 +21,7 @@ import '@babylonjs/core/Lights/Shadows/shadowGeneratorSceneComponent';
 import '@babylonjs/loaders/glTF/2.0';
 
 type Family = 'sofa' | 'table';
-type VariantId = 'sofa-current' | 'sofa-material' | 'sofa-refined' | 'sofa-pipeline' | 'table-current' | 'table-material' | 'table-refined';
+type VariantId = 'sofa-current' | 'sofa-material' | 'sofa-refined' | 'sofa-pipeline' | 'sofa-rebuilt' | 'table-current' | 'table-material' | 'table-refined';
 type Dimensions = { width: number; depth: number; height: number };
 type VariantResult = {
   id: VariantId; label?: string; note?: string; dimensionsMm?: Dimensions;
@@ -34,7 +34,8 @@ const VARIANTS: Variant[] = [
   { id: 'sofa-current', family: 'sofa', label: 'Current', caption: 'Original export', note: 'The current exported mesh and fabric response, with the same catalog upholstery tint used by every sofa version.' },
   { id: 'sofa-material', family: 'sofa', label: 'Calibrated fabric', caption: 'Same mesh · corrected sheen', note: 'The current sofa geometry with calibrated exported fabric sheen. This control separates material response from the geometry changes.' },
   { id: 'sofa-refined', family: 'sofa', label: 'Reference assisted', caption: 'Geometry + materials', note: 'An original Blender study informed by a generated visual reference. Dimensions are checked independently of the image.' },
-  { id: 'sofa-pipeline', family: 'sofa', label: 'Detailed construction', caption: 'Editable master + baked detail', note: 'A detailed master with sewn covers and supporting construction. Fine surface detail is baked onto a separate browser mesh; the source stays editable.' },
+  { id: 'sofa-pipeline', family: 'sofa', label: 'Previous study', caption: 'Detailed construction · rated 4/10', note: 'The previous detailed study, kept unchanged for comparison. Fine surface detail was baked onto a separate browser mesh.' },
+  { id: 'sofa-rebuilt', family: 'sofa', label: 'Realism revision', caption: 'Shaped cushions · woven wool · sculpted oak', note: 'Six individually shaped cushions, inclined back pillows, sewn edges and a rebuilt timber frame. Photographed wool and oak retain their physical texture scale. Compare with Previous study using the same view.' },
   { id: 'table-current', family: 'table', label: 'Current', caption: 'Catalog baseline', note: 'The current catalog table, with its exported geometry and materials.' },
   { id: 'table-material', family: 'table', label: 'Materials only', caption: 'Surface study', note: 'A material treatment of the existing table. Compare grain, roughness, and light response before assessing the geometry study.' },
   { id: 'table-refined', family: 'table', label: 'Construction detail', caption: 'Construction study', note: 'An original Blender construction study. Look at the edges, joinery, and silhouette from several angles.' },
@@ -70,6 +71,7 @@ app.innerHTML = `
       </section>
       <section class="control-section measurement-section"><h3>04 <span>Measured, not imagined</span></h3><dl class="measurements"><div class="wide"><dt>Loaded mesh · W × D × H</dt><dd id="mesh-dimensions">—</dd></div><div class="wide" id="envelope-row" hidden><dt>Catalog envelope · W × D × H</dt><dd id="catalog-dimensions">—</dd></div><div><dt>Triangles</dt><dd id="triangle-count">—</dd></div><div><dt>GLB size</dt><dd id="download-size">—</dd></div><div><dt>Mesh parts</dt><dd id="mesh-count">—</dd></div><div><dt>Fetch + decode</dt><dd id="load-time">—</dd></div></dl><p class="measurement-note">Measured from the loaded GLB. Load time reflects this browser and cache, not a performance benchmark.</p><ul id="findings" class="findings" hidden></ul></section>
       <details class="reference-details pipeline-details" id="pipeline-details" open><summary>How this model is made <span aria-hidden="true">↗</span></summary><ol><li><strong>Measure.</strong> Fix dimensions, material names and contact points.</li><li><strong>Construct.</strong> Keep the frame, cushion shapes and seams editable.</li><li><strong>Bake.</strong> Transfer fine detail from the master onto the browser mesh.</li><li><strong>Inspect.</strong> Check the exported geometry, maps and five rendered views.</li></ol><p id="pipeline-evidence" class="measurement-note">Loading the build record…</p><p class="measurement-note">Surface normals changes the lighting detail without changing the mesh. Use clay and the underside view to inspect construction.</p></details>
+      <details class="reference-details" id="rebuilt-details" open><summary>What changed <span aria-hidden="true">↗</span></summary><ol><li><strong>Shape.</strong> Individually crowned cushions, relaxed seams and inclined back pillows.</li><li><strong>Construction.</strong> Shaped armrests, splayed legs and separate timber members.</li><li><strong>Texture.</strong> Photographed wool and oak at measured scale, with surface detail retained in the browser export.</li></ol><p id="rebuilt-evidence" class="measurement-note">Loading the revision record…</p><p class="measurement-note">An original study informed by <a href="https://www.carlhansen.com/en/en/collection/sofas-daybeds/ch293" target="_blank" rel="noreferrer">solid-oak sofa construction</a>. Your next rating will determine how close it comes.</p></details>
       <details class="reference-details" id="reference-details"><summary>See the visual reference <span aria-hidden="true">↗</span></summary><figure><img src="${ASSETS}sofa-reference.png" alt="Generated multi-view sofa design reference used for the reference-assisted Blender study" loading="lazy"/><figcaption>AI-generated concept reference. This image guides the design; it does not prove dimensions or multi-view accuracy.</figcaption></figure></details>
       <p class="isolation-note">A separate Beta 1 experiment. These controls only affect this preview; your home and saved projects stay as they are.</p>
       <p id="metadata-note" class="metadata-note" role="status"></p>
@@ -80,7 +82,7 @@ const element = <T extends HTMLElement>(id: string) => document.getElementById(i
 const canvas = element<HTMLCanvasElement>('model-canvas');
 const message = element<HTMLDivElement>('load-message');
 let family: Family = 'sofa';
-let selected: VariantId = 'sofa-pipeline';
+let selected: VariantId = 'sofa-rebuilt';
 let results: Results | null = null;
 let container: AssetContainer | null = null;
 let disposed = false;
@@ -184,10 +186,14 @@ async function start() {
   function setLighting() {
     const appProfile = element<HTMLSelectElement>('lighting').value === 'app';
     // These day-profile values match SceneController's default constructor.
-    sky.intensity = appProfile ? .62 : .18;
+    sky.intensity = appProfile ? .62 : .4;
     sky.diffuse = appProfile ? new Color3(1, .91, .78) : Color3.White();
     sky.groundColor = appProfile ? new Color3(.3, .37, .28) : new Color3(.38, .38, .38);
     sun.intensity = appProfile ? .72 : .65;
+    // Illuminate the visible front in the shared studio setup. The app
+    // profile retains its actual sun direction for a separate runtime check.
+    sun.direction.set(...(appProfile ? [-.8, -1.5, .7] : [.8, -1.5, -1]) as [number, number, number]);
+    sun.position.set(...(appProfile ? [10, 18, -10] : [-10, 18, 10]) as [number, number, number]);
     sun.diffuse = appProfile ? new Color3(1, .86, .68) : Color3.White();
     scene.ambientColor = appProfile ? new Color3(.12, .11, .09) : new Color3(.08, .08, .08);
     scene.imageProcessingConfiguration.exposure = appProfile ? .72 : 1;
@@ -313,8 +319,9 @@ async function start() {
       button.addEventListener('click', () => { activeTint = color || null; applySurface(); });
       swatches.append(button);
     }
-    element('reference-details').hidden = family !== 'sofa';
+    element('reference-details').hidden = selected !== 'sofa-refined';
     element('pipeline-details').hidden = selected !== 'sofa-pipeline';
+    element('rebuilt-details').hidden = selected !== 'sofa-rebuilt';
     updateMetadata();
     applySurface();
   }
@@ -413,7 +420,7 @@ async function start() {
     });
   }
 
-  document.querySelectorAll<HTMLButtonElement>('[data-family]').forEach(button => button.addEventListener('click', () => selectVariant(button.dataset.family === 'table' ? 'table-current' : 'sofa-pipeline')));
+  document.querySelectorAll<HTMLButtonElement>('[data-family]').forEach(button => button.addEventListener('click', () => selectVariant(button.dataset.family === 'table' ? 'table-current' : 'sofa-rebuilt')));
   document.querySelectorAll<HTMLButtonElement>('[data-view]').forEach(button => button.addEventListener('click', () => setView(button.dataset.view!)));
   element('lighting').addEventListener('change', setLighting);
   element('clay').addEventListener('change', applySurface);
@@ -474,12 +481,19 @@ async function start() {
         element('pipeline-evidence').textContent = `This build: ${formatNumber.format(pipeline.masterTriangles)} master triangles → ${formatNumber.format(pipeline.browserTriangles)} browser triangles, with ${pipeline.bakeResolution}px baked maps. ${pipeline.reviewedViews} exported views reviewed.`;
       } else throw new Error('Unsupported pipeline record.');
     } else throw new Error('Pipeline record unavailable.');
+    const rebuiltResponse = await fetch(`${ASSETS}rebuilt.json`, { signal: metadataAbort.signal });
+    if (!rebuiltResponse.ok) throw new Error('Realism revision record unavailable.');
+    const rebuilt = await rebuiltResponse.json() as { version: number; variant: VariantResult; reviewedViews: number; textureResolution: number };
+    if (rebuilt.version !== 1 || rebuilt.variant?.id !== 'sofa-rebuilt' || rebuilt.reviewedViews !== 5 || !Number.isFinite(rebuilt.textureResolution)) throw new Error('Unsupported realism revision record.');
+    results.variants.push(rebuilt.variant);
+    element('rebuilt-evidence').textContent = `${rebuilt.textureResolution}px tiled material maps. Five views of the exported model reviewed; editable Blender construction preserved.`;
     updateMetadata();
     applySurface();
     element('metadata-note').textContent = parsed.generatedAt ? `Study record · ${parsed.generatedAt.slice(0, 10)}` : '';
   } catch {
     element('metadata-note').textContent = 'Study notes are unavailable. The values above are still measured from the loaded model.';
     element('pipeline-evidence').textContent = 'Build record unavailable. Inspect the loaded model using the controls above.';
+    element('rebuilt-evidence').textContent = 'Revision record unavailable. Inspect the loaded model using the controls above.';
   } finally {
     window.clearTimeout(metadataTimeout);
   }
