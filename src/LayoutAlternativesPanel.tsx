@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { PlanDocumentV1 } from './types';
 import { validatePlan } from './planValidation';
 import {
-  applyLayoutAlternative, deleteLayoutAlternative, layoutDifference,
+  applyLayoutAlternative, deleteLayoutAlternative, layoutDifference,homeRecordsRestoreNotice,
   layoutSummary, MAX_LAYOUT_ALTERNATIVES, renameLayoutAlternative, saveLayoutAlternative,
   type AlternativePlan,
 } from './layoutAlternatives';
@@ -31,10 +31,11 @@ export function LayoutAlternativesPanel({ plan, activeFloorId, onChange, onApply
   const [message, setMessage] = useState('');
   const [comparing,setComparing]=useState<string>();
   const options = (plan as AlternativePlan).layoutAlternatives?.options ?? EMPTY_OPTIONS;
+  const confirmedSnapshot=confirmation?options.find(o=>o.id===confirmation.id)?.snapshot:undefined;
   const comparisons = useMemo(() => {
-    const current = { gridSizeMm: plan.gridSizeMm, floors: plan.floors, furniture: plan.furniture, environment: plan.environment };
+    const current = plan;
     return options.map(option => ({ summary: layoutSummary(option.snapshot), difference: layoutDifference(current, option.snapshot) }));
-  }, [plan.gridSizeMm, plan.floors, plan.furniture, plan.environment, options]);
+  }, [plan, options]);
   const attempt = (action: () => void) => {
     try { action(); }
     catch (error) { setMessage(error instanceof Error ? error.message : 'The layout idea could not be saved.'); }
@@ -75,6 +76,7 @@ export function LayoutAlternativesPanel({ plan, activeFloorId, onChange, onApply
         <p>{summary.floors} {summary.floors === 1 ? 'floor' : 'floors'} · {summary.namedRooms} named {summary.namedRooms === 1 ? 'room' : 'rooms'} · {summary.furniture} placed items</p>
         <p className="layout-ideas-note">Compared with now: {difference.added} added, {difference.removed} removed, {difference.changed} changed items{difference.floorsChanged ? '; ' + difference.floorsChanged + ' changed floors or finishes' : ''}{difference.environmentChanged ? '; different outdoor settings' : ''}{difference.gridChanged ? '; different grid scale' : ''}.</p>
         <div className="layout-ideas-actions">
+          {(difference.deliveryPlanningChanged||difference.homeManualChanged)&&<p className="layout-ideas-note">{[difference.deliveryPlanningChanged?'Different Delivery check records':undefined,difference.homeManualChanged?'Different Home manual records':undefined].filter(Boolean).join(' · ')}</p>}
           <button type="button" aria-pressed={comparing===option.id} onClick={()=>setComparing(comparing===option.id?undefined:option.id)}>Compare {option.name}</button>
           <button type="button" disabled={saving||!!confirmation} onClick={() => { setEditing(undefined); setConfirmation({ kind: 'apply', id: option.id, name: option.name, base: plan }); setMessage(''); }}>Use {option.name}</button>
           <button type="button" disabled={saving||!!confirmation} onClick={() => setEditing({ id: option.id, name: option.name })}>Rename {option.name}</button>
@@ -88,6 +90,7 @@ export function LayoutAlternativesPanel({ plan, activeFloorId, onChange, onApply
       <p>{confirmation.kind === 'apply'
         ? 'This replaces the current layout and clears unfinished placements and floor-plan drafts. Your saved ideas stay unchanged. Undo restores the previous layout.'
         : 'This removes only the saved idea. Your current layout stays as it is.'}</p>
+      {confirmation.kind==='apply'&&confirmedSnapshot&&<p>{homeRecordsRestoreNotice(plan,confirmedSnapshot)}</p>}
       <button type="button" onClick={confirm}>{confirmation.kind === 'apply' ? 'Confirm layout change' : 'Confirm deletion'}</button>
       <button type="button" onClick={() => setConfirmation(undefined)}>Keep working</button>
     </div>}
