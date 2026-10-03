@@ -30,6 +30,8 @@ jobs:
         run: npm run assets:verify
       - name: Type check
         run: npm run check
+      - name: Detailed model pipeline and review gate
+        run: npm run test:model-pipeline && npm run models:ready && npm run build:model-lab
       - name: Application tests
         run: npm test -- --maxWorkers=2
       - name: Model integrity and lossless compression tests

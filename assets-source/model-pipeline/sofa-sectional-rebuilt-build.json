@@ -1,0 +1,333 @@
+{
+  "version": 1,
+  "recipe": "sofa",
+  "seed": 73022,
+  "spec": {
+    "path": "assets-source/model-pipeline/sofa-sectional-rebuilt.spec.json",
+    "sha256": "7e397bb4d6b9cc2da88f9ffe44c968c8b11678a72def8c7018519cbbe6b2bcb5",
+    "bytes": 1831
+  },
+  "sourceBlend": {
+    "path": "assets-source/blender/everyday-sectional-track-left.blend",
+    "sha256": "d707578b9e3206761e647406f082aa8ec94d785f13425ab39095cfe0ac48b3e1",
+    "bytes": 3949418
+  },
+  "outputBlend": {
+    "path": "assets-source/experiments/realism-lab/sofa-sectional-rebuilt.blend",
+    "sha256": "07208acd88047e9ea0e78c37c9fe511d9183e34b4405f97ff3e67e59b32d7556",
+    "bytes": 8733984
+  },
+  "glb": {
+    "path": "public/experiments/realism-lab/sofa-sectional-rebuilt.glb",
+    "sha256": "56347024502d59157e4e19419d453bd8e71ec451a903f7f9543c1e4f242cbeb4",
+    "bytes": 8877256
+  },
+  "inputs": [
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/sectional_realism_materials.py",
+      "sha256": "1603ff9ca014e54001d8360e291f8a5bf0ac264ebda80d7fdff04aef69e4e43b",
+      "bytes": 4934,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/sectional_realism_export.py",
+      "sha256": "878b543bbb7453dc855ba4ce2dd57c0699af6902177bea18896bb4370368a500",
+      "bytes": 8115,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/sofa_realism_materials.py",
+      "sha256": "d6422d0c76ff08fbca7a087532845b2d9c1afe28f6f4ab930841ad42a19cacb0",
+      "bytes": 11771,
+      "role": "builder"
+    },
+    {
+      "path": "tools/blender/detail_pipeline/core.py",
+      "sha256": "b32407ebc9178205283dc0f0aab0890b496a195931953cfe183e49a200adde5c",
+      "bytes": 42376,
+      "role": "builder"
+    },
+    {
+      "path": "public/textures/realism/Fabric030-color.jpg",
+      "sha256": "d18b7279e9f7e521f6d34b85d27601c7c3fbbda20b5d6f1bf47fe04712b33fa9",
+      "bytes": 590828,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/Fabric030-normal.jpg",
+      "sha256": "833781c4e6500d04091fb1cdadf4f1ee1064fbdd236b5b260e51df264e9904d6",
+      "bytes": 1398982,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/Fabric030-orm.jpg",
+      "sha256": "b26850fcffc581ab5a36d506a859536343f80a0525644431cf5b4656bc94f96b",
+      "bytes": 1023041,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/walnut_veneer_02-color.jpg",
+      "sha256": "70722436e42857b4ee1482d2de526420f3f4d3186363330fa839e87977f97d35",
+      "bytes": 252496,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/walnut_veneer_02-normal.jpg",
+      "sha256": "2528d81491f64a54a0c52a292aba6368689911c74c10717e1329549375f38d29",
+      "bytes": 101052,
+      "role": "material"
+    },
+    {
+      "path": "public/textures/realism/walnut_veneer_02-orm.jpg",
+      "sha256": "5944c28107a67f4c1b2ef46f969b9b7e8c35e9d6acb831f1712979a3044ff4e4",
+      "bytes": 618273,
+      "role": "material"
+    },
+    {
+      "path": "assets-source/experiments/realism-lab/materials/sectional-wool-color.png",
+      "sha256": "ebbb16fe405bacea2490d540a39e70062bfc3eb2933caab087d5d07630836ac3",
+      "bytes": 1428639,
+      "role": "material"
+    },
+    {
+      "path": "assets-source/experiments/realism-lab/materials/sectional-wool-orm.png",
+      "sha256": "53c8312d8c48f17bd151dbae292fb91763af6bbdd3b4207ef713207e74cde739",
+      "bytes": 1465963,
+      "role": "material"
+    },
+    {
+      "path": "assets-source/experiments/realism-lab/materials/sectional-oak-color.png",
+      "sha256": "1e8920f977c1f9cae1c6b6681644d32deb481bbcfcd1c36eb7d7ec512b25573f",
+      "bytes": 1233800,
+      "role": "material"
+    },
+    {
+      "path": "assets-source/experiments/realism-lab/materials/sectional-oak-orm.png",
+      "sha256": "9dbb915c5cd28728bb530a4e5a151f3ee5bc732f26410b0fc891988b92d0b584",
+      "bytes": 1228409,
+      "role": "material"
+    }
+  ],
+  "maps": [
+    {
+      "kind": "baseColor",
+      "materialKey": "soft-grey-chenille",
+      "path": "assets-source/experiments/realism-lab/materials/sectional-wool-color.png",
+      "sha256": "ebbb16fe405bacea2490d540a39e70062bfc3eb2933caab087d5d07630836ac3",
+      "bytes": 1428639,
+      "method": "native tiled PBR; metre UV",
+      "repeatM": [
+        0.28,
+        0.28
+      ]
+    },
+    {
+      "kind": "normal",
+      "materialKey": "soft-grey-chenille",
+      "path": "public/textures/realism/Fabric030-normal.jpg",
+      "sha256": "833781c4e6500d04091fb1cdadf4f1ee1064fbdd236b5b260e51df264e9904d6",
+      "bytes": 1398982,
+      "method": "native tiled PBR; metre UV",
+      "repeatM": [
+        0.28,
+        0.28
+      ]
+    },
+    {
+      "kind": "orm",
+      "materialKey": "soft-grey-chenille",
+      "path": "assets-source/experiments/realism-lab/materials/sectional-wool-orm.png",
+      "sha256": "53c8312d8c48f17bd151dbae292fb91763af6bbdd3b4207ef713207e74cde739",
+      "bytes": 1465963,
+      "method": "native tiled PBR; metre UV",
+      "repeatM": [
+        0.28,
+        0.28
+      ]
+    },
+    {
+      "kind": "baseColor",
+      "materialKey": "walnut",
+      "path": "assets-source/experiments/realism-lab/materials/sectional-oak-color.png",
+      "sha256": "1e8920f977c1f9cae1c6b6681644d32deb481bbcfcd1c36eb7d7ec512b25573f",
+      "bytes": 1233800,
+      "method": "native tiled PBR; metre UV",
+      "repeatM": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "normal",
+      "materialKey": "walnut",
+      "path": "public/textures/realism/walnut_veneer_02-normal.jpg",
+      "sha256": "2528d81491f64a54a0c52a292aba6368689911c74c10717e1329549375f38d29",
+      "bytes": 101052,
+      "method": "native tiled PBR; metre UV",
+      "repeatM": [
+        1.0,
+        1.0
+      ]
+    },
+    {
+      "kind": "orm",
+      "materialKey": "walnut",
+      "path": "assets-source/experiments/realism-lab/materials/sectional-oak-orm.png",
+      "sha256": "9dbb915c5cd28728bb530a4e5a151f3ee5bc732f26410b0fc891988b92d0b584",
+      "bytes": 1228409,
+      "method": "native tiled PBR; metre UV",
+      "repeatM": [
+        1.0,
+        1.0
+      ]
+    }
+  ],
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-sectional-rebuilt-front.png",
+      "sha256": "920de0adc7b015160face31ccd3d7200e4175a103056db14059565ff97fc1990",
+      "bytes": 654944,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 1.67
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-sectional-rebuilt-rear.png",
+      "sha256": "fdca9aca8c83d4134e1017baa4864a833b2fbc1195a90c553c9861dad14777d2",
+      "bytes": 627526,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 1.6
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-sectional-rebuilt-detail.png",
+      "sha256": "78b2066da0137a0ed5ddbc323f809abf213a8d697f4d2c23fd22b10c5dc4c9b3",
+      "bytes": 725935,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 1.74
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-sectional-rebuilt-underside.png",
+      "sha256": "a78a51b77b3ba3ce65a82d7ebf163035895be65383c979b1e9914f40c9fd9700",
+      "bytes": 590793,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 1.37
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/experiments/realism-lab/renders/sofa-sectional-rebuilt-clay.png",
+      "sha256": "82faba3034a1abc2dfd1d061824c7bf90886d43700902206d50dcaff47294804",
+      "bytes": 618521,
+      "resolution": [
+        900,
+        700
+      ],
+      "seconds": 1.84
+    }
+  ],
+  "master": {
+    "triangles": 97532,
+    "parts": 46,
+    "boundsM": {
+      "min": [
+        -1.399999976158142,
+        -1.100000023841858,
+        0.0
+      ],
+      "max": [
+        1.399999976158142,
+        1.100000023841858,
+        0.9299998879432678
+      ]
+    },
+    "dimensionsM": [
+      2.799999952316284,
+      2.200000047683716,
+      0.9299998879432678
+    ]
+  },
+  "browser": {
+    "triangles": 60068,
+    "parts": 46,
+    "boundsM": {
+      "min": [
+        -1.399999976158142,
+        -1.100000023841858,
+        0.0
+      ],
+      "max": [
+        1.399999976158142,
+        1.100000023841858,
+        0.9300000071525574
+      ]
+    },
+    "dimensionsM": [
+      2.799999952316284,
+      2.200000047683716,
+      0.9300000071525574
+    ]
+  },
+  "boundsM": {
+    "min": [
+      -1.399999976158142,
+      -1.100000023841858,
+      0.0
+    ],
+    "max": [
+      1.399999976158142,
+      1.100000023841858,
+      0.9299999475479126
+    ]
+  },
+  "dimensionsM": [
+    2.799999952316284,
+    2.200000047683716,
+    0.9299999475479126
+  ],
+  "materialKeys": [
+    "seam",
+    "soft-grey-chenille",
+    "walnut"
+  ],
+  "primitiveCount": 3,
+  "surface": {
+    "method": "tiled-pbr",
+    "resolution": 1024
+  },
+  "masterScene": "Sectional realism editable master f4e7d8f2",
+  "browserScene": "Sectional realism browser f4e7d8f2",
+  "notes": [
+    "Original two-module left-chaise construction with squared padded track arms",
+    "Continuous long chaise, two regular seat covers and three separately inclined back pillows",
+    "Six editable compression shape keys; physical seam tension and separate sewn boxing/welts",
+    "Tailored arm caps, independently paneled rear, recessed walnut feet, timber underside and inset dust covers",
+    "Metre-scale continuous boxing UVs and panel UVs; browser surface relief uses native tiled PBR maps",
+    "Floor-centred exact 2800 x 2200 x 930 mm envelope retained for original placement compatibility"
+  ]
+}

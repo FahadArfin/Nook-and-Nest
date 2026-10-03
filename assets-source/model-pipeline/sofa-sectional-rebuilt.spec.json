@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "recipe": "sofa",
+  "catalogId": "everyday-sectional-track-left",
+  "variantId": "sofa-sectional-rebuilt",
+  "seed": 73022,
+  "sourceBlend": "assets-source/blender/everyday-sectional-track-left.blend",
+  "dimensionsM": [
+    2.8,
+    2.2,
+    0.93
+  ],
+  "materialKeys": [
+    "soft-grey-chenille",
+    "seam",
+    "walnut"
+  ],
+  "surface": {
+    "method": "tiled-pbr",
+    "resolution": 1024
+  },
+  "references": [
+    {
+      "url": "https://www.ashleyfurniture.com/p/abinger_2-piece_sectional_with_chaise/APK-83905-R2.html",
+      "use": "Ordinary upholstered sectional construction and cushion proportions; original dimensional adaptation, not a replica"
+    },
+    {
+      "url": "https://www.article.com/product/22563/timber-93-left-sectional-rain-cloud-gray",
+      "use": "Separate upholstered seat and back contours"
+    },
+    {
+      "url": "https://ambientcg.com/a/Fabric030",
+      "use": "CC0 fabric approximation PBR maps, artist-calibrated 0.28 m repeat"
+    },
+    {
+      "url": "https://polyhaven.com/a/walnut_veneer_02",
+      "use": "CC0 walnut grain, one-metre repeat"
+    }
+  ],
+  "criticalContacts": [
+    {
+      "pair": "seat cushions / upholstered platform",
+      "preservation": "Flat support faces with rounded boxed seat fronts and long left chaise cushion"
+    },
+    {
+      "pair": "welt / cover",
+      "preservation": "Editable sewn curves follow shaped cushion contours"
+    }
+  ],
+  "budgets": {
+    "targetTriangles": 65000,
+    "maxTriangles": 95000,
+    "maxGlbBytes": 10485760,
+    "maxPrimitives": 6
+  },
+  "outputs": {
+    "sourceBlend": "assets-source/experiments/realism-lab/sofa-sectional-rebuilt.blend",
+    "glb": "public/experiments/realism-lab/sofa-sectional-rebuilt.glb",
+    "receipt": "assets-source/model-pipeline/sofa-sectional-rebuilt-build.json"
+  }
+}

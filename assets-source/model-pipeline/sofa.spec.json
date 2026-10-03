@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "recipe": "sofa",
+  "catalogId": "slat-day-sofa",
+  "variantId": "sofa-pipeline",
+  "seed": 73021,
+  "sourceBlend": "assets-source/experiments/realism-lab/sofa-refined.blend",
+  "dimensionsM": [2.0, 0.85, 0.78],
+  "materialKeys": ["wood-honey-textured", "upholstery-textured", "tailored-tone-on-tone-stitch", "joinery-aged-brass"],
+  "bake": {"resolution": 2048, "samples": 16, "marginPixels": 12, "cageExtrusionM": 0.018, "maxRayDistanceM": 0.045},
+  "detail": {"subdivisionLevels": 2, "foldDepthM": 0.006, "stitchSpacingM": 0.009, "threadRadiusM": 0.00055},
+  "references": [{"url": "https://www.hermanmiller.com/products/seating/lounge-seating/eames-sofa/product-details/", "use": "Construction inspiration for fabric-reinforced support webbing and solid timber framing; not a product replica or dimensional source"}],
+  "criticalContacts": [{"pair": "seat cushion underside / oak support slat tops", "source": "accepted measured editable baseline", "preservation": "Browser evaluated before dense sculpt; master displacement affects upper/front surfaces only"}],
+  "budgets": {"targetTriangles": 50000, "maxTriangles": 80000, "maxGlbBytes": 12582912, "maxPrimitives": 8},
+  "outputs": {
+    "sourceBlend": "assets-source/experiments/realism-lab/sofa-pipeline.blend",
+    "glb": "public/experiments/realism-lab/sofa-pipeline.glb",
+    "receipt": "assets-source/model-pipeline/sofa-build.json",
+    "bakeDirectory": "assets-source/model-pipeline/bakes/sofa"
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-03T04:44:37.960Z",
+  "reviewer": "Codex - exported GLB renders and Babylon browser inspection",
+  "decision": "approved",
+  "views": {
+    "front": "Connected moss upholstery, three distinct crowned seat cushions, attached welts and open oak slatted frame; no floating cushion or broken envelope visible.",
+    "rear": "Rear support rails and continuous back remain legible; hidden zipper is intentionally concealed at normal viewing distance.",
+    "underside": "Crossed support webbing, support slats and recessed fasteners remain modeled and visible from below.",
+    "clay": "Rounded cushion silhouettes, rails and repeated slats read without texture; no collapsed or filled openings seen.",
+    "detail": "Fine sewn line visible in browser close view, restrained cloth surface and board-aligned wood maps; no white sheen masking moss, ochre or blue tint."
+  },
+  "limitations": [
+    "This acceptance is for a single Beta sofa pilot, not a catalog-wide realism pass.",
+    "Tiny stitches and concealed zipper details are subtle at room distance.",
+    "The retained wood maps do not yet provide distinct end-grain ring textures.",
+    "10.64 MiB uncompressed GLB is within the pilot budget; room-scale loading on low-end mobile hardware was not benchmarked."
+  ],
+  "artifactSetSha256": "18195eaedd564359c834cd5669dfa74b605ad252c494fe1996dc4d573beb4e0a",
+  "artifactHashes": {
+    "spec": "7499cd0aa766d21464c634ece08d9d52d9ad21d76b88f5e7e20267ba3d9fd3fb",
+    "receipt": "6696d881646861114af47c88f756287f850f8fcfae4670a183b704004309c0ec",
+    "sourceBlend": "8be87d1741019f6bbcf931ffe729c877609af21af4984932279c92703ce61018",
+    "outputBlend": "921ef63fb224bd6af4d5be8c690fcc4634de745f51e1df661d443b96b7d52cc4",
+    "glb": "9145c222f4022b7dd95bd089a45ef6eda5d5716bff61fa501d476051a2b22bba",
+    "inputs": [
+      {
+        "path": "tools/blender/detail_pipeline/core.py",
+        "role": "builder",
+        "sha256": "b32407ebc9178205283dc0f0aab0890b496a195931953cfe183e49a200adde5c"
+      },
+      {
+        "path": "tools/blender/detail_pipeline/__init__.py",
+        "role": "builder",
+        "sha256": "450a8e5624b9407e289d93b096390efb0ddee79ce675fe77029077ad0b346727"
+      },
+      {
+        "path": "tools/blender/detail_pipeline/sofa.py",
+        "role": "builder",
+        "sha256": "2fdb2e72f351428aa296fe95a86e3e13b5dfa4dbc21ec08e82987e05f49df091"
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "role": "material",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725"
+      },
+      {
+        "path": "public/textures/realism/material-linen-color.jpg",
+        "role": "material",
+        "sha256": "6e9947444f9dff54fdb50075265d858da22f3a716ea2cd508170eb26d3177f55"
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "role": "material",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4"
+      },
+      {
+        "path": "public/textures/realism/material-linen-orm.jpg",
+        "role": "material",
+        "sha256": "262dca8e460d48302693b0821775735a22dff5005148e10e9977322af4688427"
+      },
+      {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "role": "material",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df"
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "role": "material",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3"
+      },
+      {
+        "path": "public/textures/realism/material-oak-orm.jpg",
+        "role": "material",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8"
+      }
+    ],
+    "maps": [
+      {
+        "path": "assets-source/model-pipeline/bakes/sofa/normal.png",
+        "materialKey": "upholstery-textured",
+        "kind": "normal",
+        "sha256": "3387309c9acd09b433f7ebed0d820c1d6e0bf4e6f4c83c566af12384c2a3295e"
+      },
+      {
+        "path": "assets-source/model-pipeline/bakes/sofa/baseColor.png",
+        "materialKey": "upholstery-textured",
+        "kind": "baseColor",
+        "sha256": "796fb8a7b634c6a9c6cc8e0f49cc8e64b1a68a294629a75e04944ae4cd8ebd92"
+      },
+      {
+        "path": "assets-source/model-pipeline/bakes/sofa/roughness.png",
+        "materialKey": "upholstery-textured",
+        "kind": "roughness",
+        "sha256": "28d6b21059c6010073b2321f6ce9856a783a20e235ef2bd876cf8317f7a9553f"
+      },
+      {
+        "path": "assets-source/model-pipeline/bakes/sofa/ao.png",
+        "materialKey": "upholstery-textured",
+        "kind": "ao",
+        "sha256": "02e46d30209addf73754e4d0a3b5b411a80d7f1f878948f58805b5f7c39c8cb4"
+      },
+      {
+        "path": "assets-source/model-pipeline/bakes/sofa/orm.png",
+        "materialKey": "upholstery-textured",
+        "kind": "orm",
+        "sha256": "3b9ecef13dde6371a70bb52500743e76b53ed4e574d5ce6581e25f4d0ef9f21a"
+      },
+      {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "materialKey": "wood-honey-textured",
+        "kind": "baseColor",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df"
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "materialKey": "wood-honey-textured",
+        "kind": "normal",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3"
+      },
+      {
+        "path": "public/textures/realism/material-oak-orm.jpg",
+        "materialKey": "wood-honey-textured",
+        "kind": "orm",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8"
+      }
+    ],
+    "renders": [
+      {
+        "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-front.png",
+        "view": "front",
+        "sha256": "da02b0483cb2d2943ba7bcb1acd602b9e47a10037b11a284e8c8f7e852039f54"
+      },
+      {
+        "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-rear.png",
+        "view": "rear",
+        "sha256": "5916e6dc3d7b3797e0365034d5e33725f4ef387a7a7877e76ba3aac4224a4ab8"
+      },
+      {
+        "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-detail.png",
+        "view": "detail",
+        "sha256": "51473c9da3028ecaffaefc13e67fe4f501127baece65c80b18b676de0e152840"
+      },
+      {
+        "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-underside.png",
+        "view": "underside",
+        "sha256": "57630e23f8f8f2a531e3a89e03c7eff2205bf99f47c2d28f509d84ae56c3b9e5"
+      },
+      {
+        "path": "assets-source/experiments/realism-lab/renders/sofa-pipeline-clay.png",
+        "view": "clay",
+        "sha256": "0d0f2822dd724f6f84401856e4a7cf548cfa62eb3d5558f49dbf414727c8aeb5"
+      }
+    ]
+  }
+}
