@@ -5,9 +5,10 @@ import {act,cleanup,fireEvent,render,screen,waitFor,within} from '@testing-libra
 import '@testing-library/jest-dom/vitest';
 import {ListingVideoPanel} from '../src/ListingVideoPanel';
 import {createListing} from '../src/listingTypes';
-import {getListingVideo,listingVideoAvailability,validateListingVideo,submitListingVideo,type ListingVideoJob,type ListingVideoRequest} from '../src/listingVideo';
+import {getListingVideo,getListingVideoByRequest,listingVideoAvailability,validateListingVideo,submitListingVideo,type ListingVideoJob,type ListingVideoRequest} from '../src/listingVideo';
+import {reviewedPhotoPrivacy} from '../src/photoPrivacy';
 
-vi.mock('../src/listingVideo',async(importOriginal)=>({...await importOriginal<typeof import('../src/listingVideo')>(),listingVideoAvailability:vi.fn(),validateListingVideo:vi.fn(),submitListingVideo:vi.fn(),getListingVideo:vi.fn(),deleteListingVideo:vi.fn()}));
+vi.mock('../src/listingVideo',async(importOriginal)=>({...await importOriginal<typeof import('../src/listingVideo')>(),listingVideoAvailability:vi.fn(),validateListingVideo:vi.fn(),submitListingVideo:vi.fn(),getListingVideo:vi.fn(),getListingVideoByRequest:vi.fn(),deleteListingVideo:vi.fn()}));
 const connected={available:true,signedIn:true,provider:'BytePlus',model:'Seedance',limits:{maxImages:9,maxImageBytes:2*1024*1024,maxRequestBytes:25*1024*1024,durations:[5,10,15],ratios:['16:9','9:16','1:1'],resolutions:['720p','1080p']}};
 const image='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a5RkAAAAASUVORK5CYII=';
 const consent=/I have permission to use these images/;
@@ -20,9 +21,26 @@ function panelApprove(container:HTMLElement){fireEvent.click(within(container).g
 function selectAndApprove(){fireEvent.click(screen.getByLabelText('Living room'));fireEvent.click(screen.getByLabelText(consent))}
 beforeEach(()=>{
  localStorage.clear();vi.mocked(listingVideoAvailability).mockReset().mockResolvedValue(connected);vi.mocked(validateListingVideo).mockReset().mockResolvedValue(undefined);vi.mocked(submitListingVideo).mockReset();vi.mocked(getListingVideo).mockReset();
+ vi.mocked(getListingVideoByRequest).mockReset().mockImplementation(async id=>job('queued',id));
  Object.defineProperty(document,'hidden',{configurable:true,value:false});
 });
 afterEach(()=>{cleanup();vi.restoreAllMocks();vi.useRealTimers()});
+
+it('sends only the explicitly selected reviewed derivative to the paid provider',async()=>{
+ const doc=listing(),copy='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==';doc.media[0].privacy=reviewedPhotoPrivacy(image,{width:1,height:1,crop:{x:0,y:0,width:1,height:1},turns:0,masks:[]},copy);
+ vi.mocked(submitListingVideo).mockImplementation(async input=>job('queued',input.requestId));const {rerender}=render(<ListingVideoPanel listing={doc}/>);await ready();selectAndApprove();fireEvent.click(screen.getByRole('button',{name:'Generate with Seedance 2.0'}));expect(await screen.findByRole('alert')).toHaveTextContent('Choose the reviewed privacy copy');expect(validateListingVideo).not.toHaveBeenCalled();expect(submitListingVideo).not.toHaveBeenCalled();
+ rerender(<ListingVideoPanel listing={{...doc,media:[{...doc.media[0],privacy:{...doc.media[0].privacy,selected:true}}]}}/>);fireEvent.click(screen.getByRole('button',{name:'Generate with Seedance 2.0'}));await screen.findByText('Video: queued');expect(vi.mocked(submitListingVideo).mock.calls[0][0].images).toEqual([{dataUrl:copy,label:'Living room'}]);
+});
+
+it('recovers an older paid request after privacy edits without consent or resending its unmasked images',async()=>{
+ const doc=listing();vi.mocked(submitListingVideo).mockRejectedValueOnce(new Error('Connection interrupted'));const first=render(<ListingVideoPanel listing={doc}/>);await ready();selectAndApprove();fireEvent.click(screen.getByRole('button',{name:'Generate with Seedance 2.0'}));await screen.findByRole('alert');first.unmount();
+ const copy='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==';doc.media[0].privacy=reviewedPhotoPrivacy(image,{width:1,height:1,crop:{x:0,y:0,width:1,height:1},turns:0,masks:[]},copy);render(<ListingVideoPanel listing={doc}/>);await ready();fireEvent.click(screen.getByRole('button',{name:'Recover this saved request'}));await screen.findByText('Video: queued');expect(getListingVideoByRequest).toHaveBeenCalledExactlyOnceWith(vi.mocked(submitListingVideo).mock.calls[0][0].requestId);expect(submitListingVideo).toHaveBeenCalledOnce();
+});
+
+it.each(['No saved video job was found.','The video service could not be reached.'])('keeps pending recovery when status lookup fails: %s',async message=>{
+ const doc=listing(),key='nook-listing-video:'+doc.planId;vi.mocked(submitListingVideo).mockRejectedValueOnce(new Error('Interrupted'));const first=render(<ListingVideoPanel listing={doc}/>);await ready();selectAndApprove();fireEvent.click(screen.getByRole('button',{name:'Generate with Seedance 2.0'}));await screen.findByRole('alert');first.unmount();const original=localStorage.getItem(key);
+ vi.mocked(getListingVideoByRequest).mockRejectedValueOnce(new Error(message));render(<ListingVideoPanel listing={doc}/>);await ready();fireEvent.click(screen.getByRole('button',{name:'Recover this saved request'}));expect(await screen.findByRole('alert')).toHaveTextContent(message);expect(localStorage.getItem(key)).toBe(original);expect(screen.getByLabelText('Creative direction')).toBeDisabled();expect(screen.queryByRole('button',{name:'Generate with Seedance 2.0'})).not.toBeInTheDocument();expect(submitListingVideo).toHaveBeenCalledOnce();
+});
 
 it('keeps generation disabled and reports a failed availability check truthfully',async()=>{
  vi.mocked(listingVideoAvailability).mockRejectedValue(new Error('Connection unavailable'));
@@ -40,7 +58,7 @@ it('shows configuration-required status without implying generation is connected
  expect(screen.getByRole('button',{name:'Generate with Seedance 2.0'})).toBeDisabled();
 });
 
-it('saves the request ID before submission and recovers identical payload after reload and listing edits',async()=>{
+it('saves the request ID before submission and recovers status after reload and listing edits',async()=>{
  const doc=listing();
  vi.mocked(submitListingVideo).mockImplementationOnce(async input=>{
   expect(JSON.parse(localStorage.getItem('nook-listing-video:'+doc.planId)!).pending.requestId).toBe(input.requestId);
@@ -55,7 +73,7 @@ it('saves the request ID before submission and recovers identical payload after 
  expect(screen.getByLabelText(consent)).not.toBeChecked();fireEvent.click(screen.getByLabelText(consent));
  fireEvent.click(screen.getByRole('button',{name:'Recover this saved request'}));
  expect(await screen.findByText('Video: queued')).toBeInTheDocument();
- expect(vi.mocked(submitListingVideo).mock.calls[1][0]).toEqual(originalRequest);
+ expect(getListingVideoByRequest).toHaveBeenCalledExactlyOnceWith(originalRequest.requestId);expect(submitListingVideo).toHaveBeenCalledOnce();
  expect(validateListingVideo).toHaveBeenCalledTimes(1);
 });
 
@@ -158,13 +176,13 @@ it('does not let a stale completed tab clear a newer request recovery record',as
 
 it('keeps a newer reservation when a prior unmounted submission resolves late',async()=>{
  let finish!:(value:ListingVideoJob)=>void;const doc=listing(),key='nook-listing-video:'+doc.planId;
- vi.mocked(submitListingVideo).mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve})).mockImplementationOnce(async input=>job('succeeded',input.requestId)).mockImplementationOnce(async input=>job('queued',input.requestId));
+ vi.mocked(submitListingVideo).mockImplementationOnce(()=>new Promise(resolve=>{finish=resolve})).mockImplementationOnce(async input=>job('queued',input.requestId));vi.mocked(getListingVideoByRequest).mockImplementationOnce(async id=>job('succeeded',id));
  const first=render(<ListingVideoPanel listing={doc}/>);await ready();selectAndApprove();fireEvent.click(screen.getByRole('button',{name:'Generate with Seedance 2.0'}));
  await waitFor(()=>expect(submitListingVideo).toHaveBeenCalledTimes(1));const oldId=vi.mocked(submitListingVideo).mock.calls[0][0].requestId;first.unmount();
  render(<ListingVideoPanel listing={doc}/>);await ready();fireEvent.click(screen.getByLabelText(consent));fireEvent.click(screen.getByRole('button',{name:'Recover this saved request'}));
  await screen.findByText('Video: succeeded');fireEvent.click(screen.getByRole('button',{name:'Prepare another video'}));
  await screen.findByRole('button',{name:'Generate with Seedance 2.0'});fireEvent.click(screen.getByLabelText(consent));fireEvent.click(screen.getByRole('button',{name:'Generate with Seedance 2.0'}));
- await screen.findByText('Video: queued');const newId=vi.mocked(submitListingVideo).mock.calls[2][0].requestId;expect(newId).not.toBe(oldId);
+ await screen.findByText('Video: queued');const newId=vi.mocked(submitListingVideo).mock.calls[1][0].requestId;expect(newId).not.toBe(oldId);
  await waitFor(()=>expect(JSON.parse(localStorage.getItem(key)!).job?.requestId).toBe(newId));
  await act(async()=>{finish(job('queued',oldId))});
  // Reload after the late response: the atomic reservation remains the newer job.
@@ -178,7 +196,7 @@ it('recovers the exact saved ID from IndexedDB if the localStorage mirror is los
  const view=render(<ListingVideoPanel listing={doc}/>);await ready();selectAndApprove();fireEvent.click(screen.getByRole('button',{name:'Generate with Seedance 2.0'}));
  await screen.findByRole('alert');const request=vi.mocked(submitListingVideo).mock.calls[0][0];view.unmount();localStorage.removeItem(key);
  render(<ListingVideoPanel listing={doc}/>);await ready();fireEvent.click(screen.getByLabelText(consent));fireEvent.click(screen.getByRole('button',{name:'Recover this saved request'}));
- await screen.findByText('Video: queued');expect(vi.mocked(submitListingVideo).mock.calls[1][0]).toEqual(request);
+ await screen.findByText('Video: queued');expect(getListingVideoByRequest).toHaveBeenCalledExactlyOnceWith(request.requestId);expect(submitListingVideo).toHaveBeenCalledOnce();
 });
 
 it('locks paid submission when an existing recovery record is corrupt',async()=>{

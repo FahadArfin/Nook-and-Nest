@@ -12,6 +12,7 @@ vi.mock('../src/listingExport',()=>({exportListingPack:vi.fn()}));
 vi.mock('../src/ListingVideoPanel',()=>({ListingVideoPanel:()=>null}));
 import {ListingStudio} from '../src/ListingStudio';
 import {importListingPhoto,pairListingOriginal} from '../src/listingMedia';
+import {reviewedPhotoPrivacy} from '../src/photoPrivacy';
 
 describe('Listing Studio integration',()=>{
  let doc:ListingDocument;
@@ -20,6 +21,12 @@ describe('Listing Studio integration',()=>{
  const camera=()=>({beginListingPresentation:vi.fn(),endListingPresentation:vi.fn(),beginWalkthrough:vi.fn(()=>true),endWalkthrough:vi.fn(),moveWalkthrough:vi.fn(),captureListingImage:vi.fn(()=>image),captureCameraShot:vi.fn(()=>pose),restoreCameraShot:vi.fn(()=>true),showHomeShot:vi.fn(),captureAtmosphereSnapshot:vi.fn(()=>undefined),setAtmospherePreview:vi.fn()});
  beforeEach(()=>{doc=createListing(plan.id,plan.name);storage.load.mockReset().mockImplementation(async()=>structuredClone(doc));storage.save.mockReset().mockResolvedValue(undefined);storage.defaults.mockReset().mockResolvedValue(undefined);vi.stubGlobal('requestAnimationFrame',(fn:FrameRequestCallback)=>setTimeout(()=>fn(0),0));vi.stubGlobal('cancelAnimationFrame',clearTimeout)});
  afterEach(()=>{cleanup();vi.unstubAllGlobals();vi.restoreAllMocks()});
+ it('shows the reviewed derivative in thumbnails and requires an explicit output choice saved separately from its private source',async()=>{
+  const copy='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQIHWP4z8DwHwAFgAI/ScLbtAAAAABJRU5ErkJggg==';doc.media=[{id:'private',title:'Masked room',caption:'',kind:'photo',image,sourceImage:image,seconds:5,privacy:reviewedPhotoPrivacy(image,{width:1,height:1,crop:{x:0,y:0,width:1,height:1},turns:0,masks:[{x:0,y:0,width:1,height:1}]},copy)}];
+  render(<ListingStudio controller={camera() as unknown as SceneController} plan={plan} floorId={floorId} setFloor={vi.fn()} onClose={vi.fn()} canCapture/>);await screen.findByRole('button',{name:'Capture this view'});fireEvent.click(screen.getByRole('button',{name:'Photos & slides'}));
+  expect(document.querySelector('.listing-media-select img')?.getAttribute('src')).toBe(copy);expect(document.querySelector('.listing-slide-preview img')?.getAttribute('src')).toBe(copy);
+  const choice=screen.getByRole('checkbox',{name:/Use this reviewed copy/}) as HTMLInputElement;expect(choice.checked).toBe(false);fireEvent.click(choice);await waitFor(()=>expect(storage.save).toHaveBeenCalled());const saved=storage.save.mock.calls.at(-1)![0];expect(saved.media[0]).toMatchObject({image,sourceImage:image,privacy:{selected:true,image:copy}});
+ });
  it('captures a clean frame before its pose and keeps it distinct from a property photograph',async()=>{
   const c=camera(),original=JSON.stringify(plan);render(<ListingStudio controller={c as unknown as SceneController} plan={plan} floorId={floorId} setFloor={vi.fn()} onClose={vi.fn()} canCapture/>);
   await screen.findByRole('button',{name:'Capture this view'});fireEvent.click(screen.getByRole('button',{name:'Capture this view'}));
