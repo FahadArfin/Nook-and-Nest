@@ -2,6 +2,7 @@
 import hashlib
 import io
 import json
+import os
 from pathlib import Path
 import runpy
 import tarfile
@@ -42,7 +43,9 @@ class SourceArchiveTests(unittest.TestCase):
                 revision,name=args[2].split(':',1);self.assertEqual(revision,COMMIT);return committed[name]
             raise AssertionError('Unexpected Git command: '+str(args))
         def run():
-            with patch('subprocess.check_output',side_effect=git),patch.dict('os.environ',{'GITHUB_SHA':COMMIT,'GITHUB_RUN_ID':'test-run'}),redirect_stdout(io.StringIO()):
+            environment={key:value for key,value in os.environ.items() if key!='NOOK_CATALOG_RELEASE_MODE'}
+            environment.update(GITHUB_SHA=COMMIT,GITHUB_RUN_ID='test-run')
+            with patch('subprocess.check_output',side_effect=git),patch.dict('os.environ',environment,clear=True),redirect_stdout(io.StringIO()):
                 runpy.run_path(str(root/'scripts/package-ci-release.py'),run_name='__main__')
         return root,committed,run
 

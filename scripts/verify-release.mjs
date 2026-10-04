@@ -2,6 +2,8 @@ import assert from 'node:assert/strict';
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { build } from 'esbuild';
+import {execFileSync} from 'node:child_process';
+import {assertReleaseSizes,assertPromotedClient} from './build-catalog-production-staging.mjs';
 
 const output = await build({ entryPoints: ['src/catalog.ts'], bundle: true, write: false, format: 'esm', platform: 'node' });
 const { catalog } = await import(`data:text/javascript;base64,${Buffer.from(output.outputFiles[0].text).toString('base64')}`);
@@ -44,6 +46,10 @@ const missingPreview=await worker.fetch(new Request('https://example.test/api/pr
 const response = await worker.fetch(new Request('https://example.test/api/projects'), {});
 assert.equal(response.status, 401);
 assert.match(response.headers.get('cache-control'), /no-store/);
+if(existsSync('.generated/catalog-realism-promotion.json')){
+  const upload=await worker.fetch(new Request('https://example.test/api/library-upload/'+'a'.repeat(64),{method:'PUT'}),{LIBRARY_UPLOAD_TOKEN:'must-not-enable-final-uploads'});
+  assert.equal(upload.status,403,'Promoted final app must disable uploads independently of deployment secrets');
+}
 const totalBytes=folder=>readdirSync(folder,{withFileTypes:true}).reduce((sum,entry)=>sum+(entry.isDirectory()?totalBytes(folder+'/'+entry.name):statSync(folder+'/'+entry.name).size),0);
 const expandedBytes=totalBytes('dist');
 const library=JSON.parse(readFileSync('.generated/library-manifest.json','utf8'));
@@ -54,6 +60,10 @@ for(const [path,asset] of Object.entries(library.assets)){
   if(JSON.stringify(baseline.assets[path])===JSON.stringify(asset))reusedBytes+=size;
 }
 const slimBytes=expandedBytes-libraryBytes,incrementalBytes=expandedBytes-reusedBytes;
-assert(slimBytes<250*1024*1024,'Slim release approaches the 256 MiB hosting limit');
-assert(incrementalBytes<250*1024*1024,'Incremental bridge approaches the 256 MiB hosting limit');
+let staging;
+if(process.env.NOOK_CATALOG_RELEASE_MODE==='production-staging'){
+  assertPromotedClient(readdirSync(assets).filter(name=>name.endsWith('.js')).map(name=>readFileSync(assets+name,'utf8')),JSON.parse(readFileSync('.generated/catalog-realism-promotion.json','utf8')));
+  staging=JSON.parse(execFileSync(process.env.PYTHON??(process.platform==='win32'?'python':'python3'),['scripts/catalog_production_staging.py','preflight'],{encoding:'utf8'}));
+}
+assertReleaseSizes({slimBytes,incrementalBytes},staging);
 console.log(JSON.stringify({ expandedBytes,slimBytes,incrementalBytes,fullBridgeSitesEligible:expandedBytes<250*1024*1024,catalogPieces: catalog.length, entryBytes: raw.length, gzipBytes: compressed.length, databaseBinding: manifest.d1, anonymousAccess: response.status }));

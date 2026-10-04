@@ -6,6 +6,7 @@ import os
 import subprocess
 import tarfile
 import io
+import runpy
 
 root = Path(__file__).resolve().parents[1]
 build = root / 'dist'
@@ -26,6 +27,8 @@ expanded = sum(p.stat().st_size for p in files)
 # Library storage is external. Guard each publishable archive, not the complete
 # offline backup containing all R2 objects; retain that backup for recovery.
 hosting_limit = 250 * 1024 * 1024
+release_mode = os.environ.get('NOOK_CATALOG_RELEASE_MODE')
+assert release_mode in (None, 'production-staging'), 'Unknown catalog release mode'
 output = root / 'release'
 output.mkdir(exist_ok=True)
 archive = output / 'sites-bridge.tar.gz'
@@ -38,7 +41,8 @@ with tarfile.open(archive) as tar:
     for path in files:
         name = 'dist/' + path.relative_to(build).as_posix()
         assert tar.extractfile(name).read() == path.read_bytes(), f'Archive mismatch: {name}'
-library = json.loads((root / '.generated/library-manifest.json').read_text())
+library_bytes = (root / '.generated/library-manifest.json').read_bytes()
+library = json.loads(library_bytes)
 asset_names = {'client' + name for name in library['assets']}
 slim_files = [p for p in files if p.relative_to(build).as_posix() not in asset_names]
 # The incremental bridge packages every new/changed asset. Omitted baseline
@@ -51,13 +55,20 @@ incremental_files = [p for p in files if p.relative_to(build).as_posix() not in 
 prerequisites = dict(schema=1, assets=reused, commit_sha=sha)
 (output/'incremental-prerequisites.json').write_text(json.dumps(prerequisites,indent=2))
 archives = {}
+catalog_staging = None
+if release_mode == 'production-staging':
+    # This verified, small archive keeps the pinned public app/canonical assets
+    # while its isolated alias allowlist admits every final-library object.
+    staging = runpy.run_path(str(root / 'scripts/catalog_production_staging.py'))
+    catalog_staging, archives = staging['package_staging'](root, output, sha)
 for filename, selected, prefix, base in [
     ('sites-release.tar.gz', slim_files, 'dist/', build),
     ('sites-incremental-bridge.tar.gz', incremental_files, 'dist/', build),
     ('library-assets.tar.gz', [build / name for name in sorted(asset_names)], '', build / 'client'),
 ]:
     selected_size = sum(p.stat().st_size for p in selected)
-    if filename != 'library-assets.tar.gz':
+    if filename != 'library-assets.tar.gz' and not (
+            filename == 'sites-incremental-bridge.tar.gz' and catalog_staging):
         assert selected_size < hosting_limit, f'{filename} exceeds Sites size guard'
     with tarfile.open(output / filename, 'w:gz') as tar:
         for p in selected:
@@ -68,10 +79,20 @@ for filename, selected, prefix, base in [
             assert tar.extractfile(prefix+p.relative_to(base).as_posix()).read() == p.read_bytes()
     archives[filename] = dict(sha256=hashlib.sha256((output / filename).read_bytes()).hexdigest(),
                              expanded_bytes=sum(p.stat().st_size for p in selected), file_count=len(selected))
+    if filename.startswith('sites-'):
+        archives[filename]['sites_eligible'] = selected_size < hosting_limit
+        if selected_size < hosting_limit:
+            assert (output / filename).stat().st_size < hosting_limit, f'{filename} compressed size exceeds Sites guard'
 archives['sites-bridge.tar.gz'] = dict(sha256=hashlib.sha256(archive.read_bytes()).hexdigest(),
                                      expanded_bytes=expanded, file_count=len(files),
                                      sites_eligible=expanded < hosting_limit)
 archives['incremental-prerequisites.json'] = dict(sha256=hashlib.sha256((output/'incremental-prerequisites.json').read_bytes()).hexdigest())
+(output/'library-manifest.json').write_bytes(library_bytes)
+archives['library-manifest.json'] = dict(sha256=hashlib.sha256(library_bytes).hexdigest())
+inventory = {'files': {p.relative_to(build).as_posix():
+    dict(sha256=hashlib.sha256(p.read_bytes()).hexdigest(),size=p.stat().st_size) for p in slim_files}}
+(output/'artifact-inventory.json').write_bytes((json.dumps(inventory,indent=2)+'\n').encode())
+archives['artifact-inventory.json'] = dict(sha256=hashlib.sha256((output/'artifact-inventory.json').read_bytes()).hexdigest())
 # The hosting snapshot contains the exact application source plus explicit
 # provenance for external inputs. It has no ancestry link to the heavy GitHub
 # history: its parent will be the existing hosting branch, via a normal push.
@@ -101,13 +122,22 @@ with tarfile.open(output / 'sites-source.tar.gz','w:gz') as tar:
         tar.add(p,arcname=name,recursive=False)
     # Generated asset manifest is also retained as independently verifiable provenance.
     tar.add(root / '.generated/library-manifest.json',arcname='.generated/library-manifest.json',recursive=False)
-    provenance = json.dumps(dict(github_commit=sha,github_repository='https://github.com/FahadArfin/Nook-and-Nest',
-                                 archives=archives,external_inputs=external),indent=2).encode()
+    source_provenance = dict(github_commit=sha,github_repository='https://github.com/FahadArfin/Nook-and-Nest',
+                            archives=archives,external_inputs=external)
+    if catalog_staging: source_provenance['catalog_staging'] = catalog_staging
+    provenance = json.dumps(source_provenance,indent=2).encode()
     info=tarfile.TarInfo('SOURCE_PROVENANCE.json');info.size=len(provenance);tar.addfile(info,io.BytesIO(provenance))
 archives['sites-source.tar.gz'] = dict(sha256=hashlib.sha256((output/'sites-source.tar.gz').read_bytes()).hexdigest())
-(output/'library-manifest.json').write_text(json.dumps(library,indent=2))
 receipt = dict(commit_sha=sha, project_id=manifest['project_id'],archives=archives,
                run_id=os.environ.get('GITHUB_RUN_ID'))
+if catalog_staging: receipt['catalog_staging'] = catalog_staging
+assert (root/'.generated/library-manifest.json').read_bytes() == library_bytes, 'Library changed while packaging'
+if catalog_staging:
+    staging['load_baseline'](root)
+    staging['validate_promotion'](root, library)
+for name, expected in inventory['files'].items():
+    data=(build/name).read_bytes()
+    assert len(data)==expected['size'] and hashlib.sha256(data).hexdigest()==expected['sha256'], 'Final app changed while packaging: '+name
 (output / 'release.json').write_text(json.dumps(receipt, indent=2) + '\n')
 print(json.dumps(receipt))
 

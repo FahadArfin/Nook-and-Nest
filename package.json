@@ -8,7 +8,7 @@
     "check": "tsc --noEmit",
     "test": "node scripts/test-brief.mjs",
     "test:related": "node scripts/test-brief.mjs --related",
-    "build": "vite build && node scripts/prepare-sites-build.mjs && node scripts/optimize-model-assets.mjs && node scripts/build-project-server.mjs",
+    "build": "vite build && node scripts/prepare-sites-build.mjs && node scripts/optimize-model-assets.mjs && node scripts/prepare-catalog-production-assets.mjs && node scripts/build-project-server.mjs && node scripts/build-catalog-production-staging.mjs finalize",
     "preview": "vite preview",
     "test:assets": "node --test tests/model-asset-sharing.test.mjs tests/model-geometry-compression.test.mjs tests/ar-geometry.test.mjs",
     "test:sites": "node --test tests/sites-worker.test.mjs tests/google-tiles.test.mjs tests/shared-tools-server.test.mjs tests/staging-server.test.mjs",

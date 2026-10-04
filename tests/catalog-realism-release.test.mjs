@@ -13,13 +13,13 @@ const head='a'.repeat(40),merge='b'.repeat(40),base='d'.repeat(40),catalog='c'.r
 const event={number:12,repository:{full_name:'FahadArfin/Nook-and-Nest'},pull_request:{head:{sha:head,ref:'codex/catalog-realism-overhaul',repo:{full_name:'FahadArfin/Nook-and-Nest'}},merge_commit_sha:merge,base:{ref:'master',sha:base}}};
 const platformHtml=JSON.parse(readFileSync(new URL('./fixtures/catalog-realism-platform-html.json',import.meta.url),'utf8'));
 const attributionHtml=JSON.parse(readFileSync(new URL('./fixtures/catalog-realism-attribution-html.json',import.meta.url),'utf8'));
-test('master retention stays in Validate while Beta artifact uses exact PR HEAD after that gate',()=>{
+test('production promotion retains only exact master artifacts after the Validate gate',()=>{
   const workflow=readFileSync(new URL('../.github/workflows/validate-release.yml',import.meta.url),'utf8');
-  const [before,after]=workflow.split('\n  catalog-beta-artifact:');
-  assert.match(before,/Retain release from master/);assert.match(before,/github\.ref == 'refs\/heads\/master'/);
-  assert.doesNotMatch(after,/Retain release from master/);assert.match(after,/needs: validate/);
-  assert.match(after,/ref: \$\{\{ github\.event\.pull_request\.head\.sha \}\}/);assert.match(after,/VITE_CATALOG_REALISM_VERSION/);
-  assert.match(after,/include-hidden-files: true/);
+  assert.match(workflow,/Retain release from master/);
+  assert.match(workflow,/github\.ref == 'refs\/heads\/master'/);
+  assert.match(workflow,/NOOK_CATALOG_RELEASE_MODE: production-staging/);
+  assert.match(workflow,/python3 scripts\/package-ci-release\.py/);
+  assert.doesNotMatch(workflow,/catalog-beta-artifact:/);
 });
 test('feature artifact evidence distinguishes actual checkout HEAD from successful PR merge validation',()=>{
   const input={head,validatedSha:merge,validatedParents:[base,head],result:'success',runId:'42',runAttempt:'1'};
