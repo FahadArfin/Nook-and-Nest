@@ -1,0 +1,41 @@
+from pathlib import Path
+import runpy
+EVIDENCE = {'objects': [{'bounds': {'max': [0.5249999761581421, 0.5249999761581421, 0.75],
+                         'min': [-0.5249999761581421,
+                                 -0.5249999761581421,
+                                 0.6996306777000427],
+                         'size': [1.0499999523162842,
+                                  1.0499999523162842,
+                                  0.050369322299957275]},
+              'materials': ['variant-surface'],
+              'name': 'shaped_slab_top',
+              'vertices': 192},
+             {'bounds': {'max': [0.3570000231266022,
+                                 0.3570000231266022,
+                                 0.05540631338953972],
+                         'min': [-0.3570000231266022, -0.3570000231266022, 0.0],
+                         'size': [0.7140000462532043,
+                                  0.7140000462532043,
+                                  0.05540631338953972]},
+              'materials': ['wood-honey-textured'],
+              'name': 'weighted_elliptic_foot',
+              'vertices': 192},
+             {'bounds': {'max': [0.2782381772994995,
+                                 0.2782381772994995,
+                                 0.6895567774772644],
+                         'min': [-0.2782381772994995,
+                                 -0.2782381772994995,
+                                 0.032740090042352676],
+                         'size': [0.556476354598999,
+                                  0.556476354598999,
+                                  0.6568166874349117]},
+              'materials': ['wood-honey-textured'],
+              'name': 'sculpted_center_pedestal',
+              'vertices': 192}],
+ 'sourceBlend': {'bytes': 108743,
+                 'path': 'assets-source/blender/round-table.blend',
+                 'sha256': 'f710c7abc79f116a68193865d62114e489f329f9ca2023083e3c8373032ec3d9'}}
+
+def apply(root,scene,item,material_keys,object_names):
+    if item["id"] != 'round-table':raise ValueError("Wrong reviewed ID")
+    return runpy.run_path(str(Path(__file__).with_name('turned_684.py')))["apply"](root,scene,item,material_keys,object_names,EVIDENCE)

@@ -1,0 +1,1630 @@
+{
+  "version": 1,
+  "catalogId": "small-plant",
+  "inputContractSha256": "b6654738c37606bb830f75e0fc8482d8a5b7e362bcc6c34e0b0b0965f2c2d1fc",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/small-plant.blend",
+      "sha256": "98115ce140fee70a502d1f7bdef9465bc1783b131e02228d3840da2188dc40be",
+      "bytes": 123836
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-normal-7d5bda16b4c6dec6.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-orm-359bc337ca2cbe69.png",
+      "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+      "bytes": 49612
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/terracotta-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/terracotta-orm-b84bf5ceb9581b63.png",
+      "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+      "bytes": 54381
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-normal.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-orm.png",
+      "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+      "bytes": 29383
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-orm.png",
+      "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+      "bytes": 35395
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+      "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+      "bytes": 32617
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/small-plant.glb",
+      "sha256": "c5b93b0b3d55208868129712380713e1ef822f55f171ae509e1f84df5e0e68ed",
+      "bytes": 101388
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/small-plant.blend",
+      "sha256": "98115ce140fee70a502d1f7bdef9465bc1783b131e02228d3840da2188dc40be",
+      "bytes": 123836
+    },
+    {
+      "path": "public/models/furniture/small-plant.glb",
+      "sha256": "c5b93b0b3d55208868129712380713e1ef822f55f171ae509e1f84df5e0e68ed",
+      "bytes": 101388
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-normal.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/bark-orm.png",
+      "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+      "bytes": 29383
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+      "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+      "bytes": 32617
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-orm.png",
+      "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+      "bytes": 35395
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-normal-7d5bda16b4c6dec6.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-orm-359bc337ca2cbe69.png",
+      "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+      "bytes": 49612
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/terracotta-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/small-plant/terracotta-orm-b84bf5ceb9581b63.png",
+      "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+      "bytes": 54381
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "turned-ceramic-profile",
+      "component": "handthrown_terracotta_pot",
+      "details": "Smooth radial construction; sharp lips retained with editable edge creases.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "b12866f030a0023aaeafdd4f4d1caea383b4d006f523a23ed221025e9b3a923b",
+        "vertices": 240,
+        "triangles": 400,
+        "bounds": {
+          "min": [
+            -0.0899745300412178,
+            -0.08913186937570572,
+            0
+          ],
+          "max": [
+            0.08984194695949554,
+            0.09410794824361801,
+            0.13254739344120026
+          ],
+          "size": [
+            0.17981647700071335,
+            0.18323981761932373,
+            0.13254739344120026
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7b478241389a65f63762eb5ce52b507714e913ee3f4950828d4346d9443a6634",
+        "vertices": 880,
+        "triangles": 1600,
+        "bounds": {
+          "min": [
+            -0.08997452259063721,
+            -0.08913186192512512,
+            0
+          ],
+          "max": [
+            0.08984193950891495,
+            0.0941079631447792,
+            0.13254737854003906
+          ],
+          "size": [
+            0.17981646209955215,
+            0.18323982506990433,
+            0.13254737854003906
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "curved-houseplant-leaves",
+      "component": "veined_houseplant_leaf",
+      "leafCount": 7,
+      "details": "Each original leaf retains its own bounds, petiole and apex; curved surface and raised venation.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "c000a6b8d0a4b9fc4fcdb9f4f4a3a3773ec30ccd450d56a0bdf4e3eca89a94a9",
+        "vertices": 63,
+        "triangles": 56,
+        "bounds": {
+          "min": [
+            -0.14804306626319885,
+            -0.15928460657596588,
+            0.29366761445999146
+          ],
+          "max": [
+            0.1599999964237213,
+            0.1599999964237213,
+            0.5134602189064026
+          ],
+          "size": [
+            0.30804306268692017,
+            0.3192846029996872,
+            0.21979260444641113
+          ]
+        }
+      },
+      "after": {
+        "sha256": "b115af61ce1c20608e348e00be1cde036bdfb42c8118c3ba8ae40db30ce475e7",
+        "vertices": 2604,
+        "triangles": 3612,
+        "bounds": {
+          "min": [
+            -0.14804306626319885,
+            -0.15928460657596588,
+            0.29366761445999146
+          ],
+          "max": [
+            0.1599999964237213,
+            0.1599999964237213,
+            0.5134602189064026
+          ],
+          "size": [
+            0.30804306268692017,
+            0.3192846029996872,
+            0.21979260444641113
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "curved-houseplant-leaves",
+      "component": "veined_houseplant_leaf.001",
+      "leafCount": 6,
+      "details": "Each original leaf retains its own bounds, petiole and apex; curved surface and raised venation.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "f82c1b41758269045638792710d245a8044007de697adba0a26bcce3c0b4ed22",
+        "vertices": 54,
+        "triangles": 48,
+        "bounds": {
+          "min": [
+            -0.1576816290616989,
+            -0.14522413909435272,
+            0.3385160267353058
+          ],
+          "max": [
+            0.15628300607204437,
+            0.1153789833188057,
+            0.4877372682094574
+          ],
+          "size": [
+            0.3139646351337433,
+            0.2606031224131584,
+            0.1492212414741516
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e586fe2f854da7bcbf08717d707b2ea1d711235353ed0040bdf5815f1eb217b8",
+        "vertices": 2232,
+        "triangles": 3096,
+        "bounds": {
+          "min": [
+            -0.1576816290616989,
+            -0.14522413909435272,
+            0.3385160267353058
+          ],
+          "max": [
+            0.15628300607204437,
+            0.1153789833188057,
+            0.4877372682094574
+          ],
+          "size": [
+            0.3139646351337433,
+            0.2606031224131584,
+            0.1492212414741516
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "curved-houseplant-leaves",
+      "component": "veined_houseplant_leaf.002",
+      "leafCount": 6,
+      "details": "Each original leaf retains its own bounds, petiole and apex; curved surface and raised venation.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "893e478e9164fbfc0e185ce3bcdf9340340f9aeeda18d713f9549370ba916390",
+        "vertices": 54,
+        "triangles": 48,
+        "bounds": {
+          "min": [
+            -0.1599999964237213,
+            -0.1599999964237213,
+            0.300334632396698
+          ],
+          "max": [
+            0.1502712368965149,
+            0.15814495086669922,
+            0.5199999809265137
+          ],
+          "size": [
+            0.3102712333202362,
+            0.31814494729042053,
+            0.21966534852981567
+          ]
+        }
+      },
+      "after": {
+        "sha256": "850658bea7f7916e92c09d14a5a057eb97ba4e37be7ebde20f2ea31c8a96409f",
+        "vertices": 2232,
+        "triangles": 3096,
+        "bounds": {
+          "min": [
+            -0.1599999964237213,
+            -0.1599999964237213,
+            0.300334632396698
+          ],
+          "max": [
+            0.1502712368965149,
+            0.15814495086669922,
+            0.5199999809265137
+          ],
+          "size": [
+            0.3102712333202362,
+            0.31814494729042053,
+            0.21966534852981567
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "bark-umber",
+      "profile": "bark",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "foliage-main",
+      "profile": "leaf",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "foliage-new-growth",
+      "profile": "leaf",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "foliage-shadow",
+      "profile": "leaf",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "terracotta",
+      "profile": "clay",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "bark-umber",
+      "profile": "bark",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "bark-umber",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/bark-normal.png",
+          "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+          "bytes": 17207,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "bark-umber",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/bark-orm.png",
+          "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+          "bytes": 29383,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "foliage-main",
+      "profile": "leaf",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "foliage-main",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "foliage-main",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+          "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+          "bytes": 32617,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "foliage-new-growth",
+      "profile": "leaf",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "foliage-new-growth",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "foliage-new-growth",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+          "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+          "bytes": 32617,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "foliage-shadow",
+      "profile": "leaf",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "foliage-shadow",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "foliage-shadow",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+          "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+          "bytes": 32617,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "terracotta",
+      "profile": "clay",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "terracotta",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/clay-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "terracotta",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/clay-orm.png",
+          "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+          "bytes": 35395,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "bark-umber",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-normal-7d5bda16b4c6dec6.png",
+      "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+      "bytes": 17207,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "bark-umber",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-orm-359bc337ca2cbe69.png",
+      "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+      "bytes": 49612,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "foliage-main",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "foliage-main",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "foliage-new-growth",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "foliage-new-growth",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "foliage-shadow",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "foliage-shadow",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "terracotta",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/small-plant/terracotta-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "terracotta",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/small-plant/terracotta-orm-b84bf5ceb9581b63.png",
+      "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+      "bytes": 54381,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1002932,
+    "afterBytes": 1002932,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/small-plant.blend",
+      "sha256": "194c46c9e661b31623ed73970e3dbf6a41ce8175c150b85614e0d5fc4072f433",
+      "bytes": 484876
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/small-plant.glb",
+      "sha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "bytes": 1002932
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/small-plant/front-b54615ca163196512397.webp",
+      "sha256": "b54615ca163196512397a90289a140de2fa46ad1ad956ebeecfb402f99aad453",
+      "bytes": 67306,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.757,
+      "camera": {
+        "orthoScale": 1.008312463760376,
+        "position": [
+          0.9679072499275208,
+          -1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.282291442155838,
+            0.06521742045879364
+          ],
+          "max": [
+            0.7177084684371948,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "renderConfigSha256": "6a5d4318efbc3cdebb17e3dba614ab1518b86ab7d2488114172c6fcff3535c3a",
+      "inputSetSha256": "eb96d44e981e5ee6e3e7151bf7ad1e6b415d6db7132982210de117d475c366c6"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/small-plant/rear-1585a8ed0959949e9bcd.webp",
+      "sha256": "1585a8ed0959949e9bcd8fa8579fb9aa198afd111f32d1b98b992589104f58b2",
+      "bytes": 69384,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.756,
+      "camera": {
+        "orthoScale": 1.0083123445510864,
+        "position": [
+          -0.9679072499275208,
+          1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.282291442155838,
+            0.06521742790937424
+          ],
+          "max": [
+            0.7177084684371948,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "renderConfigSha256": "6a5d4318efbc3cdebb17e3dba614ab1518b86ab7d2488114172c6fcff3535c3a",
+      "inputSetSha256": "eb96d44e981e5ee6e3e7151bf7ad1e6b415d6db7132982210de117d475c366c6"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/small-plant/detail-1b879c8316c0b0b7bb5e.webp",
+      "sha256": "1b879c8316c0b0b7bb5ebd0ec4291d1abcc742ded71af9168f7d160ef05c24d5",
+      "bytes": 95312,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.805,
+      "camera": {
+        "orthoScale": 0.5545721054077148,
+        "position": [
+          0.9679072499275208,
+          -1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.2822915017604828,
+            0.06521738320589066
+          ],
+          "max": [
+            0.7177082896232605,
+            0.9347814321517944
+          ]
+        }
+      },
+      "glbSha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "renderConfigSha256": "6a5d4318efbc3cdebb17e3dba614ab1518b86ab7d2488114172c6fcff3535c3a",
+      "inputSetSha256": "eb96d44e981e5ee6e3e7151bf7ad1e6b415d6db7132982210de117d475c366c6"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/small-plant/underside-ccd2d59f53f96ac31d59.webp",
+      "sha256": "ccd2d59f53f96ac31d59da625b97cab5f3736a7932303a5f4f74fae016d43c27",
+      "bytes": 38656,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.647,
+      "camera": {
+        "orthoScale": 1.0169790983200073,
+        "position": [
+          0.9515910148620605,
+          -1.5859850645065308,
+          -0.6915910243988037
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2841466963291168,
+            0.06521733850240707
+          ],
+          "max": [
+            0.7158530354499817,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "renderConfigSha256": "6a5d4318efbc3cdebb17e3dba614ab1518b86ab7d2488114172c6fcff3535c3a",
+      "inputSetSha256": "eb96d44e981e5ee6e3e7151bf7ad1e6b415d6db7132982210de117d475c366c6"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/small-plant/clay-c267d1ae65f03dcf0cf6.webp",
+      "sha256": "c267d1ae65f03dcf0cf6aa186aaeb589fbdd2eecc1aa88b4ac1eaa8f4322dc94",
+      "bytes": 48232,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.746,
+      "camera": {
+        "orthoScale": 1.008312463760376,
+        "position": [
+          0.9679072499275208,
+          -1.6131787300109863,
+          1.1472482681274414
+        ],
+        "target": [
+          0,
+          0,
+          0.25999999046325684
+        ],
+        "clipStart": 0.0005200000014156103,
+        "clipEnd": 6.239999771118164,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.282291442155838,
+            0.06521742045879364
+          ],
+          "max": [
+            0.7177084684371948,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "renderConfigSha256": "6a5d4318efbc3cdebb17e3dba614ab1518b86ab7d2488114172c6fcff3535c3a",
+      "inputSetSha256": "eb96d44e981e5ee6e3e7151bf7ad1e6b415d6db7132982210de117d475c366c6"
+    }
+  ],
+  "timingSeconds": 1.69,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.1599999964237213,
+          0.1599999964237213,
+          0.5199999809265137
+        ],
+        "min": [
+          -0.1599999964237213,
+          -0.1599999964237213,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "renderImportSha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.1599999964237213,0.1599999964237213,0.5199999809265137],\"min\":[-0.1599999964237213,-0.1599999964237213,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13\",\"renderImportSha256\":\"f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "6a5d4318efbc3cdebb17e3dba614ab1518b86ab7d2488114172c6fcff3535c3a",
+    "inputs": [
+      {
+        "path": "assets-source/blender/small-plant.blend",
+        "sha256": "98115ce140fee70a502d1f7bdef9465bc1783b131e02228d3840da2188dc40be",
+        "bytes": 123836
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/small-plant.blend",
+        "sha256": "194c46c9e661b31623ed73970e3dbf6a41ce8175c150b85614e0d5fc4072f433",
+        "bytes": 484876
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-normal-7d5bda16b4c6dec6.png",
+        "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+        "bytes": 17207
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/bark-umber-orm-359bc337ca2cbe69.png",
+        "sha256": "359bc337ca2cbe69b6dc790df91a634849cdf5e99da23cbf5fea55728ceb6d34",
+        "bytes": 49612
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/foliage-main-orm-400ccba3b01d0d0e.png",
+        "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+        "bytes": 52093
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/foliage-new-growth-orm-400ccba3b01d0d0e.png",
+        "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+        "bytes": 52093
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/foliage-shadow-orm-400ccba3b01d0d0e.png",
+        "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+        "bytes": 52093
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/terracotta-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/small-plant/terracotta-orm-b84bf5ceb9581b63.png",
+        "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+        "bytes": 54381
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/bark-normal.png",
+        "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+        "bytes": 17207
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/bark-orm.png",
+        "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+        "bytes": 29383
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/clay-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/clay-orm.png",
+        "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+        "bytes": 35395
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+        "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+        "bytes": 32617
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/small-plant.glb",
+        "sha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+        "bytes": 1002932
+      },
+      {
+        "path": "public/models/furniture/small-plant.glb",
+        "sha256": "c5b93b0b3d55208868129712380713e1ef822f55f171ae509e1f84df5e0e68ed",
+        "bytes": 101388
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "eb96d44e981e5ee6e3e7151bf7ad1e6b415d6db7132982210de117d475c366c6",
+    "afterSha256": "eb96d44e981e5ee6e3e7151bf7ad1e6b415d6db7132982210de117d475c366c6"
+  },
+  "formatValidation": {
+    "sha256": "f1fcdf949d00eb5092afe0294372e1c924943105a5941927a430958036eece13",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 5,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "catalog_materials independent five-view review",
+    "artifactSetSha256": "9edc4059fb00a184f5f17414bc3767305c12371a76628ec36a9c71ae5df9430a",
+    "views": {
+      "front": "Folded green leaves branch from slender stems above a recessed clay pot.",
+      "rear": "The rear foliage remains attached to stems emerging from the soil.",
+      "detail": "The leaf folds, stem junctions and pot rim remain distinct rather than a single foliage blob.",
+      "underside": "The pot has a closed bottom and recessed foot beneath the planted stems.",
+      "clay": "The neutral view retains individual shaped leaves and an open pot rim."
+    }
+  }
+}

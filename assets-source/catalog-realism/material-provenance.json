@@ -1,0 +1,382 @@
+{
+  "version": 1,
+  "description": "Lossless original microstructure and byte-identical licensed normals with matching full-resolution scan roughness packed into calibrated neutral ORM. No base-color replacements.",
+  "calibration": "Profile repeats and strengths are authored calibrations; only scan repeats inherited from realism-materials.json are provider-derived where documented.",
+  "retainedProvenance": [
+    "assets-source/realism-materials.json",
+    "assets-source/realism-texture-provenance.json"
+  ],
+  "references": [
+    "https://polyhaven.com/license",
+    "https://docs.ambientcg.com/license/",
+    "https://docs.blender.org/manual/en/5.3/addons/scene_gltf2.html"
+  ],
+  "maps": {
+    "fabric": {
+      "normal": {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135,
+        "colorSpace": "Non-Color",
+        "source": "https://polyhaven.com/a/rough_linen",
+        "license": "CC0-1.0"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740,
+        "colorSpace": "Non-Color",
+        "source": "https://polyhaven.com/a/rough_linen",
+        "license": "CC0-1.0",
+        "input": {
+          "path": "public/textures/realism/material-linen-roughness.jpg",
+          "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+          "bytes": 582745
+        },
+        "derivation": {
+          "R": 255,
+          "B": 255,
+          "G": "linear calibration of matching source roughness; no resize or rotation",
+          "roughnessRange": [
+            0.88,
+            0.96
+          ]
+        }
+      }
+    },
+    "canvas": {
+      "normal": {
+        "path": "public/textures/realism/material-canvas-normal.jpg",
+        "sha256": "4d6b256548470c842e99f7824a8c0dcc864cf0b23e3e1313deb0909bc09c3fdf",
+        "bytes": 1276822,
+        "colorSpace": "Non-Color",
+        "source": "https://ambientcg.com/a/Fabric036",
+        "license": "CC0-1.0"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/canvas-orm.png",
+        "sha256": "16f7955bae3d631eebbc84d2a588c63bd54ee6abe49c01c36da118a83a4d9f4d",
+        "bytes": 354227,
+        "colorSpace": "Non-Color",
+        "source": "https://ambientcg.com/a/Fabric036",
+        "license": "CC0-1.0",
+        "input": {
+          "path": "public/textures/realism/material-canvas-roughness.jpg",
+          "sha256": "3e0ac4c60b61a359066fd8582923cd39285d71c80ad8fb0513959a3d42df85af",
+          "bytes": 367203
+        },
+        "derivation": {
+          "R": 255,
+          "B": 255,
+          "G": "linear calibration of matching source roughness; no resize or rotation",
+          "roughnessRange": [
+            0.84,
+            0.94
+          ]
+        }
+      }
+    },
+    "wood": {
+      "normal": {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674,
+        "colorSpace": "Non-Color",
+        "source": "https://polyhaven.com/a/oak_veneer_01",
+        "license": "CC0-1.0"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270,
+        "colorSpace": "Non-Color",
+        "source": "https://polyhaven.com/a/oak_veneer_01",
+        "license": "CC0-1.0",
+        "input": {
+          "path": "public/textures/realism/material-oak-roughness.jpg",
+          "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+          "bytes": 464458
+        },
+        "derivation": {
+          "R": 255,
+          "B": 255,
+          "G": "linear calibration of matching source roughness; no resize or rotation",
+          "roughnessRange": [
+            0.5,
+            0.65
+          ]
+        }
+      }
+    },
+    "endgrain": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/endgrain-normal.png",
+        "sha256": "3b922160aa4d1a70897a5ae043e0a04189736773a13123a442c093798e100d09",
+        "bytes": 77957,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/endgrain-orm.png",
+        "sha256": "62ce617e7e9274e41b56a80cd5d2ecc5d0b300390a81fd447fae39f217978f70",
+        "bytes": 35431,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "rattan": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/rattan-normal.png",
+        "sha256": "b8db6e896250299d8fb6a0967ad224247e0f55ce214f254bd02c46df319d0fb4",
+        "bytes": 2157,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/rattan-orm.png",
+        "sha256": "0886b8aba4f4e026f5ca545270b02cc4859a36a4f4152c6ddc2b63425ff4f875",
+        "bytes": 32561,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "metal": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "powdercoat": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/powdercoat-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/powdercoat-orm.png",
+        "sha256": "5a0fca91dd814f8401da8f78fb9bcfe283f045ec593b38bc533305ad505197a0",
+        "bytes": 29373,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "ceramic": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "stone": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/stone-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/stone-orm.png",
+        "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+        "bytes": 35540,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "bark": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/bark-normal.png",
+        "sha256": "7d5bda16b4c6dec61f16dbdb9e2053aaf4562bd60a1b336d2c5d280d5b4ee849",
+        "bytes": 17207,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/bark-orm.png",
+        "sha256": "733d7f73f65333c9d93d82550840e2004c3ce7f9289e2319ccea1c3f982ec056",
+        "bytes": 29383,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "rubber": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/rubber-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/rubber-orm.png",
+        "sha256": "c9e414558404a746cdff47407a7938feb0298bf22dad794c2a10677ce024199a",
+        "bytes": 32499,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "polymer": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/polymer-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/polymer-orm.png",
+        "sha256": "8d6cd1f447a3b8d4511e04f80a0d1921ec3f3215e20f2a0a3732edfe80efdb54",
+        "bytes": 29170,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "paint": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/paint-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/paint-orm.png",
+        "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+        "bytes": 29345,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "leaf": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+        "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+        "bytes": 32617,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "petal": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/petal-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/petal-orm.png",
+        "sha256": "51fba23a13c3202ed466086115df500d282682765e386c46730d9f7981e0458b",
+        "bytes": 29383,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "paper": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/paper-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/paper-orm.png",
+        "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+        "bytes": 32780,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "clay": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/clay-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/clay-orm.png",
+        "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+        "bytes": 35395,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    },
+    "soil": {
+      "normal": {
+        "path": "assets-source/catalog-realism/materials/soil-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      },
+      "orm": {
+        "path": "assets-source/catalog-realism/materials/soil-orm.png",
+        "sha256": "479d67bc99b700e1a939dd948efd6603c100fab973adba2c441e020f764ea53e",
+        "bytes": 25740,
+        "colorSpace": "Non-Color",
+        "source": "Original Nook & Nest periodic microstructure",
+        "license": "project-original"
+      }
+    }
+  }
+}

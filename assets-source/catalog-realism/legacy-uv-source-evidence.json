@@ -1,0 +1,3156 @@
+{
+  "version": 1,
+  "scope": "read-only-native-source-uv",
+  "before": {
+    "counts": {
+      "scenes": 38,
+      "objects": 1981,
+      "collections": 3,
+      "meshes": 2635,
+      "curves": 219,
+      "metaballs": 0,
+      "armatures": 0,
+      "materials": 239,
+      "images": 233,
+      "textures": 0,
+      "node_groups": 19,
+      "cameras": 12,
+      "lights": 34,
+      "worlds": 12,
+      "actions": 0
+    },
+    "scene": "Realism lab exported review.002",
+    "filepath": ""
+  },
+  "models": {
+    "bud-vase-trio": {
+      "sourceBlend": {
+        "bytes": 125791,
+        "path": "assets-source/blender/bud-vase-trio.blend",
+        "sha256": "50c0463bbea0d74b82a77c07da0f9379b62e809120b17a5e47c9c84d6608a3aa"
+      },
+      "baselineGlb": {
+        "bytes": 530860,
+        "path": "public/models/furniture/bud-vase-trio.glb",
+        "sha256": "8c6e12e812cf10a4f803d0ae11c867682ce129d473c0a0fb465828d3075e2727"
+      },
+      "materials": [
+        {
+          "materialKey": "dusty-rose",
+          "sourceMaterialName": "dusty-rose",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    0.6800000071525574,
+                    0.3799999952316284,
+                    0.36000001430511475,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "handpainted-cream-linen.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing\\assets-source\\textures\\web\\handpainted-cream-linen.png",
+                "size": [
+                  512,
+                  512
+                ],
+                "packedSha256": null
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "flower_petal",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.001",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.002",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.003",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.004",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.005",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.006",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.007",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.008",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.009",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.010",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.011",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.012",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.013",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.014",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.015",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.016",
+              "materialPolygonCount": 4,
+              "layers": []
+            },
+            {
+              "object": "flower_petal.017",
+              "materialPolygonCount": 4,
+              "layers": []
+            }
+          ]
+        }
+      ]
+    },
+    "designed-basin-console": {
+      "sourceBlend": {
+        "bytes": 199984,
+        "path": "assets-source/blender/designed-basin-console.blend",
+        "sha256": "ff02e136e357260068ef79d736fb6f31a5709471917177a5189d5eceaa8c9292"
+      },
+      "baselineGlb": {
+        "bytes": 183360,
+        "path": "public/models/furniture/designed-basin-console.glb",
+        "sha256": "6237b546909c0afaf828175e8c7531f2fe89bdf1a810c1fef586222ac5b5e8ee"
+      },
+      "materials": [
+        {
+          "materialKey": "honed-travertine",
+          "sourceMaterialName": "honed-travertine",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    0.6700000166893005,
+                    0.5799999833106995,
+                    0.4300000071525574,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Noise Texture",
+              "type": "TEX_NOISE",
+              "inputs": []
+            },
+            {
+              "name": "Color Ramp",
+              "type": "VALTORGB",
+              "inputs": [
+                {
+                  "name": "Factor",
+                  "links": [
+                    {
+                      "node": "Noise Texture",
+                      "socket": "Factor"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "designed-stone.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing-designed-home\\assets-source\\textures\\designed-stone.png",
+                "size": [
+                  256,
+                  256
+                ],
+                "packedSha256": "ff019bde7940434b64427bc2702985bf56702b098bfbbffbbaa0ee6ae097bb6f"
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "lower console shelf",
+              "materialPolygonCount": 54,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 216,
+                  "sha256": "9b5ade7ccba10b6359a9e783ec7488145d8167eae3dcee24bb7a56999df12e27",
+                  "min": [
+                    -0.31853553652763367,
+                    -0.2010355442762375
+                  ],
+                  "max": [
+                    0.31853553652763367,
+                    0.2010355442762375
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "stone side ledge",
+              "materialPolygonCount": 54,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 216,
+                  "sha256": "f8c62022d089813aae4acab8ac5fe624694f82eb0c2b677c4045cc43c3b0b749",
+                  "min": [
+                    -0.34882843494415283,
+                    -0.22382843494415283
+                  ],
+                  "max": [
+                    0.22382843494415283,
+                    0.7198284268379211
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "stone side ledge.001",
+              "materialPolygonCount": 54,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 216,
+                  "sha256": "81e84938e7dd8663e0947b52159dd3d45b0804626f56a2d43a5fb02ec470b610",
+                  "min": [
+                    -0.22382843494415283,
+                    -0.22382843494415283
+                  ],
+                  "max": [
+                    0.34882843494415283,
+                    0.7198284268379211
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "recessed ceramic washbasin",
+              "materialPolygonCount": 290,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 1248,
+                  "sha256": "3b757926396d9589a51b47b9bc7d29ea836233b7d024dbdb444cf8e07c77d0a3",
+                  "min": [
+                    -0.3409999907016754,
+                    -0.20657499134540558
+                  ],
+                  "max": [
+                    0.3409999907016754,
+                    0.8199999928474426
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "designed-rug-amazigh": {
+      "sourceBlend": {
+        "bytes": 4192997,
+        "path": "assets-source/blender/designed-rug-amazigh.blend",
+        "sha256": "8fd2e22ad901afa19aa65b824587e07ea34d13a530b19c0cda15962555bf026c"
+      },
+      "baselineGlb": {
+        "bytes": 4483920,
+        "path": "public/models/furniture/designed-rug-amazigh.glb",
+        "sha256": "749006041ca9c9c594d9b5df28f81361db669beaa4e02d9c10fd51d9f89c0c28"
+      },
+      "materials": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "sourceMaterialName": "original-cultural-rug-pattern",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "designed-rug-atlas.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing-designed-home\\assets-source\\textures\\designed-rug-atlas.png",
+                "size": [
+                  1024,
+                  1536
+                ],
+                "packedSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0"
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "woven patterned face",
+              "materialPolygonCount": 1,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 4,
+                  "sha256": "6f15c1d562022656722b5cb9ebf11854d95ce6ecdd9f1d1294e5bd0b4c858897",
+                  "min": [
+                    0.0020000000949949026,
+                    0.0020000000949949026
+                  ],
+                  "max": [
+                    0.49799999594688416,
+                    0.49799999594688416
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "designed-rug-artdeco": {
+      "sourceBlend": {
+        "bytes": 4193073,
+        "path": "assets-source/blender/designed-rug-artdeco.blend",
+        "sha256": "cff3285a5d35f2353f6bd0303f393e6d8e621c7e528e4418ae0dc18585c1a7eb"
+      },
+      "baselineGlb": {
+        "bytes": 4483920,
+        "path": "public/models/furniture/designed-rug-artdeco.glb",
+        "sha256": "7150f64820fb7b6c948ebe7d01446f40e884914c0595d88110a9d3797aa741da"
+      },
+      "materials": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "sourceMaterialName": "original-cultural-rug-pattern",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "designed-rug-atlas.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing-designed-home\\assets-source\\textures\\designed-rug-atlas.png",
+                "size": [
+                  1024,
+                  1536
+                ],
+                "packedSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0"
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "woven patterned face",
+              "materialPolygonCount": 1,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 4,
+                  "sha256": "e42dd0b9b60fd75433069e9384b3e7d6c90a404a67db8a402258b71d2c625549",
+                  "min": [
+                    0.5019999742507935,
+                    0.0020000000949949026
+                  ],
+                  "max": [
+                    0.9980000257492065,
+                    0.49799999594688416
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "designed-rug-kilim": {
+      "sourceBlend": {
+        "bytes": 4184866,
+        "path": "assets-source/blender/designed-rug-kilim.blend",
+        "sha256": "1fec55417c7f9ab68947228b6c75c8c48971df9807a32e8d0269f376baf1977d"
+      },
+      "baselineGlb": {
+        "bytes": 4445288,
+        "path": "public/models/furniture/designed-rug-kilim.glb",
+        "sha256": "e5d9319f5fc891280af7e2da44ca803f845f984f420d1aac84e04e53b269b227"
+      },
+      "materials": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "sourceMaterialName": "original-cultural-rug-pattern",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "designed-rug-atlas.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing-designed-home\\assets-source\\textures\\designed-rug-atlas.png",
+                "size": [
+                  1024,
+                  1536
+                ],
+                "packedSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0"
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "woven patterned face",
+              "materialPolygonCount": 1,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 4,
+                  "sha256": "1c3c8ddc1b37a4f3b825bf92b1495c4cf52af081c9861de91dbbaf75be69d4ef",
+                  "min": [
+                    0.5019999742507935,
+                    0.5019999742507935
+                  ],
+                  "max": [
+                    0.9980000257492065,
+                    0.9980000257492065
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "designed-rug-persian": {
+      "sourceBlend": {
+        "bytes": 4192898,
+        "path": "assets-source/blender/designed-rug-persian.blend",
+        "sha256": "0c5b3f71560622ce2a1ab174774c097cffc1bb017e9319352b02c09c5512520e"
+      },
+      "baselineGlb": {
+        "bytes": 4483916,
+        "path": "public/models/furniture/designed-rug-persian.glb",
+        "sha256": "367cd28820ba4dd01aec2aa24ee39c10f103b60fc8d67418e489da96de16de48"
+      },
+      "materials": [
+        {
+          "materialKey": "original-cultural-rug-pattern",
+          "sourceMaterialName": "original-cultural-rug-pattern",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "designed-rug-atlas.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing-designed-home\\assets-source\\textures\\designed-rug-atlas.png",
+                "size": [
+                  1024,
+                  1536
+                ],
+                "packedSha256": "950c2e2d4c128ceead287ea33bea0e09dfb84c77ea51a5b3533b65dd6ec0f8f0"
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "woven patterned face",
+              "materialPolygonCount": 1,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 4,
+                  "sha256": "5a8c60e5cdaceb6bd3e0e62b01bb366641bd0421e85e3fa1fb3427a3b00a6cf9",
+                  "min": [
+                    0.0020000000949949026,
+                    0.5019999742507935
+                  ],
+                  "max": [
+                    0.49799999594688416,
+                    0.9980000257492065
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "pantry-jars": {
+      "sourceBlend": {
+        "bytes": 106104,
+        "path": "assets-source/blender/pantry-jars.blend",
+        "sha256": "00b8096cdd7d7b4d064d96024d843e2f3a2ad0513e64d9a8faba4667cfc52edc"
+      },
+      "baselineGlb": {
+        "bytes": 355680,
+        "path": "public/models/furniture/pantry-jars.glb",
+        "sha256": "7a517ecc95395c46f058bae8a5dc51912b9cc6a780b71d7c13d27ac2000d1db9"
+      },
+      "materials": [
+        {
+          "materialKey": "wood-honey-textured",
+          "sourceMaterialName": "wood-honey-textured",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    0.7200000286102295,
+                    0.4300000071525574,
+                    0.20000000298023224,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "handpainted-honey-oak.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing\\assets-source\\textures\\web\\handpainted-honey-oak.png",
+                "size": [
+                  512,
+                  512
+                ],
+                "packedSha256": null
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "wood_lid",
+              "materialPolygonCount": 122,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 528,
+                  "sha256": "c6b19677b3d375f04ab3e69d4ebb5154aa02f4beccd03d9f24c8246f54bc99d8",
+                  "min": [
+                    0.01025769766420126,
+                    0.010257687419652939
+                  ],
+                  "max": [
+                    1.4108840227127075,
+                    1.9897421598434448
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "wood_lid.001",
+              "materialPolygonCount": 122,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 528,
+                  "sha256": "c6b19677b3d375f04ab3e69d4ebb5154aa02f4beccd03d9f24c8246f54bc99d8",
+                  "min": [
+                    0.01025769766420126,
+                    0.010257687419652939
+                  ],
+                  "max": [
+                    1.4108840227127075,
+                    1.9897421598434448
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "wood_lid.002",
+              "materialPolygonCount": 122,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 528,
+                  "sha256": "c6b19677b3d375f04ab3e69d4ebb5154aa02f4beccd03d9f24c8246f54bc99d8",
+                  "min": [
+                    0.01025769766420126,
+                    0.010257687419652939
+                  ],
+                  "max": [
+                    1.4108840227127075,
+                    1.9897421598434448
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "patio-fire-bowl": {
+      "sourceBlend": {
+        "bytes": 111759,
+        "path": "assets-source/blender/patio-fire-bowl.blend",
+        "sha256": "042611b4b35af25237b9e5980f74956ae669613460cdfffbffc026b67d480744"
+      },
+      "baselineGlb": {
+        "bytes": 366016,
+        "path": "public/models/furniture/patio-fire-bowl.glb",
+        "sha256": "348ea8dd00db8fcd947f1635cd6bda0885c029cc00f39d7d2760311a59b5c378"
+      },
+      "materials": [
+        {
+          "materialKey": "wood-honey-textured",
+          "sourceMaterialName": "wood-honey-textured",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    0.7200000286102295,
+                    0.4300000071525574,
+                    0.20000000298023224,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "handpainted-honey-oak.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing\\assets-source\\textures\\web\\handpainted-honey-oak.png",
+                "size": [
+                  512,
+                  512
+                ],
+                "packedSha256": null
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "split_firewood",
+              "materialPolygonCount": 40,
+              "layers": []
+            }
+          ]
+        }
+      ]
+    },
+    "tripod-floor-lamp": {
+      "sourceBlend": {
+        "bytes": 124909,
+        "path": "assets-source/blender/tripod-floor-lamp.blend",
+        "sha256": "c828b7f987e9fee5fb8b951423f7f6ab5aaae6834134fd024d5fbe853a0bd326"
+      },
+      "baselineGlb": {
+        "bytes": 437072,
+        "path": "public/models/furniture/tripod-floor-lamp.glb",
+        "sha256": "e048021f7eba28787e0d61c043607d72aca1dfcc9e04bfe63f442bc96f444e3a"
+      },
+      "materials": [
+        {
+          "materialKey": "wood-honey-textured",
+          "sourceMaterialName": "wood-honey-textured",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    0.7200000286102295,
+                    0.4300000071525574,
+                    0.20000000298023224,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "handpainted-honey-oak.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing\\assets-source\\textures\\web\\handpainted-honey-oak.png",
+                "size": [
+                  512,
+                  512
+                ],
+                "packedSha256": null
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "splayed_timber_tripod",
+              "materialPolygonCount": 30,
+              "layers": []
+            }
+          ]
+        }
+      ]
+    },
+    "utensil-crock": {
+      "sourceBlend": {
+        "bytes": 110578,
+        "path": "assets-source/blender/utensil-crock.blend",
+        "sha256": "8040ddfff1f62932962cedbab9a575e59bf4ee6b38510f8bf5b4dbebc369a8c5"
+      },
+      "baselineGlb": {
+        "bytes": 357172,
+        "path": "public/models/furniture/utensil-crock.glb",
+        "sha256": "e758d88ab7d0f077405239583c2d203594d2b46fe75c86c5e58b896973243866"
+      },
+      "materials": [
+        {
+          "materialKey": "wood-honey-textured",
+          "sourceMaterialName": "wood-honey-textured",
+          "baselineTextureInfo": {
+            "index": 0,
+            "texCoord": -1
+          },
+          "nodes": [
+            {
+              "name": "Principled BSDF",
+              "type": "BSDF_PRINCIPLED",
+              "inputs": [
+                {
+                  "name": "Base Color",
+                  "links": [
+                    {
+                      "node": "Image Texture",
+                      "socket": "Color"
+                    }
+                  ],
+                  "default": [
+                    0.7200000286102295,
+                    0.4300000071525574,
+                    0.20000000298023224,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Metallic",
+                  "links": []
+                },
+                {
+                  "name": "Roughness",
+                  "links": []
+                },
+                {
+                  "name": "IOR",
+                  "links": []
+                },
+                {
+                  "name": "Alpha",
+                  "links": []
+                },
+                {
+                  "name": "Thin Wall",
+                  "links": []
+                },
+                {
+                  "name": "Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Weight",
+                  "links": []
+                },
+                {
+                  "name": "Diffuse Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Weight",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Radius",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    0.20000000298023224,
+                    0.10000000149011612
+                  ]
+                },
+                {
+                  "name": "Subsurface Scale",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface IOR",
+                  "links": []
+                },
+                {
+                  "name": "Subsurface Anisotropy",
+                  "links": []
+                },
+                {
+                  "name": "Specular IOR Level",
+                  "links": []
+                },
+                {
+                  "name": "Specular Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Anisotropic",
+                  "links": []
+                },
+                {
+                  "name": "Anisotropic Rotation",
+                  "links": []
+                },
+                {
+                  "name": "Tangent",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Transmission Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Weight",
+                  "links": []
+                },
+                {
+                  "name": "Coat Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Coat IOR",
+                  "links": []
+                },
+                {
+                  "name": "Coat Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Coat Normal",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                },
+                {
+                  "name": "Sheen Weight",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Roughness",
+                  "links": []
+                },
+                {
+                  "name": "Sheen Tint",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Color",
+                  "links": [],
+                  "default": [
+                    1.0,
+                    1.0,
+                    1.0,
+                    1.0
+                  ]
+                },
+                {
+                  "name": "Emission Strength",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film Thickness",
+                  "links": []
+                },
+                {
+                  "name": "Thin Film IOR",
+                  "links": []
+                }
+              ]
+            },
+            {
+              "name": "Material Output",
+              "type": "OUTPUT_MATERIAL",
+              "inputs": [
+                {
+                  "name": "Surface",
+                  "links": [
+                    {
+                      "node": "Principled BSDF",
+                      "socket": "BSDF"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "Image Texture",
+              "type": "TEX_IMAGE",
+              "image": {
+                "name": "handpainted-honey-oak.png",
+                "path": "C:\\Users\\fahad\\OneDrive\\Documents\\ChatGPT\\furnishing\\assets-source\\textures\\web\\handpainted-honey-oak.png",
+                "size": [
+                  512,
+                  512
+                ],
+                "packedSha256": null
+              },
+              "projection": "FLAT",
+              "extension": "REPEAT",
+              "interpolation": "Linear",
+              "inputs": [
+                {
+                  "name": "Vector",
+                  "links": [],
+                  "default": [
+                    0.0,
+                    0.0,
+                    0.0
+                  ]
+                }
+              ]
+            }
+          ],
+          "meshCharts": [
+            {
+              "object": "utensil_handle",
+              "materialPolygonCount": 106,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 432,
+                  "sha256": "ca3d136a0f283777d58eb2ed91e1ae34555b49fb1ff6398a8d843285099405a2",
+                  "min": [
+                    0.005769349634647369,
+                    0.0057693542912602425
+                  ],
+                  "max": [
+                    0.5281481742858887,
+                    1.9942306280136108
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "spatula_head",
+              "materialPolygonCount": 98,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 384,
+                  "sha256": "adc19ebc8a1803b80191115c4b89dc5a0b06ee5441f0535fcd044367b8a290f1",
+                  "min": [
+                    0.011978579685091972,
+                    0.011978579685091972
+                  ],
+                  "max": [
+                    1.9880213737487793,
+                    1.9456305503845215
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "utensil_handle.001",
+              "materialPolygonCount": 106,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 432,
+                  "sha256": "ca3d136a0f283777d58eb2ed91e1ae34555b49fb1ff6398a8d843285099405a2",
+                  "min": [
+                    0.005769349634647369,
+                    0.0057693542912602425
+                  ],
+                  "max": [
+                    0.5281481742858887,
+                    1.9942306280136108
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "spatula_head.001",
+              "materialPolygonCount": 98,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 384,
+                  "sha256": "adc19ebc8a1803b80191115c4b89dc5a0b06ee5441f0535fcd044367b8a290f1",
+                  "min": [
+                    0.011978579685091972,
+                    0.011978579685091972
+                  ],
+                  "max": [
+                    1.9880213737487793,
+                    1.9456305503845215
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "utensil_handle.002",
+              "materialPolygonCount": 106,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 432,
+                  "sha256": "ca3d136a0f283777d58eb2ed91e1ae34555b49fb1ff6398a8d843285099405a2",
+                  "min": [
+                    0.005769349634647369,
+                    0.0057693542912602425
+                  ],
+                  "max": [
+                    0.5281481742858887,
+                    1.9942306280136108
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "spatula_head.002",
+              "materialPolygonCount": 98,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 384,
+                  "sha256": "adc19ebc8a1803b80191115c4b89dc5a0b06ee5441f0535fcd044367b8a290f1",
+                  "min": [
+                    0.011978579685091972,
+                    0.011978579685091972
+                  ],
+                  "max": [
+                    1.9880213737487793,
+                    1.9456305503845215
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "utensil_handle.003",
+              "materialPolygonCount": 106,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 432,
+                  "sha256": "ca3d136a0f283777d58eb2ed91e1ae34555b49fb1ff6398a8d843285099405a2",
+                  "min": [
+                    0.005769349634647369,
+                    0.0057693542912602425
+                  ],
+                  "max": [
+                    0.5281481742858887,
+                    1.9942306280136108
+                  ]
+                }
+              ]
+            },
+            {
+              "object": "spatula_head.003",
+              "materialPolygonCount": 98,
+              "layers": [
+                {
+                  "index": 0,
+                  "name": "UVMap",
+                  "activeRender": true,
+                  "active": true,
+                  "loops": 384,
+                  "sha256": "adc19ebc8a1803b80191115c4b89dc5a0b06ee5441f0535fcd044367b8a290f1",
+                  "min": [
+                    0.011978579685091972,
+                    0.011978579685091972
+                  ],
+                  "max": [
+                    1.9880213737487793,
+                    1.9456305503845215
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "after": {
+    "counts": {
+      "scenes": 38,
+      "objects": 1981,
+      "collections": 3,
+      "meshes": 2635,
+      "curves": 219,
+      "metaballs": 0,
+      "armatures": 0,
+      "materials": 239,
+      "images": 233,
+      "textures": 0,
+      "node_groups": 19,
+      "cameras": 12,
+      "lights": 34,
+      "worlds": 12,
+      "actions": 0
+    },
+    "scene": "Realism lab exported review.002",
+    "filepath": ""
+  }
+}

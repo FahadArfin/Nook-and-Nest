@@ -1,0 +1,3021 @@
+{
+  "version": 1,
+  "catalogId": "spiral-staircase",
+  "inputContractSha256": "1266307858250d2659d8eff5a922f94f9bd1cd89afc87640ee48a81d787a630d",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/spiral-staircase.blend",
+      "sha256": "e37ad554edcfb10dccefa632a9137549d70effb7737bc85915cb097830791a01",
+      "bytes": 287145
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/spiral-staircase.glb",
+      "sha256": "cac7f65f0b5e1302bd4e1bdfcba4a623e983c0925506349fd1cc18b829135950",
+      "bytes": 663804
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/spiral-staircase.blend",
+      "sha256": "e37ad554edcfb10dccefa632a9137549d70effb7737bc85915cb097830791a01",
+      "bytes": 287145
+    },
+    {
+      "path": "public/models/furniture/spiral-staircase.glb",
+      "sha256": "cac7f65f0b5e1302bd4e1bdfcba4a623e983c0925506349fd1cc18b829135950",
+      "bytes": 663804
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "Bolted bottom base flange",
+      "widthM": 0.0007000000332482159,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a30fe0d8276704967a23f41fd3ad35544983af445ab2016b1dcfbc82574f92be",
+        "vertices": 80,
+        "triangles": 156,
+        "bounds": {
+          "min": [
+            -0.14500001072883606,
+            -0.14500001072883606,
+            0
+          ],
+          "max": [
+            0.14500001072883606,
+            0.14500001072883606,
+            0.02800000086426735
+          ],
+          "size": [
+            0.2900000214576721,
+            0.2900000214576721,
+            0.02800000086426735
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c52ba8f7cf036227048c0156317981d6fee8fc5d6ec9579227d3dc1ec301b6dd",
+        "vertices": 320,
+        "triangles": 636,
+        "bounds": {
+          "min": [
+            -0.14500001072883606,
+            -0.14500001072883606,
+            0
+          ],
+          "max": [
+            0.14500001072883606,
+            0.14500001072883606,
+            0.02800000086426735
+          ],
+          "size": [
+            0.2900000214576721,
+            0.2900000214576721,
+            0.02800000086426735
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "86e1775fefcdbd00595f966a26cc177df1a45857e3bb7ee6f007b1a3517e97d4",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.026925846934318542,
+            -0.9460565447807312,
+            0.17600001394748688
+          ],
+          "max": [
+            0.05692584812641144,
+            -0.9160565733909607,
+            0.20000000298023224
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "798b1dfe0fcc39e28bc5bfe9d8b85be2420a36040688b364d46c868745a8d5f1",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.026925846934318542,
+            -0.9460565447807312,
+            0.17600001394748688
+          ],
+          "max": [
+            0.05692584812641144,
+            -0.9160565733909607,
+            0.20000000298023224
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.001",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "80f58814ed864cce4ef82a904879ec8701c5e4aae2a6e2262de39bc15b6e14fd",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.3130571246147156,
+            -0.8873546719551086,
+            0.17600001394748688
+          ],
+          "max": [
+            0.34305712580680847,
+            -0.8573546409606934,
+            0.20000000298023224
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ea60d9c4b78b783fae49eb1f82423fd0793297647e2467ea6724c6b4df0870c1",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.3130571246147156,
+            -0.8873546719551086,
+            0.17600001394748688
+          ],
+          "max": [
+            0.34305712580680847,
+            -0.8573546409606934,
+            0.20000000298023224
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.002",
+      "widthM": 0.0006000004941597581,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2981563d7f409f5bd2b597cc0c79e90f212693370c07c6cbd212a23e2743603f",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.38003435730934143,
+            -0.8591397404670715,
+            0.35100001096725464
+          ],
+          "max": [
+            0.4100343585014343,
+            -0.829139769077301,
+            0.3750000298023224
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.02400001883506775
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c759d92199033e6a80544269f5bfe4f3b62abddcccc3040eaeaa07676d133989",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.38003435730934143,
+            -0.8591397404670715,
+            0.35100001096725464
+          ],
+          "max": [
+            0.4100343585014343,
+            -0.829139769077301,
+            0.3750000298023224
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.02400001883506775
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.003",
+      "widthM": 0.0006000004941597581,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d67511f39cb37eaef8a059f5fe5cde7a2c1dc8b54702bcf92aea4abebeaf01bc",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.6219209432601929,
+            -0.6954085826873779,
+            0.35100001096725464
+          ],
+          "max": [
+            0.6519209146499634,
+            -0.6654086112976074,
+            0.3750000298023224
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.02400001883506775
+          ]
+        }
+      },
+      "after": {
+        "sha256": "484e7cdd5f1ea7baf161bbc064b405547cf9a062d66cb907dd3e48ad2a3c3221",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.6219209432601929,
+            -0.6954085826873779,
+            0.35100001096725464
+          ],
+          "max": [
+            0.6519209146499634,
+            -0.6654086112976074,
+            0.3750000298023224
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.02400001883506775
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.004",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "27f52b4a28445703ff309168c43c44ae6486ca39766a003b6c8d5acf1a2deceb",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.6730024814605713,
+            -0.6437103748321533,
+            0.5260000228881836
+          ],
+          "max": [
+            0.7030024528503418,
+            -0.613710343837738,
+            0.550000011920929
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000030994415283,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "dd6d41b96587a94490fa8406430d1d427194d38d6e0cff356cf4ecad5c6095f6",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.6730024814605713,
+            -0.6437103748321533,
+            0.5260000228881836
+          ],
+          "max": [
+            0.7030024528503418,
+            -0.613710343837738,
+            0.550000011920929
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000030994415283,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.005",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "0613e3f0542d0d3147b247f021ef7aeeb467b34d49c53f5f95390d15aea1e752",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.8338193297386169,
+            -0.3998764753341675,
+            0.5260000228881836
+          ],
+          "max": [
+            0.8638193011283875,
+            -0.3698764741420746,
+            0.550000011920929
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "5424bab13f53032fb489025ea35fd1b143854bfeba3c6df7582086b0d43e5812",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.8338193297386169,
+            -0.3998764753341675,
+            0.5260000228881836
+          ],
+          "max": [
+            0.8638193011283875,
+            -0.3698764741420746,
+            0.550000011920929
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.006",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "5593cd716267739eeb6b36d6f096c7c762ecc95696ff8dfc3da204a1e2c3655d",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.8612284064292908,
+            -0.3325654864311218,
+            0.7010000348091125
+          ],
+          "max": [
+            0.891228437423706,
+            -0.30256548523902893,
+            0.7250000238418579
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "375345c359d4a6a7b69cccfcff06f9346c4ba6f6d436d0445da3a3f52dde0378",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.8612284064292908,
+            -0.3325654864311218,
+            0.7010000348091125
+          ],
+          "max": [
+            0.891228437423706,
+            -0.30256548523902893,
+            0.7250000238418579
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.007",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "dd493689569de1881ddb33c6d3b355a381af16ea69717e9b7681de3e04f2a5bf",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.9164925813674927,
+            -0.04575042054057121,
+            0.7010000348091125
+          ],
+          "max": [
+            0.946492612361908,
+            -0.015750419348478317,
+            0.7250000238418579
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "5e0383cb82114b25fe1c284bd2f46ad9e5edc749d34b4695ec34700faed7fc30",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.9164925813674927,
+            -0.04575042054057121,
+            0.7010000348091125
+          ],
+          "max": [
+            0.946492612361908,
+            -0.015750419348478317,
+            0.7250000238418579
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.008",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6774478724c7409d0ecc5a3fae25da629e8f0fc9ce2d122ea4c2d2f78554dbc6",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.9160565733909607,
+            0.026925846934318542,
+            0.8760000467300415
+          ],
+          "max": [
+            0.9460565447807312,
+            0.05692584812641144,
+            0.9000000357627869
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d8fa1db08ce5ed3901f520b744cfde0a731154e65090e9ce889ef07d0350fab2",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.9160565733909607,
+            0.026925846934318542,
+            0.8760000467300415
+          ],
+          "max": [
+            0.9460565447807312,
+            0.05692584812641144,
+            0.9000000357627869
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.009",
+      "widthM": 0.0005999997374601662,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "4c896faff330b21d31f2dc764597bc6e5c500190989b595f26044e576130bcd9",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.8573546409606934,
+            0.3130571246147156,
+            0.8760000467300415
+          ],
+          "max": [
+            0.8873546719551086,
+            0.34305712580680847,
+            0.9000000357627869
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "after": {
+        "sha256": "212d45b8eab5eab7fa98f0156be82958e00a628e2b09814bbc5e704d240abc70",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.8573546409606934,
+            0.3130571246147156,
+            0.8760000467300415
+          ],
+          "max": [
+            0.8873546719551086,
+            0.34305712580680847,
+            0.9000000357627869
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.02399998903274536
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.010",
+      "widthM": 0.000600001192651689,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "c822a538e96f6075fb8ad4a1ae8f5184fa579b73d6f139350c619dc3ef8ae20f",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.829139769077301,
+            0.38003435730934143,
+            1.0509999990463257
+          ],
+          "max": [
+            0.8591397404670715,
+            0.4100343585014343,
+            1.0750000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d3865f674a4659c163f67c9e6e1383f637f1c58757931c03e4ac1dd8d09d501c",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.829139769077301,
+            0.38003435730934143,
+            1.0509999990463257
+          ],
+          "max": [
+            0.8591397404670715,
+            0.4100343585014343,
+            1.0750000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.011",
+      "widthM": 0.000600001192651689,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "7f29cd5d1eb811f3daf593288a0b21a995e77f16218a5ba117e49546f42f6db7",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.6654086112976074,
+            0.6219209432601929,
+            1.0509999990463257
+          ],
+          "max": [
+            0.6954085826873779,
+            0.6519209146499634,
+            1.0750000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "40fd451fc7b8c5f755b85bf48aa84663923aef94a83177d99dea6c2563045e63",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.6654086112976074,
+            0.6219209432601929,
+            1.0509999990463257
+          ],
+          "max": [
+            0.6954085826873779,
+            0.6519209146499634,
+            1.0750000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.012",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "0ba987527a918ca920011d563395a5d815d40878cdee0345414462164f4d5f80",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.613710343837738,
+            0.6730024814605713,
+            1.2260000705718994
+          ],
+          "max": [
+            0.6437103748321533,
+            0.7030024528503418,
+            1.25
+          ],
+          "size": [
+            0.030000030994415283,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d5a019b88406e2e8ac0b94c38fc77a4766666701e459d3d29f476193b43fe9a1",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.613710343837738,
+            0.6730024814605713,
+            1.2260000705718994
+          ],
+          "max": [
+            0.6437103748321533,
+            0.7030024528503418,
+            1.25
+          ],
+          "size": [
+            0.030000030994415283,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.013",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "0d3d5d231827679b65f18b07525aea3cce12266d5cc9295f88212abc892f3ce5",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.3698764741420746,
+            0.8338193297386169,
+            1.2260000705718994
+          ],
+          "max": [
+            0.3998764753341675,
+            0.8638193011283875,
+            1.25
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "6546824f214856a00e480a62262f3a324d662ba3c6db998c57ca840b5a259793",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.3698764741420746,
+            0.8338193297386169,
+            1.2260000705718994
+          ],
+          "max": [
+            0.3998764753341675,
+            0.8638193011283875,
+            1.25
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.014",
+      "widthM": 0.000600001192651689,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "89d66b8a8e71da473b19414a52f4d96d2ea791cc9b08187d2c83c69acde2316c",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.30256548523902893,
+            0.8612284064292908,
+            1.4010000228881836
+          ],
+          "max": [
+            0.3325654864311218,
+            0.891228437423706,
+            1.4250000715255737
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "07240fa08f761590089ea6a366a990adf7003158d79f06cea0a4c87ab366624e",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.30256548523902893,
+            0.8612284064292908,
+            1.4010000228881836
+          ],
+          "max": [
+            0.3325654864311218,
+            0.891228437423706,
+            1.4250000715255737
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.015",
+      "widthM": 0.000600001192651689,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e2e198b0b4c277020d2bbccf44481301bd47fe64c961a5f5de7565dc0a6cca03",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            0.015750419348478317,
+            0.9164925813674927,
+            1.4010000228881836
+          ],
+          "max": [
+            0.04575042054057121,
+            0.946492612361908,
+            1.4250000715255737
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "df8c56f6946e930adc8aec1bf5f681af37a0e811ca8c465e4b9e833c0aec25a1",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            0.015750419348478317,
+            0.9164925813674927,
+            1.4010000228881836
+          ],
+          "max": [
+            0.04575042054057121,
+            0.946492612361908,
+            1.4250000715255737
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.016",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6801373a75cefa824763b3ec2d4bb5c9be248f50202d404a6dd52503d7127264",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.05692584812641144,
+            0.9160565733909607,
+            1.5760000944137573
+          ],
+          "max": [
+            -0.026925846934318542,
+            0.9460565447807312,
+            1.600000023841858
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "0cf7f8bd2bd0105357da7228db53c4cac0da8044e628b811994ad09bf4a65221",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.05692584812641144,
+            0.9160565733909607,
+            1.5760000944137573
+          ],
+          "max": [
+            -0.026925846934318542,
+            0.9460565447807312,
+            1.600000023841858
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.017",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "ba0c902a2fc7cbadfc706b55cd6c1bd09865d255044df333d62336d5f6c7df92",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.34305712580680847,
+            0.8573546409606934,
+            1.5760000944137573
+          ],
+          "max": [
+            -0.3130571246147156,
+            0.8873546719551086,
+            1.600000023841858
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "bb6bf5dbd5731bf458d2eb6a82349e5722575366e9dd127a8419c380ac1197f2",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.34305712580680847,
+            0.8573546409606934,
+            1.5760000944137573
+          ],
+          "max": [
+            -0.3130571246147156,
+            0.8873546719551086,
+            1.600000023841858
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.018",
+      "widthM": 0.000600001192651689,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "9c3266abac6f84e75b45ced77a686d319e0e894bdcf287ac197957646b3d9fa4",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.4100343585014343,
+            0.829139769077301,
+            1.7510000467300415
+          ],
+          "max": [
+            -0.38003435730934143,
+            0.8591397404670715,
+            1.7750000953674316
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "217b8f98626dc5f285bfbf974b368a28caf748d25f9b19b1bb813adcfb977254",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.4100343585014343,
+            0.829139769077301,
+            1.7510000467300415
+          ],
+          "max": [
+            -0.38003435730934143,
+            0.8591397404670715,
+            1.7750000953674316
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.019",
+      "widthM": 0.000600001192651689,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "1ebd7bca23b48998abc38fb934e0fe9d2895bfa4b27bcc016905f96d98d948d4",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.6519209146499634,
+            0.6654086112976074,
+            1.7510000467300415
+          ],
+          "max": [
+            -0.6219209432601929,
+            0.6954085826873779,
+            1.7750000953674316
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.024000048637390137
+          ]
+        }
+      },
+      "after": {
+        "sha256": "3a15aa4a5dddb171719e7c29210d9e0c380260144897994ba8c3892a1a78b3fb",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.6519209146499634,
+            0.6654086112976074,
+            1.7510000467300415
+          ],
+          "max": [
+            -0.6219209432601929,
+            0.6954085826873779,
+            1.7750000953674316
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.024000048637390137
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.020",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "4aca533131126bef64542b31d78119a3a31bc71107f3b745e6b3aec6f3fd9b2f",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.7030024528503418,
+            0.613710343837738,
+            1.9260001182556152
+          ],
+          "max": [
+            -0.6730024814605713,
+            0.6437103748321533,
+            1.9500000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "fc5695b50dd4482adbc95424291affa532c033ece101417b9ba048056e4d6e37",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.7030024528503418,
+            0.613710343837738,
+            1.9260001182556152
+          ],
+          "max": [
+            -0.6730024814605713,
+            0.6437103748321533,
+            1.9500000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.021",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "22be10e4fe8d7ed6e3e5f9ec5b7ea8f651a287184b55f46a26ac680c418a15ef",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.8638193011283875,
+            0.3698764741420746,
+            1.9260001182556152
+          ],
+          "max": [
+            -0.8338193297386169,
+            0.3998764753341675,
+            1.9500000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "146d2e9248a5540fff39f7e81b742aef19b7b2699f8bcffdfed6f6e9fb42ad36",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.8638193011283875,
+            0.3698764741420746,
+            1.9260001182556152
+          ],
+          "max": [
+            -0.8338193297386169,
+            0.3998764753341675,
+            1.9500000476837158
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.022",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "80a59b81670c1d23617d77ba3c29d82679b333a2b12c75895dfcdbe7caeedb20",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.891228437423706,
+            0.30256548523902893,
+            2.1010000705718994
+          ],
+          "max": [
+            -0.8612284064292908,
+            0.3325654864311218,
+            2.125
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "434735cff3abe779b53e36ca7536d13eb41a394c1d4208725c8d6273b3864ea6",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.891228437423706,
+            0.30256548523902893,
+            2.1010000705718994
+          ],
+          "max": [
+            -0.8612284064292908,
+            0.3325654864311218,
+            2.125
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.023",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2895082173f8d2ce580cfc6f9f3d1930ed8831f3c14a0458f76b9544567d2110",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.946492612361908,
+            0.015750419348478317,
+            2.1010000705718994
+          ],
+          "max": [
+            -0.9164925813674927,
+            0.04575042054057121,
+            2.125
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "36ac36baff7ff2da2fbe77a175c45ce5b0acbab62c5e0bb0053e921edd6f4efa",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.946492612361908,
+            0.015750419348478317,
+            2.1010000705718994
+          ],
+          "max": [
+            -0.9164925813674927,
+            0.04575042054057121,
+            2.125
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.024",
+      "widthM": 0.0006000042194500566,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "20af41a5eeedbfcd6021e7bed337b91d4ad31d42a61273afc9a6da50d2f517c8",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.9460565447807312,
+            -0.05692584812641144,
+            2.2760000228881836
+          ],
+          "max": [
+            -0.9160565733909607,
+            -0.026925846934318542,
+            2.3000001907348633
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.024000167846679688
+          ]
+        }
+      },
+      "after": {
+        "sha256": "077407b9ad4dd59d142cb9f76031c712f222332d35beb1b68de4eb0f16a29f1a",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.9460565447807312,
+            -0.05692584812641144,
+            2.2760000228881836
+          ],
+          "max": [
+            -0.9160565733909607,
+            -0.026925846934318542,
+            2.3000001907348633
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.024000167846679688
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.025",
+      "widthM": 0.0006000042194500566,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "8dc10613aca53222ab1dee994269eb945b2bb3ca0904eec9ef9fd839d083835c",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.8873546719551086,
+            -0.34305712580680847,
+            2.2760000228881836
+          ],
+          "max": [
+            -0.8573546409606934,
+            -0.3130571246147156,
+            2.3000001907348633
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.024000167846679688
+          ]
+        }
+      },
+      "after": {
+        "sha256": "4bd08816d66b105301f2cede5312ca66397ec5cda10c610d60feb0f2b7fc8d1c",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.8873546719551086,
+            -0.34305712580680847,
+            2.2760000228881836
+          ],
+          "max": [
+            -0.8573546409606934,
+            -0.3130571246147156,
+            2.3000001907348633
+          ],
+          "size": [
+            0.030000030994415283,
+            0.030000001192092896,
+            0.024000167846679688
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.026",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d3665cf82793d33755e12ba8f12f6e19db08d741d40ee1c7b6deb0341413d0ac",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.8591397404670715,
+            -0.4100343585014343,
+            2.451000213623047
+          ],
+          "max": [
+            -0.829139769077301,
+            -0.38003435730934143,
+            2.4750001430511475
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "a8992db3cf91febfe7ccf36b867863d78d4c038b2780bd354f16b3cf7be0d6a4",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.8591397404670715,
+            -0.4100343585014343,
+            2.451000213623047
+          ],
+          "max": [
+            -0.829139769077301,
+            -0.38003435730934143,
+            2.4750001430511475
+          ],
+          "size": [
+            0.029999971389770508,
+            0.030000001192092896,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.027",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "aba225397a92103d2bfa7a161bbd0859e17df799463609f71bdcf38f881700d8",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.6954085826873779,
+            -0.6519209146499634,
+            2.451000213623047
+          ],
+          "max": [
+            -0.6654086112976074,
+            -0.6219209432601929,
+            2.4750001430511475
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "b8a8600c79f137fa593c757da9f8e41a30ca73fb2b3268ce3f722ab2cbc151c5",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.6954085826873779,
+            -0.6519209146499634,
+            2.451000213623047
+          ],
+          "max": [
+            -0.6654086112976074,
+            -0.6219209432601929,
+            2.4750001430511475
+          ],
+          "size": [
+            0.029999971389770508,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.028",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d0ced447d05407c5338721ecb3c9e9521b77f6cb22491477d22cf78771a18156",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.6437103748321533,
+            -0.7030024528503418,
+            2.626000165939331
+          ],
+          "max": [
+            -0.613710343837738,
+            -0.6730024814605713,
+            2.6500000953674316
+          ],
+          "size": [
+            0.030000030994415283,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "442b0a97078eda4ab181cc2cbf6de12f7b7088f4dbebd93473864024d933426f",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.6437103748321533,
+            -0.7030024528503418,
+            2.626000165939331
+          ],
+          "max": [
+            -0.613710343837738,
+            -0.6730024814605713,
+            2.6500000953674316
+          ],
+          "size": [
+            0.030000030994415283,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.029",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3dbe9b262496952a4036df6e9f804c47675fb52f386f971911262fbee3898610",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.3998764753341675,
+            -0.8638193011283875,
+            2.626000165939331
+          ],
+          "max": [
+            -0.3698764741420746,
+            -0.8338193297386169,
+            2.6500000953674316
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d2f20b16f06ee868fa5fccd410a62f79cbbe267ebe1efab1734c4b56f2691dd2",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.3998764753341675,
+            -0.8638193011283875,
+            2.626000165939331
+          ],
+          "max": [
+            -0.3698764741420746,
+            -0.8338193297386169,
+            2.6500000953674316
+          ],
+          "size": [
+            0.030000001192092896,
+            0.029999971389770508,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.030",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "8f2cd9aae03fdad19623f45ecb07b3f52039e44e6acc0f618d5d433987b267ce",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.3325654864311218,
+            -0.891228437423706,
+            2.8010001182556152
+          ],
+          "max": [
+            -0.30256548523902893,
+            -0.8612284064292908,
+            2.825000047683716
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "66138fc5ec991f038ab9a957fe5b5b3d6f21a87718ee0d32b3f963ce28b7cb97",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.3325654864311218,
+            -0.891228437423706,
+            2.8010001182556152
+          ],
+          "max": [
+            -0.30256548523902893,
+            -0.8612284064292908,
+            2.825000047683716
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Baluster foot socket.031",
+      "widthM": 0.0005999982240609825,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3571612c22b0c1fa78187ba1767f3ea576563e6a3ba8bb0ee2ae013f5a781a2d",
+        "vertices": 32,
+        "triangles": 60,
+        "bounds": {
+          "min": [
+            -0.04575042054057121,
+            -0.946492612361908,
+            2.8010001182556152
+          ],
+          "max": [
+            -0.015750419348478317,
+            -0.9164925813674927,
+            2.825000047683716
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c8503fb08af8e2f8b425d690360071099ef4e6608feed625da81ea0695ab8b90",
+        "vertices": 128,
+        "triangles": 252,
+        "bounds": {
+          "min": [
+            -0.04575042054057121,
+            -0.946492612361908,
+            2.8010001182556152
+          ],
+          "max": [
+            -0.015750419348478317,
+            -0.9164925813674927,
+            2.825000047683716
+          ],
+          "size": [
+            0.030000001192092896,
+            0.030000030994415283,
+            0.023999929428100586
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "maple-lamella",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "oiled-maple",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "brushed-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "charcoal-details",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "maple-lamella",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "maple-lamella",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "maple-lamella",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "oiled-maple",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "oiled-maple",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "oiled-maple",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "brushed-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "maple-lamella",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "maple-lamella",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "oiled-maple",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "oiled-maple",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 2989420,
+    "afterBytes": 2989420,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/spiral-staircase.blend",
+      "sha256": "84a8c8cae1cc653d77f0cf1a7c2953ef907c57c22eb39e8ebd15150d5579aa31",
+      "bytes": 1244940
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/spiral-staircase.glb",
+      "sha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "bytes": 2989420
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/spiral-staircase/front-cfcc82026d6305db8192.webp",
+      "sha256": "cfcc82026d6305db819234c5d24a02a420f4351e2c1bcc1405d5f4945eca1c4d",
+      "bytes": 81660,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.791,
+      "camera": {
+        "orthoScale": 7.105501174926758,
+        "position": [
+          6.887032985687256,
+          -11.478388786315918,
+          8.163113594055176
+        ],
+        "target": [
+          0,
+          0,
+          1.8500001430511475
+        ],
+        "clipStart": 0.0037000002339482307,
+        "clipEnd": 44.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2876029312610626,
+            0.06521736830472946
+          ],
+          "max": [
+            0.7123970985412598,
+            0.9347822070121765
+          ]
+        }
+      },
+      "glbSha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "renderConfigSha256": "bf01bbfd78ef8178381518da8551088c3180e589fc13f92475f8dc66fd0f7960",
+      "inputSetSha256": "846348fb5ae61647ac25b236ebe531c8b1eea08147576d28a610587e7d4f4c49"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/spiral-staircase/rear-5f8c5ca1f3fa7d6b6b8a.webp",
+      "sha256": "5f8c5ca1f3fa7d6b6b8a2d812240bd53a2b2175edcefc9a83cbc37de2c336134",
+      "bytes": 82026,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.779,
+      "camera": {
+        "orthoScale": 7.105499744415283,
+        "position": [
+          -6.887032985687256,
+          11.478388786315918,
+          8.163113594055176
+        ],
+        "target": [
+          0,
+          0,
+          1.8500001430511475
+        ],
+        "clipStart": 0.0037000002339482307,
+        "clipEnd": 44.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.28760290145874023,
+            0.06521738320589066
+          ],
+          "max": [
+            0.7123970985412598,
+            0.9347822070121765
+          ]
+        }
+      },
+      "glbSha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "renderConfigSha256": "bf01bbfd78ef8178381518da8551088c3180e589fc13f92475f8dc66fd0f7960",
+      "inputSetSha256": "846348fb5ae61647ac25b236ebe531c8b1eea08147576d28a610587e7d4f4c49"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/spiral-staircase/detail-351d2dab583c6b00454c.webp",
+      "sha256": "351d2dab583c6b00454c13eb4de8aa1858afc4a20e220b9748ff3a381e2bbfa4",
+      "bytes": 115928,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.809,
+      "camera": {
+        "orthoScale": 3.908027410507202,
+        "position": [
+          6.887032985687256,
+          -11.478388786315918,
+          8.163113594055176
+        ],
+        "target": [
+          0,
+          0,
+          1.8500001430511475
+        ],
+        "clipStart": 0.0037000002339482307,
+        "clipEnd": 44.400001525878906,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.2876030504703522,
+            0.06521739810705185
+          ],
+          "max": [
+            0.7123969793319702,
+            0.9347817897796631
+          ]
+        }
+      },
+      "glbSha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "renderConfigSha256": "bf01bbfd78ef8178381518da8551088c3180e589fc13f92475f8dc66fd0f7960",
+      "inputSetSha256": "846348fb5ae61647ac25b236ebe531c8b1eea08147576d28a610587e7d4f4c49"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/spiral-staircase/underside-1adfa425701666c9f386.webp",
+      "sha256": "1adfa425701666c9f386a38e2719665dcd6230640932fc20e0bca9110b43a9c0",
+      "bytes": 52520,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.686,
+      "camera": {
+        "orthoScale": 7.162165641784668,
+        "position": [
+          6.770936965942383,
+          -11.284894943237305,
+          -4.9209370613098145
+        ],
+        "target": [
+          0,
+          0,
+          1.8500001430511475
+        ],
+        "clipStart": 0.0037000002339482307,
+        "clipEnd": 44.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.28928327560424805,
+            0.06521754711866379
+          ],
+          "max": [
+            0.7107165455818176,
+            0.9347826838493347
+          ]
+        }
+      },
+      "glbSha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "renderConfigSha256": "bf01bbfd78ef8178381518da8551088c3180e589fc13f92475f8dc66fd0f7960",
+      "inputSetSha256": "846348fb5ae61647ac25b236ebe531c8b1eea08147576d28a610587e7d4f4c49"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/spiral-staircase/clay-86c3d7aafc0834a9230a.webp",
+      "sha256": "86c3d7aafc0834a9230abddfd8c1137d4da634ad3cc32980b9ecc245626fa63e",
+      "bytes": 57006,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.792,
+      "camera": {
+        "orthoScale": 7.105501174926758,
+        "position": [
+          6.887032985687256,
+          -11.478388786315918,
+          8.163113594055176
+        ],
+        "target": [
+          0,
+          0,
+          1.8500001430511475
+        ],
+        "clipStart": 0.0037000002339482307,
+        "clipEnd": 44.400001525878906,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2876029312610626,
+            0.06521736830472946
+          ],
+          "max": [
+            0.7123970985412598,
+            0.9347822070121765
+          ]
+        }
+      },
+      "glbSha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "renderConfigSha256": "bf01bbfd78ef8178381518da8551088c3180e589fc13f92475f8dc66fd0f7960",
+      "inputSetSha256": "846348fb5ae61647ac25b236ebe531c8b1eea08147576d28a610587e7d4f4c49"
+    }
+  ],
+  "timingSeconds": 4.68,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          1.100000023841858,
+          1.100000023841858,
+          3.700000286102295
+        ],
+        "min": [
+          -1.100000023841858,
+          -1.100000023841858,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "renderImportSha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[1.100000023841858,1.100000023841858,3.700000286102295],\"min\":[-1.100000023841858,-1.100000023841858,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c\",\"renderImportSha256\":\"bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "bf01bbfd78ef8178381518da8551088c3180e589fc13f92475f8dc66fd0f7960",
+    "inputs": [
+      {
+        "path": "assets-source/blender/spiral-staircase.blend",
+        "sha256": "e37ad554edcfb10dccefa632a9137549d70effb7737bc85915cb097830791a01",
+        "bytes": 287145
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/spiral-staircase.blend",
+        "sha256": "84a8c8cae1cc653d77f0cf1a7c2953ef907c57c22eb39e8ebd15150d5579aa31",
+        "bytes": 1244940
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/spiral-staircase/brushed-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/spiral-staircase/maple-lamella-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/spiral-staircase/oiled-maple-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/spiral-staircase.glb",
+        "sha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+        "bytes": 2989420
+      },
+      {
+        "path": "public/models/furniture/spiral-staircase.glb",
+        "sha256": "cac7f65f0b5e1302bd4e1bdfcba4a623e983c0925506349fd1cc18b829135950",
+        "bytes": 663804
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-roughness.jpg",
+        "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+        "bytes": 464458
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "846348fb5ae61647ac25b236ebe531c8b1eea08147576d28a610587e7d4f4c49",
+    "afterSha256": "846348fb5ae61647ac25b236ebe531c8b1eea08147576d28a610587e7d4f4c49"
+  },
+  "formatValidation": {
+    "sha256": "bcbc2066f15d8d58787e0e3dc85f52891004c242e94d01fe848b40537cb8ca4c",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 5,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "a1957dbf1551708a70d21154e5059e3b4895a34cba6b77fd3d68ba9e838a3047",
+    "views": {
+      "front": "Wedge-shaped wood treads wrap around a central steel column.",
+      "rear": "Curved handrail follows the rising outer edge.",
+      "detail": "Individual balusters meet the treads and the spiral handrail.",
+      "underside": "Central column and tread supports remain connected.",
+      "clay": "Continuous helical stair construction reads clearly from both sides."
+    }
+  }
+}

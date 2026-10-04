@@ -1,0 +1,1835 @@
+{
+  "version": 1,
+  "catalogId": "bar-stool",
+  "inputContractSha256": "902a064a425408b86396aed0e6bd12016a357808bc6edf17e4d5f56a143bc37d",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/bar-stool.blend",
+      "sha256": "fa90563f14c53fb3e37355f67f6fe595485a24cca9c88503d3acb12af1aeb189",
+      "bytes": 136744
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/bar-stool.glb",
+      "sha256": "7ac78c4588efafe3b9bc4e2c6b2c1f771cb462202b183a3a6c34269c4a9b29ba",
+      "bytes": 138212
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/bar-stool.json",
+      "sha256": "48559eff07f88c6e99c112fa5b4a8409ef5a05d11d6211652956050d4a1d3efd",
+      "bytes": 83
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/bar-stool.py",
+      "sha256": "fc8784958dda73a5b768edb47a091b6c39166696f91cb994bcd2ed3cf05d3137",
+      "bytes": 2432
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/bar-stool.py",
+      "sha256": "fc8784958dda73a5b768edb47a091b6c39166696f91cb994bcd2ed3cf05d3137",
+      "bytes": 2432
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/bar-stool.json",
+      "sha256": "48559eff07f88c6e99c112fa5b4a8409ef5a05d11d6211652956050d4a1d3efd",
+      "bytes": 83
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/bar-stool.blend",
+      "sha256": "fa90563f14c53fb3e37355f67f6fe595485a24cca9c88503d3acb12af1aeb189",
+      "bytes": 136744
+    },
+    {
+      "path": "public/models/furniture/bar-stool.glb",
+      "sha256": "7ac78c4588efafe3b9bc4e2c6b2c1f771cb462202b183a3a6c34269c4a9b29ba",
+      "bytes": 138212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/bar-stool.py",
+      "sha256": "fc8784958dda73a5b768edb47a091b6c39166696f91cb994bcd2ed3cf05d3137",
+      "bytes": 2432
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/bar-stool.json",
+      "sha256": "48559eff07f88c6e99c112fa5b4a8409ef5a05d11d6211652956050d4a1d3efd",
+      "bytes": 83
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "tailored-seat",
+      "component": "tailored_seat_cushion",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "f6812c4bd63dc32d37120e66c07acc7e2a2ee5b43a2b9dd0da9b4927c6f3463a",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.19111591577529907,
+            -0.20332202315330505,
+            0.27408725023269653
+          ],
+          "max": [
+            0.19111591577529907,
+            0.14612142741680145,
+            0.39536482095718384
+          ],
+          "size": [
+            0.38223183155059814,
+            0.3494434505701065,
+            0.1212775707244873
+          ]
+        }
+      },
+      "after": {
+        "sha256": "a16a676b011cc387632b266117cd161d671e49c224cf326e2511d0d17231f551",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.19111591577529907,
+            -0.20332202315330505,
+            0.27408725023269653
+          ],
+          "max": [
+            0.19111591577529907,
+            0.14612141251564026,
+            0.39536482095718384
+          ],
+          "size": [
+            0.38223183155059814,
+            0.3494434356689453,
+            0.1212775707244873
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "tailored-back",
+      "component": "tailored_back_cushion",
+      "details": "Closed cover fitted to original world boundaries; source UV layers retained and matching tailoring conformed separately.",
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a0e343a9fdabd7f05ad007faf38a76faa565dd1aad97afea02258de5e755b298",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.19111591577529907,
+            0.04086136817932129,
+            0.40303006768226624
+          ],
+          "max": [
+            0.19111591577529907,
+            0.20999999344348907,
+            0.7200000286102295
+          ],
+          "size": [
+            0.38223183155059814,
+            0.16913862526416779,
+            0.31696996092796326
+          ]
+        }
+      },
+      "after": {
+        "sha256": "8f3664a764d8b94857de13dc49b57164eb583fc593c66dbea5c5c409462ad00b",
+        "vertices": 2690,
+        "triangles": 5376,
+        "bounds": {
+          "min": [
+            -0.19111591577529907,
+            0.04086136817932129,
+            0.4030300974845886
+          ],
+          "max": [
+            0.19111591577529907,
+            0.21000000834465027,
+            0.7200000286102295
+          ],
+          "size": [
+            0.38223183155059814,
+            0.16913864016532898,
+            0.31696993112564087
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "conformed-existing-tailoring",
+      "component": "seat_double_welt",
+      "matchedPadVertices": {
+        "tailored_seat_cushion": 192
+      },
+      "transportedSections": 24,
+      "untouchedSections": 0,
+      "maxDisplacementM": 0.02442799766523993,
+      "edgeLengthRatioRange": [
+        0.31281594979183097,
+        2.4518742305167764
+      ],
+      "pillowAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "seatAttachment": {
+        "seatedSections": 0,
+        "maxOriginalSurfaceDistanceM": 0,
+        "surfaceOffsetRangeM": []
+      },
+      "topologyRefinement": null,
+      "preservedChannels": [
+        "topology",
+        "material keys",
+        "UV layers",
+        "thin section radius"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "03cf594bd57ebc41b0a633ce85d34d9d9f4a334fb0531e1f33791a3dc1c055a4",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.18155422806739807,
+            -0.19467222690582275,
+            0.37850722670555115
+          ],
+          "max": [
+            0.18155422806739807,
+            0.13747161626815796,
+            0.3819029629230499
+          ],
+          "size": [
+            0.36310845613479614,
+            0.3321438431739807,
+            0.0033957362174987793
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7733aa6daa9b32729049a27a29215b449caffed1ea4d15a098fe5245dba6c7e7",
+        "vertices": 192,
+        "triangles": 384,
+        "bounds": {
+          "min": [
+            -0.17965476214885712,
+            -0.18708175420761108,
+            0.35888364911079407
+          ],
+          "max": [
+            0.17832376062870026,
+            0.13159221410751343,
+            0.3760145902633667
+          ],
+          "size": [
+            0.3579785227775574,
+            0.3186739683151245,
+            0.017130941152572632
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0.01962357759475708
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "newComponent": "detail_stool_back_mount_1",
+      "construction": "back-mount",
+      "materialKey": "modern-brushed-aluminum",
+      "sourceComponents": [
+        "structural_seat_pan",
+        "tailored_back_cushion"
+      ],
+      "attachmentCentersM": [
+        [
+          -0.14,
+          0.126,
+          0.309
+        ],
+        [
+          -0.14,
+          0.168,
+          0.49
+        ]
+      ],
+      "endpointSurfaceDistancesM": [
+        0.012788689695298672,
+        0.02441326342523098
+      ],
+      "endpointsInsideOriginals": true,
+      "candidateVertices": 400,
+      "boundsM": {
+        "min": [
+          -0.14900000000000005,
+          0.11879955681398777,
+          0.3036005909652065
+        ],
+        "max": [
+          -0.13099999999999998,
+          0.1819171199860899,
+          0.49192779099974004
+        ]
+      },
+      "preserved": [
+        "all original components, material slots, UVs and overall dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "newComponent": "detail_stool_back_mount_2",
+      "construction": "back-mount",
+      "materialKey": "modern-brushed-aluminum",
+      "sourceComponents": [
+        "structural_seat_pan",
+        "tailored_back_cushion"
+      ],
+      "attachmentCentersM": [
+        [
+          0.14,
+          0.126,
+          0.309
+        ],
+        [
+          0.14,
+          0.168,
+          0.49
+        ]
+      ],
+      "endpointSurfaceDistancesM": [
+        0.012788711115717888,
+        0.02444211021065712
+      ],
+      "endpointsInsideOriginals": true,
+      "candidateVertices": 400,
+      "boundsM": {
+        "min": [
+          0.13099999999999998,
+          0.11879955681398777,
+          0.3036005909652065
+        ],
+        "max": [
+          0.14900000000000005,
+          0.1819171199860899,
+          0.49192779099974004
+        ]
+      },
+      "preserved": [
+        "all original components, material slots, UVs and overall dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "newComponent": "detail_stool_footrest_brace_3",
+      "construction": "footrest-brace",
+      "materialKey": "modern-brushed-aluminum",
+      "sourceComponents": [
+        "footrest",
+        "aluminum_foot"
+      ],
+      "attachmentCentersM": [
+        [
+          -0.11148998140876723,
+          -0.11520032086641156,
+          0.14058493077754974
+        ],
+        [
+          -0.18156012892723083,
+          -0.18263129889965057,
+          0.14058493077754974
+        ]
+      ],
+      "endpointSurfaceDistancesM": [
+        0.014185070991516113,
+        0.02397698350250721
+      ],
+      "endpointsInsideOriginals": true,
+      "candidateVertices": 32,
+      "boundsM": {
+        "min": [
+          -0.18710738491574105,
+          -0.18839566798897314,
+          0.13258493077754974
+        ],
+        "max": [
+          -0.10594272542025701,
+          -0.109435951777089,
+          0.14858493077754975
+        ]
+      },
+      "preserved": [
+        "all original components, material slots, UVs and overall dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "newComponent": "detail_stool_footrest_brace_4",
+      "construction": "footrest-brace",
+      "materialKey": "modern-brushed-aluminum",
+      "sourceComponents": [
+        "footrest",
+        "aluminum_foot.001"
+      ],
+      "attachmentCentersM": [
+        [
+          -0.11148998140876723,
+          0.09938117363721692,
+          0.14058493077754974
+        ],
+        [
+          -0.18156012892723083,
+          0.16681215167045593,
+          0.14058493077754974
+        ]
+      ],
+      "endpointSurfaceDistancesM": [
+        0.014185083098709583,
+        0.02397698350250721
+      ],
+      "endpointsInsideOriginals": true,
+      "candidateVertices": 32,
+      "boundsM": {
+        "min": [
+          -0.18710738491574105,
+          0.09361680454789435,
+          0.13258493077754974
+        ],
+        "max": [
+          -0.10594272542025701,
+          0.1725765207597785,
+          0.14858493077754975
+        ]
+      },
+      "preserved": [
+        "all original components, material slots, UVs and overall dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "newComponent": "detail_stool_footrest_brace_5",
+      "construction": "footrest-brace",
+      "materialKey": "modern-brushed-aluminum",
+      "sourceComponents": [
+        "footrest",
+        "aluminum_foot.002"
+      ],
+      "attachmentCentersM": [
+        [
+          0.11148998140876723,
+          -0.11520032086641155,
+          0.14058493077754974
+        ],
+        [
+          0.18156012892723083,
+          -0.18263129889965057,
+          0.14058493077754974
+        ]
+      ],
+      "endpointSurfaceDistancesM": [
+        0.014185082167387009,
+        0.02397698350250721
+      ],
+      "endpointsInsideOriginals": true,
+      "candidateVertices": 32,
+      "boundsM": {
+        "min": [
+          0.10594272542025701,
+          -0.18839566798897314,
+          0.13258493077754974
+        ],
+        "max": [
+          0.18710738491574105,
+          -0.10943595177708898,
+          0.14858493077754975
+        ]
+      },
+      "preserved": [
+        "all original components, material slots, UVs and overall dimensions"
+      ]
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "newComponent": "detail_stool_footrest_brace_6",
+      "construction": "footrest-brace",
+      "materialKey": "modern-brushed-aluminum",
+      "sourceComponents": [
+        "footrest",
+        "aluminum_foot.003"
+      ],
+      "attachmentCentersM": [
+        [
+          0.11148998140876723,
+          0.09938117363721691,
+          0.14058493077754974
+        ],
+        [
+          0.18156012892723083,
+          0.16681215167045593,
+          0.14058493077754974
+        ]
+      ],
+      "endpointSurfaceDistancesM": [
+        0.014185084961354733,
+        0.02397698350250721
+      ],
+      "endpointsInsideOriginals": true,
+      "candidateVertices": 32,
+      "boundsM": {
+        "min": [
+          0.10594272542025701,
+          0.09361680454789434,
+          0.13258493077754974
+        ],
+        "max": [
+          0.18710738491574105,
+          0.1725765207597785,
+          0.14858493077754975
+        ]
+      },
+      "preserved": [
+        "all original components, material slots, UVs and overall dimensions"
+      ]
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-brushed-aluminum",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-recess-charcoal",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "modern-tailored-welting",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-brushed-aluminum",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "modern-tailored-welting",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 2142228,
+    "afterBytes": 2142228,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/bar-stool.blend",
+      "sha256": "49335fa82c5c59573b49ccf40a6d94515f14b829ff1ed82363eac5a75ec40732",
+      "bytes": 1966878
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/bar-stool.glb",
+      "sha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+      "bytes": 2142228
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/bar-stool/front-78b6da294fa1220b6be3.webp",
+      "sha256": "78b6da294fa1220b6be360a5cd21bed2e96c249d878a99ad35cc02e9cee6aaf6",
+      "bytes": 69446,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.783,
+      "camera": {
+        "orthoScale": 1.3754162788391113,
+        "position": [
+          1.3401793241500854,
+          -2.2336323261260986,
+          1.5884977579116821
+        ],
+        "target": [
+          0,
+          7.450580596923828e-9,
+          0.36000001430511475
+        ],
+        "clipStart": 0.0007200000109151006,
+        "clipEnd": 8.640000343322754,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.29052332043647766,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7094767093658447,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+      "renderConfigSha256": "220356d0792b1186b950be6fbf8d8a9803f6668574de666f63656a0700214ea0",
+      "inputSetSha256": "6bda2bf5520048c5b8b9bbd73f17a79d5c7aa14d0e1214e0567961182ac93c2b"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/bar-stool/rear-38483eae0185daf59785.webp",
+      "sha256": "38483eae0185daf597857e396026502b47ba97ea35d7dd445499e1ed289b04d5",
+      "bytes": 67794,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.779,
+      "camera": {
+        "orthoScale": 1.3754162788391113,
+        "position": [
+          -1.3401793241500854,
+          2.2336323261260986,
+          1.5884977579116821
+        ],
+        "target": [
+          0,
+          7.450580596923828e-9,
+          0.36000001430511475
+        ],
+        "clipStart": 0.0007200000109151006,
+        "clipEnd": 8.640000343322754,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.29052332043647766,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7094766497612,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+      "renderConfigSha256": "220356d0792b1186b950be6fbf8d8a9803f6668574de666f63656a0700214ea0",
+      "inputSetSha256": "6bda2bf5520048c5b8b9bbd73f17a79d5c7aa14d0e1214e0567961182ac93c2b"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/bar-stool/detail-1f3cf222132f9e16abae.webp",
+      "sha256": "1f3cf222132f9e16abae10ce7277737de4d9b90016c143d553af8b5fc6a3bd36",
+      "bytes": 99204,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.795,
+      "camera": {
+        "orthoScale": 0.7564794421195984,
+        "position": [
+          1.3401793241500854,
+          -2.2336323261260986,
+          1.5884977579116821
+        ],
+        "target": [
+          0,
+          7.450580596923828e-9,
+          0.36000001430511475
+        ],
+        "clipStart": 0.0007200000109151006,
+        "clipEnd": 8.640000343322754,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.2905234694480896,
+            0.06521739810705185
+          ],
+          "max": [
+            0.7094765901565552,
+            0.934781551361084
+          ]
+        }
+      },
+      "glbSha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+      "renderConfigSha256": "220356d0792b1186b950be6fbf8d8a9803f6668574de666f63656a0700214ea0",
+      "inputSetSha256": "6bda2bf5520048c5b8b9bbd73f17a79d5c7aa14d0e1214e0567961182ac93c2b"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/bar-stool/underside-094c411c79a3dc72bb01.webp",
+      "sha256": "094c411c79a3dc72bb017fae85d1ecc2a4ea763b64a93b8d3af3b7b5e7b994c9",
+      "bytes": 38278,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.674,
+      "camera": {
+        "orthoScale": 1.385914921760559,
+        "position": [
+          1.3175877332687378,
+          -2.195979595184326,
+          -0.9575876593589783
+        ],
+        "target": [
+          0,
+          7.450580596923828e-9,
+          0.36000001430511475
+        ],
+        "clipStart": 0.0007200000109151006,
+        "clipEnd": 8.640000343322754,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.2921101748943329,
+            0.06521742045879364
+          ],
+          "max": [
+            0.7078897953033447,
+            0.9347825646400452
+          ]
+        }
+      },
+      "glbSha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+      "renderConfigSha256": "220356d0792b1186b950be6fbf8d8a9803f6668574de666f63656a0700214ea0",
+      "inputSetSha256": "6bda2bf5520048c5b8b9bbd73f17a79d5c7aa14d0e1214e0567961182ac93c2b"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/bar-stool/clay-faa1cdda79b643044fb3.webp",
+      "sha256": "faa1cdda79b643044fb3e051023a96a6b2d64c82456d0745511a105bee089c1c",
+      "bytes": 58590,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.785,
+      "camera": {
+        "orthoScale": 1.3754162788391113,
+        "position": [
+          1.3401793241500854,
+          -2.2336323261260986,
+          1.5884977579116821
+        ],
+        "target": [
+          0,
+          7.450580596923828e-9,
+          0.36000001430511475
+        ],
+        "clipStart": 0.0007200000109151006,
+        "clipEnd": 8.640000343322754,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.29052332043647766,
+            0.06521739065647125
+          ],
+          "max": [
+            0.7094767093658447,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+      "renderConfigSha256": "220356d0792b1186b950be6fbf8d8a9803f6668574de666f63656a0700214ea0",
+      "inputSetSha256": "6bda2bf5520048c5b8b9bbd73f17a79d5c7aa14d0e1214e0567961182ac93c2b"
+    }
+  ],
+  "timingSeconds": 3.92,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.20999999344348907,
+          0.21000000834465027,
+          0.7200000286102295
+        ],
+        "min": [
+          -0.20999999344348907,
+          -0.20999999344348907,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 2,
+          "materialKey": "upholstery-textured",
+          "rawGlbBaseColorFactor": [
+            0.8100000023841858,
+            0.8399999737739563,
+            0.8399999737739563,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+      "renderImportSha256": "c8619afc42705821eeada9ff78baebba6e698213fba4bdd2e4fd11625c93f1c5",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.20999999344348907,0.21000000834465027,0.7200000286102295],\"min\":[-0.20999999344348907,-0.20999999344348907,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":2,\"materialKey\":\"upholstery-textured\",\"rawGlbBaseColorFactor\":[0.8100000023841858,0.8399999737739563,0.8399999737739563,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2\",\"renderImportSha256\":\"c8619afc42705821eeada9ff78baebba6e698213fba4bdd2e4fd11625c93f1c5\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "220356d0792b1186b950be6fbf8d8a9803f6668574de666f63656a0700214ea0",
+    "inputs": [
+      {
+        "path": "assets-source/blender/bar-stool.blend",
+        "sha256": "fa90563f14c53fb3e37355f67f6fe595485a24cca9c88503d3acb12af1aeb189",
+        "bytes": 136744
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/bar-stool.blend",
+        "sha256": "49335fa82c5c59573b49ccf40a6d94515f14b829ff1ed82363eac5a75ec40732",
+        "bytes": 1966878
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bar-stool/modern-brushed-aluminum-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bar-stool/modern-tailored-welting-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bar-stool/upholstery-textured-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/bar-stool.glb",
+        "sha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+        "bytes": 2142228
+      },
+      {
+        "path": "public/models/furniture/bar-stool.glb",
+        "sha256": "7ac78c4588efafe3b9bc4e2c6b2c1f771cb462202b183a3a6c34269c4a9b29ba",
+        "bytes": 138212
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/bar-stool.json",
+        "sha256": "48559eff07f88c6e99c112fa5b4a8409ef5a05d11d6211652956050d4a1d3efd",
+        "bytes": 83
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/bar-stool.py",
+        "sha256": "fc8784958dda73a5b768edb47a091b6c39166696f91cb994bcd2ed3cf05d3137",
+        "bytes": 2432
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+        "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+        "bytes": 14306
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "6bda2bf5520048c5b8b9bbd73f17a79d5c7aa14d0e1214e0567961182ac93c2b",
+    "afterSha256": "6bda2bf5520048c5b8b9bbd73f17a79d5c7aa14d0e1214e0567961182ac93c2b"
+  },
+  "formatValidation": {
+    "sha256": "65fffbc7aaf62460e5325bf7ab19e38572a85d7161c086a3f2f2396cae651ff2",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 9,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/2"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/3"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/4"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/5"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "1137d8d69202d74d8fc80d0e1b719dd0acd1f6dbb871bba944f502b54cb6001a",
+    "views": {
+      "front": "The back cushion and circular footrest now have visible metal connections; the original upholstered stool silhouette is retained.",
+      "rear": "Full-size rear confirms two mounts connect the seat structure into the back, with the foot ring braced to all four legs.",
+      "detail": "Ring joints and the metal frame read coherently. Localized white cover puckering at the front corners remains a modest limitation, not an unsupported part.",
+      "underside": "The ring braces connect within the four-legged base; all glides and the closed seat underside remain present.",
+      "clay": "Uncolored view confirms actual back and ring support geometry, a visible construction improvement at application scale."
+    }
+  }
+}

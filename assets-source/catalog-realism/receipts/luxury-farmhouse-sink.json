@@ -1,0 +1,1812 @@
+{
+  "version": 1,
+  "catalogId": "luxury-farmhouse-sink",
+  "inputContractSha256": "b563a138a23d89fd2ea473e7f9586a193c39a5f1396fa2c644b109e67026c5eb",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/luxury-farmhouse-sink.blend",
+      "sha256": "9c5aeeb493d3d3734b7571edfb241f635b26c8c499c8e99f6b438078ba79ecd8",
+      "bytes": 174275
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/luxury-farmhouse-sink.glb",
+      "sha256": "ac22ff66cd25a42221d143fc9775a2239e927bbaa8a1f1baa3b49ccf8dc17881",
+      "bytes": 348656
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/luxury-farmhouse-sink.blend",
+      "sha256": "9c5aeeb493d3d3734b7571edfb241f635b26c8c499c8e99f6b438078ba79ecd8",
+      "bytes": 174275
+    },
+    {
+      "path": "public/models/furniture/luxury-farmhouse-sink.glb",
+      "sha256": "ac22ff66cd25a42221d143fc9775a2239e927bbaa8a1f1baa3b49ccf8dc17881",
+      "bytes": 348656
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "edge-construction",
+      "component": "Cabinet pull standoff",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "59780b52b41c29c85a5e3d08db4d624cb172bf099c7a2676d70d3940cd1ac0dc",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            -0.36000001430511475,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            -0.34200000762939453,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "after": {
+        "sha256": "15ae5f81bc25045c0b55d08775ba8624dd23a7e549939f0d758d1c3336a9bf14",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            -0.36000001430511475,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            -0.34200000762939453,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Cabinet pull standoff.001",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "43b61d4184aa201517ed4890dcfee29a0062ec474fa4bd3530108ae6c12970dc",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            -0.0990000069141388,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            -0.08100000023841858,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e9da8034b0146eb3dfc663c89201ff929e7a81f0ebd6f5106af0d8d12c85ef4d",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            -0.0990000069141388,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            -0.08100000023841858,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Cabinet pull bar",
+      "widthM": 0.0005643985932692885,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2c9da14e8eb7c429ade703f47252dbd3a1814e46ceee56bd4a258baca2a4701b",
+        "vertices": 48,
+        "triangles": 92,
+        "bounds": {
+          "min": [
+            -0.36250001192092896,
+            -0.32499998807907104,
+            0.6016755700111389
+          ],
+          "max": [
+            -0.07850000262260437,
+            -0.30242404341697693,
+            0.6258231401443481
+          ],
+          "size": [
+            0.2840000092983246,
+            0.022575944662094116,
+            0.02414757013320923
+          ]
+        }
+      },
+      "after": {
+        "sha256": "78f41d0109de5629674f70971f92ec0bde6fe24aef9d848aa690e777c6172fd3",
+        "vertices": 192,
+        "triangles": 380,
+        "bounds": {
+          "min": [
+            -0.36250001192092896,
+            -0.32499998807907104,
+            0.6016755700111389
+          ],
+          "max": [
+            -0.07850000262260437,
+            -0.30242404341697693,
+            0.6258231401443481
+          ],
+          "size": [
+            0.2840000092983246,
+            0.022575944662094116,
+            0.02414757013320923
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Cabinet pull standoff.002",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "6eacf00beab79628c0ed2a2ee6e31f99a282a3a8b8fa8bcc417c274617af754d",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            0.08100000023841858,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            0.0990000069141388,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "after": {
+        "sha256": "a7059c08b8fb0182419b6de118993a6940e707e1f07d8ba6cb59c0b1ec1250ef",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            0.08100000023841858,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            0.0990000069141388,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Cabinet pull standoff.003",
+      "widthM": 0.00045000016689300537,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "947cca368f8dc7a3548b4e8fe9a3697387c9aaf00cea25ecea77862932066166",
+        "vertices": 40,
+        "triangles": 76,
+        "bounds": {
+          "min": [
+            0.34200000762939453,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            0.36000001430511475,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "after": {
+        "sha256": "82473a572a7536607302b360457b8644146e80b78f58088ceea61515d0313ff5",
+        "vertices": 160,
+        "triangles": 316,
+        "bounds": {
+          "min": [
+            0.34200000762939453,
+            -0.3141823709011078,
+            0.6046940684318542
+          ],
+          "max": [
+            0.36000001430511475,
+            -0.28125905990600586,
+            0.6228047013282776
+          ],
+          "size": [
+            0.018000006675720215,
+            0.03292331099510193,
+            0.01811063289642334
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Cabinet pull bar.001",
+      "widthM": 0.0005643985932692885,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d485a9daae4025b68696dffff9b00c51f26c2bfdb88c70f6950baeb2fc57d875",
+        "vertices": 48,
+        "triangles": 92,
+        "bounds": {
+          "min": [
+            0.07850000262260437,
+            -0.32499998807907104,
+            0.6016755700111389
+          ],
+          "max": [
+            0.36250001192092896,
+            -0.30242404341697693,
+            0.6258231401443481
+          ],
+          "size": [
+            0.2840000092983246,
+            0.022575944662094116,
+            0.02414757013320923
+          ]
+        }
+      },
+      "after": {
+        "sha256": "03844b13d4cd7a25825e438b72afb91d6eaf4bfff94a8873321f0a49e900a762",
+        "vertices": 192,
+        "triangles": 380,
+        "bounds": {
+          "min": [
+            0.07850000262260437,
+            -0.32499998807907104,
+            0.6016755700111389
+          ],
+          "max": [
+            0.36250001192092896,
+            -0.30242404341697693,
+            0.6258231401443481
+          ],
+          "size": [
+            0.2840000092983246,
+            0.022575944662094116,
+            0.02414757013320923
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Deep recessed basin",
+      "widthM": 0.0012000000569969416,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "85d542ac5dd5681b8f44b45cb96e1b36ab331ace18e1263258c58310d0c78122",
+        "vertices": 160,
+        "triangles": 278,
+        "bounds": {
+          "min": [
+            -0.3700000047683716,
+            -0.19612880051136017,
+            0.6892103552818298
+          ],
+          "max": [
+            0.3700000047683716,
+            0.20835743844509125,
+            0.9105625748634338
+          ],
+          "size": [
+            0.7400000095367432,
+            0.4044862389564514,
+            0.221352219581604
+          ]
+        }
+      },
+      "after": {
+        "sha256": "04629c0e800ff2231a5dcd7f6027377503d662e56222f8968d8ba1cc889a5888",
+        "vertices": 284,
+        "triangles": 526,
+        "bounds": {
+          "min": [
+            -0.3700000047683716,
+            -0.19612880051136017,
+            0.6892103552818298
+          ],
+          "max": [
+            0.3700000047683716,
+            0.20835743844509125,
+            0.9105625748634338
+          ],
+          "size": [
+            0.7400000095367432,
+            0.4044862389564514,
+            0.221352219581604
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "edge-construction",
+      "component": "Faucet base",
+      "widthM": 0.00035215317620895803,
+      "segments": 3,
+      "angleDegrees": 55,
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a172389827fe34b9e61d73bd5fa7e093221c6913e3427053bc3c238316db4fa4",
+        "vertices": 64,
+        "triangles": 124,
+        "bounds": {
+          "min": [
+            -0.02500000037252903,
+            0.21682342886924744,
+            0.9155932664871216
+          ],
+          "max": [
+            0.02500000037252903,
+            0.2638567090034485,
+            0.9296793937683105
+          ],
+          "size": [
+            0.05000000074505806,
+            0.04703328013420105,
+            0.014086127281188965
+          ]
+        }
+      },
+      "after": {
+        "sha256": "69ebabbb894097f797993879f627fb559bbb60facf327835e200f1b4f05b29af",
+        "vertices": 256,
+        "triangles": 508,
+        "bounds": {
+          "min": [
+            -0.02500000037252903,
+            0.21682342886924744,
+            0.9155932664871216
+          ],
+          "max": [
+            0.02500000037252903,
+            0.2638567090034485,
+            0.9296793937683105
+          ],
+          "size": [
+            0.05000000074505806,
+            0.04703328013420105,
+            0.014086127281188965
+          ]
+        }
+      },
+      "maxBoundsDriftM": 0
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "polished-chrome-trim",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "porcelain-white",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "export-only-realism-uv-repair",
+      "catalogId": "luxury-farmhouse-sink",
+      "layer": "RealismUV",
+      "triangleCount": 1,
+      "components": [
+        {
+          "component": "Deep recessed basin",
+          "materialKey": "porcelain-white",
+          "triangleCount": 1,
+          "sourceTriangles": [
+            127
+          ]
+        }
+      ],
+      "details": "Only collapsed evaluated RealismUV triangles reprojected in part-local metres; original UV0, healthy UVs and editable modifiers retained."
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "black-enamel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "black-enamel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "countertop-surface",
+      "profile": null,
+      "protectedReason": "runtime-selected finish; adding fixed normals would conflict with user finish",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "polished-chrome-trim",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "polished-chrome-trim",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "porcelain-white",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "porcelain-white",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "porcelain-white",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "black-enamel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "black-enamel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "polished-chrome-trim",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "porcelain-white",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "porcelain-white",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 1153736,
+    "afterBytes": 1153736,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/luxury-farmhouse-sink.blend",
+      "sha256": "7914c59ba43955ae0af0562dc4dde760d43b1baa4295463055c090d3e8894d31",
+      "bytes": 357267
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/luxury-farmhouse-sink.glb",
+      "sha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+      "bytes": 1153736
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/luxury-farmhouse-sink/front-bf331751c702d655945e.webp",
+      "sha256": "bf331751c702d655945e07ec1d935449934369773fa70f414949bf1e024473b9",
+      "bytes": 67148,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.784,
+      "camera": {
+        "orthoScale": 2.4009621143341064,
+        "position": [
+          2.326700210571289,
+          -3.877833604812622,
+          2.7578084468841553
+        ],
+        "target": [
+          0,
+          0,
+          0.625
+        ],
+        "clipStart": 0.0012499999720603228,
+        "clipEnd": 15,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.26964110136032104,
+            0.06521742790937424
+          ],
+          "max": [
+            0.730358898639679,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+      "renderConfigSha256": "e668169115460e4fe306ec801eaaf7bd9d536777da80f0b9d4b12dcd4678fb50",
+      "inputSetSha256": "ff65aac5b05f49662259ccb4402af31659d1cf1f306efe5b8cb127b41dccdd59"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/luxury-farmhouse-sink/rear-55be18e3141999f83790.webp",
+      "sha256": "55be18e3141999f83790b5adf73eef6dca6352743c656368c54c0193123c8c15",
+      "bytes": 55366,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.771,
+      "camera": {
+        "orthoScale": 2.4009621143341064,
+        "position": [
+          -2.326700210571289,
+          3.877833604812622,
+          2.7578084468841553
+        ],
+        "target": [
+          0,
+          0,
+          0.625
+        ],
+        "clipStart": 0.0012499999720603228,
+        "clipEnd": 15,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.26964113116264343,
+            0.06521742790937424
+          ],
+          "max": [
+            0.7303588390350342,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+      "renderConfigSha256": "e668169115460e4fe306ec801eaaf7bd9d536777da80f0b9d4b12dcd4678fb50",
+      "inputSetSha256": "ff65aac5b05f49662259ccb4402af31659d1cf1f306efe5b8cb127b41dccdd59"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/luxury-farmhouse-sink/detail-10cadb9ad3a2a83820b9.webp",
+      "sha256": "10cadb9ad3a2a83820b992d77c1262f6746af793386f2e40beaae4bf62b142f3",
+      "bytes": 85050,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.809,
+      "camera": {
+        "orthoScale": 1.3205296993255615,
+        "position": [
+          2.326700210571289,
+          -3.877833604812622,
+          2.7578084468841553
+        ],
+        "target": [
+          0,
+          0,
+          0.625
+        ],
+        "clipStart": 0.0012499999720603228,
+        "clipEnd": 15,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.2696411907672882,
+            0.06521737575531006
+          ],
+          "max": [
+            0.7303587794303894,
+            0.9347816109657288
+          ]
+        }
+      },
+      "glbSha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+      "renderConfigSha256": "e668169115460e4fe306ec801eaaf7bd9d536777da80f0b9d4b12dcd4678fb50",
+      "inputSetSha256": "ff65aac5b05f49662259ccb4402af31659d1cf1f306efe5b8cb127b41dccdd59"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/luxury-farmhouse-sink/underside-6b5935842c5bf90af043.webp",
+      "sha256": "6b5935842c5bf90af043ff9cd35e3d12f507f3157fc8c12827c8f6f9a8e985b9",
+      "bytes": 40814,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.693,
+      "camera": {
+        "orthoScale": 2.420137643814087,
+        "position": [
+          2.287478446960449,
+          -3.8124642372131348,
+          -1.6624785661697388
+        ],
+        "target": [
+          0,
+          0,
+          0.625
+        ],
+        "clipStart": 0.0012499999720603228,
+        "clipEnd": 15,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.27146631479263306,
+            0.06521742790937424
+          ],
+          "max": [
+            0.7285336256027222,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+      "renderConfigSha256": "e668169115460e4fe306ec801eaaf7bd9d536777da80f0b9d4b12dcd4678fb50",
+      "inputSetSha256": "ff65aac5b05f49662259ccb4402af31659d1cf1f306efe5b8cb127b41dccdd59"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/luxury-farmhouse-sink/clay-2cfd8f1c660aaeef000f.webp",
+      "sha256": "2cfd8f1c660aaeef000f39347df3e7ad2a4dcee1a8b7d997dec3ac7dce6c59c8",
+      "bytes": 63578,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.817,
+      "camera": {
+        "orthoScale": 2.4009621143341064,
+        "position": [
+          2.326700210571289,
+          -3.877833604812622,
+          2.7578084468841553
+        ],
+        "target": [
+          0,
+          0,
+          0.625
+        ],
+        "clipStart": 0.0012499999720603228,
+        "clipEnd": 15,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.26964110136032104,
+            0.06521742790937424
+          ],
+          "max": [
+            0.730358898639679,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+      "renderConfigSha256": "e668169115460e4fe306ec801eaaf7bd9d536777da80f0b9d4b12dcd4678fb50",
+      "inputSetSha256": "ff65aac5b05f49662259ccb4402af31659d1cf1f306efe5b8cb127b41dccdd59"
+    }
+  ],
+  "timingSeconds": 1.55,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.44999998807907104,
+          0.32499998807907104,
+          1.25
+        ],
+        "min": [
+          -0.44999998807907104,
+          -0.32499998807907104,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 3,
+          "materialKey": "countertop-surface",
+          "rawGlbBaseColorFactor": [
+            0.7300000190734863,
+            0.75,
+            0.7200000286102295,
+            1
+          ],
+          "renderBaseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "rule": "countertop-white-factor",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+      "renderImportSha256": "fc5cfc8074afe7ab07572f1758caac2d2d133b88b3d6e2e34b8f3307e7cf60f7",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.44999998807907104,0.32499998807907104,1.25],\"min\":[-0.44999998807907104,-0.32499998807907104,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":3,\"materialKey\":\"countertop-surface\",\"rawGlbBaseColorFactor\":[0.7300000190734863,0.75,0.7200000286102295,1],\"renderBaseColorFactor\":[1,1,1,1],\"rule\":\"countertop-white-factor\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7\",\"renderImportSha256\":\"fc5cfc8074afe7ab07572f1758caac2d2d133b88b3d6e2e34b8f3307e7cf60f7\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "e668169115460e4fe306ec801eaaf7bd9d536777da80f0b9d4b12dcd4678fb50",
+    "inputs": [
+      {
+        "path": "assets-source/blender/luxury-farmhouse-sink.blend",
+        "sha256": "9c5aeeb493d3d3734b7571edfb241f635b26c8c499c8e99f6b438078ba79ecd8",
+        "bytes": 174275
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/luxury-farmhouse-sink.blend",
+        "sha256": "7914c59ba43955ae0af0562dc4dde760d43b1baa4295463055c090d3e8894d31",
+        "bytes": 357267
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/black-enamel-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/polished-chrome-trim-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/luxury-farmhouse-sink/porcelain-white-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-orm.png",
+        "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+        "bytes": 29345
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/luxury-farmhouse-sink.glb",
+        "sha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+        "bytes": 1153736
+      },
+      {
+        "path": "public/models/furniture/luxury-farmhouse-sink.glb",
+        "sha256": "ac22ff66cd25a42221d143fc9775a2239e927bbaa8a1f1baa3b49ccf8dc17881",
+        "bytes": 348656
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "ff65aac5b05f49662259ccb4402af31659d1cf1f306efe5b8cb127b41dccdd59",
+    "afterSha256": "ff65aac5b05f49662259ccb4402af31659d1cf1f306efe5b8cb127b41dccdd59"
+  },
+  "formatValidation": {
+    "sha256": "bc34126c895d0917f38613c56a01353e405660ca9f0f2686bc81dcf0fb274ec7",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 6,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "catalog_materials independent five-view review",
+    "artifactSetSha256": "933314537cf01a70739c1bb93be25939958964cf77b1f57171a0da2db0ad14a4",
+    "views": {
+      "front": "Fluted white apron fronts a recessed basin over two blue cabinet doors.",
+      "rear": "Closed rear and level rim support the farmhouse sink assembly.",
+      "detail": "Deep bowl and faucet are clear; narrow side recesses border the apron.",
+      "underside": "Dark plinth runs beneath the cabinet without loose parts.",
+      "clay": "Apron relief, basin cavity and cabinet reveals form separate layers."
+    }
+  }
+}

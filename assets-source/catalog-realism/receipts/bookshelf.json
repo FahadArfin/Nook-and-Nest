@@ -1,0 +1,4188 @@
+{
+  "version": 1,
+  "catalogId": "bookshelf",
+  "inputContractSha256": "4110f920ac25b14bc72cf6dcf155cd813de4b5ceb4e42493b2f4e27c70c9140f",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/bookshelf.blend",
+      "sha256": "e0ac24ae3ca9f3abdea72c1cc4ca01c3a9509e46347c4874a7442b1977ecd20e",
+      "bytes": 142150
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-orm-cd830dbb3049765b.png",
+      "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+      "bytes": 52081
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-orm-b84bf5ceb9581b63.png",
+      "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+      "bytes": 54381
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-orm.png",
+      "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+      "bytes": 35395
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+      "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+      "bytes": 32617
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-orm.png",
+      "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+      "bytes": 32780
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/bookshelf.glb",
+      "sha256": "2d86480e111275d46c4c24aba8981e4eff3e371efc9d908c01c7334a223cfc85",
+      "bytes": 947412
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/bookshelf.blend",
+      "sha256": "e0ac24ae3ca9f3abdea72c1cc4ca01c3a9509e46347c4874a7442b1977ecd20e",
+      "bytes": 142150
+    },
+    {
+      "path": "public/models/furniture/bookshelf.glb",
+      "sha256": "2d86480e111275d46c4c24aba8981e4eff3e371efc9d908c01c7334a223cfc85",
+      "bytes": 947412
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paper-orm.png",
+      "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+      "bytes": 32780
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+      "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+      "bytes": 32617
+    },
+    {
+      "path": "public/textures/realism/material-twill-color.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "public/textures/realism/material-twill-normal.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "public/textures/realism/material-twill-orm.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/clay-orm.png",
+      "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+      "bytes": 35395
+    },
+    {
+      "path": "public/textures/realism/material-linen-normal.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+      "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+      "bytes": 567740
+    },
+    {
+      "path": "public/textures/realism/material-linen-roughness.jpg",
+      "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+      "bytes": 582745
+    },
+    {
+      "path": "public/textures/realism/material-oak-normal.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/wood-orm.png",
+      "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+      "bytes": 730270
+    },
+    {
+      "path": "public/textures/realism/material-oak-roughness.jpg",
+      "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+      "bytes": 464458
+    },
+    {
+      "path": "public/textures/realism/material-oak-color.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "public/textures/realism/material-oak-orm.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-orm-cd830dbb3049765b.png",
+      "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+      "bytes": 52081
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-orm-b84bf5ceb9581b63.png",
+      "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+      "bytes": 54381
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_0"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "dusty-rose",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a8ea7d428faa3e82825532b63858b2f9ad76c54742128d5b1860bbce81beea8e",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            0.12999999523162842
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.02536686696112156,
+            0.3199999928474426
+          ],
+          "size": [
+            0.0698656439781189,
+            0.14873372949659824,
+            0.1899999976158142
+          ]
+        }
+      },
+      "after": {
+        "sha256": "1b315f1bde2100bd557b68222a5a9c31b8954c84de1111be6a3bc2b316ff6fa3",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            0.12999998033046722
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.025366872549057007,
+            0.3199999928474426
+          ],
+          "size": [
+            0.0698656439781189,
+            0.1487337350845337,
+            0.1900000125169754
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_1"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "leaf-green",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "9e76e71c08e488b1623a814533b264dd8dc63f7033108266261e6c1950d9540c",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.21396362781524658,
+            -0.12319008260965347,
+            0.1300000101327896
+          ],
+          "max": [
+            -0.13203635811805725,
+            0.025190087035298347,
+            0.35500001907348633
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838016964495182,
+            0.22500000894069672
+          ]
+        }
+      },
+      "after": {
+        "sha256": "23aff63bab44cb5595a219a556ad7860b1350c3154b0647719539d04c1231cf2",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.2139636129140854,
+            -0.12319007515907288,
+            0.1300000250339508
+          ],
+          "max": [
+            -0.13203634321689606,
+            0.0251900814473629,
+            0.35500001907348633
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838015660643578,
+            0.22499999403953552
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_2"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured",
+        "mustard-cloth"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "f2f3b955c4164185eb1b0858eff2a3da3580e0811999fef4e0106227ed37b722",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.0909903272986412,
+            -0.12268167734146118,
+            0.12999999523162842
+          ],
+          "max": [
+            -0.02500966750085354,
+            0.024681678041815758,
+            0.38999998569488525
+          ],
+          "size": [
+            0.06598065979778767,
+            0.14736335538327694,
+            0.25999999046325684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "741635fa75d33283343ca5c6c58148f0046691455995ee92685b05b2ff9e46e5",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.09099031984806061,
+            -0.12268168479204178,
+            0.12999996542930603
+          ],
+          "max": [
+            -0.02500966563820839,
+            0.024681678041815758,
+            0.38999995589256287
+          ],
+          "size": [
+            0.06598065420985222,
+            0.14736336283385754,
+            0.25999999046325684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_3"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "2077bc48306ec8b3d8dfc7c0736faff6bdb185f11b92ba1e042626d2502ed0bd",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.017009863629937172,
+            -0.1227341741323471,
+            0.12999999523162842
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473417855799198,
+            0.3199999928474426
+          ],
+          "size": [
+            0.07998027466237545,
+            0.1474683526903391,
+            0.1899999976158142
+          ]
+        }
+      },
+      "after": {
+        "sha256": "eed93771e573b7089c875159668ff00f7737b1cb856db48936f83c62cd9240e1",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.017009861767292023,
+            -0.1227341815829277,
+            0.1300000101327896
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473418228328228,
+            0.3199999928474426
+          ],
+          "size": [
+            0.0799802765250206,
+            0.14746836386620998,
+            0.18999998271465302
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_4"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "dusty-rose",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "f2d919bd4f15b18d81575a91de6e9c302707615bfd17cbd6c737dad48aa2ad1a",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325996875763,
+            0.1300000101327896
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503260038793087,
+            0.35500001907348633
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806520007550716,
+            0.22500000894069672
+          ]
+        }
+      },
+      "after": {
+        "sha256": "626945184ce07116ff49e0f4519919ee0164f4564f99bb3a766cd836df1ec739",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325922369957,
+            0.1300000250339508
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503259666264057,
+            0.35500001907348633
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806518889963627,
+            0.22499999403953552
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_5"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "leaf-green",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "de72d50dbfea5dc647ed07d6655017e90806aadfb7dc3caa1907dc5d841d736b",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.24507209658622742,
+            -0.12362930178642273,
+            0.12999999523162842
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629304349422455,
+            0.38999998569488525
+          ],
+          "size": [
+            0.08385580778121948,
+            0.14925860613584518,
+            0.25999999046325684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d5573c7c5f08dd28063f1ab67dae942cf6244ddf905cb1d61697509e7de17e9a",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.24507208168506622,
+            -0.12362930178642273,
+            0.12999996542930603
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629306212067604,
+            0.38999995589256287
+          ],
+          "size": [
+            0.08385582268238068,
+            0.14925860799849033,
+            0.25999999046325684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 2.9802322387695312e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_6"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured",
+        "mustard-cloth"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d90b8c43ca1db8d5df1fd851ce03986080c59fc182756355fa6792e895b6e310",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            0.47999998927116394
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.02536686696112156,
+            0.6699999570846558
+          ],
+          "size": [
+            0.0698656439781189,
+            0.14873372949659824,
+            0.18999996781349182
+          ]
+        }
+      },
+      "after": {
+        "sha256": "c979d7fcc58d7f631ecb410e626a02a389947360f89833d3551becb48d98bbe4",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            0.47999992966651917
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.025366872549057007,
+            0.669999897480011
+          ],
+          "size": [
+            0.0698656439781189,
+            0.1487337350845337,
+            0.18999996781349182
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_7"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "b2eb69916939ae55b45684271cbe9aec8cf0a437d59725e2b153796053bddae2",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.21396362781524658,
+            -0.12319008260965347,
+            0.47999995946884155
+          ],
+          "max": [
+            -0.13203635811805725,
+            0.025190087035298347,
+            0.7049999833106995
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838016964495182,
+            0.2250000238418579
+          ]
+        }
+      },
+      "after": {
+        "sha256": "4aa16464c2bd8c6779d12d7ff0ffdf01c473b688922d72c5cd04bbab6dea6d2d",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.2139636129140854,
+            -0.12319007515907288,
+            0.4799998998641968
+          ],
+          "max": [
+            -0.13203634321689606,
+            0.0251900814473629,
+            0.7049999237060547
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838015660643578,
+            0.2250000238418579
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_8"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "dusty-rose",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "b89b7980d170e5da0a11ca7d9b46ea6dfd0d88f4edba79df9a799223b2a4e746",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.0909903272986412,
+            -0.12268167734146118,
+            0.48000001907348633
+          ],
+          "max": [
+            -0.02500966750085354,
+            0.024681678041815758,
+            0.7400000095367432
+          ],
+          "size": [
+            0.06598065979778767,
+            0.14736335538327694,
+            0.25999999046325684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "5d2849cbcdee72d25e8f0d59b40024596e777543aa52a07103c3fe1202cb0e28",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.09099031984806061,
+            -0.12268168479204178,
+            0.48000001907348633
+          ],
+          "max": [
+            -0.02500966563820839,
+            0.024681678041815758,
+            0.7400000095367432
+          ],
+          "size": [
+            0.06598065420985222,
+            0.14736336283385754,
+            0.25999999046325684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 7.450580596923828e-9
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_9"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "leaf-green",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "a7c6f6e132b140f23cbe24c27b7af2a4add891eef6b5efef296fba7c608d5242",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.017009863629937172,
+            -0.1227341741323471,
+            0.47999998927116394
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473417855799198,
+            0.6699999570846558
+          ],
+          "size": [
+            0.07998027466237545,
+            0.1474683526903391,
+            0.18999996781349182
+          ]
+        }
+      },
+      "after": {
+        "sha256": "ca44d5f9efcc1a122ddcada9c68fdb96e417ea1f2ffbf6888d88dcdf05c726e9",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.017009861767292023,
+            -0.1227341815829277,
+            0.47999992966651917
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473418228328228,
+            0.669999897480011
+          ],
+          "size": [
+            0.0799802765250206,
+            0.14746836386620998,
+            0.18999996781349182
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_10"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured",
+        "mustard-cloth"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "132e6b9ae2369acde07911a901a1775a12cbb2dffc58526bb8fabee9a960256b",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325996875763,
+            0.47999995946884155
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503260038793087,
+            0.7049999833106995
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806520007550716,
+            0.2250000238418579
+          ]
+        }
+      },
+      "after": {
+        "sha256": "3643188ac597d364b91eca6395e7685f60220ab7eee54ef8aae06eeb933dbfe8",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325922369957,
+            0.4799998998641968
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503259666264057,
+            0.7049999237060547
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806518889963627,
+            0.2250000238418579
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_11"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "3d8efdbbd0a94639258330ec46443c7fd73f6d807f2d7c6154c6faff63ff4a28",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.24507209658622742,
+            -0.12362930178642273,
+            0.48000001907348633
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629304349422455,
+            0.7400000095367432
+          ],
+          "size": [
+            0.08385580778121948,
+            0.14925860613584518,
+            0.25999999046325684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "000e1d1b5f0a6f5ab48435f09bdb8c57622e4a2668a839dae3cb87bc8fca326d",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.24507208168506622,
+            -0.12362930178642273,
+            0.48000001907348633
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629306212067604,
+            0.7400000095367432
+          ],
+          "size": [
+            0.08385582268238068,
+            0.14925860799849033,
+            0.25999999046325684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_12"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "dusty-rose",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "ac60a76407a71457abd8c5f21ef87baf11795ab8461fbd5c3a12939757b55aa4",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            0.809999942779541
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.02536686696112156,
+            1
+          ],
+          "size": [
+            0.0698656439781189,
+            0.14873372949659824,
+            0.19000005722045898
+          ]
+        }
+      },
+      "after": {
+        "sha256": "fe090c31bca5a1e12c9af46332ed427c061292be04c267a220d14f16aef94a2c",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            0.8099998831748962
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.025366872549057007,
+            0.9999999403953552
+          ],
+          "size": [
+            0.0698656439781189,
+            0.1487337350845337,
+            0.19000005722045898
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_13"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "leaf-green",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "0b855589fbf59af59dfa29250d712b846db46aff3978c2222de769b0bd8404f1",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.21396362781524658,
+            -0.12319008260965347,
+            0.8100000023841858
+          ],
+          "max": [
+            -0.13203635811805725,
+            0.025190087035298347,
+            1.034999966621399
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838016964495182,
+            0.22499996423721313
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7d82d73a8d98047f96d12fe52b30ddad28578ad4bf54e05e9e2f91804d20fe9a",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.2139636129140854,
+            -0.12319007515907288,
+            0.8100000023841858
+          ],
+          "max": [
+            -0.13203634321689606,
+            0.0251900814473629,
+            1.034999966621399
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838015660643578,
+            0.22499996423721313
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_14"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured",
+        "mustard-cloth"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "cbecc8110ab7ec2d91c18987e7778f9df36942a1783f8ff8359d933016a36771",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.0909903272986412,
+            -0.12268167734146118,
+            0.8100000023841858
+          ],
+          "max": [
+            -0.02500966750085354,
+            0.024681678041815758,
+            1.0699999332427979
+          ],
+          "size": [
+            0.06598065979778767,
+            0.14736335538327694,
+            0.25999993085861206
+          ]
+        }
+      },
+      "after": {
+        "sha256": "550d80dcb8f07ab98d94187ebecb64c7c809049836e70508e3ea0c2224066cde",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.09099031984806061,
+            -0.12268168479204178,
+            0.8100000619888306
+          ],
+          "max": [
+            -0.02500966563820839,
+            0.024681678041815758,
+            1.0699999332427979
+          ],
+          "size": [
+            0.06598065420985222,
+            0.14736336283385754,
+            0.2599998712539673
+          ]
+        }
+      },
+      "maxBoundsDriftM": 5.960464477539063e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_15"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "e978366150dd8c7e8fb420ce2fe4afa42297a24d0e7848a76b5a6432dff5fd88",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.017009863629937172,
+            -0.1227341741323471,
+            0.809999942779541
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473417855799198,
+            1
+          ],
+          "size": [
+            0.07998027466237545,
+            0.1474683526903391,
+            0.19000005722045898
+          ]
+        }
+      },
+      "after": {
+        "sha256": "46ccb1c8b0243fdf34ecc33575ae286eae58602dd5b0fb1527c36f91d92067ba",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.017009861767292023,
+            -0.1227341815829277,
+            0.809999942779541
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473418228328228,
+            1
+          ],
+          "size": [
+            0.0799802765250206,
+            0.14746836386620998,
+            0.19000005722045898
+          ]
+        }
+      },
+      "maxBoundsDriftM": 7.450580596923828e-9
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_16"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "dusty-rose",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "640d6350905d55c0182bfc1897c50333397fede9a1a35aff94a86f30e6157226",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325996875763,
+            0.8100000023841858
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503260038793087,
+            1.034999966621399
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806520007550716,
+            0.22499996423721313
+          ]
+        }
+      },
+      "after": {
+        "sha256": "52e437b5a72974b74db137235e13ba7a4f5aec9d8b450b59ce7a678aa6228ff6",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325922369957,
+            0.8100000023841858
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503259666264057,
+            1.034999966621399
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806518889963627,
+            0.22499996423721313
+          ]
+        }
+      },
+      "maxBoundsDriftM": 7.450580596923828e-9
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_17"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "leaf-green",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "9d4eab384f5f12d2dbcd051fa9234d991c9158a2dbe110a67d9f553b3aaab64f",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.24507209658622742,
+            -0.12362930178642273,
+            0.8100000023841858
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629304349422455,
+            1.0699999332427979
+          ],
+          "size": [
+            0.08385580778121948,
+            0.14925860613584518,
+            0.25999993085861206
+          ]
+        }
+      },
+      "after": {
+        "sha256": "903de771d234cca2970ad8adabc4178cf439d7169cfd5afdd340510723d25fe0",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.24507208168506622,
+            -0.12362930178642273,
+            0.8100000023841858
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629306212067604,
+            1.0699999332427979
+          ],
+          "size": [
+            0.08385582268238068,
+            0.14925860799849033,
+            0.25999993085861206
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_18"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured",
+        "mustard-cloth"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "435ed17fb93ae25ec1ef2d7245ef0552afba77c8aede7d1c6e21b18dd1f55581",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            1.1399999856948853
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.02536686696112156,
+            1.3300000429153442
+          ],
+          "size": [
+            0.0698656439781189,
+            0.14873372949659824,
+            0.19000005722045898
+          ]
+        }
+      },
+      "after": {
+        "sha256": "412fe1a480f307b2982a15355e556cd2f5ee3a858280e8e6938285d996efcbca",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.32293280959129333,
+            -0.12336686253547668,
+            1.1399998664855957
+          ],
+          "max": [
+            -0.25306716561317444,
+            0.025366872549057007,
+            1.3299999237060547
+          ],
+          "size": [
+            0.0698656439781189,
+            0.1487337350845337,
+            0.19000005722045898
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.1920928955078125e-7
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_19"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "606011b3ceb6cc257851605264e4149349cd56cc9ca3bcca61561356a460ab3f",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.21396362781524658,
+            -0.12319008260965347,
+            1.1400001049041748
+          ],
+          "max": [
+            -0.13203635811805725,
+            0.025190087035298347,
+            1.3650000095367432
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838016964495182,
+            0.22499990463256836
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e80cb841170cb30a51b5992247969e7511d9fb970a6f07ca4f9da842595f47dd",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.2139636129140854,
+            -0.12319007515907288,
+            1.1400001049041748
+          ],
+          "max": [
+            -0.13203634321689606,
+            0.0251900814473629,
+            1.3650000095367432
+          ],
+          "size": [
+            0.08192726969718933,
+            0.14838015660643578,
+            0.22499990463256836
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_20"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "dusty-rose",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "cf6259533d590a4e8fb148659f970f5a660f986e4bf4da66879e1d4fe3cc836d",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            -0.0909903272986412,
+            -0.12268167734146118,
+            1.1399999856948853
+          ],
+          "max": [
+            -0.02500966750085354,
+            0.024681678041815758,
+            1.399999976158142
+          ],
+          "size": [
+            0.06598065979778767,
+            0.14736335538327694,
+            0.25999999046325684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "d056e2287bd2109bf285b58b34c0c5156f04629db01143b590d363aed590a764",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            -0.09099031984806061,
+            -0.12268168479204178,
+            1.1400001049041748
+          ],
+          "max": [
+            -0.02500966563820839,
+            0.024681678041815758,
+            1.4000000953674316
+          ],
+          "size": [
+            0.06598065420985222,
+            0.14736336283385754,
+            0.25999999046325684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.1920928955078125e-7
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_21"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "leaf-green",
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "16b24a0e2c748da6e16d7a68aee9352459be71be15a85342cd9ca7f9984ca826",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.017009863629937172,
+            -0.1227341741323471,
+            1.1399999856948853
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473417855799198,
+            1.3300000429153442
+          ],
+          "size": [
+            0.07998027466237545,
+            0.1474683526903391,
+            0.19000005722045898
+          ]
+        }
+      },
+      "after": {
+        "sha256": "239749263f4df103ae45d7d97c2c40963dd70990f5c82403efa94ad6e483ddd0",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.017009861767292023,
+            -0.1227341815829277,
+            1.1399998664855957
+          ],
+          "max": [
+            0.09699013829231262,
+            0.02473418228328228,
+            1.3299999237060547
+          ],
+          "size": [
+            0.0799802765250206,
+            0.14746836386620998,
+            0.19000005722045898
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.1920928955078125e-7
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_22"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured",
+        "mustard-cloth"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "679690c0128880df705e663a19e41a2c09578dc0d99da2e606576ba943c55968",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325996875763,
+            1.1400001049041748
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503260038793087,
+            1.3650000095367432
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806520007550716,
+            0.22499990463256836
+          ]
+        }
+      },
+      "after": {
+        "sha256": "e61fa91f45f1d672db436bc0c47f5935d0c8ab9d8426dc1bf2a750a871bb0b51",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.1380346119403839,
+            -0.1230325922369957,
+            1.1400001049041748
+          ],
+          "max": [
+            0.20596539974212646,
+            0.02503259666264057,
+            1.3650000095367432
+          ],
+          "size": [
+            0.06793078780174255,
+            0.14806518889963627,
+            0.22499990463256836
+          ]
+        }
+      },
+      "maxBoundsDriftM": 7.450580596923828e-9
+    },
+    {
+      "kind": "named-book-construction",
+      "components": [
+        "book_23"
+      ],
+      "sourceEvidence": "build_quality_models.py exact book_ source recipe, 96-vertex rounded blocks",
+      "construction": [
+        "two thin chamfered cover boards",
+        "curved bound spine",
+        "recessed paper block with 20 edge signatures",
+        "head/tail rules and title panel"
+      ],
+      "paperSurface": {
+        "faceAttribute": "catalog_paper_faces",
+        "uvDensity": 12,
+        "scope": "page-block polygons only"
+      },
+      "materialKeys": [
+        "linen-textured"
+      ],
+      "geometryChanged": true,
+      "before": {
+        "sha256": "d6ba703b58a63e35544232392d61679137918b6f5b469c4cd9a2238bf208f967",
+        "vertices": 96,
+        "triangles": 188,
+        "bounds": {
+          "min": [
+            0.24507209658622742,
+            -0.12362930178642273,
+            1.1399999856948853
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629304349422455,
+            1.399999976158142
+          ],
+          "size": [
+            0.08385580778121948,
+            0.14925860613584518,
+            0.25999999046325684
+          ]
+        }
+      },
+      "after": {
+        "sha256": "7cecd635f6a2c5105fd7d350a0ea4ae8466c7ed5c2ebc73c9b14ca8f09d3034c",
+        "vertices": 346,
+        "triangles": 664,
+        "bounds": {
+          "min": [
+            0.24507208168506622,
+            -0.12362930178642273,
+            1.1399999856948853
+          ],
+          "max": [
+            0.3289279043674469,
+            0.025629306212067604,
+            1.399999976158142
+          ],
+          "size": [
+            0.08385582268238068,
+            0.14925860799849033,
+            0.25999999046325684
+          ]
+        }
+      },
+      "maxBoundsDriftM": 1.4901161193847656e-8
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "dusty-rose",
+      "profile": "paper",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "leaf-green",
+      "profile": "leaf",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "mustard-cloth",
+      "profile": "fabric",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "terracotta",
+      "profile": "clay",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-dark",
+      "profile": "wood",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "maps": [
+        "baseColor",
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "dusty-rose",
+      "profile": "paper",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "dusty-rose",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paper-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "dusty-rose",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paper-orm.png",
+          "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+          "bytes": 32780,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "leaf-green",
+      "profile": "leaf",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "leaf-green",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "leaf-green",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+          "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+          "bytes": 32617,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "linen-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-twill-color.jpg",
+              "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+              "bytes": 364520
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-twill-normal.jpg",
+              "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+              "bytes": 69792
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "linen-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-twill-orm.jpg",
+              "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+              "bytes": 317744
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "linen-textured",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-twill-color.jpg",
+            "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+            "bytes": 364520
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+          "materialKey": "linen-textured",
+          "profile": "fabric",
+          "family": "twill",
+          "repeatM": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "scanFamily": "twill"
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "mustard-cloth",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-twill-color.jpg",
+              "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+              "bytes": 364520
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "mustard-cloth",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "mustard-cloth",
+          "kind": "normal",
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-twill-normal.jpg",
+              "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+              "bytes": 69792
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "mustard-cloth",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        },
+        {
+          "materialKey": "mustard-cloth",
+          "kind": "orm",
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-twill-orm.jpg",
+              "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+              "bytes": 317744
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "mustard-cloth",
+            "profile": "fabric",
+            "family": "twill",
+            "repeatM": [
+              0.3,
+              0.3
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-twill-color.jpg",
+            "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+            "bytes": 364520
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+          "materialKey": "mustard-cloth",
+          "profile": "fabric",
+          "family": "twill",
+          "repeatM": [
+            0.3,
+            0.3
+          ]
+        }
+      ],
+      "scanFamily": "twill"
+    },
+    {
+      "materialKey": "terracotta",
+      "profile": "clay",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "terracotta",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/clay-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "terracotta",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/clay-orm.png",
+          "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+          "bytes": 35395,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "profile": "fabric",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-linen-normal.jpg",
+          "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+          "bytes": 444135,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "upholstery-textured",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+          "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+          "bytes": 567740,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/rough_linen",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-linen-roughness.jpg",
+            "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+            "bytes": 582745
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.88,
+              0.96
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-dark",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-dark",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "wood-dark",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/wood-orm.png",
+          "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+          "bytes": 730270,
+          "colorSpace": "Non-Color",
+          "source": "https://polyhaven.com/a/oak_veneer_01",
+          "license": "CC0-1.0",
+          "input": {
+            "path": "public/textures/realism/material-oak-roughness.jpg",
+            "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+            "bytes": 464458
+          },
+          "derivation": {
+            "R": 255,
+            "B": 255,
+            "G": "linear calibration of matching source roughness; no resize or rotation",
+            "roughnessRange": [
+              0.5,
+              0.65
+            ]
+          },
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "baseColor",
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "baseColor",
+            "source": {
+              "path": "public/textures/realism/material-oak-color.jpg",
+              "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+              "bytes": 284236
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "normal",
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "normal",
+            "source": {
+              "path": "public/textures/realism/material-oak-normal.jpg",
+              "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+              "bytes": 159674
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        },
+        {
+          "materialKey": "wood-honey-textured",
+          "kind": "orm",
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714,
+          "uvLayer": "RealismUV",
+          "scanSource": {
+            "kind": "orm",
+            "source": {
+              "path": "public/textures/realism/material-oak-orm.jpg",
+              "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+              "bytes": 813714
+            },
+            "provenance": {
+              "path": "assets-source/realism-materials.json",
+              "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+              "bytes": 4206
+            },
+            "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+            "texCoord": 1,
+            "materialKey": "wood-honey-textured",
+            "profile": "wood",
+            "family": "oak",
+            "repeatM": [
+              1.83,
+              1.83
+            ]
+          }
+        }
+      ],
+      "surfaceAdjustments": [],
+      "textureReplacements": [
+        {
+          "kind": "baseColor",
+          "source": {
+            "path": "public/textures/realism/material-oak-color.jpg",
+            "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+            "bytes": 284236
+          },
+          "provenance": {
+            "path": "assets-source/realism-materials.json",
+            "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+            "bytes": 4206
+          },
+          "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+          "texCoord": 1,
+          "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+          "materialKey": "wood-honey-textured",
+          "profile": "wood",
+          "family": "oak",
+          "repeatM": [
+            1.83,
+            1.83
+          ]
+        }
+      ],
+      "scanFamily": "oak"
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "dusty-rose",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "dusty-rose",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-orm-cd830dbb3049765b.png",
+      "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+      "bytes": 52081,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "leaf-green",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "leaf-green",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-orm-400ccba3b01d0d0e.png",
+      "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+      "bytes": 52093,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "baseColor",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "normal",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "linen-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "linen-textured",
+        "kind": "orm",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+      "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+      "bytes": 364520,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "mustard-cloth",
+        "kind": "baseColor",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-color.jpg",
+          "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+          "bytes": 364520
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-normal-f23e4eb6337de814.jpg",
+      "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+      "bytes": 69792,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "mustard-cloth",
+        "kind": "normal",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-normal.jpg",
+          "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+          "bytes": 69792
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "mustard-cloth",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-orm-d06a0862d657901e.jpg",
+      "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+      "bytes": 317744,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "mustard-cloth",
+        "kind": "orm",
+        "profile": "fabric",
+        "family": "twill",
+        "repeatM": [
+          0.3,
+          0.3
+        ],
+        "source": {
+          "path": "public/textures/realism/material-twill-orm.jpg",
+          "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+          "bytes": 317744
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed twill orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "terracotta",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "terracotta",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-orm-b84bf5ceb9581b63.png",
+      "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+      "bytes": 54381,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+      "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+      "bytes": 444135,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "upholstery-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-orm-f83e56bf6124a13c.png",
+      "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+      "bytes": 842424,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-dark",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-dark",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-orm-3f83128b1dee2de6.png",
+      "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+      "bytes": 770447,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "baseColor",
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+      "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+      "bytes": 284236,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "baseColor",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-color.jpg",
+          "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+          "bytes": 284236
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+      "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+      "bytes": 159674,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "normal",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-normal.jpg",
+          "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+          "bytes": 159674
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak normal scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    },
+    {
+      "materialKey": "wood-honey-textured",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+      "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+      "bytes": 813714,
+      "texCoord": 1,
+      "scanSource": {
+        "materialKey": "wood-honey-textured",
+        "kind": "orm",
+        "profile": "wood",
+        "family": "oak",
+        "repeatM": [
+          1.83,
+          1.83
+        ],
+        "source": {
+          "path": "public/textures/realism/material-oak-orm.jpg",
+          "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+          "bytes": 813714
+        },
+        "provenance": {
+          "path": "assets-source/realism-materials.json",
+          "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+          "bytes": 4206
+        },
+        "reason": "Use the matching licensed oak orm scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+        "texCoord": 1
+      }
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+      "materialKey": "linen-textured",
+      "profile": "fabric",
+      "family": "twill",
+      "repeatM": [
+        0.3,
+        0.3
+      ],
+      "newSha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7"
+    },
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed twill baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "0c03b0f58e21d97f27ca3fb73ec0228cdce4c6098b6261cbb70dee93eb0d2e68",
+      "materialKey": "mustard-cloth",
+      "profile": "fabric",
+      "family": "twill",
+      "repeatM": [
+        0.3,
+        0.3
+      ],
+      "newSha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7"
+    },
+    {
+      "kind": "baseColor",
+      "source": {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      "provenance": {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      "reason": "Use the matching licensed oak baseColor scan at its recorded physical repeat, retaining original tint and dielectric factors.",
+      "texCoord": 1,
+      "oldSha256": "913266d00242e3ae785442bcdc4eac10a4894f7f704e8dd4232508cd065b31aa",
+      "materialKey": "wood-honey-textured",
+      "profile": "wood",
+      "family": "oak",
+      "repeatM": [
+        1.83,
+        1.83
+      ],
+      "newSha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df"
+    }
+  ],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 7208240,
+    "afterBytes": 7208240,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/bookshelf.blend",
+      "sha256": "ffa5b65005745e705b19475c27d7051220dc9b5e70f511a07eb1f9d95f26fb10",
+      "bytes": 5388758
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/bookshelf.glb",
+      "sha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+      "bytes": 7208240
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/bookshelf/front-46b08067f72ade0e74a3.webp",
+      "sha256": "46b08067f72ade0e74a3ad75d7cd3e8f1b042d0b7136c3f5a652e17cd8fd2acd",
+      "bytes": 102440,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.791,
+      "camera": {
+        "orthoScale": 3.0331974029541016,
+        "position": [
+          3.4137344360351562,
+          -5.6895575523376465,
+          4.08225679397583
+        ],
+        "target": [
+          0,
+          0,
+          0.953000009059906
+        ],
+        "clipStart": 0.0018339999951422215,
+        "clipEnd": 22.007999420166016,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.34705787897109985,
+            0.06521737575531006
+          ],
+          "max": [
+            0.6529421210289001,
+            0.9347818493843079
+          ]
+        }
+      },
+      "glbSha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+      "renderConfigSha256": "b594faf6207a68669d2742764442cfdba5eeca7d22a4a77cf6b250f1a5d11680",
+      "inputSetSha256": "109fcb8efdfafc46236c0eb0f0a333bfacd4ec93043e80ddda4597e71a388394"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/bookshelf/rear-cf6e98f37afb8cdab86f.webp",
+      "sha256": "cf6e98f37afb8cdab86f6db08b9cb81fe1e60a3b608128d65e2e995422ab8b13",
+      "bytes": 76052,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.781,
+      "camera": {
+        "orthoScale": 3.0331971645355225,
+        "position": [
+          -3.4137344360351562,
+          5.6895575523376465,
+          4.08225679397583
+        ],
+        "target": [
+          0,
+          0,
+          0.953000009059906
+        ],
+        "clipStart": 0.0018339999951422215,
+        "clipEnd": 22.007999420166016,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.34705787897109985,
+            0.06521735340356827
+          ],
+          "max": [
+            0.6529421210289001,
+            0.9347819089889526
+          ]
+        }
+      },
+      "glbSha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+      "renderConfigSha256": "b594faf6207a68669d2742764442cfdba5eeca7d22a4a77cf6b250f1a5d11680",
+      "inputSetSha256": "109fcb8efdfafc46236c0eb0f0a333bfacd4ec93043e80ddda4597e71a388394"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/bookshelf/detail-96d94208e3fb60350388.webp",
+      "sha256": "96d94208e3fb60350388bf891c1facc052752f675af2a1402f31301331e281f3",
+      "bytes": 168790,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.806,
+      "camera": {
+        "orthoScale": 1.668259859085083,
+        "position": [
+          3.4137344360351562,
+          -5.6895575523376465,
+          4.08225679397583
+        ],
+        "target": [
+          0,
+          0,
+          0.953000009059906
+        ],
+        "clipStart": 0.0018339999951422215,
+        "clipEnd": 22.007999420166016,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.3470579981803894,
+            0.06521742790937424
+          ],
+          "max": [
+            0.6529420614242554,
+            0.9347811937332153
+          ]
+        }
+      },
+      "glbSha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+      "renderConfigSha256": "b594faf6207a68669d2742764442cfdba5eeca7d22a4a77cf6b250f1a5d11680",
+      "inputSetSha256": "109fcb8efdfafc46236c0eb0f0a333bfacd4ec93043e80ddda4597e71a388394"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/bookshelf/underside-2cbf7bac1c8b975ab1de.webp",
+      "sha256": "2cbf7bac1c8b975ab1de9a30246fdafeb15247d3059c4610ec0d713af687a56d",
+      "bytes": 71602,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.699,
+      "camera": {
+        "orthoScale": 3.0258336067199707,
+        "position": [
+          3.3561885356903076,
+          -5.593647480010986,
+          -2.403188467025757
+        ],
+        "target": [
+          0,
+          0,
+          0.953000009059906
+        ],
+        "clipStart": 0.0018339999951422215,
+        "clipEnd": 22.007999420166016,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.3466855585575104,
+            0.06521742045879364
+          ],
+          "max": [
+            0.6533142328262329,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+      "renderConfigSha256": "b594faf6207a68669d2742764442cfdba5eeca7d22a4a77cf6b250f1a5d11680",
+      "inputSetSha256": "109fcb8efdfafc46236c0eb0f0a333bfacd4ec93043e80ddda4597e71a388394"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/bookshelf/clay-c1f727185d206f6e24e2.webp",
+      "sha256": "c1f727185d206f6e24e21a7c1aebc199ef867484c0ba2459de4dbf0024ee21cb",
+      "bytes": 66838,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.793,
+      "camera": {
+        "orthoScale": 3.0331974029541016,
+        "position": [
+          3.4137344360351562,
+          -5.6895575523376465,
+          4.08225679397583
+        ],
+        "target": [
+          0,
+          0,
+          0.953000009059906
+        ],
+        "clipStart": 0.0018339999951422215,
+        "clipEnd": 22.007999420166016,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.34705787897109985,
+            0.06521737575531006
+          ],
+          "max": [
+            0.6529421210289001,
+            0.9347818493843079
+          ]
+        }
+      },
+      "glbSha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+      "renderConfigSha256": "b594faf6207a68669d2742764442cfdba5eeca7d22a4a77cf6b250f1a5d11680",
+      "inputSetSha256": "109fcb8efdfafc46236c0eb0f0a333bfacd4ec93043e80ddda4597e71a388394"
+    }
+  ],
+  "timingSeconds": 4.85,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.4359999895095825,
+          0.17499999701976776,
+          1.8700000047683716
+        ],
+        "min": [
+          -0.4359999895095825,
+          -0.17499999701976776,
+          0.03600001335144043
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 2,
+          "materialKey": "upholstery-textured",
+          "rawGlbBaseColorFactor": [
+            0.5600000023841858,
+            0.6499999761581421,
+            0.44999998807907104,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+      "renderImportSha256": "4b6687645672ce77f27192b13eb766d976ac8400d26ba84d5bb2656af63db8bd",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.4359999895095825,0.17499999701976776,1.8700000047683716],\"min\":[-0.4359999895095825,-0.17499999701976776,0.03600001335144043]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":2,\"materialKey\":\"upholstery-textured\",\"rawGlbBaseColorFactor\":[0.5600000023841858,0.6499999761581421,0.44999998807907104,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743\",\"renderImportSha256\":\"4b6687645672ce77f27192b13eb766d976ac8400d26ba84d5bb2656af63db8bd\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "b594faf6207a68669d2742764442cfdba5eeca7d22a4a77cf6b250f1a5d11680",
+    "inputs": [
+      {
+        "path": "assets-source/blender/bookshelf.blend",
+        "sha256": "e0ac24ae3ca9f3abdea72c1cc4ca01c3a9509e46347c4874a7442b1977ecd20e",
+        "bytes": 142150
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/bookshelf.blend",
+        "sha256": "ffa5b65005745e705b19475c27d7051220dc9b5e70f511a07eb1f9d95f26fb10",
+        "bytes": 5388758
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/dusty-rose-orm-cd830dbb3049765b.png",
+        "sha256": "cd830dbb3049765b95fb6e3b634bc16b11f1de1bf1b289552ec3a451fcf47016",
+        "bytes": 52081
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/leaf-green-orm-400ccba3b01d0d0e.png",
+        "sha256": "400ccba3b01d0d0e325b0d9e33b5ed74bc1f90d8a74e4ffb01a8fc074cdba602",
+        "bytes": 52093
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-baseColor-d9faa2ec2999acc6.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-normal-f23e4eb6337de814.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/linen-textured-orm-d06a0862d657901e.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-baseColor-d9faa2ec2999acc6.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-normal-f23e4eb6337de814.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/mustard-cloth-orm-d06a0862d657901e.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/terracotta-orm-b84bf5ceb9581b63.png",
+        "sha256": "b84bf5ceb9581b63b467d93c087e2f3da136b68db1764d7a128625de1485b909",
+        "bytes": 54381
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-normal-1ad147b6d0bba6a2.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/upholstery-textured-orm-f83e56bf6124a13c.png",
+        "sha256": "f83e56bf6124a13cdb42a3c476bbc832106b9a3b079d620466787c32f35c24db",
+        "bytes": 842424
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/wood-dark-orm-3f83128b1dee2de6.png",
+        "sha256": "3f83128b1dee2de62ad72fb0d0ffab1320acc6926c083ce1edcffdf7715cd7a0",
+        "bytes": 770447
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-baseColor-05830b1ce8f1ce31.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-normal-8cc38aab6ecbc51a.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/bookshelf/wood-honey-textured-orm-655fae24a9e3ba2f.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/clay-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/clay-orm.png",
+        "sha256": "166f671363959212b9a0834295b568bd067b9d0dfff472a5dc07be3c10a4f04f",
+        "bytes": 35395
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/fabric-orm.png",
+        "sha256": "af2a661b2f61799085102e570e83b00e5d3477ee1a628aa5f1e780557e394794",
+        "bytes": 567740
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/leaf-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/leaf-orm.png",
+        "sha256": "c8e3f2419319b70cd3371f1eee1b530cbc824edfb6924286b4a0fc968fb9903d",
+        "bytes": 32617
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paper-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paper-orm.png",
+        "sha256": "7406b84a1dd75be11c3e6abca6599329ad8854142e8aa1da16d3f2c9da7f8338",
+        "bytes": 32780
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/wood-orm.png",
+        "sha256": "068f926844472f19e3055d86aae2f0f4940b3393e74ab02ecd8bc1e61cf31f2d",
+        "bytes": 730270
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/bookshelf.glb",
+        "sha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+        "bytes": 7208240
+      },
+      {
+        "path": "public/models/furniture/bookshelf.glb",
+        "sha256": "2d86480e111275d46c4c24aba8981e4eff3e371efc9d908c01c7334a223cfc85",
+        "bytes": 947412
+      },
+      {
+        "path": "public/textures/realism/material-linen-normal.jpg",
+        "sha256": "1ad147b6d0bba6a22e41fbb2761d54625dfe71ffa9bb24049156d0d5bff03df4",
+        "bytes": 444135
+      },
+      {
+        "path": "public/textures/realism/material-linen-roughness.jpg",
+        "sha256": "809b3b7a366bdde259d3a2af82df202b8bf64fa556d7ddcf9a19ed35788d695b",
+        "bytes": 582745
+      },
+      {
+        "path": "public/textures/realism/material-oak-color.jpg",
+        "sha256": "05830b1ce8f1ce31f7d015f73fabb5173542c618596b6d970654ddb85b3b34df",
+        "bytes": 284236
+      },
+      {
+        "path": "public/textures/realism/material-oak-normal.jpg",
+        "sha256": "8cc38aab6ecbc51aa9957b6b00d8221f62f45533e3ea3a9a092dc7caa52b9ba3",
+        "bytes": 159674
+      },
+      {
+        "path": "public/textures/realism/material-oak-orm.jpg",
+        "sha256": "655fae24a9e3ba2f3ac021632e552595092337af2cf474f68e674a1417ba17f8",
+        "bytes": 813714
+      },
+      {
+        "path": "public/textures/realism/material-oak-roughness.jpg",
+        "sha256": "6c3cdaa4dadea9d11a4bcbeb784e42d79f32eb37af0e2661b263a7fe923d8ae4",
+        "bytes": 464458
+      },
+      {
+        "path": "public/textures/realism/material-twill-color.jpg",
+        "sha256": "d9faa2ec2999acc6556b4b5602a5813212fed5fa30c420e1700469de6d4ca6b7",
+        "bytes": 364520
+      },
+      {
+        "path": "public/textures/realism/material-twill-normal.jpg",
+        "sha256": "f23e4eb6337de814ab5cc3160bf4603401fa26ac7efaf84c15b4757f07606159",
+        "bytes": 69792
+      },
+      {
+        "path": "public/textures/realism/material-twill-orm.jpg",
+        "sha256": "d06a0862d657901ed953f4e29984a863bee488791163999758b8856ffa53b330",
+        "bytes": 317744
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "109fcb8efdfafc46236c0eb0f0a333bfacd4ec93043e80ddda4597e71a388394",
+    "afterSha256": "109fcb8efdfafc46236c0eb0f0a333bfacd4ec93043e80ddda4597e71a388394"
+  },
+  "formatValidation": {
+    "sha256": "6671cf49125bc4277f28072e23a5eb0298dea03287fa0fd9b9c398b359656743",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 12,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "IMAGE_NPOT_DIMENSIONS"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/4/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/5/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/6/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/7/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/2"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/textures/3"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/14"
+      },
+      {
+        "code": "IMAGE_NPOT_DIMENSIONS",
+        "message": "Image has non-power-of-two dimensions: 1024x1026.",
+        "severity": 2,
+        "pointer": "/images/15"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "b2968a0e6cf8f7a184c834b3383dc80fc49e0d9a626af9b8b60424dab0bbe814",
+    "views": {
+      "front": "Timber bookcase has four filled levels and a separate upper display bay.",
+      "rear": "Recessed rear panel is enclosed by a timber frame.",
+      "detail": "Grain follows shelves and posts; individual book covers and spines are readable.",
+      "underside": "Shelves connect to the side posts and bottom frame.",
+      "clay": "Clay retains clear shelf openings, separate books and layered cabinetry."
+    }
+  }
+}

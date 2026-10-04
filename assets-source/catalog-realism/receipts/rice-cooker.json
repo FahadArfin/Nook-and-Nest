@@ -1,0 +1,2171 @@
+{
+  "version": 1,
+  "catalogId": "rice-cooker",
+  "inputContractSha256": "40750c1e0ec6d3e45777bd4e97335bed90f954ef42690c3d7f9e5be086ba1325",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/rice-cooker.blend",
+      "sha256": "18d6dac3577f719109a29eed21b94d6d45e9dc3109b5600abcc63cc59fa21c87",
+      "bytes": 159873
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/rice-cooker.glb",
+      "sha256": "143e73e42d690f6d3602ce849fbdca78def00e39d0abd07b9c93ceecb9aa148c",
+      "bytes": 141152
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/household_turning.py",
+      "sha256": "7839d9fe3d445932ebfd4cc3a0f5430065d7c986e987a503eb58c14ebd2404a8",
+      "bytes": 6460
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/rice-cooker.json",
+      "sha256": "262ebfbdd49ed67bebc673bae61d833498838d73745d9896cbcbbeb1e15309b7",
+      "bytes": 383
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/rice-cooker.py",
+      "sha256": "5c2e0f0c4c94de5e2508098a013d77cecaa208421dd870429b60d9800acb2bf9",
+      "bytes": 9171
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/round_appliances.py",
+      "sha256": "5ba694d10ce7227bf2a13902985dd4e2bb84b4c8dd8be40d87682d06bf4d7a6b",
+      "bytes": 9377
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/round_fixture_construction.py",
+      "sha256": "4be767489fdf1aecae3c7395bc8eb4522c2041cf7d7af2e85b48e2f1648e1459",
+      "bytes": 11330
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/rice-cooker.py",
+      "sha256": "5c2e0f0c4c94de5e2508098a013d77cecaa208421dd870429b60d9800acb2bf9",
+      "bytes": 9171
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/rice-cooker.json",
+      "sha256": "262ebfbdd49ed67bebc673bae61d833498838d73745d9896cbcbbeb1e15309b7",
+      "bytes": 383
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/household_turning.py",
+      "sha256": "7839d9fe3d445932ebfd4cc3a0f5430065d7c986e987a503eb58c14ebd2404a8",
+      "bytes": 6460
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/round_appliances.py",
+      "sha256": "5ba694d10ce7227bf2a13902985dd4e2bb84b4c8dd8be40d87682d06bf4d7a6b",
+      "bytes": 9377
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/round_fixture_construction.py",
+      "sha256": "4be767489fdf1aecae3c7395bc8eb4522c2041cf7d7af2e85b48e2f1648e1459",
+      "bytes": 11330
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/rice-cooker.blend",
+      "sha256": "18d6dac3577f719109a29eed21b94d6d45e9dc3109b5600abcc63cc59fa21c87",
+      "bytes": 159873
+    },
+    {
+      "path": "public/models/furniture/rice-cooker.glb",
+      "sha256": "143e73e42d690f6d3602ce849fbdca78def00e39d0abd07b9c93ceecb9aa148c",
+      "bytes": 141152
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/paint-orm.png",
+      "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+      "bytes": 29345
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-normal.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/metal-orm.png",
+      "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+      "bytes": 29212
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/rice-cooker.py",
+      "sha256": "5c2e0f0c4c94de5e2508098a013d77cecaa208421dd870429b60d9800acb2bf9",
+      "bytes": 9171
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/rice-cooker.json",
+      "sha256": "262ebfbdd49ed67bebc673bae61d833498838d73745d9896cbcbbeb1e15309b7",
+      "bytes": 383
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+      "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+      "bytes": 10417
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/household_turning.py",
+      "sha256": "7839d9fe3d445932ebfd4cc3a0f5430065d7c986e987a503eb58c14ebd2404a8",
+      "bytes": 6460
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/round_appliances.py",
+      "sha256": "5ba694d10ce7227bf2a13902985dd4e2bb84b4c8dd8be40d87682d06bf4d7a6b",
+      "bytes": 9377
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/round_fixture_construction.py",
+      "sha256": "4be767489fdf1aecae3c7395bc8eb4522c2041cf7d7af2e85b48e2f1648e1459",
+      "bytes": 11330
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+      "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+      "bytes": 9057
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+      "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+      "bytes": 12800
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+      "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+      "bytes": 8608
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "appliance_base",
+      "construction": "smooth original turned cooker component with its exact source profile and envelope",
+      "sourceVertices": 144,
+      "candidateVertices": 578,
+      "candidateTriangles": 1152,
+      "boundsM": {
+        "min": [
+          -0.15000000596046448,
+          -0.13866057991981506,
+          0
+        ],
+        "max": [
+          0.15000000596046448,
+          0.14000000059604645,
+          0.02625437267124653
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "body",
+      "construction": "smooth original turned cooker component with its exact source profile and envelope",
+      "sourceVertices": 144,
+      "candidateVertices": 578,
+      "candidateTriangles": 1152,
+      "boundsM": {
+        "min": [
+          -0.1428571343421936,
+          -0.1320257931947708,
+          0.01648775301873684
+        ],
+        "max": [
+          0.1428571343421936,
+          0.1333652138710022,
+          0.20929986238479614
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "lid",
+      "construction": "smooth original turned cooker component with its exact source profile and envelope",
+      "sourceVertices": 144,
+      "candidateVertices": 578,
+      "candidateTriangles": 1152,
+      "boundsM": {
+        "min": [
+          -0.14642857015132904,
+          -0.13534317910671234,
+          0.19942821562290192
+        ],
+        "max": [
+          0.14642857015132904,
+          0.13668261468410492,
+          0.23618434369564056
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "lid_knob",
+      "construction": "smooth original turned cooker component with its exact source profile and envelope",
+      "sourceVertices": 144,
+      "candidateVertices": 578,
+      "candidateTriangles": 1152,
+      "boundsM": {
+        "min": [
+          -0.029761902987957,
+          -0.026975184679031372,
+          0.227992981672287
+        ],
+        "max": [
+          0.029761902987957,
+          0.028314610943198204,
+          0.27000001072883606
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Pressure vent",
+      "construction": "existing pressure vent seated one millimetre into the original lid",
+      "sourceVertices": 64,
+      "candidateVertices": 64,
+      "candidateTriangles": 124,
+      "boundsM": {
+        "min": [
+          0.04100000113248825,
+          0.02616589516401291,
+          0.23518434369564056
+        ],
+        "max": [
+          0.07899999618530273,
+          0.06404414027929306,
+          0.24718436801433563
+        ]
+      },
+      "lidInsertionM": 0.001
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.02896428395807743,
+          0.00016971313208341597,
+          0.24599649620056152
+        ],
+        "max": [
+          0.02996428395807743,
+          0.001169713132083416,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.001",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.027522199256300298,
+          0.008627028931162737,
+          0.24599649620056152
+        ],
+        "max": [
+          0.0285221992563003,
+          0.009627028931162738,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.002",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.02333710644917378,
+          0.0162564837342441,
+          0.24599649620056152
+        ],
+        "max": [
+          0.024337106449173782,
+          0.017256483734244103,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.003",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.016818671579915612,
+          0.022311253347664557,
+          0.24599649620056152
+        ],
+        "max": [
+          0.017818671579915613,
+          0.023311253347664557,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.004",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.008604964470135068,
+          0.026198654735602015,
+          0.24599649620056152
+        ],
+        "max": [
+          0.009604964470135069,
+          0.027198654735602016,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.005",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.0004999999999999982,
+          0.027538161965087054,
+          0.24599649620056152
+        ],
+        "max": [
+          0.0005000000000000019,
+          0.028538161965087055,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.006",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.009604964470135065,
+          0.02619865473560202,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.008604964470135064,
+          0.02719865473560202,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.007",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.01781867157991561,
+          0.022311253347664557,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.01681867157991561,
+          0.023311253347664557,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.008",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.02433710644917378,
+          0.016256483734244105,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.023337106449173778,
+          0.017256483734244106,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.009",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.0285221992563003,
+          0.008627028931162739,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.027522199256300298,
+          0.00962702893116274,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.010",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.02996428395807743,
+          0.00016971313208341934,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.02896428395807743,
+          0.0011697131320834195,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.011",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.028522199256300305,
+          -0.008287602666995892,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.027522199256300305,
+          -0.0072876026669958915,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.012",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.024337106449173782,
+          -0.015917057470077267,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.02333710644917378,
+          -0.014917057470077266,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.013",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.017818671579915617,
+          -0.021971827083497722,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.016818671579915616,
+          -0.02097182708349772,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.014",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.009604964470135072,
+          -0.025859228471435184,
+          0.24599649620056152
+        ],
+        "max": [
+          -0.008604964470135071,
+          -0.024859228471435183,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.015",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          -0.0005000000000000054,
+          -0.027198735700920223,
+          0.24599649620056152
+        ],
+        "max": [
+          0.0004999999999999946,
+          -0.026198735700920222,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.016",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.00860496447013506,
+          -0.025859228471435187,
+          0.24599649620056152
+        ],
+        "max": [
+          0.009604964470135062,
+          -0.024859228471435187,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.017",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.016818671579915605,
+          -0.02197182708349773,
+          0.24599649620056152
+        ],
+        "max": [
+          0.017818671579915606,
+          -0.020971827083497728,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.018",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.023337106449173778,
+          -0.015917057470077278,
+          0.24599649620056152
+        ],
+        "max": [
+          0.02433710644917378,
+          -0.014917057470077277,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "Precision grip rib.019",
+      "construction": "original grip detail distributed around the vertical knob axis rather than forming a false front dial",
+      "sourceVertices": 16,
+      "candidateVertices": 50,
+      "candidateTriangles": 96,
+      "boundsM": {
+        "min": [
+          0.027522199256300298,
+          -0.008287602666995913,
+          0.24599649620056152
+        ],
+        "max": [
+          0.0285221992563003,
+          -0.007287602666995912,
+          0.2519964962005615
+        ]
+      }
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "black-ceramic-glass",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "black-enamel",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "black-enamel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "black-enamel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "profile": "metal",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/metal-normal.png",
+          "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+          "bytes": 4674,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "brushed-stainless-steel",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/metal-orm.png",
+          "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+          "bytes": 29212,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "display-markings",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "ink-detail",
+      "profile": null,
+      "protectedReason": "optical, luminous, screen, marking or shadow role",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "variant-surface",
+      "profile": "paint",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "variant-surface",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/paint-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "variant-surface",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/paint-orm.png",
+          "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+          "bytes": 29345,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "black-enamel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "black-enamel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+      "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+      "bytes": 4674,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "brushed-stainless-steel",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+      "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+      "bytes": 49615,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-orm-a818c70eff3da7dc.png",
+      "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+      "bytes": 49690,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 729728,
+    "afterBytes": 729728,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/rice-cooker.blend",
+      "sha256": "42b4d314c46b6b6e95e0e1c1fceec2d17f6bb190c65e535d67593ec87747f057",
+      "bytes": 351937
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/rice-cooker.glb",
+      "sha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+      "bytes": 729728
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/rice-cooker/front-0d346636abcbd8322711.webp",
+      "sha256": "0d346636abcbd8322711576433e74762437330bf090f1f42177399c3ab8622ac",
+      "bytes": 65198,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.775,
+      "camera": {
+        "orthoScale": 0.632438600063324,
+        "position": [
+          0.5584080815315247,
+          -0.9306800961494446,
+          0.6468740701675415
+        ],
+        "target": [
+          0,
+          0,
+          0.13500000536441803
+        ],
+        "clipStart": 0.0003000000142492354,
+        "clipEnd": 3.6000001430511475,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.18273061513900757,
+            0.06521736085414886
+          ],
+          "max": [
+            0.8172692656517029,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+      "renderConfigSha256": "a48bc491501972803ecf1a9d04a12368223c54bdca980904689088ff0989a097",
+      "inputSetSha256": "6a8963ba2ed89c4946bf742128fcfe74199fe10f44b5083f1a041e2bc9417a73"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/rice-cooker/rear-b1d5c87dc3d69b9228a9.webp",
+      "sha256": "b1d5c87dc3d69b9228a99df3a5c0d6c3ebba0a2cdf40a7ed11de0264bc6d70ce",
+      "bytes": 65796,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.788,
+      "camera": {
+        "orthoScale": 0.632438600063324,
+        "position": [
+          -0.5584080815315247,
+          0.9306800961494446,
+          0.6468740701675415
+        ],
+        "target": [
+          0,
+          0,
+          0.13500000536441803
+        ],
+        "clipStart": 0.0003000000142492354,
+        "clipEnd": 3.6000001430511475,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.18273064494132996,
+            0.06521739810705185
+          ],
+          "max": [
+            0.8172692060470581,
+            0.9347819685935974
+          ]
+        }
+      },
+      "glbSha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+      "renderConfigSha256": "a48bc491501972803ecf1a9d04a12368223c54bdca980904689088ff0989a097",
+      "inputSetSha256": "6a8963ba2ed89c4946bf742128fcfe74199fe10f44b5083f1a041e2bc9417a73"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/rice-cooker/detail-a78d83c96e54c7bf76a5.webp",
+      "sha256": "a78d83c96e54c7bf76a5d330dbe6f72873412e8233b060a0933c73c09068b348",
+      "bytes": 85242,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.808,
+      "camera": {
+        "orthoScale": 0.34784141182899475,
+        "position": [
+          0.5584080815315247,
+          -0.9306800961494446,
+          0.6468740701675415
+        ],
+        "target": [
+          0,
+          0,
+          0.13500000536441803
+        ],
+        "clipStart": 0.0003000000142492354,
+        "clipEnd": 3.6000001430511475,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.1827307492494583,
+            0.06521739065647125
+          ],
+          "max": [
+            0.8172690272331238,
+            0.934781551361084
+          ]
+        }
+      },
+      "glbSha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+      "renderConfigSha256": "a48bc491501972803ecf1a9d04a12368223c54bdca980904689088ff0989a097",
+      "inputSetSha256": "6a8963ba2ed89c4946bf742128fcfe74199fe10f44b5083f1a041e2bc9417a73"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/rice-cooker/underside-2d36275324eb313cfe60.webp",
+      "sha256": "2d36275324eb313cfe60f427138b16bb5058464ef64b3b0e0b7c131e08167ae6",
+      "bytes": 36488,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.685,
+      "camera": {
+        "orthoScale": 0.644835352897644,
+        "position": [
+          0.5489948987960815,
+          -0.9149914383888245,
+          -0.4139948785305023
+        ],
+        "target": [
+          0,
+          0,
+          0.13500000536441803
+        ],
+        "clipStart": 0.0003000000142492354,
+        "clipEnd": 3.6000001430511475,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.18883001804351807,
+            0.06521738320589066
+          ],
+          "max": [
+            0.8111698031425476,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+      "renderConfigSha256": "a48bc491501972803ecf1a9d04a12368223c54bdca980904689088ff0989a097",
+      "inputSetSha256": "6a8963ba2ed89c4946bf742128fcfe74199fe10f44b5083f1a041e2bc9417a73"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/rice-cooker/clay-3372cc6a06f8c71ff238.webp",
+      "sha256": "3372cc6a06f8c71ff238c38df69dba86adc8a1794810181f0ee7199304bf6711",
+      "bytes": 50696,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.79,
+      "camera": {
+        "orthoScale": 0.632438600063324,
+        "position": [
+          0.5584080815315247,
+          -0.9306800961494446,
+          0.6468740701675415
+        ],
+        "target": [
+          0,
+          0,
+          0.13500000536441803
+        ],
+        "clipStart": 0.0003000000142492354,
+        "clipEnd": 3.6000001430511475,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.18273061513900757,
+            0.06521736085414886
+          ],
+          "max": [
+            0.8172692656517029,
+            0.9347820281982422
+          ]
+        }
+      },
+      "glbSha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+      "renderConfigSha256": "a48bc491501972803ecf1a9d04a12368223c54bdca980904689088ff0989a097",
+      "inputSetSha256": "6a8963ba2ed89c4946bf742128fcfe74199fe10f44b5083f1a041e2bc9417a73"
+    }
+  ],
+  "timingSeconds": 1.52,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.15000000596046448,
+          0.14000000059604645,
+          0.27000001072883606
+        ],
+        "min": [
+          -0.15000000596046448,
+          -0.14000000059604645,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 1,
+          "materialKey": "variant-surface",
+          "rawGlbBaseColorFactor": [
+            0.5600000023841858,
+            0.6499999761581421,
+            0.44999998807907104,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+      "renderImportSha256": "21ec49922a5362e1ca0acc8750b7235f5f79b56d5825d6fbd0ced563e57680e7",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.15000000596046448,0.14000000059604645,0.27000001072883606],\"min\":[-0.15000000596046448,-0.14000000059604645,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":1,\"materialKey\":\"variant-surface\",\"rawGlbBaseColorFactor\":[0.5600000023841858,0.6499999761581421,0.44999998807907104,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a\",\"renderImportSha256\":\"21ec49922a5362e1ca0acc8750b7235f5f79b56d5825d6fbd0ced563e57680e7\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "a48bc491501972803ecf1a9d04a12368223c54bdca980904689088ff0989a097",
+    "inputs": [
+      {
+        "path": "assets-source/blender/rice-cooker.blend",
+        "sha256": "18d6dac3577f719109a29eed21b94d6d45e9dc3109b5600abcc63cc59fa21c87",
+        "bytes": 159873
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/rice-cooker.blend",
+        "sha256": "42b4d314c46b6b6e95e0e1c1fceec2d17f6bb190c65e535d67593ec87747f057",
+        "bytes": 351937
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/black-enamel-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-normal-f1fc99bd2a1d8d7d.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/brushed-stainless-steel-orm-ab0ca70a2fd9ef98.png",
+        "sha256": "ab0ca70a2fd9ef9887caf34e96c11619fed5c50c06269c4148d9e701be9b479b",
+        "bytes": 49615
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/variant-surface-orm-a818c70eff3da7dc.png",
+        "sha256": "a818c70eff3da7dcefe2cd0f194b1707fa514ddfe390751cf8671498cb768bf6",
+        "bytes": 49690
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/rice-cooker/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-normal.png",
+        "sha256": "f1fc99bd2a1d8d7d062e950b8e48b792f8f0b9731982a889d55b6d981b7f8596",
+        "bytes": 4674
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/metal-orm.png",
+        "sha256": "aa83f5030c90edeb11b80e3f5ac599765d030120b17e309897d323aee458f2eb",
+        "bytes": 29212
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/paint-orm.png",
+        "sha256": "e84ff70c9e83d4e9cba279684915add1186073840d904c29125d6ec7fbaa18a0",
+        "bytes": 29345
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/rice-cooker.glb",
+        "sha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+        "bytes": 729728
+      },
+      {
+        "path": "public/models/furniture/rice-cooker.glb",
+        "sha256": "143e73e42d690f6d3602ce849fbdca78def00e39d0abd07b9c93ceecb9aa148c",
+        "bytes": 141152
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+        "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+        "bytes": 15729
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+        "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+        "bytes": 14306
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/garage_construction.py",
+        "sha256": "069830e0a722047da4db2c34c8b6b201049a4489d8b3639a44fb36d98e5f0a41",
+        "bytes": 10417
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/household_turning.py",
+        "sha256": "7839d9fe3d445932ebfd4cc3a0f5430065d7c986e987a503eb58c14ebd2404a8",
+        "bytes": 6460
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/rice-cooker.json",
+        "sha256": "262ebfbdd49ed67bebc673bae61d833498838d73745d9896cbcbbeb1e15309b7",
+        "bytes": 383
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/rice-cooker.py",
+        "sha256": "5c2e0f0c4c94de5e2508098a013d77cecaa208421dd870429b60d9800acb2bf9",
+        "bytes": 9171
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/round_appliances.py",
+        "sha256": "5ba694d10ce7227bf2a13902985dd4e2bb84b4c8dd8be40d87682d06bf4d7a6b",
+        "bytes": 9377
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/round_fixture_construction.py",
+        "sha256": "4be767489fdf1aecae3c7395bc8eb4522c2041cf7d7af2e85b48e2f1648e1459",
+        "bytes": 11330
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/silhouette_geometry.py",
+        "sha256": "df785343e270a30bfc34a93f67cd7a70682e7bd6d6df3087d3085b230a04d2ae",
+        "bytes": 9057
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/textile_turning.py",
+        "sha256": "9c35b0396a496778017a097befc9d1ed29ea58d9a31cdbad7b0509204ad55c56",
+        "bytes": 12800
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/utility_construction.py",
+        "sha256": "0bd89f9ffe35f72e53ff73ee5e7cd61eb35192bb16cee46ba5f2b4eb85d28392",
+        "bytes": 8608
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+        "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+        "bytes": 12009
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "6a8963ba2ed89c4946bf742128fcfe74199fe10f44b5083f1a041e2bc9417a73",
+    "afterSha256": "6a8963ba2ed89c4946bf742128fcfe74199fe10f44b5083f1a041e2bc9417a73"
+  },
+  "formatValidation": {
+    "sha256": "a6cc6187d85a3b1ebfbc5b01b961e98abdc3a264cc2fc6b9b400bc597ef1519a",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 10,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/2/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/3/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/1/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/1/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/2/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/2/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "3f2e31dc68170f7303bca7837d34622b318ab60f661fc586f914965df71b8bff",
+    "views": {
+      "front": "The compact cooker now has a smooth round body and fitted lid, with the small front display retained.",
+      "rear": "The back is a continuous closed appliance shell with aligned lid and lower trim, improving the original faceted cylinder.",
+      "detail": "The pressure vent sits on the lid and the fine grip marks wrap the top knob correctly; neither detail floats above the surface.",
+      "underside": "A closed dark base and continuous lower rim are visible, with the display attached to the body.",
+      "clay": "The clay view confirms rounded manufactured body and lid contours with separate vent and knob construction."
+    }
+  }
+}

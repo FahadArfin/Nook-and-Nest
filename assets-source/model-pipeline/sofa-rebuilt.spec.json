@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "recipe": "sofa",
+  "catalogId": "slat-day-sofa",
+  "variantId": "sofa-rebuilt",
+  "seed": 73021,
+  "sourceBlend": "assets-source/experiments/realism-lab/sofa-refined.blend",
+  "dimensionsM": [2.0, 0.85, 0.78],
+  "materialKeys": ["wood-honey-textured", "upholstery-textured", "tailored-tone-on-tone-stitch", "joinery-aged-brass"],
+  "surface": {"method": "tiled-pbr", "resolution": 1024},
+  "references": [
+    {"url": "https://www.carlhansen.com/en/en/collection/sofas-daybeds/ch293", "use": "Separate reclining cushions, solid timber frame and slatted back construction; original measured adaptation, not a replica"},
+    {"url": "https://www.ercol.com/en-gb/living-room/sofas/studio-couch", "use": "Sculpted arm and tapered leg silhouettes"},
+    {"url": "https://polyhaven.com/a/poly_wool_herringbone", "use": "Licensed CC0 photographed wool PBR maps at measured textile scale"}
+  ],
+  "criticalContacts": [
+    {"pair": "seat cushions / recessed support slats", "preservation": "Modeled boxed cushion underside rests on the timber support grid"},
+    {"pair": "sewn welts / shaped covers", "preservation": "Welts follow the displaced seam coordinates"}
+  ],
+  "budgets": {"targetTriangles": 50000, "maxTriangles": 80000, "maxGlbBytes": 10485760, "maxPrimitives": 8},
+  "outputs": {
+    "sourceBlend": "assets-source/experiments/realism-lab/sofa-rebuilt.blend",
+    "glb": "public/experiments/realism-lab/sofa-rebuilt.glb",
+    "receipt": "assets-source/model-pipeline/sofa-rebuilt-build.json"
+  }
+}

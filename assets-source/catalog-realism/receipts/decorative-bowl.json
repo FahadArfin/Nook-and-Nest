@@ -1,0 +1,1888 @@
+{
+  "version": 1,
+  "catalogId": "decorative-bowl",
+  "inputContractSha256": "be3d9581e00056820710fcb4218d8d7a57ad887131d7f82de93d25a5a243b33e",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/decorative-bowl.blend",
+      "sha256": "0dc1841bc0df0d3d53f9c7fb5314ab749ca115a745a5f1755ba78efd2950a4ff",
+      "bytes": 140931
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/decorative-bowl.glb",
+      "sha256": "c1577300380c5ec9a514c409f2221dbea5d98580973b251863833bacacfd41ba",
+      "bytes": 244788
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/decorative-bowl.json",
+      "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+      "bytes": 167
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/decorative-bowl.py",
+      "sha256": "5858320cd2c5e190f44029a09c92c866f3ad8bf909d006a2ccbe828c881f0bf4",
+      "bytes": 11300
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/decorative-bowl.py",
+      "sha256": "5858320cd2c5e190f44029a09c92c866f3ad8bf909d006a2ccbe828c881f0bf4",
+      "bytes": 11300
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/decorative-bowl.json",
+      "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+      "bytes": 167
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/decorative-bowl.blend",
+      "sha256": "0dc1841bc0df0d3d53f9c7fb5314ab749ca115a745a5f1755ba78efd2950a4ff",
+      "bytes": 140931
+    },
+    {
+      "path": "public/models/furniture/decorative-bowl.glb",
+      "sha256": "c1577300380c5ec9a514c409f2221dbea5d98580973b251863833bacacfd41ba",
+      "bytes": 244788
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+      "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+      "bytes": 25832
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787
+    }
+  ],
+  "modelRefinementInputs": [
+    {
+      "path": "tools/blender/catalog_realism/refinements/decorative-bowl.py",
+      "sha256": "5858320cd2c5e190f44029a09c92c866f3ad8bf909d006a2ccbe828c881f0bf4",
+      "bytes": 11300
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/decorative-bowl.json",
+      "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+      "bytes": 167
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+      "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+      "bytes": 18521
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+      "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+      "bytes": 15729
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+      "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+      "bytes": 14306
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+      "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+      "bytes": 12009
+    }
+  ],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "source-evidenced-construction",
+      "component": "open_centerpiece",
+      "construction": "closed outer bottom and rounded continuous bowl wall with original88percent interior and20percent floor",
+      "sourceVertices": 192,
+      "candidateVertices": 2434,
+      "candidateTriangles": 4864,
+      "boundsM": {
+        "min": [
+          -0.16780567169189453,
+          -0.16780567169189453,
+          0
+        ],
+        "max": [
+          0.16780567169189453,
+          0.16780567169189453,
+          0.1188119575381279
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.1606113463640213,
+          -0.0068,
+          0.026
+        ],
+        "max": [
+          0.17499999701976776,
+          0.0068,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.001",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.15752524407194535,
+          0.026038484746239342,
+          0.026
+        ],
+        "max": [
+          0.17163742081240604,
+          0.039436043538459,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.002",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.14789564782394202,
+          0.057358702735782294,
+          0.026
+        ],
+        "max": [
+          0.1621688032652746,
+          0.07107419795019616,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.003",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.13255306775427508,
+          0.08640358225875565,
+          0.026
+        ],
+        "max": [
+          0.14649757155346135,
+          0.10005208139835925,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.004",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.111659361796123,
+          0.11165936962580784,
+          0.026
+        ],
+        "max": [
+          0.12565368711096456,
+          0.12565369496671272,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.005",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.0864035804675577,
+          0.13255306894478364,
+          0.026
+        ],
+        "max": [
+          0.10005207956669508,
+          0.14649757278367168,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.006",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.05735869939170367,
+          0.1478956492073415,
+          0.026
+        ],
+        "max": [
+          0.07107419460009769,
+          0.16216880465469394,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.007",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.026038483811661142,
+          0.1575252442514831,
+          0.026
+        ],
+        "max": [
+          0.03943604258698211,
+          0.17163742100802798,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.008",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.006799999999999989,
+          0.1606113463640213,
+          0.026
+        ],
+        "max": [
+          0.00680000000000001,
+          0.17499999701976776,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.009",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.03943604258698209,
+          0.1575252442514831,
+          0.026
+        ],
+        "max": [
+          -0.02603848381166112,
+          0.17163742100802798,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.010",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.0710741946000977,
+          0.1478956492073415,
+          0.026
+        ],
+        "max": [
+          -0.057358699391703676,
+          0.1621688046546939,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.011",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.10005207956669508,
+          0.13255306894478364,
+          0.026
+        ],
+        "max": [
+          -0.0864035804675577,
+          0.1464975727836717,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.012",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.12565368711096456,
+          0.11165936962580786,
+          0.026
+        ],
+        "max": [
+          -0.111659361796123,
+          0.12565369496671272,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.013",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.14649757155346135,
+          0.08640358225875565,
+          0.026
+        ],
+        "max": [
+          -0.13255306775427508,
+          0.10005208139835925,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.014",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.16216880326527458,
+          0.05735870273578228,
+          0.026
+        ],
+        "max": [
+          -0.14789564782394202,
+          0.07107419795019614,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.015",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.17163742081240604,
+          0.026038484746239356,
+          0.026
+        ],
+        "max": [
+          -0.15752524407194535,
+          0.039436043538459004,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.016",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.17499999701976776,
+          -0.006799999999999979,
+          0.026
+        ],
+        "max": [
+          -0.1606113463640213,
+          0.0068000000000000204,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.017",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.17163742120364994,
+          -0.03943604163550524,
+          0.026
+        ],
+        "max": [
+          -0.15752524443102084,
+          -0.026038482877082943,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.018",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.16216880395998423,
+          -0.07107419627514693,
+          0.026
+        ],
+        "max": [
+          -0.14789564851564174,
+          -0.05735870106374299,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.019",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.14649757278367168,
+          -0.10005207956669512,
+          0.026
+        ],
+        "max": [
+          -0.1325530689447836,
+          -0.08640358046755774,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.020",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.12565368907490168,
+          -0.1256536930027757,
+          0.026
+        ],
+        "max": [
+          -0.11165936375354427,
+          -0.11165936766838666,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.021",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.10005207956669508,
+          -0.14649757278367168,
+          0.026
+        ],
+        "max": [
+          -0.0864035804675577,
+          -0.13255306894478364,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.022",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.07107419627514694,
+          -0.16216880395998423,
+          0.026
+        ],
+        "max": [
+          -0.057358701063743,
+          -0.14789564851564174,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.023",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.03943604353845901,
+          -0.17163742081240604,
+          0.026
+        ],
+        "max": [
+          -0.026038484746239363,
+          -0.15752524407194535,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.024",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          -0.006799999999999989,
+          -0.17499999701976776,
+          0.026
+        ],
+        "max": [
+          0.00680000000000001,
+          -0.1606113463640213,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.025",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.026038484746239342,
+          -0.17163742081240604,
+          0.026
+        ],
+        "max": [
+          0.039436043538459,
+          -0.15752524407194535,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.026",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.057358701063742974,
+          -0.16216880395998426,
+          0.026
+        ],
+        "max": [
+          0.07107419627514691,
+          -0.14789564851564177,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.027",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.0864035804675577,
+          -0.1464975727836717,
+          0.026
+        ],
+        "max": [
+          0.10005207956669508,
+          -0.13255306894478364,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.028",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.1116593637535443,
+          -0.12565369300277568,
+          0.026
+        ],
+        "max": [
+          0.12565368907490168,
+          -0.11165936766838665,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.029",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.13255306894478364,
+          -0.1000520795666951,
+          0.026
+        ],
+        "max": [
+          0.14649757278367168,
+          -0.08640358046755771,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.030",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.14789564851564174,
+          -0.07107419627514694,
+          0.026
+        ],
+        "max": [
+          0.16216880395998423,
+          -0.057358701063743,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "source-evidenced-construction",
+      "component": "fluted_rim.031",
+      "construction": "round-ended exterior raised flute seated in bowl wall, without internal rod tips",
+      "sourceVertices": 112,
+      "candidateVertices": 130,
+      "candidateTriangles": 256,
+      "boundsM": {
+        "min": [
+          0.15752524443102084,
+          -0.039436041635505216,
+          0.026
+        ],
+        "max": [
+          0.17163742120364994,
+          -0.026038482877082936,
+          0.11999999731779099
+        ]
+      }
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "variant-surface",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "variant-surface",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "variant-surface",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "variant-surface",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "profile": "ceramic",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "warm-porcelain",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+          "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+          "bytes": 25832,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "variant-surface",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "variant-surface",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "warm-porcelain",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+      "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+      "bytes": 46787,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 797052,
+    "afterBytes": 797052,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/decorative-bowl.blend",
+      "sha256": "c880af76025507675271c29d3e82268c84ba251876d3f9b01b5c52f262a4514b",
+      "bytes": 329093
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/decorative-bowl.glb",
+      "sha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+      "bytes": 797052
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/decorative-bowl/front-2fdfca7090df8645fc05.webp",
+      "sha256": "2fdfca7090df8645fc05ad3797dddfb6cd35c3fae3c1d7b2f8b855ee4f9ecc33",
+      "bytes": 68126,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.767,
+      "camera": {
+        "orthoScale": 0.5522255897521973,
+        "position": [
+          0.6514760255813599,
+          -1.085793375968933,
+          0.6571863889694214
+        ],
+        "target": [
+          0,
+          0,
+          0.05999999865889549
+        ],
+        "clipStart": 0.0003499999875202775,
+        "clipEnd": 4.199999809265137,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521738320589066,
+            0.12169009447097778
+          ],
+          "max": [
+            0.9347823858261108,
+            0.8783089518547058
+          ]
+        }
+      },
+      "glbSha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+      "renderConfigSha256": "8cca5d6cf124de1be0112ce57aacf588c9cd919fd54760ac0b4baf95ec428645",
+      "inputSetSha256": "0f5960faaf980d1c6b42225124e48822af44828c97fd7d9cc9d405e9c8fdb041"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/decorative-bowl/rear-015f11fdecf0014d7bda.webp",
+      "sha256": "015f11fdecf0014d7bda67cece22fdbcfac265b6bb2ba455b42222666bbc19ae",
+      "bytes": 73934,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.778,
+      "camera": {
+        "orthoScale": 0.5522255301475525,
+        "position": [
+          -0.6514760255813599,
+          1.085793375968933,
+          0.6571863889694214
+        ],
+        "target": [
+          0,
+          0,
+          0.05999999865889549
+        ],
+        "clipStart": 0.0003499999875202775,
+        "clipEnd": 4.199999809265137,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521738320589066,
+            0.12169007211923599
+          ],
+          "max": [
+            0.9347823858261108,
+            0.8783090114593506
+          ]
+        }
+      },
+      "glbSha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+      "renderConfigSha256": "8cca5d6cf124de1be0112ce57aacf588c9cd919fd54760ac0b4baf95ec428645",
+      "inputSetSha256": "0f5960faaf980d1c6b42225124e48822af44828c97fd7d9cc9d405e9c8fdb041"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/decorative-bowl/detail-49966d93474e8c8293ca.webp",
+      "sha256": "49966d93474e8c8293ca9a4ae12d2e68a119f96e5e5b989b2d8486f6d972a709",
+      "bytes": 102352,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.824,
+      "camera": {
+        "orthoScale": 0.30372413992881775,
+        "position": [
+          0.6514760255813599,
+          -1.085793375968933,
+          0.6571863889694214
+        ],
+        "target": [
+          0,
+          0,
+          0.05999999865889549
+        ],
+        "clipStart": 0.0003499999875202775,
+        "clipEnd": 4.199999809265137,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.06521739810705185,
+            0.12168978899717331
+          ],
+          "max": [
+            0.9347822070121765,
+            0.8783085346221924
+          ]
+        }
+      },
+      "glbSha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+      "renderConfigSha256": "8cca5d6cf124de1be0112ce57aacf588c9cd919fd54760ac0b4baf95ec428645",
+      "inputSetSha256": "0f5960faaf980d1c6b42225124e48822af44828c97fd7d9cc9d405e9c8fdb041"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/decorative-bowl/underside-57bac5f0903fadbdf8f2.webp",
+      "sha256": "57bac5f0903fadbdf8f2ad9baa282ce3af5b4271519373abc66e14c46608b061",
+      "bytes": 50574,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.678,
+      "camera": {
+        "orthoScale": 0.5522255897521973,
+        "position": [
+          0.6404939889907837,
+          -1.0674899816513062,
+          -0.5804939866065979
+        ],
+        "target": [
+          0,
+          0,
+          0.05999999865889549
+        ],
+        "clipStart": 0.0003499999875202775,
+        "clipEnd": 4.199999809265137,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521738320589066,
+            0.10596661269664764
+          ],
+          "max": [
+            0.9347823262214661,
+            0.8940333724021912
+          ]
+        }
+      },
+      "glbSha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+      "renderConfigSha256": "8cca5d6cf124de1be0112ce57aacf588c9cd919fd54760ac0b4baf95ec428645",
+      "inputSetSha256": "0f5960faaf980d1c6b42225124e48822af44828c97fd7d9cc9d405e9c8fdb041"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/decorative-bowl/clay-0ef1d19da93f8586c5cf.webp",
+      "sha256": "0ef1d19da93f8586c5cf5be48921c101ec7f6c49b2512fbe2d3d812e01aeedd4",
+      "bytes": 62984,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.77,
+      "camera": {
+        "orthoScale": 0.5522255897521973,
+        "position": [
+          0.6514760255813599,
+          -1.085793375968933,
+          0.6571863889694214
+        ],
+        "target": [
+          0,
+          0,
+          0.05999999865889549
+        ],
+        "clipStart": 0.0003499999875202775,
+        "clipEnd": 4.199999809265137,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.06521738320589066,
+            0.12169009447097778
+          ],
+          "max": [
+            0.9347823858261108,
+            0.8783089518547058
+          ]
+        }
+      },
+      "glbSha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+      "renderConfigSha256": "8cca5d6cf124de1be0112ce57aacf588c9cd919fd54760ac0b4baf95ec428645",
+      "inputSetSha256": "0f5960faaf980d1c6b42225124e48822af44828c97fd7d9cc9d405e9c8fdb041"
+    }
+  ],
+  "timingSeconds": 1.7,
+  "exportMeshes": 1,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.17499999701976776,
+          0.17499999701976776,
+          0.11999999731779099
+        ],
+        "min": [
+          -0.17499999701976776,
+          -0.17499999701976776,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 0,
+          "materialKey": "variant-surface",
+          "rawGlbBaseColorFactor": [
+            0.5600000023841858,
+            0.6499999761581421,
+            0.44999998807907104,
+            1
+          ],
+          "renderBaseColorFactor": [
+            0.9157501292792527,
+            0.907547199521614,
+            0.8671355375209048,
+            1
+          ],
+          "rule": "catalog-realism-linear-gamma-2.2",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+      "renderImportSha256": "46bfa56d6e83530837f86ae5a79bbb6ed3ecf84ab28cba93c3311c67385cfc9c",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.17499999701976776,0.17499999701976776,0.11999999731779099],\"min\":[-0.17499999701976776,-0.17499999701976776,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":0,\"materialKey\":\"variant-surface\",\"rawGlbBaseColorFactor\":[0.5600000023841858,0.6499999761581421,0.44999998807907104,1],\"renderBaseColorFactor\":[0.9157501292792527,0.907547199521614,0.8671355375209048,1],\"rule\":\"catalog-realism-linear-gamma-2.2\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3\",\"renderImportSha256\":\"46bfa56d6e83530837f86ae5a79bbb6ed3ecf84ab28cba93c3311c67385cfc9c\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "8cca5d6cf124de1be0112ce57aacf588c9cd919fd54760ac0b4baf95ec428645",
+    "inputs": [
+      {
+        "path": "assets-source/blender/decorative-bowl.blend",
+        "sha256": "0dc1841bc0df0d3d53f9c7fb5314ab749ca115a745a5f1755ba78efd2950a4ff",
+        "bytes": 140931
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/decorative-bowl.blend",
+        "sha256": "c880af76025507675271c29d3e82268c84ba251876d3f9b01b5c52f262a4514b",
+        "bytes": 329093
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/decorative-bowl/variant-surface-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/decorative-bowl/warm-porcelain-orm-97bd19f75fc5a9b1.png",
+        "sha256": "97bd19f75fc5a9b1fd8e97a952c1be22a268d2242300c5f5fc6a2747cd04f3a0",
+        "bytes": 46787
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/ceramic-orm.png",
+        "sha256": "3f987b2be2485d7962d6f1e62d3013560ce56e1b619221da12f7fd401efcffef",
+        "bytes": 25832
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/decorative-bowl.glb",
+        "sha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+        "bytes": 797052
+      },
+      {
+        "path": "public/models/furniture/decorative-bowl.glb",
+        "sha256": "c1577300380c5ec9a514c409f2221dbea5d98580973b251863833bacacfd41ba",
+        "bytes": 244788
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/curved_construction.py",
+        "sha256": "8b2e94eeae4a9bdd538961054403e55e89790a56ee5e1825eb99a1f25ac05e6f",
+        "bytes": 18521
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/decorative-bowl.json",
+        "sha256": "33a0771ea62862949e1bc5a69563cadf7238e53d2e226d6b976e19be02a9d5f9",
+        "bytes": 167
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/decorative-bowl.py",
+        "sha256": "5858320cd2c5e190f44029a09c92c866f3ad8bf909d006a2ccbe828c881f0bf4",
+        "bytes": 11300
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/designed_construction.py",
+        "sha256": "76d4194163802331d4dbb2f4548961ee0bd194eb92477564e32deac6dd36495c",
+        "bytes": 15729
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/fixture_contacts.py",
+        "sha256": "0ba7d7df5673951f163406b9653bea0c0a228198caaf035c9cdbcef208f78d6e",
+        "bytes": 14306
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements/vessel_geometry.py",
+        "sha256": "4275480cc204babd6b2ab9819bb60624e9cd1443d0d8f555bd6fbf388ab755a4",
+        "bytes": 12009
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "0f5960faaf980d1c6b42225124e48822af44828c97fd7d9cc9d405e9c8fdb041",
+    "afterSha256": "0f5960faaf980d1c6b42225124e48822af44828c97fd7d9cc9d405e9c8fdb041"
+  },
+  "formatValidation": {
+    "sha256": "518f633a36e7762a0df8f4acd86b2b4829584b3da1c619b07d2469bf684ec3f3",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 2,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/1/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex independent catalog visual review",
+    "artifactSetSha256": "fc5ead9212a444891d4499f60abc70ccdd868de24a638f21bee37fa9ecb18fb8",
+    "views": {
+      "front": "The scalloped bowl now has a continuous rounded vessel wall and legible rounded exterior ribs.",
+      "rear": "The opposite side retains the same coherent wall and evenly seated ribs without pointed inner teeth.",
+      "detail": "Full detail shows a smooth open cavity, a rolled lip and rounded rib ends outside the bowl.",
+      "underside": "The full-size underside is a closed flat base meeting the outer wall; the former missing annulus is gone.",
+      "clay": "Clay confirms the cavity and closed shell read independently of the white ceramic highlights."
+    }
+  }
+}

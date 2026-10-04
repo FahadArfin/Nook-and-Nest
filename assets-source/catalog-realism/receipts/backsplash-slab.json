@@ -1,0 +1,1035 @@
+{
+  "version": 1,
+  "catalogId": "backsplash-slab",
+  "inputContractSha256": "7c0a8e0d913266495627dd069938e194db921173bdfdb0e36be12ee8a6326eb8",
+  "state": "reviewed",
+  "recipe": {
+    "id": "catalog-construction-refinement",
+    "version": 2,
+    "path": "tools/blender/catalog_realism/build.py",
+    "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+    "bytes": 27153
+  },
+  "inputs": [
+    {
+      "path": "assets-source/blender/backsplash-slab.blend",
+      "sha256": "5ce6bec4dd57d8ae187380a0e6ee9bb4ab57e4f49499870e13a6e281a1f92528",
+      "bytes": 100439
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-orm.png",
+      "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+      "bytes": 35540
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "public/models/furniture/backsplash-slab.glb",
+      "sha256": "5a5462b88b1dbaae7d9d26b12bbf7493ce3ccd7085807cb14655a8b2706f5943",
+      "bytes": 14292
+    },
+    {
+      "path": "src/catalogRealism.ts",
+      "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+      "bytes": 965
+    },
+    {
+      "path": "src/catalogRealismBeds.json",
+      "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+      "bytes": 600
+    },
+    {
+      "path": "src/furnitureDefaultVariants.json",
+      "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+      "bytes": 1249
+    },
+    {
+      "path": "src/furnitureVariants.json",
+      "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+      "bytes": 334
+    },
+    {
+      "path": "src/modernCollection.ts",
+      "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+      "bytes": 1246
+    },
+    {
+      "path": "src/personalSurfaceSlots.json",
+      "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+      "bytes": 4507
+    },
+    {
+      "path": "src/scene/FurnitureModelLibrary.ts",
+      "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+      "bytes": 15585
+    },
+    {
+      "path": "src/sofaRealismIds.json",
+      "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+      "bytes": 845
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/review.py",
+      "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+      "bytes": 32386
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    }
+  ],
+  "buildInputs": [
+    {
+      "path": "tools/blender/catalog_realism/source.py",
+      "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+      "bytes": 8420
+    },
+    {
+      "path": "tools/blender/catalog_realism/geometry.py",
+      "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+      "bytes": 44340
+    },
+    {
+      "path": "tools/blender/catalog_realism/forms.py",
+      "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+      "bytes": 10710
+    },
+    {
+      "path": "tools/blender/catalog_realism/books.py",
+      "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+      "bytes": 13064
+    },
+    {
+      "path": "tools/blender/catalog_realism/lighting.py",
+      "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+      "bytes": 12724
+    },
+    {
+      "path": "tools/blender/catalog_realism/special.py",
+      "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+      "bytes": 25770
+    },
+    {
+      "path": "tools/blender/catalog_realism/materials.py",
+      "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+      "bytes": 46803
+    },
+    {
+      "path": "tools/blender/catalog_realism/scans.py",
+      "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+      "bytes": 10087
+    },
+    {
+      "path": "tools/blender/catalog_realism/glb.py",
+      "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+      "bytes": 59421
+    },
+    {
+      "path": "tools/blender/catalog_realism/tangents.py",
+      "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+      "bytes": 5477
+    },
+    {
+      "path": "tools/blender/catalog_realism/refinements.py",
+      "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+      "bytes": 3433
+    },
+    {
+      "path": "tools/blender/catalog_realism/build.py",
+      "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+      "bytes": 27153
+    },
+    {
+      "path": "tools/blender/sectional_realism_study.py",
+      "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+      "bytes": 25607
+    },
+    {
+      "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+      "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+      "bytes": 59490
+    },
+    {
+      "path": "tools/blender/sofa_realism_study.py",
+      "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+      "bytes": 26737
+    },
+    {
+      "path": "assets-source/catalog-realism/material-plan.json",
+      "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+      "bytes": 3037140
+    },
+    {
+      "path": "assets-source/catalog-realism/material-provenance.json",
+      "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+      "bytes": 14928
+    },
+    {
+      "path": "assets-source/catalog-realism/scan-plan.json",
+      "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+      "bytes": 500766
+    },
+    {
+      "path": "assets-source/realism-materials.json",
+      "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+      "bytes": 4206
+    },
+    {
+      "path": "assets-source/realism-scans.json",
+      "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+      "bytes": 18552
+    },
+    {
+      "path": "assets-source/realism-texture-provenance.json",
+      "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+      "bytes": 136011
+    },
+    {
+      "path": "assets-source/blender/backsplash-slab.blend",
+      "sha256": "5ce6bec4dd57d8ae187380a0e6ee9bb4ab57e4f49499870e13a6e281a1f92528",
+      "bytes": 100439
+    },
+    {
+      "path": "public/models/furniture/backsplash-slab.glb",
+      "sha256": "5a5462b88b1dbaae7d9d26b12bbf7493ce3ccd7085807cb14655a8b2706f5943",
+      "bytes": 14292
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-normal.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/materials/stone-orm.png",
+      "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+      "bytes": 35540
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341
+    },
+    {
+      "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508
+    }
+  ],
+  "modelRefinementInputs": [],
+  "materialPlan": {
+    "path": "assets-source/catalog-realism/material-plan.json",
+    "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+    "bytes": 3037140
+  },
+  "changes": [
+    {
+      "kind": "calibrated-surface",
+      "materialKey": "grout",
+      "profile": "stone",
+      "maps": [
+        "normal",
+        "orm"
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "materialRecords": [
+    {
+      "materialKey": "countertop-surface",
+      "profile": null,
+      "protectedReason": "runtime-selected finish; adding fixed normals would conflict with user finish",
+      "maps": [],
+      "surfaceAdjustments": []
+    },
+    {
+      "materialKey": "grout",
+      "profile": "stone",
+      "protectedReason": null,
+      "maps": [
+        {
+          "materialKey": "grout",
+          "kind": "normal",
+          "path": "assets-source/catalog-realism/materials/stone-normal.png",
+          "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+          "bytes": 82341,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        },
+        {
+          "materialKey": "grout",
+          "kind": "orm",
+          "path": "assets-source/catalog-realism/materials/stone-orm.png",
+          "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+          "bytes": 35540,
+          "colorSpace": "Non-Color",
+          "source": "Original Nook & Nest periodic microstructure",
+          "license": "project-original",
+          "uvLayer": "RealismUV"
+        }
+      ],
+      "surfaceAdjustments": []
+    }
+  ],
+  "newMaps": [
+    {
+      "materialKey": "grout",
+      "kind": "normal",
+      "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-normal-d67035aa4b614c15.png",
+      "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+      "bytes": 82341,
+      "texCoord": 1
+    },
+    {
+      "materialKey": "grout",
+      "kind": "orm",
+      "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-orm-c556c4a94277b572.png",
+      "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+      "bytes": 54508,
+      "texCoord": 1
+    }
+  ],
+  "surfaceAdjustments": [],
+  "scanPlan": {
+    "path": "assets-source/catalog-realism/scan-plan.json",
+    "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+    "bytes": 500766
+  },
+  "textureReplacements": [],
+  "tangentRepairs": [],
+  "uvPruning": {
+    "beforeBytes": 160096,
+    "afterBytes": 160096,
+    "removedAttributes": 0,
+    "remappedSets": []
+  },
+  "textureCoordinateRepairs": [],
+  "outputs": {
+    "sourceBlend": {
+      "path": "assets-source/catalog-realism/candidates/backsplash-slab.blend",
+      "sha256": "451d9bdc894a84eacca30c5debb4ef38717eddb918705135e7e62558d6c5fc4f",
+      "bytes": 200198
+    },
+    "glb": {
+      "path": "public/experiments/catalog-realism/models/backsplash-slab.glb",
+      "sha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+      "bytes": 160096
+    }
+  },
+  "renders": [
+    {
+      "view": "front",
+      "path": "assets-source/catalog-realism/renders/backsplash-slab/front-95e53a6e5d6774527847.webp",
+      "sha256": "95e53a6e5d6774527847015b74bc4bd675d59374c1a875ccffe16ba7103bf1e6",
+      "bytes": 42792,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.749,
+      "camera": {
+        "orthoScale": 1.249377965927124,
+        "position": [
+          2.2336323261260986,
+          -3.7227203845977783,
+          2.347496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.30000001192092896
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.08325671404600143,
+            0.06521736830472946
+          ],
+          "max": [
+            0.9167430996894836,
+            0.934781551361084
+          ]
+        }
+      },
+      "glbSha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+      "renderConfigSha256": "145f6f8775b5e186632283e6bdcfd82c72ced3265abf1ad3091c9b17dfc58b44",
+      "inputSetSha256": "26b157b2db02635a3f11daf7f4dddf55f95a064b7584bfff0cd89777c5e8e1be"
+    },
+    {
+      "view": "rear",
+      "path": "assets-source/catalog-realism/renders/backsplash-slab/rear-b6daf59266a90e577531.webp",
+      "sha256": "b6daf59266a90e577531979c40831a24b96de8533be36682e1635776143cc126",
+      "bytes": 49534,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.748,
+      "camera": {
+        "orthoScale": 1.249377965927124,
+        "position": [
+          -2.2336323261260986,
+          3.7227203845977783,
+          2.347496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.30000001192092896
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.08325676620006561,
+            0.06521739810705185
+          ],
+          "max": [
+            0.9167429804801941,
+            0.9347814321517944
+          ]
+        }
+      },
+      "glbSha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+      "renderConfigSha256": "145f6f8775b5e186632283e6bdcfd82c72ced3265abf1ad3091c9b17dfc58b44",
+      "inputSetSha256": "26b157b2db02635a3f11daf7f4dddf55f95a064b7584bfff0cd89777c5e8e1be"
+    },
+    {
+      "view": "detail",
+      "path": "assets-source/catalog-realism/renders/backsplash-slab/detail-a7242da0c61ce46fbc78.webp",
+      "sha256": "a7242da0c61ce46fbc781649e0fb99b5b0d7f090f3680e3849788784cd428863",
+      "bytes": 26422,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.774,
+      "camera": {
+        "orthoScale": 0.6871586441993713,
+        "position": [
+          2.2336323261260986,
+          -3.7227203845977783,
+          2.347496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.30000001192092896
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "central-region",
+        "projectedBounds": {
+          "min": [
+            0.08325709402561188,
+            0.06521740555763245
+          ],
+          "max": [
+            0.9167424440383911,
+            0.9347805976867676
+          ]
+        }
+      },
+      "glbSha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+      "renderConfigSha256": "145f6f8775b5e186632283e6bdcfd82c72ced3265abf1ad3091c9b17dfc58b44",
+      "inputSetSha256": "26b157b2db02635a3f11daf7f4dddf55f95a064b7584bfff0cd89777c5e8e1be"
+    },
+    {
+      "view": "underside",
+      "path": "assets-source/catalog-realism/renders/backsplash-slab/underside-224930830f6f26c8682d.webp",
+      "sha256": "224930830f6f26c8682d649acb958bbb19a2f9e6233488c8b962bed13b9b38ad",
+      "bytes": 23232,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.661,
+      "camera": {
+        "orthoScale": 1.2656099796295166,
+        "position": [
+          2.195979595184326,
+          -3.659965753555298,
+          -1.8959795236587524
+        ],
+        "target": [
+          0,
+          0,
+          0.30000001192092896
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.0886014923453331,
+            0.06521756201982498
+          ],
+          "max": [
+            0.9113980531692505,
+            0.9347826242446899
+          ]
+        }
+      },
+      "glbSha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+      "renderConfigSha256": "145f6f8775b5e186632283e6bdcfd82c72ced3265abf1ad3091c9b17dfc58b44",
+      "inputSetSha256": "26b157b2db02635a3f11daf7f4dddf55f95a064b7584bfff0cd89777c5e8e1be"
+    },
+    {
+      "view": "clay",
+      "path": "assets-source/catalog-realism/renders/backsplash-slab/clay-d3118ed99e90b41c694b.webp",
+      "sha256": "d3118ed99e90b41c694b50814bbf244f4bbfe289c9a6d9ce61514c41d619450b",
+      "bytes": 42252,
+      "resolution": [
+        640,
+        480
+      ],
+      "seconds": 0.752,
+      "camera": {
+        "orthoScale": 1.249377965927124,
+        "position": [
+          2.2336323261260986,
+          -3.7227203845977783,
+          2.347496271133423
+        ],
+        "target": [
+          0,
+          0,
+          0.30000001192092896
+        ],
+        "clipStart": 0.0012000000569969416,
+        "clipEnd": 14.40000057220459,
+        "coverage": "whole-model",
+        "projectedBounds": {
+          "min": [
+            0.08325671404600143,
+            0.06521736830472946
+          ],
+          "max": [
+            0.9167430996894836,
+            0.934781551361084
+          ]
+        }
+      },
+      "glbSha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+      "renderConfigSha256": "145f6f8775b5e186632283e6bdcfd82c72ced3265abf1ad3091c9b17dfc58b44",
+      "inputSetSha256": "26b157b2db02635a3f11daf7f4dddf55f95a064b7584bfff0cd89777c5e8e1be"
+    }
+  ],
+  "timingSeconds": 0.47,
+  "exportMeshes": 2,
+  "renderBinding": {
+    "configuration": {
+      "appEnvironment": {
+        "catalogRealismEnabled": true,
+        "featureFlag": "VITE_CATALOG_REALISM_VERSION"
+      },
+      "blenderVersion": "5.2.1 LTS",
+      "boundsM": {
+        "max": [
+          0.6000000238418579,
+          0.012000000104308128,
+          0.6000000238418579
+        ],
+        "min": [
+          -0.6000000238418579,
+          -0.012000000104308128,
+          0
+        ]
+      },
+      "camera": {
+        "detailRegion": 0.55,
+        "directions": {
+          "clay": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "detail": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "front": [
+            1.2,
+            -2,
+            1.1
+          ],
+          "rear": [
+            -1.2,
+            2,
+            1.1
+          ],
+          "underside": [
+            1.2,
+            -2,
+            -1.2
+          ]
+        },
+        "padding": 1.15,
+        "type": "orthographic"
+      },
+      "colorConfigSha256": "6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02",
+      "colorManagement": {
+        "exposure": 0,
+        "gamma": 1,
+        "look": "AgX - Medium High Contrast",
+        "viewTransform": "AgX"
+      },
+      "ground": "neutral-0.19-below-world-minimum-hidden-for-underside",
+      "imageEncoding": {
+        "codec": "VP8L",
+        "compression": 100,
+        "dither": 0,
+        "filmTransparent": false,
+        "format": "WEBP",
+        "quality": 100
+      },
+      "lighting": "neutral-three-area-v2-500-220-400",
+      "limitations": [
+        "Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.",
+        "Clay overrides materials only in its review view."
+      ],
+      "materialOverrides": [
+        {
+          "materialIndex": 1,
+          "materialKey": "countertop-surface",
+          "rawGlbBaseColorFactor": [
+            0.7799999713897705,
+            0.7200000286102295,
+            0.6200000047683716,
+            1
+          ],
+          "renderBaseColorFactor": [
+            1,
+            1,
+            1,
+            1
+          ],
+          "rule": "countertop-white-factor",
+          "variant": "white",
+          "variantHex": "#f5f4ef"
+        }
+      ],
+      "materialPolicy": "catalog-realism-colors",
+      "rawGlbSha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+      "renderImportSha256": "8797c40aa037601ee333e3f9ff800401d6a874edb7e829302512f861d042f033",
+      "renderer": {
+        "device": "GPU",
+        "engine": "CYCLES",
+        "sampleControl": "cycles.samples",
+        "samples": 24
+      },
+      "resolution": [
+        640,
+        480
+      ],
+      "version": 1
+    },
+    "configurationJson": "{\"appEnvironment\":{\"catalogRealismEnabled\":true,\"featureFlag\":\"VITE_CATALOG_REALISM_VERSION\"},\"blenderVersion\":\"5.2.1 LTS\",\"boundsM\":{\"max\":[0.6000000238418579,0.012000000104308128,0.6000000238418579],\"min\":[-0.6000000238418579,-0.012000000104308128,0.0]},\"camera\":{\"detailRegion\":0.55,\"directions\":{\"clay\":[1.2,-2,1.1],\"detail\":[1.2,-2,1.1],\"front\":[1.2,-2,1.1],\"rear\":[-1.2,2,1.1],\"underside\":[1.2,-2,-1.2]},\"padding\":1.15,\"type\":\"orthographic\"},\"colorConfigSha256\":\"6e207c14a1e8f391e7db02f4fe220df25be63d65668493f4267c56cfc9d9cf02\",\"colorManagement\":{\"exposure\":0,\"gamma\":1,\"look\":\"AgX - Medium High Contrast\",\"viewTransform\":\"AgX\"},\"ground\":\"neutral-0.19-below-world-minimum-hidden-for-underside\",\"imageEncoding\":{\"codec\":\"VP8L\",\"compression\":100,\"dither\":0,\"filmTransparent\":false,\"format\":\"WEBP\",\"quality\":100},\"lighting\":\"neutral-three-area-v2-500-220-400\",\"limitations\":[\"Default variant albedo factors are mirrored; selectable door/worktop finish textures stay as authored in the GLB.\",\"Clay overrides materials only in its review view.\"],\"materialOverrides\":[{\"materialIndex\":1,\"materialKey\":\"countertop-surface\",\"rawGlbBaseColorFactor\":[0.7799999713897705,0.7200000286102295,0.6200000047683716,1],\"renderBaseColorFactor\":[1,1,1,1],\"rule\":\"countertop-white-factor\",\"variant\":\"white\",\"variantHex\":\"#f5f4ef\"}],\"materialPolicy\":\"catalog-realism-colors\",\"rawGlbSha256\":\"86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907\",\"renderImportSha256\":\"8797c40aa037601ee333e3f9ff800401d6a874edb7e829302512f861d042f033\",\"renderer\":{\"device\":\"GPU\",\"engine\":\"CYCLES\",\"sampleControl\":\"cycles.samples\",\"samples\":24},\"resolution\":[640,480],\"version\":1}",
+    "configurationSha256": "145f6f8775b5e186632283e6bdcfd82c72ced3265abf1ad3091c9b17dfc58b44",
+    "inputs": [
+      {
+        "path": "assets-source/blender/backsplash-slab.blend",
+        "sha256": "5ce6bec4dd57d8ae187380a0e6ee9bb4ab57e4f49499870e13a6e281a1f92528",
+        "bytes": 100439
+      },
+      {
+        "path": "assets-source/catalog-realism/baseline-inputs/tools/blender/build_quality_models.py",
+        "sha256": "fc5d2b63653d4eb0af559910678255340baa9537c2509a74ae0e77c811640fb1",
+        "bytes": 59490
+      },
+      {
+        "path": "assets-source/catalog-realism/candidates/backsplash-slab.blend",
+        "sha256": "451d9bdc894a84eacca30c5debb4ef38717eddb918705135e7e62558d6c5fc4f",
+        "bytes": 200198
+      },
+      {
+        "path": "assets-source/catalog-realism/catalog.json",
+        "sha256": "9dd1337e8c848bea66888babfd9e3f323651d4b2c1a864cfcfbebf215830b51a",
+        "bytes": 5713023
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-normal-d67035aa4b614c15.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/maps/backsplash-slab/grout-orm-c556c4a94277b572.png",
+        "sha256": "c556c4a94277b572bc964c416d9e63a19f8c8ab90a02c78383b3bf81bd4758bb",
+        "bytes": 54508
+      },
+      {
+        "path": "assets-source/catalog-realism/material-plan.json",
+        "sha256": "fc6ab33460721c66ba056142df04d273b124eac65d9e1acb748c5559ccce0baf",
+        "bytes": 3037140
+      },
+      {
+        "path": "assets-source/catalog-realism/material-provenance.json",
+        "sha256": "8061bed46338f4cb33544a5fd5cb2ec85b98708089d5d4ed6524f98873b7ceb9",
+        "bytes": 14928
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/stone-normal.png",
+        "sha256": "d67035aa4b614c15c7f02469230f7dea5efb2228b2b131706e470b7b2beea35a",
+        "bytes": 82341
+      },
+      {
+        "path": "assets-source/catalog-realism/materials/stone-orm.png",
+        "sha256": "c7377d30dffa56af5c57edd312c3a499e5d9f6778812e01ed245bbedaa686dda",
+        "bytes": 35540
+      },
+      {
+        "path": "assets-source/catalog-realism/scan-plan.json",
+        "sha256": "5414448ce11cbb50bc239cc1af419a15ccc268ce13a818f463d0ed623f7ccc6d",
+        "bytes": 500766
+      },
+      {
+        "path": "assets-source/realism-materials.json",
+        "sha256": "53d1258cb322d2fcf5fd5a8525bc4e2dba0891024437c5aa7e11ad4e2e141725",
+        "bytes": 4206
+      },
+      {
+        "path": "assets-source/realism-scans.json",
+        "sha256": "8020137092056ba88661ebad403a284ed37e35b8ea2ec719a8de1b6a54711fcd",
+        "bytes": 18552
+      },
+      {
+        "path": "assets-source/realism-texture-provenance.json",
+        "sha256": "d5784d9307802306f38ae33cc0d6d1691d4d56fc9e9f0751a48bc95ea90a3045",
+        "bytes": 136011
+      },
+      {
+        "path": "public/experiments/catalog-realism/models/backsplash-slab.glb",
+        "sha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+        "bytes": 160096
+      },
+      {
+        "path": "public/models/furniture/backsplash-slab.glb",
+        "sha256": "5a5462b88b1dbaae7d9d26b12bbf7493ce3ccd7085807cb14655a8b2706f5943",
+        "bytes": 14292
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      },
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "tools/blender/catalog_realism/books.py",
+        "sha256": "b5e7023ee8bb501833fca5745167aef79a3114aab2e4834af5dae37adf4fc91b",
+        "bytes": 13064
+      },
+      {
+        "path": "tools/blender/catalog_realism/build.py",
+        "sha256": "45284b5c4b53ed7a0406b4d32ac2466bd07e6ba1447e6487fdf91f8440bc246e",
+        "bytes": 27153
+      },
+      {
+        "path": "tools/blender/catalog_realism/forms.py",
+        "sha256": "915887e2b871afb1aecf910cce363d2a52c17df99ee9667af34329e5f1ad2353",
+        "bytes": 10710
+      },
+      {
+        "path": "tools/blender/catalog_realism/geometry.py",
+        "sha256": "8e061c382f3e0b1091e27f7c8bc43111c4662115ebefb1ed502d14e532c4a1ea",
+        "bytes": 44340
+      },
+      {
+        "path": "tools/blender/catalog_realism/glb.py",
+        "sha256": "83699087262ab341c5229517ee8703d34f04672d5096f5f9a91c2a9bc3dc74b1",
+        "bytes": 59421
+      },
+      {
+        "path": "tools/blender/catalog_realism/lighting.py",
+        "sha256": "8e7f797b4e5d23e1be15f14fbfcfe4396681064dd3fdd1d161eaaa0f922feaf0",
+        "bytes": 12724
+      },
+      {
+        "path": "tools/blender/catalog_realism/materials.py",
+        "sha256": "441dacd9869d7b37dfc91d6389267a6f7735e14e2c3d905b5da718aec82fda6b",
+        "bytes": 46803
+      },
+      {
+        "path": "tools/blender/catalog_realism/refinements.py",
+        "sha256": "2a0380402782378028975b5b86cd4dc6d6e26903810f1e9950d6ae280eb51164",
+        "bytes": 3433
+      },
+      {
+        "path": "tools/blender/catalog_realism/review.py",
+        "sha256": "555e167d40e7004e9ed898ac431f2206f1db4f4a536e890ec04c53e470798073",
+        "bytes": 32386
+      },
+      {
+        "path": "tools/blender/catalog_realism/scans.py",
+        "sha256": "10ec3027f3bc41c9944ff093a7c74c17268c8632b519c428c36acde629141684",
+        "bytes": 10087
+      },
+      {
+        "path": "tools/blender/catalog_realism/source.py",
+        "sha256": "1805c9015c7f7e638bccae1658561a04fadf21ac9a84082b35298731795336d6",
+        "bytes": 8420
+      },
+      {
+        "path": "tools/blender/catalog_realism/special.py",
+        "sha256": "87c0a790824b52b278d029cf1fd0475a7fe01ce149090eeb28c45180564a2f29",
+        "bytes": 25770
+      },
+      {
+        "path": "tools/blender/catalog_realism/tangents.py",
+        "sha256": "4eba8a8eea934eca8fe12442ba36905e8f007c87100dfd6bfc9eafba87ae5a9b",
+        "bytes": 5477
+      },
+      {
+        "path": "tools/blender/sectional_realism_study.py",
+        "sha256": "3dbda6e66d7dbb4593b97dfde71ab78c48cee0fd141f948c36f59025356ea25e",
+        "bytes": 25607
+      },
+      {
+        "path": "tools/blender/sofa_realism_study.py",
+        "sha256": "38aa0a904a40ff06772c9312f71afc9b2cee9547d077cf21ed36c8eb7b656f9b",
+        "bytes": 26737
+      }
+    ],
+    "colorInputs": [
+      {
+        "path": "src/furnitureDefaultVariants.json",
+        "sha256": "52487c301902f8f793fc44d87e8d9d215bf27c6d111a3a18c3f7238d7e94daf4",
+        "bytes": 1249
+      },
+      {
+        "path": "src/furnitureVariants.json",
+        "sha256": "41a227785dc798cbfcce7de20be16ccb651ff1542d0e00bb3b08719e06328a6b",
+        "bytes": 334
+      },
+      {
+        "path": "src/sofaRealismIds.json",
+        "sha256": "07069935c03fd561e7d6cc99c44d273d7366fecf31228c0c9678b053ad71840f",
+        "bytes": 845
+      },
+      {
+        "path": "src/personalSurfaceSlots.json",
+        "sha256": "78ac6af3357af46182b82fc1b79bfc6bd19a8d8986bdc293325f1090fa8689bb",
+        "bytes": 4507
+      },
+      {
+        "path": "src/modernCollection.ts",
+        "sha256": "c435c23f7ea45a7b04998baf9e6c607fc7e9798e82c6f1ad9bc80071c55aebc1",
+        "bytes": 1246
+      },
+      {
+        "path": "src/scene/FurnitureModelLibrary.ts",
+        "sha256": "28027070d00aba299b23a58059caa5378fe3d5ab0e64da7f7d2a1c4cf7116332",
+        "bytes": 15585
+      },
+      {
+        "path": "src/catalogRealism.ts",
+        "sha256": "6bda21fb06a1c007d7cdf3d0104f3f7afae0454755d2fee8984db8f343ccbfbe",
+        "bytes": 965
+      },
+      {
+        "path": "src/catalogRealismBeds.json",
+        "sha256": "7f2e0917296bcad390fdb969904dd43c395fe937368626d336b93bfd3fb860a9",
+        "bytes": 600
+      }
+    ],
+    "beforeSha256": "26b157b2db02635a3f11daf7f4dddf55f95a064b7584bfff0cd89777c5e8e1be",
+    "afterSha256": "26b157b2db02635a3f11daf7f4dddf55f95a064b7584bfff0cd89777c5e8e1be"
+  },
+  "formatValidation": {
+    "sha256": "86b611fc5b3961afddb181ee5231dd83f69bec58ddb37ff24704c5eb5ec72907",
+    "validatorVersion": "2.0.0-dev.3.10",
+    "numErrors": 0,
+    "numWarnings": 0,
+    "numInfos": 3,
+    "numHints": 0,
+    "truncated": false,
+    "codes": [
+      "UNUSED_OBJECT",
+      "UNUSED_MESH_TANGENT"
+    ],
+    "messages": [
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/0/primitives/0/attributes/TEXCOORD_0"
+      },
+      {
+        "code": "UNUSED_MESH_TANGENT",
+        "message": "Tangents are not used because the material has no normal texture.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TANGENT"
+      },
+      {
+        "code": "UNUSED_OBJECT",
+        "message": "This object may be unused.",
+        "severity": 2,
+        "pointer": "/meshes/1/primitives/0/attributes/TEXCOORD_0"
+      }
+    ]
+  },
+  "review": {
+    "decision": "approved",
+    "reviewer": "Codex root actual catalog five-view inspection",
+    "artifactSetSha256": "f3b5f4e15f983e72ca7324b46d8ce114307107b16542c726f1ccc5f3d2d44b93",
+    "views": {
+      "front": "A simple continuous slab retains restrained eased perimeter edges.",
+      "rear": "Rear panel stays flat for wall mounting.",
+      "detail": "The close face is intentionally plain; selectable stone finish remains a runtime choice.",
+      "underside": "The lower edge has consistent slab thickness and no stray geometry.",
+      "clay": "Clay confirms a clean single slab, with surface-finish review deferred to the browser."
+    }
+  }
+}

@@ -1,4 +1,6 @@
 import {localGoogleTiles} from './scripts/local-google-tiles.mjs';
+import {catalogPublicAssets} from './scripts/catalog-public-assets.mjs';
+import {catalogProductionActivation} from './scripts/catalog-production-activation.mjs';
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import {readFileSync} from 'node:fs';
@@ -25,6 +27,7 @@ function localRecognition(){return {name:'local-floor-plan-recognition',configur
 export default defineConfig({
   build: {
     outDir: "dist/client",
+    copyPublicDir: false,
   },
   optimizeDeps: {
     include: ["react", "react-dom/client"],
@@ -36,5 +39,5 @@ export default defineConfig({
       clientFiles: ["./src/main.jsx"],
     },
   },
-  plugins: [react(),localRecognition(),localGoogleTiles()],
+  plugins: [react(),localRecognition(),localGoogleTiles(),catalogPublicAssets(),catalogProductionActivation()],
 });
